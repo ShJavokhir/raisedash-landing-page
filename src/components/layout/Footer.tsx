@@ -57,22 +57,30 @@ export function Footer() {
                   About
                 </a>
               </li>
-              <li>
-                <a 
-                  href="/blog" 
-                  className="text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  Blog
-                </a>
-              </li>
-              <li>
-                <a 
-                  href="/careers" 
-                  className="text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  Careers
-                </a>
-              </li>
+               <li>
+                 <a 
+                   href="/blog" 
+                   className="text-muted-foreground hover:text-foreground transition-colors"
+                 >
+                   Blog
+                 </a>
+               </li>
+               <li>
+                 <a 
+                   href="/changelogs" 
+                   className="text-muted-foreground hover:text-foreground transition-colors"
+                 >
+                   Changelog
+                 </a>
+               </li>
+               <li>
+                 <a 
+                   href="/careers" 
+                   className="text-muted-foreground hover:text-foreground transition-colors"
+                 >
+                   Careers
+                 </a>
+               </li>
               <li>
                 <a 
                   href="/contact" 
@@ -161,4 +169,5 @@ export function Footer() {
     </footer>
   );
 }
+//
 // 
