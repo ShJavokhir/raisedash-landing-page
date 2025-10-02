@@ -54,7 +54,9 @@ export default function About() {
 
     
 
-      <Footer />
+      <div className="mt-8 sm:mt-12">
+        <Footer />
+      </div>
     </div>
   );
 }

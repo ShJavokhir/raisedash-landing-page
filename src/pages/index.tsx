@@ -1,10 +1,7 @@
-import Image from "next/image";
 import Link from "next/link";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/layout/Container";
-import { ThemeToggle } from "@/components/ui/ThemeToggle";
-import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 
 const geistSans = Geist({
@@ -21,9 +18,10 @@ export default function Home() {
   return (
     <div className={`${geistSans.className} ${geistMono.className} font-sans`}>
       
-      <Container 
-        className="flex items-center bg-white dark:bg-card mt-12 rounded-md border relative overflow-hidden"
-      >
+      <div className="ui-side-rails ui-side-rails--fade" style={{ '--rails-offset': '2rem' } as React.CSSProperties}>
+        <Container 
+          className="flex items-center bg-white dark:bg-card mt-12 rounded-md border relative overflow-hidden"
+        >
         {/* Theme-aware SVG background */}
         <div 
           className="absolute inset-0 opacity-10 dark:opacity-1"
@@ -55,9 +53,23 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </Container>
+        </Container>
+      </div>
       
-      <Footer />
+      {/* Two clean horizontal lines with centered text between them */}
+      <div className="py-6">
+        <div className="ui-hr-line" />
+        <div className="flex items-center justify-center py-3">
+          <span className="text-sm text-muted-foreground bg-background px-4">
+            Trusted by leading logistics companies
+          </span>
+        </div>
+        <div className="ui-hr-line" />
+      </div>
+      
+      <div className="">
+        <Footer />
+      </div>
     </div>
   );
 }

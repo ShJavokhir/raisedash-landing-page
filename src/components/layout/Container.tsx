@@ -1,7 +1,9 @@
 import * as React from "react";
 import { cn } from "@/lib/cn";
 
-export interface ContainerProps extends React.HTMLAttributes<HTMLDivElement> {}
+export interface ContainerProps extends React.HTMLAttributes<HTMLDivElement> {
+  children?: React.ReactNode;
+}
 
 export function Container({ className, ...props }: ContainerProps) {
   return (
@@ -16,6 +18,8 @@ export function Container({ className, ...props }: ContainerProps) {
 }
 
 export default Container;
+
+
 
 
 

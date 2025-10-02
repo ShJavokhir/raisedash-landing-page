@@ -47,25 +47,6 @@ const contactMethods = [
   }
 ];
 
-const offices = [
-  {
-    city: "San Francisco",
-    address: "123 Market Street, Suite 400",
-    address2: "San Francisco, CA 94105",
-  },
-  {
-    city: "New York",
-    address: "456 Broadway, Floor 12",
-    address2: "New York, NY 10013",
-    phone: "+1 (555) 123-4568"
-  },
-  {
-    city: "Chicago",
-    address: "789 Michigan Avenue, Suite 200",
-    address2: "Chicago, IL 60611",
-    phone: "+1 (555) 123-4569"
-  }
-];
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -402,7 +383,9 @@ export default function Contact() {
         </div>
       </Container>
 
-      <Footer />
+      <div className="mt-8 sm:mt-12">
+        <Footer />
+      </div>
     </div>
   );
 }

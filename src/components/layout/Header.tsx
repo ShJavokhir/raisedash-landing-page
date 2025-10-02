@@ -18,7 +18,8 @@ export function Header() {
 
   return (
     <header className="sticky top-4 md:top-6 z-50 w-full bg-transparent">
-      <Container className="rounded-md border bg-white dark:bg-card">
+      <div className="" style={{ '--rails-offset': '2rem' } as React.CSSProperties}>
+        <Container className="rounded-md border bg-white dark:bg-card">
         <div className="h-14 md:h-16 flex items-center justify-between">
           {/* Logo */}
           <div className="flex items-center gap-3">
@@ -153,7 +154,8 @@ export function Header() {
             </div>
           </div>
         )}
-      </Container>
+        </Container>
+      </div>
     </header>
   );
 }

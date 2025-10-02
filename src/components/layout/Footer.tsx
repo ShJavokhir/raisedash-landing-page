@@ -1,11 +1,11 @@
 import { Container } from "./Container";
-import { Button } from "@/components/ui/Button";
-import { ThemeToggle } from "@/components/ui/ThemeToggle";
+import Link from "next/link";
 
 export function Footer() {
   return (
-    <footer className="w-full bg-transparent mt-8 sm:mt-12">
-      <Container className="rounded-md border bg-white dark:bg-card py-8 sm:py-12">
+    <footer className="w-full bg-transparent">
+      <div className="ui-side-rails ui-side-rails--fade" style={{ '--rails-offset': '2rem' } as React.CSSProperties}>
+        <Container className="rounded-md border bg-white dark:bg-card py-8 sm:py-12">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8">
           {/* Brand Section */}
           <div className="sm:col-span-2 md:col-span-2">
@@ -50,44 +50,44 @@ export function Footer() {
             <h4 className="font-medium text-foreground mb-3 sm:mb-4 text-sm sm:text-base">Company</h4>
             <ul className="space-y-2 sm:space-y-3">
               <li>
-                <a 
+                <Link 
                   href="/about" 
                   className="text-muted-foreground hover:text-foreground transition-colors"
                 >
                   About
-                </a>
+                </Link>
               </li>
                <li>
-                 <a 
-                   href="/blog" 
-                   className="text-muted-foreground hover:text-foreground transition-colors"
-                 >
-                   Blog
-                 </a>
+                  <Link 
+                    href="/blog" 
+                    className="text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    Blog
+                  </Link>
                </li>
                <li>
-                 <a 
-                   href="/changelogs" 
-                   className="text-muted-foreground hover:text-foreground transition-colors"
-                 >
-                   Changelog
-                 </a>
+                  <Link 
+                    href="/changelogs" 
+                    className="text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    Changelog
+                  </Link>
                </li>
                <li>
-                 <a 
-                   href="/careers" 
-                   className="text-muted-foreground hover:text-foreground transition-colors"
-                 >
-                   Careers
-                 </a>
+                  <Link 
+                    href="/careers" 
+                    className="text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    Careers
+                  </Link>
                </li>
               <li>
-                <a 
-                  href="/contact" 
-                  className="text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  Contact
-                </a>
+                 <Link 
+                   href="/contact" 
+                   className="text-muted-foreground hover:text-foreground transition-colors"
+                 >
+                   Contact
+                 </Link>
               </li>
             </ul>
           </div>
@@ -96,28 +96,28 @@ export function Footer() {
             <h4 className="font-medium text-foreground mb-3 sm:mb-4 text-sm sm:text-base">Legal</h4>
             <ul className="space-y-2 sm:space-y-3">
               <li>
-                <a 
-                  href="/terms-of-use" 
-                  className="text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  Terms
-                </a>
+                 <Link 
+                   href="/terms-of-use" 
+                   className="text-muted-foreground hover:text-foreground transition-colors"
+                 >
+                   Terms
+                 </Link>
               </li>
               <li>
-                <a 
-                  href="/privacy-policy" 
-                  className="text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  Privacy
-                </a>
+                 <Link 
+                   href="/privacy-policy" 
+                   className="text-muted-foreground hover:text-foreground transition-colors"
+                 >
+                   Privacy
+                 </Link>
               </li>
               <li>
-                <a 
-                  href="/security" 
-                  className="text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  Security
-                </a>
+                 <Link 
+                   href="/security" 
+                   className="text-muted-foreground hover:text-foreground transition-colors"
+                 >
+                   Security
+                 </Link>
               </li>
              
             </ul>
@@ -167,7 +167,9 @@ export function Footer() {
             </div> */}
           </div>
         </div>
-      </Container>
+        </Container>
+      </div>
     </footer>
   );
 }
+//

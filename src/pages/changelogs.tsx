@@ -2,6 +2,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { Container } from "@/components/layout/Container";
 import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/ui/Button";
+import Link from "next/link";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -184,17 +185,19 @@ export default function Changelogs() {
             and important announcements.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <Button asChild>
-              <a href="/request-demo">Request Demo</a>
-            </Button>
-            <Button variant="secondary" asChild>
-              <a href="mailto:support@raisedash.com">Contact Support</a>
-            </Button>
+            <Link href="/request-demo">
+              <Button>Request Demo</Button>
+            </Link>
+            <a href="mailto:support@raisedash.com">
+              <Button variant="secondary">Contact Support</Button>
+            </a>
           </div>
         </div>
       </Container>
       
-      <Footer />
+      <div className="mt-8 sm:mt-12">
+        <Footer />
+      </div>
     </div>
   );
 }

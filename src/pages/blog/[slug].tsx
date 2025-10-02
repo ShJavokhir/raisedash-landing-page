@@ -49,7 +49,9 @@ export default function BlogPostPage({ post }: BlogPostPageProps) {
             </Link>
           </div>
         </Container>
-        <Footer />
+        <div className="mt-8 sm:mt-12">
+          <Footer />
+        </div>
       </div>
     );
   }
@@ -139,7 +141,9 @@ export default function BlogPostPage({ post }: BlogPostPageProps) {
         </div>
       </Container>
 
-      <Footer />
+      <div className="mt-8 sm:mt-12">
+        <Footer />
+      </div>
     </div>
   );
 }

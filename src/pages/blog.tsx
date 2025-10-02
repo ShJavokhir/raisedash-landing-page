@@ -106,7 +106,9 @@ export default function Blog() {
 
     
 
-      <Footer />
+      <div className="mt-8 sm:mt-12">
+        <Footer />
+      </div>
     </div>
   );
 }

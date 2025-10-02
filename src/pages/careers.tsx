@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/Button";
 import { Footer } from "@/components/layout/Footer";
 import { JobApplicationForm } from "@/components/JobApplicationForm";
 import { useState } from "react";
+import Link from "next/link";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -70,32 +71,6 @@ const jobOpenings = [
   }
 ];
 
-const benefits = [
-  {
-    title: "Competitive Compensation",
-    description: "Market-leading salaries and equity participation"
-  },
-  {
-    title: "Health & Wellness",
-    description: "Comprehensive health, dental, and vision coverage"
-  },
-  {
-    title: "Flexible Work",
-    description: "Remote-first culture with flexible hours"
-  },
-  {
-    title: "Learning & Development",
-    description: "Annual learning budget and conference attendance"
-  },
-  {
-    title: "Time Off",
-    description: "Unlimited PTO and company-wide holidays"
-  },
-  {
-    title: "Equipment",
-    description: "Latest technology and home office setup"
-  }
-];
 
 export default function Careers() {
   const [selectedJob, setSelectedJob] = useState<string | null>(null);
@@ -253,14 +228,16 @@ export default function Careers() {
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             {/* <Button size="lg">Send Your Resume</Button> */}
-              <a href="/contact">
+              <Link href="/contact">
                 <Button variant="secondary" size="lg">Contact Our Team</Button>
-              </a>
+              </Link>
           </div>
         </div>
       </Container>
 
-      <Footer />
+      <div className="mt-8 sm:mt-12">
+        <Footer />
+      </div>
 
       {/* Job Application Form Modal */}
       {selectedJob && (
