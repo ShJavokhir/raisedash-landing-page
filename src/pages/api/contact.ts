@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { sendToTelegram, formatDemoMessage, validateEmail, validateRequiredFields, DemoRequestData } from '@/lib/telegram';
+import { sendToTelegram, formatContactMessage, validateEmail, validateRequiredFields, ContactFormData } from '@/lib/telegram';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'POST') {
@@ -7,10 +7,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   try {
-    const data: DemoRequestData = req.body;
+    const data: ContactFormData = req.body;
 
     // Validate required fields
-    const requiredFields = ['firstName', 'lastName', 'email'];
+    const requiredFields = ['name', 'email', 'subject', 'message'];
     const missingFields = validateRequiredFields(data, requiredFields);
     
     if (missingFields.length > 0) {
@@ -26,7 +26,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     // Send to Telegram
-    const telegramMessage = formatDemoMessage(data);
+    const telegramMessage = formatContactMessage(data);
     const telegramResponse = await sendToTelegram(telegramMessage);
 
     if (!telegramResponse.ok) {
@@ -34,21 +34,23 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       return res.status(500).json({ error: 'Failed to send notification' });
     }
 
-    // Log the request (optional - for debugging)
-    console.log('Demo request received:', {
-      name: `${data.firstName} ${data.lastName}`,
+    // Log the contact form submission (optional - for debugging)
+    console.log('Contact form submission received:', {
+      name: data.name,
       email: data.email,
-      phone: data.phone,
+      company: data.company,
+      inquiryType: data.inquiryType,
+      subject: data.subject,
       timestamp: new Date().toISOString()
     });
 
     return res.status(200).json({ 
       success: true, 
-      message: 'Demo request submitted successfully' 
+      message: 'Contact form submitted successfully' 
     });
 
   } catch (error) {
-    console.error('Error processing demo request:', error);
+    console.error('Error processing contact form:', error);
     return res.status(500).json({ error: 'Internal server error' });
   }
 }

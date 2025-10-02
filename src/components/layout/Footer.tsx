@@ -4,19 +4,19 @@ import { ThemeToggle } from "@/components/ui/ThemeToggle";
 
 export function Footer() {
   return (
-    <footer className="w-full bg-transparent mt-12">
-      <Container className="rounded-md border bg-white dark:bg-card py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+    <footer className="w-full bg-transparent mt-8 sm:mt-12">
+      <Container className="rounded-md border bg-white dark:bg-card py-8 sm:py-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8">
           {/* Brand Section */}
-          <div className="md:col-span-2">
-            <h3 className="text-lg font-semibold text-foreground mb-4">
+          <div className="sm:col-span-2 md:col-span-2">
+            <h3 className="text-lg font-semibold text-foreground mb-3 sm:mb-4">
               Raisedash
             </h3>
-            <p className="text-muted-foreground mb-4 max-w-md">
+            <p className="text-muted-foreground mb-4 sm:mb-6 max-w-md text-sm sm:text-base leading-relaxed">
               Strengthening safety and security of corporations in freight logistics. 
               Get started in days, not months.
             </p>
-            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+            <div className="flex items-center gap-2 text-xs sm:text-sm text-muted-foreground">
               <svg 
                 className="w-4 h-4" 
                 fill="none" 
@@ -47,8 +47,8 @@ export function Footer() {
 
           {/* Company Links */}
           <div>
-            <h4 className="font-medium text-foreground mb-4">Company</h4>
-            <ul className="space-y-3">
+            <h4 className="font-medium text-foreground mb-3 sm:mb-4 text-sm sm:text-base">Company</h4>
+            <ul className="space-y-2 sm:space-y-3">
               <li>
                 <a 
                   href="/about" 
@@ -93,8 +93,8 @@ export function Footer() {
           </div>
            {/* Product Links */}
            <div>
-            <h4 className="font-medium text-foreground mb-4">Legal</h4>
-            <ul className="space-y-3">
+            <h4 className="font-medium text-foreground mb-3 sm:mb-4 text-sm sm:text-base">Legal</h4>
+            <ul className="space-y-2 sm:space-y-3">
               <li>
                 <a 
                   href="/terms-of-use" 
@@ -125,15 +125,17 @@ export function Footer() {
         </div>
 
         {/* Bottom Section */}
-        <div className="mt-12 pt-8">
+        <div className="mt-8 sm:mt-12 pt-6 sm:pt-8">
           <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
-             <div className="flex items-center gap-4 text-sm text-muted-foreground">
-               <span>© {new Date().getFullYear()} Raisedash</span><span className="hidden sm:inline">|</span><span> All rights reserved</span>
+             <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4 text-xs sm:text-sm text-muted-foreground">
+               <span>© {new Date().getFullYear()} Raisedash</span>
+               <span className="hidden sm:inline">|</span>
+               <span>All rights reserved</span>
                <span className="hidden sm:inline">|</span>
                <span className="hidden sm:inline">Headquartered in San Francisco, California</span>
              </div>
              
-             <div className="flex items-center gap-2 text-sm">
+             <div className="flex items-center gap-2 text-xs sm:text-sm">
                <div className="flex items-center gap-2">
                  <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
                  <span className="text-green-700 dark:text-green-400 font-medium">All Systems Operational</span>
@@ -169,5 +171,3 @@ export function Footer() {
     </footer>
   );
 }
-//
-// 

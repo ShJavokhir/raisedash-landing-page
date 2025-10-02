@@ -19,7 +19,6 @@ const contactMethods = [
     title: "Sales Inquiries",
     description: "Get in touch with our sales team to learn more about our solutions.",
     email: "sales@raisedash.com",
-    phone: "+1 (555) 123-4567",
     icon: (
       <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
@@ -30,7 +29,6 @@ const contactMethods = [
     title: "Support",
     description: "Need help with your existing Raisedash implementation?",
     email: "support@raisedash.com",
-    phone: "+1 (555) 123-4568",
     icon: (
       <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192L5.636 18.364M12 2.25a9.75 9.75 0 100 19.5 9.75 9.75 0 000-19.5z" />
@@ -41,7 +39,6 @@ const contactMethods = [
     title: "Partnerships",
     description: "Interested in partnering with us? Let's explore opportunities.",
     email: "partnerships@raisedash.com",
-    phone: "+1 (555) 123-4569",
     icon: (
       <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
@@ -55,7 +52,6 @@ const offices = [
     city: "San Francisco",
     address: "123 Market Street, Suite 400",
     address2: "San Francisco, CA 94105",
-    phone: "+1 (555) 123-4567"
   },
   {
     city: "New York",
@@ -96,11 +92,36 @@ export default function Contact() {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    
-    setIsSubmitting(false);
-    setIsSubmitted(true);
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        setIsSubmitted(true);
+        // Reset form
+        setFormData({
+          name: '',
+          email: '',
+          company: '',
+          subject: '',
+          message: '',
+          inquiryType: 'sales'
+        });
+      } else {
+        console.error('Form submission failed');
+        // You could add error state handling here
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      // You could add error state handling here
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -108,10 +129,10 @@ export default function Contact() {
       {/* Hero Section */}
       <Container 
         className="flex items-center bg-white dark:bg-card mt-12 rounded-md border"
-        style={{
-          backgroundColor: '#ffffff',
-          backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='49' viewBox='0 0 28 49'%3E%3Cg fill-rule='evenodd'%3E%3Cg id='hexagons' fill='%23efefef' fill-opacity='0.16' fill-rule='nonzero'%3E%3Cpath d='M13.99 9.25l13 7.5v15l-13 7.5L1 31.75v-15l12.99-7.5zM3 17.9v12.7l10.99 6.34 11-6.35V17.9l-11-6.34L3 17.9zM0 15l12.98-7.5V0h-2v6.35L0 12.69v2.3zm0 18.5L12.98 41v8h-2v-6.85L0 35.81v-2.3zM15 0v7.5L27.99 15H28v-2.31h-.01L17 6.35V0h-2zm0 49v-8l12.99-7.5H28v2.31h-.01L17 42.15V49h-2z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
-        }}
+        // style={{
+        //   backgroundColor: '#ffffff',
+        //   backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='49' viewBox='0 0 28 49'%3E%3Cg fill-rule='evenodd'%3E%3Cg id='hexagons' fill='%23efefef' fill-opacity='0.16' fill-rule='nonzero'%3E%3Cpath d='M13.99 9.25l13 7.5v15l-13 7.5L1 31.75v-15l12.99-7.5zM3 17.9v12.7l10.99 6.34 11-6.35V17.9l-11-6.34L3 17.9zM0 15l12.98-7.5V0h-2v6.35L0 12.69v2.3zm0 18.5L12.98 41v8h-2v-6.85L0 35.81v-2.3zM15 0v7.5L27.99 15H28v-2.31h-.01L17 6.35V0h-2zm0 49v-8l12.99-7.5H28v2.31h-.01L17 42.15V49h-2z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
+        // }}
       >
         <div className="w-full py-16 sm:py-24 md:py-28">
           <h1 className="text-4xl md:text-5xl font-semibold tracking-[-0.01em] text-foreground">
@@ -284,9 +305,7 @@ export default function Contact() {
                           <p className="text-sm text-foreground">
                             <span className="font-medium">Email:</span> {method.email}
                           </p>
-                          <p className="text-sm text-foreground">
-                            <span className="font-medium">Phone:</span> {method.phone}
-                          </p>
+                          
                         </div>
                       </div>
                     </div>
@@ -299,7 +318,7 @@ export default function Contact() {
       </Container>
 
       {/* Office Locations */}
-      <Container className="bg-white dark:bg-card mt-8 rounded-md border">
+      {/* <Container className="bg-white dark:bg-card mt-8 rounded-md border">
         <div className="py-16">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-semibold tracking-[-0.01em] text-foreground mb-4">
@@ -329,7 +348,7 @@ export default function Contact() {
             ))}
           </div>
         </div>
-      </Container>
+      </Container> */}
 
       {/* FAQ Section */}
       <Container className="bg-white dark:bg-card mt-8 rounded-md border">
@@ -349,7 +368,7 @@ export default function Contact() {
                 How quickly can we get started with Raisedash?
               </h3>
               <p className="text-muted-foreground">
-                Most implementations can be completed within 2-4 weeks, depending on your specific requirements and infrastructure setup.
+                Most implementations can be completed within 1-2 weeks, depending on your specific requirements and infrastructure setup.
               </p>
             </div>
             

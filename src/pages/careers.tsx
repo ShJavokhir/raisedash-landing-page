@@ -2,6 +2,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { Container } from "@/components/layout/Container";
 import { Button } from "@/components/ui/Button";
 import { Footer } from "@/components/layout/Footer";
+import { JobApplicationForm } from "@/components/JobApplicationForm";
+import { useState } from "react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -96,10 +98,23 @@ const benefits = [
 ];
 
 export default function Careers() {
+  const [selectedJob, setSelectedJob] = useState<string | null>(null);
+  const [isApplicationFormOpen, setIsApplicationFormOpen] = useState(false);
+
+  const handleApplyClick = (jobTitle: string) => {
+    setSelectedJob(jobTitle);
+    setIsApplicationFormOpen(true);
+  };
+
+  const handleCloseApplicationForm = () => {
+    setIsApplicationFormOpen(false);
+    setSelectedJob(null);
+  };
+
   return (
     <div className={`${geistSans.className} ${geistMono.className} font-sans`}>
       {/* Hero Section */}
-      <Container 
+      {/* <Container 
         className="flex items-center bg-white dark:bg-card mt-12 rounded-md border"
         style={{
           backgroundColor: '#ffffff',
@@ -119,7 +134,7 @@ export default function Careers() {
             <Button variant="secondary" size="lg">Learn About Our Culture</Button>
           </div>
         </div>
-      </Container>
+      </Container> */}
 
       {/* Culture Section */}
       {/* <Container className="bg-white dark:bg-card mt-8 rounded-md border">
@@ -177,7 +192,7 @@ export default function Careers() {
     
 
       {/* Open Positions Section */}
-      <Container className="bg-white dark:bg-card mt-8 rounded-md border">
+      <Container className="bg-white dark:bg-card mt-18 rounded-md border">
         <div className="py-16">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-semibold tracking-[-0.01em] text-foreground mb-4">
@@ -216,7 +231,7 @@ export default function Careers() {
                     </div>
                   </div>
                   <div className="flex flex-col sm:flex-row gap-2">
-                    <Button>Apply Now</Button>
+                    <Button onClick={() => handleApplyClick(job.title)}>Apply Now</Button>
                     {/* <Button variant="secondary">Learn More</Button> */}
                   </div>
                 </div>
@@ -237,13 +252,24 @@ export default function Careers() {
             how you'd like to contribute to our mission.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <Button size="lg">Send Your Resume</Button>
-            <Button variant="secondary" size="lg">Contact Our Team</Button>
+            {/* <Button size="lg">Send Your Resume</Button> */}
+              <a href="/contact">
+                <Button variant="secondary" size="lg">Contact Our Team</Button>
+              </a>
           </div>
         </div>
       </Container>
 
       <Footer />
+
+      {/* Job Application Form Modal */}
+      {selectedJob && (
+        <JobApplicationForm
+          jobTitle={selectedJob}
+          isOpen={isApplicationFormOpen}
+          onClose={handleCloseApplicationForm}
+        />
+      )}
     </div>
   );
 }

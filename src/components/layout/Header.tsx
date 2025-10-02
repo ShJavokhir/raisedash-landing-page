@@ -53,7 +53,7 @@ export function Header() {
                   </Link>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
-                  <NavigationMenuTrigger>
+                  <NavigationMenuTrigger className="bg-transparent">
                     Resources
                   </NavigationMenuTrigger>
                   <NavigationMenuContent>
@@ -81,7 +81,7 @@ export function Header() {
           <div className="hidden md:flex items-center gap-3">
             <ThemeToggle />
             <Link href="/request-demo">
-              <Button variant="secondary" size="sm">
+              <Button variant="primary" size="sm">
                 Request Demo
               </Button>
             </Link>

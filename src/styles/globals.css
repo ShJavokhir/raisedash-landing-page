@@ -213,3 +213,11 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+/* Mobile page gutter: add small horizontal padding only on mobile */
+@media (max-width: 639px) {
+  body {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+}

@@ -13,7 +13,7 @@ export function ThemeToggle() {
 
   return (
     <Button
-      variant="secondary"
+      variant="primary"
       size="sm"
       aria-label="Toggle theme"
       onClick={() => setTheme(toggleTheme())}

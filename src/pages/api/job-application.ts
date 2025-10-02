@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { sendToTelegram, formatDemoMessage, validateEmail, validateRequiredFields, DemoRequestData } from '@/lib/telegram';
+import { sendToTelegram, formatJobApplicationMessage, validateEmail, validateRequiredFields, JobApplicationData } from '@/lib/telegram';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'POST') {
@@ -7,10 +7,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   try {
-    const data: DemoRequestData = req.body;
+    const data: JobApplicationData = req.body;
 
     // Validate required fields
-    const requiredFields = ['firstName', 'lastName', 'email'];
+    const requiredFields = ['jobTitle', 'firstName', 'lastName', 'email', 'phone', 'experience', 'coverLetter'];
     const missingFields = validateRequiredFields(data, requiredFields);
     
     if (missingFields.length > 0) {
@@ -25,8 +25,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       return res.status(400).json({ error: 'Invalid email format' });
     }
 
+    // Validate cover letter length
+    if (data.coverLetter.length < 50) {
+      return res.status(400).json({ error: 'Cover letter must be at least 50 characters' });
+    }
+
     // Send to Telegram
-    const telegramMessage = formatDemoMessage(data);
+    const telegramMessage = formatJobApplicationMessage(data);
     const telegramResponse = await sendToTelegram(telegramMessage);
 
     if (!telegramResponse.ok) {
@@ -34,21 +39,22 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       return res.status(500).json({ error: 'Failed to send notification' });
     }
 
-    // Log the request (optional - for debugging)
-    console.log('Demo request received:', {
+    // Log the application (optional - for debugging)
+    console.log('Job application received:', {
+      jobTitle: data.jobTitle,
       name: `${data.firstName} ${data.lastName}`,
       email: data.email,
-      phone: data.phone,
+      experience: data.experience,
       timestamp: new Date().toISOString()
     });
 
     return res.status(200).json({ 
       success: true, 
-      message: 'Demo request submitted successfully' 
+      message: 'Job application submitted successfully' 
     });
 
   } catch (error) {
-    console.error('Error processing demo request:', error);
+    console.error('Error processing job application:', error);
     return res.status(500).json({ error: 'Internal server error' });
   }
 }
