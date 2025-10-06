@@ -40,7 +40,7 @@ export default function BlogPostPage({ post }: BlogPostPageProps) {
   if (!post) {
     return (
       <div className={`${geistSans.className} ${geistMono.className} font-sans`}>
-        <Container className="bg-white dark:bg-card mt-12 rounded-md border">
+        <Container className="bg-white dark:bg-card mt-12 rounded-md border ui-corner-accents">
           <div className="py-16 text-center">
             <h1 className="text-2xl font-semibold text-foreground mb-4">Article Not Found</h1>
             <p className="text-muted-foreground mb-6">The article you're looking for doesn't exist.</p>
@@ -59,7 +59,7 @@ export default function BlogPostPage({ post }: BlogPostPageProps) {
   return (
     <div className={`${geistSans.className} ${geistMono.className} font-sans`}>
       {/* Breadcrumb */}
-      <Container className="bg-white dark:bg-card mt-12 rounded-md border">
+      <Container className="bg-white dark:bg-card mt-12 rounded-md border ui-corner-accents">
         <div className="py-4">
           <nav className="flex items-center gap-2 text-sm text-muted-foreground">
             <Link href="/" className="hover:text-foreground transition-colors">Home</Link>
@@ -72,14 +72,14 @@ export default function BlogPostPage({ post }: BlogPostPageProps) {
       </Container>
 
       {/* Article */}
-      <Container className="bg-white dark:bg-card mt-8 rounded-md border">
+      <Container className="bg-white dark:bg-card mt-8 rounded-md border ui-corner-accents">
         <div className="py-12">
           <BlogPostComponent post={post} />
         </div>
       </Container>
 
       {/* Related Articles */}
-      <Container className="bg-white dark:bg-card mt-8 rounded-md border">
+      <Container className="bg-white dark:bg-card mt-8 rounded-md border ui-corner-accents">
         <div className="py-12">
           <h2 className="text-2xl font-semibold text-foreground mb-8">Related Articles</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -122,7 +122,7 @@ export default function BlogPostPage({ post }: BlogPostPageProps) {
       </Container>
 
       {/* Newsletter CTA */}
-      <Container className="bg-white dark:bg-card mt-8 rounded-md border">
+      <Container className="bg-white dark:bg-card mt-8 rounded-md border ui-corner-accents">
         <div className="py-12 text-center">
           <h2 className="text-2xl font-semibold text-foreground mb-4">
             Enjoyed this article?

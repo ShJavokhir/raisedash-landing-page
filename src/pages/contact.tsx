@@ -127,7 +127,7 @@ export default function Contact() {
       </Container>
 
       {/* Contact Form Section */}
-      <Container className="bg-white dark:bg-card mt-8 rounded-md border">
+      <Container className="bg-white dark:bg-card mt-8 rounded-md border ui-corner-accents">
         <div className="py-16">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Contact Form */}
@@ -299,7 +299,7 @@ export default function Contact() {
       </Container>
 
       {/* Office Locations */}
-      {/* <Container className="bg-white dark:bg-card mt-8 rounded-md border">
+      {/* <Container className="bg-white dark:bg-card mt-8 rounded-md border ui-corner-accents">
         <div className="py-16">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-semibold tracking-[-0.01em] text-foreground mb-4">
@@ -332,7 +332,7 @@ export default function Contact() {
       </Container> */}
 
       {/* FAQ Section */}
-      <Container className="bg-white dark:bg-card mt-8 rounded-md border">
+      <Container className="bg-white dark:bg-card mt-8 rounded-md border ui-corner-accents">
         <div className="py-16">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-semibold tracking-[-0.01em] text-foreground mb-4">

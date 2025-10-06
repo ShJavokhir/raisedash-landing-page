@@ -229,6 +229,7 @@ body {
     position: relative;
     /* default inset from edges for the rails; override with --rails-offset */
     --rails-offset: 1rem;
+    --rails-fade-size: 8%;
   }
   .ui-side-rails::before,
   .ui-side-rails::after {
@@ -256,12 +257,11 @@ body {
   /* Optional: fade the rails at the top/bottom for a softer look */
   .ui-side-rails--fade::before,
   .ui-side-rails--fade::after {
-    background: linear-gradient(to bottom, 
-      transparent 0%, 
-      transparent 1%, 
-      var(--color-border) 20%, 
-      var(--color-border) 80%, 
-      transparent 99%, 
+    background: linear-gradient(
+      to bottom,
+      transparent 0%,
+      var(--color-border) var(--rails-fade-size),
+      var(--color-border) calc(100% - var(--rails-fade-size)),
       transparent 100%
     );
   }
@@ -274,6 +274,7 @@ body {
   .ui-horizontal-rails {
     position: relative;
     --rails-offset: 1rem;
+    --rails-fade-size: 8%;
   }
   .ui-horizontal-rails::before,
   .ui-horizontal-rails::after {
@@ -293,6 +294,7 @@ body {
   .ui-double-horizontal-rails {
     position: relative;
     --rails-offset: 1rem;
+    --rails-fade-size: 8%;
   }
   .ui-double-horizontal-rails::before,
   .ui-double-horizontal-rails::after {
@@ -311,13 +313,25 @@ body {
   /* Optional: fade the horizontal rails at the edges */
   .ui-horizontal-rails--fade::before,
   .ui-horizontal-rails--fade::after {
-    background: linear-gradient(to right, transparent, var(--color-border), transparent);
+    background: linear-gradient(
+      to right,
+      transparent 0%,
+      var(--color-border) var(--rails-fade-size),
+      var(--color-border) calc(100% - var(--rails-fade-size)),
+      transparent 100%
+    );
   }
 
   /* Optional: fade the double horizontal rails at the edges */
   .ui-double-horizontal-rails--fade::before,
   .ui-double-horizontal-rails--fade::after {
-    background: linear-gradient(to right, transparent, var(--color-border), transparent);
+    background: linear-gradient(
+      to right,
+      transparent 0%,
+      var(--color-border) var(--rails-fade-size),
+      var(--color-border) calc(100% - var(--rails-fade-size)),
+      transparent 100%
+    );
   }
 
   /* Optional: place horizontal rails exactly at the edges */
@@ -327,6 +341,55 @@ body {
   /* Simple horizontal line utility */
   .ui-hr-line {
     height: 1px;
-    background: linear-gradient(to right, transparent, var(--color-border), transparent);
+    background: linear-gradient(
+      to right,
+      transparent 0%,
+      var(--color-border) var(--rails-fade-size, 8%),
+      var(--color-border) calc(100% - var(--rails-fade-size, 8%)),
+      transparent 100%
+    );
+  }
+
+  /* Corner accents: short, lighter L-shapes on each corner.
+     Uses background-image layers so it doesn't override background-color. */
+  .ui-corner-accents {
+    position: relative;
+    --corner-size: 12px;            /* length of each small segment */
+    --corner-thickness: 2px;        /* thickness of the accent lines */
+    --corner-color: color-mix(in oklch, var(--color-border), black 20%);
+
+    background-image:
+      linear-gradient(90deg, var(--corner-color) 0 100%), /* TL horizontal */
+      linear-gradient(180deg, var(--corner-color) 0 100%), /* TL vertical */
+      linear-gradient(90deg, var(--corner-color) 0 100%), /* TR horizontal */
+      linear-gradient(180deg, var(--corner-color) 0 100%), /* TR vertical */
+      linear-gradient(90deg, var(--corner-color) 0 100%), /* BL horizontal */
+      linear-gradient(180deg, var(--corner-color) 0 100%), /* BL vertical */
+      linear-gradient(90deg, var(--corner-color) 0 100%), /* BR horizontal */
+      linear-gradient(180deg, var(--corner-color) 0 100%); /* BR vertical */
+    background-position:
+      top left,
+      top left,
+      top right,
+      top right,
+      bottom left,
+      bottom left,
+      bottom right,
+      bottom right;
+    background-size:
+      var(--corner-size) var(--corner-thickness),
+      var(--corner-thickness) var(--corner-size),
+      var(--corner-size) var(--corner-thickness),
+      var(--corner-thickness) var(--corner-size),
+      var(--corner-size) var(--corner-thickness),
+      var(--corner-thickness) var(--corner-size),
+      var(--corner-size) var(--corner-thickness),
+      var(--corner-thickness) var(--corner-size);
+    background-repeat: no-repeat;
+    border-radius: inherit;
+  }
+
+  .dark .ui-corner-accents {
+    --corner-color: color-mix(in oklch, var(--color-border), white 60%);
   }
 }

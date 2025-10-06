@@ -126,7 +126,7 @@ export default function Changelogs() {
     <div className={`${geistSans.className} ${geistMono.className} font-sans`}>
       {/* Hero Section */}
       <Container 
-        className="flex items-center bg-white dark:bg-card mt-12 rounded-md border"
+        className="flex items-center bg-white dark:bg-card mt-12 rounded-md border ui-corner-accents"
       >
         <div className="w-full py-16">
           <h1 className="text-4xl md:text-5xl font-semibold tracking-[-0.01em] text-foreground">
@@ -139,7 +139,7 @@ export default function Changelogs() {
       </Container>
 
       {/* Changelog Entries */}
-      <Container className="bg-white dark:bg-card mt-8 rounded-md border">
+      <Container className="bg-white dark:bg-card mt-8 rounded-md border ui-corner-accents">
         <div className="py-16">
           <div className="space-y-12">
             {changelogData.map((entry, index) => (
@@ -175,7 +175,7 @@ export default function Changelogs() {
       </Container>
 
       {/* CTA Section */}
-      <Container className="bg-white dark:bg-card mt-8 rounded-md border">
+      <Container className="bg-white dark:bg-card mt-8 rounded-md border ui-corner-accents">
         <div className="py-16 text-center">
           <h3 className="text-2xl font-semibold text-foreground mb-4">
             Want to be notified of updates?

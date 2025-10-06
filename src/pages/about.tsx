@@ -17,7 +17,7 @@ export default function About() {
   return (
     <div className={`${geistSans.className} ${geistMono.className} font-sans`}>
       {/* About Section */}
-      <Container className="bg-white dark:bg-card mt-12 rounded-md border">
+      <Container className="bg-white dark:bg-card mt-12 rounded-md border ui-corner-accents">
         <div className="py-16">
           {/* Hero Content */}
           <div className="mb-12">

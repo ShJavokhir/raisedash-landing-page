@@ -167,7 +167,7 @@ export default function Careers() {
     
 
       {/* Open Positions Section */}
-      <Container className="bg-white dark:bg-card mt-18 rounded-md border">
+      <Container className="bg-white dark:bg-card mt-18 rounded-md border ui-corner-accents">
         <div className="py-16">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-semibold tracking-[-0.01em] text-foreground mb-4">
@@ -217,7 +217,7 @@ export default function Careers() {
       </Container>
 
       {/* CTA Section */}
-      <Container className="bg-white dark:bg-card mt-8 rounded-md border">
+      <Container className="bg-white dark:bg-card mt-8 rounded-md border ui-corner-accents">
         <div className="py-16 text-center">
           <h2 className="text-3xl font-semibold tracking-[-0.01em] text-foreground mb-4">
             Don't See Your Perfect Role?

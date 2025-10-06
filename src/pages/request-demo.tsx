@@ -83,7 +83,7 @@ export default function RequestDemo() {
     
 
       {/* Demo Form */}
-      <Container className="bg-white dark:bg-card mt-18 rounded-md border">
+      <Container className="bg-white dark:bg-card mt-18 rounded-md border ui-corner-accents">
         <div className="py-12">
           {submitStatus === "success" ? (
             <div className="text-center py-12">

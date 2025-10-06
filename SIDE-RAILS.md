@@ -53,6 +53,7 @@ CSS utilities that add subtle divider lines to elements, similar to Tailwind CSS
 ## Customization
 
 - **Offset**: Use CSS custom property `--rails-offset` (default: `1rem`)
+- **Fade**: Adjust fade length with `--rails-fade-size` (default: `8%`)
 - **Color**: Automatically uses theme's `--color-border` token
 - **Theme**: Works with both light and dark modes
 
