@@ -37,6 +37,12 @@ export interface JobApplicationData {
   coverLetter: string;
 }
 
+export interface UnsubscribeEventData {
+  email: string;
+  ip?: string;
+  userAgent?: string;
+}
+
 /**
  * Send a message to Telegram
  */
@@ -130,6 +136,22 @@ ${data.coverLetter}
 }
 
 /**
+ * Format unsubscribe event for Telegram message
+ */
+export function formatUnsubscribeMessage(data: UnsubscribeEventData): string {
+  const timestamp = new Date().toLocaleString();
+  return `🔕 *Unsubscribe Request*
+
+📅 *Date:* ${timestamp}
+📧 *Email:* ${data.email}
+🌐 *IP:* ${data.ip || 'Unknown'}
+🖥️ *User Agent:* ${data.userAgent || 'Unknown'}
+
+---
+*Event:* Unsubscribe`;
+}
+
+/**
  * Generic form validation utility
  */
 export function validateEmail(email: string): boolean {
@@ -140,6 +162,6 @@ export function validateEmail(email: string): boolean {
 /**
  * Generic required fields validation
  */
-export function validateRequiredFields(data: Record<string, any>, requiredFields: string[]): string[] {
+export function validateRequiredFields(data: Record<string, unknown>, requiredFields: string[]): string[] {
   return requiredFields.filter(field => !data[field] || data[field]?.toString().trim() === '');
 }

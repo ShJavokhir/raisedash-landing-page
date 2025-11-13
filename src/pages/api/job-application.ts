@@ -11,7 +11,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     // Validate required fields
     const requiredFields = ['jobTitle', 'firstName', 'lastName', 'email', 'phone', 'experience', 'coverLetter'];
-    const missingFields = validateRequiredFields(data, requiredFields);
+    const missingFields = validateRequiredFields(data as unknown as Record<string, unknown>, requiredFields);
     
     if (missingFields.length > 0) {
       return res.status(400).json({ 
