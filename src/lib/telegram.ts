@@ -26,6 +26,14 @@ export interface DemoRequestData {
   company?: string;
 }
 
+export interface AccountDeletionRequestData {
+  product: 'raisedash' | 'raisedash_vertex';
+  fullName: string;
+  email?: string;
+  phone?: string;
+  notes?: string;
+}
+
 export interface JobApplicationData {
   jobTitle: string;
   firstName: string;
@@ -110,6 +118,34 @@ export function formatDemoMessage(data: DemoRequestData): string {
 
 ---
 *Form Type:* Demo Request`;
+}
+
+/**
+ * Format account deletion request data for Telegram message
+ */
+export function formatAccountDeletionMessage(data: AccountDeletionRequestData): string {
+  const timestamp = new Date().toLocaleString();
+  const productLabel = data.product === 'raisedash' ? 'Raisedash (PTI inspections)' : 'Raisedash Vertex';
+
+  const contactLine = data.product === 'raisedash'
+    ? `📧 *Account Email:* ${data.email || 'Not provided'}`
+    : `📞 *Account Phone:* ${data.phone || 'Not provided'}`;
+
+  const optionalEmail = data.email && data.product === 'raisedash_vertex' ? `\n📧 *Email (optional):* ${data.email}` : '';
+  const optionalPhone = data.phone && data.product === 'raisedash' ? `\n📞 *Phone (optional):* ${data.phone}` : '';
+
+  return `🗑️ *Account Deletion Request*
+
+📅 *Date:* ${timestamp}
+👤 *Name:* ${data.fullName}
+🛠️ *Product:* ${productLabel}
+${contactLine}${optionalEmail}${optionalPhone}
+
+📝 *Notes:*
+${data.notes || 'Not provided'}
+
+---
+*Form Type:* Account Deletion Request`;
 }
 
 /**
