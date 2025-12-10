@@ -127,7 +127,8 @@
   --color-chart-2: var(--chart-2);
   --color-chart-1: var(--chart-1);
   --color-popover-foreground: var(--popover-foreground);
-  --color-popover: var(--popover); /* 1536px */
+  --color-popover: var(--popover);
+  --radius: var(----radius); /* 1536px */
 }
 
 .dark {
@@ -150,6 +151,21 @@
   --ring: #6b7280;
   --card: #0f141a; /* header can use white in light, this in dark */
   --card-foreground: #e6e7e9;
+  --popover: oklch(0 0 0);
+  --popover-foreground: oklch(1 0 0);
+  --chart-1: oklch(1 0 0);
+  --chart-2: oklch(0.7 0 0);
+  --chart-3: oklch(0.5 0 0);
+  --chart-4: oklch(0.3 0 0);
+  --chart-5: oklch(1 0 0);
+  --sidebar: oklch(0.1 0 0);
+  --sidebar-foreground: oklch(1 0 0);
+  --sidebar-primary: oklch(1 0 0);
+  --sidebar-primary-foreground: oklch(0 0 0);
+  --sidebar-accent: oklch(0.3 0 0);
+  --sidebar-accent-foreground: oklch(1 0 0);
+  --sidebar-border: oklch(0.3 0 0);
+  --sidebar-ring: oklch(1 0 0 / 0.2);
 }
 
 /* Base elements */

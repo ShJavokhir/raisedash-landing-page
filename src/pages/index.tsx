@@ -1,9 +1,8 @@
 import Link from "next/link";
-import Image from "next/image";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/layout/Container";
 import { PageLayout } from "@/components/layout/PageLayout";
-import { BackgroundBeams } from "@/components/ui/background-beams";
+import RotatingEarth from "@/components/ui/wireframe-dotted-globe";
 
 export default function Home() {
   return (
@@ -12,8 +11,6 @@ export default function Home() {
         <Container
           className="flex items-center bg-white dark:bg-card mt-12 rounded-md border relative overflow-hidden ui-corner-accents"
         >
-          <BackgroundBeams className="will-change-transform" />
-
           <div className="relative z-10 w-full flex items-center">
             <div className="flex-1 py-16 sm:py-24 md:py-28">
               <h1 className="text-4xl md:text-4xl font-semibold tracking-[-0.01em] text-foreground">
@@ -31,15 +28,8 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="hidden lg:block flex-shrink-0 overflow-hidden -mr-8 md:-mr-8">
-              <Image
-                src="/globe.svg"
-                alt="Globe illustration"
-                width={400}
-                height={400}
-                className="w-80 h-80 object-contain select-none translate-x-1/2"
-                draggable={false}
-              />
+            <div className="hidden lg:block flex-shrink-0">
+              <RotatingEarth width={380} height={380} className="w-[24rem] h-[24rem]" />
             </div>
           </div>
         </Container>
