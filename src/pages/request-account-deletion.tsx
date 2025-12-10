@@ -179,7 +179,7 @@ export default function RequestAccountDeletion() {
                     We have forwarded your deletion request. Our team will reach out to confirm before processing.
                   </p>
                   <div className="mt-6">
-                    <Button variant="outline" onClick={() => setSubmitStatus("idle")}>
+                    <Button variant="secondary" onClick={() => setSubmitStatus("idle")}>
                       Submit another request
                     </Button>
                   </div>
