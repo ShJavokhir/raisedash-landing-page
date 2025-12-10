@@ -20,8 +20,8 @@ export default function Home() {
   return (
     <div className={`${geistSans.className} ${geistMono.className} font-sans`}>
       
-      <div className="ui-side-rails ui-side-rails--fade" style={{ '--rails-offset': '2rem' } as React.CSSProperties}>
-        <Container 
+      <div>
+        <Container
           className="flex items-center bg-white dark:bg-card mt-12 rounded-md border relative overflow-hidden ui-corner-accents"
         >
           <BackgroundBeams className="will-change-transform" />
@@ -59,13 +59,11 @@ export default function Home() {
       
       {/* Two clean horizontal lines with centered text between them */}
       <div className="py-6">
-        <div className="ui-hr-line" />
         <div className="flex items-center justify-center py-3">
           <span className="text-sm text-muted-foreground bg-background px-4">
             Trusted by leading logistics companies
           </span>
         </div>
-        <div className="ui-hr-line" />
       </div>
       
       <div className="">

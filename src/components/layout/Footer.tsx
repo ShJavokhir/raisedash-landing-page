@@ -4,7 +4,7 @@ import Link from "next/link";
 export function Footer() {
   return (
     <footer className="w-full bg-transparent">
-      <div className="ui-side-rails ui-side-rails--fade" style={{ '--rails-offset': '2rem' } as React.CSSProperties}>
+      <div>
         <Container className="rounded-md border bg-white dark:bg-card py-8 sm:py-12 ui-corner-accents">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8">
           {/* Brand Section */}
