@@ -11,10 +11,16 @@ export default function Document() {
               (function(){
                 try {
                   var stored = localStorage.getItem('theme');
+                  // Default to light theme, only apply dark if explicitly set to 'dark'
                   if (stored === 'dark') {
                     document.documentElement.classList.add('dark');
                   } else {
+                    // Always default to light theme
                     document.documentElement.classList.remove('dark');
+                    // Set light as default in localStorage if not already set
+                    if (!stored) {
+                      localStorage.setItem('theme', 'light');
+                    }
                   }
                 } catch (e) {}
               })();

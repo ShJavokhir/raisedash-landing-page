@@ -39,7 +39,7 @@ EC2 instance ip: `ec2-user@ec2-3-83-184-223.compute-1.amazonaws.com`
 KEY location: `/Users/creepy/dev/projects/loadhunter-ai/secret/loadhunter-aws.pem`
 
 The EC2 instance path should be `/home/ec2-user/loadhunter` and contains docker-compose.yml with multiple projects.
-You only need to pull and update project named `raisedash-training`.
+You only need to pull and update project named `landing`.
 
 Here are the SSH commands to execute individually: 
 
@@ -60,15 +60,15 @@ so when you do pwd, the path should be `/home/ec2-user/loadhunter`
 3) pull image from ecr
 
 ```bash
-docker-compose pull raisedash-training
+docker-compose pull landing
 ```
 
-yes container/image name is `raisedash-training` in docker-compose.yml
+yes container/image name is `landing` in docker-compose.yml
 
 4) recreate the image with the updated one:
 
 ```bash
-docker-compose up -d --force-recreate raisedash-training
+docker-compose up -d --force-recreate landing
 ```
 
 5) clean up unused images, because we no longer need those once container is running, so we save space.
