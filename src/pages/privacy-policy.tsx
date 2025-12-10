@@ -1,28 +1,14 @@
-import { Geist, Geist_Mono } from "next/font/google";
 import { Container } from "@/components/layout/Container";
-import { Footer } from "@/components/layout/Footer";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+import { PageLayout } from "@/components/layout/PageLayout";
 
 export default function PrivacyPolicy() {
   return (
-    <div className={`${geistSans.className} ${geistMono.className} font-sans`}>
+    <PageLayout
+      title="Privacy Policy"
+      description="Learn how Raisedash collects, uses, and protects your information when you use our freight logistics security services."
+    >
       {/* Hero Section */}
-      <Container 
-        className="flex items-center bg-white dark:bg-card mt-12 rounded-md border ui-corner-accents"
-        // style={{
-        //   backgroundColor: '#ffffff',
-        //   backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='49' viewBox='0 0 28 49'%3E%3Cg fill-rule='evenodd'%3E%3Cg id='hexagons' fill='%23efefef' fill-opacity='0.16' fill-rule='nonzero'%3E%3Cpath d='M13.99 9.25l13 7.5v15l-13 7.5L1 31.75v-15l12.99-7.5zM3 17.9v12.7l10.99 6.34 11-6.35V17.9l-11-6.34L3 17.9zM0 15l12.98-7.5V0h-2v6.35L0 12.69v2.3zm0 18.5L12.98 41v8h-2v-6.85L0 35.81v-2.3zM15 0v7.5L27.99 15H28v-2.31h-.01L17 6.35V0h-2zm0 49v-8l12.99-7.5H28v2.31h-.01L17 42.15V49h-2z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
-        // }}
-      >
+      <Container className="flex items-center bg-white dark:bg-card mt-12 rounded-md border ui-corner-accents">
         <div className="w-full py-16 sm:py-24 md:py-28">
           <h1 className="text-4xl md:text-5xl font-semibold tracking-[-0.01em] text-foreground">
             Privacy Policy
@@ -224,9 +210,6 @@ export default function PrivacyPolicy() {
         </div>
       </Container>
 
-      <div className="mt-8 sm:mt-12">
-        <Footer />
-      </div>
-    </div>
+    </PageLayout>
   );
 }

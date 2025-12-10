@@ -1,5 +1,4 @@
 import { BlogPost } from "@/lib/blog-data";
-import { cn } from "@/lib/cn";
 
 interface BlogPostProps {
   post: BlogPost;

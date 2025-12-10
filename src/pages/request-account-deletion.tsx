@@ -1,19 +1,8 @@
 import { useState, type ChangeEvent, type FormEvent } from "react";
-import { Geist, Geist_Mono } from "next/font/google";
 import { Container } from "@/components/layout/Container";
-import { Footer } from "@/components/layout/Footer";
+import { PageLayout } from "@/components/layout/PageLayout";
 import { Button } from "@/components/ui/Button";
-import { cn } from "@/lib/cn";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+import { cn } from "@/lib/utils";
 
 type ProductOption = "raisedash" | "raisedash_vertex";
 
@@ -109,7 +98,10 @@ export default function RequestAccountDeletion() {
   const requiresEmail = formData.product === "raisedash";
 
   return (
-    <div className={`${geistSans.className} ${geistMono.className} font-sans`}>
+    <PageLayout
+      title="Request Account Deletion"
+      description="Request deletion of your Raisedash account. We'll process your request securely."
+    >
       <Container className="flex items-center bg-white dark:bg-card mt-12 rounded-md border">
         <div className="w-full py-16 sm:py-24 md:py-28">
           <h1 className="text-4xl md:text-5xl font-semibold tracking-[-0.01em] text-foreground">
@@ -267,9 +259,6 @@ export default function RequestAccountDeletion() {
         </div>
       </Container>
 
-      <div className="mt-8 sm:mt-12">
-        <Footer />
-      </div>
-    </div>
+    </PageLayout>
   );
 }

@@ -1,25 +1,14 @@
-import { Geist, Geist_Mono } from "next/font/google";
-import { Container } from "@/components/layout/Container";
-import { Footer } from "@/components/layout/Footer";
-import { Button } from "@/components/ui/Button";
 import Link from "next/link";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+import { Container } from "@/components/layout/Container";
+import { PageLayout } from "@/components/layout/PageLayout";
+import { Button } from "@/components/ui/Button";
 
 interface ChangelogEntry {
   version: string;
   date: string;
-  type: 'major' | 'minor' | 'patch';
+  type: "major" | "minor" | "patch";
   changes: {
-    type: 'feature' | 'improvement' | 'fix' | 'breaking';
+    type: "feature" | "improvement" | "fix" | "breaking";
     title: string;
     description: string;
   }[];
@@ -34,19 +23,21 @@ const changelogData: ChangelogEntry[] = [
       {
         type: "feature",
         title: "Real-time Analytics Dashboard",
-        description: "New comprehensive dashboard showing live security metrics and threat detection statistics."
+        description:
+          "New comprehensive dashboard showing live security metrics and threat detection statistics.",
       },
       {
         type: "improvement",
         title: "Enhanced API Performance",
-        description: "Reduced API response times by 40% through optimized database queries and caching."
+        description:
+          "Reduced API response times by 40% through optimized database queries and caching.",
       },
       {
         type: "feature",
         title: "Mobile App Support",
-        description: "Native mobile applications for iOS and Android with full feature parity."
-      }
-    ]
+        description: "Native mobile applications for iOS and Android with full feature parity.",
+      },
+    ],
   },
   {
     version: "2.0.0",
@@ -56,24 +47,26 @@ const changelogData: ChangelogEntry[] = [
       {
         type: "breaking",
         title: "New Authentication System",
-        description: "Migrated to OAuth 2.0 with enhanced security. Existing API keys will need to be regenerated."
+        description:
+          "Migrated to OAuth 2.0 with enhanced security. Existing API keys will need to be regenerated.",
       },
       {
         type: "feature",
         title: "AI-Powered Threat Detection",
-        description: "Machine learning algorithms now automatically detect and classify security threats."
+        description:
+          "Machine learning algorithms now automatically detect and classify security threats.",
       },
       {
         type: "feature",
         title: "Multi-tenant Architecture",
-        description: "Support for multiple organizations with isolated data and configurations."
+        description: "Support for multiple organizations with isolated data and configurations.",
       },
       {
         type: "improvement",
         title: "Redesigned User Interface",
-        description: "Complete UI overhaul with improved usability and accessibility features."
-      }
-    ]
+        description: "Complete UI overhaul with improved usability and accessibility features.",
+      },
+    ],
   },
   {
     version: "1.8.3",
@@ -83,19 +76,20 @@ const changelogData: ChangelogEntry[] = [
       {
         type: "fix",
         title: "Security Vulnerability Patch",
-        description: "Fixed critical security issue in user authentication flow."
+        description: "Fixed critical security issue in user authentication flow.",
       },
       {
         type: "fix",
         title: "Data Export Bug",
-        description: "Resolved issue where large data exports would fail for datasets over 100k records."
+        description:
+          "Resolved issue where large data exports would fail for datasets over 100k records.",
       },
       {
         type: "improvement",
         title: "Error Handling",
-        description: "Improved error messages and logging for better debugging experience."
-      }
-    ]
+        description: "Improved error messages and logging for better debugging experience.",
+      },
+    ],
   },
   {
     version: "1.8.0",
@@ -105,29 +99,31 @@ const changelogData: ChangelogEntry[] = [
       {
         type: "feature",
         title: "Advanced Reporting",
-        description: "New reporting engine with customizable templates and automated scheduling."
+        description:
+          "New reporting engine with customizable templates and automated scheduling.",
       },
       {
         type: "feature",
         title: "Integration Hub",
-        description: "Pre-built integrations with popular logistics platforms and ERP systems."
+        description: "Pre-built integrations with popular logistics platforms and ERP systems.",
       },
       {
         type: "improvement",
         title: "Database Optimization",
-        description: "Significant performance improvements for large-scale deployments."
-      }
-    ]
-  }
+        description: "Significant performance improvements for large-scale deployments.",
+      },
+    ],
+  },
 ];
 
 export default function Changelogs() {
   return (
-    <div className={`${geistSans.className} ${geistMono.className} font-sans`}>
+    <PageLayout
+      title="Changelog"
+      description="Stay up to date with the latest features, improvements, and fixes in Raisedash."
+    >
       {/* Hero Section */}
-      <Container 
-        className="flex items-center bg-white dark:bg-card mt-12 rounded-md border ui-corner-accents"
-      >
+      <Container className="flex items-center bg-white dark:bg-card mt-12 rounded-md border ui-corner-accents">
         <div className="w-full py-16">
           <h1 className="text-4xl md:text-5xl font-semibold tracking-[-0.01em] text-foreground">
             Changelog
@@ -142,16 +138,16 @@ export default function Changelogs() {
       <Container className="bg-white dark:bg-card mt-8 rounded-md border ui-corner-accents">
         <div className="py-16">
           <div className="space-y-12">
-            {changelogData.map((entry, index) => (
+            {changelogData.map((entry) => (
               <div key={entry.version} className="border-l-2 border-border pl-8">
                 {/* Version Header */}
                 <div className="flex items-center gap-4 mb-6">
                   <span className="text-2xl font-bold text-foreground">v{entry.version}</span>
                   <span className="text-sm text-muted-foreground">
-                    {new Date(entry.date).toLocaleDateString('en-US', {
-                      year: 'numeric',
-                      month: 'long',
-                      day: 'numeric'
+                    {new Date(entry.date).toLocaleDateString("en-US", {
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
                     })}
                   </span>
                 </div>
@@ -181,8 +177,8 @@ export default function Changelogs() {
             Want to be notified of updates?
           </h3>
           <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
-            Subscribe to our newsletter to get notified about new features, security updates, 
-            and important announcements.
+            Subscribe to our newsletter to get notified about new features, security updates, and
+            important announcements.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link href="/request-demo">
@@ -194,10 +190,6 @@ export default function Changelogs() {
           </div>
         </div>
       </Container>
-      
-      <div className="mt-8 sm:mt-12">
-        <Footer />
-      </div>
-    </div>
+    </PageLayout>
   );
 }

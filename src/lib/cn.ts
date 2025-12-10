@@ -1,6 +1,5 @@
-export function cn(...classNames: Array<string | undefined | null | false>): string {
-  return classNames.filter(Boolean).join(" ");
-}
+// Re-export from utils for backwards compatibility
+export { cn } from "./utils";
 
 
 
