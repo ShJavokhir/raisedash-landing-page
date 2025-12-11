@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/layout/Container";
 import { PageLayout } from "@/components/layout/PageLayout";
@@ -34,6 +35,29 @@ export default function Home() {
           </div>
         </Container>
       </div>
+
+      <Container className="mt-8 px-0 sm:px-0 md:px-0">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <Link href="/products/raisedash-vertex" className="group">
+              <div className="flex flex-col h-full rounded-md border bg-card text-card-foreground overflow-hidden transition-all hover:shadow-md hover:border-primary/20">
+                <div className="aspect-square relative w-full overflow-hidden bg-muted p-3">
+                  <Image
+                    src="https://cdn.raisedash.com/media/vertex/834f7f4b-6def-4090-bc16-6de5c21ff18d.webp"
+                    alt="Raisedash Vertex"
+                    fill
+                    className="object-cover transition-transform duration-300 group-hover:scale-105 dark:invert"
+                  />
+                </div>
+                <div className="p-5 flex flex-col flex-1">
+                  <h3 className="font-semibold text-lg mb-2 group-hover:text-primary transition-colors">Raisedash Vertex</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    The Easiest Way to Track Freight. Get real-time visibility and automated arrival alerts in seconds.
+                  </p>
+                </div>
+              </div>
+            </Link>
+          </div>
+      </Container>
 
       {/* Two clean horizontal lines with centered text between them */}
       <div className="pt-6 pb-4">
