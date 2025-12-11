@@ -19,11 +19,12 @@ export interface ContactFormData {
 }
 
 export interface DemoRequestData {
-  firstName: string;
-  lastName: string;
   email: string;
-  phone: string;
-  company?: string;
+  companyName: string;
+  companySize: string;
+  fullName: string;
+  role: string;
+  phone?: string;
 }
 
 export interface AccountDeletionRequestData {
@@ -111,10 +112,12 @@ export function formatDemoMessage(data: DemoRequestData): string {
   return `🔔 *New Demo Request*
 
 📅 *Date:* ${timestamp}
-👤 *Name:* ${data.firstName} ${data.lastName}
+👤 *Name:* ${data.fullName}
 📧 *Email:* ${data.email}
-📞 *Phone:* ${data.phone}
-🏢 *Company:* ${data.company || 'Not provided'}
+🏢 *Company:* ${data.companyName}
+🚚 *Fleet Size:* ${data.companySize}
+💼 *Role:* ${data.role}
+📞 *Phone:* ${data.phone || 'Not provided'}
 
 ---
 *Form Type:* Demo Request`;

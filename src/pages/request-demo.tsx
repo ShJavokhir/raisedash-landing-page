@@ -1,56 +1,49 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
+import { AnimatePresence, motion } from "motion/react";
+import { Check } from "lucide-react";
 import { Container } from "@/components/layout/Container";
 import { PageLayout } from "@/components/layout/PageLayout";
-import { Button } from "@/components/ui/Button";
-import { Input } from "@/components/ui/Input";
-import { Check } from "lucide-react";
+import { DemoForm } from "@/components/demo/DemoForm";
+import { TruckVisual } from "@/components/demo/TruckVisual";
+import { DemoFormData, FieldsCompleted } from "@/components/demo/types";
 
-interface FormData {
-  firstName: string;
-  lastName: string;
-  email: string;
-  phone: string;
-}
-
-const initialFormData: FormData = {
-  firstName: "",
-  lastName: "",
+const initialFormData: DemoFormData = {
   email: "",
+  companyName: "",
+  companySize: "",
+  fullName: "",
+  role: "",
   phone: "",
 };
 
 const benefits = [
-  {
-    title: "Personalized Demo",
-    description: "See how Raisedash fits your specific use case",
-  },
-  {
-    title: "Expert Consultation",
-    description: "Get answers from our security specialists",
-  },
-  {
-    title: "Live Demonstration",
-    description: "Watch our platform in action with real data",
-  },
+  { title: "Live walkthroughs", description: "See Raisedash against your real routes and freight risk." },
+  { title: "Security experts on call", description: "Ask our specialists about compliance, ops, and data flow." },
+  { title: "Fast rollout plan", description: "Leave with an implementation path tailored to your fleet." },
 ];
 
 export default function RequestDemo() {
-  const [formData, setFormData] = useState<FormData>(initialFormData);
+  const [formData, setFormData] = useState<DemoFormData>(initialFormData);
+  const [hasInteracted, setHasInteracted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
-  const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
-  ) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
+  const fieldsCompleted: FieldsCompleted = useMemo(
+    () => ({
+      email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email),
+      companyName: formData.companyName.trim().length > 2,
+      companySize: formData.companySize !== "",
+      fullName: formData.fullName.trim().length > 2,
+      role: formData.role.trim().length > 2,
+      phone: formData.phone.replace(/\D/g, "").length >= 10,
+    }),
+    [formData]
+  );
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = async () => {
+    setSubmitError(null);
     setIsSubmitting(true);
-    setSubmitStatus("idle");
-
     try {
       const response = await fetch("/api/request-demo", {
         method: "POST",
@@ -58,132 +51,106 @@ export default function RequestDemo() {
         body: JSON.stringify(formData),
       });
 
-      if (response.ok) {
-        setSubmitStatus("success");
-        setFormData(initialFormData);
-      } else {
-        setSubmitStatus("error");
+      if (!response.ok) {
+        const data = (await response.json().catch(() => null)) as { error?: string; missingFields?: string[] } | null;
+        const missing = data?.missingFields?.length ? `Missing: ${data.missingFields.join(", ")}` : "";
+        throw new Error(data?.error || missing || "Unable to submit right now. Please retry.");
       }
+
+      setIsSuccess(true);
     } catch (error) {
-      console.error("Error submitting form:", error);
-      setSubmitStatus("error");
+      const message = error instanceof Error ? error.message : "Unable to submit right now. Please retry.";
+      setSubmitError(message);
     } finally {
       setIsSubmitting(false);
     }
   };
 
+  const handleReset = () => {
+    setFormData({ ...initialFormData });
+    setHasInteracted(false);
+    setIsSubmitting(false);
+    setIsSuccess(false);
+    setSubmitError(null);
+  };
+
+  const showInteractive = hasInteracted || isSuccess;
+
   return (
     <PageLayout
       title="Request Demo"
-      description="Request a personalized demo of Raisedash. See how our platform can enhance your freight logistics security."
+      description="Build your Raisedash demo request and watch the experience respond as you complete the manifest."
     >
-      <Container className="bg-white dark:bg-card mt-18 rounded-md border ui-corner-accents">
+      <Container className="bg-white dark:bg-card mt-18 rounded-md border ui-corner-accents relative overflow-hidden">
         <div className="py-12">
-          {submitStatus === "success" ? (
-            <div className="text-center py-12">
-              <div className="w-16 h-16 bg-green-100 dark:bg-green-900/20 rounded-full flex items-center justify-center mx-auto mb-6">
-                <Check className="w-8 h-8 text-green-600 dark:text-green-400" />
-              </div>
-              <h2 className="text-2xl font-semibold text-foreground mb-4">
-                Demo Request Submitted!
-              </h2>
-              <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
-                Thank you for your interest in Raisedash. Our team will review your request and
-                contact you within 24 hours to schedule your personalized demo.
-              </p>
-              <Button onClick={() => setSubmitStatus("idle")}>Submit Another Request</Button>
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-              {/* Left Side - Info */}
-              <div className="space-y-6">
-                <div>
-                  <h2 className="text-2xl font-semibold text-foreground mb-4">
-                    Request Your Demo
-                  </h2>
-                  <p className="text-muted-foreground mb-6">
-                    Get a personalized demonstration of Raisedash tailored to your security needs.
-                    Our experts will show you how our platform can enhance your security operations.
-                  </p>
-                </div>
-
-                <div className="space-y-4">
-                  {benefits.map((benefit) => (
-                    <div key={benefit.title} className="flex items-start space-x-3">
-                      <div className="w-6 h-6 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                        <Check className="w-3 h-3 text-primary" />
-                      </div>
-                      <div>
-                        <h3 className="font-medium text-foreground">{benefit.title}</h3>
-                        <p className="text-sm text-muted-foreground">{benefit.description}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Right Side - Form */}
-              <div>
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  <div className="grid grid-cols-2 gap-4">
-                    <Input
-                      type="text"
-                      name="firstName"
-                      label="First Name"
-                      required
-                      value={formData.firstName}
-                      onChange={handleInputChange}
-                      placeholder="John"
-                    />
-                    <Input
-                      type="text"
-                      name="lastName"
-                      label="Last Name"
-                      required
-                      value={formData.lastName}
-                      onChange={handleInputChange}
-                      placeholder="Doe"
-                    />
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start relative">
+            <AnimatePresence>
+              {!showInteractive && (
+                <motion.div
+                  key="intro"
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -30 }}
+                  transition={{ duration: 0.4, ease: "easeOut" }}
+                  className="space-y-6 lg:pr-6"
+                >
+                  <div className="space-y-4">
+                    <h2 className="text-3xl font-semibold text-foreground">Request your demo</h2>
+                    <p className="text-muted-foreground">
+                      Start with your work email. As soon as you type, the form moves into focus and the live fleet visual spins up on the
+                      right to mirror your progress.
+                    </p>
                   </div>
-
-                  <Input
-                    type="email"
-                    name="email"
-                    label="Work Email"
-                    required
-                    value={formData.email}
-                    onChange={handleInputChange}
-                    placeholder="john.doe@company.com"
-                  />
-
-                  <Input
-                    type="tel"
-                    name="phone"
-                    label="Phone Number"
-                    value={formData.phone}
-                    onChange={handleInputChange}
-                    placeholder="+1 (555) 123-4567"
-                  />
-
-                  <div className="flex flex-col sm:flex-row gap-4 items-center justify-between">
-                    <p className="text-sm text-muted-foreground">* Required fields</p>
-                    <Button type="submit" disabled={isSubmitting} className="w-full sm:w-auto">
-                      {isSubmitting ? "Submitting..." : "Request Demo"}
-                    </Button>
+                  <div className="space-y-4">
+                    {benefits.map((benefit) => (
+                      <div key={benefit.title} className="flex items-start space-x-3">
+                        <div className="w-6 h-6 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                          <Check className="w-3 h-3 text-primary" />
+                        </div>
+                        <div>
+                          <h3 className="font-medium text-foreground">{benefit.title}</h3>
+                          <p className="text-sm text-muted-foreground">{benefit.description}</p>
+                        </div>
+                      </div>
+                    ))}
                   </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
 
-                  {submitStatus === "error" && (
-                    <div className="mt-4 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
-                      <p className="text-red-600 dark:text-red-400 text-sm">
-                        There was an error submitting your request. Please try again or contact us
-                        directly.
-                      </p>
-                    </div>
-                  )}
-                </form>
-              </div>
-            </div>
-          )}
+            <motion.div
+              layout
+              transition={{ type: "spring", stiffness: 120, damping: 18 }}
+              className={`${showInteractive ? "order-1" : "order-2"} w-full`}
+            >
+              <DemoForm
+                formData={formData}
+                setFormData={setFormData}
+                onSubmit={handleSubmit}
+                onInteract={() => setHasInteracted(true)}
+                onReset={handleReset}
+                isSubmitting={isSubmitting}
+                isSuccess={isSuccess}
+                submitError={submitError}
+              />
+            </motion.div>
+
+            <AnimatePresence>
+              {showInteractive && (
+                <motion.div
+                  key="visual"
+                  layout
+                  initial={{ opacity: 0, x: 40 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: 40 }}
+                  transition={{ type: "spring", stiffness: 120, damping: 18 }}
+                  className="order-2 w-full"
+                >
+                  <TruckVisual formData={formData} fieldsCompleted={fieldsCompleted} isSubmitting={isSubmitting} isSuccess={isSuccess} />
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
         </div>
       </Container>
     </PageLayout>

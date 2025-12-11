@@ -10,7 +10,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const data: DemoRequestData = req.body;
 
     // Validate required fields
-    const requiredFields = ['firstName', 'lastName', 'email'];
+    const requiredFields = ['email', 'companyName', 'companySize', 'fullName', 'role'];
     const missingFields = validateRequiredFields(data as unknown as Record<string, unknown>, requiredFields);
     
     if (missingFields.length > 0) {
@@ -25,6 +25,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       return res.status(400).json({ error: 'Invalid email format' });
     }
 
+    // Ensure company size option is valid
+    const allowedSizes = ['1-10 trucks', '11-50 trucks', '51-200 trucks', '201+ trucks'];
+    if (!allowedSizes.includes(data.companySize)) {
+      return res.status(400).json({ error: 'Invalid company size selection' });
+    }
+
     // Send to Telegram
     const telegramMessage = formatDemoMessage(data);
     const telegramResponse = await sendToTelegram(telegramMessage);
@@ -36,10 +42,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     // Log the request (optional - for debugging)
     console.log('Demo request received:', {
-      name: `${data.firstName} ${data.lastName}`,
+      name: data.fullName,
       email: data.email,
+      companyName: data.companyName,
+      companySize: data.companySize,
+      role: data.role,
       phone: data.phone,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     });
 
     return res.status(200).json({ 
