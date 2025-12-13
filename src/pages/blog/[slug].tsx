@@ -122,7 +122,7 @@ export default function BlogPostPage({ post }: BlogPostPageProps) {
       </Container>
 
       {/* Newsletter CTA */}
-      <Container className="bg-white dark:bg-card mt-8 rounded-md border ui-corner-accents">
+      {/* <Container className="bg-white dark:bg-card mt-8 rounded-md border ui-corner-accents">
         <div className="py-12 text-center">
           <h2 className="text-2xl font-semibold text-foreground mb-4">
             Enjoyed this article?
@@ -139,7 +139,7 @@ export default function BlogPostPage({ post }: BlogPostPageProps) {
             <Button>Subscribe</Button>
           </div>
         </div>
-      </Container>
+      </Container> */}
 
       <div className="mt-8 sm:mt-12">
         <Footer />

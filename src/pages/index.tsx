@@ -10,10 +10,10 @@ export default function Home() {
     <PageLayout>
       <div>
         <Container
-          className="flex items-center bg-white dark:bg-card mt-12 rounded-md border relative overflow-hidden ui-corner-accents"
+          className="flex items-center bg-white dark:bg-card mt-12 mb-12 min-h-[50vh] rounded-md border relative overflow-hidden ui-corner-accents"
         >
           <div className="relative z-10 w-full flex items-center">
-            <div className="flex-1 py-16 sm:py-24 md:py-28">
+            <div className="flex-1">
               <h1 className="text-4xl md:text-4xl font-semibold tracking-[-0.01em] text-foreground">
                 Safety & Security in Days.
               </h1>
@@ -37,64 +37,70 @@ export default function Home() {
       </div>
 
       <Container className="mt-8 px-0 sm:px-0 md:px-0">
+        <div className="mb-8 text-center">
+          <h2 className="text-3xl font-semibold tracking-tight">Our Solutions</h2>
+          {/* <p className="text-muted-foreground mt-2">
+            Explore our suite of tools designed to enhance safety and efficiency in freight logistics.
+          </p> */}
+        </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <Link href="/products/raisedash-vertex" className="group">
-              <div className="flex flex-col h-full rounded-md border bg-card text-card-foreground overflow-hidden transition-all hover:shadow-md hover:border-primary/20">
-                <div className="aspect-square relative w-full overflow-hidden bg-muted p-3">
-                  <Image
-                    src="https://cdn.raisedash.com/media/vertex/834f7f4b-6def-4090-bc16-6de5c21ff18d.webp"
-                    alt="Raisedash Vertex"
-                    fill
-                    className="object-cover transition-transform duration-300 group-hover:scale-105 dark:invert"
-                  />
-                </div>
-                <div className="p-5 flex flex-col flex-1">
-                  <h3 className="font-semibold text-lg mb-2 group-hover:text-primary transition-colors">Raisedash Vertex</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    The Easiest Way to Track Freight. Get real-time visibility and automated arrival alerts in seconds.
-                  </p>
-                </div>
+          <Link href="/products/raisedash-vertex" className="group">
+            <div className="flex flex-col h-full rounded-md border bg-card text-card-foreground overflow-hidden transition-all hover:shadow-md hover:border-primary/20">
+              <div className="aspect-square relative w-full overflow-hidden bg-muted p-3">
+                <Image
+                  src="https://cdn.raisedash.com/media/vertex/834f7f4b-6def-4090-bc16-6de5c21ff18d.webp"
+                  alt="Raisedash Vertex"
+                  fill
+                  className="object-cover transition-transform duration-300 group-hover:scale-105 dark:invert"
+                />
               </div>
-            </Link>
-
-            <a href="https://pti.raisedash.com" target="_blank" rel="noopener noreferrer" className="group">
-              <div className="flex flex-col h-full rounded-md border bg-card text-card-foreground overflow-hidden transition-all hover:shadow-md hover:border-primary/20">
-                <div className="aspect-square relative w-full overflow-hidden bg-muted p-3">
-                  <Image
-                    src="https://cdn.raisedash.com/media/vertex/5bbcc5ad-2b1c-4ddb-9fe6-e8e2bc2c8a1b.webp"
-                    alt="Raisedash PTI Inspections"
-                    fill
-                    className="object-cover transition-transform duration-300 group-hover:scale-105"
-                  />
-                </div>
-                <div className="p-5 flex flex-col flex-1">
-                  <h3 className="font-semibold text-lg mb-2 group-hover:text-primary transition-colors">Raisedash PTI Inspections</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    Simplify Driver Vehicle Inspection Reports and Pre-Trip inspections with easy-to-use digital tools.
-                  </p>
-                </div>
+              <div className="p-5 flex flex-col flex-1">
+                <h3 className="font-semibold text-lg mb-2 group-hover:text-primary transition-colors">Raisedash Vertex</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  The Easiest Way to Track Freight. Get real-time visibility and automated arrival alerts in seconds.
+                </p>
               </div>
-            </a>
+            </div>
+          </Link>
 
-            <div className="group">
-              <div className="flex flex-col h-full rounded-md border bg-card text-card-foreground overflow-hidden transition-all hover:shadow-md hover:border-primary/20">
-                <div className="aspect-square relative w-full overflow-hidden bg-muted p-3">
-                  <Image
-                    src="https://cdn.raisedash.com/media/vertex/57c53ef5-ad1a-4508-89a5-329985846a89.webp"
-                    alt="Raisedash Onboarding"
-                    fill
-                    className="object-cover transition-transform duration-300 group-hover:scale-105"
-                  />
-                </div>
-                <div className="p-5 flex flex-col flex-1">
-                  <h3 className="font-semibold text-lg mb-2 group-hover:text-primary transition-colors">Raisedash Onboarding</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    Driver onboarding platform for companies. Streamlined LMS solution for efficient driver training and compliance.
-                  </p>
-                </div>
+          <a href="https://pti.raisedash.com" target="_blank" rel="noopener noreferrer" className="group">
+            <div className="flex flex-col h-full rounded-md border bg-card text-card-foreground overflow-hidden transition-all hover:shadow-md hover:border-primary/20">
+              <div className="aspect-square relative w-full overflow-hidden bg-muted p-3">
+                <Image
+                  src="https://cdn.raisedash.com/media/vertex/5bbcc5ad-2b1c-4ddb-9fe6-e8e2bc2c8a1b.webp"
+                  alt="Raisedash PTI Inspections"
+                  fill
+                  className="object-cover transition-transform duration-300 group-hover:scale-105 dark:invert"
+                />
+              </div>
+              <div className="p-5 flex flex-col flex-1">
+                <h3 className="font-semibold text-lg mb-2 group-hover:text-primary transition-colors">Raisedash PTI Inspections</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  Simplify Driver Vehicle Inspection Reports and Pre-Trip inspections with easy-to-use digital tools.
+                </p>
+              </div>
+            </div>
+          </a>
+
+          <div className="group">
+            <div className="flex flex-col h-full rounded-md border bg-card text-card-foreground overflow-hidden transition-all hover:shadow-md hover:border-primary/20">
+              <div className="aspect-square relative w-full overflow-hidden bg-muted p-3">
+                <Image
+                  src="https://cdn.raisedash.com/media/vertex/57c53ef5-ad1a-4508-89a5-329985846a89.webp"
+                  alt="Raisedash Onboarding"
+                  fill
+                  className="object-cover transition-transform duration-300 group-hover:scale-105 dark:invert"
+                />
+              </div>
+              <div className="p-5 flex flex-col flex-1">
+                <h3 className="font-semibold text-lg mb-2 group-hover:text-primary transition-colors">Raisedash Onboarding</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  Driver onboarding platform for companies. Streamlined LMS solution for efficient driver training and compliance.
+                </p>
               </div>
             </div>
           </div>
+        </div>
       </Container>
 
       {/* Two clean horizontal lines with centered text between them */}

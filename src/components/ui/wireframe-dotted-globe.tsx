@@ -36,11 +36,22 @@ export default function RotatingEarth({ width = 800, height = 600, className = "
     // Read theme colors on each render so theme toggles are reflected
     const getThemeColors = () => {
       const styles = getComputedStyle(document.documentElement)
-      return {
-        ocean: styles.getPropertyValue("--color-card")?.trim() || "#ffffff",
-        stroke: styles.getPropertyValue("--color-border")?.trim() || "#d1d5db",
-        graticule: styles.getPropertyValue("--color-border")?.trim() || "#d1d5db",
-        dots: styles.getPropertyValue("--color-muted-foreground")?.trim() || "#6b7280",
+      const isDark = document.documentElement.classList.contains("dark")
+
+      if (isDark) {
+        return {
+          ocean: "#0f141a", // Same as card background in dark theme
+          stroke: "#9ca3af", // More visible light gray for outlines
+          graticule: "#374151", // Medium gray for grid lines
+          dots: "#ffffff", // White dots for land areas in dark theme
+        }
+      } else {
+        return {
+          ocean: "#ffffff", // White background for light theme
+          stroke: "#6b7280", // More visible dark gray for outlines
+          graticule: "#d1d5db", // Medium gray for grid lines
+          dots: "#000000", // Black dots for land areas in light theme
+        }
       }
     }
 
