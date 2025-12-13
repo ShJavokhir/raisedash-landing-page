@@ -9,7 +9,7 @@ export default function VertexApp() {
       title="Download Raisedash Vertex"
       description="Download Raisedash Vertex for Drivers - Real-time freight tracking and automated arrival alerts."
     >
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 to-slate-100 dark:from-neutral-950 dark:to-neutral-900">
         <Container className="py-12">
           <div className="max-w-md mx-auto text-center">
             <div className="mb-8">

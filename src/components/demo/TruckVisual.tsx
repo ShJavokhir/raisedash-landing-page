@@ -140,12 +140,12 @@ export function TruckVisual({ formData, fieldsCompleted, isSubmitting, isSuccess
                   width="400"
                   height="130"
                   rx="4"
-                  className="fill-slate-100 dark:fill-slate-800 stroke-slate-300 dark:stroke-slate-600"
+                  className="fill-slate-100 dark:fill-neutral-800 stroke-slate-300 dark:stroke-neutral-600"
                   strokeWidth="2"
                 />
                 <foreignObject x="60" y="115" width="380" height="60">
                   <div className="w-full h-full flex items-center justify-center overflow-hidden">
-                    <h2 className="text-xl md:text-2xl font-bold text-slate-800 dark:text-slate-200 uppercase tracking-widest font-mono truncate px-4">
+                    <h2 className="text-xl md:text-2xl font-bold text-slate-800 dark:text-neutral-200 uppercase tracking-widest font-mono truncate px-4">
                       {formData.companyName || "RAISEDASH"}
                     </h2>
                   </div>

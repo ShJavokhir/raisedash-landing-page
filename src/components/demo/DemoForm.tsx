@@ -139,7 +139,6 @@ export function DemoForm({
                     onChange={(e) => handleChange("email", e.target.value)}
                     onFocus={onInteract}
                     placeholder="dispatcher@company.com"
-                    autoFocus
                   />
                 </div>
                 <div className="pt-6 flex justify-end">
@@ -173,7 +172,6 @@ export function DemoForm({
                     onChange={(e) => handleChange("companyName", e.target.value)}
                     onFocus={onInteract}
                     placeholder="Raisedash Logistics"
-                    autoFocus
                   />
                 </div>
                 <div className="space-y-3">
@@ -236,7 +234,6 @@ export function DemoForm({
                       onChange={(e) => handleChange("fullName", e.target.value)}
                       onFocus={onInteract}
                       placeholder="Alex Morgan"
-                      autoFocus
                     />
                   </div>
                   <div className="space-y-3">
@@ -292,7 +289,6 @@ export function DemoForm({
                     onChange={(e) => handleChange("phone", e.target.value)}
                     onFocus={onInteract}
                     placeholder="+1 (555) 000-0000"
-                    autoFocus
                   />
                 </div>
                 {submitError && (
