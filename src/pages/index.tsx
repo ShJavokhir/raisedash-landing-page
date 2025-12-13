@@ -10,19 +10,19 @@ export default function Home() {
     <PageLayout>
       <div>
         <Container
-          className="flex items-center bg-white dark:bg-card mt-12 mb-12 min-h-[50vh] rounded-md border relative overflow-hidden ui-corner-accents"
+          className="flex items-center bg-white dark:bg-card mt-12 mb-12 min-h-[50vh] rounded-md border relative overflow-hidden ui-corner-accents animate-fade-in-scale delay-0"
         >
           <div className="relative z-10 w-full flex items-center">
             <div className="flex-1">
-              <h1 className="text-4xl md:text-4xl font-semibold tracking-[-0.01em] text-foreground">
+              <h1 className="text-4xl md:text-4xl font-semibold tracking-[-0.01em] text-foreground animate-fade-in-up delay-75">
                 Safety & Security in Days.
               </h1>
-              <p className="mt-4 max-w-2xl text-muted-foreground">
+              <p className="mt-4 max-w-2xl text-muted-foreground animate-fade-in-up delay-150">
                 Raisedash strengthens safety and security of corporations in freight logistics.
               </p>
 
-              <div className="mt-8 flex flex-col sm:flex-row gap-3">
-                <Button className="w-full sm:w-auto">See in Action</Button>
+              <div className="mt-8 flex flex-col sm:flex-row gap-3 animate-fade-in-up delay-200">
+                {/* <Button className="w-full sm:w-auto">See in Action</Button> */}
                 <Link href="/request-demo" className="w-full sm:w-auto">
                   <Button variant="secondary" className="w-full">Request a Demo</Button>
                 </Link>
@@ -37,14 +37,14 @@ export default function Home() {
       </div>
 
       <Container className="mt-8 px-0 sm:px-0 md:px-0">
-        <div className="mb-8 text-center">
+        <div className="mb-8 text-center animate-fade-in-up delay-300">
           <h2 className="text-3xl font-semibold tracking-tight">Our Solutions</h2>
           {/* <p className="text-muted-foreground mt-2">
             Explore our suite of tools designed to enhance safety and efficiency in freight logistics.
           </p> */}
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <Link href="/products/raisedash-vertex" className="group">
+          <Link href="/products/raisedash-vertex" className="group animate-fade-in-scale delay-400">
             <div className="flex flex-col h-full rounded-md border bg-card text-card-foreground overflow-hidden transition-all hover:shadow-md hover:border-primary/20">
               <div className="aspect-square relative w-full overflow-hidden bg-muted p-3">
                 <Image
@@ -63,7 +63,7 @@ export default function Home() {
             </div>
           </Link>
 
-          <a href="https://pti.raisedash.com" target="_blank" rel="noopener noreferrer" className="group">
+          <a href="https://pti.raisedash.com" target="_blank" rel="noopener noreferrer" className="group animate-fade-in-scale delay-500">
             <div className="flex flex-col h-full rounded-md border bg-card text-card-foreground overflow-hidden transition-all hover:shadow-md hover:border-primary/20">
               <div className="aspect-square relative w-full overflow-hidden bg-muted p-3">
                 <Image
@@ -82,7 +82,7 @@ export default function Home() {
             </div>
           </a>
 
-          <div className="group">
+          <div className="group animate-fade-in-scale delay-600">
             <div className="flex flex-col h-full rounded-md border bg-card text-card-foreground overflow-hidden transition-all hover:shadow-md hover:border-primary/20">
               <div className="aspect-square relative w-full overflow-hidden bg-muted p-3">
                 <Image
@@ -104,7 +104,7 @@ export default function Home() {
       </Container>
 
       {/* Two clean horizontal lines with centered text between them */}
-      <div className="pt-6 pb-4">
+      <div className="pt-6 pb-4 animate-fade-in delay-700">
         <div className="flex items-center justify-center py-3">
           <span className="text-sm text-muted-foreground bg-background px-4">
             Trusted by leading logistics companies
