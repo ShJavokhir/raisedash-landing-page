@@ -56,6 +56,44 @@ export default function Home() {
                 </div>
               </div>
             </Link>
+
+            <a href="https://pti.raisedash.com" target="_blank" rel="noopener noreferrer" className="group">
+              <div className="flex flex-col h-full rounded-md border bg-card text-card-foreground overflow-hidden transition-all hover:shadow-md hover:border-primary/20">
+                <div className="aspect-square relative w-full overflow-hidden bg-muted p-3">
+                  <Image
+                    src="https://cdn.raisedash.com/media/vertex/5bbcc5ad-2b1c-4ddb-9fe6-e8e2bc2c8a1b.webp"
+                    alt="Raisedash PTI Inspections"
+                    fill
+                    className="object-cover transition-transform duration-300 group-hover:scale-105"
+                  />
+                </div>
+                <div className="p-5 flex flex-col flex-1">
+                  <h3 className="font-semibold text-lg mb-2 group-hover:text-primary transition-colors">Raisedash PTI Inspections</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    Simplify Driver Vehicle Inspection Reports and Pre-Trip inspections with easy-to-use digital tools.
+                  </p>
+                </div>
+              </div>
+            </a>
+
+            <div className="group">
+              <div className="flex flex-col h-full rounded-md border bg-card text-card-foreground overflow-hidden transition-all hover:shadow-md hover:border-primary/20">
+                <div className="aspect-square relative w-full overflow-hidden bg-muted p-3">
+                  <Image
+                    src="https://cdn.raisedash.com/media/vertex/57c53ef5-ad1a-4508-89a5-329985846a89.webp"
+                    alt="Raisedash Onboarding"
+                    fill
+                    className="object-cover transition-transform duration-300 group-hover:scale-105"
+                  />
+                </div>
+                <div className="p-5 flex flex-col flex-1">
+                  <h3 className="font-semibold text-lg mb-2 group-hover:text-primary transition-colors">Raisedash Onboarding</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    Driver onboarding platform for companies. Streamlined LMS solution for efficient driver training and compliance.
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
       </Container>
 
