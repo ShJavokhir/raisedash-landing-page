@@ -2,14 +2,16 @@
 
 import { useEffect, useRef, useState } from "react"
 import * as d3 from "d3"
+import { cn } from "@/lib/cn"
 
 interface RotatingEarthProps {
   width?: number
   height?: number
   className?: string
+  rotationSpeed?: number
 }
 
-export default function RotatingEarth({ width = 800, height = 600, className = "" }: RotatingEarthProps) {
+export default function RotatingEarth({ width = 800, height = 600, className = "", rotationSpeed = 0.5 }: RotatingEarthProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -245,7 +247,6 @@ export default function RotatingEarth({ width = 800, height = 600, className = "
     // Set up rotation and interaction
     const rotation: [number, number, number] = [0, 0, 0]
     let autoRotate = true
-    const rotationSpeed = 0.5
 
     const rotate = () => {
       if (autoRotate) {
@@ -314,20 +315,25 @@ export default function RotatingEarth({ width = 800, height = 600, className = "
 
   if (error) {
     return (
-      <div className={`dark flex items-center justify-center bg-card rounded-2xl p-8 ${className}`}>
+      <div className={cn("flex items-center justify-center bg-card rounded-2xl p-8", className)}>
         <div className="text-center">
-          <p className="dark text-destructive font-semibold mb-2">Error loading Earth visualization</p>
-          <p className="dark text-muted-foreground text-sm">{error}</p>
+          <p className="text-destructive font-semibold mb-2">Error loading Earth visualization</p>
+          <p className="text-muted-foreground text-sm">{error}</p>
         </div>
       </div>
     )
   }
 
   return (
-    <div className={`relative ${className}`}>
+    <div className={cn("relative", className)}>
       <canvas
         ref={canvasRef}
-        className="w-full h-auto rounded-2xl bg-transparent"
+        className={cn(
+          "w-full h-auto rounded-2xl bg-transparent transition-all duration-1000 ease-out",
+          isLoading
+            ? "opacity-0 scale-150"
+            : "opacity-100 scale-100"
+        )}
         style={{ maxWidth: "100%", height: "auto" }}
       />
     </div>

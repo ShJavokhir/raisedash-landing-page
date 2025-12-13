@@ -30,7 +30,7 @@ export default function Home() {
             </div>
 
             <div className="hidden lg:block flex-shrink-0">
-              <RotatingEarth width={380} height={380} className="w-[24rem] h-[24rem]" />
+              <RotatingEarth width={380} height={380} className="w-[24rem] h-[24rem]" rotationSpeed={0.3} />
             </div>
           </div>
         </Container>
