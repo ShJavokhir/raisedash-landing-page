@@ -1,8 +1,10 @@
 import Head from "next/head";
 import { NextPage } from "next";
-import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
+import { Button } from "@/components/ui/Button";
+import { Container } from "@/components/layout/Container";
+import { Footer } from "@/components/layout/Footer";
 import {
   CheckCircle,
   Shield,
@@ -13,7 +15,6 @@ import {
   Video,
   Clock,
   Smartphone,
-  LayoutGrid,
   Users,
   Truck,
   BarChart3,
@@ -22,244 +23,203 @@ import {
   ChevronDown,
   ArrowRight,
   Play,
+  X as XIcon,
 } from "lucide-react";
 
-const useStartupReveal = () => {
-  const [ready, setReady] = useState(false);
+// --- Styles ---
+// Utilizing global animations from globals.css: animate-fade-in-up, animate-fade-in-scale, etc.
 
+// Local Navbar removed in favor of global Header
+
+
+// --- Lightbox Component ---
+
+const Lightbox: React.FC<{ isOpen: boolean; onClose: () => void; imageSrc: string | null }> = ({ isOpen, onClose, imageSrc }) => {
   useEffect(() => {
-    const isReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (isReducedMotion) {
-      setReady(true);
-      return;
+    const handleEsc = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    if (isOpen) {
+      window.addEventListener("keydown", handleEsc);
+      document.body.style.overflow = "hidden";
     }
+    return () => {
+      window.removeEventListener("keydown", handleEsc);
+      document.body.style.overflow = "unset";
+    };
+  }, [isOpen, onClose]);
 
-    const id = requestAnimationFrame(() => setReady(true));
-    return () => cancelAnimationFrame(id);
-  }, []);
-
-  return ready;
-};
-
-const MinimalReveal: React.FC<{ ready: boolean; delay?: number; className?: string; children: React.ReactNode }> = ({
-  ready,
-  delay = 0,
-  className = "",
-  children,
-}) => (
-  <div
-    className={className}
-    style={{
-      opacity: ready ? 1 : 0,
-      transform: ready ? "translateY(0px)" : "translateY(12px)",
-      transition: "opacity 260ms ease, transform 320ms ease",
-      transitionDelay: `${delay}ms`,
-      willChange: "opacity, transform",
-    }}
-  >
-    {children}
-  </div>
-);
-
-type ButtonVariant = "primary" | "secondary" | "outline" | "ghost";
-type ButtonSize = "sm" | "md" | "lg";
-
-const Button: React.FC<
-  React.ButtonHTMLAttributes<HTMLButtonElement> & {
-    variant?: ButtonVariant;
-    size?: ButtonSize;
-  }
-> = ({ children, variant = "primary", size = "md", className = "", ...props }) => {
-  const baseStyles =
-    "font-mono tracking-tight inline-flex items-center justify-center transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed rounded-md";
-  const variants: Record<ButtonVariant, string> = {
-    primary: "bg-primary text-primary-foreground hover:bg-primary/90 font-semibold border border-transparent shadow-cal-md",
-    secondary: "bg-white text-foreground hover:bg-muted border border-border shadow-cal-sm",
-    outline: "bg-transparent text-foreground border border-border hover:bg-muted",
-    ghost: "bg-transparent text-muted-foreground hover:text-foreground hover:bg-muted/60",
-  };
-  const sizes: Record<ButtonSize, string> = {
-    sm: "h-8 px-3 text-xs",
-    md: "h-10 px-4 text-sm",
-    lg: "h-12 px-6 text-base",
-  };
+  if (!isOpen || !imageSrc) return null;
 
   return (
-    <button className={`${baseStyles} ${variants[variant]} ${sizes[size]} ${className}`} {...props}>
-      {children}
-    </button>
+    <div
+      className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 backdrop-blur-sm animate-fade-in p-4"
+      onClick={onClose}
+    >
+      <button
+        onClick={onClose}
+        className="absolute top-4 right-4 p-2 bg-black/50 hover:bg-black/70 text-white rounded-full transition-colors z-[101]"
+      >
+        <XIcon className="w-8 h-8" />
+      </button>
+      <Image
+        src={imageSrc}
+        alt="Preview"
+        width={2560}
+        height={1440}
+        onClick={(e) => e.stopPropagation()}
+        className="max-w-[95vw] max-h-[95vh] w-auto h-auto object-contain rounded-md shadow-2xl animate-fade-in-scale cursor-default"
+      />
+    </div>
   );
 };
 
-const Section: React.FC<{ children: React.ReactNode; className?: string; id?: string }> = ({
-  children,
-  className = "",
-  id,
-}) => (
-  <section id={id} className={`py-16 md:py-24 px-6 md:px-12 max-w-7xl mx-auto ${className}`}>
-    {children}
-  </section>
-);
 
-const Navbar: React.FC<{ ready: boolean }> = ({ ready }) => {
-  const [scrolled, setScrolled] = useState(false);
-  useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+// --- Page Sections ---
 
-  return (
-    <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b ${
-        scrolled ? "bg-white/90 backdrop-blur-md border-border shadow-cal-sm py-4" : "bg-background/60 border-transparent py-6"
-      }`}
-      style={{
-        opacity: ready ? 1 : 0,
-        transform: ready ? "translateY(0)" : "translateY(-6px)",
-        transition: "opacity 200ms ease, transform 260ms ease",
-        willChange: "opacity, transform",
-      }}
-    >
-      <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <span className="text-lg font-bold tracking-tight text-foreground">Raisedash PTI Inspections</span>
+const Hero: React.FC = () => (
+  <div className="relative overflow-hidden bg-background">
+    <div className="absolute inset-0 z-0 opacity-[0.4]"
+      style={{ backgroundImage: 'radial-gradient(var(--muted-foreground) 1px, transparent 1px)', backgroundSize: '32px 32px' }}>
+    </div>
+
+    <div className="pt-32 pb-20 md:pt-40 md:pb-24 relative z-10">
+      <Container className="flex flex-col items-center text-center">
+        <div className="animate-fade-in-up delay-0 inline-flex items-center gap-2 px-3 py-1 rounded-full bg-muted/50 border border-border text-xs font-medium text-muted-foreground mb-8">
+          <span className="relative flex h-2 w-2">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+          </span>
+          The Modern Standard for DVIR
         </div>
-        <div className="flex items-center gap-4">
+
+        <h1 className="animate-fade-in-up delay-100 text-5xl md:text-7xl font-semibold tracking-[-0.02em] text-foreground mb-6 max-w-4xl">
+          Toward <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 to-cyan-500">Safer Rides</span>
+        </h1>
+
+        <p className="animate-fade-in-up delay-200 text-xl text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed">
+          RaiseDash simplifies your Driver Vehicle Inspection Report (DVIR) and Pre-Trip inspections (PTIs) with easy-to-use digital tools. Fleet managers benefit from a centralized dashboard for real-time insights into all PTIs, while our mobile app simplifies inspections for drivers.
+        </p>
+
+        <div className="animate-fade-in-up delay-300 flex flex-col sm:flex-row gap-4 w-full sm:w-auto justify-center">
           <a href="https://cal.com/javokhir/raisedash-demo-meeting" target="_blank" rel="noopener noreferrer">
-            <Button size="sm" className="hidden sm:inline-flex">
-              Book a Demo
+            <Button size="lg" className="w-full sm:w-auto">
+              Book A Demo <ArrowRight className="w-4 h-4 ml-2" />
+            </Button>
+          </a>
+          <a href="https://www.youtube.com/watch?v=Vjem0ZQtGQc" target="_blank" rel="noopener noreferrer">
+            <Button variant="secondary" size="lg" className="w-full sm:w-auto gap-2">
+              <Play className="w-4 h-4" /> Take A Video Tour
             </Button>
           </a>
         </div>
-      </div>
-    </nav>
-  );
-};
 
-const Hero: React.FC<{ ready: boolean }> = ({ ready }) => (
-  <div className="relative overflow-hidden">
-    <div className="absolute inset-0 grid-bg pointer-events-none z-0"></div>
-    <Section className="relative z-10 pt-32 pb-16">
-      <div className="flex flex-col items-center text-center max-w-4xl mx-auto mb-16">
-        <MinimalReveal ready={ready}>
-          <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-foreground mb-6">
-            Toward <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400">Safer Rides</span>
-          </h1>
-        </MinimalReveal>
-        <MinimalReveal ready={ready} delay={80}>
-          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mb-8 leading-relaxed">
-            RaiseDash simplifies your Driver Vehicle Inspection Report (DVIR) and Pre-Trip inspections (PTIs) with easy-to-use digital tools. Fleet managers benefit from a centralized dashboard for real-time insights into all PTIs, while our mobile app simplifies inspections for drivers.
-          </p>
-        </MinimalReveal>
-        <MinimalReveal ready={ready} delay={140}>
-          <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
-            <a href="https://cal.com/javokhir/raisedash-demo-meeting" target="_blank" rel="noopener noreferrer">
-              <Button size="lg" className="gap-2 w-full sm:w-auto">
-                Book A Demo <ArrowRight className="w-4 h-4" />
-              </Button>
-            </a>
-            <a href="https://www.youtube.com/watch?v=Vjem0ZQtGQc" target="_blank" rel="noopener noreferrer">
-              <Button variant="outline" size="lg" className="gap-2 w-full sm:w-auto">
-                <Play className="w-4 h-4" /> Take A Video Tour
-              </Button>
-            </a>
+        <div className="animate-fade-in-up delay-500 w-full mt-16 md:mt-24 relative z-10 flex justify-center">
+          <div className="relative rounded-lg overflow-hidden border border-border bg-black shadow-2xl w-full max-w-5xl aspect-video">
+            <iframe
+              width="100%"
+              height="100%"
+              src="https://www.youtube.com/embed/Vjem0ZQtGQc?rel=0"
+              title="RaiseDash PTI Demo"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              className="w-full h-full"
+            ></iframe>
           </div>
-        </MinimalReveal>
-      </div>
-      <MinimalReveal ready={ready} delay={220} className="w-full">
-        <div className="relative bg-card border border-border rounded-xl overflow-hidden shadow-cal-lg">
-          <Image
-            src="https://pti.raisedash.com/wp-content/uploads/2024/06/screenshot-dashboard.png"
-            alt="RaiseDash PTI Dashboard"
-            width={1440}
-            height={1276}
-            className="w-full h-auto"
-            priority
-          />
         </div>
-      </MinimalReveal>
-    </Section>
+      </Container>
+    </div>
   </div>
 );
 
-const UIShowcase: React.FC<{ ready: boolean }> = ({ ready }) => (
-  <Section className="border-t border-border bg-white">
-    <div className="grid md:grid-cols-3 gap-8">
-      <MinimalReveal ready={ready} className="space-y-6">
-        <div className="aspect-square relative w-full overflow-hidden rounded-lg border border-border">
-          <Image
-            src="https://pti.raisedash.com/wp-content/uploads/2024/06/screenshot-dashboard.png"
-            alt="Fleet Manager UI"
-            fill
-            className="object-cover"
-          />
+const FeatureShowcase: React.FC<{
+  title: string;
+  description: string;
+  image: string;
+  align?: "left" | "right";
+  linkText: string;
+  linkHref?: string;
+  buttons?: Array<{ text: string; href: string; variant?: "primary" | "secondary" | "ghost" }>;
+  onImageClick?: (src: string) => void;
+}> = ({ title, description, image, align = "left", linkText, linkHref, buttons, onImageClick }) => (
+  <div className="py-12 md:py-20 grid md:grid-cols-2 gap-12 items-center">
+    <div className={`order-2 ${align === "right" ? "md:order-1" : "md:order-2"}`}>
+      <div
+        className="relative rounded-lg overflow-hidden border border-border bg-muted/20 animate-fade-in-scale cursor-pointer group"
+        onClick={() => onImageClick && onImageClick(image)}
+      >
+        <Image
+          src={image}
+          alt={title}
+          width={800}
+          height={800}
+          className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-500"
+        />
+        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
+          <span className="bg-background/80 backdrop-blur-md text-foreground px-3 py-1 rounded-full text-xs font-medium shadow-sm">Click to Zoom</span>
         </div>
-        <div>
-          <h3 className="text-2xl font-bold text-foreground mb-3">Fleet Manager UI</h3>
-          <p className="text-muted-foreground mb-4 leading-relaxed">
-            One dashboard for your whole fleet. Effortlessly monitor and manage all PTIs with RaiseDash's centralized dashboard, providing real-time insights and comprehensive oversight for your entire fleet.
-          </p>
-          <a href="#features" className="text-primary hover:underline inline-flex items-center gap-1 text-sm font-medium">
-            See Awesome Features <ArrowRight className="w-3 h-3" />
-          </a>
-        </div>
-      </MinimalReveal>
-
-      <MinimalReveal ready={ready} delay={80} className="space-y-6">
-        <div className="aspect-square relative w-full overflow-hidden rounded-lg border border-border">
-          <Image
-            src="https://pti.raisedash.com/wp-content/uploads/2024/06/safety-operator.png"
-            alt="Safety Manager UI"
-            fill
-            className="object-cover"
-          />
-        </div>
-        <div>
-          <h3 className="text-2xl font-bold text-foreground mb-3">Safety Manager UI</h3>
-          <p className="text-muted-foreground mb-4 leading-relaxed">
-            Tailor your inspection process with RaiseDash's customizable checklists, allowing fleet managers to set specific requirements and ensure thorough inspections, including the ability to mandate photos or videos for particular checklist items.
-          </p>
-          <a href="#features" className="text-primary hover:underline inline-flex items-center gap-1 text-sm font-medium">
-            Find Out More <ArrowRight className="w-3 h-3" />
-          </a>
-        </div>
-      </MinimalReveal>
-
-      <MinimalReveal ready={ready} delay={160} className="space-y-6">
-        <div className="aspect-square relative w-full overflow-hidden rounded-lg border border-border">
-          <Image
-            src="https://pti.raisedash.com/wp-content/uploads/2024/06/app-ui.png"
-            alt="Driver App UI"
-            fill
-            className="object-cover"
-          />
-        </div>
-        <div>
-          <h3 className="text-2xl font-bold text-foreground mb-3">Driver App UI</h3>
-          <p className="text-muted-foreground mb-4 leading-relaxed">
-            Go paperless with intuitive mobile app to streamline the PTI process. Perform inspections easily on the go with the RaiseDash mobile app, ensuring safety and compliance with just a few taps.
-          </p>
-          <div className="flex gap-3">
-            <a href="https://apps.apple.com/us/app/raisedash/id6466733418" target="_blank" rel="noopener noreferrer">
-              <Button size="sm" variant="outline">App Store</Button>
-            </a>
-            <a href="https://play.google.com/store/apps/details?id=uz.jdsystems.checklist.checklist" target="_blank" rel="noopener noreferrer">
-              <Button size="sm" variant="outline">Google Play</Button>
-            </a>
-          </div>
-        </div>
-      </MinimalReveal>
+      </div>
     </div>
-  </Section>
+    <div className={`order-1 ${align === "right" ? "md:order-2" : "md:order-1"}`}>
+      <div className="animate-fade-in-up">
+        <h3 className="text-3xl font-semibold text-foreground mb-4 tracking-tight">{title}</h3>
+        <p className="text-lg text-muted-foreground leading-relaxed mb-8">{description}</p>
+
+        {buttons ? (
+          <div className="flex gap-3">
+            {buttons.map((btn, i) => (
+              <a key={i} href={btn.href} target="_blank" rel="noopener noreferrer">
+                <Button variant={btn.variant || "secondary"}>{btn.text}</Button>
+              </a>
+            ))}
+          </div>
+        ) : (
+          <a href={linkHref || "#"} className="inline-flex items-center text-primary font-medium hover:underline transition-all">
+            {linkText} <ArrowRight className="w-4 h-4 ml-2" />
+          </a>
+        )}
+      </div>
+    </div>
+  </div>
 );
 
-const WhyRaisedash: React.FC<{ ready: boolean }> = ({ ready }) => (
-  <Section className="border-t border-border">
-    <MinimalReveal ready={ready} className="mb-16 text-center max-w-2xl mx-auto">
-      <h2 className="text-3xl font-bold text-foreground tracking-tight mb-4">Why RaiseDash?</h2>
-    </MinimalReveal>
-    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+const UIShowcase: React.FC<{ onImageClick: (src: string) => void }> = ({ onImageClick }) => (
+  <Container className="border-t border-border mt-12 pt-12">
+    <FeatureShowcase
+      title="Fleet Manager UI"
+      description="One dashboard for your whole fleet. Effortlessly monitor and manage all PTIs with RaiseDash's centralized dashboard, providing real-time insights and comprehensive oversight for your entire fleet."
+      image="https://pti.raisedash.com/wp-content/uploads/2024/06/screenshot-dashboard.png"
+      linkText="See Awesome Features"
+      linkHref="/products/raisedash-pti-inspections/fleet-safety-managers"
+      onImageClick={onImageClick}
+    />
+    <FeatureShowcase
+      align="right"
+      title="Safety Manager UI"
+      description="Tailor your inspection process with RaiseDash's customizable checklists, allowing fleet managers to set specific requirements and ensure thorough inspections, including the ability to mandate photos or videos for particular checklist items."
+      image="https://pti.raisedash.com/wp-content/uploads/2024/06/safety-operator.png"
+      linkText="Find Out More"
+      linkHref="/products/raisedash-pti-inspections/fleet-safety-managers"
+      onImageClick={onImageClick}
+    />
+    <FeatureShowcase
+      title="Driver App UI"
+      description="Go paperless with intuitive mobile app to streamline the PTI process. Perform inspections easily on the go with the RaiseDash mobile app, ensuring safety and compliance with just a few taps."
+      image="https://pti.raisedash.com/wp-content/uploads/2024/06/app-ui.png"
+      linkText="Explore Driver Features"
+      linkHref="/products/raisedash-pti-inspections/driver-features"
+      onImageClick={onImageClick}
+    />
+  </Container>
+);
+
+const WhyRaisedash: React.FC = () => (
+  <Container className="border-t border-border mt-20 pt-20">
+    <div className="mb-12 text-center max-w-2xl mx-auto">
+      <h2 className="text-3xl font-semibold text-foreground tracking-tight mb-4">Why RaiseDash?</h2>
+    </div>
+    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
       {[
         {
           icon: Shield,
@@ -282,29 +242,27 @@ const WhyRaisedash: React.FC<{ ready: boolean }> = ({ ready }) => (
           desc: "Accidents can happen despite the best precautions. DVIRs serve as evidence that the vehicle passed inspection and the company followed regulations. With RaiseDash, you have legal protection against negligence claims.",
         },
       ].map((item, idx) => (
-        <MinimalReveal key={idx} ready={ready} delay={idx * 60} className="h-full">
-          <div className="bg-card p-6 rounded-lg border border-border hover:border-primary/30 transition-colors h-full shadow-cal-sm">
-            <div className="w-12 h-12 rounded-lg bg-muted border border-border flex items-center justify-center mb-4">
-              <item.icon className="w-6 h-6 text-primary" />
-            </div>
-            <h3 className="text-foreground font-semibold mb-2 text-lg">{item.title}</h3>
-            <p className="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
+        <div key={idx} className="bg-card p-6 rounded-md border border-border shadow-sm hover:shadow-md hover:border-primary/20 transition-all h-full animate-fade-in-scale" style={{ animationDelay: `${idx * 100}ms` }}>
+          <div className="w-10 h-10 rounded-md bg-muted flex items-center justify-center mb-4">
+            <item.icon className="w-5 h-5 text-primary" />
           </div>
-        </MinimalReveal>
+          <h3 className="text-foreground font-semibold mb-2 text-lg">{item.title}</h3>
+          <p className="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
+        </div>
       ))}
     </div>
-  </Section>
+  </Container>
 );
 
-const Features: React.FC<{ ready: boolean }> = ({ ready }) => (
-  <Section id="features" className="border-t border-border bg-white">
-    <MinimalReveal ready={ready} className="mb-16 text-center max-w-3xl mx-auto">
-      <h2 className="text-3xl font-bold text-foreground tracking-tight mb-4">Comprehensive Features</h2>
-      <p className="text-muted-foreground">
+const Features: React.FC = () => (
+  <Container id="features" className="border-t border-border mt-20 pt-20">
+    <div className="mb-12 text-center max-w-3xl mx-auto">
+      <h2 className="text-3xl font-semibold text-foreground tracking-tight mb-4">Comprehensive Features</h2>
+      <p className="text-lg text-muted-foreground">
         Built with modern technology to provide comprehensive fleet management and inspection tools
       </p>
-    </MinimalReveal>
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-border/60 border border-border/70 rounded-lg overflow-hidden">
+    </div>
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {[
         { title: "Photo-Based DVIR Inspections", desc: "Allow drivers to precisely document any defects with high-quality photos, improving the precision of DVIR inspections.", icon: Camera },
         { title: "Video Inspections", desc: "Video-based inspections with audio save time for drivers and offer more precise live footage of the fleet.", icon: Video },
@@ -316,21 +274,119 @@ const Features: React.FC<{ ready: boolean }> = ({ ready }) => (
         { title: "Mobile Apps", desc: "User-friendly mobile apps for both Android and iOS, designed for ease of use and quick inspections on the go.", icon: Smartphone },
         { title: "Real-time Updates", desc: "Get instant notifications and updates about inspections through integrated communication tools like Telegram and WhatsApp.", icon: Clock },
       ].map((f, idx) => (
-        <MinimalReveal key={idx} ready={ready} delay={idx * 40} className="h-full">
-          <div className="bg-card p-8 hover:bg-muted/60 transition-colors group h-full">
-            <div className="w-10 h-10 rounded-lg bg-muted border border-border flex items-center justify-center mb-6 group-hover:border-primary/50 group-hover:bg-primary/10 transition-colors">
-              <f.icon className="w-5 h-5 text-muted-foreground group-hover:text-primary" />
-            </div>
-            <h3 className="text-lg font-medium text-foreground mb-2">{f.title}</h3>
-            <p className="text-sm text-muted-foreground leading-relaxed">{f.desc}</p>
+        <div key={idx} className="group bg-card p-6 rounded-md border border-border shadow-sm hover:shadow-md transition-all h-full animate-fade-in-scale" style={{ animationDelay: `${idx * 50}ms` }}>
+          <div className="w-10 h-10 rounded-md bg-muted flex items-center justify-center mb-4 group-hover:bg-primary/10 transition-colors">
+            <f.icon className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
           </div>
-        </MinimalReveal>
+          <h3 className="text-lg font-semibold text-foreground mb-2">{f.title}</h3>
+          <p className="text-sm text-muted-foreground leading-relaxed">{f.desc}</p>
+        </div>
       ))}
     </div>
-  </Section>
+  </Container>
 );
 
-const FAQ: React.FC<{ ready: boolean }> = ({ ready }) => {
+const PricingCard: React.FC<{
+  plan: string;
+  price: string;
+  period?: string;
+  description: string;
+  features: string[];
+  cta: string;
+  ctaLink: string;
+  isPopular?: boolean;
+  extraInfo?: React.ReactNode;
+}> = ({ plan, price, period, description, features, cta, ctaLink, isPopular = false, extraInfo }) => (
+  <div className={`flex flex-col p-6 rounded-md border ${isPopular ? "bg-card border-primary ring-1 ring-primary relative" : "bg-card border-border"} shadow-sm transition-shadow hover:shadow-md h-full animate-fade-in-up`}>
+    {isPopular && (
+      <div className="absolute top-0 right-0 bg-primary text-primary-foreground text-xs font-bold px-3 py-1 rounded-bl-md">
+        POPULAR
+      </div>
+    )}
+    <div className="mb-6">
+      <h3 className="text-lg font-semibold text-foreground mb-2">{plan}</h3>
+      <div className="flex items-baseline gap-1">
+        <span className={`font-bold tracking-tight text-foreground ${price === "Pay-as-You-Go" ? "text-2xl" : "text-3xl"}`}>{price}</span>
+        {period && <span className="text-sm text-muted-foreground">{period}</span>}
+      </div>
+      <p className="mt-3 text-sm text-muted-foreground">{description}</p>
+    </div>
+    <ul className="space-y-3 mb-8 flex-1">
+      {features.map((feat, i) => (
+        <li key={i} className="flex items-start gap-2 text-sm text-muted-foreground">
+          <CheckCircle className="w-4 h-4 flex-shrink-0 text-emerald-500 mt-0.5" />
+          <span>{feat}</span>
+        </li>
+      ))}
+    </ul>
+    <a href={ctaLink} target="_blank" rel="noopener noreferrer" className="mt-auto">
+      <Button variant={isPopular ? "primary" : "secondary"} className="w-full">
+        {cta}
+      </Button>
+    </a>
+    {extraInfo && (
+      <div className="mt-6 pt-6 border-t border-border text-xs text-muted-foreground space-y-2">
+        {extraInfo}
+      </div>
+    )}
+  </div>
+);
+
+const Pricing: React.FC = () => (
+  <Container id="pricing" className="border-t border-border mt-20 pt-20">
+    <div className="text-center mb-12 max-w-3xl mx-auto">
+      <h2 className="text-3xl font-semibold tracking-tight text-foreground mb-4">Simple, Transparent Pricing</h2>
+      <p className="text-lg text-muted-foreground">Choose the plan that works best for your fleet</p>
+    </div>
+    <div className="grid md:grid-cols-3 gap-6 items-start">
+      <PricingCard
+        plan="Basic"
+        price="$0"
+        period="/month"
+        description="Ideal for exploring essential features and experiencing the platform at no cost. Perfect for those just getting started."
+        features={["Video inspection", "Photo inspection", "Android & iOS support", "30 day inspection history retention", "8 inspections/month"]}
+        cta="App Store"
+        ctaLink="https://apps.apple.com/us/app/raisedash/id6466733418"
+      />
+      <PricingCard
+        plan="Plus"
+        price="$8"
+        period="/month"
+        description="Unlock the full potential of our platform with advanced features designed for enhanced functionality and productivity."
+        features={["Everything from Basic plan", "Priority support", "1 year inspection history retention", "Unlimited inspections", "Share inspection via link"]}
+        cta="Get Started"
+        ctaLink="https://apps.apple.com/us/app/raisedash/id6466733418"
+        isPopular
+      />
+      <PricingCard
+        plan="Enterprise"
+        price="Pay-as-You-Go"
+        description="You only pay for what you use. You pay monthly based on the number of PTI inspections conducted."
+        features={[
+          "Everything from Plus plan",
+          "Advanced Web dashboard",
+          "Customizable inspection checklists",
+          "Access for Fleet & Safety managers",
+          "Analytics",
+          "3rd party messenger integration",
+          "Top priority support",
+        ]}
+        cta="Get Started Today"
+        ctaLink="https://app.raisedash.com/auth/register"
+        extraInfo={
+          <>
+            <div>$1.40/inspection for first 150</div>
+            <div>$1.30/inspection for next 151-300</div>
+            <div>$1.10/inspection for next 301-900</div>
+            <div>$0.75/inspection for over 900</div>
+          </>
+        }
+      />
+    </div>
+  </Container>
+);
+
+const FAQ: React.FC = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   const faqs = [
@@ -349,221 +405,85 @@ const FAQ: React.FC<{ ready: boolean }> = ({ ready }) => {
   ];
 
   return (
-    <Section className="border-t border-border">
-      <MinimalReveal ready={ready} className="mb-12 text-center">
-        <h2 className="text-3xl font-bold text-foreground tracking-tight mb-4">Frequently Asked Questions</h2>
-      </MinimalReveal>
-      <div className="max-w-3xl mx-auto space-y-4">
-        {faqs.map((faq, idx) => (
-          <MinimalReveal key={idx} ready={ready} delay={idx * 60}>
-            <div className="bg-card border border-border rounded-lg overflow-hidden shadow-cal-sm">
+    <Container className="border-t border-border mt-20 pt-20">
+      <div className="max-w-4xl mx-auto">
+        <div className="mb-12 text-center">
+          <h2 className="text-3xl font-semibold tracking-tight text-foreground">Frequently Asked Questions</h2>
+        </div>
+        <div className="space-y-4">
+          {faqs.map((faq, idx) => (
+            <div key={idx} className="border border-border rounded-md overflow-hidden bg-card animate-fade-in-up" style={{ animationDelay: `${idx * 100}ms` }}>
               <button
                 onClick={() => setOpenIndex(openIndex === idx ? null : idx)}
-                className="w-full text-left p-6 flex justify-between items-center hover:bg-muted/60 transition-colors"
+                className="w-full text-left p-6 flex justify-between items-center hover:bg-muted/50 transition-colors"
               >
-                <h3 className="text-foreground font-medium pr-4">{faq.question}</h3>
-                <ChevronDown
-                  className={`w-5 h-5 text-muted-foreground flex-shrink-0 transition-transform duration-200 ${
-                    openIndex === idx ? "rotate-180" : ""
-                  }`}
-                />
+                <span className="font-medium text-foreground pr-4">{faq.question}</span>
+                <ChevronDown className={`w-5 h-5 text-muted-foreground flex-shrink-0 transition-transform duration-300 ${openIndex === idx ? "rotate-180" : ""}`} />
               </button>
-              {openIndex === idx && (
-                <div className="px-6 pb-6">
-                  <p className="text-muted-foreground leading-relaxed">{faq.answer}</p>
+              <div className={`overflow-hidden transition-all duration-300 ease-in-out ${openIndex === idx ? "max-h-60 opacity-100" : "max-h-0 opacity-0"}`}>
+                <div className="p-6 pt-0 text-muted-foreground leading-relaxed">
+                  {faq.answer}
                 </div>
-              )}
+              </div>
             </div>
-          </MinimalReveal>
-        ))}
+          ))}
+        </div>
       </div>
-    </Section>
+    </Container>
   );
 };
 
-const Pricing: React.FC<{ ready: boolean }> = ({ ready }) => (
-  <Section className="border-t border-border bg-white">
-    <MinimalReveal ready={ready} className="mb-16 text-center max-w-3xl mx-auto">
-      <h2 className="text-3xl font-bold text-foreground tracking-tight mb-4">Simple, Transparent Pricing</h2>
-      <p className="text-muted-foreground">Choose the plan that works best for your fleet</p>
-    </MinimalReveal>
-    <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-      <MinimalReveal ready={ready} delay={60}>
-        <div className="bg-card border border-border rounded-lg p-8 shadow-cal-sm hover:shadow-cal-lg transition-shadow h-full flex flex-col">
-          <h3 className="text-xl font-bold text-foreground mb-2">Basic</h3>
-          <div className="mb-6">
-            <span className="text-4xl font-bold text-foreground">$0</span>
-            <span className="text-muted-foreground">/month</span>
-          </div>
-          <p className="text-sm text-muted-foreground mb-6">
-            Ideal for exploring essential features and experiencing the platform at no cost. Perfect for those just getting started.
-          </p>
-          <ul className="space-y-3 mb-8 flex-1">
-            {["Video inspection", "Photo inspection", "Android & iOS support", "30 day inspection history retention", "8 inspections/month"].map((feature, i) => (
-              <li key={i} className="flex items-start gap-2 text-sm text-muted-foreground">
-                <CheckCircle className="w-4 h-4 text-emerald-500 flex-shrink-0 mt-0.5" />
-                <span>{feature}</span>
-              </li>
-            ))}
-          </ul>
-          <div className="space-y-2">
-            <a href="https://apps.apple.com/us/app/raisedash/id6466733418" target="_blank" rel="noopener noreferrer" className="block">
-              <Button variant="outline" className="w-full">App Store</Button>
-            </a>
-            <a href="https://play.google.com/store/apps/details?id=uz.jdsystems.checklist.checklist" target="_blank" rel="noopener noreferrer" className="block">
-              <Button variant="outline" className="w-full">Google Play</Button>
-            </a>
-          </div>
-        </div>
-      </MinimalReveal>
-
-      <MinimalReveal ready={ready} delay={120}>
-        <div className="bg-card border-2 border-primary rounded-lg p-8 shadow-cal-lg relative h-full flex flex-col">
-          <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-primary text-primary-foreground px-4 py-1 rounded-full text-xs font-bold">
-            POPULAR
-          </div>
-          <h3 className="text-xl font-bold text-foreground mb-2">Plus</h3>
-          <div className="mb-6">
-            <span className="text-4xl font-bold text-foreground">$8</span>
-            <span className="text-muted-foreground">/month</span>
-          </div>
-          <p className="text-sm text-muted-foreground mb-6">
-            Unlock the full potential of our platform with advanced features designed for enhanced functionality and productivity.
-          </p>
-          <ul className="space-y-3 mb-8 flex-1">
-            {["Everything from Basic plan", "Priority support", "1 year inspection history retention", "Unlimited inspections", "Share inspection via link"].map((feature, i) => (
-              <li key={i} className="flex items-start gap-2 text-sm text-muted-foreground">
-                <CheckCircle className="w-4 h-4 text-emerald-500 flex-shrink-0 mt-0.5" />
-                <span>{feature}</span>
-              </li>
-            ))}
-          </ul>
-          <div className="space-y-2">
-            <a href="https://apps.apple.com/us/app/raisedash/id6466733418" target="_blank" rel="noopener noreferrer" className="block">
-              <Button className="w-full">Get Started</Button>
-            </a>
-          </div>
-        </div>
-      </MinimalReveal>
-
-      <MinimalReveal ready={ready} delay={180}>
-        <div className="bg-card border border-border rounded-lg p-8 shadow-cal-sm hover:shadow-cal-lg transition-shadow h-full flex flex-col">
-          <h3 className="text-xl font-bold text-foreground mb-2">Enterprise</h3>
-          <div className="mb-6">
-            <span className="text-lg text-muted-foreground">Pay-as-You-Go</span>
-          </div>
-          <p className="text-sm text-muted-foreground mb-6">
-            You only pay for what you use. You pay monthly based on the number of PTI inspections conducted.
-          </p>
-          <ul className="space-y-3 mb-8 flex-1">
-            {[
-              "Everything from Plus plan",
-              "Advanced Web dashboard",
-              "Customizable inspection checklists",
-              "Access for Fleet & Safety managers",
-              "Analytics",
-              "3rd party messenger integration",
-              "Top priority support",
-            ].map((feature, i) => (
-              <li key={i} className="flex items-start gap-2 text-sm text-muted-foreground">
-                <CheckCircle className="w-4 h-4 text-emerald-500 flex-shrink-0 mt-0.5" />
-                <span>{feature}</span>
-              </li>
-            ))}
-          </ul>
-          <a href="https://app.raisedash.com/auth/register" target="_blank" rel="noopener noreferrer" className="block">
-            <Button className="w-full">Get Started Today</Button>
+const CTA: React.FC = () => (
+  <>
+    <Container className="border-t border-border mt-20 pt-20" />
+    <Container className="bg-card border border-border rounded-lg p-12 md:p-16 text-center relative overflow-hidden shadow-sm mb-20 ui-corner-accents">
+      <div className="relative z-10 max-w-3xl mx-auto">
+        <h2 className="text-3xl md:text-4xl font-semibold text-foreground mb-6 tracking-tight">Want To Learn More About RaiseDash?</h2>
+        <p className="text-lg text-muted-foreground mb-10">
+          Get in touch to schedule a demo and discover how RaiseDash can enhance your fleet's safety and efficiency!
+        </p>
+        <div className="flex justify-center">
+          <a href="https://cal.com/javokhir/raisedash-demo-meeting" target="_blank" rel="noopener noreferrer">
+            <Button size="lg" className="px-8">Book A Demo</Button>
           </a>
-          <div className="mt-6 pt-6 border-t border-border text-xs text-muted-foreground space-y-2">
-            <div>$1.40/inspection for first 150</div>
-            <div>$1.30/inspection for next 151-300</div>
-            <div>$1.10/inspection for next 301-900</div>
-            <div>$0.75/inspection for over 900</div>
-          </div>
         </div>
-      </MinimalReveal>
-    </div>
-  </Section>
-);
-
-const CTA: React.FC<{ ready: boolean }> = ({ ready }) => (
-  <Section className="border-t border-border">
-    <MinimalReveal ready={ready} className="text-center">
-      <h2 className="text-3xl font-bold text-foreground mb-6">Want To Learn More About RaiseDash?</h2>
-      <p className="text-muted-foreground mb-8 max-w-2xl mx-auto">
-        Get in touch to schedule a demo and discover how RaiseDash can enhance your fleet's safety and efficiency!
-      </p>
-      <a href="https://cal.com/javokhir/raisedash-demo-meeting" target="_blank" rel="noopener noreferrer">
-        <Button size="lg" className="px-8">
-          Book A Demo
-        </Button>
-      </a>
-    </MinimalReveal>
-  </Section>
-);
-
-const Footer: React.FC = () => (
-  <footer className="border-t border-border bg-white py-12 px-6">
-    <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
-      <div className="text-sm text-muted-foreground">© {new Date().getFullYear()} RaiseDash PTI Inspections. All rights reserved.</div>
-      <div className="flex gap-6 text-sm">
-        <Link href="/privacy-policy" className="text-muted-foreground hover:text-foreground transition-colors">
-          Privacy Policy
-        </Link>
-        <Link href="/terms-of-use" className="text-muted-foreground hover:text-foreground transition-colors">
-          Terms of Use
-        </Link>
       </div>
-    </div>
-  </footer>
+    </Container>
+  </>
 );
+
+// Local Footer removed in favor of global Footer component
+
+// --- Main Page ---
 
 const RaisedashPTIPage: NextPage = () => {
-  const startupReady = useStartupReveal();
-
-  useEffect(() => {
-    const root = document.documentElement;
-    const wasDark = root.classList.contains("dark");
-    if (wasDark) {
-      root.classList.remove("dark");
-    }
-    return () => {
-      if (wasDark) {
-        root.classList.add("dark");
-      }
-    };
-  }, []);
+  const [lightboxImage, setLightboxImage] = useState<string | null>(null);
 
   return (
     <>
       <Head>
         <title>Raisedash PTI Inspections | Digitize DVIR & Pre-Trip Inspections</title>
-        <meta
-          name="description"
-          content="RaiseDash simplifies your DVIR and Pre-Trip inspections with easy-to-use digital tools. Enhance your compliance and efficiency. Try it now!"
-        />
+        <meta name="description" content="RaiseDash simplifies your DVIR and Pre-Trip inspections with easy-to-use digital tools. Enhance your compliance and efficiency. Try it now!" />
       </Head>
-      <div className="min-h-screen bg-background text-foreground font-sans selection:bg-primary/15 selection:text-primary">
-        <Navbar ready={startupReady} />
+
+      <Lightbox
+        isOpen={!!lightboxImage}
+        imageSrc={lightboxImage}
+        onClose={() => setLightboxImage(null)}
+      />
+
+      <div className="min-h-screen bg-background text-foreground font-sans">
         <main>
-          <Hero ready={startupReady} />
-          <UIShowcase ready={startupReady} />
-          <WhyRaisedash ready={startupReady} />
-          <Features ready={startupReady} />
-          <Pricing ready={startupReady} />
-          <FAQ ready={startupReady} />
-          <CTA ready={startupReady} />
+          <Hero />
+          <UIShowcase onImageClick={setLightboxImage} />
+          <WhyRaisedash />
+          <Features />
+          <Pricing />
+          <FAQ />
+          <CTA />
         </main>
         <Footer />
       </div>
-      <style jsx global>{`
-        .grid-bg {
-          background-size: 40px 40px;
-          background-image: linear-gradient(to right, #e5e7eb 1px, transparent 1px),
-            linear-gradient(to bottom, #e5e7eb 1px, transparent 1px);
-          mask-image: radial-gradient(circle at center, black 40%, transparent 100%);
-        }
-      `}</style>
     </>
   );
 };

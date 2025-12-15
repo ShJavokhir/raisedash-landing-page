@@ -5,8 +5,7 @@ import { useRouter } from "next/router";
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
-  const hideHeader = router.pathname.startsWith("/products/raisedash-vertex") ||
-                     router.pathname.startsWith("/products/raisedash-pti-inspections");
+  const hideHeader = router.pathname.startsWith("/products/raisedash-vertex");
 
   return (
     <>
