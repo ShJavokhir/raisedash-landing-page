@@ -1,9 +1,20 @@
 import Link from "next/link";
 import Image from "next/image";
+import dynamic from "next/dynamic";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/layout/Container";
 import { PageLayout } from "@/components/layout/PageLayout";
-import RotatingEarth from "@/components/ui/wireframe-dotted-globe";
+
+// Lazy load the globe component - D3.js is 868KB and only needed on desktop
+const RotatingEarth = dynamic(
+  () => import("@/components/ui/wireframe-dotted-globe"),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="w-[24rem] h-[24rem] rounded-full bg-muted/30 animate-pulse" />
+    ),
+  }
+);
 
 export default function Home() {
   return (
@@ -51,6 +62,7 @@ export default function Home() {
                   src="https://cdn.raisedash.com/media/vertex/834f7f4b-6def-4090-bc16-6de5c21ff18d.webp"
                   alt="Raisedash Vertex"
                   fill
+                  priority
                   className="object-cover transition-transform duration-300 group-hover:scale-105 dark:invert"
                 />
               </div>

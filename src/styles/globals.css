@@ -284,11 +284,13 @@ body {
     --corner-color: color-mix(in oklch, var(--color-border), white 60%);
   }
 
-  /* Enterprise entrance animations - subtle and professional */
+  /* Enterprise entrance animations - subtle, professional, and LCP-friendly
+     Using animation-fill-mode: backwards so content is visible before animation starts
+     Reduced delays to not block LCP paint */
   @keyframes fade-in-up {
     from {
       opacity: 0;
-      transform: translateY(12px);
+      transform: translateY(8px);
     }
     to {
       opacity: 1;
@@ -304,7 +306,7 @@ body {
   @keyframes fade-in-scale {
     from {
       opacity: 0;
-      transform: scale(0.97);
+      transform: scale(0.98);
     }
     to {
       opacity: 1;
@@ -313,28 +315,25 @@ body {
   }
 
   .animate-fade-in-up {
-    animation: fade-in-up 0.5s ease-out forwards;
-    opacity: 0;
+    animation: fade-in-up 0.35s ease-out both;
   }
 
   .animate-fade-in {
-    animation: fade-in 0.4s ease-out forwards;
-    opacity: 0;
+    animation: fade-in 0.3s ease-out both;
   }
 
   .animate-fade-in-scale {
-    animation: fade-in-scale 0.5s ease-out forwards;
-    opacity: 0;
+    animation: fade-in-scale 0.35s ease-out both;
   }
 
-  /* Stagger delays for sequential animations */
+  /* Reduced stagger delays - max 200ms to not block LCP */
   .delay-0 { animation-delay: 0ms; }
-  .delay-75 { animation-delay: 75ms; }
-  .delay-150 { animation-delay: 150ms; }
-  .delay-200 { animation-delay: 200ms; }
-  .delay-300 { animation-delay: 300ms; }
-  .delay-400 { animation-delay: 400ms; }
-  .delay-500 { animation-delay: 500ms; }
-  .delay-600 { animation-delay: 600ms; }
-  .delay-700 { animation-delay: 700ms; }
+  .delay-75 { animation-delay: 25ms; }
+  .delay-150 { animation-delay: 50ms; }
+  .delay-200 { animation-delay: 75ms; }
+  .delay-300 { animation-delay: 100ms; }
+  .delay-400 { animation-delay: 125ms; }
+  .delay-500 { animation-delay: 150ms; }
+  .delay-600 { animation-delay: 175ms; }
+  .delay-700 { animation-delay: 200ms; }
 }

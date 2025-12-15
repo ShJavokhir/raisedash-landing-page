@@ -4,6 +4,13 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head>
+        {/* Preconnect to CDN for faster image loading */}
+        <link rel="preconnect" href="https://cdn.raisedash.com" />
+        <link rel="dns-prefetch" href="https://cdn.raisedash.com" />
+        {/* Preconnect to GitHub for globe GeoJSON data */}
+        <link rel="preconnect" href="https://raw.githubusercontent.com" />
+        <link rel="dns-prefetch" href="https://raw.githubusercontent.com" />
+
         {/* Inline theme init: default light, apply saved dark before paint */}
         <script
           dangerouslySetInnerHTML={{

@@ -1,7 +1,11 @@
 import type { NextConfig } from "next";
+import bundleAnalyzer from "@next/bundle-analyzer";
+
+const withBundleAnalyzer = bundleAnalyzer({
+  enabled: process.env.ANALYZE === "true",
+});
 
 const nextConfig: NextConfig = {
-  /* config options here */
   reactStrictMode: true,
   output: 'standalone',
   images: {
@@ -12,6 +16,15 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  // Optimize production builds
+  compiler: {
+    // Remove console.log in production
+    removeConsole: process.env.NODE_ENV === "production",
+  },
+  // Enable modern JavaScript output (reduces polyfills)
+  experimental: {
+    optimizePackageImports: ["lucide-react", "motion", "d3"],
+  },
 };
 
-export default nextConfig;
+export default withBundleAnalyzer(nextConfig);
