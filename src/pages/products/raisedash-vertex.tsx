@@ -29,6 +29,9 @@ import {
   User,
   Zap,
 } from "lucide-react";
+import { Button } from "@/components/ui/Button";
+import { Container } from "@/components/layout/Container";
+import { Footer } from "@/components/layout/Footer";
 
 const useStartupReveal = () => {
   const [ready, setReady] = useState(false);
@@ -73,45 +76,7 @@ enum UserRole {
   CUSTOMER = "CUSTOMER",
 }
 
-type ButtonVariant = "primary" | "secondary" | "outline" | "ghost";
-type ButtonSize = "sm" | "md" | "lg";
 
-const Button: React.FC<
-  React.ButtonHTMLAttributes<HTMLButtonElement> & {
-    variant?: ButtonVariant;
-    size?: ButtonSize;
-  }
-> = ({ children, variant = "primary", size = "md", className = "", ...props }) => {
-  const baseStyles =
-    "font-mono tracking-tight inline-flex items-center justify-center transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed rounded-md";
-  const variants: Record<ButtonVariant, string> = {
-    primary: "bg-primary text-primary-foreground hover:bg-primary/90 font-semibold border border-transparent shadow-cal-md",
-    secondary: "bg-white text-foreground hover:bg-muted border border-border shadow-cal-sm",
-    outline: "bg-transparent text-foreground border border-border hover:bg-muted",
-    ghost: "bg-transparent text-muted-foreground hover:text-foreground hover:bg-muted/60",
-  };
-  const sizes: Record<ButtonSize, string> = {
-    sm: "h-8 px-3 text-xs",
-    md: "h-10 px-4 text-sm",
-    lg: "h-12 px-6 text-base",
-  };
-
-  return (
-    <button className={`${baseStyles} ${variants[variant]} ${sizes[size]} ${className}`} {...props}>
-      {children}
-    </button>
-  );
-};
-
-const Section: React.FC<{ children: React.ReactNode; className?: string; id?: string }> = ({
-  children,
-  className = "",
-  id,
-}) => (
-  <section id={id} className={`py-16 md:py-24 px-6 md:px-12 max-w-7xl mx-auto ${className}`}>
-    {children}
-  </section>
-);
 
 type DriverStatus = "pending" | "active" | "complete";
 
@@ -134,11 +99,10 @@ const RoleButton = ({
 }) => (
   <button
     onClick={onClick}
-    className={`w-full text-left px-4 py-3 rounded-md flex items-center justify-between transition-all group relative border ${
-      active
+    className={`w-full text-left px-4 py-3 rounded-md flex items-center justify-between transition-all group relative border ${active
         ? "bg-primary/10 text-primary border-primary/30 shadow-cal-sm"
         : "text-muted-foreground border-transparent hover:text-foreground hover:bg-muted/60"
-    }`}
+      }`}
   >
     <div className="flex items-center gap-3">
       <Icon className={`w-4 h-4 ${active ? "text-primary" : "text-muted-foreground group-hover:text-foreground"}`} />
@@ -392,11 +356,10 @@ const InteractiveDemo: React.FC = () => {
                       {[0, 1, 2, 3, 4, 5].map((i) => (
                         <div
                           key={i}
-                          className={`w-9 h-12 rounded border flex items-center justify-center text-lg font-mono transition-all duration-300 ${
-                            demoState.codeAutofilled
+                          className={`w-9 h-12 rounded border flex items-center justify-center text-lg font-mono transition-all duration-300 ${demoState.codeAutofilled
                               ? "border-emerald-300 bg-emerald-50 text-emerald-700 scale-105"
                               : "border-border bg-muted text-foreground"
-                          }`}
+                            }`}
                         >
                           {demoState.codeAutofilled ? TRACKING_CODE[i] : ""}
                         </div>
@@ -584,54 +547,13 @@ const InteractiveDemo: React.FC = () => {
   );
 };
 
-const Navbar: React.FC<{ ready: boolean }> = ({ ready }) => {
-  const [scrolled, setScrolled] = useState(false);
-  useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
-  return (
-    <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b ${
-        scrolled ? "bg-white/90 backdrop-blur-md border-border shadow-cal-sm py-4" : "bg-background/60 border-transparent py-6"
-      }`}
-      style={{
-        opacity: ready ? 1 : 0,
-        transform: ready ? "translateY(0)" : "translateY(-6px)",
-        transition: "opacity 200ms ease, transform 260ms ease",
-        willChange: "opacity, transform",
-      }}
-    >
-      <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          {/* <div className="w-8 h-8 bg-zinc-100 rounded flex items-center justify-center text-black">
-            <LayoutGrid className="w-5 h-5" />
-          </div> */}
-          <span className="text-lg font-bold tracking-tight text-foreground">Raisedash Vertex</span>
-        </div>
-        <div className="flex items-center gap-4">
-          <Link href="/request-demo">
-            <Button size="sm" className="hidden sm:inline-flex">
-              Book a Demo
-            </Button>
-          </Link>
-        </div>
-      </div>
-    </nav>
-  );
-};
 
 const Hero: React.FC<{ ready: boolean }> = ({ ready }) => (
   <div className="relative overflow-hidden">
     <div className="absolute inset-0 grid-bg pointer-events-none z-0"></div>
-    <Section className="relative z-10 pt-32 pb-16">
+    <Container className="relative z-10 pt-32 pb-16">
       <div className="flex flex-col items-center text-center max-w-4xl mx-auto mb-16">
-        {/* <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-900 border border-zinc-800 text-xs text-zinc-400 mb-6 font-mono">
-          <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-          SYSTEM ONLINE v2.4.0
-        </div> */}
         <MinimalReveal ready={ready}>
           <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-foreground mb-6">
             The Easiest Way to <br />
@@ -650,22 +572,18 @@ const Hero: React.FC<{ ready: boolean }> = ({ ready }) => (
                 Start Tracking <ArrowRight className="w-4 h-4" />
               </Button>
             </Link>
-            {/* <Button variant="outline" size="lg" className="gap-2">
-              View Documentation <ChevronRight className="w-4 h-4" />
-            </Button> */}
           </div>
         </MinimalReveal>
-        {/* <p className="mt-8 text-xs text-zinc-600 font-mono">TRUSTED BY MODERN BROKERAGES TO TRACK THOUSANDS OF LOADS</p> */}
       </div>
       <MinimalReveal ready={ready} delay={220} className="w-full">
         <InteractiveDemo />
       </MinimalReveal>
-    </Section>
+    </Container>
   </div>
 );
 
 const Features: React.FC<{ ready: boolean }> = ({ ready }) => (
-  <Section className="border-t border-border bg-white">
+  <Container className="border-t border-border bg-white py-16 md:py-24">
     <MinimalReveal ready={ready} className="mb-16 md:text-center max-w-2xl mx-auto">
       <h2 className="text-3xl font-semibold text-foreground tracking-tight mb-4">Platform Capabilities</h2>
       <p className="text-muted-foreground">
@@ -692,11 +610,11 @@ const Features: React.FC<{ ready: boolean }> = ({ ready }) => (
         </MinimalReveal>
       ))}
     </div>
-  </Section>
+  </Container>
 );
 
 const HowItWorks: React.FC<{ ready: boolean }> = ({ ready }) => (
-  <Section className="border-t border-border">
+  <Container className="border-t border-border py-16 md:py-24">
     <div className="grid md:grid-cols-2 gap-12 items-center">
       <MinimalReveal ready={ready}>
         <div>
@@ -779,11 +697,11 @@ const HowItWorks: React.FC<{ ready: boolean }> = ({ ready }) => (
         </div>
       </MinimalReveal>
     </div>
-  </Section>
+  </Container>
 );
 
 const Trust: React.FC<{ ready: boolean }> = ({ ready }) => (
-  <Section className="border-t border-border">
+  <Container className="border-t border-border py-16 md:py-24">
     <div className="grid md:grid-cols-3 gap-8">
       {[
         { title: "Bank-Grade Security", desc: "Encryption standards matching financial institutions.", icon: Lock },
@@ -809,16 +727,10 @@ const Trust: React.FC<{ ready: boolean }> = ({ ready }) => (
         </Link>
       </div>
     </MinimalReveal>
-  </Section>
+  </Container>
 );
 
-const Footer: React.FC = () => (
-  <footer className="border-t border-border bg-white py-12 px-6">
-    <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
-      <div className="text-sm text-muted-foreground">© {new Date().getFullYear()} Raisedash Vertex. All rights reserved.</div>
-    </div>
-  </footer>
-);
+
 
 const RaisedashVertexPage: NextPage = () => {
   const startupReady = useStartupReveal();
@@ -843,7 +755,6 @@ const RaisedashVertexPage: NextPage = () => {
         <meta name="description" content="Raisedash Vertex freight tracking experience." />
       </Head>
       <div className="min-h-screen bg-background text-foreground font-sans selection:bg-primary/15 selection:text-primary">
-        <Navbar ready={startupReady} />
         <main>
           <Hero ready={startupReady} />
           <Features ready={startupReady} />
