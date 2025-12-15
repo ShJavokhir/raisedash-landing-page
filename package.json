@@ -13,9 +13,11 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "d3": "^7.9.0",
+    "gray-matter": "^4.0.3",
     "lucide-react": "^0.544.0",
     "motion": "^12.23.22",
     "next": "15.5.7",
+    "next-mdx-remote": "^5.0.0",
     "react": "19.2.1",
     "react-dom": "19.2.1",
     "tailwind-merge": "^3.3.1"

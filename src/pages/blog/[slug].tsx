@@ -1,49 +1,73 @@
 import { GetStaticPaths, GetStaticProps } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { MDXRemote, MDXRemoteSerializeResult } from "next-mdx-remote";
+import { serialize } from "next-mdx-remote/serialize";
+import Link from "next/link";
 import { Container } from "@/components/layout/Container";
 import { Footer } from "@/components/layout/Footer";
-import { BlogPostComponent } from "@/components/blog/BlogPost";
 import { Button } from "@/components/ui/Button";
-import { getBlogPostById, blogPosts } from "@/lib/blog-data";
-import Link from "next/link";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+import { getPostBySlug, getAllSlugs, getRelatedPosts, BlogPost } from "@/lib/blog";
 
 interface BlogPostPageProps {
-  post: {
-    id: string;
-    title: string;
-    excerpt: string;
-    content: string;
-    author: {
-      name: string;
-      role: string;
-      avatar?: string;
-    };
-    publishedAt: string;
-    readTime: string;
-    category: string;
-    tags: string[];
-    featured?: boolean;
-  };
+  post: BlogPost;
+  mdxSource: MDXRemoteSerializeResult;
+  relatedPosts: BlogPost[];
 }
 
-export default function BlogPostPage({ post }: BlogPostPageProps) {
+const mdxComponents = {
+  h1: (props: React.HTMLAttributes<HTMLHeadingElement>) => (
+    <h1 className="text-3xl font-bold text-foreground mb-6 mt-8 first:mt-0" {...props} />
+  ),
+  h2: (props: React.HTMLAttributes<HTMLHeadingElement>) => (
+    <h2 className="text-2xl font-semibold text-foreground mb-4 mt-8" {...props} />
+  ),
+  h3: (props: React.HTMLAttributes<HTMLHeadingElement>) => (
+    <h3 className="text-xl font-semibold text-foreground mb-3 mt-6" {...props} />
+  ),
+  p: (props: React.HTMLAttributes<HTMLParagraphElement>) => (
+    <p className="text-muted-foreground mb-4 leading-relaxed" {...props} />
+  ),
+  ul: (props: React.HTMLAttributes<HTMLUListElement>) => (
+    <ul className="list-disc pl-6 mb-4 space-y-2" {...props} />
+  ),
+  ol: (props: React.HTMLAttributes<HTMLOListElement>) => (
+    <ol className="list-decimal pl-6 mb-4 space-y-2" {...props} />
+  ),
+  li: (props: React.HTMLAttributes<HTMLLIElement>) => (
+    <li className="text-muted-foreground" {...props} />
+  ),
+  strong: (props: React.HTMLAttributes<HTMLElement>) => (
+    <strong className="font-semibold text-foreground" {...props} />
+  ),
+  a: (props: React.AnchorHTMLAttributes<HTMLAnchorElement>) => (
+    <a className="text-primary hover:underline" {...props} />
+  ),
+  blockquote: (props: React.HTMLAttributes<HTMLQuoteElement>) => (
+    <blockquote className="border-l-4 border-primary pl-4 italic text-muted-foreground my-4" {...props} />
+  ),
+  code: (props: React.HTMLAttributes<HTMLElement>) => (
+    <code className="bg-muted px-1.5 py-0.5 rounded text-sm font-mono" {...props} />
+  ),
+  pre: (props: React.HTMLAttributes<HTMLPreElement>) => (
+    <pre className="bg-muted p-4 rounded-lg overflow-x-auto mb-4" {...props} />
+  ),
+};
+
+export default function BlogPostPage({ post, mdxSource, relatedPosts }: BlogPostPageProps) {
+  const formatDate = (dateString: string) => {
+    return new Date(dateString).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+  };
+
   if (!post) {
     return (
-      <div className={`${geistSans.className} ${geistMono.className} font-sans`}>
+      <div className="font-sans">
         <Container className="bg-white dark:bg-card mt-12 rounded-md border ui-corner-accents">
           <div className="py-16 text-center">
             <h1 className="text-2xl font-semibold text-foreground mb-4">Article Not Found</h1>
-            <p className="text-muted-foreground mb-6">The article you're looking for doesn't exist.</p>
+            <p className="text-muted-foreground mb-6">The article you&apos;re looking for doesn&apos;t exist.</p>
             <Link href="/blog">
               <Button>Back to Blog</Button>
             </Link>
@@ -57,7 +81,7 @@ export default function BlogPostPage({ post }: BlogPostPageProps) {
   }
 
   return (
-    <div className={`${geistSans.className} ${geistMono.className} font-sans`}>
+    <div className="font-sans">
       {/* Breadcrumb */}
       <Container className="bg-white dark:bg-card mt-12 rounded-md border ui-corner-accents">
         <div className="py-4">
@@ -66,7 +90,7 @@ export default function BlogPostPage({ post }: BlogPostPageProps) {
             <span>/</span>
             <Link href="/blog" className="hover:text-foreground transition-colors">Blog</Link>
             <span>/</span>
-            <span className="text-foreground">{post.title}</span>
+            <span className="text-foreground truncate max-w-[200px]">{post.title}</span>
           </nav>
         </div>
       </Container>
@@ -74,32 +98,86 @@ export default function BlogPostPage({ post }: BlogPostPageProps) {
       {/* Article */}
       <Container className="bg-white dark:bg-card mt-8 rounded-md border ui-corner-accents">
         <div className="py-12">
-          <BlogPostComponent post={post} />
+          <article className="max-w-4xl mx-auto">
+            {/* Header */}
+            <header className="mb-8">
+              <div className="flex items-center gap-3 mb-4">
+                <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-primary/10 text-primary">
+                  {post.category}
+                </span>
+                {post.featured && (
+                  <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-accent text-accent-foreground">
+                    Featured
+                  </span>
+                )}
+              </div>
+
+              <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6 leading-tight">
+                {post.title}
+              </h1>
+
+              <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
+                {post.excerpt}
+              </p>
+
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-8 border-b border-border">
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+                    <span className="text-sm font-medium text-primary">
+                      {post.author.split(" ").map((n) => n[0]).join("")}
+                    </span>
+                  </div>
+                  <div>
+                    <div className="font-semibold text-foreground">{post.author}</div>
+                    <div className="text-sm text-muted-foreground">{post.authorRole}</div>
+                  </div>
+                </div>
+                <div className="text-sm text-muted-foreground">
+                  <div>{formatDate(post.publishedAt)}</div>
+                  <div>{post.readTime}</div>
+                </div>
+              </div>
+            </header>
+
+            {/* MDX Content */}
+            <div className="prose prose-lg max-w-none">
+              <MDXRemote {...mdxSource} components={mdxComponents} />
+            </div>
+
+            {/* Tags */}
+            <div className="mt-12 pt-8 border-t border-border">
+              <h3 className="text-lg font-semibold text-foreground mb-4">Tags</h3>
+              <div className="flex flex-wrap gap-2">
+                {post.tags.map((tag) => (
+                  <span
+                    key={tag}
+                    className="inline-flex items-center px-3 py-1 rounded-full text-sm bg-muted text-muted-foreground"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </article>
         </div>
       </Container>
 
       {/* Related Articles */}
-      <Container className="bg-white dark:bg-card mt-8 rounded-md border ui-corner-accents">
-        <div className="py-12">
-          <h2 className="text-2xl font-semibold text-foreground mb-8">Related Articles</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {blogPosts
-              .filter(relatedPost => 
-                relatedPost.id !== post.id && 
-                (relatedPost.category === post.category || 
-                 relatedPost.tags.some(tag => post.tags.includes(tag)))
-              )
-              .slice(0, 3)
-              .map((relatedPost) => (
-                <div key={relatedPost.id} className="group">
-                  <Link href={`/blog/${relatedPost.id}`} className="block">
+      {relatedPosts.length > 0 && (
+        <Container className="bg-white dark:bg-card mt-8 rounded-md border ui-corner-accents">
+          <div className="py-12">
+            <h2 className="text-2xl font-semibold text-foreground mb-8">Related Articles</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {relatedPosts.map((relatedPost) => (
+                <div key={relatedPost.slug} className="group">
+                  <Link href={`/blog/${relatedPost.slug}`} className="block">
                     <article className="bg-muted rounded-lg p-6 h-full hover:bg-accent transition-colors">
                       <div className="flex items-center gap-2 mb-3">
                         <span className="inline-flex items-center px-2 py-1 rounded text-xs bg-primary/10 text-primary">
                           {relatedPost.category}
                         </span>
                         <span className="text-xs text-muted-foreground">
-                          {new Date(relatedPost.publishedAt).toLocaleDateString()}
+                          {formatDate(relatedPost.publishedAt)}
                         </span>
                       </div>
                       <h3 className="font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">
@@ -109,7 +187,7 @@ export default function BlogPostPage({ post }: BlogPostPageProps) {
                         {relatedPost.excerpt}
                       </p>
                       <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                        <span>{relatedPost.author.name}</span>
+                        <span>{relatedPost.author}</span>
                         <span>•</span>
                         <span>{relatedPost.readTime}</span>
                       </div>
@@ -117,29 +195,10 @@ export default function BlogPostPage({ post }: BlogPostPageProps) {
                   </Link>
                 </div>
               ))}
+            </div>
           </div>
-        </div>
-      </Container>
-
-      {/* Newsletter CTA */}
-      {/* <Container className="bg-white dark:bg-card mt-8 rounded-md border ui-corner-accents">
-        <div className="py-12 text-center">
-          <h2 className="text-2xl font-semibold text-foreground mb-4">
-            Enjoyed this article?
-          </h2>
-          <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
-            Subscribe to get more insights on freight logistics security, technology trends, and industry best practices.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
-            <input
-              type="email"
-              placeholder="Enter your email"
-              className="flex-1 px-4 py-2 border border-border rounded-lg bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
-            />
-            <Button>Subscribe</Button>
-          </div>
-        </div>
-      </Container> */}
+        </Container>
+      )}
 
       <div className="mt-8 sm:mt-12">
         <Footer />
@@ -149,29 +208,30 @@ export default function BlogPostPage({ post }: BlogPostPageProps) {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const paths = blogPosts.map((post) => ({
-    params: { slug: post.id },
-  }));
+  const slugs = getAllSlugs();
 
   return {
-    paths,
+    paths: slugs.map((slug) => ({ params: { slug } })),
     fallback: false,
   };
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const slug = params?.slug as string;
-  const post = getBlogPostById(slug);
+  const post = getPostBySlug(slug);
 
   if (!post) {
-    return {
-      notFound: true,
-    };
+    return { notFound: true };
   }
+
+  const mdxSource = await serialize(post.content);
+  const relatedPosts = getRelatedPosts(slug, 3);
 
   return {
     props: {
       post,
+      mdxSource,
+      relatedPosts,
     },
   };
 };

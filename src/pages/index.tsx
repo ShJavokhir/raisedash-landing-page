@@ -67,7 +67,7 @@ export default function Home() {
             <div className="flex flex-col h-full rounded-md border bg-card text-card-foreground overflow-hidden transition-all hover:shadow-md hover:border-primary/20">
               <div className="aspect-square relative w-full overflow-hidden bg-muted p-3">
                 <Image
-                  src="https://cdn.raisedash.com/media/vertex/5bbcc5ad-2b1c-4ddb-9fe6-e8e2bc2c8a1b.webp"
+                  src="https://cdn.raisedash.com/media/vertex/5bbcc5ad-2b1c-4ddb-9fe6-e8e2bc2c8a1a.webp"
                   alt="Raisedash PTI Inspections"
                   fill
                   className="object-cover transition-transform duration-300 group-hover:scale-105 dark:invert"

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { BlogPost } from "@/lib/blog-data";
+import { BlogPost } from "@/lib/blog";
 import { cn } from "@/lib/cn";
 
 interface BlogCardProps {
@@ -17,8 +17,8 @@ export function BlogCard({ post, featured = false }: BlogCardProps) {
   };
 
   return (
-    <Link 
-      href={`/blog/${post.id}`}
+    <Link
+      href={`/blog/${post.slug}`}
       className={cn(
         "group block transition-all duration-200 hover:scale-[1.02]",
         featured && "md:col-span-2"
@@ -56,7 +56,7 @@ export function BlogCard({ post, featured = false }: BlogCardProps) {
         {/* Tags */}
         <div className="flex flex-wrap gap-2 mb-4">
           {post.tags.slice(0, 3).map((tag) => (
-            <span 
+            <span
               key={tag}
               className="inline-flex items-center px-2 py-1 rounded text-xs bg-muted text-muted-foreground"
             >
@@ -75,12 +75,12 @@ export function BlogCard({ post, featured = false }: BlogCardProps) {
           <div className="flex items-center gap-3">
             <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
               <span className="text-xs font-medium text-primary">
-                {post.author.name.split(' ').map(n => n[0]).join('')}
+                {post.author.split(' ').map(n => n[0]).join('')}
               </span>
             </div>
             <div>
-              <div className="font-medium text-foreground">{post.author.name}</div>
-              <div className="text-xs">{post.author.role}</div>
+              <div className="font-medium text-foreground">{post.author}</div>
+              <div className="text-xs">{post.authorRole}</div>
             </div>
           </div>
           <div className="text-right">
