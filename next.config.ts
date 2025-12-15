@@ -14,6 +14,10 @@ const nextConfig: NextConfig = {
         protocol: 'https',
         hostname: 'cdn.raisedash.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'pti.raisedash.com',
+      },
     ],
   },
   // Optimize production builds
