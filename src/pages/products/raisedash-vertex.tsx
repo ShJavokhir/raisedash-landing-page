@@ -6,12 +6,9 @@ import {
   ArrowRight,
   Bell,
   CheckCircle,
-  ChevronRight,
   Clock,
   Coffee,
-  Copy,
   EyeOff,
-  LayoutGrid,
   Loader2,
   Lock,
   Map,
@@ -19,7 +16,6 @@ import {
   MessageSquare,
   Moon,
   MousePointer2,
-  Navigation,
   PackageCheck,
   Send,
   Server,
@@ -28,47 +24,13 @@ import {
   Smartphone,
   User,
   Zap,
+  Play,
 } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/layout/Container";
 import { Footer } from "@/components/layout/Footer";
 
-const useStartupReveal = () => {
-  const [ready, setReady] = useState(false);
-
-  useEffect(() => {
-    const isReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (isReducedMotion) {
-      setReady(true);
-      return;
-    }
-
-    const id = requestAnimationFrame(() => setReady(true));
-    return () => cancelAnimationFrame(id);
-  }, []);
-
-  return ready;
-};
-
-const MinimalReveal: React.FC<{ ready: boolean; delay?: number; className?: string; children: React.ReactNode }> = ({
-  ready,
-  delay = 0,
-  className = "",
-  children,
-}) => (
-  <div
-    className={className}
-    style={{
-      opacity: ready ? 1 : 0,
-      transform: ready ? "translateY(0px)" : "translateY(12px)",
-      transition: "opacity 260ms ease, transform 320ms ease",
-      transitionDelay: `${delay}ms`,
-      willChange: "opacity, transform",
-    }}
-  >
-    {children}
-  </div>
-);
+// --- Animations and Styles from globals.css ---
 
 enum UserRole {
   BROKER = "BROKER",
@@ -100,8 +62,8 @@ const RoleButton = ({
   <button
     onClick={onClick}
     className={`w-full text-left px-4 py-3 rounded-md flex items-center justify-between transition-all group relative border ${active
-        ? "bg-primary/10 text-primary border-primary/30 shadow-cal-sm"
-        : "text-muted-foreground border-transparent hover:text-foreground hover:bg-muted/60"
+      ? "bg-primary/10 text-primary border-primary/30 shadow-cal-sm"
+      : "text-muted-foreground border-transparent hover:text-foreground hover:bg-muted/60"
       }`}
   >
     <div className="flex items-center gap-3">
@@ -357,8 +319,8 @@ const InteractiveDemo: React.FC = () => {
                         <div
                           key={i}
                           className={`w-9 h-12 rounded border flex items-center justify-center text-lg font-mono transition-all duration-300 ${demoState.codeAutofilled
-                              ? "border-emerald-300 bg-emerald-50 text-emerald-700 scale-105"
-                              : "border-border bg-muted text-foreground"
+                            ? "border-emerald-300 bg-emerald-50 text-emerald-700 scale-105"
+                            : "border-border bg-muted text-foreground"
                             }`}
                         >
                           {demoState.codeAutofilled ? TRACKING_CODE[i] : ""}
@@ -549,48 +511,60 @@ const InteractiveDemo: React.FC = () => {
 
 
 
-const Hero: React.FC<{ ready: boolean }> = ({ ready }) => (
-  <div className="relative overflow-hidden">
-    <div className="absolute inset-0 grid-bg pointer-events-none z-0"></div>
-    <Container className="relative z-10 pt-32 pb-16">
-      <div className="flex flex-col items-center text-center max-w-4xl mx-auto mb-16">
-        <MinimalReveal ready={ready}>
-          <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-foreground mb-6">
-            The Easiest Way to <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400">Track Freight.</span> Period.
-          </h1>
-        </MinimalReveal>
-        <MinimalReveal ready={ready} delay={80}>
-          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mb-8 leading-relaxed">
-            Stop the check calls. Get real-time visibility and automated arrival alerts in seconds. No passwords, no training, just results.
-          </p>
-        </MinimalReveal>
-        <MinimalReveal ready={ready} delay={140}>
-          <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
-            <Link href="/request-demo">
-              <Button size="lg" className="gap-2">
-                Start Tracking <ArrowRight className="w-4 h-4" />
-              </Button>
-            </Link>
-          </div>
-        </MinimalReveal>
-      </div>
-      <MinimalReveal ready={ready} delay={220} className="w-full">
-        <InteractiveDemo />
-      </MinimalReveal>
-    </Container>
+const Hero: React.FC = () => (
+  <div className="relative overflow-hidden bg-background">
+    <div className="absolute inset-0 z-0 opacity-[0.4]"
+      style={{ backgroundImage: 'radial-gradient(var(--muted-foreground) 1px, transparent 1px)', backgroundSize: '32px 32px' }}>
+    </div>
+
+    <div className="pt-32 pb-20 md:pt-40 md:pb-24 relative z-10">
+      <Container className="flex flex-col items-center text-center">
+        <div className="animate-fade-in-up delay-0 inline-flex items-center gap-2 px-3 py-1 rounded-full bg-muted/50 border border-border text-xs font-medium text-muted-foreground mb-8">
+          <span className="relative flex h-2 w-2">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+          </span>
+          Next-Generation Freight Tracking
+        </div>
+
+        <h1 className="animate-fade-in-up delay-100 text-5xl md:text-7xl font-semibold tracking-[-0.02em] text-foreground mb-6 max-w-4xl">
+          The Easiest Way to <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 to-cyan-500">Track Freight</span>
+        </h1>
+
+        <p className="animate-fade-in-up delay-200 text-xl text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed">
+          Stop the check calls. Get real-time visibility and automated arrival alerts in seconds. No passwords, no training, just results.
+        </p>
+
+        <div className="animate-fade-in-up delay-300 flex flex-col sm:flex-row gap-4 w-full sm:w-auto justify-center mb-16">
+          <Link href="/request-demo">
+            <Button size="lg" className="w-full sm:w-auto gap-2">
+              Start Tracking <ArrowRight className="w-4 h-4" />
+            </Button>
+          </Link>
+          <Link href="#how-it-works">
+            <Button variant="secondary" size="lg" className="w-full sm:w-auto gap-2">
+              <Zap className="w-4 h-4" /> How It Works
+            </Button>
+          </Link>
+        </div>
+
+        <div className="animate-fade-in-up delay-500 w-full relative z-10 flex justify-center">
+          <InteractiveDemo />
+        </div>
+      </Container>
+    </div>
   </div>
 );
 
-const Features: React.FC<{ ready: boolean }> = ({ ready }) => (
-  <Container className="border-t border-border bg-white py-16 md:py-24">
-    <MinimalReveal ready={ready} className="mb-16 md:text-center max-w-2xl mx-auto">
+const Features: React.FC = () => (
+  <Container className="border-t border-border mt-20 pt-20">
+    <div className="mb-12 text-center max-w-3xl mx-auto">
       <h2 className="text-3xl font-semibold text-foreground tracking-tight mb-4">Platform Capabilities</h2>
-      <p className="text-muted-foreground">
+      <p className="text-lg text-muted-foreground">
         Built on a modern stack (Next.js, NestJS, Flutter) to provide reliability that legacy TMS platforms cannot match.
       </p>
-    </MinimalReveal>
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-border/60 border border-border/70 rounded-lg overflow-hidden">
+    </div>
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {[
         { title: "Real-time Telemetry", desc: "Watch freight move in real-time. High-frequency polling ensures you see the truck where it is.", icon: MapPin },
         { title: "Idempotent Alerts", desc: "No spam. Our notification engine guarantees you only receive one alert per event.", icon: Bell },
@@ -599,71 +573,66 @@ const Features: React.FC<{ ready: boolean }> = ({ ready }) => (
         { title: "Bank-Grade Security", desc: "Google OAuth, encrypted tokens, and strict environment validation.", icon: ShieldCheck },
         { title: "Instant Session Tabs", desc: "Manage multiple loads without losing context.", icon: Zap },
       ].map((f, idx) => (
-        <MinimalReveal key={idx} ready={ready} delay={idx * 40} className="h-full">
-          <div className="bg-card p-8 hover:bg-muted/60 transition-colors group h-full">
-            <div className="w-10 h-10 rounded-lg bg-muted border border-border flex items-center justify-center mb-6 group-hover:border-primary/50 group-hover:bg-primary/10 transition-colors">
-              <f.icon className="w-5 h-5 text-muted-foreground group-hover:text-primary" />
-            </div>
-            <h3 className="text-lg font-medium text-foreground mb-2">{f.title}</h3>
-            <p className="text-sm text-muted-foreground leading-relaxed">{f.desc}</p>
+        <div key={idx} className="group bg-card p-6 rounded-md border border-border shadow-sm hover:shadow-md transition-all h-full animate-fade-in-scale" style={{ animationDelay: `${idx * 50}ms` }}>
+          <div className="w-10 h-10 rounded-md bg-muted flex items-center justify-center mb-4 group-hover:bg-primary/10 transition-colors">
+            <f.icon className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
           </div>
-        </MinimalReveal>
+          <h3 className="text-lg font-semibold text-foreground mb-2">{f.title}</h3>
+          <p className="text-sm text-muted-foreground leading-relaxed">{f.desc}</p>
+        </div>
       ))}
     </div>
   </Container>
 );
 
-const HowItWorks: React.FC<{ ready: boolean }> = ({ ready }) => (
-  <Container className="border-t border-border py-16 md:py-24">
+const HowItWorks: React.FC = () => (
+  <Container id="how-it-works" className="border-t border-border mt-20 pt-20">
     <div className="grid md:grid-cols-2 gap-12 items-center">
-      <MinimalReveal ready={ready}>
-        <div>
-          <h2 className="text-3xl font-bold text-foreground mb-6">
-            Zero Friction.
-            <br />
-            Zero Training.
-          </h2>
-          <p className="text-muted-foreground text-lg mb-8">
-            We removed every barrier. Drivers don't need accounts. Brokers don't need manuals. It just works.
-          </p>
-          <div className="space-y-8">
-            <div className="flex gap-4">
-              <div className="flex-shrink-0 w-12 h-12 rounded-full bg-muted border border-border flex items-center justify-center">
-                <Send className="w-5 h-5 text-emerald-500" />
-              </div>
-              <div>
-                <h3 className="text-foreground font-medium mb-1 flex items-center gap-2">
-                  <span className="text-xs font-mono text-muted-foreground">01</span>Send the Invite
-                </h3>
-                <p className="text-sm text-muted-foreground leading-relaxed max-w-sm">Enter the driver's phone number. We text them a secure magic code instantly.</p>
-              </div>
+      <div className="animate-fade-in-up">
+        <h2 className="text-3xl font-semibold text-foreground mb-6 tracking-tight">
+          Zero Friction. Zero Training.
+        </h2>
+        <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
+          We removed every barrier. Drivers don't need accounts. Brokers don't need manuals. It just works.
+        </p>
+        <div className="space-y-8">
+          <div className="flex gap-4">
+            <div className="flex-shrink-0 w-12 h-12 rounded-full bg-muted border border-border flex items-center justify-center">
+              <Send className="w-5 h-5 text-emerald-500" />
             </div>
-            <div className="flex gap-4">
-              <div className="flex-shrink-0 w-12 h-12 rounded-full bg-muted border border-border flex items-center justify-center">
-                <Smartphone className="w-5 h-5 text-emerald-500" />
-              </div>
-              <div>
-                <h3 className="text-foreground font-medium mb-1 flex items-center gap-2">
-                  <span className="text-xs font-mono text-muted-foreground">02</span>Driver Enters Code
-                </h3>
-                <p className="text-sm text-muted-foreground leading-relaxed max-w-sm">They enter the 6-digit code from the SMS and hit Start. No username, no password.</p>
-              </div>
+            <div>
+              <h3 className="text-foreground font-medium mb-1 flex items-center gap-2">
+                <span className="text-xs font-mono text-muted-foreground">01</span>Send the Invite
+              </h3>
+              <p className="text-sm text-muted-foreground leading-relaxed max-w-sm">Enter the driver's phone number. We text them a secure magic code instantly.</p>
             </div>
-            <div className="flex gap-4">
-              <div className="flex-shrink-0 w-12 h-12 rounded-full bg-muted border border-border flex items-center justify-center">
-                <Coffee className="w-5 h-5 text-emerald-500" />
-              </div>
-              <div>
-                <h3 className="text-foreground font-medium mb-1 flex items-center gap-2">
-                  <span className="text-xs font-mono text-muted-foreground">03</span>You Relax
-                </h3>
-                <p className="text-sm text-muted-foreground leading-relaxed max-w-sm">Watch the truck on the map. Get an email when it arrives.</p>
-              </div>
+          </div>
+          <div className="flex gap-4">
+            <div className="flex-shrink-0 w-12 h-12 rounded-full bg-muted border border-border flex items-center justify-center">
+              <Smartphone className="w-5 h-5 text-emerald-500" />
+            </div>
+            <div>
+              <h3 className="text-foreground font-medium mb-1 flex items-center gap-2">
+                <span className="text-xs font-mono text-muted-foreground">02</span>Driver Enters Code
+              </h3>
+              <p className="text-sm text-muted-foreground leading-relaxed max-w-sm">They enter the 6-digit code from the SMS and hit Start. No username, no password.</p>
+            </div>
+          </div>
+          <div className="flex gap-4">
+            <div className="flex-shrink-0 w-12 h-12 rounded-full bg-muted border border-border flex items-center justify-center">
+              <Coffee className="w-5 h-5 text-emerald-500" />
+            </div>
+            <div>
+              <h3 className="text-foreground font-medium mb-1 flex items-center gap-2">
+                <span className="text-xs font-mono text-muted-foreground">03</span>You Relax
+              </h3>
+              <p className="text-sm text-muted-foreground leading-relaxed max-w-sm">Watch the truck on the map. Get an email when it arrives.</p>
             </div>
           </div>
         </div>
-      </MinimalReveal>
-      <MinimalReveal ready={ready} delay={120} className="relative">
+      </div>
+
+      <div className="relative animate-fade-in-scale delay-200">
         <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/10 to-blue-500/10 blur-3xl rounded-full"></div>
         <div className="relative bg-card border border-border rounded-xl p-8 shadow-cal-lg">
           <div className="font-mono text-xs text-muted-foreground mb-4 border-b border-border pb-2">SYSTEM LOGS</div>
@@ -695,47 +664,66 @@ const HowItWorks: React.FC<{ ready: boolean }> = ({ ready }) => (
             </div>
           </div>
         </div>
-      </MinimalReveal>
+      </div>
     </div>
   </Container>
 );
 
-const Trust: React.FC<{ ready: boolean }> = ({ ready }) => (
-  <Container className="border-t border-border py-16 md:py-24">
-    <div className="grid md:grid-cols-3 gap-8">
+const Trust: React.FC = () => (
+  <Container className="border-t border-border mt-20 pt-20">
+    <div className="mb-12 text-center max-w-2xl mx-auto">
+      <h2 className="text-3xl font-semibold text-foreground tracking-tight mb-4">You Can Trust Vertex</h2>
+    </div>
+    <div className="grid md:grid-cols-3 gap-6">
       {[
         { title: "Bank-Grade Security", desc: "Encryption standards matching financial institutions.", icon: Lock },
         { title: "99.9% Uptime", desc: "Redundant infrastructure for critical shipments.", icon: Server },
         { title: "Privacy First", desc: "We track freight, not lives. Tracking stops on delivery.", icon: EyeOff },
       ].map((t, idx) => (
-        <MinimalReveal key={idx} ready={ready} delay={idx * 60} className="h-full">
-          <div className="bg-card p-6 rounded-lg border border-border hover:border-primary/30 transition-colors h-full shadow-cal-sm">
-            <t.icon className="w-8 h-8 text-muted-foreground mb-4" />
-            <h3 className="text-foreground font-medium mb-2">{t.title}</h3>
-            <p className="text-sm text-muted-foreground">{t.desc}</p>
+        <div key={idx} className="bg-card p-6 rounded-md border border-border shadow-sm hover:shadow-md hover:border-primary/20 transition-all h-full animate-fade-in-scale" style={{ animationDelay: `${idx * 100}ms` }}>
+          <div className="w-10 h-10 rounded-md bg-muted flex items-center justify-center mb-4">
+            <t.icon className="w-5 h-5 text-primary" />
           </div>
-        </MinimalReveal>
+          <h3 className="text-foreground font-semibold mb-2 text-lg">{t.title}</h3>
+          <p className="text-sm text-muted-foreground leading-relaxed">{t.desc}</p>
+        </div>
       ))}
     </div>
-    <MinimalReveal ready={ready} delay={220} className="mt-24 text-center">
-      <h2 className="text-2xl font-bold text-foreground mb-6">Ready to streamline your operations?</h2>
-      <div className="inline-flex flex-col items-center">
-        <Link href="/request-demo">
-          <Button size="lg" className="px-8 text-lg font-bold">
-            Create Your First Load
-          </Button>
-        </Link>
-      </div>
-    </MinimalReveal>
   </Container>
 );
 
-
+const CTA: React.FC = () => (
+  <>
+    <Container className="border-t border-border mt-20 pt-20" />
+    <Container className="bg-card border border-border rounded-lg p-12 md:p-16 text-center relative overflow-hidden shadow-sm mb-20 ui-corner-accents">
+      <div className="relative z-10 max-w-3xl mx-auto">
+        <h2 className="text-3xl md:text-4xl font-semibold text-foreground mb-6 tracking-tight">Ready to streamline your operations?</h2>
+        <p className="text-lg text-muted-foreground mb-10">
+          Get real-time visibility and automated arrival alerts in seconds.
+        </p>
+        <div className="flex justify-center">
+          <Link href="/request-demo">
+            <Button size="lg" className="px-8">Create Your First Load</Button>
+          </Link>
+        </div>
+      </div>
+    </Container>
+  </>
+);
 
 const RaisedashVertexPage: NextPage = () => {
-  const startupReady = useStartupReveal();
-
   useEffect(() => {
+    // Preserve logic to force Light Mode if that was the intent,
+    // or remove it if Vertex should support Dark Mode like PTI does.
+    // The previous code had logic to REMOVE dark class.
+    // "It's design should be consistent... but do not break any working good logic"
+    // "Maintain the page's forced light mode behavior." (from previous conversation summary)
+    // I will KEEP the forced light mode for now as per previous instructions, 
+    // unless the "rich" design implies dark mode support.
+    // However, PTI supports dark mode (it has dark mode styles).
+    // The previous conversation summary explicitly said "Maintaining the page's forced light mode behavior."
+    // I will respect that.
+
     const root = document.documentElement;
     const wasDark = root.classList.contains("dark");
     if (wasDark) {
@@ -756,20 +744,16 @@ const RaisedashVertexPage: NextPage = () => {
       </Head>
       <div className="min-h-screen bg-background text-foreground font-sans selection:bg-primary/15 selection:text-primary">
         <main>
-          <Hero ready={startupReady} />
-          <Features ready={startupReady} />
-          <HowItWorks ready={startupReady} />
-          <Trust ready={startupReady} />
+          <Hero />
+          <Features />
+          <HowItWorks />
+          <Trust />
+          <CTA />
         </main>
         <Footer />
       </div>
       <style jsx global>{`
-        .grid-bg {
-          background-size: 40px 40px;
-          background-image: linear-gradient(to right, #e5e7eb 1px, transparent 1px),
-            linear-gradient(to bottom, #e5e7eb 1px, transparent 1px);
-          mask-image: radial-gradient(circle at center, black 40%, transparent 100%);
-        }
+        /* Keeping InteractiveDemo specific styles if needed, mostly Tailwind now */
         @keyframes loading-bar {
           0% {
             transform: translateX(-100%);
