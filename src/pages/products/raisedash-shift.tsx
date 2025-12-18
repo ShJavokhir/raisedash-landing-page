@@ -163,6 +163,114 @@ const PROBLEMS = [
     title: "Content Creation Takes Forever",
     description: "Turning handbooks into training materials is a project nobody has time for.",
     icon: Clock
+  },
+  {
+    title: "Drivers Struggle with Complicated Systems",
+    description: "You've tried other training software, but drivers can't figure it out. The technology is supposed to help, not create more problems.",
+    icon: Smartphone
+  },
+  {
+    title: "CSA Scores Keep Climbing",
+    description: "Without consistent training, violations add up. CSA scores creep higher. Insurance premiums increase.",
+    icon: BarChart3
+  }
+];
+
+const PRODUCT_MODULES = [
+  {
+    title: "Small Fleet Training",
+    headline: "Enterprise-Level Safety Training, Small Fleet Pricing",
+    description: "Our Small Fleet Training program delivers the same comprehensive safety curriculum used by major carriers — without the enterprise price tag. Designed for fleets under 50 trucks.",
+    benefits: [
+      "Improve safety without breaking the bank",
+      "Lower CSA scores with documented training",
+      "Reduce insurance premiums",
+      "Prepare for DOT audits with confidence"
+    ]
+  },
+  {
+    title: "Sexual Harassment Prevention",
+    headline: "State-Compliant Sexual Harassment Training",
+    description: "Specialized training to meet strict state regulations. Our courses satisfy mandatory requirements in California, New York, Illinois, Connecticut, Delaware, Maine, and other states.",
+    benefits: [
+      "Meet state-specific compliance requirements",
+      "Protect your company from liability",
+      "Document training completion for legal defense",
+      "Available in multiple languages"
+    ]
+  },
+  {
+    title: "Driver/Dispatcher Training",
+    headline: "Better Communication. Better Retention.",
+    description: "Poor driver-dispatcher communication is a leading cause of driver turnover. Our program improves professional communication and creates a more positive working relationship.",
+    benefits: [
+      "Improve driver retention rates",
+      "Reduce miscommunication and conflict",
+      "Create a more professional operation",
+      "Enhance customer service delivery"
+    ]
+  },
+  {
+    title: "Entry-Level Driver Training",
+    headline: "Get New Drivers CDL-Ready, Faster",
+    description: "Our ELDT theory curriculum helps aspiring drivers quickly master the knowledge required for CDL testing. Covers all FMCSA-required theory topics.",
+    benefits: [
+      "Comprehensive ELDT theory curriculum",
+      "Self-paced learning for flexible scheduling",
+      "Prepares drivers for CDL knowledge tests",
+      "Certificate of completion upon finishing"
+    ]
+  }
+];
+
+const VALUE_PROPS = [
+  {
+    title: "Designed for Simplicity",
+    tagline: "So Simple, Any Driver Can Use It",
+    description: "We know not every driver is tech-savvy. That's why we built RaiseDash Shift with simplicity at its core. Drivers open a link, see their training, and get it done.",
+    icon: User
+  },
+  {
+    title: "Mobile-First Experience",
+    tagline: "Train Anywhere. Complete Anywhere.",
+    description: "Drivers aren't at desks — they're on the road. RaiseDash Shift works flawlessly on any phone or tablet, with a mobile experience so smooth it feels native.",
+    icon: Smartphone
+  },
+  {
+    title: "Audit-Ready Documentation",
+    tagline: "Be Ready When DOT Comes Calling",
+    description: "Every training session is automatically documented with complete audit trails. Generate reports instantly — no more digging through file cabinets.",
+    icon: FileText
+  },
+  {
+    title: "Verifiable Certificates",
+    tagline: "Certificates That Stand Up to Scrutiny",
+    description: "Professional, verifiable certificates generated automatically. Each includes completion details and can be verified by auditors or insurers.",
+    icon: ShieldCheck
+  },
+  {
+    title: "Built for Trucking",
+    tagline: "We Know Trucking. We Built This for You.",
+    description: "RaiseDash Shift was built from the ground up for trucking carriers. Every feature is designed around how carriers actually operate.",
+    icon: Truck
+  },
+  {
+    title: "Modern Platform",
+    tagline: "Training Technology Built for Today",
+    description: "We built something better using modern technology to deliver a faster, cleaner, more reliable experience than legacy systems.",
+    icon: Zap
+  },
+  {
+    title: "Flexible & Customizable",
+    tagline: "Your Training. Your Way.",
+    description: "Use our pre-built courses as-is, customize them to match your policies, or create entirely original content. The platform adapts to your needs.",
+    icon: FileCheck
+  },
+  {
+    title: "Enterprise Integration",
+    tagline: "Connects to Your Existing Systems",
+    description: "Connect to your TMS, HR systems, ELD platforms through our flexible API and webhook integrations. Keep your data synchronized.",
+    icon: Globe
   }
 ];
 
@@ -210,15 +318,15 @@ const Hero: React.FC = () => {
           <div className="flex-1 max-w-2xl animate-fade-in-up">
             <div className="inline-flex items-center rounded-full border border-border bg-background px-3 py-1 text-sm font-medium text-muted-foreground mb-6 shadow-sm">
               <span className="flex h-2 w-2 rounded-full bg-green-500 mr-2"></span>
-              New: Driver Mobile App 2.0
+              Safety and Compliance in Days
             </div>
 
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold tracking-[-0.02em] text-foreground mb-6 leading-[1.1]">
-              Driver Training & Certification <span className="text-muted-foreground">Made Simple</span>
+              Onboard Drivers in Days, Not Weeks
             </h1>
 
             <p className="text-xl text-muted-foreground max-w-xl mb-8 leading-relaxed">
-              Onboard drivers in days, not weeks. The modern platform for trucking fleets to train, certify, and track driver compliance—all in one place.
+              The modern platform for trucking fleets to train, certify, and track driver compliance—all in one place.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 mb-10">
@@ -359,7 +467,7 @@ const ProblemSection: React.FC = () => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {PROBLEMS.map((prob, idx) => (
             <Card key={idx} className="bg-muted/20 border-border/50 hover:border-border transition-colors">
               <div className="h-10 w-10 bg-background border border-border rounded-lg flex items-center justify-center mb-4 text-foreground">
@@ -368,6 +476,247 @@ const ProblemSection: React.FC = () => {
               <h3 className="font-semibold text-lg mb-2">{prob.title}</h3>
               <p className="text-sm text-muted-foreground">{prob.description}</p>
             </Card>
+          ))}
+        </div>
+
+        <div className="mt-12 text-center max-w-3xl mx-auto">
+          <p className="text-muted-foreground italic">
+            The trucking industry demands compliance, but the tools available are either too complicated, too expensive, or weren't built with carriers in mind. You need something better.
+          </p>
+        </div>
+      </Container>
+    </section>
+  );
+};
+
+// --- Solution Overview Section ---
+const SolutionOverview: React.FC = () => {
+  return (
+    <section className="py-24 bg-muted/30">
+      <Container>
+        <div className="max-w-4xl mx-auto text-center mb-12">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-background border border-border text-xs font-medium text-muted-foreground mb-6">
+            <Zap className="w-3 h-3 text-primary" />
+            Introducing RaiseDash Shift
+          </div>
+          <h2 className="text-3xl md:text-4xl font-semibold tracking-tight mb-6">One Platform. Complete Compliance.</h2>
+          <p className="text-lg text-muted-foreground leading-relaxed mb-8">
+            RaiseDash Shift is a comprehensive driver training and onboarding platform built specifically for trucking carriers. Train new hires on company policies, safety procedures, and compliance requirements — then certify their completion with verifiable, audit-ready documentation.
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+          <Card className="bg-background text-center">
+            <Shield className="w-10 h-10 text-primary mx-auto mb-4" />
+            <h3 className="font-semibold mb-2">For Safety Managers</h3>
+            <p className="text-sm text-muted-foreground">
+              Stop chasing paperwork. See exactly who needs training, who's in progress, and who's certified — all in one dashboard.
+            </p>
+          </Card>
+          <Card className="bg-background text-center">
+            <Truck className="w-10 h-10 text-primary mx-auto mb-4" />
+            <h3 className="font-semibold mb-2">For Fleet Owners</h3>
+            <p className="text-sm text-muted-foreground">
+              Reduce compliance risk, lower CSA scores, and protect your operating authority with documented training programs.
+            </p>
+          </Card>
+          <Card className="bg-background text-center">
+            <User className="w-10 h-10 text-primary mx-auto mb-4" />
+            <h3 className="font-semibold mb-2">For Drivers</h3>
+            <p className="text-sm text-muted-foreground">
+              Complete training on your phone, on your schedule. No confusing interfaces. No wasted time.
+            </p>
+          </Card>
+        </div>
+
+        <div className="mt-12 max-w-3xl mx-auto text-center">
+          <p className="text-sm text-muted-foreground italic border-l-4 border-primary pl-4 py-2">
+            "Simplicity is the ultimate sophistication" — We designed RaiseDash Shift with this principle at its core. Modern technology that works for everyone, even drivers who aren't tech-savvy.
+          </p>
+        </div>
+      </Container>
+    </section>
+  );
+};
+
+// --- Compliance & Regulatory Context Section ---
+const ComplianceSection: React.FC = () => {
+  return (
+    <section className="py-24 bg-background border-y border-border">
+      <Container>
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-semibold tracking-tight mb-4">Why Driver Training Isn't Optional</h2>
+            <p className="text-lg text-muted-foreground">
+              Federal regulations require carriers to maintain documented safety training programs.
+            </p>
+          </div>
+
+          <div className="space-y-12">
+            {/* FMCSA Requirements */}
+            <div className="grid md:grid-cols-2 gap-8 items-start">
+              <div>
+                <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
+                  <FileText className="w-5 h-5 text-primary" />
+                  FMCSA Training Requirements
+                </h3>
+                <p className="text-muted-foreground mb-4">
+                  During DOT audits and compliance reviews, inspectors look for evidence that drivers have been properly trained and that training is documented.
+                </p>
+                <ul className="space-y-2 text-sm text-muted-foreground">
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
+                    <span>Drivers trained on company safety policies and procedures</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
+                    <span>Training documented with the five W's: what, when, where, who, and why</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
+                    <span>Drivers understand Federal Motor Carrier Safety Regulations</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
+                    <span>Training records are accessible and organized</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div>
+                <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
+                  <BarChart3 className="w-5 h-5 text-primary" />
+                  CSA Scores & Business Impact
+                </h3>
+                <p className="text-muted-foreground mb-4">
+                  FMCSA's Compliance, Safety, Accountability (CSA) program tracks carrier safety performance. High CSA scores (above 65%) can trigger:
+                </p>
+                <ul className="space-y-2 text-sm text-muted-foreground">
+                  <li className="flex items-start gap-2">
+                    <AlertTriangle className="w-4 h-4 text-orange-500 mt-0.5 flex-shrink-0" />
+                    <span>Increased insurance premiums</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <AlertTriangle className="w-4 h-4 text-orange-500 mt-0.5 flex-shrink-0" />
+                    <span>Lost shipper/broker relationships</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <AlertTriangle className="w-4 h-4 text-orange-500 mt-0.5 flex-shrink-0" />
+                    <span>Out-of-service orders</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <AlertTriangle className="w-4 h-4 text-orange-500 mt-0.5 flex-shrink-0" />
+                    <span>Civil penalties (average $5,000+ per case)</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <AlertTriangle className="w-4 h-4 text-orange-500 mt-0.5 flex-shrink-0" />
+                    <span>Operating authority revocation</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            {/* Entry-Level Driver Training */}
+            <Card className="bg-muted/20">
+              <h3 className="text-lg font-semibold mb-3 flex items-center gap-2">
+                <ShieldCheck className="w-5 h-5 text-primary" />
+                Entry-Level Driver Training (ELDT)
+              </h3>
+              <p className="text-sm text-muted-foreground">
+                Since February 2022, all first-time CDL applicants must complete ELDT from a registered training provider. This includes theory training and behind-the-wheel instruction. Drivers cannot take their CDL skills test until FMCSA has a certificate of completion on file.
+              </p>
+            </Card>
+
+            {/* State Requirements */}
+            <Card className="bg-muted/20">
+              <h3 className="text-lg font-semibold mb-3 flex items-center gap-2">
+                <Globe className="w-5 h-5 text-primary" />
+                State-Specific Requirements
+              </h3>
+              <p className="text-sm text-muted-foreground">
+                Sexual harassment prevention training is mandatory in California, Connecticut, Delaware, Illinois, Maine, and New York for private employers. Documented training provides legal protection in harassment claims.
+              </p>
+            </Card>
+
+            {/* Bottom Line */}
+            <div className="bg-primary/5 border border-primary/20 rounded-lg p-6 text-center">
+              <Lock className="w-10 h-10 text-primary mx-auto mb-4" />
+              <h3 className="text-xl font-semibold mb-3">The Bottom Line</h3>
+              <p className="text-muted-foreground max-w-2xl mx-auto">
+                Compliance isn't just about avoiding fines — it's about protecting your business, your drivers, and everyone on the road. Proper documentation is your best defense in audits and litigation.
+              </p>
+            </div>
+          </div>
+        </div>
+      </Container>
+    </section>
+  );
+};
+
+// --- Product Modules Section ---
+const ProductModules: React.FC = () => {
+  return (
+    <section className="py-24 bg-muted/30">
+      <Container>
+        <div className="text-center mb-16">
+          <h2 className="text-3xl md:text-4xl font-semibold tracking-tight mb-4">Specialized Training Solutions</h2>
+          <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+            Choose from our specialized training programs designed for specific carrier needs and compliance requirements.
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+          {PRODUCT_MODULES.map((module, idx) => (
+            <Card key={idx} className="bg-background hover:shadow-cal-lg transition-shadow">
+              <div className="mb-4">
+                <h3 className="text-xl font-semibold mb-2">{module.title}</h3>
+                <p className="text-sm text-primary font-medium">{module.headline}</p>
+              </div>
+              <p className="text-muted-foreground mb-6 text-sm leading-relaxed">
+                {module.description}
+              </p>
+              <div className="space-y-2">
+                {module.benefits.map((benefit, bidx) => (
+                  <div key={bidx} className="flex items-start gap-2 text-sm">
+                    <CheckCircle2 className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
+                    <span className="text-muted-foreground">{benefit}</span>
+                  </div>
+                ))}
+              </div>
+            </Card>
+          ))}
+        </div>
+      </Container>
+    </section>
+  );
+};
+
+// --- Value Propositions Section ---
+const ValuePropositions: React.FC = () => {
+  return (
+    <section className="py-24 bg-background border-y border-border">
+      <Container>
+        <div className="text-center mb-16">
+          <h2 className="text-3xl md:text-4xl font-semibold tracking-tight mb-4">Why Carriers Choose RaiseDash Shift</h2>
+          <p className="text-lg text-muted-foreground">
+            Built different. Built better. Built for trucking.
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
+          {VALUE_PROPS.map((prop, idx) => (
+            <div key={idx} className="group">
+              <div className="bg-card border border-border rounded-lg p-5 h-full hover:border-primary/30 hover:shadow-cal-sm transition-all">
+                <div className="w-10 h-10 rounded-lg bg-primary/5 border border-primary/10 flex items-center justify-center mb-4 text-primary group-hover:bg-primary/10 transition-colors">
+                  <prop.icon size={20} />
+                </div>
+                <h3 className="font-semibold mb-1 text-sm">{prop.title}</h3>
+                <p className="text-xs text-primary mb-3">{prop.tagline}</p>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  {prop.description}
+                </p>
+              </div>
+            </div>
           ))}
         </div>
       </Container>
@@ -818,7 +1167,11 @@ const RaisedashShiftPage: NextPage = () => {
         <main>
           <Hero />
           <ProblemSection />
+          <SolutionOverview />
+          <ComplianceSection />
           <InteractiveWorkflow />
+          <ProductModules />
+          <ValuePropositions />
           <Features />
           <FAQ />
           <CTA />

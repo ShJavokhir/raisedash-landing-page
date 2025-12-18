@@ -94,7 +94,7 @@ export default function Home() {
             </div>
           </Link>
 
-          <div className="group animate-fade-in-scale delay-600">
+          <Link href="/products/raisedash-shift" className="group animate-fade-in-scale delay-600">
             <div className="flex flex-col h-full rounded-md border bg-card text-card-foreground overflow-hidden transition-all hover:shadow-md hover:border-primary/20">
               <div className="aspect-square relative w-full overflow-hidden bg-muted p-3">
                 <Image
@@ -111,7 +111,7 @@ export default function Home() {
                 </p>
               </div>
             </div>
-          </div>
+          </Link>
         </div>
       </Container>
 

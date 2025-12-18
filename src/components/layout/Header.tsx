@@ -35,10 +35,9 @@ const solutions = [
     id: "onboarding",
     title: "Raisedash Onboarding",
     description: "Streamlined driver training and compliance platform.",
-    href: "#",
+    href: "/products/raisedash-shift",
     image: "https://cdn.raisedash.com/media/vertex/57c53ef5-ad1a-4508-89a5-329985846a89.webp",
     icon: GraduationCap,
-    comingSoon: true,
   },
 ];
 
@@ -130,7 +129,7 @@ export function Header() {
                               <div className="flex-1 min-w-0">
                                 <div className="flex items-center gap-2">
                                   <span className="text-sm font-medium">{solution.title}</span>
-                                  {solution.comingSoon && (
+                                  {(solution as any).comingSoon && (
                                     <span className="text-[10px] px-1.5 py-0.5 rounded bg-muted text-muted-foreground">
                                       Soon
                                     </span>
@@ -273,7 +272,7 @@ export function Header() {
                   >
                     <Icon className="h-4 w-4 text-muted-foreground" />
                     <span>{solution.title}</span>
-                    {solution.comingSoon && (
+                    {(solution as any).comingSoon && (
                       <span className="text-[10px] px-1.5 py-0.5 rounded bg-muted text-muted-foreground ml-auto">
                         Soon
                       </span>
