@@ -1,7 +1,8 @@
 import { GetStaticProps } from "next";
 import Link from "next/link";
-import { MDXRemote, MDXRemoteSerializeResult } from "next-mdx-remote";
-import { serialize } from "next-mdx-remote/serialize";
+import React from "react";
+import { renderToStaticMarkup } from "react-dom/server";
+import * as runtime from "react/jsx-runtime";
 import { Container } from "@/components/layout/Container";
 import { PageLayout } from "@/components/layout/PageLayout";
 import { Button } from "@/components/ui/Button";
@@ -9,7 +10,7 @@ import { getChangelog, ChangelogMeta } from "@/lib/changelog";
 
 interface ChangelogsPageProps {
   meta: ChangelogMeta;
-  mdxSource: MDXRemoteSerializeResult;
+  mdxHtml: string;
 }
 
 const mdxComponents = {
@@ -65,7 +66,24 @@ const mdxComponents = {
   ),
 };
 
-export default function Changelogs({ meta, mdxSource }: ChangelogsPageProps) {
+async function renderMdxToHtml(mdx: string): Promise<string> {
+  // Render MDX to static HTML at build-time to avoid client-side `eval`/`new Function()`,
+  // which can be blocked by strict CSP (no `unsafe-eval`).
+  const { compile, run } = await import("@mdx-js/mdx");
+
+  const code = String(
+    await compile(mdx, {
+      outputFormat: "function-body",
+    }),
+  );
+
+  const mdxModule = await run(code, { ...runtime });
+  const Content = mdxModule.default as React.ComponentType<{ components?: typeof mdxComponents }>;
+
+  return renderToStaticMarkup(<Content components={mdxComponents} />);
+}
+
+export default function Changelogs({ meta, mdxHtml }: ChangelogsPageProps) {
   return (
     <PageLayout title={meta.title} description={meta.description}>
       {/* Hero Section */}
@@ -84,7 +102,7 @@ export default function Changelogs({ meta, mdxSource }: ChangelogsPageProps) {
       <Container className="bg-white dark:bg-card mt-8 rounded-md border ui-corner-accents">
         <div className="py-16">
           <div className="max-w-3xl">
-            <MDXRemote {...mdxSource} components={mdxComponents} />
+            <div dangerouslySetInnerHTML={{ __html: mdxHtml }} />
           </div>
         </div>
       </Container>
@@ -115,12 +133,12 @@ export default function Changelogs({ meta, mdxSource }: ChangelogsPageProps) {
 
 export const getStaticProps: GetStaticProps = async () => {
   const { meta, content } = getChangelog();
-  const mdxSource = await serialize(content);
+  const mdxHtml = await renderMdxToHtml(content);
 
   return {
     props: {
       meta,
-      mdxSource,
+      mdxHtml,
     },
   };
 };

@@ -1,7 +1,8 @@
 import { GetStaticPaths, GetStaticProps } from "next";
-import { MDXRemote, MDXRemoteSerializeResult } from "next-mdx-remote";
-import { serialize } from "next-mdx-remote/serialize";
 import Link from "next/link";
+import React from "react";
+import { renderToStaticMarkup } from "react-dom/server";
+import * as runtime from "react/jsx-runtime";
 import { Container } from "@/components/layout/Container";
 import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/ui/Button";
@@ -9,7 +10,7 @@ import { getPostBySlug, getAllSlugs, getRelatedPosts, BlogPost } from "@/lib/blo
 
 interface BlogPostPageProps {
   post: BlogPost;
-  mdxSource: MDXRemoteSerializeResult;
+  mdxHtml: string;
   relatedPosts: BlogPost[];
 }
 
@@ -52,7 +53,24 @@ const mdxComponents = {
   ),
 };
 
-export default function BlogPostPage({ post, mdxSource, relatedPosts }: BlogPostPageProps) {
+async function renderMdxToHtml(mdx: string): Promise<string> {
+  // Render MDX to static HTML at build-time to avoid client-side `eval`/`new Function()`,
+  // which can be blocked by strict CSP (no `unsafe-eval`).
+  const { compile, run } = await import("@mdx-js/mdx");
+
+  const code = String(
+    await compile(mdx, {
+      outputFormat: "function-body",
+    }),
+  );
+
+  const mdxModule = await run(code, { ...runtime });
+  const Content = mdxModule.default as React.ComponentType<{ components?: typeof mdxComponents }>;
+
+  return renderToStaticMarkup(<Content components={mdxComponents} />);
+}
+
+export default function BlogPostPage({ post, mdxHtml, relatedPosts }: BlogPostPageProps) {
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString("en-US", {
       year: "numeric",
@@ -141,7 +159,7 @@ export default function BlogPostPage({ post, mdxSource, relatedPosts }: BlogPost
 
             {/* MDX Content */}
             <div className="prose prose-lg max-w-none">
-              <MDXRemote {...mdxSource} components={mdxComponents} />
+              <div dangerouslySetInnerHTML={{ __html: mdxHtml }} />
             </div>
 
             {/* Tags */}
@@ -224,13 +242,13 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     return { notFound: true };
   }
 
-  const mdxSource = await serialize(post.content);
+  const mdxHtml = await renderMdxToHtml(post.content);
   const relatedPosts = getRelatedPosts(slug, 3);
 
   return {
     props: {
       post,
-      mdxSource,
+      mdxHtml,
       relatedPosts,
     },
   };
