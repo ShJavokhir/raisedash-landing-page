@@ -1,5 +1,5 @@
 import { Geist, Geist_Mono } from "next/font/google";
-import Head from "next/head";
+import { SEO, SEOProps } from "@/components/seo/SEO";
 import { Footer } from "./Footer";
 
 const geistSans = Geist({
@@ -12,26 +12,39 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-interface PageLayoutProps {
+interface PageLayoutProps extends SEOProps {
   children: React.ReactNode;
-  title?: string;
-  description?: string;
 }
 
 export function PageLayout({
   children,
-  title = "Raisedash",
-  description = "Safety & Security in Days. Raisedash strengthens safety and security of corporations in freight logistics.",
+  title,
+  description,
+  keywords,
+  canonical,
+  ogImage,
+  ogType,
+  noindex,
+  nofollow,
+  article,
+  product,
+  jsonLd,
 }: PageLayoutProps) {
-  const fullTitle = title === "Raisedash" ? title : `${title} | Raisedash`;
-
   return (
     <>
-      <Head>
-        <title>{fullTitle}</title>
-        <meta name="description" content={description} />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-      </Head>
+      <SEO
+        title={title}
+        description={description}
+        keywords={keywords}
+        canonical={canonical}
+        ogImage={ogImage}
+        ogType={ogType}
+        noindex={noindex}
+        nofollow={nofollow}
+        article={article}
+        product={product}
+        jsonLd={jsonLd}
+      />
       <div className={`${geistSans.className} ${geistMono.className} font-sans`}>
         {children}
         <div className="mt-4 sm:mt-6">

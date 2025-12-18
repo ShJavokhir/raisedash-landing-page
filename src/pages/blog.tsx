@@ -21,7 +21,8 @@ export default function Blog({ posts, categories }: BlogPageProps) {
   return (
     <PageLayout
       title="Blog"
-      description="Read the latest insights on freight logistics security, industry trends, and Raisedash updates."
+      description="Read the latest insights on fleet safety, DVIR best practices, driver training, freight logistics security, and Raisedash product updates."
+      keywords={["fleet safety blog", "DVIR tips", "trucking industry news", "driver training articles", "logistics technology"]}
     >
       {/* Hero Section */}
       <Container className="flex items-center bg-white dark:bg-card mt-12 rounded-md border ui-corner-accents">

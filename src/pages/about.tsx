@@ -4,8 +4,9 @@ import { PageLayout } from "@/components/layout/PageLayout";
 export default function About() {
   return (
     <PageLayout
-      title="About"
-      description="Learn about Raisedash and our mission to revolutionize freight logistics safety and security."
+      title="About Us"
+      description="Learn about Raisedash and our mission to revolutionize freight logistics safety and security through AI-powered solutions."
+      keywords={["about raisedash", "freight logistics company", "fleet safety company", "logistics technology"]}
     >
       <Container className="bg-white dark:bg-card mt-12 rounded-md border ui-corner-accents">
         <div className="py-16">

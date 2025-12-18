@@ -1,4 +1,5 @@
 import { GetStaticPaths, GetStaticProps } from "next";
+import Head from "next/head";
 import Link from "next/link";
 import React from "react";
 import { renderToStaticMarkup } from "react-dom/server";
@@ -7,6 +8,10 @@ import { Container } from "@/components/layout/Container";
 import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/ui/Button";
 import { getPostBySlug, getAllSlugs, getRelatedPosts, BlogPost } from "@/lib/blog";
+
+const RAW_SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://raisedash.com";
+const SITE_URL = RAW_SITE_URL.endsWith("/") ? RAW_SITE_URL.slice(0, -1) : RAW_SITE_URL;
+const SITE_NAME = "Raisedash";
 
 interface BlogPostPageProps {
   post: BlogPost;
@@ -98,8 +103,75 @@ export default function BlogPostPage({ post, mdxHtml, relatedPosts }: BlogPostPa
     );
   }
 
+  const canonicalUrl = `${SITE_URL}/blog/${post.slug}`;
+  const ogImage = `${SITE_URL}/api/og?title=${encodeURIComponent(post.title)}`;
+
+  // JSON-LD structured data for Article
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: post.title,
+    description: post.excerpt,
+    image: ogImage,
+    author: {
+      "@type": "Person",
+      name: post.author,
+    },
+    publisher: {
+      "@type": "Organization",
+      name: SITE_NAME,
+      url: SITE_URL,
+    },
+    datePublished: post.publishedAt,
+    dateModified: post.publishedAt,
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": canonicalUrl,
+    },
+    keywords: post.tags.join(", "),
+  };
+
   return (
-    <div className="font-sans">
+    <>
+      <Head>
+        {/* Primary Meta Tags */}
+        <title>{`${post.title} | ${SITE_NAME}`}</title>
+        <meta name="title" content={`${post.title} | ${SITE_NAME}`} />
+        <meta name="description" content={post.excerpt} />
+        <meta name="keywords" content={post.tags.join(", ")} />
+        <meta name="author" content={post.author} />
+        <meta name="robots" content="index, follow" />
+        <link rel="canonical" href={canonicalUrl} />
+
+        {/* Open Graph / Facebook */}
+        <meta property="og:type" content="article" />
+        <meta property="og:url" content={canonicalUrl} />
+        <meta property="og:title" content={post.title} />
+        <meta property="og:description" content={post.excerpt} />
+        <meta property="og:image" content={ogImage} />
+        <meta property="og:site_name" content={SITE_NAME} />
+        <meta property="article:published_time" content={post.publishedAt} />
+        <meta property="article:modified_time" content={post.publishedAt} />
+        <meta property="article:author" content={post.author} />
+        <meta property="article:section" content={post.category} />
+        {post.tags.map((tag) => (
+          <meta property="article:tag" content={tag} key={tag} />
+        ))}
+
+        {/* Twitter */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:url" content={canonicalUrl} />
+        <meta name="twitter:title" content={post.title} />
+        <meta name="twitter:description" content={post.excerpt} />
+        <meta name="twitter:image" content={ogImage} />
+
+        {/* JSON-LD Structured Data */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </Head>
+      <div className="font-sans">
       {/* Breadcrumb */}
       <Container className="bg-white dark:bg-card mt-12 rounded-md border ui-corner-accents">
         <div className="py-4">
@@ -222,6 +294,7 @@ export default function BlogPostPage({ post, mdxHtml, relatedPosts }: BlogPostPa
         <Footer />
       </div>
     </div>
+    </>
   );
 }
 

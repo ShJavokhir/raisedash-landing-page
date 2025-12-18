@@ -1,6 +1,6 @@
-import Head from "next/head";
 import { NextPage } from "next";
 import Link from "next/link";
+import { SEO, SoftwareApplicationJsonLd } from "@/components/seo/SEO";
 import React, { useEffect, useState } from "react";
 import {
   ArrowRight,
@@ -1159,10 +1159,18 @@ const RaisedashShiftPage: NextPage = () => {
 
   return (
     <>
-      <Head>
-        <title>Raisedash Shift | Driver Training & Certification</title>
-        <meta name="description" content="Modern driver training platform for trucking fleets. Train, certify, and track driver compliance—all in one place." />
-      </Head>
+      <SEO
+        title="Raisedash Shift | Driver Training & Certification Platform"
+        description="Modern driver training platform for trucking fleets. Train, certify, and track driver compliance with DOT-compliant LMS, automatic certificates, and audit-ready documentation."
+        keywords={["driver training software", "trucking LMS", "driver onboarding", "DOT compliance training", "fleet training platform", "driver certification", "trucking compliance"]}
+        ogType="product"
+      />
+      <SoftwareApplicationJsonLd
+        name="Raisedash Shift"
+        description="Driver training and certification platform for trucking fleets. DOT-compliant LMS with automatic certificates and audit-ready documentation."
+        operatingSystem={["iOS", "Android", "Web"]}
+        applicationCategory="BusinessApplication"
+      />
       <div className="min-h-screen bg-background text-foreground font-sans selection:bg-primary/15 selection:text-primary">
         <main>
           <Hero />

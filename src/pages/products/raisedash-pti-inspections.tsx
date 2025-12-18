@@ -1,10 +1,10 @@
-import Head from "next/head";
 import { NextPage } from "next";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/layout/Container";
 import { Footer } from "@/components/layout/Footer";
+import { SEO, SoftwareApplicationJsonLd } from "@/components/seo/SEO";
 import {
   CheckCircle,
   Shield,
@@ -461,10 +461,22 @@ const RaisedashPTIPage: NextPage = () => {
 
   return (
     <>
-      <Head>
-        <title>Raisedash PTI Inspections | Digitize DVIR & Pre-Trip Inspections</title>
-        <meta name="description" content="RaiseDash simplifies your DVIR and Pre-Trip inspections with easy-to-use digital tools. Enhance your compliance and efficiency. Try it now!" />
-      </Head>
+      <SEO
+        title="PTI Inspections | Digitize DVIR & Pre-Trip Inspections"
+        description="RaiseDash simplifies your DVIR and Pre-Trip inspections with easy-to-use digital tools. Enhance fleet safety, ensure FMCSA compliance, and boost efficiency."
+        keywords={["DVIR software", "pre-trip inspection", "fleet inspection app", "FMCSA compliance", "driver vehicle inspection report", "fleet safety software", "PTI app"]}
+        ogType="product"
+      />
+      <SoftwareApplicationJsonLd
+        name="Raisedash PTI Inspections"
+        description="Digital DVIR and Pre-Trip inspection software for fleet management. Mobile apps for iOS and Android with real-time dashboard for fleet managers."
+        operatingSystem={["iOS", "Android", "Web"]}
+        applicationCategory="BusinessApplication"
+        offers={[
+          { price: "0", priceCurrency: "USD" },
+          { price: "8", priceCurrency: "USD" },
+        ]}
+      />
 
       <Lightbox
         isOpen={!!lightboxImage}

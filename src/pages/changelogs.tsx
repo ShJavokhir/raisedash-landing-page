@@ -85,7 +85,7 @@ async function renderMdxToHtml(mdx: string): Promise<string> {
 
 export default function Changelogs({ meta, mdxHtml }: ChangelogsPageProps) {
   return (
-    <PageLayout title={meta.title} description={meta.description}>
+    <PageLayout title={meta.title} description={meta.description} keywords={["raisedash changelog", "product updates", "new features", "release notes"]}>
       {/* Hero Section */}
       <Container className="flex items-center bg-white dark:bg-card mt-12 rounded-md border ui-corner-accents">
         <div className="w-full py-16">

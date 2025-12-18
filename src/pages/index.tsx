@@ -18,7 +18,10 @@ const RotatingEarth = dynamic(
 
 export default function Home() {
   return (
-    <PageLayout>
+    <PageLayout
+      description="Safety & Security in Days. Raisedash strengthens safety and security of corporations in freight logistics with modern AI-powered solutions."
+      keywords={["freight logistics", "fleet safety", "DVIR software", "pre-trip inspections", "fleet management", "cargo security"]}
+    >
       <div>
         <Container
           className="flex items-center bg-white dark:bg-card mt-12 mb-12 min-h-[50vh] rounded-md border relative overflow-hidden ui-corner-accents animate-fade-in-scale delay-0"

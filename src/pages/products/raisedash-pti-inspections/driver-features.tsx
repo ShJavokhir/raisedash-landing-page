@@ -1,4 +1,3 @@
-import Head from "next/head";
 import { NextPage } from "next";
 import Link from "next/link";
 import React, { useState } from "react";
@@ -6,6 +5,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/layout/Container";
 import { Footer } from "@/components/layout/Footer";
+import { SEO } from "@/components/seo/SEO";
 import { ArrowRight, X as XIcon } from "lucide-react";
 
 // --- Lightbox Component ---
@@ -230,13 +230,11 @@ const DriverFeaturesPage: NextPage = () => {
 
   return (
     <>
-      <Head>
-        <title>Key Features And Benefits Of The RaiseDash App For Drivers</title>
-        <meta
-          name="description"
-          content="See how RaiseDash makes it easy for drivers to handle their daily CDL Pre-Trip and Post-Trip (DVIR) inspections with an extremely straightforward app."
-        />
-      </Head>
+      <SEO
+        title="Driver App Features | RaiseDash PTI Inspections"
+        description="See how RaiseDash makes it easy for drivers to handle their daily CDL Pre-Trip and Post-Trip (DVIR) inspections with an intuitive mobile app for iOS and Android."
+        keywords={["driver DVIR app", "truck driver inspection app", "CDL pre-trip app", "mobile DVIR", "driver inspection software"]}
+      />
 
       <Lightbox
         isOpen={!!lightboxImage}

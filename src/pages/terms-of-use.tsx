@@ -6,6 +6,7 @@ export default function TermsOfUse() {
     <PageLayout
       title="Terms of Use"
       description="Read the terms and conditions governing your use of Raisedash freight logistics security services."
+      keywords={["raisedash terms", "terms of service", "fleet software terms"]}
     >
       {/* Hero Section */}
       <Container className="flex items-center bg-white dark:bg-card mt-12 rounded-md border ui-corner-accents">

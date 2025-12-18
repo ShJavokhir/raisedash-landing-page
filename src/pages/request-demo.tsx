@@ -78,8 +78,9 @@ export default function RequestDemo() {
 
   return (
     <PageLayout
-      title="Request Demo"
-      description="Build your Raisedash demo request and watch the experience respond as you complete the manifest."
+      title="Request a Demo"
+      description="Schedule a personalized demo of Raisedash fleet safety solutions. See how our DVIR, driver training, and compliance tools can transform your fleet operations."
+      keywords={["raisedash demo", "fleet software demo", "DVIR demo", "fleet management demo"]}
     >
       <Container className="bg-white dark:bg-card mt-18 rounded-md border ui-corner-accents relative overflow-hidden">
         <div className="py-12">

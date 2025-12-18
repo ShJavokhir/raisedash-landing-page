@@ -1,6 +1,6 @@
-import Head from "next/head";
 import { NextPage } from "next";
 import Link from "next/link";
+import { SEO, SoftwareApplicationJsonLd } from "@/components/seo/SEO";
 import React, { useEffect, useState } from "react";
 import {
   ArrowRight,
@@ -738,10 +738,18 @@ const RaisedashVertexPage: NextPage = () => {
 
   return (
     <>
-      <Head>
-        <title>Raisedash Vertex | Tracking Simplified</title>
-        <meta name="description" content="Raisedash Vertex freight tracking experience." />
-      </Head>
+      <SEO
+        title="Raisedash Vertex | Real-Time Freight Tracking"
+        description="Track your freight in real-time with Raisedash Vertex. Get automated arrival alerts, live location updates, and seamless driver communication for your logistics operations."
+        keywords={["freight tracking", "real-time tracking", "fleet tracking software", "cargo tracking", "logistics tracking", "driver tracking app"]}
+        ogType="product"
+      />
+      <SoftwareApplicationJsonLd
+        name="Raisedash Vertex"
+        description="Real-time freight tracking platform with automated arrival alerts and driver communication tools."
+        operatingSystem={["iOS", "Android", "Web"]}
+        applicationCategory="BusinessApplication"
+      />
       <div className="min-h-screen bg-background text-foreground font-sans selection:bg-primary/15 selection:text-primary">
         <main>
           <Hero />

@@ -80,8 +80,9 @@ export default function Contact() {
 
   return (
     <PageLayout
-      title="Contact"
-      description="Get in touch with Raisedash. Contact us to learn more about our freight logistics security solutions."
+      title="Contact Us"
+      description="Get in touch with Raisedash. Contact our sales, support, or partnership teams to learn more about our freight logistics security solutions."
+      keywords={["contact raisedash", "fleet safety support", "logistics software demo", "sales inquiry"]}
     >
       {/* Hero Section */}
       <Container className="flex items-center bg-white dark:bg-card mt-12 rounded-md border">

@@ -7,7 +7,8 @@ export default function VertexApp() {
   return (
     <PageLayout
       title="Download Raisedash Vertex"
-      description="Download Raisedash Vertex for Drivers - Real-time freight tracking and automated arrival alerts."
+      description="Download Raisedash Vertex for Drivers - Real-time freight tracking and automated arrival alerts for iOS and Android."
+      keywords={["raisedash vertex download", "freight tracking app", "driver tracking app", "iOS freight app", "Android tracking app"]}
     >
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 to-slate-100 dark:from-neutral-950 dark:to-neutral-900">
         <Container className="py-12">

@@ -101,6 +101,7 @@ export default function RequestAccountDeletion() {
     <PageLayout
       title="Request Account Deletion"
       description="Request deletion of your Raisedash account. We'll process your request securely."
+      noindex={true}
     >
       <Container className="flex items-center bg-white dark:bg-card mt-12 rounded-md border">
         <div className="w-full py-16 sm:py-24 md:py-28">

@@ -78,7 +78,8 @@ export default function Careers() {
   return (
     <PageLayout
       title="Careers"
-      description="Join the Raisedash team. Explore career opportunities and help us revolutionize freight logistics security."
+      description="Join the Raisedash team. Explore career opportunities and help us revolutionize freight logistics safety and security."
+      keywords={["raisedash careers", "logistics tech jobs", "fleet software jobs", "san francisco startup jobs"]}
     >
       {/* Open Positions Section */}
       <Container className="bg-white dark:bg-card mt-18 rounded-md border ui-corner-accents">

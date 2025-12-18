@@ -1,0 +1,22 @@
+# Robots.txt for Raisedash
+# https://raisedash.com
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: /sitemap.xml
+
+# Crawl-delay for politeness
+Crawl-delay: 1
+
+# Block Next.js internals
+Disallow: /_next/
+Disallow: /api/
+
+# Allow important API routes for SEO
+Allow: /api/og
+
+# Block admin/internal paths if any
+Disallow: /admin/
+Disallow: /private/

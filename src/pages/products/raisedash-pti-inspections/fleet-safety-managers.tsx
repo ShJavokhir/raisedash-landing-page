@@ -1,4 +1,3 @@
-import Head from "next/head";
 import { NextPage } from "next";
 import Link from "next/link";
 import React, { useState } from "react";
@@ -6,6 +5,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/layout/Container";
 import { Footer } from "@/components/layout/Footer";
+import { SEO } from "@/components/seo/SEO";
 import { ArrowRight, X as XIcon } from "lucide-react";
 
 // --- Lightbox Component ---
@@ -240,13 +240,11 @@ const FleetSafetyManagersPage: NextPage = () => {
 
   return (
     <>
-      <Head>
-        <title>Solutions For Safety And Fleet Managers | RaiseDash Features</title>
-        <meta
-          name="description"
-          content="See how RaiseDash solve problems for Fleet and Safety managers. The advanced dashboard provides full control over Pre-Trip and DVIR inspections."
-        />
-      </Head>
+      <SEO
+        title="Fleet & Safety Manager Dashboard | RaiseDash Features"
+        description="See how RaiseDash solves problems for Fleet and Safety managers. The advanced dashboard provides full control over Pre-Trip and DVIR inspections with real-time analytics."
+        keywords={["fleet manager dashboard", "safety manager software", "DVIR management", "fleet inspection dashboard", "compliance management"]}
+      />
 
       <Lightbox
         isOpen={!!lightboxImage}

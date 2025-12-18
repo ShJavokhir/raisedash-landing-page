@@ -5,7 +5,8 @@ export default function Security() {
   return (
     <PageLayout
       title="Security"
-      description="Learn about Raisedash's security practices and how we protect your freight logistics data."
+      description="Learn about Raisedash's security practices and how we protect your freight logistics data with enterprise-grade security measures."
+      keywords={["raisedash security", "data protection", "fleet data security", "logistics software security"]}
     >
       {/* Hero Section */}
       <Container className="flex items-center bg-white dark:bg-card mt-12 rounded-md border ui-corner-accents">
