@@ -4,6 +4,11 @@ import matter from "gray-matter";
 
 const BLOG_DIR = path.join(process.cwd(), "content/blog");
 
+export interface FAQItem {
+  question: string;
+  answer: string;
+}
+
 export interface BlogPost {
   slug: string;
   title: string;
@@ -16,6 +21,42 @@ export interface BlogPost {
   featured?: boolean;
   content: string;
   readTime: string;
+  faqs?: FAQItem[];
+}
+
+/**
+ * Extract FAQs from MDX content. Supports multiple patterns:
+ * 1. Frontmatter faqs array
+ * 2. **Question** followed by answer paragraph
+ * 3. ### Q: Question followed by answer
+ */
+function extractFAQsFromContent(content: string): FAQItem[] {
+  const faqs: FAQItem[] = [];
+
+  // Pattern 1: **Bold question?** followed by paragraph answer
+  const boldQuestionPattern = /\*\*([^*]+\?)\*\*\s*\n\n([^*#]+?)(?=\n\n\*\*|\n\n##|\n\n###|\n---|\n\n$|$)/g;
+  let match;
+
+  while ((match = boldQuestionPattern.exec(content)) !== null) {
+    const question = match[1].trim();
+    const answer = match[2].trim();
+    if (question && answer && answer.length > 20) {
+      faqs.push({ question, answer });
+    }
+  }
+
+  // Pattern 2: ### Q: Question followed by answer
+  const h3QuestionPattern = /###\s*Q:\s*([^\n]+)\n([^#]+?)(?=\n###|\n##|\n---|\n\n$|$)/g;
+
+  while ((match = h3QuestionPattern.exec(content)) !== null) {
+    const question = match[1].trim();
+    const answer = match[2].trim();
+    if (question && answer && answer.length > 10) {
+      faqs.push({ question, answer });
+    }
+  }
+
+  return faqs;
 }
 
 function calculateReadTime(content: string): string {
@@ -36,6 +77,9 @@ export function getAllPosts(): BlogPost[] {
       const fileContent = fs.readFileSync(filePath, "utf-8");
       const { data, content } = matter(fileContent);
 
+      // Extract FAQs from frontmatter or content
+      const faqs: FAQItem[] = data.faqs || extractFAQsFromContent(content);
+
       return {
         slug,
         title: data.title,
@@ -48,6 +92,7 @@ export function getAllPosts(): BlogPost[] {
         featured: data.featured || false,
         content,
         readTime: calculateReadTime(content),
+        faqs: faqs.length > 0 ? faqs : undefined,
       };
     })
     .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime());
@@ -65,6 +110,9 @@ export function getPostBySlug(slug: string): BlogPost | null {
   const fileContent = fs.readFileSync(filePath, "utf-8");
   const { data, content } = matter(fileContent);
 
+  // Extract FAQs from frontmatter or content
+  const faqs: FAQItem[] = data.faqs || extractFAQsFromContent(content);
+
   return {
     slug,
     title: data.title,
@@ -77,6 +125,7 @@ export function getPostBySlug(slug: string): BlogPost | null {
     featured: data.featured || false,
     content,
     readTime: calculateReadTime(content),
+    faqs: faqs.length > 0 ? faqs : undefined,
   };
 }
 

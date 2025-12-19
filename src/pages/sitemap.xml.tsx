@@ -29,7 +29,7 @@ function generateSiteMap(posts: { slug: string; publishedAt: string }[]) {
     <loc>${SITE_URL}/about</loc>
     <lastmod>${currentDate}</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>${SITE_URL}/contact</loc>
@@ -41,7 +41,7 @@ function generateSiteMap(posts: { slug: string; publishedAt: string }[]) {
     <loc>${SITE_URL}/careers</loc>
     <lastmod>${currentDate}</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
+    <priority>0.3</priority>
   </url>
   <url>
     <loc>${SITE_URL}/changelogs</loc>
@@ -59,37 +59,37 @@ function generateSiteMap(posts: { slug: string; publishedAt: string }[]) {
     <loc>${SITE_URL}/products/raisedash-pti-inspections</loc>
     <lastmod>${currentDate}</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <priority>1</priority>
   </url>
   <url>
     <loc>${SITE_URL}/products/raisedash-pti-inspections/driver-features</loc>
     <lastmod>${currentDate}</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>${SITE_URL}/products/raisedash-pti-inspections/fleet-safety-managers</loc>
     <lastmod>${currentDate}</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>${SITE_URL}/products/raisedash-shift</loc>
     <lastmod>${currentDate}</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <priority>1</priority>
   </url>
   <url>
     <loc>${SITE_URL}/products/raisedash-vertex</loc>
     <lastmod>${currentDate}</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <priority>1</priority>
   </url>
   <url>
     <loc>${SITE_URL}/vertex-app</loc>
     <lastmod>${currentDate}</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>${SITE_URL}/privacy-policy</loc>
@@ -117,7 +117,7 @@ function generateSiteMap(posts: { slug: string; publishedAt: string }[]) {
   <url>
     <loc>${SITE_URL}/blog/${post.slug}</loc>
     <lastmod>${post.publishedAt}</lastmod>
-    <changefreq>monthly</changefreq>
+    <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>`
     )

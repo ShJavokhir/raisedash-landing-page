@@ -8,6 +8,7 @@ import { Container } from "@/components/layout/Container";
 import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/ui/Button";
 import { getPostBySlug, getAllSlugs, getRelatedPosts, BlogPost } from "@/lib/blog";
+import { BreadcrumbJsonLd, FAQPageJsonLd } from "@/components/seo/SEO";
 
 const RAW_SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://raisedash.com";
 const SITE_URL = RAW_SITE_URL.endsWith("/") ? RAW_SITE_URL.slice(0, -1) : RAW_SITE_URL;
@@ -171,6 +172,21 @@ export default function BlogPostPage({ post, mdxHtml, relatedPosts }: BlogPostPa
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </Head>
+
+      {/* Breadcrumb JSON-LD */}
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", url: "/" },
+          { name: "Blog", url: "/blog" },
+          { name: post.title, url: `/blog/${post.slug}` },
+        ]}
+      />
+
+      {/* FAQ JSON-LD (if post has FAQs) */}
+      {post.faqs && post.faqs.length > 0 && (
+        <FAQPageJsonLd faqs={post.faqs} />
+      )}
+
       <div className="font-sans">
       {/* Breadcrumb */}
       <Container className="bg-white dark:bg-card mt-12 rounded-md border ui-corner-accents">
