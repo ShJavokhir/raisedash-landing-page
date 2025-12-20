@@ -184,7 +184,7 @@ const FAQS: FAQItem[] = [
   },
   {
     question: "Is my data secure?",
-    answer: "Security is our top priority. We use bank-grade 256-bit encryption for all data in transit and at rest. We are SOC 2 Type II compliant and perform regular penetration testing."
+    answer: "Security is our top priority. We use bank-grade 256-bit encryption for all data in transit and at rest."
   },
   {
     question: "Is support included?",

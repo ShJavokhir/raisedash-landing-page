@@ -15,30 +15,31 @@ import {
 import { Menu, X, MapPin, ClipboardCheck, GraduationCap, BookOpen, FileText, Building2, Users, Mail, Newspaper } from "lucide-react";
 
 const solutions = [
+  
   {
-    id: "vertex",
-    title: "Raisedash Vertex",
-    description: "Real-time freight tracking with automated arrival alerts.",
-    href: "/products/raisedash-vertex",
-    image: "https://cdn.raisedash.com/media/vertex/834f7f4b-6def-4090-bc16-6de5c21ff18d.webp",
-    icon: MapPin,
+    id: "onboarding",
+    title: "Shift (Driver Onboarding)",
+    description: "Streamlined driver training and compliance platform.",
+    href: "/products/raisedash-shift",
+    image: "https://cdn.raisedash.com/media/vertex/57c53ef5-ad1a-4508-89a5-329985846a89.webp",
+    icon: GraduationCap,
   },
   {
     id: "pti",
-    title: "PTI Inspections",
+    title: "PTI (PTI Inspections)",
     description: "Digital driver vehicle inspection reports and pre-trip tools.",
     href: "/products/raisedash-pti-inspections",
     image: "https://cdn.raisedash.com/media/vertex/5bbcc5ad-2b1c-4ddb-9fe6-e8e2bc2c8a1a.webp",
     icon: ClipboardCheck,
   },
   {
-    id: "onboarding",
-    title: "Raisedash Onboarding",
-    description: "Streamlined driver training and compliance platform.",
-    href: "/products/raisedash-shift",
-    image: "https://cdn.raisedash.com/media/vertex/57c53ef5-ad1a-4508-89a5-329985846a89.webp",
-    icon: GraduationCap,
-  },
+    id: "vertex",
+    title: "Vertex (Freight Tracking)",
+    description: "Real-time freight tracking with automated arrival alerts.",
+    href: "/products/raisedash-vertex",
+    image: "https://cdn.raisedash.com/media/vertex/834f7f4b-6def-4090-bc16-6de5c21ff18d.webp",
+    icon: MapPin,
+  }
 ];
 
 const resources = [
