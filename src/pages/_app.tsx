@@ -4,6 +4,9 @@ import Head from "next/head";
 import { Header } from "@/components/layout/Header";
 import { OrganizationJsonLd, WebsiteJsonLd } from "@/components/seo/SEO";
 
+// Re-export Web Vitals reporting for Next.js performance monitoring
+export { reportWebVitals } from "@/lib/vitals";
+
 export default function App({ Component, pageProps }: AppProps) {
   const hideHeader = false;
 

@@ -93,5 +93,7 @@ export const getStaticProps: GetStaticProps = async () => {
       posts,
       categories,
     },
+    // ISR: Revalidate every hour for fresh content
+    revalidate: 3600,
   };
 };
