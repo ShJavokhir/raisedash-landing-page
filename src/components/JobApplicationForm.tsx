@@ -139,14 +139,20 @@ export function JobApplicationForm({ jobTitle, isOpen, onClose }: JobApplication
 
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
-      <div className="bg-white dark:bg-card rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto ui-corner-accents">
+      <div
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="job-application-title"
+        className="bg-white dark:bg-card rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto ui-corner-accents"
+      >
         <div className="p-6">
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl font-semibold text-foreground">
+            <h2 id="job-application-title" className="text-2xl font-semibold text-foreground">
               Apply for {jobTitle}
             </h2>
             <button
               onClick={onClose}
+              aria-label="Close"
               className="text-muted-foreground hover:text-foreground transition-colors"
             >
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -156,7 +162,7 @@ export function JobApplicationForm({ jobTitle, isOpen, onClose }: JobApplication
           </div>
 
           {submitStatus === 'success' ? (
-            <div className="text-center py-8">
+            <div className="text-center py-8" aria-live="polite">
               <div className="w-16 h-16 bg-green-100 dark:bg-green-900/20 rounded-full flex items-center justify-center mx-auto mb-4">
                 <svg className="w-8 h-8 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
@@ -183,13 +189,15 @@ export function JobApplicationForm({ jobTitle, isOpen, onClose }: JobApplication
                     required
                     value={formData.firstName}
                     onChange={handleInputChange}
+                    aria-describedby={errors.firstName ? 'firstName-error' : undefined}
+                    aria-invalid={errors.firstName ? 'true' : undefined}
                     className={`w-full px-3 py-2 border rounded-md bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent ${
                       errors.firstName ? 'border-red-500' : 'border-input'
                     }`}
                     placeholder="John"
                   />
                   {errors.firstName && (
-                    <p className="text-red-500 text-sm mt-1">{errors.firstName}</p>
+                    <p id="firstName-error" role="alert" className="text-red-500 text-sm mt-1">{errors.firstName}</p>
                   )}
                 </div>
 
@@ -204,13 +212,15 @@ export function JobApplicationForm({ jobTitle, isOpen, onClose }: JobApplication
                     required
                     value={formData.lastName}
                     onChange={handleInputChange}
+                    aria-describedby={errors.lastName ? 'lastName-error' : undefined}
+                    aria-invalid={errors.lastName ? 'true' : undefined}
                     className={`w-full px-3 py-2 border rounded-md bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent ${
                       errors.lastName ? 'border-red-500' : 'border-input'
                     }`}
                     placeholder="Doe"
                   />
                   {errors.lastName && (
-                    <p className="text-red-500 text-sm mt-1">{errors.lastName}</p>
+                    <p id="lastName-error" role="alert" className="text-red-500 text-sm mt-1">{errors.lastName}</p>
                   )}
                 </div>
               </div>
@@ -227,13 +237,15 @@ export function JobApplicationForm({ jobTitle, isOpen, onClose }: JobApplication
                     required
                     value={formData.email}
                     onChange={handleInputChange}
+                    aria-describedby={errors.email ? 'email-error' : undefined}
+                    aria-invalid={errors.email ? 'true' : undefined}
                     className={`w-full px-3 py-2 border rounded-md bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent ${
                       errors.email ? 'border-red-500' : 'border-input'
                     }`}
                     placeholder="john@example.com"
                   />
                   {errors.email && (
-                    <p className="text-red-500 text-sm mt-1">{errors.email}</p>
+                    <p id="email-error" role="alert" className="text-red-500 text-sm mt-1">{errors.email}</p>
                   )}
                 </div>
 
@@ -248,13 +260,15 @@ export function JobApplicationForm({ jobTitle, isOpen, onClose }: JobApplication
                     required
                     value={formData.phone}
                     onChange={handleInputChange}
+                    aria-describedby={errors.phone ? 'phone-error' : undefined}
+                    aria-invalid={errors.phone ? 'true' : undefined}
                     className={`w-full px-3 py-2 border rounded-md bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent ${
                       errors.phone ? 'border-red-500' : 'border-input'
                     }`}
                     placeholder="+1 (555) 123-4567"
                   />
                   {errors.phone && (
-                    <p className="text-red-500 text-sm mt-1">{errors.phone}</p>
+                    <p id="phone-error" role="alert" className="text-red-500 text-sm mt-1">{errors.phone}</p>
                   )}
                 </div>
               </div>
@@ -284,6 +298,8 @@ export function JobApplicationForm({ jobTitle, isOpen, onClose }: JobApplication
                   required
                   value={formData.experience}
                   onChange={handleInputChange}
+                  aria-describedby={errors.experience ? 'experience-error' : undefined}
+                  aria-invalid={errors.experience ? 'true' : undefined}
                   className={`w-full px-3 py-2 border rounded-md bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent ${
                     errors.experience ? 'border-red-500' : 'border-input'
                   }`}
@@ -296,7 +312,7 @@ export function JobApplicationForm({ jobTitle, isOpen, onClose }: JobApplication
                   <option value="10+">10+ years</option>
                 </select>
                 {errors.experience && (
-                  <p className="text-red-500 text-sm mt-1">{errors.experience}</p>
+                  <p id="experience-error" role="alert" className="text-red-500 text-sm mt-1">{errors.experience}</p>
                 )}
               </div>
 
@@ -312,21 +328,23 @@ export function JobApplicationForm({ jobTitle, isOpen, onClose }: JobApplication
                   rows={6}
                   value={formData.coverLetter}
                   onChange={handleInputChange}
+                  aria-describedby={errors.coverLetter ? 'coverLetter-error coverLetter-hint' : 'coverLetter-hint'}
+                  aria-invalid={errors.coverLetter ? 'true' : undefined}
                   className={`w-full px-3 py-2 border rounded-md bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent ${
                     errors.coverLetter ? 'border-red-500' : 'border-input'
                   }`}
                   placeholder="Tell us why you're interested in this position and what makes you a great fit..."
                 />
-                <p className="text-sm text-muted-foreground mt-1">
+                <p id="coverLetter-hint" className="text-sm text-muted-foreground mt-1">
                   {formData.coverLetter.length}/500 characters (minimum 50)
                 </p>
                 {errors.coverLetter && (
-                  <p className="text-red-500 text-sm mt-1">{errors.coverLetter}</p>
+                  <p id="coverLetter-error" role="alert" className="text-red-500 text-sm mt-1">{errors.coverLetter}</p>
                 )}
               </div>
 
               {submitStatus === 'error' && (
-                <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-4">
+                <div role="alert" aria-live="polite" className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-4">
                   <p className="text-red-800 dark:text-red-200">
                     There was an error submitting your application. Please try again.
                   </p>

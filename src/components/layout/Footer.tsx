@@ -33,14 +33,6 @@ export function Footer() {
               </svg>
               <span>Need help? <a href="mailto:support@raisedash.com" className="text-foreground hover:underline">support@raisedash.com</a></span>
             </div>
-            {/* <div className="flex items-center gap-2">
-              <Button variant="secondary" size="sm">
-                See in Action
-              </Button>
-              <Button variant="ghost" size="sm">
-                Request Demo
-              </Button>
-            </div> */}
           </div>
 
          
@@ -142,29 +134,6 @@ export function Footer() {
                </div>
              </div>
             
-            {/* <div className="flex items-center gap-4">
-              <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                <span>Theme</span>
-                <ThemeToggle />
-              </div>
-              
-               <div className="flex items-center gap-4">
-                 <a 
-                   href="/privacy-policy" 
-                   className="text-muted-foreground hover:text-foreground transition-colors"
-                 >
-                   Privacy Policy
-                 </a>
-                 <span className="text-muted-foreground">|</span>
-                 <a 
-                   href="/terms-of-use" 
-                   className="text-muted-foreground hover:text-foreground transition-colors"
-                 >
-                   Terms of Use
-                 </a>
-                 
-               </div>
-            </div> */}
           </div>
         </div>
         </Container>
@@ -172,4 +141,3 @@ export function Footer() {
     </footer>
   );
 }
-//

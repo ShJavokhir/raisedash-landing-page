@@ -36,7 +36,6 @@ export default function Home() {
               </p>
 
               <div className="mt-8 flex flex-col sm:flex-row gap-3 animate-fade-in-up delay-200">
-                {/* <Button className="w-full sm:w-auto">See in Action</Button> */}
                 <Link href="/request-demo" className="w-full sm:w-auto">
                   <Button variant="secondary" className="w-full">Request a Demo</Button>
                 </Link>
