@@ -8,6 +8,9 @@ export function isValidEmail(email: string): boolean {
   return EMAIL_REGEX.test(email);
 }
 
+// Alias for backward compatibility
+export const validateEmail = isValidEmail;
+
 export function validateRequiredFields(
   data: Record<string, unknown>,
   requiredFields: string[]

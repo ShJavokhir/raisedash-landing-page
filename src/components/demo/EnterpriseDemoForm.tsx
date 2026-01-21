@@ -96,19 +96,19 @@ export function EnterpriseDemoForm() {
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
-        className="bg-white dark:bg-card rounded-2xl border border-[#EEEBEA] dark:border-border p-8 md:p-10"
+        className="bg-white dark:bg-card rounded-2xl border border-border dark:border-border p-8 md:p-10"
       >
         <div className="text-center space-y-6">
           <div className="w-16 h-16 bg-emerald-50 dark:bg-emerald-950 rounded-full flex items-center justify-center mx-auto">
             <Check className="w-8 h-8 text-emerald-600 dark:text-emerald-400" />
           </div>
           <div className="space-y-2">
-            <h3 className="text-2xl font-semibold text-[#2E2D2D] dark:text-foreground">
+            <h3 className="text-2xl font-semibold text-foreground dark:text-foreground">
               Thank you for your interest
             </h3>
-            <p className="text-[rgba(24,23,23,0.7)] dark:text-muted-foreground max-w-sm mx-auto">
+            <p className="text-muted-foreground dark:text-muted-foreground max-w-sm mx-auto">
               A member of our team will reach out to{" "}
-              <span className="font-medium text-[#2E2D2D] dark:text-foreground">{formData.email}</span>{" "}
+              <span className="font-medium text-foreground dark:text-foreground">{formData.email}</span>{" "}
               within one business day.
             </p>
           </div>
@@ -118,12 +118,12 @@ export function EnterpriseDemoForm() {
   }
 
   return (
-    <div className="bg-white dark:bg-card rounded-2xl border border-[#EEEBEA] dark:border-border p-8 md:p-10">
+    <div className="bg-white dark:bg-card rounded-2xl border border-border dark:border-border p-8 md:p-10">
       <div className="mb-8">
-        <h2 className="text-2xl font-semibold text-[#2E2D2D] dark:text-foreground mb-2">
+        <h2 className="text-2xl font-semibold text-foreground dark:text-foreground mb-2">
           Request a demo
         </h2>
-        <p className="text-[rgba(24,23,23,0.7)] dark:text-muted-foreground text-sm">
+        <p className="text-muted-foreground dark:text-muted-foreground text-sm">
           Fill out the form and we'll be in touch within one business day.
         </p>
       </div>
@@ -131,8 +131,8 @@ export function EnterpriseDemoForm() {
       <form onSubmit={handleSubmit} className="space-y-5">
         {/* Email first - enterprise standard for lead qualification */}
         <div className="space-y-2">
-          <label className="text-sm font-medium text-[#2E2D2D] dark:text-foreground">
-            Work email <span className="text-[#D04841]">*</span>
+          <label className="text-sm font-medium text-foreground dark:text-foreground">
+            Work email <span className="text-destructive">*</span>
           </label>
           <Input
             type="email"
@@ -146,8 +146,8 @@ export function EnterpriseDemoForm() {
         {/* Name fields */}
         <div className="grid grid-cols-2 gap-4">
           <div className="space-y-2">
-            <label className="text-sm font-medium text-[#2E2D2D] dark:text-foreground">
-              First name <span className="text-[#D04841]">*</span>
+            <label className="text-sm font-medium text-foreground dark:text-foreground">
+              First name <span className="text-destructive">*</span>
             </label>
             <Input
               type="text"
@@ -158,8 +158,8 @@ export function EnterpriseDemoForm() {
             />
           </div>
           <div className="space-y-2">
-            <label className="text-sm font-medium text-[#2E2D2D] dark:text-foreground">
-              Last name <span className="text-[#D04841]">*</span>
+            <label className="text-sm font-medium text-foreground dark:text-foreground">
+              Last name <span className="text-destructive">*</span>
             </label>
             <Input
               type="text"
@@ -173,8 +173,8 @@ export function EnterpriseDemoForm() {
 
         {/* Company info */}
         <div className="space-y-2">
-          <label className="text-sm font-medium text-[#2E2D2D] dark:text-foreground">
-            Company <span className="text-[#D04841]">*</span>
+          <label className="text-sm font-medium text-foreground dark:text-foreground">
+            Company <span className="text-destructive">*</span>
           </label>
           <Input
             type="text"
@@ -186,8 +186,8 @@ export function EnterpriseDemoForm() {
         </div>
 
         <div className="space-y-2">
-          <label className="text-sm font-medium text-[#2E2D2D] dark:text-foreground">
-            Job title <span className="text-[#D04841]">*</span>
+          <label className="text-sm font-medium text-foreground dark:text-foreground">
+            Job title <span className="text-destructive">*</span>
           </label>
           <Input
             type="text"
@@ -199,13 +199,13 @@ export function EnterpriseDemoForm() {
         </div>
 
         <div className="space-y-2">
-          <label className="text-sm font-medium text-[#2E2D2D] dark:text-foreground">
-            Fleet size <span className="text-[#D04841]">*</span>
+          <label className="text-sm font-medium text-foreground dark:text-foreground">
+            Fleet size <span className="text-destructive">*</span>
           </label>
           <select
             value={formData.fleetSize}
             onChange={(e) => handleChange("fleetSize", e.target.value)}
-            className="w-full h-11 px-4 rounded-lg border border-[#DAD6D5] dark:border-border bg-white dark:bg-card text-[#2E2D2D] dark:text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-[#2E2D2D]/20 dark:focus:ring-foreground/20 focus:border-[#2E2D2D] dark:focus:border-foreground transition-colors"
+            className="w-full h-11 px-4 rounded-lg border border-input dark:border-border bg-white dark:bg-card text-foreground dark:text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-[#2E2D2D]/20 dark:focus:ring-foreground/20 focus:border-[#2E2D2D] dark:focus:border-foreground transition-colors"
           >
             <option value="">Select fleet size</option>
             {fleetSizeOptions.map((option) => (
@@ -217,9 +217,9 @@ export function EnterpriseDemoForm() {
         </div>
 
         <div className="space-y-2">
-          <label className="text-sm font-medium text-[#2E2D2D] dark:text-foreground">
+          <label className="text-sm font-medium text-foreground dark:text-foreground">
             Phone number{" "}
-            <span className="text-[rgba(24,23,23,0.5)] dark:text-muted-foreground font-normal">(optional)</span>
+            <span className="text-muted-foreground dark:text-muted-foreground font-normal">(optional)</span>
           </label>
           <Input
             type="tel"
@@ -231,7 +231,7 @@ export function EnterpriseDemoForm() {
         </div>
 
         {error && (
-          <p className="text-sm text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-950 border border-red-100 dark:border-red-900 rounded-lg p-3">
+          <p className="text-sm text-destructive bg-destructive/10 border border-destructive/20 rounded-lg p-3">
             {error}
           </p>
         )}
@@ -253,13 +253,13 @@ export function EnterpriseDemoForm() {
           </Button>
         </div>
 
-        <p className="text-xs text-[rgba(24,23,23,0.5)] dark:text-muted-foreground text-center pt-2">
+        <p className="text-xs text-muted-foreground dark:text-muted-foreground text-center pt-2">
           By submitting, you agree to our{" "}
-          <a href="/privacy-policy" className="underline hover:text-[#2E2D2D] dark:hover:text-foreground">
+          <a href="/privacy-policy" className="underline hover:text-foreground dark:hover:text-foreground">
             Privacy Policy
           </a>{" "}
           and{" "}
-          <a href="/terms-of-use" className="underline hover:text-[#2E2D2D] dark:hover:text-foreground">
+          <a href="/terms-of-use" className="underline hover:text-foreground dark:hover:text-foreground">
             Terms of Service
           </a>
           .

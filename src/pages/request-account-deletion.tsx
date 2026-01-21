@@ -245,7 +245,7 @@ export default function RequestAccountDeletion() {
                   </div>
 
                   {submitStatus === "error" && (
-                    <p className="text-sm text-red-600 dark:text-red-400">
+                    <p className="text-sm text-destructive">
                       Something went wrong. Please try again.
                     </p>
                   )}

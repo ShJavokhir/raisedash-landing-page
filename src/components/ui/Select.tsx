@@ -16,13 +16,14 @@ export interface SelectProps
 export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
   ({ className, label, error, id, required, options, ...props }, ref) => {
     const selectId = id || props.name;
+    const errorId = error ? `${selectId}-error` : undefined;
 
     return (
       <div className="w-full">
         {label && (
           <label
             htmlFor={selectId}
-            className="block text-sm font-medium text-[#2E2D2D] dark:text-foreground mb-2"
+            className="block text-sm font-medium text-foreground mb-2"
           >
             {label}
             {required && " *"}
@@ -32,12 +33,14 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
           ref={ref}
           id={selectId}
           required={required}
+          aria-invalid={error ? "true" : undefined}
+          aria-describedby={errorId}
           className={cn(
-            "w-full px-4 py-3 border border-[#DAD6D5] dark:border-border rounded-lg bg-white dark:bg-card text-[#181717] dark:text-foreground",
-            "focus:outline-none focus:border-[#2E2D2D] dark:focus:border-foreground",
+            "w-full px-4 py-3 border border-input rounded-lg bg-white dark:bg-card text-foreground",
+            "focus:outline-none focus:border-foreground",
             "transition-colors duration-150",
             "disabled:opacity-50 disabled:cursor-not-allowed",
-            error && "border-[#D04841] dark:border-destructive focus:border-[#D04841] dark:focus:border-destructive",
+            error && "border-destructive focus:border-destructive",
             className
           )}
           {...props}
@@ -49,7 +52,7 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
           ))}
         </select>
         {error && (
-          <p className="mt-2 text-sm text-[#D04841] dark:text-destructive">{error}</p>
+          <p id={errorId} className="mt-2 text-sm text-destructive" role="alert">{error}</p>
         )}
       </div>
     );

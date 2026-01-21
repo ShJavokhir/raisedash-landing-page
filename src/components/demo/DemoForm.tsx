@@ -292,7 +292,7 @@ export function DemoForm({
                   />
                 </div>
                 {submitError && (
-                  <p className="text-sm text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-3">
+                  <p className="text-sm text-destructive bg-destructive/10 border border-destructive/20 rounded-lg p-3">
                     {submitError}
                   </p>
                 )}

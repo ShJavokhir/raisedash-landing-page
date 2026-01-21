@@ -11,9 +11,19 @@ import {
   NavigationMenuTrigger,
   NavigationMenuContent,
 } from "@/components/ui/navigation-menu";
-import { Menu, X, MapPin, ClipboardCheck, GraduationCap, BookOpen, FileText, Building2, Users, Mail } from "lucide-react";
+import { Menu, X, MapPin, ClipboardCheck, GraduationCap, BookOpen, FileText, Building2, Users, Mail, LucideIcon } from "lucide-react";
 
-const solutions = [
+interface Solution {
+  id: string;
+  title: string;
+  description: string;
+  href: string;
+  image: string;
+  icon: LucideIcon;
+  comingSoon?: boolean;
+}
+
+const solutions: Solution[] = [
   
   {
     id: "onboarding",
@@ -80,11 +90,26 @@ const company = [
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
   const [hoveredSolution, setHoveredSolution] = React.useState(solutions[0]);
+  const mobileMenuRef = React.useRef<HTMLDivElement>(null);
+
+  // Close mobile menu on Escape key and trap focus
+  React.useEffect(() => {
+    if (!mobileMenuOpen) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setMobileMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [mobileMenuOpen]);
 
   return (
     <header className="sticky top-4 md:top-6 z-50 w-full bg-transparent">
       <div className="">
-        <Container className="rounded-lg border border-[#EEEBEA] bg-white dark:bg-card dark:border-border shadow-sm">
+        <Container className="rounded-lg border border-border bg-white dark:bg-card dark:border-border shadow-sm">
         <div className="h-14 md:h-16 flex items-center justify-between">
           {/* Logo */}
           <div className="flex items-center gap-3">
@@ -111,19 +136,19 @@ export function Header() {
                             <Link
                               key={solution.id}
                               href={solution.href}
-                              className={`flex items-start gap-3 rounded-lg p-3 transition-all duration-200 hover:bg-[#F7F5F4] dark:hover:bg-accent ${
-                                hoveredSolution.id === solution.id ? "bg-[#F7F5F4] dark:bg-accent" : ""
+                              className={`flex items-start gap-3 rounded-lg p-3 transition-all duration-200 hover:bg-muted dark:hover:bg-accent ${
+                                hoveredSolution.id === solution.id ? "bg-muted dark:bg-accent" : ""
                               }`}
                               onMouseEnter={() => setHoveredSolution(solution)}
                             >
-                              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-[#EEEBEA] dark:border-border bg-white dark:bg-background">
+                              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-border dark:border-border bg-white dark:bg-background">
                                 <Icon className="h-5 w-5 text-foreground" />
                               </div>
                               <div className="flex-1 min-w-0">
                                 <div className="flex items-center gap-2">
                                   <span className="text-sm font-medium text-foreground">{solution.title}</span>
-                                  {(solution as any).comingSoon && (
-                                    <span className="text-[10px] px-1.5 py-0.5 rounded-md bg-[#F7F5F4] dark:bg-muted text-muted-foreground font-medium">
+                                  {solution.comingSoon && (
+                                    <span className="text-[10px] px-1.5 py-0.5 rounded-md bg-muted dark:bg-muted text-muted-foreground font-medium">
                                       Soon
                                     </span>
                                   )}
@@ -137,8 +162,8 @@ export function Header() {
                         })}
                       </div>
                       {/* Right column - Image preview */}
-                      <div className="w-[270px] p-2 border-l border-[#EEEBEA] dark:border-border">
-                        <div className="relative h-full w-full rounded-lg overflow-hidden bg-[#F7F5F4] dark:bg-muted">
+                      <div className="w-[270px] p-2 border-l border-border dark:border-border">
+                        <div className="relative h-full w-full rounded-lg overflow-hidden bg-muted dark:bg-muted">
                           <Image
                             src={hoveredSolution.image}
                             alt={hoveredSolution.title}
@@ -162,9 +187,9 @@ export function Header() {
                           <Link
                             key={item.title}
                             href={item.href}
-                            className="flex items-start gap-3 rounded-lg p-3 transition-all duration-200 hover:bg-[#F7F5F4] dark:hover:bg-accent"
+                            className="flex items-start gap-3 rounded-lg p-3 transition-all duration-200 hover:bg-muted dark:hover:bg-accent"
                           >
-                            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-[#EEEBEA] dark:border-border bg-white dark:bg-background">
+                            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-border dark:border-border bg-white dark:bg-background">
                               <Icon className="h-5 w-5 text-foreground" />
                             </div>
                             <div className="flex-1 min-w-0">
@@ -191,9 +216,9 @@ export function Header() {
                           <Link
                             key={item.title}
                             href={item.href}
-                            className="flex items-start gap-3 rounded-lg p-3 transition-all duration-200 hover:bg-[#F7F5F4] dark:hover:bg-accent"
+                            className="flex items-start gap-3 rounded-lg p-3 transition-all duration-200 hover:bg-muted dark:hover:bg-accent"
                           >
-                            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-[#EEEBEA] dark:border-border bg-white dark:bg-background">
+                            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-border dark:border-border bg-white dark:bg-background">
                               <Icon className="h-5 w-5 text-foreground" />
                             </div>
                             <div className="flex-1 min-w-0">
@@ -227,8 +252,10 @@ export function Header() {
             <ThemeToggle />
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 rounded-lg hover:bg-[#F7F5F4] dark:hover:bg-accent transition-all duration-200"
-              aria-label="Toggle mobile menu"
+              className="p-2 rounded-lg hover:bg-muted dark:hover:bg-accent transition-all duration-200"
+              aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+              aria-expanded={mobileMenuOpen}
+              aria-controls="mobile-navigation"
             >
               {mobileMenuOpen ? (
                 <X className="h-5 w-5 text-foreground" />
@@ -241,7 +268,13 @@ export function Header() {
 
         {/* Mobile Navigation Menu */}
         {mobileMenuOpen && (
-          <div className="md:hidden border-t border-[#EEEBEA] dark:border-border">
+          <nav
+            id="mobile-navigation"
+            role="navigation"
+            aria-label="Mobile navigation"
+            ref={mobileMenuRef}
+            className="md:hidden border-t border-border dark:border-border"
+          >
             <div className="py-4 space-y-1">
               {/* Solutions Section */}
               <div className="px-3 py-2">
@@ -253,15 +286,15 @@ export function Header() {
                   <Link
                     key={solution.id}
                     href={solution.href}
-                    className="flex items-center gap-3 mx-2 px-3 py-2.5 text-sm text-foreground hover:bg-[#F7F5F4] dark:hover:bg-accent rounded-lg transition-all duration-200"
+                    className="flex items-center gap-3 mx-2 px-3 py-2.5 text-sm text-foreground hover:bg-muted dark:hover:bg-accent rounded-lg transition-all duration-200"
                     onClick={() => setMobileMenuOpen(false)}
                   >
-                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-[#EEEBEA] dark:border-border bg-white dark:bg-background">
+                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-border dark:border-border bg-white dark:bg-background">
                       <Icon className="h-4 w-4 text-foreground" />
                     </div>
                     <span className="font-medium">{solution.title}</span>
-                    {(solution as any).comingSoon && (
-                      <span className="text-[10px] px-1.5 py-0.5 rounded-md bg-[#F7F5F4] dark:bg-muted text-muted-foreground font-medium ml-auto">
+                    {solution.comingSoon && (
+                      <span className="text-[10px] px-1.5 py-0.5 rounded-md bg-muted dark:bg-muted text-muted-foreground font-medium ml-auto">
                         Soon
                       </span>
                     )}
@@ -279,10 +312,10 @@ export function Header() {
                   <Link
                     key={item.title}
                     href={item.href}
-                    className="flex items-center gap-3 mx-2 px-3 py-2.5 text-sm text-foreground hover:bg-[#F7F5F4] dark:hover:bg-accent rounded-lg transition-all duration-200"
+                    className="flex items-center gap-3 mx-2 px-3 py-2.5 text-sm text-foreground hover:bg-muted dark:hover:bg-accent rounded-lg transition-all duration-200"
                     onClick={() => setMobileMenuOpen(false)}
                   >
-                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-[#EEEBEA] dark:border-border bg-white dark:bg-background">
+                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-border dark:border-border bg-white dark:bg-background">
                       <Icon className="h-4 w-4 text-foreground" />
                     </div>
                     <span className="font-medium">{item.title}</span>
@@ -300,10 +333,10 @@ export function Header() {
                   <Link
                     key={item.title}
                     href={item.href}
-                    className="flex items-center gap-3 mx-2 px-3 py-2.5 text-sm text-foreground hover:bg-[#F7F5F4] dark:hover:bg-accent rounded-lg transition-all duration-200"
+                    className="flex items-center gap-3 mx-2 px-3 py-2.5 text-sm text-foreground hover:bg-muted dark:hover:bg-accent rounded-lg transition-all duration-200"
                     onClick={() => setMobileMenuOpen(false)}
                   >
-                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-[#EEEBEA] dark:border-border bg-white dark:bg-background">
+                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-border dark:border-border bg-white dark:bg-background">
                       <Icon className="h-4 w-4 text-foreground" />
                     </div>
                     <span className="font-medium">{item.title}</span>
@@ -319,7 +352,7 @@ export function Header() {
                 </Link>
               </div>
             </div>
-          </div>
+          </nav>
         )}
         </Container>
       </div>

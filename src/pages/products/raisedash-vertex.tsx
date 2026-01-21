@@ -24,7 +24,6 @@ import {
   Smartphone,
   User,
   Zap,
-  Play,
 } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/layout/Container";
@@ -43,7 +42,6 @@ enum UserRole {
 type DriverStatus = "pending" | "active" | "complete";
 
 const RoleButton = ({
-  role,
   active,
   onClick,
   icon: Icon,
@@ -51,7 +49,6 @@ const RoleButton = ({
   status,
   notification,
 }: {
-  role: UserRole;
   active: boolean;
   onClick: () => void;
   icon: React.ComponentType<{ className?: string }>;
@@ -163,7 +160,6 @@ const InteractiveDemo: React.FC = () => {
         </div>
         <div className="flex flex-col p-2 gap-1">
           <RoleButton
-            role={UserRole.BROKER}
             active={activeRole === UserRole.BROKER}
             onClick={() => setActiveRole(UserRole.BROKER)}
             icon={User}
@@ -171,7 +167,6 @@ const InteractiveDemo: React.FC = () => {
             status={demoState.loadCreated ? "complete" : "pending"}
           />
           <RoleButton
-            role={UserRole.DRIVER}
             active={activeRole === UserRole.DRIVER}
             onClick={() => setActiveRole(UserRole.DRIVER)}
             icon={Smartphone}
@@ -180,7 +175,6 @@ const InteractiveDemo: React.FC = () => {
             notification={demoState.smsReceived && !demoState.codeVerified}
           />
           <RoleButton
-            role={UserRole.CUSTOMER}
             active={activeRole === UserRole.CUSTOMER}
             onClick={() => setActiveRole(UserRole.CUSTOMER)}
             icon={Map}

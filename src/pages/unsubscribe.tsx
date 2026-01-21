@@ -105,7 +105,7 @@ export default function Unsubscribe() {
 					{status === 'error' && (
 						<div className="space-y-4">
 							<h2 className="text-2xl font-semibold">Couldn’t process unsubscribe</h2>
-							<p className="text-red-600">{error || 'Unknown error'}</p>
+							<p className="text-destructive">{error || 'Unknown error'}</p>
 							<div className="flex gap-3">
 								<Button onClick={onConfirm}>Try again</Button>
 								<Button variant="secondary" onClick={() => router.push('/')}>Go back home</Button>

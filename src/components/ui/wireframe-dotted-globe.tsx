@@ -1,5 +1,6 @@
 "use client"
 
+/* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars */
 import { useEffect, useRef, useState } from "react"
 import * as d3 from "d3"
 import { cn } from "@/lib/cn"

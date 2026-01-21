@@ -3,6 +3,11 @@
  * This eliminates code duplication across different form endpoints
  */
 
+import { validateEmail, validateRequiredFields } from './validation';
+
+// Re-export validation functions for backward compatibility
+export { validateEmail, validateRequiredFields };
+
 export interface TelegramMessageData {
   type: 'contact' | 'demo' | 'job-application';
   timestamp: string;
@@ -190,17 +195,3 @@ export function formatUnsubscribeMessage(data: UnsubscribeEventData): string {
 *Event:* Unsubscribe`;
 }
 
-/**
- * Generic form validation utility
- */
-export function validateEmail(email: string): boolean {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return emailRegex.test(email);
-}
-
-/**
- * Generic required fields validation
- */
-export function validateRequiredFields(data: Record<string, unknown>, requiredFields: string[]): string[] {
-  return requiredFields.filter(field => !data[field] || data[field]?.toString().trim() === '');
-}

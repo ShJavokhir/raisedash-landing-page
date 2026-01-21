@@ -76,6 +76,7 @@ const Card: React.FC<CardProps> = ({ children, className = "" }) => {
 };
 
 // --- Animated Counter Component ---
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const AnimatedCounter: React.FC<{ value: number; suffix?: string; duration?: number }> = ({
   value,
   suffix = "",

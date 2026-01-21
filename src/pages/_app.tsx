@@ -2,6 +2,7 @@ import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 import Head from "next/head";
 import { Header } from "@/components/layout/Header";
+import { SkipLink } from "@/components/layout/SkipLink";
 import { OrganizationJsonLd, WebsiteJsonLd } from "@/components/seo/SEO";
 
 // Re-export Web Vitals reporting for Next.js performance monitoring
@@ -23,8 +24,11 @@ export default function App({ Component, pageProps }: AppProps) {
       <OrganizationJsonLd />
       <WebsiteJsonLd />
 
+      <SkipLink />
       {!hideHeader && <Header />}
-      <Component {...pageProps} />
+      <main id="main-content">
+        <Component {...pageProps} />
+      </main>
     </>
   );
 }
