@@ -1,159 +1,112 @@
-import { useMemo, useState } from "react";
-import { AnimatePresence, motion } from "motion/react";
-import { Check } from "lucide-react";
 import { Container } from "@/components/layout/Container";
 import { PageLayout } from "@/components/layout/PageLayout";
-import { DemoForm } from "@/components/demo/DemoForm";
-import { TruckVisual } from "@/components/demo/TruckVisual";
-import { DemoFormData, FieldsCompleted } from "@/components/demo/types";
-
-const initialFormData: DemoFormData = {
-  email: "",
-  companyName: "",
-  companySize: "",
-  fullName: "",
-  role: "",
-  phone: "",
-};
+import { EnterpriseDemoForm } from "@/components/demo/EnterpriseDemoForm";
+import { Check } from "lucide-react";
 
 const benefits = [
-  { title: "Live walkthroughs", description: "See Raisedash against your real routes and freight risk." },
-  { title: "Security experts on call", description: "Ask our specialists about compliance, ops, and data flow." },
-  { title: "Fast rollout plan", description: "Leave with an implementation path tailored to your fleet." },
+  {
+    title: "Personalized platform walkthrough",
+    description: "See Raisedash configured for your specific fleet operations and compliance requirements.",
+  },
+  {
+    title: "ROI and savings analysis",
+    description: "Get a custom projection of cost savings and risk reduction based on your fleet size.",
+  },
+  {
+    title: "Implementation roadmap",
+    description: "Leave with a clear deployment plan and timeline tailored to your operations.",
+  },
 ];
 
 export default function RequestDemo() {
-  const [formData, setFormData] = useState<DemoFormData>(initialFormData);
-  const [hasInteracted, setHasInteracted] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
-  const [submitError, setSubmitError] = useState<string | null>(null);
-
-  const fieldsCompleted: FieldsCompleted = useMemo(
-    () => ({
-      email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email),
-      companyName: formData.companyName.trim().length > 2,
-      companySize: formData.companySize !== "",
-      fullName: formData.fullName.trim().length > 2,
-      role: formData.role.trim().length > 2,
-      phone: formData.phone.replace(/\D/g, "").length >= 10,
-    }),
-    [formData]
-  );
-
-  const handleSubmit = async () => {
-    setSubmitError(null);
-    setIsSubmitting(true);
-    try {
-      const response = await fetch("/api/request-demo", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
-
-      if (!response.ok) {
-        const data = (await response.json().catch(() => null)) as { error?: string; missingFields?: string[] } | null;
-        const missing = data?.missingFields?.length ? `Missing: ${data.missingFields.join(", ")}` : "";
-        throw new Error(data?.error || missing || "Unable to submit right now. Please retry.");
-      }
-
-      setIsSuccess(true);
-    } catch (error) {
-      const message = error instanceof Error ? error.message : "Unable to submit right now. Please retry.";
-      setSubmitError(message);
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
-  const handleReset = () => {
-    setFormData({ ...initialFormData });
-    setHasInteracted(false);
-    setIsSubmitting(false);
-    setIsSuccess(false);
-    setSubmitError(null);
-  };
-
-  const showInteractive = hasInteracted || isSuccess;
-
   return (
     <PageLayout
       title="Request a Demo"
       description="Schedule a personalized demo of Raisedash fleet safety solutions. See how our DVIR, driver training, and compliance tools can transform your fleet operations."
       keywords={["raisedash demo", "fleet software demo", "DVIR demo", "fleet management demo"]}
     >
-      <Container className="bg-white dark:bg-card mt-18 rounded-md border ui-corner-accents relative overflow-hidden">
-        <div className="py-12">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start relative">
-            <AnimatePresence>
-              {!showInteractive && (
-                <motion.div
-                  key="intro"
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -30 }}
-                  transition={{ duration: 0.4, ease: "easeOut" }}
-                  className="space-y-6 lg:pr-6"
-                >
-                  <div className="space-y-4">
-                    <h2 className="text-3xl font-semibold text-foreground">Request your demo</h2>
-                    <p className="text-muted-foreground">
-                      Start with your work email. As soon as you type, the form moves into focus and the live fleet visual spins up on the
-                      right to mirror your progress.
-                    </p>
-                  </div>
-                  <div className="space-y-4">
-                    {benefits.map((benefit) => (
-                      <div key={benefit.title} className="flex items-start space-x-3">
-                        <div className="w-6 h-6 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                          <Check className="w-3 h-3 text-primary" />
-                        </div>
-                        <div>
-                          <h3 className="font-medium text-foreground">{benefit.title}</h3>
-                          <p className="text-sm text-muted-foreground">{benefit.description}</p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
+      {/* Hero Section */}
+      <section className="bg-[#F9F7F6] dark:bg-secondary py-16 md:py-24">
+        <Container>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+            {/* Left Column - Value Proposition */}
+            <div className="space-y-10 lg:pr-8">
+              <div className="space-y-6">
+                <h1 className="text-[40px] md:text-[52px] font-semibold tracking-[-0.03em] text-[#2E2D2D] dark:text-foreground leading-[1.1]">
+                  See what Raisedash can do for your fleet
+                </h1>
+                <p className="text-lg text-[rgba(24,23,23,0.7)] dark:text-muted-foreground leading-relaxed max-w-lg">
+                  Meet one-on-one with a fleet safety expert to explore how Raisedash helps you
+                  reduce risk, streamline compliance, and protect your drivers.
+                </p>
+              </div>
 
-            <motion.div
-              layout
-              transition={{ type: "spring", stiffness: 120, damping: 18 }}
-              className={`${showInteractive ? "order-1" : "order-2"} w-full`}
-            >
-              <DemoForm
-                formData={formData}
-                setFormData={setFormData}
-                onSubmit={handleSubmit}
-                onInteract={() => setHasInteracted(true)}
-                onReset={handleReset}
-                isSubmitting={isSubmitting}
-                isSuccess={isSuccess}
-                submitError={submitError}
-              />
-            </motion.div>
+              {/* Benefits */}
+              <div className="space-y-5">
+                {benefits.map((benefit) => (
+                  <div key={benefit.title} className="flex gap-4">
+                    <div className="w-6 h-6 rounded-full bg-[#19224A] dark:bg-[#1E293B] flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <Check className="w-3.5 h-3.5 text-white" strokeWidth={3} />
+                    </div>
+                    <div>
+                      <h3 className="font-medium text-[#2E2D2D] dark:text-foreground mb-1">{benefit.title}</h3>
+                      <p className="text-sm text-[rgba(24,23,23,0.6)] dark:text-muted-foreground leading-relaxed">
+                        {benefit.description}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
 
-            <AnimatePresence>
-              {showInteractive && (
-                <motion.div
-                  key="visual"
-                  layout
-                  initial={{ opacity: 0, x: 40 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: 40 }}
-                  transition={{ type: "spring", stiffness: 120, damping: 18 }}
-                  className="order-2 w-full"
-                >
-                  <TruckVisual formData={formData} fieldsCompleted={fieldsCompleted} isSubmitting={isSubmitting} isSuccess={isSuccess} />
-                </motion.div>
-              )}
-            </AnimatePresence>
+            {/* Right Column - Form */}
+            <div className="lg:sticky lg:top-8">
+              <EnterpriseDemoForm />
+            </div>
           </div>
-        </div>
-      </Container>
+        </Container>
+      </section>
+
+      {/* FAQ Section */}
+      <section className="bg-[#F9F7F6] dark:bg-secondary py-20 border-t border-[#EEEBEA] dark:border-border">
+        <Container>
+          <h2 className="text-2xl font-semibold text-[#2E2D2D] dark:text-foreground text-center mb-12">
+            Frequently asked questions
+          </h2>
+
+          <div className="max-w-2xl mx-auto space-y-6">
+            <div className="bg-white dark:bg-card rounded-xl border border-[#EEEBEA] dark:border-border p-6">
+              <h3 className="font-medium text-[#2E2D2D] dark:text-foreground mb-2">
+                How long is the demo?
+              </h3>
+              <p className="text-sm text-[rgba(24,23,23,0.7)] dark:text-muted-foreground leading-relaxed">
+                Most demos run 30-45 minutes, but we&apos;ll adjust based on your needs.
+                We focus on the features most relevant to your fleet operations.
+              </p>
+            </div>
+
+            <div className="bg-white dark:bg-card rounded-xl border border-[#EEEBEA] dark:border-border p-6">
+              <h3 className="font-medium text-[#2E2D2D] dark:text-foreground mb-2">
+                Do I need to prepare anything?
+              </h3>
+              <p className="text-sm text-[rgba(24,23,23,0.7)] dark:text-muted-foreground leading-relaxed">
+                No preparation required. However, having your current fleet size and
+                primary compliance challenges in mind helps us tailor the demo to your needs.
+              </p>
+            </div>
+
+            <div className="bg-white dark:bg-card rounded-xl border border-[#EEEBEA] dark:border-border p-6">
+              <h3 className="font-medium text-[#2E2D2D] dark:text-foreground mb-2">
+                What happens after the demo?
+              </h3>
+              <p className="text-sm text-[rgba(24,23,23,0.7)] dark:text-muted-foreground leading-relaxed">
+                We&apos;ll provide a custom proposal including pricing, implementation timeline,
+                and ROI projections based on your specific requirements—no pressure, no commitment.
+              </p>
+            </div>
+          </div>
+        </Container>
+      </section>
     </PageLayout>
   );
 }

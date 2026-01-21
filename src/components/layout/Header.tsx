@@ -8,11 +8,10 @@ import {
   NavigationMenu,
   NavigationMenuList,
   NavigationMenuItem,
-  NavigationMenuLink,
   NavigationMenuTrigger,
   NavigationMenuContent,
 } from "@/components/ui/navigation-menu";
-import { Menu, X, MapPin, ClipboardCheck, GraduationCap, BookOpen, FileText, Building2, Users, Mail, Newspaper } from "lucide-react";
+import { Menu, X, MapPin, ClipboardCheck, GraduationCap, BookOpen, FileText, Building2, Users, Mail } from "lucide-react";
 
 const solutions = [
   
@@ -76,13 +75,6 @@ const company = [
     href: "/contact",
     icon: Mail,
   },
-  {
-    title: "Press",
-    description: "News, media resources, and company announcements.",
-    href: "#",
-    icon: Newspaper,
-    comingSoon: true,
-  },
 ];
 
 export function Header() {
@@ -91,8 +83,8 @@ export function Header() {
 
   return (
     <header className="sticky top-4 md:top-6 z-50 w-full bg-transparent">
-      <div className="" style={{ '--rails-offset': '2rem' } as React.CSSProperties}>
-        <Container className="rounded-md border bg-white dark:bg-card ui-corner-accents">
+      <div className="">
+        <Container className="rounded-lg border border-[#EEEBEA] bg-white dark:bg-card dark:border-border shadow-sm">
         <div className="h-14 md:h-16 flex items-center justify-between">
           {/* Logo */}
           <div className="flex items-center gap-3">
@@ -110,33 +102,33 @@ export function Header() {
                     Solutions
                   </NavigationMenuTrigger>
                   <NavigationMenuContent>
-                    <div className="flex w-[520px]">
+                    <div className="flex w-[540px]">
                       {/* Left column - Product list */}
-                      <div className="w-[260px] p-2 space-y-1">
+                      <div className="w-[270px] p-1 space-y-0.5">
                         {solutions.map((solution) => {
                           const Icon = solution.icon;
                           return (
                             <Link
                               key={solution.id}
                               href={solution.href}
-                              className={`flex items-start gap-3 rounded-md p-3 transition-colors hover:bg-accent ${
-                                hoveredSolution.id === solution.id ? "bg-accent" : ""
+                              className={`flex items-start gap-3 rounded-lg p-3 transition-all duration-200 hover:bg-[#F7F5F4] dark:hover:bg-accent ${
+                                hoveredSolution.id === solution.id ? "bg-[#F7F5F4] dark:bg-accent" : ""
                               }`}
                               onMouseEnter={() => setHoveredSolution(solution)}
                             >
-                              <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-md border bg-background">
-                                <Icon className="h-4 w-4 text-foreground" />
+                              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-[#EEEBEA] dark:border-border bg-white dark:bg-background">
+                                <Icon className="h-5 w-5 text-foreground" />
                               </div>
                               <div className="flex-1 min-w-0">
                                 <div className="flex items-center gap-2">
-                                  <span className="text-sm font-medium">{solution.title}</span>
+                                  <span className="text-sm font-medium text-foreground">{solution.title}</span>
                                   {(solution as any).comingSoon && (
-                                    <span className="text-[10px] px-1.5 py-0.5 rounded bg-muted text-muted-foreground">
+                                    <span className="text-[10px] px-1.5 py-0.5 rounded-md bg-[#F7F5F4] dark:bg-muted text-muted-foreground font-medium">
                                       Soon
                                     </span>
                                   )}
                                 </div>
-                                <p className="text-xs text-muted-foreground mt-0.5 line-clamp-2">
+                                <p className="text-xs text-muted-foreground mt-1 line-clamp-2">
                                   {solution.description}
                                 </p>
                               </div>
@@ -145,8 +137,8 @@ export function Header() {
                         })}
                       </div>
                       {/* Right column - Image preview */}
-                      <div className="w-[260px] p-2 border-l">
-                        <div className="relative h-full w-full rounded-md overflow-hidden bg-muted">
+                      <div className="w-[270px] p-2 border-l border-[#EEEBEA] dark:border-border">
+                        <div className="relative h-full w-full rounded-lg overflow-hidden bg-[#F7F5F4] dark:bg-muted">
                           <Image
                             src={hoveredSolution.image}
                             alt={hoveredSolution.title}
@@ -163,21 +155,21 @@ export function Header() {
                     Resources
                   </NavigationMenuTrigger>
                   <NavigationMenuContent>
-                    <div className="w-[280px] p-2 space-y-1">
+                    <div className="w-[300px] p-1 space-y-0.5">
                       {resources.map((item) => {
                         const Icon = item.icon;
                         return (
                           <Link
                             key={item.title}
                             href={item.href}
-                            className="flex items-start gap-3 rounded-md p-3 transition-colors hover:bg-accent"
+                            className="flex items-start gap-3 rounded-lg p-3 transition-all duration-200 hover:bg-[#F7F5F4] dark:hover:bg-accent"
                           >
-                            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-md border bg-background">
-                              <Icon className="h-4 w-4 text-foreground" />
+                            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-[#EEEBEA] dark:border-border bg-white dark:bg-background">
+                              <Icon className="h-5 w-5 text-foreground" />
                             </div>
                             <div className="flex-1 min-w-0">
-                              <span className="text-sm font-medium">{item.title}</span>
-                              <p className="text-xs text-muted-foreground mt-0.5 line-clamp-2">
+                              <span className="text-sm font-medium text-foreground">{item.title}</span>
+                              <p className="text-xs text-muted-foreground mt-1 line-clamp-2">
                                 {item.description}
                               </p>
                             </div>
@@ -192,28 +184,21 @@ export function Header() {
                     Company
                   </NavigationMenuTrigger>
                   <NavigationMenuContent>
-                    <div className="w-[280px] p-2 space-y-1">
+                    <div className="w-[300px] p-1 space-y-0.5">
                       {company.map((item) => {
                         const Icon = item.icon;
                         return (
                           <Link
                             key={item.title}
                             href={item.href}
-                            className="flex items-start gap-3 rounded-md p-3 transition-colors hover:bg-accent"
+                            className="flex items-start gap-3 rounded-lg p-3 transition-all duration-200 hover:bg-[#F7F5F4] dark:hover:bg-accent"
                           >
-                            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-md border bg-background">
-                              <Icon className="h-4 w-4 text-foreground" />
+                            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-[#EEEBEA] dark:border-border bg-white dark:bg-background">
+                              <Icon className="h-5 w-5 text-foreground" />
                             </div>
                             <div className="flex-1 min-w-0">
-                              <div className="flex items-center gap-2">
-                                <span className="text-sm font-medium">{item.title}</span>
-                                {item.comingSoon && (
-                                  <span className="text-[10px] px-1.5 py-0.5 rounded bg-muted text-muted-foreground">
-                                    Soon
-                                  </span>
-                                )}
-                              </div>
-                              <p className="text-xs text-muted-foreground mt-0.5 line-clamp-2">
+                              <span className="text-sm font-medium text-foreground">{item.title}</span>
+                              <p className="text-xs text-muted-foreground mt-1 line-clamp-2">
                                 {item.description}
                               </p>
                             </div>
@@ -242,13 +227,13 @@ export function Header() {
             <ThemeToggle />
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 rounded-md hover:bg-accent transition-colors"
+              className="p-2 rounded-lg hover:bg-[#F7F5F4] dark:hover:bg-accent transition-all duration-200"
               aria-label="Toggle mobile menu"
             >
               {mobileMenuOpen ? (
-                <X className="h-5 w-5" />
+                <X className="h-5 w-5 text-foreground" />
               ) : (
-                <Menu className="h-5 w-5" />
+                <Menu className="h-5 w-5 text-foreground" />
               )}
             </button>
           </div>
@@ -256,11 +241,11 @@ export function Header() {
 
         {/* Mobile Navigation Menu */}
         {mobileMenuOpen && (
-          <div className="md:hidden border-t border-border">
+          <div className="md:hidden border-t border-[#EEEBEA] dark:border-border">
             <div className="py-4 space-y-1">
               {/* Solutions Section */}
               <div className="px-3 py-2">
-                <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Solutions</span>
+                <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Solutions</span>
               </div>
               {solutions.map((solution) => {
                 const Icon = solution.icon;
@@ -268,13 +253,15 @@ export function Header() {
                   <Link
                     key={solution.id}
                     href={solution.href}
-                    className="flex items-center gap-3 px-3 py-2 text-sm hover:bg-accent hover:text-accent-foreground rounded-md transition-colors"
+                    className="flex items-center gap-3 mx-2 px-3 py-2.5 text-sm text-foreground hover:bg-[#F7F5F4] dark:hover:bg-accent rounded-lg transition-all duration-200"
                     onClick={() => setMobileMenuOpen(false)}
                   >
-                    <Icon className="h-4 w-4 text-muted-foreground" />
-                    <span>{solution.title}</span>
+                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-[#EEEBEA] dark:border-border bg-white dark:bg-background">
+                      <Icon className="h-4 w-4 text-foreground" />
+                    </div>
+                    <span className="font-medium">{solution.title}</span>
                     {(solution as any).comingSoon && (
-                      <span className="text-[10px] px-1.5 py-0.5 rounded bg-muted text-muted-foreground ml-auto">
+                      <span className="text-[10px] px-1.5 py-0.5 rounded-md bg-[#F7F5F4] dark:bg-muted text-muted-foreground font-medium ml-auto">
                         Soon
                       </span>
                     )}
@@ -284,7 +271,7 @@ export function Header() {
 
               {/* Resources Section */}
               <div className="px-3 py-2 pt-4">
-                <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Resources</span>
+                <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Resources</span>
               </div>
               {resources.map((item) => {
                 const Icon = item.icon;
@@ -292,18 +279,20 @@ export function Header() {
                   <Link
                     key={item.title}
                     href={item.href}
-                    className="flex items-center gap-3 px-3 py-2 text-sm hover:bg-accent hover:text-accent-foreground rounded-md transition-colors"
+                    className="flex items-center gap-3 mx-2 px-3 py-2.5 text-sm text-foreground hover:bg-[#F7F5F4] dark:hover:bg-accent rounded-lg transition-all duration-200"
                     onClick={() => setMobileMenuOpen(false)}
                   >
-                    <Icon className="h-4 w-4 text-muted-foreground" />
-                    <span>{item.title}</span>
+                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-[#EEEBEA] dark:border-border bg-white dark:bg-background">
+                      <Icon className="h-4 w-4 text-foreground" />
+                    </div>
+                    <span className="font-medium">{item.title}</span>
                   </Link>
                 );
               })}
 
               {/* Company Section */}
               <div className="px-3 py-2 pt-4">
-                <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Company</span>
+                <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Company</span>
               </div>
               {company.map((item) => {
                 const Icon = item.icon;
@@ -311,23 +300,20 @@ export function Header() {
                   <Link
                     key={item.title}
                     href={item.href}
-                    className="flex items-center gap-3 px-3 py-2 text-sm hover:bg-accent hover:text-accent-foreground rounded-md transition-colors"
+                    className="flex items-center gap-3 mx-2 px-3 py-2.5 text-sm text-foreground hover:bg-[#F7F5F4] dark:hover:bg-accent rounded-lg transition-all duration-200"
                     onClick={() => setMobileMenuOpen(false)}
                   >
-                    <Icon className="h-4 w-4 text-muted-foreground" />
-                    <span>{item.title}</span>
-                    {item.comingSoon && (
-                      <span className="text-[10px] px-1.5 py-0.5 rounded bg-muted text-muted-foreground ml-auto">
-                        Soon
-                      </span>
-                    )}
+                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-[#EEEBEA] dark:border-border bg-white dark:bg-background">
+                      <Icon className="h-4 w-4 text-foreground" />
+                    </div>
+                    <span className="font-medium">{item.title}</span>
                   </Link>
                 );
               })}
 
               <div className="pt-4 px-3">
                 <Link href="/request-demo" onClick={() => setMobileMenuOpen(false)}>
-                  <Button variant="secondary" size="sm" className="w-full">
+                  <Button variant="primary" size="sm" className="w-full">
                     Request Demo
                   </Button>
                 </Link>

@@ -17,19 +17,19 @@ export interface ButtonProps
 
 const variantClasses: Record<ButtonVariant, string> = {
   primary:
-    "bg-gradient-to-b from-slate-800 to-slate-900 text-white hover:from-slate-700 hover:to-slate-800 hover:scale-[1.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-400 shadow-lg shadow-slate-900/20 transition-all duration-200 ease-out border border-slate-700/50",
+    "bg-[#1F1E1E] dark:bg-foreground text-white dark:text-background hover:opacity-90 border-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1F1E1E]/50 dark:focus-visible:ring-foreground/50 transition-all duration-150 ease-in-out",
   secondary:
-    "bg-gradient-to-b from-slate-100 to-slate-200 text-slate-900 hover:from-slate-50 hover:to-slate-100 hover:scale-[1.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-400 transition-all duration-200 ease-out border border-slate-300/50",
+    "bg-white dark:bg-card text-[#2E2D2D] dark:text-foreground border border-[#EEEBEA] dark:border-border hover:bg-[#F9F7F6] dark:hover:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2E2D2D]/20 dark:focus-visible:ring-foreground/20 transition-all duration-150 ease-in-out",
   ghost:
-    "bg-transparent text-slate-700 hover:bg-slate-100/80 hover:scale-[1.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-400 transition-all duration-200 ease-out",
+    "bg-transparent text-[#2E2D2D] dark:text-foreground underline hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2E2D2D]/20 dark:focus-visible:ring-foreground/20 transition-all duration-150 ease-in-out",
   destructive:
-    "bg-gradient-to-b from-red-600 to-red-700 text-white hover:from-red-500 hover:to-red-600 hover:scale-[1.02] hover:shadow-xl hover:shadow-red-900/25 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-400 transition-all duration-200 ease-out border border-red-600/50",
+    "bg-[#D04841] text-white hover:opacity-90 border-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D04841]/50 transition-all duration-150 ease-in-out",
 };
 
 const sizeClasses: Record<ButtonSize, string> = {
-  sm: "h-9 px-3 text-sm rounded-md min-h-[44px] sm:min-h-0",
+  sm: "h-9 px-3 text-sm rounded-lg min-h-[44px] sm:min-h-0",
   md: "h-10 px-4 text-sm rounded-lg min-h-[44px] sm:min-h-0",
-  lg: "h-12 px-5 text-base rounded-xl min-h-[48px] sm:min-h-0",
+  lg: "h-12 px-5 text-base rounded-lg min-h-[48px] sm:min-h-0",
 };
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(

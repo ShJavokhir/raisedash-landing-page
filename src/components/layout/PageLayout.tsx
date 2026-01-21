@@ -1,15 +1,12 @@
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter } from "next/font/google";
 import { SEO, SEOProps } from "@/components/seo/SEO";
 import { Footer } from "./Footer";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  display: "swap",
 });
 
 interface PageLayoutProps extends SEOProps {
@@ -45,7 +42,7 @@ export function PageLayout({
         product={product}
         jsonLd={jsonLd}
       />
-      <div className={`${geistSans.className} ${geistMono.className} font-sans`}>
+      <div className={`${inter.className} font-sans antialiased`}>
         {children}
         <div className="mt-4 sm:mt-6">
           <Footer />

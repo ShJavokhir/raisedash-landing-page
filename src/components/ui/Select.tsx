@@ -22,7 +22,7 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
         {label && (
           <label
             htmlFor={selectId}
-            className="block text-sm font-medium text-foreground mb-2"
+            className="block text-sm font-medium text-[#2E2D2D] dark:text-foreground mb-2"
           >
             {label}
             {required && " *"}
@@ -33,10 +33,11 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
           id={selectId}
           required={required}
           className={cn(
-            "w-full px-3 py-2 border border-input rounded-md bg-background text-foreground",
-            "focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent",
+            "w-full px-4 py-3 border border-[#DAD6D5] dark:border-border rounded-lg bg-white dark:bg-card text-[#181717] dark:text-foreground",
+            "focus:outline-none focus:border-[#2E2D2D] dark:focus:border-foreground",
+            "transition-colors duration-150",
             "disabled:opacity-50 disabled:cursor-not-allowed",
-            error && "border-destructive focus:ring-destructive",
+            error && "border-[#D04841] dark:border-destructive focus:border-[#D04841] dark:focus:border-destructive",
             className
           )}
           {...props}
@@ -48,7 +49,7 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
           ))}
         </select>
         {error && (
-          <p className="mt-1 text-sm text-destructive">{error}</p>
+          <p className="mt-2 text-sm text-[#D04841] dark:text-destructive">{error}</p>
         )}
       </div>
     );

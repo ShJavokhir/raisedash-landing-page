@@ -81,77 +81,121 @@ export default function Careers() {
       description="Join the Raisedash team. Explore career opportunities and help us revolutionize freight logistics safety and security."
       keywords={["raisedash careers", "logistics tech jobs", "fleet software jobs", "san francisco startup jobs"]}
     >
+      {/* Hero Section */}
+      <section className="bg-[#19224A] dark:bg-[#1E293B] py-16 md:py-20">
+        <Container>
+          <div className="max-w-3xl">
+            <h1 className="text-[48px] font-medium tracking-[-0.03em] text-white leading-tight">
+              Join Our Team
+            </h1>
+            <p className="mt-6 text-lg font-light text-white/70 leading-relaxed">
+              Help us revolutionize freight logistics safety and security. We're looking for talented
+              individuals who are passionate about making a difference.
+            </p>
+          </div>
+        </Container>
+      </section>
+
       {/* Open Positions Section */}
-      <Container className="bg-white dark:bg-card mt-18 rounded-md border ui-corner-accents">
-        <div className="py-16">
+      <section className="bg-[#F9F7F6] dark:bg-secondary py-16 md:py-20">
+        <Container>
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-semibold tracking-[-0.01em] text-foreground mb-4">
+            <h2 className="text-[28px] font-medium tracking-[-0.03em] text-[#2E2D2D] dark:text-foreground mb-4">
               Open Positions
             </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-lg font-light text-[rgba(24,23,23,0.7)] dark:text-muted-foreground max-w-2xl mx-auto">
               Explore our current openings and find the perfect role for your next career move.
             </p>
           </div>
 
-          <div className="space-y-6">
+          <div className="space-y-4">
             {jobOpenings.map((job) => (
               <div
                 key={job.title}
-                className="border border-border rounded-lg p-6 hover:shadow-cal-sm transition-shadow"
+                className="bg-white dark:bg-card rounded-2xl border border-[#EEEBEA] dark:border-border p-6 md:p-8 hover:-translate-y-1 transition-all duration-300"
               >
-                <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+                <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6">
                   <div className="flex-1">
-                    <div className="flex flex-col sm:flex-row sm:items-center gap-2 mb-2">
-                      <h3 className="text-xl font-semibold text-foreground">{job.title}</h3>
+                    <div className="flex flex-col sm:flex-row sm:items-center gap-3 mb-3">
+                      <h3 className="text-xl font-medium text-[#2E2D2D] dark:text-foreground">{job.title}</h3>
                       <div className="flex items-center gap-2">
-                        <span className="px-2 py-1 bg-primary/10 text-primary text-sm rounded-md">
+                        <span className="px-3 py-1 bg-[#19224A]/10 dark:bg-[#1E293B]/30 text-[#19224A] dark:text-foreground text-sm font-medium rounded-full">
                           {job.department}
                         </span>
-                        <span className="px-2 py-1 bg-secondary text-secondary-foreground text-sm rounded-md">
+                        <span className="px-3 py-1 bg-[#F9F7F6] dark:bg-secondary text-[rgba(24,23,23,0.7)] dark:text-muted-foreground text-sm rounded-full border border-[#EEEBEA] dark:border-border">
                           {job.type}
                         </span>
                       </div>
                     </div>
-                    <p className="text-muted-foreground mb-2">{job.location}</p>
-                    <p className="text-foreground mb-4">{job.description}</p>
+                    <p className="text-sm text-[rgba(24,23,23,0.7)] dark:text-muted-foreground mb-3">{job.location}</p>
+                    <p className="text-base text-[#2E2D2D] dark:text-foreground mb-4 font-light">{job.description}</p>
                     <div className="mb-4">
-                      <h4 className="font-medium text-foreground mb-2">Key Requirements:</h4>
-                      <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
+                      <h4 className="font-medium text-[#2E2D2D] dark:text-foreground mb-2 text-sm">Key Requirements:</h4>
+                      <ul className="list-disc list-inside text-sm text-[rgba(24,23,23,0.7)] dark:text-muted-foreground space-y-1 font-light">
                         {job.requirements.map((req) => (
                           <li key={req}>{req}</li>
                         ))}
                       </ul>
                     </div>
                   </div>
-                  <div className="flex flex-col sm:flex-row gap-2">
+                  <div className="flex flex-col sm:flex-row gap-2 lg:flex-shrink-0">
                     <Button onClick={() => handleApplyClick(job.title)}>Apply Now</Button>
                   </div>
                 </div>
               </div>
             ))}
           </div>
-        </div>
-      </Container>
+        </Container>
+      </section>
 
       {/* CTA Section */}
-      <Container className="bg-white dark:bg-card mt-8 rounded-md border ui-corner-accents">
-        <div className="py-16 text-center">
-          <h2 className="text-3xl font-semibold tracking-[-0.01em] text-foreground mb-4">
-            Don't See Your Perfect Role?
-          </h2>
-          <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-            We're always looking for exceptional talent. Send us your resume and let us know how
-            you'd like to contribute to our mission.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-3 justify-center">
+      <section className="bg-white dark:bg-card py-16 md:py-20">
+        <Container>
+          <div className="bg-[#F9F7F6] dark:bg-secondary rounded-2xl border border-[#EEEBEA] dark:border-border p-8 md:p-12 text-center">
+            <h2 className="text-[28px] font-medium tracking-[-0.03em] text-[#2E2D2D] dark:text-foreground mb-4">
+              Don't See Your Perfect Role?
+            </h2>
+            <p className="text-lg font-light text-[rgba(24,23,23,0.7)] dark:text-muted-foreground mb-8 max-w-2xl mx-auto">
+              We're always looking for exceptional talent. Send us your resume and let us know how
+              you'd like to contribute to our mission.
+            </p>
             <Link href="/contact">
               <Button variant="secondary" size="lg">
                 Contact Our Team
               </Button>
             </Link>
           </div>
-        </div>
-      </Container>
+        </Container>
+      </section>
+
+      {/* Why Join Us Section */}
+      <section className="bg-[#F9F7F6] dark:bg-secondary py-16 md:py-20">
+        <Container>
+          <h2 className="text-[28px] font-medium tracking-[-0.03em] text-[#2E2D2D] dark:text-foreground mb-12 text-center">
+            Why Join Raisedash?
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="bg-white dark:bg-card rounded-2xl border border-[#EEEBEA] dark:border-border p-8">
+              <h3 className="text-xl font-medium text-[#2E2D2D] dark:text-foreground mb-3">Impactful Work</h3>
+              <p className="text-base font-light text-[rgba(24,23,23,0.7)] dark:text-muted-foreground">
+                Your work directly contributes to protecting billions of dollars in freight and keeping supply chains secure.
+              </p>
+            </div>
+            <div className="bg-white dark:bg-card rounded-2xl border border-[#EEEBEA] dark:border-border p-8">
+              <h3 className="text-xl font-medium text-[#2E2D2D] dark:text-foreground mb-3">Growth Opportunity</h3>
+              <p className="text-base font-light text-[rgba(24,23,23,0.7)] dark:text-muted-foreground">
+                Join a fast-growing company where you can shape the future of logistics security technology.
+              </p>
+            </div>
+            <div className="bg-white dark:bg-card rounded-2xl border border-[#EEEBEA] dark:border-border p-8">
+              <h3 className="text-xl font-medium text-[#2E2D2D] dark:text-foreground mb-3">Flexible Culture</h3>
+              <p className="text-base font-light text-[rgba(24,23,23,0.7)] dark:text-muted-foreground">
+                Remote-friendly environment with competitive benefits and a team that values work-life balance.
+              </p>
+            </div>
+          </div>
+        </Container>
+      </section>
 
       {/* Job Application Form Modal */}
       {selectedJob && (

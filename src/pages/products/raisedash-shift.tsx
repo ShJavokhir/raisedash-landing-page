@@ -37,9 +37,9 @@ import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/layout/Container";
 import { Footer } from "@/components/layout/Footer";
 
-// --- Custom Styles for Industrial Theme ---
+// --- Custom Styles for Tailscale-inspired Theme ---
 const shiftStyles = `
-  @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
 
   .shift-page {
     font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
@@ -47,8 +47,8 @@ const shiftStyles = `
 
   .industrial-grid {
     background-image:
-      linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0,0,0,0.03) 1px, transparent 1px);
+      linear-gradient(rgba(46,45,45,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(46,45,45,0.03) 1px, transparent 1px);
     background-size: 40px 40px;
   }
 
@@ -57,7 +57,7 @@ const shiftStyles = `
   }
 
   .feature-card:hover {
-    transform: translateY(-2px);
+    transform: translateY(-4px);
   }
 `;
 
@@ -69,7 +69,7 @@ interface CardProps {
 
 const Card: React.FC<CardProps> = ({ children, className = "" }) => {
   return (
-    <div className={`bg-white border border-gray-200 rounded-xl p-6 ${className}`}>
+    <div className={`bg-white dark:bg-card border border-[#EEEBEA] dark:border-border rounded-2xl p-8 ${className}`}>
       {children}
     </div>
   );
@@ -333,7 +333,7 @@ const Hero: React.FC = () => {
   };
 
   return (
-    <section className="relative pt-8 pb-24 md:pt-16 md:pb-32 overflow-hidden">
+    <section className="relative pt-8 pb-24 md:pt-16 md:pb-32 overflow-hidden bg-[#F9F7F6] dark:bg-secondary">
       {/* Industrial Grid Background */}
       <div className="absolute inset-0 industrial-grid" />
 
@@ -347,7 +347,7 @@ const Hero: React.FC = () => {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="inline-flex items-center gap-2 rounded-xl bg-gray-100 border border-gray-200 px-4 py-1.5 text-sm font-medium text-gray-700 mb-8"
+              className="inline-flex items-center gap-2 rounded-full bg-white dark:bg-card border border-[#EEEBEA] dark:border-border px-4 py-1.5 text-sm font-medium text-[rgba(24,23,23,0.7)] dark:text-muted-foreground mb-8"
             >
               <span className="flex h-2 w-2 rounded-full bg-green-500 animate-pulse" />
               Compliance Made Simple
@@ -357,12 +357,12 @@ const Hero: React.FC = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="text-4xl md:text-5xl lg:text-[3.5rem] font-extrabold tracking-tight text-gray-900 mb-6 leading-[1.1]"
+              className="text-[48px] md:text-5xl lg:text-[3.5rem] font-medium tracking-[-0.03em] text-[#2E2D2D] dark:text-foreground mb-6 leading-[1.1]"
             >
               Onboard Drivers in{" "}
               <span className="relative inline-block">
                 <span className="relative z-10">Days</span>
-                <span className="absolute bottom-1 left-0 right-0 h-3 bg-gray-200 -rotate-1" />
+                <span className="absolute bottom-1 left-0 right-0 h-3 bg-[#EEEBEA] dark:bg-border -rotate-1" />
               </span>
               , Not Weeks
             </motion.h1>
@@ -371,7 +371,7 @@ const Hero: React.FC = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-xl text-gray-600 max-w-xl mb-10 leading-relaxed"
+              className="text-xl text-[rgba(24,23,23,0.7)] dark:text-muted-foreground font-light max-w-xl mb-10 leading-relaxed"
             >
               The modern platform for trucking fleets to train, certify, and track driver compliance—all in one place.
             </motion.p>
@@ -383,12 +383,12 @@ const Hero: React.FC = () => {
               className="flex flex-col sm:flex-row gap-4 mb-12"
             >
               <Link href="/request-demo">
-                <Button size="lg" className="w-full sm:w-auto gap-2 group">
+                <Button size="lg" className="w-full sm:w-auto gap-2 group bg-[#1F1E1E] hover:bg-[#2E2D2D] text-white rounded-2xl">
                   Request a Demo
                   <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </Button>
               </Link>
-              <Button variant="secondary" size="lg" className="w-full sm:w-auto gap-2" onClick={scrollToFeatures}>
+              <Button variant="secondary" size="lg" className="w-full sm:w-auto gap-2 bg-white dark:bg-card border-[#EEEBEA] dark:border-border text-[#2E2D2D] dark:text-foreground hover:bg-[#F9F7F6] dark:hover:bg-secondary rounded-2xl" onClick={scrollToFeatures}>
                 View Features
               </Button>
             </motion.div>
@@ -398,7 +398,7 @@ const Hero: React.FC = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.6, delay: 0.4 }}
-              className="flex flex-wrap items-center gap-6 text-sm text-gray-600"
+              className="flex flex-wrap items-center gap-6 text-sm text-[rgba(24,23,23,0.7)] dark:text-muted-foreground"
             >
               {[
                 { icon: CheckCircle2, text: "Free 14-day trial" },
@@ -406,7 +406,7 @@ const Hero: React.FC = () => {
                 { icon: Zap, text: "Setup in 24h" },
               ].map((item, i) => (
                 <div key={i} className="flex items-center gap-2">
-                  <item.icon className="h-4 w-4 text-gray-900" />
+                  <item.icon className="h-4 w-4 text-[#2E2D2D] dark:text-foreground" />
                   <span>{item.text}</span>
                 </div>
               ))}
@@ -420,17 +420,17 @@ const Hero: React.FC = () => {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="flex-1 w-full relative"
           >
-            <div className="relative rounded-xl border border-gray-200 bg-white shadow-2xl shadow-gray-900/10 overflow-hidden">
+            <div className="relative rounded-2xl border border-[#EEEBEA] dark:border-border bg-white dark:bg-card shadow-2xl shadow-[#2E2D2D]/10 overflow-hidden">
               {/* Browser Header */}
-              <div className="h-10 border-b border-gray-100 bg-gray-50 flex items-center px-4 gap-2">
+              <div className="h-10 border-b border-[#EEEBEA] dark:border-border bg-[#F9F7F6] dark:bg-secondary flex items-center px-4 gap-2">
                 <div className="flex gap-1.5">
-                  <div className="h-3 w-3 rounded-full bg-gray-300" />
-                  <div className="h-3 w-3 rounded-full bg-gray-300" />
-                  <div className="h-3 w-3 rounded-full bg-gray-300" />
+                  <div className="h-3 w-3 rounded-full bg-[#EEEBEA] dark:bg-border" />
+                  <div className="h-3 w-3 rounded-full bg-[#EEEBEA] dark:bg-border" />
+                  <div className="h-3 w-3 rounded-full bg-[#EEEBEA] dark:bg-border" />
                 </div>
                 <div className="flex-1 flex justify-center">
-                  <div className="h-6 w-48 rounded-md bg-gray-100 flex items-center justify-center">
-                    <span className="text-[10px] text-gray-400 font-medium">app.raisedash.com/shift</span>
+                  <div className="h-6 w-48 rounded-xl bg-white dark:bg-card border border-[#EEEBEA] dark:border-border flex items-center justify-center">
+                    <span className="text-[10px] text-[rgba(24,23,23,0.7)] dark:text-muted-foreground font-medium">app.raisedash.com/shift</span>
                   </div>
                 </div>
               </div>
@@ -440,11 +440,11 @@ const Hero: React.FC = () => {
                 {/* Header */}
                 <div className="flex justify-between items-start mb-8">
                   <div>
-                    <h3 className="font-bold text-lg text-gray-900">Fleet Compliance Dashboard</h3>
-                    <p className="text-xs text-gray-500 mt-0.5">Real-time overview • Last synced just now</p>
+                    <h3 className="font-medium text-lg text-[#2E2D2D] dark:text-foreground">Fleet Compliance Dashboard</h3>
+                    <p className="text-xs text-[rgba(24,23,23,0.7)] dark:text-muted-foreground mt-0.5">Real-time overview • Last synced just now</p>
                   </div>
                   <div className="flex items-center gap-2">
-                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl text-xs font-semibold bg-gray-100 text-gray-700 border border-gray-200">
+                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-white dark:bg-card text-[#2E2D2D] dark:text-foreground border border-[#EEEBEA] dark:border-border">
                       <span className="h-1.5 w-1.5 rounded-full bg-green-500" />
                       Audit Ready
                     </span>
@@ -457,28 +457,28 @@ const Hero: React.FC = () => {
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.5 }}
-                    className="bg-gray-50 rounded-xl p-4 border border-gray-100"
+                    className="bg-[#F9F7F6] dark:bg-secondary rounded-2xl p-4 border border-[#EEEBEA] dark:border-border"
                   >
-                    <p className="text-xs text-gray-500 font-medium mb-1">Compliance Rate</p>
-                    <p className="text-2xl font-bold text-gray-900">98.2%</p>
+                    <p className="text-xs text-[rgba(24,23,23,0.7)] dark:text-muted-foreground font-medium mb-1">Compliance Rate</p>
+                    <p className="text-2xl font-medium text-[#2E2D2D] dark:text-foreground">98.2%</p>
                   </motion.div>
                   <motion.div
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.6 }}
-                    className="bg-gray-50 rounded-xl p-4 border border-gray-100"
+                    className="bg-[#F9F7F6] dark:bg-secondary rounded-2xl p-4 border border-[#EEEBEA] dark:border-border"
                   >
-                    <p className="text-xs text-gray-500 font-medium mb-1">In Progress</p>
-                    <p className="text-2xl font-bold text-gray-900">12</p>
+                    <p className="text-xs text-[rgba(24,23,23,0.7)] dark:text-muted-foreground font-medium mb-1">In Progress</p>
+                    <p className="text-2xl font-medium text-[#2E2D2D] dark:text-foreground">12</p>
                   </motion.div>
                   <motion.div
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.7 }}
-                    className="bg-gray-50 rounded-xl p-4 border border-gray-100"
+                    className="bg-[#F9F7F6] dark:bg-secondary rounded-2xl p-4 border border-[#EEEBEA] dark:border-border"
                   >
-                    <p className="text-xs text-gray-500 font-medium mb-1">Total Drivers</p>
-                    <p className="text-2xl font-bold text-gray-900">247</p>
+                    <p className="text-xs text-[rgba(24,23,23,0.7)] dark:text-muted-foreground font-medium mb-1">Total Drivers</p>
+                    <p className="text-2xl font-medium text-[#2E2D2D] dark:text-foreground">247</p>
                   </motion.div>
                 </div>
 
@@ -494,26 +494,26 @@ const Hero: React.FC = () => {
                       initial={{ opacity: 0, x: -10 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: 0.8 + i * 0.1 }}
-                      className="flex items-center justify-between p-3 rounded-xl border border-gray-100 hover:border-gray-200 hover:bg-gray-50/50 transition-all cursor-pointer"
+                      className="flex items-center justify-between p-3 rounded-2xl border border-[#EEEBEA] dark:border-border hover:border-[#2E2D2D]/20 hover:bg-[#F9F7F6]/50 dark:hover:bg-secondary transition-all cursor-pointer"
                     >
                       <div className="flex items-center gap-3">
-                        <div className="h-9 w-9 rounded-full bg-gray-100 flex items-center justify-center text-xs font-bold text-gray-600">
+                        <div className="h-9 w-9 rounded-full bg-[#F9F7F6] dark:bg-secondary flex items-center justify-center text-xs font-medium text-[rgba(24,23,23,0.7)] dark:text-muted-foreground">
                           {driver.initials}
                         </div>
                         <div>
-                          <p className="text-sm font-semibold text-gray-900">{driver.name}</p>
-                          <p className="text-xs text-gray-500">{driver.course}</p>
+                          <p className="text-sm font-medium text-[#2E2D2D] dark:text-foreground">{driver.name}</p>
+                          <p className="text-xs text-[rgba(24,23,23,0.7)] dark:text-muted-foreground">{driver.course}</p>
                         </div>
                       </div>
                       <div className="text-right">
-                        <span className={`inline-flex px-2 py-0.5 rounded-lg text-xs font-semibold ${
+                        <span className={`inline-flex px-2 py-0.5 rounded-lg text-xs font-medium ${
                           driver.status === "Completed"
-                            ? "bg-gray-900 text-white"
-                            : "bg-gray-100 text-gray-600"
+                            ? "bg-[#1F1E1E] text-white"
+                            : "bg-[#F9F7F6] dark:bg-secondary text-[rgba(24,23,23,0.7)] dark:text-muted-foreground"
                         }`}>
                           {driver.status}
                         </span>
-                        <p className="text-[10px] text-gray-400 mt-0.5">{driver.time}</p>
+                        <p className="text-[10px] text-[rgba(24,23,23,0.7)] dark:text-muted-foreground mt-0.5">{driver.time}</p>
                       </div>
                     </motion.div>
                   ))}
@@ -526,15 +526,15 @@ const Hero: React.FC = () => {
               initial={{ opacity: 0, scale: 0.8, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               transition={{ delay: 1.2, duration: 0.5, type: "spring" }}
-              className="absolute -bottom-4 -left-4 md:-bottom-6 md:-left-6 bg-white border border-gray-200 shadow-xl rounded-xl p-4 z-10"
+              className="absolute -bottom-4 -left-4 md:-bottom-6 md:-left-6 bg-white dark:bg-card border border-[#EEEBEA] dark:border-border shadow-xl rounded-2xl p-4 z-10"
             >
               <div className="flex items-center gap-3">
-                <div className="bg-gray-900 p-2.5 rounded-xl">
+                <div className="bg-[#1F1E1E] p-2.5 rounded-2xl">
                   <Award className="h-5 w-5 text-white" />
                 </div>
                 <div>
-                  <p className="text-sm font-bold text-gray-900">DOT Audit Passed</p>
-                  <p className="text-xs text-gray-500">Zero violations found</p>
+                  <p className="text-sm font-medium text-[#2E2D2D] dark:text-foreground">DOT Audit Passed</p>
+                  <p className="text-xs text-[rgba(24,23,23,0.7)] dark:text-muted-foreground">Zero violations found</p>
                 </div>
               </div>
             </motion.div>
@@ -544,11 +544,11 @@ const Hero: React.FC = () => {
               initial={{ opacity: 0, scale: 0.8, y: -20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               transition={{ delay: 1.4, duration: 0.5, type: "spring" }}
-              className="absolute -top-4 -right-4 md:-top-6 md:-right-6 bg-white border border-gray-200 shadow-xl rounded-xl p-3 z-10 hidden md:block"
+              className="absolute -top-4 -right-4 md:-top-6 md:-right-6 bg-white dark:bg-card border border-[#EEEBEA] dark:border-border shadow-xl rounded-2xl p-3 z-10 hidden md:block"
             >
               <div className="flex items-center gap-2">
-                <Gauge className="h-4 w-4 text-gray-600" />
-                <span className="text-sm font-bold text-gray-900">CSA Score: <span className="text-gray-600">12.4</span></span>
+                <Gauge className="h-4 w-4 text-[rgba(24,23,23,0.7)] dark:text-muted-foreground" />
+                <span className="text-sm font-medium text-[#2E2D2D] dark:text-foreground">CSA Score: <span className="text-[rgba(24,23,23,0.7)] dark:text-muted-foreground">12.4</span></span>
               </div>
             </motion.div>
           </motion.div>
@@ -569,10 +569,10 @@ const Hero: React.FC = () => {
               { text: "100%", label: "Audit-Ready Documentation" },
             ].map((stat, i) => (
               <div key={i} className="text-center">
-                <p className="text-3xl md:text-4xl font-extrabold text-gray-900">
+                <p className="text-3xl md:text-4xl font-medium tracking-[-0.03em] text-[#2E2D2D] dark:text-foreground">
                   {stat.text}
                 </p>
-                <p className="text-sm text-gray-500 mt-1 font-medium">{stat.label}</p>
+                <p className="text-sm text-[rgba(24,23,23,0.7)] dark:text-muted-foreground mt-1 font-light">{stat.label}</p>
               </div>
             ))}
           </div>
@@ -588,7 +588,7 @@ const ProblemSection: React.FC = () => {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section ref={ref} className="py-24 bg-gray-50 relative overflow-hidden">
+    <section ref={ref} className="py-24 bg-white dark:bg-card relative overflow-hidden">
       <div className="absolute inset-0 industrial-grid opacity-50" />
 
       <Container className="relative z-10">
@@ -598,14 +598,14 @@ const ProblemSection: React.FC = () => {
           transition={{ duration: 0.6 }}
           className="text-center max-w-3xl mx-auto mb-16"
         >
-          <span className="inline-flex items-center gap-2 text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">
+          <span className="inline-flex items-center gap-2 text-sm font-medium text-[rgba(24,23,23,0.7)] dark:text-muted-foreground uppercase tracking-wider mb-4">
             <AlertTriangle className="h-4 w-4" />
             The Problem
           </span>
-          <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-gray-900 mb-4">
+          <h2 className="text-[28px] md:text-4xl font-medium tracking-[-0.03em] text-[#2E2D2D] dark:text-foreground mb-4">
             Managing Driver Training Shouldn&apos;t Be This Hard
           </h2>
-          <p className="text-lg text-gray-600">
+          <p className="text-lg text-[rgba(24,23,23,0.7)] dark:text-muted-foreground font-light">
             The trucking industry demands compliance, but the tools available are either too complicated or outdated.
           </p>
         </motion.div>
@@ -618,12 +618,12 @@ const ProblemSection: React.FC = () => {
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: idx * 0.1 }}
             >
-              <Card className="h-full hover:shadow-lg transition-shadow">
-                <div className="h-12 w-12 rounded-xl bg-gray-100 border border-gray-200 flex items-center justify-center mb-5 text-gray-600">
+              <Card className="h-full hover:shadow-lg hover:-translate-y-1 transition-all">
+                <div className="h-12 w-12 rounded-2xl bg-[#F9F7F6] dark:bg-secondary border border-[#EEEBEA] dark:border-border flex items-center justify-center mb-5 text-[rgba(24,23,23,0.7)] dark:text-muted-foreground">
                   <prob.icon size={22} />
                 </div>
-                <h3 className="font-bold text-lg text-gray-900 mb-2">{prob.title}</h3>
-                <p className="text-gray-600 text-sm leading-relaxed">{prob.description}</p>
+                <h3 className="font-medium text-lg text-[#2E2D2D] dark:text-foreground mb-2">{prob.title}</h3>
+                <p className="text-[rgba(24,23,23,0.7)] dark:text-muted-foreground text-sm leading-relaxed font-light">{prob.description}</p>
               </Card>
             </motion.div>
           ))}
@@ -639,7 +639,7 @@ const SolutionOverview: React.FC = () => {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section ref={ref} className="py-24 bg-white relative overflow-hidden">
+    <section ref={ref} className="py-24 bg-[#F9F7F6] dark:bg-secondary relative overflow-hidden">
       <Container>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -647,14 +647,14 @@ const SolutionOverview: React.FC = () => {
           transition={{ duration: 0.6 }}
           className="max-w-4xl mx-auto text-center mb-16"
         >
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-gray-100 border border-gray-200 text-sm font-semibold text-gray-700 mb-6">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white dark:bg-card border border-[#EEEBEA] dark:border-border text-sm font-medium text-[#2E2D2D] dark:text-foreground mb-6">
             <Zap className="w-4 h-4" />
             Introducing RaiseDash Shift
           </div>
-          <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-gray-900 mb-6">
+          <h2 className="text-[28px] md:text-4xl font-medium tracking-[-0.03em] text-[#2E2D2D] dark:text-foreground mb-6">
             One Platform. Complete Compliance.
           </h2>
-          <p className="text-lg text-gray-600 leading-relaxed max-w-3xl mx-auto">
+          <p className="text-lg text-[rgba(24,23,23,0.7)] dark:text-muted-foreground font-light leading-relaxed max-w-3xl mx-auto">
             RaiseDash Shift is a comprehensive driver training and onboarding platform built specifically for trucking carriers. Train new hires on company policies, safety procedures, and compliance requirements — then certify their completion with verifiable, audit-ready documentation.
           </p>
         </motion.div>
@@ -671,12 +671,12 @@ const SolutionOverview: React.FC = () => {
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: 0.2 + idx * 0.1 }}
             >
-              <Card className="text-center h-full hover:shadow-lg transition-shadow">
-                <div className="w-14 h-14 mx-auto rounded-xl bg-gray-900 flex items-center justify-center mb-5">
+              <Card className="text-center h-full hover:shadow-lg hover:-translate-y-1 transition-all">
+                <div className="w-14 h-14 mx-auto rounded-2xl bg-[#1F1E1E] flex items-center justify-center mb-5">
                   <item.icon className="w-6 h-6 text-white" />
                 </div>
-                <h3 className="font-bold text-lg text-gray-900 mb-3">{item.title}</h3>
-                <p className="text-gray-600 text-sm leading-relaxed">{item.description}</p>
+                <h3 className="font-medium text-lg text-[#2E2D2D] dark:text-foreground mb-3">{item.title}</h3>
+                <p className="text-[rgba(24,23,23,0.7)] dark:text-muted-foreground text-sm leading-relaxed font-light">{item.description}</p>
               </Card>
             </motion.div>
           ))}
@@ -689,11 +689,11 @@ const SolutionOverview: React.FC = () => {
           transition={{ duration: 0.6, delay: 0.5 }}
           className="mt-16 max-w-3xl mx-auto"
         >
-          <div className="relative bg-gray-50 rounded-xl border border-gray-200 p-8">
-            <div className="absolute -top-3 left-8 w-6 h-6 bg-gray-900 rounded-full flex items-center justify-center">
+          <div className="relative bg-white dark:bg-card rounded-2xl border border-[#EEEBEA] dark:border-border p-8">
+            <div className="absolute -top-3 left-8 w-6 h-6 bg-[#1F1E1E] rounded-full flex items-center justify-center">
               <span className="text-white text-lg font-serif">&ldquo;</span>
             </div>
-            <p className="text-gray-700 italic leading-relaxed">
+            <p className="text-[rgba(24,23,23,0.7)] dark:text-muted-foreground italic leading-relaxed font-light">
               Simplicity is the ultimate sophistication — We designed RaiseDash Shift with this principle at its core. Modern technology that works for everyone, even drivers who aren&apos;t tech-savvy.
             </p>
           </div>
@@ -709,7 +709,7 @@ const ComplianceSection: React.FC = () => {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section ref={ref} className="py-24 bg-gradient-to-b from-slate-900 to-slate-800 text-white relative overflow-hidden">
+    <section ref={ref} className="py-24 bg-[#19224A] text-white relative overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute inset-0" style={{
@@ -725,14 +725,14 @@ const ComplianceSection: React.FC = () => {
           className="max-w-4xl mx-auto"
         >
           <div className="text-center mb-16">
-            <span className="inline-flex items-center gap-2 text-sm font-semibold text-slate-400 uppercase tracking-wider mb-4">
+            <span className="inline-flex items-center gap-2 text-sm font-medium text-white/60 uppercase tracking-wider mb-4">
               <FileText className="h-4 w-4" />
               Regulatory Context
             </span>
-            <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
+            <h2 className="text-[28px] md:text-4xl font-medium tracking-[-0.03em] mb-4">
               Why Driver Training Isn&apos;t Optional
             </h2>
-            <p className="text-lg text-slate-300">
+            <p className="text-lg text-white/70 font-light">
               Federal regulations require carriers to maintain documented safety training programs.
             </p>
           </div>
@@ -842,11 +842,11 @@ const ComplianceSection: React.FC = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: 0.6 }}
-              className="bg-white rounded-xl p-8 text-center"
+              className="bg-white rounded-2xl p-8 text-center"
             >
-              <Lock className="w-12 h-12 mx-auto mb-4 text-gray-900" />
-              <h3 className="text-2xl font-bold mb-3 text-gray-900">The Bottom Line</h3>
-              <p className="text-gray-600 max-w-2xl mx-auto">
+              <Lock className="w-12 h-12 mx-auto mb-4 text-[#2E2D2D]" />
+              <h3 className="text-2xl font-medium mb-3 text-[#2E2D2D] tracking-[-0.03em]">The Bottom Line</h3>
+              <p className="text-[rgba(24,23,23,0.7)] font-light max-w-2xl mx-auto">
                 Compliance isn&apos;t just about avoiding fines — it&apos;s about protecting your business, your drivers, and everyone on the road. Proper documentation is your best defense in audits and litigation.
               </p>
             </motion.div>
@@ -863,7 +863,7 @@ const ProductModules: React.FC = () => {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section ref={ref} className="py-24 bg-white relative">
+    <section ref={ref} className="py-24 bg-white dark:bg-card relative">
       <Container>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -871,14 +871,14 @@ const ProductModules: React.FC = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <span className="inline-flex items-center gap-2 text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">
+          <span className="inline-flex items-center gap-2 text-sm font-medium text-[rgba(24,23,23,0.7)] dark:text-muted-foreground uppercase tracking-wider mb-4">
             <Route className="h-4 w-4" />
             Training Programs
           </span>
-          <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-gray-900 mb-4">
+          <h2 className="text-[28px] md:text-4xl font-medium tracking-[-0.03em] text-[#2E2D2D] dark:text-foreground mb-4">
             Specialized Training Solutions
           </h2>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+          <p className="text-lg text-[rgba(24,23,23,0.7)] dark:text-muted-foreground font-light max-w-3xl mx-auto">
             Choose from our specialized training programs designed for specific carrier needs and compliance requirements.
           </p>
         </motion.div>
@@ -891,21 +891,21 @@ const ProductModules: React.FC = () => {
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: idx * 0.1 }}
             >
-              <Card className="h-full hover:shadow-lg transition-shadow border-l-4 border-l-gray-900">
+              <Card className="h-full hover:shadow-lg hover:-translate-y-1 transition-all border-l-4 border-l-[#19224A]">
                 <div className="mb-4">
-                  <span className="inline-block px-3 py-1 rounded-xl bg-gray-100 text-gray-700 text-xs font-semibold mb-3">
+                  <span className="inline-block px-3 py-1 rounded-full bg-[#F9F7F6] dark:bg-secondary text-[#2E2D2D] dark:text-foreground text-xs font-medium mb-3">
                     {module.title}
                   </span>
-                  <h3 className="text-xl font-bold text-gray-900">{module.headline}</h3>
+                  <h3 className="text-xl font-medium text-[#2E2D2D] dark:text-foreground">{module.headline}</h3>
                 </div>
-                <p className="text-gray-600 mb-6 text-sm leading-relaxed">
+                <p className="text-[rgba(24,23,23,0.7)] dark:text-muted-foreground font-light mb-6 text-sm leading-relaxed">
                   {module.description}
                 </p>
                 <div className="space-y-2">
                   {module.benefits.map((benefit, bidx) => (
                     <div key={bidx} className="flex items-start gap-2 text-sm">
-                      <CheckCircle2 className="w-4 h-4 text-gray-900 mt-0.5 flex-shrink-0" />
-                      <span className="text-gray-600">{benefit}</span>
+                      <CheckCircle2 className="w-4 h-4 text-[#19224A] dark:text-primary mt-0.5 flex-shrink-0" />
+                      <span className="text-[rgba(24,23,23,0.7)] dark:text-muted-foreground">{benefit}</span>
                     </div>
                   ))}
                 </div>
@@ -924,7 +924,7 @@ const ValuePropositions: React.FC = () => {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section ref={ref} className="py-24 bg-gray-50 relative overflow-hidden">
+    <section ref={ref} className="py-24 bg-[#F9F7F6] dark:bg-secondary relative overflow-hidden">
       <div className="absolute inset-0 industrial-grid opacity-50" />
 
       <Container className="relative z-10">
@@ -934,14 +934,14 @@ const ValuePropositions: React.FC = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <span className="inline-flex items-center gap-2 text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">
+          <span className="inline-flex items-center gap-2 text-sm font-medium text-[rgba(24,23,23,0.7)] dark:text-muted-foreground uppercase tracking-wider mb-4">
             <Award className="h-4 w-4" />
             Why Choose Us
           </span>
-          <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-gray-900 mb-4">
+          <h2 className="text-[28px] md:text-4xl font-medium tracking-[-0.03em] text-[#2E2D2D] dark:text-foreground mb-4">
             Why Carriers Choose RaiseDash Shift
           </h2>
-          <p className="text-lg text-gray-600">
+          <p className="text-lg text-[rgba(24,23,23,0.7)] dark:text-muted-foreground font-light">
             Built different. Built better. Built for trucking.
           </p>
         </motion.div>
@@ -955,13 +955,13 @@ const ValuePropositions: React.FC = () => {
               transition={{ duration: 0.5, delay: idx * 0.05 }}
               className="group"
             >
-              <div className="bg-white border border-gray-200 rounded-xl p-5 h-full hover:border-gray-300 hover:shadow-lg transition-all duration-300">
-                <div className="w-12 h-12 rounded-xl bg-gray-100 border border-gray-200 flex items-center justify-center mb-4 text-gray-700 group-hover:bg-gray-900 group-hover:text-white group-hover:border-gray-900 transition-colors">
+              <div className="bg-white dark:bg-card border border-[#EEEBEA] dark:border-border rounded-2xl p-6 h-full hover:border-[#2E2D2D]/20 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+                <div className="w-12 h-12 rounded-2xl bg-[#F9F7F6] dark:bg-secondary border border-[#EEEBEA] dark:border-border flex items-center justify-center mb-4 text-[rgba(24,23,23,0.7)] dark:text-muted-foreground group-hover:bg-[#1F1E1E] group-hover:text-white group-hover:border-[#1F1E1E] transition-colors">
                   <prop.icon size={22} />
                 </div>
-                <h3 className="font-bold text-gray-900 mb-1">{prop.title}</h3>
-                <p className="text-xs text-gray-500 font-medium mb-3">{prop.tagline}</p>
-                <p className="text-sm text-gray-600 leading-relaxed">
+                <h3 className="font-medium text-[#2E2D2D] dark:text-foreground mb-1">{prop.title}</h3>
+                <p className="text-xs text-[rgba(24,23,23,0.7)] dark:text-muted-foreground font-medium mb-3">{prop.tagline}</p>
+                <p className="text-sm text-[rgba(24,23,23,0.7)] dark:text-muted-foreground font-light leading-relaxed">
                   {prop.description}
                 </p>
               </div>
@@ -1013,7 +1013,7 @@ const InteractiveWorkflow: React.FC = () => {
   };
 
   return (
-    <section ref={ref} id="how-it-works" className="py-24 bg-white relative overflow-hidden">
+    <section ref={ref} id="how-it-works" className="py-24 bg-white dark:bg-card relative overflow-hidden">
       <Container>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -1284,7 +1284,7 @@ const Features: React.FC = () => {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section ref={ref} id="features" className="py-24 bg-gray-50 relative">
+    <section ref={ref} id="features" className="py-24 bg-white dark:bg-card relative">
       <div className="absolute inset-0 industrial-grid opacity-30" />
 
       <Container className="relative z-10">
@@ -1294,14 +1294,14 @@ const Features: React.FC = () => {
           transition={{ duration: 0.6 }}
           className="text-center max-w-3xl mx-auto mb-16"
         >
-          <span className="inline-flex items-center gap-2 text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">
+          <span className="inline-flex items-center gap-2 text-sm font-medium text-[rgba(24,23,23,0.7)] dark:text-muted-foreground uppercase tracking-wider mb-4">
             <Zap className="h-4 w-4" />
             Features
           </span>
-          <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-gray-900 mb-4">
+          <h2 className="text-[28px] md:text-4xl font-medium tracking-[-0.03em] text-[#2E2D2D] dark:text-foreground mb-4">
             Everything You Need for Fleet Compliance
           </h2>
-          <p className="text-lg text-gray-600">
+          <p className="text-lg text-[rgba(24,23,23,0.7)] dark:text-muted-foreground font-light">
             From entry-level driver training to ongoing safety education — manage your entire program from a single, intuitive platform.
           </p>
         </motion.div>
@@ -1315,11 +1315,11 @@ const Features: React.FC = () => {
               transition={{ duration: 0.5, delay: idx * 0.05 }}
             >
               <Card className="feature-card h-full hover:shadow-lg">
-                <div className="h-14 w-14 rounded-xl bg-gray-900 flex items-center justify-center text-white mb-6">
+                <div className="h-14 w-14 rounded-2xl bg-[#1F1E1E] flex items-center justify-center text-white mb-6">
                   <feature.icon size={26} />
                 </div>
-                <h3 className="text-lg font-bold text-gray-900 mb-3">{feature.title}</h3>
-                <p className="text-gray-600 text-sm leading-relaxed">
+                <h3 className="text-lg font-medium text-[#2E2D2D] dark:text-foreground mb-3">{feature.title}</h3>
+                <p className="text-[rgba(24,23,23,0.7)] dark:text-muted-foreground font-light text-sm leading-relaxed">
                   {feature.description}
                 </p>
               </Card>
@@ -1342,7 +1342,7 @@ const FAQ: React.FC = () => {
   };
 
   return (
-    <section ref={ref} id="faq" className="py-24 bg-white">
+    <section ref={ref} id="faq" className="py-24 bg-white dark:bg-card">
       <Container className="max-w-3xl">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -1409,45 +1409,45 @@ const CTA: React.FC = () => {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section ref={ref} className="py-24 bg-gray-50">
+    <section ref={ref} className="py-24 bg-[#F9F7F6] dark:bg-secondary">
       <Container>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="relative overflow-hidden rounded-xl bg-gray-900 p-12 md:p-16 text-center"
+          className="relative overflow-hidden rounded-2xl bg-[#19224A] p-12 md:p-16 text-center"
         >
           <div className="relative z-10 max-w-3xl mx-auto">
             <motion.div
               initial={{ scale: 0 }}
               animate={isInView ? { scale: 1 } : {}}
               transition={{ delay: 0.2, type: "spring" }}
-              className="w-16 h-16 mx-auto mb-8 rounded-xl bg-white flex items-center justify-center"
+              className="w-16 h-16 mx-auto mb-8 rounded-2xl bg-white flex items-center justify-center"
             >
-              <Truck className="w-8 h-8 text-gray-900" />
+              <Truck className="w-8 h-8 text-[#19224A]" />
             </motion.div>
 
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-6 tracking-tight">
+            <h2 className="text-[28px] md:text-4xl font-medium text-white mb-6 tracking-[-0.03em]">
               Ready to Transform Your Driver Training?
             </h2>
-            <p className="text-lg text-gray-400 mb-10">
+            <p className="text-lg text-white/70 font-light mb-10">
               See how RaiseDash Shift can streamline your compliance and get drivers trained faster. No credit card required.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link href="/request-demo">
-                <Button size="lg" className="w-full sm:w-auto bg-white text-gray-900 hover:bg-gray-100 border-0">
+                <Button size="lg" className="w-full sm:w-auto bg-white text-[#19224A] hover:bg-white/90 border-0 rounded-2xl">
                   Request Your Free Demo
                 </Button>
               </Link>
               <Link href="/request-demo">
-                <Button size="lg" variant="ghost" className="w-full sm:w-auto text-white hover:bg-white/10 border border-white/20">
+                <Button size="lg" variant="ghost" className="w-full sm:w-auto text-white hover:bg-white/10 border border-white/20 rounded-2xl">
                   Talk to Sales
                 </Button>
               </Link>
             </div>
 
-            <p className="mt-8 text-sm text-gray-500">
+            <p className="mt-8 text-sm text-white/50 font-light">
               Free 14-day trial included • 24/7 Support • Setup in 24 hours
             </p>
           </div>
@@ -1488,7 +1488,7 @@ const RaisedashShiftPage: NextPage = () => {
         applicationCategory="BusinessApplication"
       />
       <style dangerouslySetInnerHTML={{ __html: shiftStyles }} />
-      <div className="shift-page min-h-screen bg-white text-gray-900 selection:bg-gray-200 selection:text-gray-900">
+      <div className="shift-page min-h-screen bg-[#F9F7F6] dark:bg-secondary text-[#2E2D2D] dark:text-foreground selection:bg-[#19224A]/15 selection:text-[#19224A]">
         <main>
           <Hero />
           <ProblemSection />

@@ -1,6 +1,6 @@
 import { NextPage } from "next";
 import Link from "next/link";
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/layout/Container";
@@ -9,9 +9,9 @@ import { SEO } from "@/components/seo/SEO";
 import { ArrowRight, X as XIcon, Shield, BarChart3, Filter, Truck, Users, UserCog, Camera, Play, LayoutDashboard } from "lucide-react";
 import { motion, useInView } from "motion/react";
 
-// --- Custom Styles for Industrial Theme ---
+// --- Custom Styles for Tailscale-inspired Theme ---
 const ptiStyles = `
-  @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
 
   .pti-page {
     font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
@@ -19,8 +19,8 @@ const ptiStyles = `
 
   .industrial-grid {
     background-image:
-      linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0,0,0,0.03) 1px, transparent 1px);
+      linear-gradient(rgba(46,45,45,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(46,45,45,0.03) 1px, transparent 1px);
     background-size: 40px 40px;
   }
 
@@ -29,7 +29,7 @@ const ptiStyles = `
   }
 
   .feature-card:hover {
-    transform: translateY(-2px);
+    transform: translateY(-4px);
   }
 `;
 
@@ -58,7 +58,7 @@ const Lightbox: React.FC<{ isOpen: boolean; onClose: () => void; imageSrc: strin
     >
       <button
         onClick={onClose}
-        className="absolute top-4 right-4 p-2 bg-white/10 hover:bg-white/20 text-white rounded-xl transition-colors z-[101]"
+        className="absolute top-4 right-4 p-2 bg-white/10 hover:bg-white/20 text-white rounded-2xl transition-colors z-[101]"
       >
         <XIcon className="w-8 h-8" />
       </button>
@@ -68,7 +68,7 @@ const Lightbox: React.FC<{ isOpen: boolean; onClose: () => void; imageSrc: strin
         width={2560}
         height={1440}
         onClick={(e) => e.stopPropagation()}
-        className="max-w-[95vw] max-h-[95vh] w-auto h-auto object-contain rounded-xl shadow-2xl cursor-default"
+        className="max-w-[95vw] max-h-[95vh] w-auto h-auto object-contain rounded-2xl shadow-2xl cursor-default"
       />
     </div>
   );
@@ -76,7 +76,7 @@ const Lightbox: React.FC<{ isOpen: boolean; onClose: () => void; imageSrc: strin
 
 // --- Hero Component ---
 const Hero: React.FC = () => (
-  <section className="relative pt-8 pb-24 md:pt-16 md:pb-32 overflow-hidden">
+  <section className="relative pt-8 pb-24 md:pt-16 md:pb-32 overflow-hidden bg-[#F9F7F6] dark:bg-secondary">
     {/* Industrial Grid Background */}
     <div className="absolute inset-0 industrial-grid" />
 
@@ -87,9 +87,9 @@ const Hero: React.FC = () => (
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="inline-flex items-center gap-2 rounded-xl bg-gray-100 border border-gray-200 px-4 py-1.5 text-sm font-medium text-gray-700 mb-8"
+          className="inline-flex items-center gap-2 rounded-full bg-white dark:bg-card border border-[#EEEBEA] dark:border-border px-4 py-1.5 text-sm font-medium text-[rgba(24,23,23,0.7)] dark:text-muted-foreground mb-8"
         >
-          <span className="flex h-2 w-2 rounded-full bg-green-500 animate-pulse" />
+          <span className="flex h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
           Solutions for Fleet & Safety Managers
         </motion.div>
 
@@ -97,12 +97,12 @@ const Hero: React.FC = () => (
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="text-4xl md:text-5xl lg:text-[3.5rem] font-extrabold tracking-tight text-gray-900 mb-6 leading-[1.1]"
+          className="text-[48px] md:text-5xl lg:text-[3.5rem] font-medium tracking-[-0.03em] text-[#2E2D2D] dark:text-foreground mb-6 leading-[1.1]"
         >
           Fleet & Safety Manager{" "}
           <span className="relative inline-block">
             <span className="relative z-10">Dashboard</span>
-            <span className="absolute bottom-1 left-0 right-0 h-3 bg-gray-200 -rotate-1" />
+            <span className="absolute bottom-1 left-0 right-0 h-3 bg-[#EEEBEA] dark:bg-border -rotate-1" />
           </span>
         </motion.h1>
 
@@ -110,7 +110,7 @@ const Hero: React.FC = () => (
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="text-xl text-gray-600 max-w-2xl mx-auto mb-10 leading-relaxed"
+          className="text-xl text-[rgba(24,23,23,0.7)] dark:text-muted-foreground font-light max-w-2xl mx-auto mb-10 leading-relaxed"
         >
           See how RaiseDash solves problems for Fleet and Safety managers. The advanced dashboard provides full control over Pre-Trip and DVIR inspections with real-time analytics.
         </motion.p>
@@ -122,13 +122,13 @@ const Hero: React.FC = () => (
           className="flex flex-col sm:flex-row gap-4 mb-16"
         >
           <a href="https://cal.com/javokhir/raisedash-demo-meeting" target="_blank" rel="noopener noreferrer">
-            <Button size="lg" className="w-full sm:w-auto gap-2 group">
+            <Button size="lg" className="w-full sm:w-auto gap-2 group bg-[#1F1E1E] hover:bg-[#2E2D2D] text-white rounded-2xl">
               Book A Demo
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
             </Button>
           </a>
           <a href="https://app.raisedash.com/auth/register" target="_blank" rel="noopener noreferrer">
-            <Button variant="secondary" size="lg" className="w-full sm:w-auto">
+            <Button variant="secondary" size="lg" className="w-full sm:w-auto bg-white dark:bg-card border-[#EEEBEA] dark:border-border text-[#2E2D2D] dark:text-foreground hover:bg-[#F9F7F6] dark:hover:bg-secondary rounded-2xl">
               Start Free Trial
             </Button>
           </a>
@@ -141,7 +141,7 @@ const Hero: React.FC = () => (
           transition={{ duration: 0.8, delay: 0.5 }}
           className="w-full"
         >
-          <div className="relative rounded-xl overflow-hidden border border-gray-200 bg-white shadow-2xl shadow-gray-900/10">
+          <div className="relative rounded-2xl overflow-hidden border border-[#EEEBEA] dark:border-border bg-white dark:bg-card shadow-2xl shadow-[#2E2D2D]/10">
             <Image
               src="https://pti.raisedash.com/wp-content/uploads/2024/06/screenshot-dashboard.png"
               alt="RaiseDash Dashboard"
@@ -181,7 +181,7 @@ const FeatureItem: React.FC<{
             className={`${align === "right" ? "md:order-2" : "md:order-1"}`}
           >
             <div
-              className="relative rounded-xl overflow-hidden border border-gray-200 bg-white shadow-xl cursor-pointer group"
+              className="relative rounded-2xl overflow-hidden border border-[#EEEBEA] dark:border-border bg-white dark:bg-card shadow-xl cursor-pointer group"
               onClick={() => onImageClick && onImageClick(image)}
             >
               <Image
@@ -192,7 +192,7 @@ const FeatureItem: React.FC<{
                 className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-500"
               />
               <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
-                <span className="bg-white/90 backdrop-blur-sm text-gray-900 px-4 py-2 rounded-xl text-sm font-semibold shadow-lg">
+                <span className="bg-white/90 dark:bg-card/90 backdrop-blur-sm text-[#2E2D2D] dark:text-foreground px-4 py-2 rounded-2xl text-sm font-medium shadow-lg">
                   Click to Zoom
                 </span>
               </div>
@@ -205,14 +205,14 @@ const FeatureItem: React.FC<{
             transition={{ duration: 0.6, delay: 0.2 }}
             className={`${align === "right" ? "md:order-1" : "md:order-2"}`}
           >
-            <div className="h-14 w-14 rounded-xl bg-gray-900 flex items-center justify-center text-white mb-6">
+            <div className="h-14 w-14 rounded-2xl bg-[#1F1E1E] flex items-center justify-center text-white mb-6">
               <Icon size={26} />
             </div>
-            <span className="inline-block px-3 py-1 rounded-xl bg-gray-100 text-gray-600 text-xs font-semibold mb-4">
+            <span className="inline-block px-3 py-1 rounded-full bg-[#F9F7F6] dark:bg-secondary border border-[#EEEBEA] dark:border-border text-[rgba(24,23,23,0.7)] dark:text-muted-foreground text-xs font-medium mb-4">
               Feature {index}
             </span>
-            <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4 tracking-tight">{title}</h3>
-            <p className="text-lg text-gray-600 leading-relaxed">{description}</p>
+            <h3 className="text-[28px] font-medium text-[#2E2D2D] dark:text-foreground mb-4 tracking-[-0.03em]">{title}</h3>
+            <p className="text-lg text-[rgba(24,23,23,0.7)] dark:text-muted-foreground font-light leading-relaxed">{description}</p>
           </motion.div>
         </div>
       </Container>
@@ -226,7 +226,7 @@ const Features: React.FC<{ onImageClick: (src: string) => void }> = ({ onImageCl
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section ref={ref} className="bg-gray-50 relative">
+    <section ref={ref} className="bg-white dark:bg-card relative">
       <div className="absolute inset-0 industrial-grid opacity-50" />
 
       <Container className="relative z-10 pt-20 pb-8">
@@ -236,14 +236,14 @@ const Features: React.FC<{ onImageClick: (src: string) => void }> = ({ onImageCl
           transition={{ duration: 0.6 }}
           className="text-center max-w-3xl mx-auto mb-8"
         >
-          <span className="inline-flex items-center gap-2 text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">
+          <span className="inline-flex items-center gap-2 text-sm font-medium text-[rgba(24,23,23,0.7)] dark:text-muted-foreground uppercase tracking-wider mb-4">
             <Shield className="h-4 w-4" />
             Dashboard Features
           </span>
-          <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-gray-900 mb-4">
+          <h2 className="text-[28px] md:text-4xl font-medium tracking-[-0.03em] text-[#2E2D2D] dark:text-foreground mb-4">
             Complete Control Over Your Fleet Inspections
           </h2>
-          <p className="text-lg text-gray-600">
+          <p className="text-lg text-[rgba(24,23,23,0.7)] dark:text-muted-foreground font-light">
             Powerful analytics and management tools designed for fleet safety professionals.
           </p>
         </motion.div>
@@ -334,39 +334,39 @@ const CTA: React.FC = () => {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section ref={ref} className="py-24 bg-white">
+    <section ref={ref} className="py-24 bg-[#F9F7F6] dark:bg-secondary">
       <Container>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="relative overflow-hidden rounded-xl bg-gray-900 p-12 md:p-16 text-center"
+          className="relative overflow-hidden rounded-2xl bg-[#19224A] p-12 md:p-16 text-center"
         >
           <div className="relative z-10 max-w-3xl mx-auto">
             <motion.div
               initial={{ scale: 0 }}
               animate={isInView ? { scale: 1 } : {}}
               transition={{ delay: 0.2, type: "spring" }}
-              className="w-16 h-16 mx-auto mb-8 rounded-xl bg-white flex items-center justify-center"
+              className="w-16 h-16 mx-auto mb-8 rounded-2xl bg-white flex items-center justify-center"
             >
-              <Shield className="w-8 h-8 text-gray-900" />
+              <Shield className="w-8 h-8 text-[#19224A]" />
             </motion.div>
 
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-6 tracking-tight">
+            <h2 className="text-[28px] md:text-4xl font-medium text-white mb-6 tracking-[-0.03em]">
               Ready to Streamline Your Fleet Management?
             </h2>
-            <p className="text-lg text-gray-400 mb-10">
+            <p className="text-lg text-white/70 font-light mb-10">
               Get in touch to schedule a demo and discover how RaiseDash can enhance your fleet&apos;s safety and efficiency!
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a href="https://cal.com/javokhir/raisedash-demo-meeting" target="_blank" rel="noopener noreferrer">
-                <Button size="lg" className="w-full sm:w-auto bg-white text-gray-900 hover:bg-gray-100 border-0">
+                <Button size="lg" className="w-full sm:w-auto bg-white text-[#19224A] hover:bg-white/90 border-0 rounded-2xl">
                   Book A Demo
                 </Button>
               </a>
               <Link href="/products/raisedash-pti-inspections">
-                <Button size="lg" variant="ghost" className="w-full sm:w-auto text-white hover:bg-white/10 border border-white/20">
+                <Button size="lg" variant="ghost" className="w-full sm:w-auto text-white hover:bg-white/10 border border-white/20 rounded-2xl">
                   Back to PTI Overview
                 </Button>
               </Link>
@@ -382,20 +382,7 @@ const CTA: React.FC = () => {
 const FleetSafetyManagersPage: NextPage = () => {
   const [lightboxImage, setLightboxImage] = useState<string | null>(null);
 
-  useEffect(() => {
-    // Force light mode
-    const root = document.documentElement;
-    const wasDark = root.classList.contains("dark");
-    if (wasDark) {
-      root.classList.remove("dark");
-    }
-    return () => {
-      if (wasDark) {
-        root.classList.add("dark");
-      }
-    };
-  }, []);
-
+  
   return (
     <>
       <SEO
@@ -411,7 +398,7 @@ const FleetSafetyManagersPage: NextPage = () => {
         onClose={() => setLightboxImage(null)}
       />
 
-      <div className="pti-page min-h-screen bg-white text-gray-900 selection:bg-gray-200 selection:text-gray-900">
+      <div className="pti-page min-h-screen bg-[#F9F7F6] dark:bg-secondary text-[#2E2D2D] dark:text-foreground selection:bg-[#19224A]/15 selection:text-[#19224A]">
         <main>
           <Hero />
           <Features onImageClick={setLightboxImage} />

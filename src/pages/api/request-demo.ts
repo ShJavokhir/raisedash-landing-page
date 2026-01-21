@@ -25,10 +25,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       return res.status(400).json({ error: 'Invalid email format' });
     }
 
-    // Ensure company size option is valid
-    const allowedSizes = ['1-10 trucks', '11-50 trucks', '51-200 trucks', '201+ trucks'];
-    if (!allowedSizes.includes(data.companySize)) {
-      return res.status(400).json({ error: 'Invalid company size selection' });
+    // Validate fleet size option - must match frontend fleetSizeOptions values
+    const allowedFleetSizes = ['1-25', '26-100', '101-500', '501-1000', '1000+'];
+    if (!allowedFleetSizes.includes(data.companySize)) {
+      return res.status(400).json({
+        error: 'Invalid fleet size selection',
+        allowedValues: allowedFleetSizes
+      });
     }
 
     // Send to Telegram
