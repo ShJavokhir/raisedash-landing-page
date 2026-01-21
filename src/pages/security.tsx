@@ -9,7 +9,7 @@ export default function Security() {
       keywords={["raisedash security", "data protection", "fleet data security", "logistics software security"]}
     >
       {/* Hero Section */}
-      <Container className="flex items-center bg-white dark:bg-card mt-12 rounded-md border ui-corner-accents">
+      <Container className="flex items-center bg-white mt-12 rounded-xs border border-border">
         <div className="w-full py-16 sm:py-24 md:py-28">
           <h1 className="text-4xl md:text-5xl font-semibold tracking-[-0.01em] text-foreground">
             Security
@@ -31,7 +31,7 @@ export default function Security() {
       </Container>
 
       {/* Security Content */}
-      <Container className="bg-white dark:bg-card mt-8 rounded-md border ui-corner-accents">
+      <Container className="bg-white mt-8 rounded-xs border border-border">
         <div className="py-16">
           <div className="max-w-4xl mx-auto prose prose-slate dark:prose-invert">
             <section className="mb-12">

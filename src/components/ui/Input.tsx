@@ -17,7 +17,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
         {label && (
           <label
             htmlFor={inputId}
-            className="block text-sm font-medium text-foreground mb-2"
+            className="block text-sm font-normal text-foreground mb-2"
           >
             {label}
             {required && " *"}
@@ -30,12 +30,12 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
           aria-invalid={error ? "true" : undefined}
           aria-describedby={errorId}
           className={cn(
-            "w-full px-4 py-3 border border-input rounded-lg bg-white dark:bg-card text-foreground",
+            "w-full px-4 py-2.5 border border-border rounded-xs bg-background text-foreground text-sm",
             "placeholder:text-muted-foreground",
-            "focus:outline-none focus:border-foreground",
-            "transition-colors duration-150",
+            "focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:ring-offset-background",
+            "transition-[border-color,box-shadow] duration-[0.15s] ease-[cubic-bezier(0.4,0,0.2,1)]",
             "disabled:opacity-50 disabled:cursor-not-allowed",
-            error && "border-destructive focus:border-destructive",
+            error && "border-destructive focus:ring-destructive",
             className
           )}
           {...props}

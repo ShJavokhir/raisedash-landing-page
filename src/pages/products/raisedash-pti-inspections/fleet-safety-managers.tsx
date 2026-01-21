@@ -87,7 +87,7 @@ const Hero: React.FC = () => (
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="inline-flex items-center gap-2 rounded-full bg-white dark:bg-card border border-[#EEEBEA] dark:border-border px-4 py-1.5 text-sm font-medium text-[rgba(24,23,23,0.7)] dark:text-muted-foreground mb-8"
+          className="inline-flex items-center gap-2 rounded-full bg-white dark:bg-white border border-[#EEEBEA] dark:border-border px-4 py-1.5 text-sm font-medium text-[rgba(24,23,23,0.7)] dark:text-muted-foreground mb-8"
         >
           <span className="flex h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
           Solutions for Fleet & Safety Managers
@@ -128,7 +128,7 @@ const Hero: React.FC = () => (
             </Button>
           </a>
           <a href="https://app.raisedash.com/auth/register" target="_blank" rel="noopener noreferrer">
-            <Button variant="secondary" size="lg" className="w-full sm:w-auto bg-white dark:bg-card border-[#EEEBEA] dark:border-border text-[#2E2D2D] dark:text-foreground hover:bg-[#F9F7F6] dark:hover:bg-secondary rounded-2xl">
+            <Button variant="secondary" size="lg" className="w-full sm:w-auto bg-white dark:bg-white border-[#EEEBEA] dark:border-border text-[#2E2D2D] dark:text-foreground hover:bg-[#F9F7F6] dark:hover:bg-secondary rounded-2xl">
               Start Free Trial
             </Button>
           </a>
@@ -141,7 +141,7 @@ const Hero: React.FC = () => (
           transition={{ duration: 0.8, delay: 0.5 }}
           className="w-full"
         >
-          <div className="relative rounded-2xl overflow-hidden border border-[#EEEBEA] dark:border-border bg-white dark:bg-card shadow-2xl shadow-[#2E2D2D]/10">
+          <div className="relative rounded-2xl overflow-hidden border border-[#EEEBEA] dark:border-border bg-white dark:bg-white shadow-2xl shadow-[#2E2D2D]/10">
             <Image
               src="https://pti.raisedash.com/wp-content/uploads/2024/06/screenshot-dashboard.png"
               alt="RaiseDash Dashboard"
@@ -181,7 +181,7 @@ const FeatureItem: React.FC<{
             className={`${align === "right" ? "md:order-2" : "md:order-1"}`}
           >
             <div
-              className="relative rounded-2xl overflow-hidden border border-[#EEEBEA] dark:border-border bg-white dark:bg-card shadow-xl cursor-pointer group"
+              className="relative rounded-2xl overflow-hidden border border-[#EEEBEA] dark:border-border bg-white dark:bg-white shadow-xl cursor-pointer group"
               onClick={() => onImageClick && onImageClick(image)}
             >
               <Image
@@ -192,7 +192,7 @@ const FeatureItem: React.FC<{
                 className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-500"
               />
               <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
-                <span className="bg-white/90 dark:bg-card/90 backdrop-blur-sm text-[#2E2D2D] dark:text-foreground px-4 py-2 rounded-2xl text-sm font-medium shadow-lg">
+                <span className="bg-white/90 dark:bg-white/90 backdrop-blur-sm text-[#2E2D2D] dark:text-foreground px-4 py-2 rounded-2xl text-sm font-medium shadow-lg">
                   Click to Zoom
                 </span>
               </div>
@@ -226,7 +226,7 @@ const Features: React.FC<{ onImageClick: (src: string) => void }> = ({ onImageCl
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section ref={ref} className="bg-white dark:bg-card relative">
+    <section ref={ref} className="bg-white dark:bg-white relative">
       <div className="absolute inset-0 industrial-grid opacity-50" />
 
       <Container className="relative z-10 pt-20 pb-8">

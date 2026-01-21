@@ -87,9 +87,9 @@ export default function Changelogs({ meta, mdxHtml }: ChangelogsPageProps) {
   return (
     <PageLayout title={meta.title} description={meta.description} keywords={["raisedash changelog", "product updates", "new features", "release notes"]}>
       {/* Hero Section */}
-      <Container className="flex items-center bg-white dark:bg-card mt-12 rounded-md border ui-corner-accents">
+      <Container className="flex items-center bg-white mt-12 rounded-xs border border-border">
         <div className="w-full py-16">
-          <h1 className="text-4xl md:text-5xl font-semibold tracking-[-0.01em] text-foreground">
+          <h1 className="text-4xl md:text-5xl font-normal tracking-[-0.01em] text-foreground">
             {meta.title}
           </h1>
           <p className="mt-4 max-w-3xl text-lg text-muted-foreground">
@@ -99,7 +99,7 @@ export default function Changelogs({ meta, mdxHtml }: ChangelogsPageProps) {
       </Container>
 
       {/* Changelog Content */}
-      <Container className="bg-white dark:bg-card mt-8 rounded-md border ui-corner-accents">
+      <Container className="bg-white mt-8 rounded-xs border border-border">
         <div className="py-16">
           <div className="max-w-3xl">
             <div dangerouslySetInnerHTML={{ __html: mdxHtml }} />
@@ -108,9 +108,9 @@ export default function Changelogs({ meta, mdxHtml }: ChangelogsPageProps) {
       </Container>
 
       {/* CTA Section */}
-      <Container className="bg-white dark:bg-card mt-8 rounded-md border ui-corner-accents">
+      <Container className="bg-white mt-8 rounded-xs border border-border">
         <div className="py-16 text-center">
-          <h3 className="text-2xl font-semibold text-foreground mb-4">
+          <h3 className="text-2xl font-normal text-foreground mb-4">
             Want to be notified of updates?
           </h3>
           <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">

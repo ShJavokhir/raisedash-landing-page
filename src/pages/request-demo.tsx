@@ -26,16 +26,16 @@ export default function RequestDemo() {
       keywords={["raisedash demo", "fleet software demo", "DVIR demo", "fleet management demo"]}
     >
       {/* Hero Section */}
-      <section className="bg-[#F9F7F6] dark:bg-secondary py-16 md:py-24">
+      <section className="bg-background py-16 md:py-24">
         <Container>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
             {/* Left Column - Value Proposition */}
             <div className="space-y-10 lg:pr-8">
               <div className="space-y-6">
-                <h1 className="text-[40px] md:text-[52px] font-semibold tracking-[-0.03em] text-[#2E2D2D] dark:text-foreground leading-[1.1]">
+                <h1 className="text-[40px] md:text-[52px] font-normal tracking-[-0.03em] text-foreground leading-[1.1]">
                   See what Raisedash can do for your fleet
                 </h1>
-                <p className="text-lg text-[rgba(24,23,23,0.7)] dark:text-muted-foreground leading-relaxed max-w-lg">
+                <p className="text-lg text-muted-foreground leading-relaxed max-w-lg">
                   Meet one-on-one with a fleet safety expert to explore how Raisedash helps you
                   reduce risk, streamline compliance, and protect your drivers.
                 </p>
@@ -45,12 +45,12 @@ export default function RequestDemo() {
               <div className="space-y-5">
                 {benefits.map((benefit) => (
                   <div key={benefit.title} className="flex gap-4">
-                    <div className="w-6 h-6 rounded-full bg-[#19224A] dark:bg-[#1E293B] flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <div className="w-6 h-6 rounded-full bg-primary flex items-center justify-center flex-shrink-0 mt-0.5">
                       <Check className="w-3.5 h-3.5 text-white" strokeWidth={3} />
                     </div>
                     <div>
-                      <h3 className="font-medium text-[#2E2D2D] dark:text-foreground mb-1">{benefit.title}</h3>
-                      <p className="text-sm text-[rgba(24,23,23,0.6)] dark:text-muted-foreground leading-relaxed">
+                      <h3 className="font-normal text-foreground mb-1">{benefit.title}</h3>
+                      <p className="text-sm text-muted-foreground leading-relaxed">
                         {benefit.description}
                       </p>
                     </div>
@@ -68,38 +68,38 @@ export default function RequestDemo() {
       </section>
 
       {/* FAQ Section */}
-      <section className="bg-[#F9F7F6] dark:bg-secondary py-20 border-t border-[#EEEBEA] dark:border-border">
+      <section className="bg-background py-20 border-t border-border">
         <Container>
-          <h2 className="text-2xl font-semibold text-[#2E2D2D] dark:text-foreground text-center mb-12">
+          <h2 className="text-2xl font-normal text-foreground text-center mb-12">
             Frequently asked questions
           </h2>
 
           <div className="max-w-2xl mx-auto space-y-6">
-            <div className="bg-white dark:bg-card rounded-xl border border-[#EEEBEA] dark:border-border p-6">
-              <h3 className="font-medium text-[#2E2D2D] dark:text-foreground mb-2">
+            <div className="bg-white rounded-xs border border-border p-6">
+              <h3 className="font-normal text-foreground mb-2">
                 How long is the demo?
               </h3>
-              <p className="text-sm text-[rgba(24,23,23,0.7)] dark:text-muted-foreground leading-relaxed">
+              <p className="text-sm text-muted-foreground leading-relaxed">
                 Most demos run 30-45 minutes, but we&apos;ll adjust based on your needs.
                 We focus on the features most relevant to your fleet operations.
               </p>
             </div>
 
-            <div className="bg-white dark:bg-card rounded-xl border border-[#EEEBEA] dark:border-border p-6">
-              <h3 className="font-medium text-[#2E2D2D] dark:text-foreground mb-2">
+            <div className="bg-white rounded-xs border border-border p-6">
+              <h3 className="font-normal text-foreground mb-2">
                 Do I need to prepare anything?
               </h3>
-              <p className="text-sm text-[rgba(24,23,23,0.7)] dark:text-muted-foreground leading-relaxed">
+              <p className="text-sm text-muted-foreground leading-relaxed">
                 No preparation required. However, having your current fleet size and
                 primary compliance challenges in mind helps us tailor the demo to your needs.
               </p>
             </div>
 
-            <div className="bg-white dark:bg-card rounded-xl border border-[#EEEBEA] dark:border-border p-6">
-              <h3 className="font-medium text-[#2E2D2D] dark:text-foreground mb-2">
+            <div className="bg-white rounded-xs border border-border p-6">
+              <h3 className="font-normal text-foreground mb-2">
                 What happens after the demo?
               </h3>
-              <p className="text-sm text-[rgba(24,23,23,0.7)] dark:text-muted-foreground leading-relaxed">
+              <p className="text-sm text-muted-foreground leading-relaxed">
                 We&apos;ll provide a custom proposal including pricing, implementation timeline,
                 and ROI projections based on your specific requirements—no pressure, no commitment.
               </p>

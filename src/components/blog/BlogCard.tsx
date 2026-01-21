@@ -20,18 +20,18 @@ export function BlogCard({ post, featured = false }: BlogCardProps) {
     <Link
       href={`/blog/${post.slug}`}
       className={cn(
-        "group block transition-all duration-200 hover:-translate-y-1",
+        "group block transition-all duration-[0.15s] ease-[cubic-bezier(0.4,0,0.2,1)] hover:-translate-y-0.5",
         featured && "md:col-span-2"
       )}
     >
-      <article className="bg-white dark:bg-card rounded-2xl border border-[#EEEBEA] dark:border-border p-8 h-full flex flex-col">
+      <article className="bg-white rounded-xs border border-border p-6 h-full flex flex-col transition-colors duration-[0.15s] hover:bg-surface-2">
         {/* Category Badge */}
-        <div className="flex items-center justify-between mb-5">
-          <span className="inline-flex items-center px-3 py-1 rounded-lg text-xs font-medium bg-[#19224A]/10 text-[#19224A] dark:bg-[#1E293B]/30 dark:text-foreground">
+        <div className="flex items-center justify-between mb-4">
+          <span className="inline-flex items-center px-2 py-0.5 rounded-xs text-xs font-normal bg-surface-3 text-foreground">
             {post.category}
           </span>
           {post.featured && (
-            <span className="inline-flex items-center px-3 py-1 rounded-lg text-xs font-medium bg-[#D04841]/10 text-[#D04841] dark:bg-accent/20 dark:text-accent">
+            <span className="inline-flex items-center px-2 py-0.5 rounded-xs text-xs font-normal bg-accent/10 text-accent">
               Featured
             </span>
           )}
@@ -39,52 +39,52 @@ export function BlogCard({ post, featured = false }: BlogCardProps) {
 
         {/* Title */}
         <h3 className={cn(
-          "font-medium text-[#2E2D2D] dark:text-foreground mb-3 group-hover:opacity-80 transition-opacity",
-          featured ? "text-2xl md:text-[28px] tracking-[-0.02em]" : "text-xl"
+          "font-normal text-foreground mb-3 group-hover:text-foreground-80 transition-colors duration-[0.15s]",
+          featured ? "text-2xl md:text-[26px] tracking-[-0.02em]" : "text-xl tracking-[-0.01em]"
         )}>
           {post.title}
         </h3>
 
         {/* Excerpt */}
         <p className={cn(
-          "text-[rgba(24,23,23,0.7)] dark:text-muted-foreground mb-5 flex-grow leading-relaxed",
+          "text-muted-foreground mb-4 flex-grow leading-relaxed",
           featured ? "text-base" : "text-sm"
         )}>
           {post.excerpt}
         </p>
 
         {/* Tags */}
-        <div className="flex flex-wrap gap-2 mb-5">
+        <div className="flex flex-wrap gap-1.5 mb-4">
           {post.tags.slice(0, 3).map((tag) => (
             <span
               key={tag}
-              className="inline-flex items-center px-2.5 py-1 rounded-lg text-xs bg-[#F9F7F6] dark:bg-muted text-[rgba(24,23,23,0.7)] dark:text-muted-foreground"
+              className="inline-flex items-center px-2 py-0.5 rounded-xs text-xs bg-surface-3 text-muted-foreground"
             >
               {tag}
             </span>
           ))}
           {post.tags.length > 3 && (
-            <span className="inline-flex items-center px-2.5 py-1 rounded-lg text-xs bg-[#F9F7F6] dark:bg-muted text-[rgba(24,23,23,0.7)] dark:text-muted-foreground">
+            <span className="inline-flex items-center px-2 py-0.5 rounded-xs text-xs bg-surface-3 text-muted-foreground">
               +{post.tags.length - 3} more
             </span>
           )}
         </div>
 
         {/* Author and Meta */}
-        <div className="flex items-center justify-between text-sm text-[rgba(24,23,23,0.7)] dark:text-muted-foreground">
+        <div className="flex items-center justify-between text-sm text-muted-foreground pt-4 border-t border-border">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-full bg-[#19224A]/10 dark:bg-[#1E293B]/30 flex items-center justify-center">
-              <span className="text-xs font-medium text-[#19224A] dark:text-foreground">
+            <div className="w-8 h-8 rounded-full bg-surface-3 flex items-center justify-center">
+              <span className="text-xs font-normal text-foreground">
                 {post.author.split(' ').map(n => n[0]).join('')}
               </span>
             </div>
             <div>
-              <div className="font-medium text-[#2E2D2D] dark:text-foreground">{post.author}</div>
+              <div className="font-normal text-foreground text-sm">{post.author}</div>
               <div className="text-xs">{post.authorRole}</div>
             </div>
           </div>
           <div className="text-right">
-            <div>{formatDate(post.publishedAt)}</div>
+            <div className="text-sm">{formatDate(post.publishedAt)}</div>
             <div className="text-xs">{post.readTime}</div>
           </div>
         </div>

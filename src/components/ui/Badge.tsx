@@ -3,19 +3,24 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/cn";
 
 const badgeVariants = cva(
-  "inline-flex items-center rounded-lg border px-3 py-1 text-xs font-medium transition-colors duration-150 focus:outline-none",
+  "inline-flex items-center rounded-xs border px-2 py-0.5 text-xs font-normal transition-colors duration-[0.15s] ease-[cubic-bezier(0.4,0,0.2,1)] focus:outline-none",
   {
     variants: {
       variant: {
         default:
-          "border-transparent bg-primary dark:bg-foreground text-white dark:text-background hover:opacity-90",
+          "border-transparent bg-primary text-primary-foreground hover:bg-[#3b3a33]",
         secondary:
-          "border-border bg-white dark:bg-card text-foreground hover:bg-background dark:hover:bg-secondary",
+          "border-border bg-secondary text-secondary-foreground hover:bg-surface-3",
         destructive:
-          "border-transparent bg-destructive text-white hover:opacity-90",
-        outline: "border-border text-foreground",
+          "border-transparent bg-destructive text-destructive-foreground hover:bg-destructive/90",
+        success:
+          "border-transparent bg-success text-success-foreground hover:bg-success/90",
+        outline:
+          "border-border bg-transparent text-foreground hover:bg-muted",
         accent:
-          "border-transparent bg-destructive/10 dark:bg-accent/10 text-destructive dark:text-accent",
+          "border-transparent bg-accent/10 text-accent dark:bg-accent/20",
+        muted:
+          "border-transparent bg-surface-3 text-muted-foreground",
       },
     },
     defaultVariants: {

@@ -9,7 +9,7 @@ export default function PrivacyPolicy() {
       keywords={["raisedash privacy policy", "data privacy", "fleet software privacy"]}
     >
       {/* Hero Section */}
-      <Container className="flex items-center bg-white dark:bg-card mt-12 rounded-md border ui-corner-accents">
+      <Container className="flex items-center bg-white mt-12 rounded-xs border border-border">
         <div className="w-full py-16 sm:py-24 md:py-28">
           <h1 className="text-4xl md:text-5xl font-semibold tracking-[-0.01em] text-foreground">
             Privacy Policy
@@ -25,7 +25,7 @@ export default function PrivacyPolicy() {
       </Container>
 
       {/* Privacy Content */}
-      <Container className="bg-white dark:bg-card mt-8 rounded-md border ui-corner-accents">
+      <Container className="bg-white mt-8 rounded-xs border border-border">
         <div className="py-16">
           <div className="max-w-4xl mx-auto prose prose-slate dark:prose-invert">
             <section className="mb-12">
@@ -187,7 +187,6 @@ export default function PrivacyPolicy() {
               <ul className="list-disc list-inside text-muted-foreground space-y-2 ml-4">
                 <li>General Data Protection Regulation (GDPR)</li>
                 <li>California Consumer Privacy Act (CCPA)</li>
-                <li>Health Insurance Portability and Accountability Act (HIPAA)</li>
                 <li>Other applicable regional and national privacy laws</li>
               </ul>
             </section>
@@ -201,7 +200,7 @@ export default function PrivacyPolicy() {
                 <p className="text-foreground mb-2"><strong>Raisedash Inc.</strong></p>
                 <p className="text-muted-foreground mb-2">Privacy Officer: legal@raisedash.com</p>
                 <p className="text-muted-foreground mb-2">General Inquiries: support@raisedash.com</p>
-                <p className="text-muted-foreground">Address: 123 Security Drive, San Francisco, CA 94105</p>
+                <p className="text-muted-foreground">Address: 415 Mission St, San Francisco, CA 94105</p>
               </div>
               <p className="text-muted-foreground mt-4">
                 For EU residents, you also have the right to lodge a complaint with your local data protection authority if you believe we have not handled your personal information in accordance with applicable law.

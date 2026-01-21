@@ -24,7 +24,7 @@ interface Solution {
 }
 
 const solutions: Solution[] = [
-  
+
   {
     id: "onboarding",
     title: "Shift (Driver Onboarding)",
@@ -109,11 +109,11 @@ export function Header() {
   return (
     <header className="sticky top-4 md:top-6 z-50 w-full bg-transparent">
       <div className="">
-        <Container className="rounded-lg border border-border bg-white dark:bg-card dark:border-border shadow-sm">
-        <div className="h-14 md:h-16 flex items-center justify-between">
+        <Container className="rounded-xs border border-border bg-white dark:bg-card">
+        <div className="h-[52px] flex items-center justify-between">
           {/* Logo */}
           <div className="flex items-center gap-3">
-            <Link href="/" className="font-semibold text-2xl tracking-[-0.01em] text-foreground">
+            <Link href="/" className="font-normal text-xl tracking-[-0.02em] text-foreground hover:text-foreground-80 transition-colors duration-[0.15s]">
               Raisedash
             </Link>
           </div>
@@ -121,9 +121,9 @@ export function Header() {
           {/* Desktop Navigation */}
           <nav className="hidden md:flex">
             <NavigationMenu>
-              <NavigationMenuList>
+              <NavigationMenuList className="gap-1">
                 <NavigationMenuItem>
-                  <NavigationMenuTrigger className="bg-transparent">
+                  <NavigationMenuTrigger className="bg-transparent text-sm font-normal text-foreground hover:text-foreground-80 px-3 py-1.5 transition-colors duration-[0.15s]">
                     Solutions
                   </NavigationMenuTrigger>
                   <NavigationMenuContent>
@@ -136,19 +136,19 @@ export function Header() {
                             <Link
                               key={solution.id}
                               href={solution.href}
-                              className={`flex items-start gap-3 rounded-lg p-3 transition-all duration-200 hover:bg-muted dark:hover:bg-accent ${
-                                hoveredSolution.id === solution.id ? "bg-muted dark:bg-accent" : ""
+                              className={`flex items-start gap-3 rounded-xs p-3 transition-colors duration-[0.15s] hover:bg-surface-3 ${
+                                hoveredSolution.id === solution.id ? "bg-surface-3" : ""
                               }`}
                               onMouseEnter={() => setHoveredSolution(solution)}
                             >
-                              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-border dark:border-border bg-white dark:bg-background">
+                              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xs border border-border bg-background">
                                 <Icon className="h-5 w-5 text-foreground" />
                               </div>
                               <div className="flex-1 min-w-0">
                                 <div className="flex items-center gap-2">
-                                  <span className="text-sm font-medium text-foreground">{solution.title}</span>
+                                  <span className="text-sm font-normal text-foreground">{solution.title}</span>
                                   {solution.comingSoon && (
-                                    <span className="text-[10px] px-1.5 py-0.5 rounded-md bg-muted dark:bg-muted text-muted-foreground font-medium">
+                                    <span className="text-[10px] px-1.5 py-0.5 rounded-xs bg-surface-3 text-muted-foreground font-normal">
                                       Soon
                                     </span>
                                   )}
@@ -162,13 +162,13 @@ export function Header() {
                         })}
                       </div>
                       {/* Right column - Image preview */}
-                      <div className="w-[270px] p-2 border-l border-border dark:border-border">
-                        <div className="relative h-full w-full rounded-lg overflow-hidden bg-muted dark:bg-muted">
+                      <div className="w-[270px] p-2 border-l border-border">
+                        <div className="relative h-full w-full rounded-xs overflow-hidden bg-surface-3">
                           <Image
                             src={hoveredSolution.image}
                             alt={hoveredSolution.title}
                             fill
-                            className="object-cover dark:invert transition-opacity duration-200"
+                            className="object-cover dark:invert transition-opacity duration-[0.15s]"
                           />
                         </div>
                       </div>
@@ -176,7 +176,7 @@ export function Header() {
                   </NavigationMenuContent>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
-                  <NavigationMenuTrigger className="bg-transparent">
+                  <NavigationMenuTrigger className="bg-transparent text-sm font-normal text-foreground hover:text-foreground-80 px-3 py-1.5 transition-colors duration-[0.15s]">
                     Resources
                   </NavigationMenuTrigger>
                   <NavigationMenuContent>
@@ -187,13 +187,13 @@ export function Header() {
                           <Link
                             key={item.title}
                             href={item.href}
-                            className="flex items-start gap-3 rounded-lg p-3 transition-all duration-200 hover:bg-muted dark:hover:bg-accent"
+                            className="flex items-start gap-3 rounded-xs p-3 transition-colors duration-[0.15s] hover:bg-surface-3"
                           >
-                            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-border dark:border-border bg-white dark:bg-background">
+                            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xs border border-border bg-background">
                               <Icon className="h-5 w-5 text-foreground" />
                             </div>
                             <div className="flex-1 min-w-0">
-                              <span className="text-sm font-medium text-foreground">{item.title}</span>
+                              <span className="text-sm font-normal text-foreground">{item.title}</span>
                               <p className="text-xs text-muted-foreground mt-1 line-clamp-2">
                                 {item.description}
                               </p>
@@ -205,7 +205,7 @@ export function Header() {
                   </NavigationMenuContent>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
-                  <NavigationMenuTrigger className="bg-transparent">
+                  <NavigationMenuTrigger className="bg-transparent text-sm font-normal text-foreground hover:text-foreground-80 px-3 py-1.5 transition-colors duration-[0.15s]">
                     Company
                   </NavigationMenuTrigger>
                   <NavigationMenuContent>
@@ -216,13 +216,13 @@ export function Header() {
                           <Link
                             key={item.title}
                             href={item.href}
-                            className="flex items-start gap-3 rounded-lg p-3 transition-all duration-200 hover:bg-muted dark:hover:bg-accent"
+                            className="flex items-start gap-3 rounded-xs p-3 transition-colors duration-[0.15s] hover:bg-surface-3"
                           >
-                            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-border dark:border-border bg-white dark:bg-background">
+                            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xs border border-border bg-background">
                               <Icon className="h-5 w-5 text-foreground" />
                             </div>
                             <div className="flex-1 min-w-0">
-                              <span className="text-sm font-medium text-foreground">{item.title}</span>
+                              <span className="text-sm font-normal text-foreground">{item.title}</span>
                               <p className="text-xs text-muted-foreground mt-1 line-clamp-2">
                                 {item.description}
                               </p>
@@ -252,7 +252,7 @@ export function Header() {
             <ThemeToggle />
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 rounded-lg hover:bg-muted dark:hover:bg-accent transition-all duration-200"
+              className="p-2 rounded-xs hover:bg-surface-3 transition-colors duration-[0.15s]"
               aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
               aria-expanded={mobileMenuOpen}
               aria-controls="mobile-navigation"
@@ -273,12 +273,12 @@ export function Header() {
             role="navigation"
             aria-label="Mobile navigation"
             ref={mobileMenuRef}
-            className="md:hidden border-t border-border dark:border-border"
+            className="md:hidden border-t border-border"
           >
             <div className="py-4 space-y-1">
               {/* Solutions Section */}
               <div className="px-3 py-2">
-                <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Solutions</span>
+                <span className="text-xs font-normal text-muted-foreground uppercase tracking-wide">Solutions</span>
               </div>
               {solutions.map((solution) => {
                 const Icon = solution.icon;
@@ -286,15 +286,15 @@ export function Header() {
                   <Link
                     key={solution.id}
                     href={solution.href}
-                    className="flex items-center gap-3 mx-2 px-3 py-2.5 text-sm text-foreground hover:bg-muted dark:hover:bg-accent rounded-lg transition-all duration-200"
+                    className="flex items-center gap-3 mx-2 px-3 py-2.5 text-sm text-foreground hover:bg-surface-3 rounded-xs transition-colors duration-[0.15s]"
                     onClick={() => setMobileMenuOpen(false)}
                   >
-                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-border dark:border-border bg-white dark:bg-background">
+                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xs border border-border bg-background">
                       <Icon className="h-4 w-4 text-foreground" />
                     </div>
-                    <span className="font-medium">{solution.title}</span>
+                    <span className="font-normal">{solution.title}</span>
                     {solution.comingSoon && (
-                      <span className="text-[10px] px-1.5 py-0.5 rounded-md bg-muted dark:bg-muted text-muted-foreground font-medium ml-auto">
+                      <span className="text-[10px] px-1.5 py-0.5 rounded-xs bg-surface-3 text-muted-foreground font-normal ml-auto">
                         Soon
                       </span>
                     )}
@@ -304,7 +304,7 @@ export function Header() {
 
               {/* Resources Section */}
               <div className="px-3 py-2 pt-4">
-                <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Resources</span>
+                <span className="text-xs font-normal text-muted-foreground uppercase tracking-wide">Resources</span>
               </div>
               {resources.map((item) => {
                 const Icon = item.icon;
@@ -312,20 +312,20 @@ export function Header() {
                   <Link
                     key={item.title}
                     href={item.href}
-                    className="flex items-center gap-3 mx-2 px-3 py-2.5 text-sm text-foreground hover:bg-muted dark:hover:bg-accent rounded-lg transition-all duration-200"
+                    className="flex items-center gap-3 mx-2 px-3 py-2.5 text-sm text-foreground hover:bg-surface-3 rounded-xs transition-colors duration-[0.15s]"
                     onClick={() => setMobileMenuOpen(false)}
                   >
-                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-border dark:border-border bg-white dark:bg-background">
+                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xs border border-border bg-background">
                       <Icon className="h-4 w-4 text-foreground" />
                     </div>
-                    <span className="font-medium">{item.title}</span>
+                    <span className="font-normal">{item.title}</span>
                   </Link>
                 );
               })}
 
               {/* Company Section */}
               <div className="px-3 py-2 pt-4">
-                <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Company</span>
+                <span className="text-xs font-normal text-muted-foreground uppercase tracking-wide">Company</span>
               </div>
               {company.map((item) => {
                 const Icon = item.icon;
@@ -333,13 +333,13 @@ export function Header() {
                   <Link
                     key={item.title}
                     href={item.href}
-                    className="flex items-center gap-3 mx-2 px-3 py-2.5 text-sm text-foreground hover:bg-muted dark:hover:bg-accent rounded-lg transition-all duration-200"
+                    className="flex items-center gap-3 mx-2 px-3 py-2.5 text-sm text-foreground hover:bg-surface-3 rounded-xs transition-colors duration-[0.15s]"
                     onClick={() => setMobileMenuOpen(false)}
                   >
-                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-border dark:border-border bg-white dark:bg-background">
+                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xs border border-border bg-background">
                       <Icon className="h-4 w-4 text-foreground" />
                     </div>
-                    <span className="font-medium">{item.title}</span>
+                    <span className="font-normal">{item.title}</span>
                   </Link>
                 );
               })}

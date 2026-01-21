@@ -94,7 +94,7 @@ export default function ProductUpdatePage({ update, mdxHtml, relatedUpdates }: P
   if (!update) {
     return (
       <div className="font-sans">
-        <Container className="bg-white dark:bg-card mt-12 rounded-md border ui-corner-accents">
+        <Container className="bg-white mt-12 rounded-xs border border-border">
           <div className="py-16 text-center">
             <h1 className="text-2xl font-semibold text-foreground mb-4">Update Not Found</h1>
             <p className="text-muted-foreground mb-6">The update you&apos;re looking for doesn&apos;t exist.</p>
@@ -182,7 +182,7 @@ export default function ProductUpdatePage({ update, mdxHtml, relatedUpdates }: P
 
       <div className="font-sans">
         {/* Breadcrumb */}
-        <Container className="bg-white dark:bg-card mt-12 rounded-md border ui-corner-accents">
+        <Container className="bg-white mt-12 rounded-xs border border-border">
           <div className="py-4">
             <nav className="flex items-center gap-2 text-sm text-muted-foreground">
               <Link href="/" className="hover:text-foreground transition-colors">Home</Link>
@@ -210,7 +210,7 @@ export default function ProductUpdatePage({ update, mdxHtml, relatedUpdates }: P
         )}
 
         {/* Article */}
-        <Container className="bg-white dark:bg-card mt-8 rounded-md border ui-corner-accents">
+        <Container className="bg-white mt-8 rounded-xs border border-border">
           <div className="py-12">
             <article className="max-w-4xl mx-auto">
               {/* Header */}
@@ -285,7 +285,7 @@ export default function ProductUpdatePage({ update, mdxHtml, relatedUpdates }: P
 
         {/* Related Updates */}
         {relatedUpdates.length > 0 && (
-          <Container className="bg-white dark:bg-card mt-8 rounded-md border ui-corner-accents">
+          <Container className="bg-white mt-8 rounded-xs border border-border">
             <div className="py-12">
               <h2 className="text-2xl font-semibold text-foreground mb-8">Related Updates</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

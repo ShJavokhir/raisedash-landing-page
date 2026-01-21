@@ -1,5 +1,7 @@
+import Link from "next/link";
 import { Container } from "@/components/layout/Container";
 import { PageLayout } from "@/components/layout/PageLayout";
+import { Button } from "@/components/ui/Button";
 
 export default function About() {
   return (
@@ -9,68 +11,86 @@ export default function About() {
       keywords={["about raisedash", "freight logistics company", "fleet safety company", "logistics technology"]}
     >
       {/* Hero Section */}
-      <section className="bg-[#F9F7F6] dark:bg-secondary">
-        <Container className="py-16 md:py-20">
+      <div className="pt-8 pb-12">
+        <Container className="bg-white py-12 sm:py-16 px-8 sm:px-12 rounded-xs border border-border animate-fade-in-scale delay-0">
           <div className="max-w-3xl">
-            <h1 className="text-[48px] font-medium tracking-[-0.03em] text-[#2E2D2D] dark:text-foreground leading-tight">
+            <h1 className="text-4xl sm:text-[48px] font-normal tracking-[-0.03em] text-foreground leading-tight animate-fade-in-up delay-75">
               About Raisedash
             </h1>
-            <p className="mt-6 text-lg font-light text-[rgba(24,23,23,0.7)] dark:text-muted-foreground leading-relaxed">
+            <p className="mt-6 text-xl font-normal text-muted-foreground leading-relaxed animate-fade-in-up delay-150">
               We're revolutionizing freight logistics safety and security through modern AI-powered solutions
               that protect corporations and their valuable cargo.
             </p>
           </div>
         </Container>
-      </section>
+      </div>
 
       {/* Mission Section */}
-      <section className="bg-[#F9F7F6] dark:bg-secondary pb-16 md:pb-24">
-        <Container>
-          <div className="bg-white dark:bg-card rounded-2xl border border-[#EEEBEA] dark:border-border p-8 md:p-12">
-            <h2 className="text-[28px] font-medium tracking-[-0.03em] text-[#2E2D2D] dark:text-foreground mb-6">
-              Our Mission
-            </h2>
-            <p className="text-lg font-light text-[rgba(24,23,23,0.7)] dark:text-muted-foreground mb-6 leading-relaxed">
-              To strengthen the safety and security of freight logistics through cutting-edge
-              technology that prevents theft, reduces losses, and ensures cargo reaches its
-              destination safely.
-            </p>
-            <p className="text-base font-light text-[rgba(24,23,23,0.7)] dark:text-muted-foreground leading-relaxed">
-              We believe that every shipment deserves protection, and every corporation
-              deserves peace of mind when it comes to their valuable cargo.
-            </p>
-          </div>
-        </Container>
-      </section>
+      <Container className="py-12 md:px-0">
+        <div className="bg-white rounded-xs border border-border p-8 sm:p-12 animate-fade-in-scale delay-200">
+          <h2 className="text-3xl sm:text-4xl font-normal tracking-[-0.02em] text-foreground mb-6">
+            Our Mission
+          </h2>
+          <p className="text-lg font-normal text-muted-foreground mb-6 leading-relaxed">
+            To strengthen the safety and security of freight logistics through cutting-edge
+            technology that prevents theft, reduces losses, and ensures cargo reaches its
+            destination safely.
+          </p>
+          <p className="text-base font-normal text-muted-foreground leading-relaxed">
+            We believe that every shipment deserves protection, and every corporation
+            deserves peace of mind when it comes to their valuable cargo.
+          </p>
+        </div>
+      </Container>
 
       {/* Values Section */}
-      <section className="bg-[#19224A] dark:bg-[#1E293B] py-16 md:py-20">
-        <Container>
-          <h2 className="text-[28px] font-medium tracking-[-0.03em] text-white mb-12 text-center">
+      <Container className="py-12 md:px-0">
+        <div className="mb-10 text-center animate-fade-in-up delay-300">
+          <h2 className="text-3xl sm:text-4xl font-normal tracking-[-0.02em] text-foreground">
             Our Values
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="bg-white/10 rounded-2xl p-8 hover:-translate-y-1 transition-transform duration-300">
-              <h3 className="text-xl font-medium text-white mb-3">Security First</h3>
-              <p className="text-white/70 font-light">
-                Every decision we make prioritizes the safety and security of our clients' cargo and operations.
-              </p>
-            </div>
-            <div className="bg-white/10 rounded-2xl p-8 hover:-translate-y-1 transition-transform duration-300">
-              <h3 className="text-xl font-medium text-white mb-3">Innovation</h3>
-              <p className="text-white/70 font-light">
-                We continuously push the boundaries of what's possible with AI and technology in logistics security.
-              </p>
-            </div>
-            <div className="bg-white/10 rounded-2xl p-8 hover:-translate-y-1 transition-transform duration-300">
-              <h3 className="text-xl font-medium text-white mb-3">Partnership</h3>
-              <p className="text-white/70 font-light">
-                We work closely with our clients to understand their unique needs and deliver tailored solutions.
-              </p>
-            </div>
+          <p className="text-lg text-muted-foreground mt-3 max-w-2xl mx-auto">
+            The principles that guide everything we do at Raisedash.
+          </p>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+          <div className="bg-white rounded-xs border border-border p-6 transition-all duration-[0.15s] hover:-translate-y-0.5 hover:bg-surface-2 animate-fade-in-scale delay-400">
+            <h3 className="font-normal text-xl tracking-[-0.01em] text-foreground mb-2">Security First</h3>
+            <p className="text-base text-muted-foreground leading-relaxed">
+              Every decision we make prioritizes the safety and security of our clients' cargo and operations.
+            </p>
           </div>
-        </Container>
-      </section>
+          <div className="bg-white rounded-xs border border-border p-6 transition-all duration-[0.15s] hover:-translate-y-0.5 hover:bg-surface-2 animate-fade-in-scale delay-500">
+            <h3 className="font-normal text-xl tracking-[-0.01em] text-foreground mb-2">Innovation</h3>
+            <p className="text-base text-muted-foreground leading-relaxed">
+              We continuously push the boundaries of what's possible with AI and technology in logistics security.
+            </p>
+          </div>
+          <div className="bg-white rounded-xs border border-border p-6 transition-all duration-[0.15s] hover:-translate-y-0.5 hover:bg-surface-2 animate-fade-in-scale delay-600">
+            <h3 className="font-normal text-xl tracking-[-0.01em] text-foreground mb-2">Partnership</h3>
+            <p className="text-base text-muted-foreground leading-relaxed">
+              We work closely with our clients to understand their unique needs and deliver tailored solutions.
+            </p>
+          </div>
+        </div>
+      </Container>
+
+      {/* CTA Section */}
+      <Container className="pb-12 md:px-0">
+        <div className="bg-primary rounded-xs p-8 sm:p-12 text-center animate-fade-in-scale delay-700">
+          <h2 className="text-2xl sm:text-3xl font-normal tracking-[-0.02em] text-primary-foreground mb-4">
+            Ready to work with us?
+          </h2>
+          <p className="text-primary-foreground/80 text-lg mb-8 max-w-xl mx-auto">
+            Get in touch to learn how Raisedash can help protect your freight operations.
+          </p>
+          <Link href="/request-demo">
+            <Button variant="secondary" size="lg">
+              Request a Demo
+            </Button>
+          </Link>
+        </div>
+      </Container>
     </PageLayout>
   );
 }

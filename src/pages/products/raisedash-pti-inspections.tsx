@@ -68,7 +68,7 @@ const Lightbox: React.FC<{ isOpen: boolean; onClose: () => void; imageSrc: strin
         width={2560}
         height={1440}
         onClick={(e) => e.stopPropagation()}
-        className="max-w-[95vw] max-h-[95vh] w-auto h-auto object-contain rounded-md shadow-2xl animate-fade-in-scale cursor-default"
+        className="max-w-[95vw] max-h-[95vh] w-auto h-auto object-contain rounded-xs shadow-2xl animate-fade-in-scale cursor-default"
       />
     </div>
   );
@@ -78,14 +78,14 @@ const Lightbox: React.FC<{ isOpen: boolean; onClose: () => void; imageSrc: strin
 // --- Page Sections ---
 
 const Hero: React.FC = () => (
-  <div className="relative overflow-hidden bg-[#F9F7F6] dark:bg-secondary">
+  <div className="relative overflow-hidden bg-background dark:bg-secondary">
     <div className="absolute inset-0 z-0 opacity-[0.3]"
-      style={{ backgroundImage: 'radial-gradient(#2E2D2D 1px, transparent 1px)', backgroundSize: '32px 32px' }}>
+      style={{ backgroundImage: 'radial-gradient(currentColor 1px, transparent 1px)', backgroundSize: '32px 32px' }}>
     </div>
 
     <div className="pt-32 pb-20 md:pt-40 md:pb-24 relative z-10">
       <Container className="flex flex-col items-center text-center">
-        <div className="animate-fade-in-up delay-0 inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white dark:bg-card border border-[#EEEBEA] dark:border-border text-xs font-medium text-[rgba(24,23,23,0.7)] dark:text-muted-foreground mb-8">
+        <div className="animate-fade-in-up delay-0 inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-border text-xs font-normal text-muted-foreground mb-8">
           <span className="relative flex h-2 w-2">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75"></span>
             <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
@@ -93,29 +93,29 @@ const Hero: React.FC = () => (
           The Modern Standard for DVIR
         </div>
 
-        <h1 className="animate-fade-in-up delay-100 text-[48px] md:text-7xl font-medium tracking-[-0.03em] text-[#2E2D2D] dark:text-foreground mb-6 max-w-4xl">
+        <h1 className="animate-fade-in-up delay-100 text-[48px] md:text-7xl font-normal tracking-[-0.03em] text-foreground mb-6 max-w-4xl">
           Toward <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 to-cyan-500">Safer Rides</span>
         </h1>
 
-        <p className="animate-fade-in-up delay-200 text-xl text-[rgba(24,23,23,0.7)] dark:text-muted-foreground font-light max-w-2xl mx-auto mb-10 leading-relaxed">
+        <p className="animate-fade-in-up delay-200 text-xl text-muted-foreground font-light max-w-2xl mx-auto mb-10 leading-relaxed">
           RaiseDash simplifies your Driver Vehicle Inspection Report (DVIR) and Pre-Trip inspections (PTIs) with easy-to-use digital tools. Fleet managers benefit from a centralized dashboard for real-time insights into all PTIs, while our mobile app simplifies inspections for drivers.
         </p>
 
         <div className="animate-fade-in-up delay-300 flex flex-col sm:flex-row gap-4 w-full sm:w-auto justify-center">
           <a href="https://cal.com/javokhir/raisedash-demo-meeting" target="_blank" rel="noopener noreferrer">
-            <Button size="lg" className="w-full sm:w-auto bg-[#1F1E1E] hover:bg-[#2E2D2D] text-white rounded-2xl">
+            <Button size="lg" className="w-full sm:w-auto bg-[#1F1E1E] hover:bg-foreground text-white rounded-xs">
               Book A Demo <ArrowRight className="w-4 h-4 ml-2" />
             </Button>
           </a>
           <a href="https://www.youtube.com/watch?v=Vjem0ZQtGQc" target="_blank" rel="noopener noreferrer">
-            <Button variant="secondary" size="lg" className="w-full sm:w-auto gap-2 bg-white dark:bg-card border-[#EEEBEA] dark:border-border text-[#2E2D2D] dark:text-foreground hover:bg-[#F9F7F6] dark:hover:bg-secondary rounded-2xl">
+            <Button variant="secondary" size="lg" className="w-full sm:w-auto gap-2 bg-white border-border text-foreground hover:bg-surface-3 rounded-xs">
               <Play className="w-4 h-4" /> Take A Video Tour
             </Button>
           </a>
         </div>
 
         <div className="animate-fade-in-up delay-500 w-full mt-16 md:mt-24 relative z-10 flex justify-center">
-          <div className="relative rounded-2xl overflow-hidden border border-[#EEEBEA] dark:border-border bg-black shadow-2xl w-full max-w-5xl aspect-video">
+          <div className="relative rounded-xs overflow-hidden border border-border bg-black shadow-2xl w-full max-w-5xl aspect-video">
             <iframe
               width="100%"
               height="100%"
@@ -146,7 +146,7 @@ const FeatureShowcase: React.FC<{
   <div className="py-12 md:py-20 grid md:grid-cols-2 gap-12 items-center">
     <div className={`order-2 ${align === "right" ? "md:order-1" : "md:order-2"}`}>
       <div
-        className="relative rounded-2xl overflow-hidden border border-[#EEEBEA] dark:border-border bg-[#F9F7F6] dark:bg-secondary animate-fade-in-scale cursor-pointer group"
+        className="relative rounded-xs overflow-hidden border border-border bg-background dark:bg-secondary animate-fade-in-scale cursor-pointer group"
         onClick={() => onImageClick && onImageClick(image)}
       >
         <Image
@@ -157,25 +157,25 @@ const FeatureShowcase: React.FC<{
           className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-500"
         />
         <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
-          <span className="bg-white/80 dark:bg-card/80 backdrop-blur-md text-[#2E2D2D] dark:text-foreground px-3 py-1 rounded-full text-xs font-medium shadow-sm">Click to Zoom</span>
+          <span className="bg-white/80 dark:bg-white/80 backdrop-blur-md text-foreground px-3 py-1 rounded-full text-xs font-normal shadow-sm">Click to Zoom</span>
         </div>
       </div>
     </div>
     <div className={`order-1 ${align === "right" ? "md:order-2" : "md:order-1"}`}>
       <div className="animate-fade-in-up">
-        <h3 className="text-[28px] font-medium text-[#2E2D2D] dark:text-foreground mb-4 tracking-[-0.03em]">{title}</h3>
-        <p className="text-lg text-[rgba(24,23,23,0.7)] dark:text-muted-foreground font-light leading-relaxed mb-8">{description}</p>
+        <h3 className="text-[28px] font-normal text-foreground mb-4 tracking-[-0.03em]">{title}</h3>
+        <p className="text-lg text-muted-foreground font-light leading-relaxed mb-8">{description}</p>
 
         {buttons ? (
           <div className="flex gap-3">
             {buttons.map((btn, i) => (
               <a key={i} href={btn.href} target="_blank" rel="noopener noreferrer">
-                <Button variant={btn.variant || "secondary"} className="rounded-2xl">{btn.text}</Button>
+                <Button variant={btn.variant || "secondary"} className="rounded-xs">{btn.text}</Button>
               </a>
             ))}
           </div>
         ) : (
-          <a href={linkHref || "#"} className="inline-flex items-center text-[#19224A] font-medium hover:underline transition-all">
+          <a href={linkHref || "#"} className="inline-flex items-center text-[#19224A] font-normal hover:underline transition-all">
             {linkText} <ArrowRight className="w-4 h-4 ml-2" />
           </a>
         )}
@@ -185,7 +185,7 @@ const FeatureShowcase: React.FC<{
 );
 
 const UIShowcase: React.FC<{ onImageClick: (src: string) => void }> = ({ onImageClick }) => (
-  <Container className="border-t border-[#EEEBEA] dark:border-border mt-12 pt-12">
+  <Container className="border-t border-border mt-12 pt-12">
     <FeatureShowcase
       title="Fleet Manager UI"
       description="One dashboard for your whole fleet. Effortlessly monitor and manage all PTIs with RaiseDash's centralized dashboard, providing real-time insights and comprehensive oversight for your entire fleet."
@@ -215,9 +215,9 @@ const UIShowcase: React.FC<{ onImageClick: (src: string) => void }> = ({ onImage
 );
 
 const WhyRaisedash: React.FC = () => (
-  <Container className="border-t border-[#EEEBEA] dark:border-border mt-20 pt-20">
+  <Container className="border-t border-border mt-20 pt-20">
     <div className="mb-12 text-center max-w-2xl mx-auto">
-      <h2 className="text-[28px] font-medium text-[#2E2D2D] dark:text-foreground tracking-[-0.03em] mb-4">Why RaiseDash?</h2>
+      <h2 className="text-[28px] font-normal text-foreground tracking-[-0.03em] mb-4">Why RaiseDash?</h2>
     </div>
     <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
       {[
@@ -242,12 +242,12 @@ const WhyRaisedash: React.FC = () => (
           desc: "Accidents can happen despite the best precautions. DVIRs serve as evidence that the vehicle passed inspection and the company followed regulations. With RaiseDash, you have legal protection against negligence claims.",
         },
       ].map((item, idx) => (
-        <div key={idx} className="bg-white dark:bg-card p-8 rounded-2xl border border-[#EEEBEA] dark:border-border hover:shadow-lg hover:-translate-y-1 transition-all h-full animate-fade-in-scale" style={{ animationDelay: `${idx * 100}ms` }}>
-          <div className="w-10 h-10 rounded-2xl bg-[#F9F7F6] dark:bg-secondary flex items-center justify-center mb-4">
+        <div key={idx} className="bg-white p-8 rounded-xs border border-border hover:shadow-lg hover:-translate-y-1 transition-all duration-[0.15s] h-full animate-fade-in-scale" style={{ animationDelay: `${idx * 100}ms` }}>
+          <div className="w-10 h-10 rounded-xs bg-surface-3 dark:bg-secondary flex items-center justify-center mb-4">
             <item.icon className="w-5 h-5 text-[#19224A] dark:text-primary" />
           </div>
-          <h3 className="text-[#2E2D2D] dark:text-foreground font-medium mb-2 text-lg">{item.title}</h3>
-          <p className="text-sm text-[rgba(24,23,23,0.7)] dark:text-muted-foreground font-light leading-relaxed">{item.desc}</p>
+          <h3 className="text-foreground font-normal mb-2 text-lg">{item.title}</h3>
+          <p className="text-sm text-muted-foreground font-light leading-relaxed">{item.desc}</p>
         </div>
       ))}
     </div>
@@ -255,10 +255,10 @@ const WhyRaisedash: React.FC = () => (
 );
 
 const Features: React.FC = () => (
-  <Container id="features" className="border-t border-[#EEEBEA] dark:border-border mt-20 pt-20">
+  <Container id="features" className="border-t border-border mt-20 pt-20">
     <div className="mb-12 text-center max-w-3xl mx-auto">
-      <h2 className="text-[28px] font-medium text-[#2E2D2D] dark:text-foreground tracking-[-0.03em] mb-4">Comprehensive Features</h2>
-      <p className="text-lg text-[rgba(24,23,23,0.7)] dark:text-muted-foreground font-light">
+      <h2 className="text-[28px] font-normal text-foreground tracking-[-0.03em] mb-4">Comprehensive Features</h2>
+      <p className="text-lg text-muted-foreground font-light">
         Built with modern technology to provide comprehensive fleet management and inspection tools
       </p>
     </div>
@@ -274,12 +274,12 @@ const Features: React.FC = () => (
         { title: "Mobile Apps", desc: "User-friendly mobile apps for both Android and iOS, designed for ease of use and quick inspections on the go.", icon: Smartphone },
         { title: "Real-time Updates", desc: "Get instant notifications and updates about inspections through integrated communication tools like Telegram and WhatsApp.", icon: Clock },
       ].map((f, idx) => (
-        <div key={idx} className="group bg-white dark:bg-card p-8 rounded-2xl border border-[#EEEBEA] dark:border-border hover:shadow-lg hover:-translate-y-1 transition-all h-full animate-fade-in-scale" style={{ animationDelay: `${idx * 50}ms` }}>
-          <div className="w-10 h-10 rounded-2xl bg-[#F9F7F6] dark:bg-secondary flex items-center justify-center mb-4 group-hover:bg-[#19224A]/10 transition-colors">
-            <f.icon className="w-5 h-5 text-[rgba(24,23,23,0.7)] dark:text-muted-foreground group-hover:text-[#19224A] dark:group-hover:text-foreground transition-colors" />
+        <div key={idx} className="group bg-white p-8 rounded-xs border border-border hover:shadow-lg hover:-translate-y-1 transition-all duration-[0.15s] h-full animate-fade-in-scale" style={{ animationDelay: `${idx * 50}ms` }}>
+          <div className="w-10 h-10 rounded-xs bg-surface-3 dark:bg-secondary flex items-center justify-center mb-4 group-hover:bg-[#19224A]/10 transition-colors duration-[0.15s]">
+            <f.icon className="w-5 h-5 text-muted-foreground group-hover:text-[#19224A] dark:group-hover:text-foreground transition-colors duration-[0.15s]" />
           </div>
-          <h3 className="text-lg font-medium text-[#2E2D2D] dark:text-foreground mb-2">{f.title}</h3>
-          <p className="text-sm text-[rgba(24,23,23,0.7)] dark:text-muted-foreground font-light leading-relaxed">{f.desc}</p>
+          <h3 className="text-lg font-normal text-foreground mb-2">{f.title}</h3>
+          <p className="text-sm text-muted-foreground font-light leading-relaxed">{f.desc}</p>
         </div>
       ))}
     </div>
@@ -297,35 +297,35 @@ const PricingCard: React.FC<{
   isPopular?: boolean;
   extraInfo?: React.ReactNode;
 }> = ({ plan, price, period, description, features, cta, ctaLink, isPopular = false, extraInfo }) => (
-  <div className={`flex flex-col p-8 rounded-2xl border ${isPopular ? "bg-white dark:bg-card border-[#19224A] ring-1 ring-[#19224A] relative" : "bg-white dark:bg-card border-[#EEEBEA] dark:border-border"} hover:shadow-lg hover:-translate-y-1 transition-all h-full animate-fade-in-up`}>
+  <div className={`flex flex-col p-8 rounded-xs border ${isPopular ? "bg-white border-[#19224A] ring-1 ring-[#19224A] relative" : "bg-white border-border"} hover:shadow-lg hover:-translate-y-1 transition-all duration-[0.15s] h-full animate-fade-in-up`}>
     {isPopular && (
-      <div className="absolute top-0 right-0 bg-[#19224A] text-white text-xs font-medium px-3 py-1 rounded-bl-2xl rounded-tr-2xl">
+      <div className="absolute top-0 right-0 bg-[#19224A] text-white text-xs font-normal px-3 py-1 rounded-bl-xs rounded-tr-xs">
         POPULAR
       </div>
     )}
     <div className="mb-6">
-      <h3 className="text-lg font-medium text-[#2E2D2D] dark:text-foreground mb-2">{plan}</h3>
+      <h3 className="text-lg font-normal text-foreground mb-2">{plan}</h3>
       <div className="flex items-baseline gap-1">
-        <span className={`font-medium tracking-[-0.03em] text-[#2E2D2D] dark:text-foreground ${price === "Pay-as-You-Go" ? "text-2xl" : "text-3xl"}`}>{price}</span>
-        {period && <span className="text-sm text-[rgba(24,23,23,0.7)] dark:text-muted-foreground">{period}</span>}
+        <span className={`font-normal tracking-[-0.03em] text-foreground ${price === "Pay-as-You-Go" ? "text-2xl" : "text-3xl"}`}>{price}</span>
+        {period && <span className="text-sm text-muted-foreground">{period}</span>}
       </div>
-      <p className="mt-3 text-sm text-[rgba(24,23,23,0.7)] dark:text-muted-foreground font-light">{description}</p>
+      <p className="mt-3 text-sm text-muted-foreground font-light">{description}</p>
     </div>
     <ul className="space-y-3 mb-8 flex-1">
       {features.map((feat, i) => (
-        <li key={i} className="flex items-start gap-2 text-sm text-[rgba(24,23,23,0.7)] dark:text-muted-foreground">
+        <li key={i} className="flex items-start gap-2 text-sm text-muted-foreground">
           <CheckCircle className="w-4 h-4 flex-shrink-0 text-emerald-500 mt-0.5" />
           <span>{feat}</span>
         </li>
       ))}
     </ul>
     <a href={ctaLink} target="_blank" rel="noopener noreferrer" className="mt-auto">
-      <Button variant={isPopular ? "primary" : "secondary"} className={`w-full rounded-2xl ${isPopular ? "bg-[#1F1E1E] hover:bg-[#2E2D2D] text-white" : "bg-white dark:bg-card border-[#EEEBEA] dark:border-border text-[#2E2D2D] dark:text-foreground hover:bg-[#F9F7F6] dark:hover:bg-secondary"}`}>
+      <Button variant={isPopular ? "primary" : "secondary"} className={`w-full rounded-xs ${isPopular ? "bg-[#1F1E1E] hover:bg-foreground text-white" : "bg-white border-border text-foreground hover:bg-surface-3"}`}>
         {cta}
       </Button>
     </a>
     {extraInfo && (
-      <div className="mt-6 pt-6 border-t border-[#EEEBEA] dark:border-border text-xs text-[rgba(24,23,23,0.7)] dark:text-muted-foreground space-y-2">
+      <div className="mt-6 pt-6 border-t border-border text-xs text-muted-foreground space-y-2">
         {extraInfo}
       </div>
     )}
@@ -333,10 +333,10 @@ const PricingCard: React.FC<{
 );
 
 const Pricing: React.FC = () => (
-  <Container id="pricing" className="border-t border-[#EEEBEA] dark:border-border mt-20 pt-20">
+  <Container id="pricing" className="border-t border-border mt-20 pt-20">
     <div className="text-center mb-12 max-w-3xl mx-auto">
-      <h2 className="text-[28px] font-medium tracking-[-0.03em] text-[#2E2D2D] dark:text-foreground mb-4">Simple, Transparent Pricing</h2>
-      <p className="text-lg text-[rgba(24,23,23,0.7)] dark:text-muted-foreground font-light">Choose the plan that works best for your fleet</p>
+      <h2 className="text-[28px] font-normal tracking-[-0.03em] text-foreground mb-4">Simple, Transparent Pricing</h2>
+      <p className="text-lg text-muted-foreground font-light">Choose the plan that works best for your fleet</p>
     </div>
     <div className="grid md:grid-cols-3 gap-6 items-start">
       <PricingCard
@@ -405,23 +405,23 @@ const FAQ: React.FC = () => {
   ];
 
   return (
-    <Container className="border-t border-[#EEEBEA] dark:border-border mt-20 pt-20">
+    <Container className="border-t border-border mt-20 pt-20">
       <div className="max-w-4xl mx-auto">
         <div className="mb-12 text-center">
-          <h2 className="text-[28px] font-medium tracking-[-0.03em] text-[#2E2D2D] dark:text-foreground">Frequently Asked Questions</h2>
+          <h2 className="text-[28px] font-normal tracking-[-0.03em] text-foreground">Frequently Asked Questions</h2>
         </div>
         <div className="space-y-4">
           {faqs.map((faq, idx) => (
-            <div key={idx} className="border border-[#EEEBEA] dark:border-border rounded-2xl overflow-hidden bg-white dark:bg-card animate-fade-in-up hover:shadow-lg transition-all" style={{ animationDelay: `${idx * 100}ms` }}>
+            <div key={idx} className="border border-border rounded-xs overflow-hidden bg-white animate-fade-in-up hover:shadow-lg transition-all duration-[0.15s]" style={{ animationDelay: `${idx * 100}ms` }}>
               <button
                 onClick={() => setOpenIndex(openIndex === idx ? null : idx)}
-                className="w-full text-left p-6 flex justify-between items-center hover:bg-[#F9F7F6]/50 dark:hover:bg-secondary transition-colors"
+                className="w-full text-left p-6 flex justify-between items-center hover:bg-surface-3/50 dark:hover:bg-secondary transition-colors duration-[0.15s]"
               >
-                <span className="font-medium text-[#2E2D2D] dark:text-foreground pr-4">{faq.question}</span>
-                <ChevronDown className={`w-5 h-5 text-[rgba(24,23,23,0.7)] dark:text-muted-foreground flex-shrink-0 transition-transform duration-300 ${openIndex === idx ? "rotate-180" : ""}`} />
+                <span className="font-normal text-foreground pr-4">{faq.question}</span>
+                <ChevronDown className={`w-5 h-5 text-muted-foreground flex-shrink-0 transition-transform duration-300 ${openIndex === idx ? "rotate-180" : ""}`} />
               </button>
               <div className={`overflow-hidden transition-all duration-300 ease-in-out ${openIndex === idx ? "max-h-60 opacity-100" : "max-h-0 opacity-0"}`}>
-                <div className="p-6 pt-0 text-[rgba(24,23,23,0.7)] dark:text-muted-foreground font-light leading-relaxed">
+                <div className="p-6 pt-0 text-muted-foreground font-light leading-relaxed">
                   {faq.answer}
                 </div>
               </div>
@@ -435,16 +435,16 @@ const FAQ: React.FC = () => {
 
 const CTA: React.FC = () => (
   <>
-    <Container className="border-t border-[#EEEBEA] dark:border-border mt-20 pt-20" />
-    <Container className="bg-[#19224A] rounded-2xl p-12 md:p-16 text-center relative overflow-hidden mb-20">
+    <Container className="border-t border-border mt-20 pt-20" />
+    <Container className="bg-[#19224A] rounded-xs p-12 md:p-16 text-center relative overflow-hidden mb-20">
       <div className="relative z-10 max-w-3xl mx-auto">
-        <h2 className="text-[28px] md:text-4xl font-medium text-white mb-6 tracking-[-0.03em]">Want To Learn More About RaiseDash?</h2>
+        <h2 className="text-[28px] md:text-4xl font-normal text-white mb-6 tracking-[-0.03em]">Want To Learn More About RaiseDash?</h2>
         <p className="text-lg text-white/70 font-light mb-10">
           Get in touch to schedule a demo and discover how RaiseDash can enhance your fleet's safety and efficiency!
         </p>
         <div className="flex justify-center">
           <a href="https://cal.com/javokhir/raisedash-demo-meeting" target="_blank" rel="noopener noreferrer">
-            <Button size="lg" className="px-8 bg-white text-[#19224A] hover:bg-white/90 rounded-2xl">Book A Demo</Button>
+            <Button size="lg" className="px-8 bg-white text-[#19224A] hover:bg-white/90 rounded-xs">Book A Demo</Button>
           </a>
         </div>
       </div>
@@ -484,7 +484,7 @@ const RaisedashPTIPage: NextPage = () => {
         onClose={() => setLightboxImage(null)}
       />
 
-      <div className="min-h-screen bg-[#F9F7F6] dark:bg-secondary text-[#2E2D2D] dark:text-foreground font-sans selection:bg-[#19224A]/15 selection:text-[#19224A]">
+      <div className="min-h-screen bg-background dark:bg-secondary text-foreground font-sans selection:bg-[#19224A]/15 selection:text-[#19224A]">
         <main>
           <Hero />
           <UIShowcase onImageClick={setLightboxImage} />

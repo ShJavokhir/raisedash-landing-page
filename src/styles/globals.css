@@ -6,54 +6,104 @@
 @custom-variant dark (&:is(.dark *));
 
 /*
-  Tailscale-inspired design system
-  Reference: Warm, approachable, professional design with restrained accent usage
+  Cursor.com-inspired design system
+  Reference: Minimalist elegance with warm neutrals, subtle depth, typography-first
 */
 
 :root {
-  /* base surfaces - warm off-white background */
-  --background: #F9F7F6;
-  --foreground: #181717;
+  /* Cursor.com Color System - Light Theme */
 
-  /* brand + semantic */
-  --primary: #1F1E1E;
-  --primary-foreground: #FFFFFF;
-  --secondary: #FFFFFF;
-  --secondary-foreground: #2E2D2D;
-  --accent: #D04841; /* coral accent - use sparingly */
-  --accent-foreground: #FFFFFF;
-  --muted: #F9F7F6;
-  --muted-foreground: rgba(24, 23, 23, 0.7);
-  --destructive: #D04841;
-  --destructive-foreground: #FFFFFF;
-  --border: #EEEBEA;
-  --input: #DAD6D5;
-  --ring: #2E2D2D;
-  --card: #FFFFFF;
-  --card-foreground: #181717;
+  /* Base surfaces - warm off-white palette */
+  --background: #f7f7f4;
+  --foreground: #26251e;
 
-  /* dark navy for CTA sections */
+  /* Text opacity levels using color-mix */
+  --foreground-100: #26251e;
+  --foreground-80: color-mix(in oklab, #26251e 80%, transparent);
+  --foreground-60: color-mix(in oklab, #26251e 60%, transparent);
+  --foreground-40: color-mix(in oklab, #26251e 40%, transparent);
+  --foreground-10: color-mix(in oklab, #26251e 10%, transparent);
+  --foreground-5: color-mix(in oklab, #26251e 5%, transparent);
+  --foreground-2: color-mix(in oklab, #26251e 2.5%, transparent);
+
+  /* Surface layering - progressive darkening */
+  --surface-1: #f7f7f4;  /* Page background */
+  --surface-2: #f2f1ed;  /* Card background */
+  --surface-3: #ebeae5;  /* Nested/hover */
+  --surface-4: #e6e5e0;  /* Deep nested */
+
+  /* Brand + semantic colors */
+  --primary: #26251e;
+  --primary-foreground: #f7f7f4;
+  --secondary: #f2f1ed;
+  --secondary-foreground: #26251e;
+  --accent: #f54e00;  /* Cursor orange accent */
+  --accent-foreground: #ffffff;
+  --muted: #f2f1ed;
+  --muted-foreground: color-mix(in oklab, #26251e 60%, transparent);
+  --destructive: #cf2d56;
+  --destructive-foreground: #ffffff;
+  --success: #1f8a65;
+  --success-foreground: #ffffff;
+
+  /* Borders - subtle opacity-based */
+  --border: color-mix(in oklab, #26251e 10%, transparent);
+  --border-subtle: color-mix(in oklab, #26251e 5%, transparent);
+  --border-muted: color-mix(in oklab, #26251e 2.5%, transparent);
+  --input: color-mix(in oklab, #26251e 10%, transparent);
+  --ring: color-mix(in oklab, #26251e 60%, transparent);
+
+  /* Card */
+  --card: #f2f1ed;
+  --card-foreground: #26251e;
+  --card-hover: #ebeae5;
+
+  /* Popover */
+  --popover: #f2f1ed;
+  --popover-foreground: #26251e;
+
+  /* Navy for CTA sections (retained for compatibility) */
   --navy: #19224A;
 
-  /* typography */
-  --heading-tracking: -0.03em;
-  --text-tracking: -0.01em;
-  --font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+  /* Typography System */
+  --font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Monaco, Consolas, monospace;
 
-  /* radii - soft, modern corners */
-  --radius-xs: 4px;
-  --radius-sm: 8px;
-  --radius-md: 14px;
-  --radius-lg: 16px;
-  --radius-xl: 20px;
-  --radius-full: 9999px;
+  /* Letter spacing */
+  --tracking-tighter: -0.03em;  /* Large headings */
+  --tracking-tight: -0.02em;    /* Medium headings */
+  --tracking-snug: -0.01em;     /* Small headings */
+  --tracking-normal: 0;         /* Body text */
+  --tracking-wide: 0.01em;      /* Small text */
 
-  /* shadows - subtle or none, prefer borders */
-  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.03);
-  --shadow-md: 0 2px 4px -1px rgb(0 0 0 / 0.04);
-  --shadow-lg: 0 4px 6px -2px rgb(0 0 0 / 0.05);
+  /* Line heights */
+  --leading-none: 1;
+  --leading-tight: 1.1;
+  --leading-snug: 1.25;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.625;
 
-  /* spacing (8px base) */
+  /* Vertical Rhythm Unit System (22.4px base) */
+  --v: calc(1rem * 1.4);  /* 22.4px at 16px root */
+  --v-half: calc(var(--v) * 0.5);     /* 11.2px */
+  --v-1: var(--v);                     /* 22.4px */
+  --v-1-5: calc(var(--v) * 1.5);      /* 33.6px */
+  --v-2: calc(var(--v) * 2);          /* 44.8px */
+  --v-2-5: calc(var(--v) * 2.5);      /* 56px */
+  --v-3: calc(var(--v) * 3);          /* 67.2px */
+  --v-4: calc(var(--v) * 4);          /* 89.6px */
+  --v-5: calc(var(--v) * 5);          /* 112px */
+  --v-6: calc(var(--v) * 6);          /* 134.4px */
+
+  /* Grid unit (10px base) */
+  --g: calc(10rem / 16);  /* 10px */
+  --g-half: calc(var(--g) * 0.5);   /* 5px */
+  --g-1: var(--g);                   /* 10px */
+  --g-1-5: calc(var(--g) * 1.5);    /* 15px */
+  --g-2: calc(var(--g) * 2);        /* 20px */
+  --g-3: calc(var(--g) * 3);        /* 30px */
+
+  /* Traditional spacing (for compatibility) */
   --space-xs: 8px;
   --space-sm: 12px;
   --space-md: 16px;
@@ -62,32 +112,63 @@
   --space-2xl: 48px;
   --space-3xl: 80px;
 
-  /* grid/baseline */
-  --grid-column-gap: 24px;
-  --grid-row-gap: 24px;
-  --radius: 16px;
-  --popover: #FFFFFF;
-  --popover-foreground: #181717;
-  --chart-1: #D04841;
-  --chart-2: #19224A;
-  --chart-3: #2E2D2D;
-  --chart-4: #F9F7F6;
-  --chart-5: #EEEBEA;
-  --sidebar: #FFFFFF;
-  --sidebar-foreground: #181717;
-  --sidebar-primary: #1F1E1E;
-  --sidebar-primary-foreground: #FFFFFF;
-  --sidebar-accent: #F9F7F6;
-  --sidebar-accent-foreground: #2E2D2D;
-  --sidebar-border: #EEEBEA;
-  --sidebar-ring: #2E2D2D;
+  /* Border Radius - Cursor.com style */
+  --radius-xs: 4px;    /* Cards, inputs */
+  --radius-sm: 4px;
+  --radius-md: 8px;    /* Medium containers */
+  --radius-lg: 12px;   /* Large containers */
+  --radius-xl: 16px;
+  --radius-full: 9999px;  /* Pills/buttons */
+  --radius: 4px;       /* Default */
 
-  /* transitions */
-  --transition-fast: 150ms ease;
+  /* Shadows - very subtle */
+  --shadow-xs: 0 0 0.5rem rgba(0, 0, 0, 0.01);
+  --shadow-sm: 0 0 1rem rgba(0, 0, 0, 0.02);
+  --shadow-md: 0 0 1rem rgba(0, 0, 0, 0.03), 0 0 0.5rem rgba(0, 0, 0, 0.01);
+  --shadow-lg: 0 4px 12px rgba(0, 0, 0, 0.05);
+
+  /* Transitions - Cursor.com timing */
+  --duration-fast: 0.14s;
+  --duration-normal: 0.15s;
+  --duration-slow: 0.25s;
+  --duration-slower: 0.5s;
+  --ease-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-out-spring: cubic-bezier(0.25, 1, 0.5, 1);
+  --transition-fast: 0.14s cubic-bezier(0.25, 1, 0.5, 1);
+  --transition-normal: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Container */
+  --container-max: 1200px;
+  --container-padding: 20px;
+
+  /* Header */
+  --header-height: 52px;
+  --sticky-top: 64px;
+
+  /* Grid */
+  --grid-column-gap: 20px;
+  --grid-row-gap: 20px;
+
+  /* Chart colors */
+  --chart-1: #f54e00;
+  --chart-2: #26251e;
+  --chart-3: #1f8a65;
+  --chart-4: #f2f1ed;
+  --chart-5: #ebeae5;
+
+  /* Sidebar */
+  --sidebar: #f7f7f4;
+  --sidebar-foreground: #26251e;
+  --sidebar-primary: #26251e;
+  --sidebar-primary-foreground: #f7f7f4;
+  --sidebar-accent: #f2f1ed;
+  --sidebar-accent-foreground: #26251e;
+  --sidebar-border: color-mix(in oklab, #26251e 10%, transparent);
+  --sidebar-ring: color-mix(in oklab, #26251e 60%, transparent);
 }
 
 @theme inline {
-  /* map tokens to Tailwind v4 design tokens */
+  /* Map tokens to Tailwind v4 design tokens */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-primary: var(--primary);
@@ -100,6 +181,8 @@
   --color-muted-foreground: var(--muted-foreground);
   --color-destructive: var(--destructive);
   --color-destructive-foreground: var(--destructive-foreground);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
@@ -107,11 +190,23 @@
   --color-card-foreground: var(--card-foreground);
   --color-navy: var(--navy);
 
-  /* fonts - Inter as primary */
-  --font-sans: var(--font-inter), Inter, ui-sans-serif, system-ui, sans-serif;
-  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace;
+  /* Surface colors */
+  --color-surface-1: var(--surface-1);
+  --color-surface-2: var(--surface-2);
+  --color-surface-3: var(--surface-3);
+  --color-surface-4: var(--surface-4);
 
-  /* radii */
+  /* Foreground opacity variants */
+  --color-foreground-80: var(--foreground-80);
+  --color-foreground-60: var(--foreground-60);
+  --color-foreground-40: var(--foreground-40);
+  --color-foreground-10: var(--foreground-10);
+
+  /* Fonts */
+  --font-sans: var(--font-family);
+  --font-mono: var(--font-mono);
+
+  /* Radii */
   --radius-xs: var(--radius-xs);
   --radius-sm: var(--radius-sm);
   --radius-md: var(--radius-md);
@@ -119,19 +214,20 @@
   --radius-xl: var(--radius-xl);
   --radius-full: var(--radius-full);
 
-  /* shadows */
+  /* Shadows */
+  --shadow-xs: var(--shadow-xs);
   --shadow-sm: var(--shadow-sm);
   --shadow-md: var(--shadow-md);
   --shadow-lg: var(--shadow-lg);
 
-  /* breakpoints */
-  --breakpoint-sm: 40rem; /* 640px */
-  --breakpoint-md: 48rem; /* 768px */
-  --breakpoint-lg: 64rem; /* 1024px */
-  --breakpoint-xl: 80rem; /* 1280px */
-  --breakpoint-2xl: 96rem;
+  /* Breakpoints */
+  --breakpoint-sm: 40rem;  /* 640px */
+  --breakpoint-md: 48rem;  /* 768px */
+  --breakpoint-lg: 64rem;  /* 1024px */
+  --breakpoint-xl: 80rem;  /* 1280px */
+  --breakpoint-2xl: 96rem; /* 1536px */
 
-  /* sidebar colors */
+  /* Sidebar colors */
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -141,54 +237,86 @@
   --color-sidebar-foreground: var(--sidebar-foreground);
   --color-sidebar: var(--sidebar);
 
-  /* chart colors */
+  /* Chart colors */
   --color-chart-5: var(--chart-5);
   --color-chart-4: var(--chart-4);
   --color-chart-3: var(--chart-3);
   --color-chart-2: var(--chart-2);
   --color-chart-1: var(--chart-1);
 
-  /* popover */
+  /* Popover */
   --color-popover-foreground: var(--popover-foreground);
   --color-popover: var(--popover);
   --radius: var(--radius);
 }
 
 .dark {
-  /* Dark theme - warm dark with Tailscale-inspired palette */
-  --background: #1A1918;
-  --foreground: #F9F7F6;
-  --primary: #F9F7F6;
-  --primary-foreground: #1A1918;
-  --secondary: #2A2928;
-  --secondary-foreground: #F9F7F6;
-  --accent: #E85D56; /* lighter coral for dark mode */
-  --accent-foreground: #FFFFFF;
-  --muted: #2A2928;
-  --muted-foreground: rgba(249, 247, 246, 0.65);
-  --destructive: #E85D56;
-  --destructive-foreground: #FFFFFF;
-  --border: #3A3938;
-  --input: #3A3938;
-  --ring: #F9F7F6;
+  /* Cursor.com Dark Theme - warm dark palette */
+  --background: #1a1918;
+  --foreground: #f7f7f4;
+
+  /* Text opacity levels */
+  --foreground-100: #f7f7f4;
+  --foreground-80: color-mix(in oklab, #f7f7f4 80%, transparent);
+  --foreground-60: color-mix(in oklab, #f7f7f4 60%, transparent);
+  --foreground-40: color-mix(in oklab, #f7f7f4 40%, transparent);
+  --foreground-10: color-mix(in oklab, #f7f7f4 10%, transparent);
+
+  /* Surface layering - progressive lightening */
+  --surface-1: #1a1918;
+  --surface-2: #242322;
+  --surface-3: #2e2d2c;
+  --surface-4: #383736;
+
+  /* Brand + semantic */
+  --primary: #f7f7f4;
+  --primary-foreground: #1a1918;
+  --secondary: #242322;
+  --secondary-foreground: #f7f7f4;
+  --accent: #ff6b35;  /* Slightly adjusted orange for dark mode */
+  --accent-foreground: #ffffff;
+  --muted: #242322;
+  --muted-foreground: color-mix(in oklab, #f7f7f4 60%, transparent);
+  --destructive: #e85d56;
+  --destructive-foreground: #ffffff;
+  --success: #2aad7a;
+  --success-foreground: #ffffff;
+
+  /* Borders */
+  --border: color-mix(in oklab, #f7f7f4 10%, transparent);
+  --border-subtle: color-mix(in oklab, #f7f7f4 5%, transparent);
+  --border-muted: color-mix(in oklab, #f7f7f4 2.5%, transparent);
+  --input: color-mix(in oklab, #f7f7f4 10%, transparent);
+  --ring: color-mix(in oklab, #f7f7f4 60%, transparent);
+
+  /* Card */
   --card: #242322;
-  --card-foreground: #F9F7F6;
-  --navy: #2A3B6A;
+  --card-foreground: #f7f7f4;
+  --card-hover: #2e2d2c;
+
+  /* Popover */
   --popover: #242322;
-  --popover-foreground: #F9F7F6;
-  --chart-1: #E85D56;
+  --popover-foreground: #f7f7f4;
+
+  /* Navy */
+  --navy: #2A3B6A;
+
+  /* Chart colors */
+  --chart-1: #ff6b35;
   --chart-2: #4A5B8A;
-  --chart-3: #F9F7F6;
-  --chart-4: #3A3938;
-  --chart-5: #2A2928;
-  --sidebar: #1A1918;
-  --sidebar-foreground: #F9F7F6;
-  --sidebar-primary: #F9F7F6;
-  --sidebar-primary-foreground: #1A1918;
-  --sidebar-accent: #2A2928;
-  --sidebar-accent-foreground: #F9F7F6;
-  --sidebar-border: #3A3938;
-  --sidebar-ring: #F9F7F6;
+  --chart-3: #2aad7a;
+  --chart-4: #242322;
+  --chart-5: #2e2d2c;
+
+  /* Sidebar */
+  --sidebar: #1a1918;
+  --sidebar-foreground: #f7f7f4;
+  --sidebar-primary: #f7f7f4;
+  --sidebar-primary-foreground: #1a1918;
+  --sidebar-accent: #242322;
+  --sidebar-accent-foreground: #f7f7f4;
+  --sidebar-border: color-mix(in oklab, #f7f7f4 10%, transparent);
+  --sidebar-ring: color-mix(in oklab, #f7f7f4 60%, transparent);
 }
 
 /* Base elements */
@@ -196,9 +324,34 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans);
+  font-weight: 400;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  letter-spacing: var(--text-tracking);
+  letter-spacing: var(--tracking-normal);
+  line-height: var(--leading-normal);
+}
+
+/* Typography utilities */
+.text-balance {
+  text-wrap: balance;
+}
+
+/* Heading styles - Cursor.com approach: light weight, negative tracking */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 400;
+  line-height: var(--leading-tight);
+}
+
+h1 {
+  letter-spacing: var(--tracking-tighter);
+}
+
+h2 {
+  letter-spacing: var(--tracking-tight);
+}
+
+h3, h4 {
+  letter-spacing: var(--tracking-snug);
 }
 
 /* Utility classes for shadows */
@@ -218,31 +371,51 @@ body {
 /* Mobile page gutter: add small horizontal padding only on mobile */
 @media (max-width: 639px) {
   body {
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
+    padding-left: var(--container-padding);
+    padding-right: var(--container-padding);
   }
 }
 
 /* UI Utilities */
 @layer utilities {
 
+  /* Container utility */
+  .container-cursor {
+    max-width: var(--container-max);
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: var(--container-padding);
+    padding-right: var(--container-padding);
+  }
+
+  /* Section padding utilities */
+  .section-padding {
+    padding-top: var(--v-3);
+    padding-bottom: var(--v-3);
+  }
+
+  .section-padding-lg {
+    padding-top: var(--v-5);
+    padding-bottom: var(--v-3);
+  }
+
   /* Corner accents: short, lighter L-shapes on each corner.
      Uses background-image layers so it doesn't override background-color. */
   .ui-corner-accents {
     position: relative;
-    --corner-size: 12px;            /* length of each small segment */
-    --corner-thickness: 2px;        /* thickness of the accent lines */
-    --corner-color: color-mix(in oklch, var(--color-border), black 20%);
+    --corner-size: 12px;
+    --corner-thickness: 1px;
+    --corner-color: var(--border);
 
     background-image:
-      linear-gradient(90deg, var(--corner-color) 0 100%), /* TL horizontal */
-      linear-gradient(180deg, var(--corner-color) 0 100%), /* TL vertical */
-      linear-gradient(90deg, var(--corner-color) 0 100%), /* TR horizontal */
-      linear-gradient(180deg, var(--corner-color) 0 100%), /* TR vertical */
-      linear-gradient(90deg, var(--corner-color) 0 100%), /* BL horizontal */
-      linear-gradient(180deg, var(--corner-color) 0 100%), /* BL vertical */
-      linear-gradient(90deg, var(--corner-color) 0 100%), /* BR horizontal */
-      linear-gradient(180deg, var(--corner-color) 0 100%); /* BR vertical */
+      linear-gradient(90deg, var(--corner-color) 0 100%),
+      linear-gradient(180deg, var(--corner-color) 0 100%),
+      linear-gradient(90deg, var(--corner-color) 0 100%),
+      linear-gradient(180deg, var(--corner-color) 0 100%),
+      linear-gradient(90deg, var(--corner-color) 0 100%),
+      linear-gradient(180deg, var(--corner-color) 0 100%),
+      linear-gradient(90deg, var(--corner-color) 0 100%),
+      linear-gradient(180deg, var(--corner-color) 0 100%);
     background-position:
       top left,
       top left,
@@ -265,17 +438,11 @@ body {
     border-radius: inherit;
   }
 
-  .dark .ui-corner-accents {
-    --corner-color: color-mix(in oklch, var(--color-border), white 60%);
-  }
-
-  /* Enterprise entrance animations - subtle, professional, and LCP-friendly
-     Using animation-fill-mode: backwards so content is visible before animation starts
-     Reduced delays to not block LCP paint */
+  /* Cursor.com-style entrance animations */
   @keyframes fade-in-up {
     from {
       opacity: 0;
-      transform: translateY(8px);
+      transform: translateY(20px);
     }
     to {
       opacity: 1;
@@ -299,28 +466,78 @@ body {
     }
   }
 
+  @keyframes slide-up {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
   .animate-fade-in-up {
-    animation: fade-in-up 0.35s ease-out both;
+    animation: fade-in-up 0.6s var(--ease-out) both;
   }
 
   .animate-fade-in {
-    animation: fade-in 0.3s ease-out both;
+    animation: fade-in 0.5s var(--ease-out) both;
   }
 
   .animate-fade-in-scale {
-    animation: fade-in-scale 0.35s ease-out both;
+    animation: fade-in-scale 0.35s var(--ease-out-spring) both;
   }
 
-  /* Reduced stagger delays - max 200ms to not block LCP */
+  .animate-slide-up {
+    animation: slide-up 0.3s var(--ease-out) both;
+  }
+
+  /* Staggered animation delays */
   .delay-0 { animation-delay: 0ms; }
-  .delay-75 { animation-delay: 25ms; }
-  .delay-150 { animation-delay: 50ms; }
-  .delay-200 { animation-delay: 75ms; }
-  .delay-300 { animation-delay: 100ms; }
-  .delay-400 { animation-delay: 125ms; }
-  .delay-500 { animation-delay: 150ms; }
-  .delay-600 { animation-delay: 175ms; }
-  .delay-700 { animation-delay: 200ms; }
+  .delay-75 { animation-delay: 75ms; }
+  .delay-150 { animation-delay: 150ms; }
+  .delay-200 { animation-delay: 200ms; }
+  .delay-300 { animation-delay: 300ms; }
+  .delay-400 { animation-delay: 400ms; }
+  .delay-500 { animation-delay: 500ms; }
+  .delay-600 { animation-delay: 600ms; }
+  .delay-700 { animation-delay: 700ms; }
+
+  /* Loading animations */
+  @keyframes shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+  }
+
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+  }
+
+  .animate-shimmer {
+    background: linear-gradient(
+      90deg,
+      var(--surface-2) 25%,
+      var(--surface-3) 50%,
+      var(--surface-2) 75%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+  }
+
+  .animate-spin {
+    animation: spin 1s linear infinite;
+  }
+
+  .animate-pulse {
+    animation: pulse 2s var(--ease-out) infinite;
+  }
 
   /* Marquee animation for logo carousel */
   @keyframes marquee {
@@ -339,4 +556,50 @@ body {
   .animate-marquee:hover {
     animation-play-state: paused;
   }
+
+  /* Scroll-triggered fade (use with Intersection Observer) */
+  .fade-in-scroll {
+    opacity: 0;
+    transform: translateY(20px);
+    transition:
+      opacity 0.6s var(--ease-out),
+      transform 0.6s var(--ease-out);
+  }
+
+  .fade-in-scroll.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Text truncation utilities */
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Focus states - Cursor.com style */
+:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
 }

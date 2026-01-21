@@ -9,15 +9,15 @@ interface TierBadgeProps {
 const tierConfig: Record<ProductUpdateTier, { label: string; className: string }> = {
   P0: {
     label: "Major",
-    className: "bg-[#D04841]/10 text-[#D04841] dark:bg-[#D04841]/20",
+    className: "bg-accent/10 text-accent",
   },
   P1: {
     label: "Enhancement",
-    className: "bg-[#19224A]/10 text-[#19224A] dark:bg-[#1E293B]/30 dark:text-foreground",
+    className: "bg-surface-3 text-foreground",
   },
   P2: {
     label: "Improvement",
-    className: "bg-muted text-muted-foreground",
+    className: "bg-surface-3 text-muted-foreground",
   },
 };
 
@@ -27,7 +27,7 @@ export function TierBadge({ tier, className }: TierBadgeProps) {
   return (
     <span
       className={cn(
-        "inline-flex items-center px-3 py-1 rounded-lg text-xs font-medium",
+        "inline-flex items-center px-2 py-0.5 rounded-xs text-xs font-normal",
         config.className,
         className
       )}
