@@ -21,7 +21,7 @@ export function ProductUpdateCard({ update }: ProductUpdateCardProps) {
       href={`/product-updates/${update.slug}`}
       className="group block transition-all duration-[0.15s] ease-[cubic-bezier(0.4,0,0.2,1)] hover:-translate-y-0.5"
     >
-      <article className="bg-white rounded-xs border border-border h-full flex flex-col overflow-hidden transition-colors duration-[0.15s] hover:bg-surface-2">
+      <article className="bg-card rounded-xs border border-border h-full flex flex-col overflow-hidden transition-colors duration-[0.15s] hover:bg-surface-2">
         {/* Optional Feature Image */}
         {update.image && (
           <div className="aspect-video relative overflow-hidden">

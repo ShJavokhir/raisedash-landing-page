@@ -514,7 +514,7 @@ const Hero: React.FC = () => (
 
     <div className="pt-32 pb-20 md:pt-40 md:pb-24 relative z-10">
       <Container className="flex flex-col items-center text-center">
-        <div className="animate-fade-in-up delay-0 inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-border text-xs font-normal text-muted-foreground mb-8">
+        <div className="animate-fade-in-up delay-0 inline-flex items-center gap-2 px-3 py-1 rounded-full bg-card border border-border text-xs font-normal text-muted-foreground mb-8">
           <span className="relative flex h-2 w-2">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75"></span>
             <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
@@ -568,7 +568,7 @@ const Features: React.FC = () => (
         { title: "Bank-Grade Security", desc: "Google OAuth, encrypted tokens, and strict environment validation.", icon: ShieldCheck },
         { title: "Instant Session Tabs", desc: "Manage multiple loads without losing context.", icon: Zap },
       ].map((f, idx) => (
-        <div key={idx} className="group bg-white p-8 rounded-xs border border-border hover:shadow-lg hover:-translate-y-1 transition-all duration-[0.15s] h-full animate-fade-in-scale" style={{ animationDelay: `${idx * 50}ms` }}>
+        <div key={idx} className="group bg-card p-8 rounded-xs border border-border hover:shadow-lg hover:-translate-y-1 transition-all duration-[0.15s] h-full animate-fade-in-scale" style={{ animationDelay: `${idx * 50}ms` }}>
           <div className="w-10 h-10 rounded-xs bg-surface-3 dark:bg-secondary flex items-center justify-center mb-4 group-hover:bg-[#19224A]/10 transition-colors duration-[0.15s]">
             <f.icon className="w-5 h-5 text-muted-foreground group-hover:text-[#19224A] dark:group-hover:text-foreground transition-colors duration-[0.15s]" />
           </div>
@@ -629,7 +629,7 @@ const HowItWorks: React.FC = () => (
 
       <div className="relative animate-fade-in-scale delay-200">
         <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/10 to-blue-500/10 blur-3xl rounded-full"></div>
-        <div className="relative bg-white border border-border rounded-xs p-8 shadow-lg">
+        <div className="relative bg-card border border-border rounded-xs p-8 shadow-lg">
           <div className="font-mono text-xs text-muted-foreground mb-4 border-b border-border pb-2">SYSTEM LOGS</div>
           <div className="space-y-3 font-mono text-sm">
             <div className="flex gap-3">
@@ -675,7 +675,7 @@ const Trust: React.FC = () => (
         { title: "99.9% Uptime", desc: "Redundant infrastructure for critical shipments.", icon: Server },
         { title: "Privacy First", desc: "We track freight, not lives. Tracking stops on delivery.", icon: EyeOff },
       ].map((t, idx) => (
-        <div key={idx} className="bg-white p-8 rounded-xs border border-border hover:shadow-lg hover:-translate-y-1 transition-all duration-[0.15s] h-full animate-fade-in-scale" style={{ animationDelay: `${idx * 100}ms` }}>
+        <div key={idx} className="bg-card p-8 rounded-xs border border-border hover:shadow-lg hover:-translate-y-1 transition-all duration-[0.15s] h-full animate-fade-in-scale" style={{ animationDelay: `${idx * 100}ms` }}>
           <div className="w-10 h-10 rounded-xs bg-surface-3 dark:bg-secondary flex items-center justify-center mb-4">
             <t.icon className="w-5 h-5 text-[#19224A] dark:text-primary" />
           </div>

@@ -103,7 +103,7 @@ export default function RequestAccountDeletion() {
       description="Request deletion of your Raisedash account. We'll process your request securely."
       noindex={true}
     >
-      <Container className="flex items-center bg-white mt-12 rounded-xs border">
+      <Container className="flex items-center bg-card mt-12 rounded-xs border">
         <div className="w-full py-16 sm:py-24 md:py-28">
           <h1 className="text-4xl md:text-5xl font-semibold tracking-[-0.01em] text-foreground">
             Request Account Deletion
@@ -115,7 +115,7 @@ export default function RequestAccountDeletion() {
         </div>
       </Container>
 
-      <Container className="bg-white mt-8 rounded-xs border border-border">
+      <Container className="bg-card mt-8 rounded-xs border border-border">
         <div className="py-16">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             <div className="space-y-6">
@@ -138,7 +138,7 @@ export default function RequestAccountDeletion() {
                       "hover:border-primary/60 hover:bg-primary/5",
                       formData.product === option.id
                         ? "border-primary bg-primary/5 shadow-sm"
-                        : "border-border bg-white"
+                        : "border-border bg-card"
                     )}
                   >
                     <div className="flex items-start justify-between">
@@ -190,7 +190,7 @@ export default function RequestAccountDeletion() {
                       required
                       value={formData.fullName}
                       onChange={handleInputChange}
-                      className="w-full px-3 py-2 border border-input rounded-xs bg-white text-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent"
+                      className="w-full px-3 py-2 border border-input rounded-xs bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent"
                       placeholder="Jane Doe"
                     />
                   </div>
@@ -207,7 +207,7 @@ export default function RequestAccountDeletion() {
                         required
                         value={formData.email}
                         onChange={handleInputChange}
-                        className="w-full px-3 py-2 border border-input rounded-xs bg-white text-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent"
+                        className="w-full px-3 py-2 border border-input rounded-xs bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent"
                         placeholder="you@example.com"
                       />
                     </div>
@@ -223,7 +223,7 @@ export default function RequestAccountDeletion() {
                         required
                         value={formData.phone}
                         onChange={handleInputChange}
-                        className="w-full px-3 py-2 border border-input rounded-xs bg-white text-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent"
+                        className="w-full px-3 py-2 border border-input rounded-xs bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent"
                         placeholder="+1 (555) 000-0000"
                       />
                     </div>
@@ -239,7 +239,7 @@ export default function RequestAccountDeletion() {
                       rows={5}
                       value={formData.notes}
                       onChange={handleInputChange}
-                      className="w-full px-3 py-2 border border-input rounded-xs bg-white text-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent resize-none"
+                      className="w-full px-3 py-2 border border-input rounded-xs bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent resize-none"
                       placeholder="Tell us anything we should know before deleting your account."
                     />
                   </div>

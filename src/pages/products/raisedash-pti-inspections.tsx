@@ -85,7 +85,7 @@ const Hero: React.FC = () => (
 
     <div className="pt-32 pb-20 md:pt-40 md:pb-24 relative z-10">
       <Container className="flex flex-col items-center text-center">
-        <div className="animate-fade-in-up delay-0 inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-border text-xs font-normal text-muted-foreground mb-8">
+        <div className="animate-fade-in-up delay-0 inline-flex items-center gap-2 px-3 py-1 rounded-full bg-card border border-border text-xs font-normal text-muted-foreground mb-8">
           <span className="relative flex h-2 w-2">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75"></span>
             <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
@@ -242,7 +242,7 @@ const WhyRaisedash: React.FC = () => (
           desc: "Accidents can happen despite the best precautions. DVIRs serve as evidence that the vehicle passed inspection and the company followed regulations. With RaiseDash, you have legal protection against negligence claims.",
         },
       ].map((item, idx) => (
-        <div key={idx} className="bg-white p-8 rounded-xs border border-border hover:shadow-lg hover:-translate-y-1 transition-all duration-[0.15s] h-full animate-fade-in-scale" style={{ animationDelay: `${idx * 100}ms` }}>
+        <div key={idx} className="bg-card p-8 rounded-xs border border-border hover:shadow-lg hover:-translate-y-1 transition-all duration-[0.15s] h-full animate-fade-in-scale" style={{ animationDelay: `${idx * 100}ms` }}>
           <div className="w-10 h-10 rounded-xs bg-surface-3 dark:bg-secondary flex items-center justify-center mb-4">
             <item.icon className="w-5 h-5 text-[#19224A] dark:text-primary" />
           </div>
@@ -274,7 +274,7 @@ const Features: React.FC = () => (
         { title: "Mobile Apps", desc: "User-friendly mobile apps for both Android and iOS, designed for ease of use and quick inspections on the go.", icon: Smartphone },
         { title: "Real-time Updates", desc: "Get instant notifications and updates about inspections through integrated communication tools like Telegram and WhatsApp.", icon: Clock },
       ].map((f, idx) => (
-        <div key={idx} className="group bg-white p-8 rounded-xs border border-border hover:shadow-lg hover:-translate-y-1 transition-all duration-[0.15s] h-full animate-fade-in-scale" style={{ animationDelay: `${idx * 50}ms` }}>
+        <div key={idx} className="group bg-card p-8 rounded-xs border border-border hover:shadow-lg hover:-translate-y-1 transition-all duration-[0.15s] h-full animate-fade-in-scale" style={{ animationDelay: `${idx * 50}ms` }}>
           <div className="w-10 h-10 rounded-xs bg-surface-3 dark:bg-secondary flex items-center justify-center mb-4 group-hover:bg-[#19224A]/10 transition-colors duration-[0.15s]">
             <f.icon className="w-5 h-5 text-muted-foreground group-hover:text-[#19224A] dark:group-hover:text-foreground transition-colors duration-[0.15s]" />
           </div>
@@ -297,7 +297,7 @@ const PricingCard: React.FC<{
   isPopular?: boolean;
   extraInfo?: React.ReactNode;
 }> = ({ plan, price, period, description, features, cta, ctaLink, isPopular = false, extraInfo }) => (
-  <div className={`flex flex-col p-8 rounded-xs border ${isPopular ? "bg-white border-[#19224A] ring-1 ring-[#19224A] relative" : "bg-white border-border"} hover:shadow-lg hover:-translate-y-1 transition-all duration-[0.15s] h-full animate-fade-in-up`}>
+  <div className={`flex flex-col p-8 rounded-xs border ${isPopular ? "bg-card border-[#19224A] ring-1 ring-[#19224A] relative" : "bg-card border-border"} hover:shadow-lg hover:-translate-y-1 transition-all duration-[0.15s] h-full animate-fade-in-up`}>
     {isPopular && (
       <div className="absolute top-0 right-0 bg-[#19224A] text-white text-xs font-normal px-3 py-1 rounded-bl-xs rounded-tr-xs">
         POPULAR
@@ -412,7 +412,7 @@ const FAQ: React.FC = () => {
         </div>
         <div className="space-y-4">
           {faqs.map((faq, idx) => (
-            <div key={idx} className="border border-border rounded-xs overflow-hidden bg-white animate-fade-in-up hover:shadow-lg transition-all duration-[0.15s]" style={{ animationDelay: `${idx * 100}ms` }}>
+            <div key={idx} className="border border-border rounded-xs overflow-hidden bg-card animate-fade-in-up hover:shadow-lg transition-all duration-[0.15s]" style={{ animationDelay: `${idx * 100}ms` }}>
               <button
                 onClick={() => setOpenIndex(openIndex === idx ? null : idx)}
                 className="w-full text-left p-6 flex justify-between items-center hover:bg-surface-3/50 dark:hover:bg-secondary transition-colors duration-[0.15s]"

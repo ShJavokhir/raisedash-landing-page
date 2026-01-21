@@ -111,7 +111,7 @@ export default function Careers() {
           {jobOpenings.map((job, index) => (
             <div
               key={job.title}
-              className={`bg-white rounded-xs border border-border p-6 sm:p-8 transition-all duration-[0.15s] hover:-translate-y-0.5 hover:bg-surface-2 animate-fade-in-scale delay-${300 + index * 100}`}
+              className={`bg-card rounded-xs border border-border p-6 sm:p-8 transition-all duration-[0.15s] hover:-translate-y-0.5 hover:bg-surface-2 animate-fade-in-scale delay-${300 + index * 100}`}
             >
               <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6">
                 <div className="flex-1">
@@ -157,19 +157,19 @@ export default function Careers() {
           </p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-          <div className="bg-white rounded-xs border border-border p-6 transition-all duration-[0.15s] hover:-translate-y-0.5 hover:bg-surface-2 animate-fade-in-scale delay-800">
+          <div className="bg-card rounded-xs border border-border p-6 transition-all duration-[0.15s] hover:-translate-y-0.5 hover:bg-surface-2 animate-fade-in-scale delay-800">
             <h3 className="font-normal text-xl tracking-[-0.01em] text-foreground mb-2">Impactful Work</h3>
             <p className="text-base text-muted-foreground leading-relaxed">
               Your work directly contributes to protecting billions of dollars in freight and keeping supply chains secure.
             </p>
           </div>
-          <div className="bg-white rounded-xs border border-border p-6 transition-all duration-[0.15s] hover:-translate-y-0.5 hover:bg-surface-2 animate-fade-in-scale delay-900">
+          <div className="bg-card rounded-xs border border-border p-6 transition-all duration-[0.15s] hover:-translate-y-0.5 hover:bg-surface-2 animate-fade-in-scale delay-900">
             <h3 className="font-normal text-xl tracking-[-0.01em] text-foreground mb-2">Growth Opportunity</h3>
             <p className="text-base text-muted-foreground leading-relaxed">
               Join a fast-growing company where you can shape the future of logistics security technology.
             </p>
           </div>
-          <div className="bg-white rounded-xs border border-border p-6 transition-all duration-[0.15s] hover:-translate-y-0.5 hover:bg-surface-2 animate-fade-in-scale delay-1000">
+          <div className="bg-card rounded-xs border border-border p-6 transition-all duration-[0.15s] hover:-translate-y-0.5 hover:bg-surface-2 animate-fade-in-scale delay-1000">
             <h3 className="font-normal text-xl tracking-[-0.01em] text-foreground mb-2">Flexible Culture</h3>
             <p className="text-base text-muted-foreground leading-relaxed">
               Remote-friendly environment with competitive benefits and a team that values work-life balance.
@@ -180,7 +180,7 @@ export default function Careers() {
 
       {/* CTA Section */}
       <Container className="pb-12 md:px-0">
-        <div className="bg-white rounded-xs border border-border p-8 sm:p-12 text-center animate-fade-in-scale delay-1100">
+        <div className="bg-card rounded-xs border border-border p-8 sm:p-12 text-center animate-fade-in-scale delay-1100">
           <h2 className="text-2xl sm:text-3xl font-normal tracking-[-0.02em] text-foreground mb-4">
             Don't See Your Perfect Role?
           </h2>

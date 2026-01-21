@@ -87,7 +87,7 @@ export default function Contact() {
     >
       {/* Hero Section */}
       <div className="pt-8 pb-12">
-        <Container className="bg-white py-12 sm:py-16 px-8 sm:px-12 rounded-xs border border-border animate-fade-in-scale delay-0">
+        <Container className="bg-card py-12 sm:py-16 px-8 sm:px-12 rounded-xs border border-border animate-fade-in-scale delay-0">
           <div className="max-w-3xl">
             <h1 className="text-4xl sm:text-[48px] font-normal tracking-[-0.03em] text-foreground leading-tight animate-fade-in-up delay-75">
               Get in Touch
@@ -104,7 +104,7 @@ export default function Contact() {
       <Container className="py-12 md:px-0">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
           {/* Contact Form */}
-          <div className="bg-white rounded-xs border border-border p-6 sm:p-8 animate-fade-in-scale delay-200">
+          <div className="bg-card rounded-xs border border-border p-6 sm:p-8 animate-fade-in-scale delay-200">
             <h2 className="text-2xl sm:text-3xl font-normal tracking-[-0.02em] text-foreground mb-8">
               Send us a Message
             </h2>
@@ -203,7 +203,7 @@ export default function Contact() {
               {contactMethods.map((method, index) => (
                 <div
                   key={method.title}
-                  className={`bg-white rounded-xs border border-border p-6 transition-all duration-[0.15s] hover:-translate-y-0.5 hover:bg-surface-2 animate-fade-in-scale delay-${400 + index * 100}`}
+                  className={`bg-card rounded-xs border border-border p-6 transition-all duration-[0.15s] hover:-translate-y-0.5 hover:bg-surface-2 animate-fade-in-scale delay-${400 + index * 100}`}
                 >
                   <div className="flex items-start gap-4">
                     <div className="w-12 h-12 bg-primary rounded-xs flex items-center justify-center text-primary-foreground flex-shrink-0">
@@ -240,7 +240,7 @@ export default function Contact() {
           </p>
         </div>
 
-        <div className="bg-white rounded-xs border border-border p-6 sm:p-8 animate-fade-in-scale delay-800">
+        <div className="bg-card rounded-xs border border-border p-6 sm:p-8 animate-fade-in-scale delay-800">
           <div className="max-w-3xl mx-auto space-y-0">
             <div className="border-b border-border py-6">
               <h3 className="font-normal text-xl tracking-[-0.01em] text-foreground mb-3">

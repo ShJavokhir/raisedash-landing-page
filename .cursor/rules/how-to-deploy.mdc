@@ -16,19 +16,19 @@ aws ecr get-login-password --region us-east-1 | docker login --username AWS --pa
 2) Build image locally:
 
 ```bash
-docker buildx build --platform linux/amd64 -t raisedash-landing . --load
+docker buildx build --platform linux/amd64 -t loadhunter-landing . --load
 ```
 
 3) Tag the image:
 
 ```bash
-docker tag raisedash-landing:latest 390403864981.dkr.ecr.us-east-1.amazonaws.com/raisedash/landing:latest
+docker tag loadhunter-landing:latest 390403864981.dkr.ecr.us-east-1.amazonaws.com/loadhunter/landing:latest
 ```
 
 4) Push the image to ECR:
 
 ```bash
-docker push 390403864981.dkr.ecr.us-east-1.amazonaws.com/raisedash/landing:latest
+docker push 390403864981.dkr.ecr.us-east-1.amazonaws.com/loadhunter/landing:latest
 ```
 
 ## Things to do in ec2 linux instance
@@ -36,9 +36,9 @@ docker push 390403864981.dkr.ecr.us-east-1.amazonaws.com/raisedash/landing:lates
 **IMPORTANT**: Do NOT use interactive SSH sessions. Execute individual SSH commands one by one without leaving the local terminal.
 
 EC2 instance ip: `ec2-user@ec2-3-83-184-223.compute-1.amazonaws.com`
-KEY location: `/Users/creepy/dev/projects/raisedash-ai/secret/raisedash-aws.pem`
+KEY location: `/Users/creepy/dev/projects/loadhunter-ai/other/secret/loadhunter-aws.pem`
 
-The EC2 instance path should be `/home/ec2-user/raisedash` and contains docker-compose.yml with multiple projects.
+The EC2 instance path should be `/home/ec2-user/loadhunter` and contains docker-compose.yml with multiple projects.
 You only need to pull and update project named `landing`.
 
 Here are the SSH commands to execute individually: 
@@ -52,10 +52,10 @@ aws ecr get-login-password --region us-east-1 | docker login --username AWS --pa
 2) open required folder
 
 ```bash
-cd raisedash
+cd loadhunter
 ```
 
-so when you do pwd, the path should be `/home/ec2-user/raisedash`
+so when you do pwd, the path should be `/home/ec2-user/loadhunter`
 
 3) pull image from ecr
 

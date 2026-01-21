@@ -38,7 +38,7 @@ export default function ProductUpdates({ updates, categories }: ProductUpdatesPa
               <input
                 type="email"
                 placeholder="Enter your email"
-                className="flex-1 px-4 py-3 rounded-xs border border-border bg-white text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors duration-[0.15s]"
+                className="flex-1 px-4 py-3 rounded-xs border border-border bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors duration-[0.15s]"
               />
               <Button className="bg-primary text-white hover:bg-primary/90">
                 Subscribe
@@ -51,7 +51,7 @@ export default function ProductUpdates({ updates, categories }: ProductUpdatesPa
       {/* Category Filter */}
       <section className="bg-surface-3 pb-8">
         <Container>
-          <div className="bg-white rounded-xs border border-border p-6">
+          <div className="bg-card rounded-xs border border-border p-6">
             <div className="flex flex-wrap gap-2">
               {categories.map((category) => (
                 <button
@@ -81,7 +81,7 @@ export default function ProductUpdates({ updates, categories }: ProductUpdatesPa
               ))}
             </div>
           ) : (
-            <div className="bg-white rounded-xs border border-border p-12 text-center">
+            <div className="bg-card rounded-xs border border-border p-12 text-center">
               <div className="text-6xl mb-4 opacity-50">
                 <svg className="w-16 h-16 mx-auto text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />

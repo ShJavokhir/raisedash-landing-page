@@ -110,10 +110,11 @@ export function Header() {
     <header className="sticky top-4 md:top-6 z-50 w-full bg-transparent">
       <div className="">
         <Container className="rounded-xs border border-border bg-white dark:bg-card">
-        <div className="h-[52px] flex items-center justify-between">
+        <div className="h-[60px] flex items-center justify-between">
           {/* Logo */}
           <div className="flex items-center gap-3">
-            <Link href="/" className="font-normal text-xl tracking-[-0.02em] text-foreground hover:text-foreground-80 transition-colors duration-[0.15s]">
+            <Link href="/" className="flex items-center gap-2 font-normal text-xl tracking-[-0.02em] text-foreground hover:text-foreground-80 transition-colors duration-[0.15s]">
+              <Image src="/logo.webp" alt="Raisedash logo" width={28} height={28} />
               Raisedash
             </Link>
           </div>
@@ -123,7 +124,7 @@ export function Header() {
             <NavigationMenu>
               <NavigationMenuList className="gap-1">
                 <NavigationMenuItem>
-                  <NavigationMenuTrigger className="bg-transparent text-sm font-normal text-foreground hover:text-foreground-80 px-3 py-1.5 transition-colors duration-[0.15s]">
+                  <NavigationMenuTrigger className="bg-transparent text-base font-normal text-foreground hover:text-foreground-80 px-4 py-2 transition-colors duration-[0.15s]">
                     Solutions
                   </NavigationMenuTrigger>
                   <NavigationMenuContent>
@@ -176,7 +177,7 @@ export function Header() {
                   </NavigationMenuContent>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
-                  <NavigationMenuTrigger className="bg-transparent text-sm font-normal text-foreground hover:text-foreground-80 px-3 py-1.5 transition-colors duration-[0.15s]">
+                  <NavigationMenuTrigger className="bg-transparent text-base font-normal text-foreground hover:text-foreground-80 px-4 py-2 transition-colors duration-[0.15s]">
                     Resources
                   </NavigationMenuTrigger>
                   <NavigationMenuContent>
@@ -205,7 +206,7 @@ export function Header() {
                   </NavigationMenuContent>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
-                  <NavigationMenuTrigger className="bg-transparent text-sm font-normal text-foreground hover:text-foreground-80 px-3 py-1.5 transition-colors duration-[0.15s]">
+                  <NavigationMenuTrigger className="bg-transparent text-base font-normal text-foreground hover:text-foreground-80 px-4 py-2 transition-colors duration-[0.15s]">
                     Company
                   </NavigationMenuTrigger>
                   <NavigationMenuContent>

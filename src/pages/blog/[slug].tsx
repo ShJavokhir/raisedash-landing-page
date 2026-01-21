@@ -88,7 +88,7 @@ export default function BlogPostPage({ post, mdxHtml, relatedPosts }: BlogPostPa
   if (!post) {
     return (
       <div className="font-sans">
-        <Container className="bg-white mt-12 rounded-xs border border-border">
+        <Container className="bg-card mt-12 rounded-xs border border-border">
           <div className="py-16 text-center">
             <h1 className="text-2xl font-normal text-foreground mb-4">Article Not Found</h1>
             <p className="text-muted-foreground mb-6">The article you&apos;re looking for doesn&apos;t exist.</p>
@@ -189,7 +189,7 @@ export default function BlogPostPage({ post, mdxHtml, relatedPosts }: BlogPostPa
 
       <div className="font-sans">
       {/* Breadcrumb */}
-      <Container className="bg-white mt-12 rounded-xs border border-border">
+      <Container className="bg-card mt-12 rounded-xs border border-border">
         <div className="py-4">
           <nav className="flex items-center gap-2 text-sm text-muted-foreground">
             <Link href="/" className="hover:text-foreground transition-colors">Home</Link>
@@ -202,7 +202,7 @@ export default function BlogPostPage({ post, mdxHtml, relatedPosts }: BlogPostPa
       </Container>
 
       {/* Article */}
-      <Container className="bg-white mt-8 rounded-xs border border-border">
+      <Container className="bg-card mt-8 rounded-xs border border-border">
         <div className="py-12">
           <article className="max-w-4xl mx-auto">
             {/* Header */}
@@ -270,14 +270,14 @@ export default function BlogPostPage({ post, mdxHtml, relatedPosts }: BlogPostPa
 
       {/* Related Articles */}
       {relatedPosts.length > 0 && (
-        <Container className="bg-white mt-8 rounded-xs border border-border">
+        <Container className="bg-card mt-8 rounded-xs border border-border">
           <div className="py-12">
             <h2 className="text-2xl font-normal text-foreground mb-8">Related Articles</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {relatedPosts.map((relatedPost) => (
                 <div key={relatedPost.slug} className="group">
                   <Link href={`/blog/${relatedPost.slug}`} className="block">
-                    <article className="bg-white rounded-xs border border-border p-6 h-full hover:bg-surface-2 transition-colors duration-[0.15s]">
+                    <article className="bg-card rounded-xs border border-border p-6 h-full hover:bg-surface-2 transition-colors duration-[0.15s]">
                       <div className="flex items-center gap-2 mb-3">
                         <span className="inline-flex items-center px-2 py-0.5 rounded-xs text-xs font-normal bg-surface-3 text-foreground">
                           {relatedPost.category}

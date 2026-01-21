@@ -69,7 +69,7 @@ interface CardProps {
 
 const Card: React.FC<CardProps> = ({ children, className = "" }) => {
   return (
-    <div className={`bg-white border border-border rounded-xs p-8 ${className}`}>
+    <div className={`bg-card border border-border rounded-xs p-8 ${className}`}>
       {children}
     </div>
   );
@@ -348,7 +348,7 @@ const Hero: React.FC = () => {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="inline-flex items-center gap-2 rounded-full bg-white border border-border px-4 py-1.5 text-sm font-normal text-muted-foreground mb-8"
+              className="inline-flex items-center gap-2 rounded-full bg-card border border-border px-4 py-1.5 text-sm font-normal text-muted-foreground mb-8"
             >
               <span className="flex h-2 w-2 rounded-full bg-green-500 animate-pulse" />
               Compliance Made Simple
@@ -421,7 +421,7 @@ const Hero: React.FC = () => {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="flex-1 w-full relative"
           >
-            <div className="relative rounded-xs border border-border bg-white shadow-2xl shadow-foreground/10 overflow-hidden">
+            <div className="relative rounded-xs border border-border bg-card shadow-2xl shadow-foreground/10 overflow-hidden">
               {/* Browser Header */}
               <div className="h-10 border-b border-border bg-surface-3 dark:bg-secondary flex items-center px-4 gap-2">
                 <div className="flex gap-1.5">
@@ -445,7 +445,7 @@ const Hero: React.FC = () => {
                     <p className="text-xs text-muted-foreground mt-0.5">Real-time overview • Last synced just now</p>
                   </div>
                   <div className="flex items-center gap-2">
-                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-normal bg-white text-foreground border border-border">
+                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-normal bg-card text-foreground border border-border">
                       <span className="h-1.5 w-1.5 rounded-full bg-green-500" />
                       Audit Ready
                     </span>
@@ -527,7 +527,7 @@ const Hero: React.FC = () => {
               initial={{ opacity: 0, scale: 0.8, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               transition={{ delay: 1.2, duration: 0.5, type: "spring" }}
-              className="absolute -bottom-4 -left-4 md:-bottom-6 md:-left-6 bg-white border border-border shadow-xl rounded-xs p-4 z-10"
+              className="absolute -bottom-4 -left-4 md:-bottom-6 md:-left-6 bg-card border border-border shadow-xl rounded-xs p-4 z-10"
             >
               <div className="flex items-center gap-3">
                 <div className="bg-[#1F1E1E] p-2.5 rounded-xs">
@@ -545,7 +545,7 @@ const Hero: React.FC = () => {
               initial={{ opacity: 0, scale: 0.8, y: -20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               transition={{ delay: 1.4, duration: 0.5, type: "spring" }}
-              className="absolute -top-4 -right-4 md:-top-6 md:-right-6 bg-white border border-border shadow-xl rounded-xs p-3 z-10 hidden md:block"
+              className="absolute -top-4 -right-4 md:-top-6 md:-right-6 bg-card border border-border shadow-xl rounded-xs p-3 z-10 hidden md:block"
             >
               <div className="flex items-center gap-2">
                 <Gauge className="h-4 w-4 text-muted-foreground" />
@@ -589,7 +589,7 @@ const ProblemSection: React.FC = () => {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section ref={ref} className="py-24 bg-white relative overflow-hidden">
+    <section ref={ref} className="py-24 bg-card relative overflow-hidden">
       <div className="absolute inset-0 industrial-grid opacity-50" />
 
       <Container className="relative z-10">
@@ -648,7 +648,7 @@ const SolutionOverview: React.FC = () => {
           transition={{ duration: 0.6 }}
           className="max-w-4xl mx-auto text-center mb-16"
         >
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-border text-sm font-normal text-foreground mb-6">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-card border border-border text-sm font-normal text-foreground mb-6">
             <Zap className="w-4 h-4" />
             Introducing RaiseDash Shift
           </div>
@@ -690,7 +690,7 @@ const SolutionOverview: React.FC = () => {
           transition={{ duration: 0.6, delay: 0.5 }}
           className="mt-16 max-w-3xl mx-auto"
         >
-          <div className="relative bg-white rounded-xs border border-border p-8">
+          <div className="relative bg-card rounded-xs border border-border p-8">
             <div className="absolute -top-3 left-8 w-6 h-6 bg-[#1F1E1E] rounded-full flex items-center justify-center">
               <span className="text-white text-lg font-serif">&ldquo;</span>
             </div>
@@ -843,7 +843,7 @@ const ComplianceSection: React.FC = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: 0.6 }}
-              className="bg-white rounded-xs p-8 text-center"
+              className="bg-card rounded-xs p-8 text-center"
             >
               <Lock className="w-12 h-12 mx-auto mb-4 text-foreground" />
               <h3 className="text-2xl font-normal mb-3 text-foreground tracking-[-0.03em]">The Bottom Line</h3>
@@ -864,7 +864,7 @@ const ProductModules: React.FC = () => {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section ref={ref} className="py-24 bg-white relative">
+    <section ref={ref} className="py-24 bg-card relative">
       <Container>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -956,7 +956,7 @@ const ValuePropositions: React.FC = () => {
               transition={{ duration: 0.5, delay: idx * 0.05 }}
               className="group"
             >
-              <div className="bg-white border border-border rounded-xs p-6 h-full hover:border-foreground/20 hover:shadow-lg hover:-translate-y-1 transition-all duration-[0.15s]">
+              <div className="bg-card border border-border rounded-xs p-6 h-full hover:border-foreground/20 hover:shadow-lg hover:-translate-y-1 transition-all duration-[0.15s]">
                 <div className="w-12 h-12 rounded-xs bg-surface-3 dark:bg-secondary border border-border flex items-center justify-center mb-4 text-muted-foreground group-hover:bg-[#1F1E1E] group-hover:text-white group-hover:border-[#1F1E1E] transition-colors duration-[0.15s]">
                   <prop.icon size={22} />
                 </div>
@@ -1014,7 +1014,7 @@ const InteractiveWorkflow: React.FC = () => {
   };
 
   return (
-    <section ref={ref} id="how-it-works" className="py-24 bg-white relative overflow-hidden">
+    <section ref={ref} id="how-it-works" className="py-24 bg-card relative overflow-hidden">
       <Container>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -1041,7 +1041,7 @@ const InteractiveWorkflow: React.FC = () => {
               onClick={() => setActiveRole("manager")}
               className={`px-6 py-3 rounded-xs text-sm font-semibold transition-all duration-[0.15s] flex items-center gap-2 ${
                 activeRole === "manager"
-                  ? "bg-white text-gray-900 shadow-md"
+                  ? "bg-card text-foreground shadow-md"
                   : "text-gray-600 hover:text-gray-900"
               }`}
             >
@@ -1052,7 +1052,7 @@ const InteractiveWorkflow: React.FC = () => {
               onClick={() => setActiveRole("driver")}
               className={`px-6 py-3 rounded-xs text-sm font-semibold transition-all duration-[0.15s] flex items-center gap-2 ${
                 activeRole === "driver"
-                  ? "bg-white text-gray-900 shadow-md"
+                  ? "bg-card text-foreground shadow-md"
                   : "text-gray-600 hover:text-gray-900"
               }`}
             >
@@ -1285,7 +1285,7 @@ const Features: React.FC = () => {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section ref={ref} id="features" className="py-24 bg-white relative">
+    <section ref={ref} id="features" className="py-24 bg-card relative">
       <div className="absolute inset-0 industrial-grid opacity-30" />
 
       <Container className="relative z-10">
@@ -1343,7 +1343,7 @@ const FAQ: React.FC = () => {
   };
 
   return (
-    <section ref={ref} id="faq" className="py-24 bg-white">
+    <section ref={ref} id="faq" className="py-24 bg-card">
       <Container className="max-w-3xl">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -1370,7 +1370,7 @@ const FAQ: React.FC = () => {
               initial={{ opacity: 0, y: 10 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.4, delay: index * 0.05 }}
-              className={`border rounded-xs bg-white transition-all duration-[0.15s] ${
+              className={`border rounded-xs bg-card transition-all duration-[0.15s] ${
                 openIndex === index
                   ? "border-gray-300 shadow-lg"
                   : "border-gray-200 hover:border-gray-300"

@@ -24,7 +24,7 @@ export function BlogCard({ post, featured = false }: BlogCardProps) {
         featured && "md:col-span-2"
       )}
     >
-      <article className="bg-white rounded-xs border border-border p-6 h-full flex flex-col transition-colors duration-[0.15s] hover:bg-surface-2">
+      <article className="bg-card rounded-xs border border-border p-6 h-full flex flex-col transition-colors duration-[0.15s] hover:bg-surface-2">
         {/* Category Badge */}
         <div className="flex items-center justify-between mb-4">
           <span className="inline-flex items-center px-2 py-0.5 rounded-xs text-xs font-normal bg-surface-3 text-foreground">

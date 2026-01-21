@@ -143,7 +143,7 @@ export function JobApplicationForm({ jobTitle, isOpen, onClose }: JobApplication
         role="dialog"
         aria-modal="true"
         aria-labelledby="job-application-title"
-        className="bg-white rounded-xs border border-border shadow-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto"
+        className="bg-card rounded-xs border border-border shadow-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto"
       >
         <div className="p-6">
           <div className="flex items-center justify-between mb-6">
@@ -191,7 +191,7 @@ export function JobApplicationForm({ jobTitle, isOpen, onClose }: JobApplication
                     onChange={handleInputChange}
                     aria-describedby={errors.firstName ? 'firstName-error' : undefined}
                     aria-invalid={errors.firstName ? 'true' : undefined}
-                    className={`w-full px-3 py-2 border rounded-md bg-white text-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent ${
+                    className={`w-full px-3 py-2 border rounded-md bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent ${
                       errors.firstName ? 'border-red-500' : 'border-input'
                     }`}
                     placeholder="John"
@@ -214,7 +214,7 @@ export function JobApplicationForm({ jobTitle, isOpen, onClose }: JobApplication
                     onChange={handleInputChange}
                     aria-describedby={errors.lastName ? 'lastName-error' : undefined}
                     aria-invalid={errors.lastName ? 'true' : undefined}
-                    className={`w-full px-3 py-2 border rounded-md bg-white text-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent ${
+                    className={`w-full px-3 py-2 border rounded-md bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent ${
                       errors.lastName ? 'border-red-500' : 'border-input'
                     }`}
                     placeholder="Doe"
@@ -239,7 +239,7 @@ export function JobApplicationForm({ jobTitle, isOpen, onClose }: JobApplication
                     onChange={handleInputChange}
                     aria-describedby={errors.email ? 'email-error' : undefined}
                     aria-invalid={errors.email ? 'true' : undefined}
-                    className={`w-full px-3 py-2 border rounded-md bg-white text-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent ${
+                    className={`w-full px-3 py-2 border rounded-md bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent ${
                       errors.email ? 'border-red-500' : 'border-input'
                     }`}
                     placeholder="john@example.com"
@@ -262,7 +262,7 @@ export function JobApplicationForm({ jobTitle, isOpen, onClose }: JobApplication
                     onChange={handleInputChange}
                     aria-describedby={errors.phone ? 'phone-error' : undefined}
                     aria-invalid={errors.phone ? 'true' : undefined}
-                    className={`w-full px-3 py-2 border rounded-md bg-white text-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent ${
+                    className={`w-full px-3 py-2 border rounded-md bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent ${
                       errors.phone ? 'border-red-500' : 'border-input'
                     }`}
                     placeholder="+1 (555) 123-4567"
@@ -283,7 +283,7 @@ export function JobApplicationForm({ jobTitle, isOpen, onClose }: JobApplication
                   name="linkedinUrl"
                   value={formData.linkedinUrl}
                   onChange={handleInputChange}
-                  className="w-full px-3 py-2 border border-input rounded-md bg-white text-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent"
+                  className="w-full px-3 py-2 border border-input rounded-md bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent"
                   placeholder="https://linkedin.com/in/yourprofile"
                 />
               </div>
@@ -300,7 +300,7 @@ export function JobApplicationForm({ jobTitle, isOpen, onClose }: JobApplication
                   onChange={handleInputChange}
                   aria-describedby={errors.experience ? 'experience-error' : undefined}
                   aria-invalid={errors.experience ? 'true' : undefined}
-                  className={`w-full px-3 py-2 border rounded-md bg-white text-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent ${
+                  className={`w-full px-3 py-2 border rounded-md bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent ${
                     errors.experience ? 'border-red-500' : 'border-input'
                   }`}
                 >
@@ -330,7 +330,7 @@ export function JobApplicationForm({ jobTitle, isOpen, onClose }: JobApplication
                   onChange={handleInputChange}
                   aria-describedby={errors.coverLetter ? 'coverLetter-error coverLetter-hint' : 'coverLetter-hint'}
                   aria-invalid={errors.coverLetter ? 'true' : undefined}
-                  className={`w-full px-3 py-2 border rounded-md bg-white text-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent ${
+                  className={`w-full px-3 py-2 border rounded-md bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent ${
                     errors.coverLetter ? 'border-red-500' : 'border-input'
                   }`}
                   placeholder="Tell us why you're interested in this position and what makes you a great fit..."

@@ -54,7 +54,7 @@
   --ring: color-mix(in oklab, #26251e 60%, transparent);
 
   /* Card */
-  --card: #f2f1ed;
+  --card: #ffffff;
   --card-foreground: #26251e;
   --card-hover: #ebeae5;
 

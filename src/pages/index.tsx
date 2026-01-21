@@ -25,7 +25,7 @@ export default function Home() {
       {/* Hero Section */}
       <div className="pt-8 pb-12">
         <Container
-          className="flex items-center bg-white py-12 sm:py-16 px-8 sm:px-12 rounded-xs border border-border relative overflow-hidden animate-fade-in-scale delay-0"
+          className="flex items-center bg-card py-12 sm:py-16 px-8 sm:px-12 rounded-xs border border-border relative overflow-hidden animate-fade-in-scale delay-0"
         >
           <div className="relative z-10 w-full flex items-center">
             <div className="flex-1">
@@ -70,7 +70,7 @@ export default function Home() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
           <Link href="/products/raisedash-shift" className="group animate-fade-in-scale delay-400">
-            <div className="flex flex-col h-full rounded-xs border border-border bg-white overflow-hidden transition-all duration-[0.15s] hover:-translate-y-0.5 hover:bg-surface-2">
+            <div className="flex flex-col h-full rounded-xs border border-border bg-card overflow-hidden transition-all duration-[0.15s] hover:-translate-y-0.5 hover:bg-surface-2">
               <div className="aspect-[4/3] relative w-full overflow-hidden bg-surface-3">
                 <Image
                   src="https://cdn.raisedash.com/media/vertex/57c53ef5-ad1a-4508-89a5-329985846a89.webp"
@@ -94,7 +94,7 @@ export default function Home() {
           </Link>
 
           <Link href="/products/raisedash-pti-inspections" className="group animate-fade-in-scale delay-500">
-            <div className="flex flex-col h-full rounded-xs border border-border bg-white overflow-hidden transition-all duration-[0.15s] hover:-translate-y-0.5 hover:bg-surface-2">
+            <div className="flex flex-col h-full rounded-xs border border-border bg-card overflow-hidden transition-all duration-[0.15s] hover:-translate-y-0.5 hover:bg-surface-2">
               <div className="aspect-[4/3] relative w-full overflow-hidden bg-surface-3">
                 <Image
                   src="https://cdn.raisedash.com/media/vertex/5bbcc5ad-2b1c-4ddb-9fe6-e8e2bc2c8a1a.webp"
@@ -118,7 +118,7 @@ export default function Home() {
           </Link>
 
           <Link href="/products/raisedash-vertex" className="group animate-fade-in-scale delay-600">
-            <div className="flex flex-col h-full rounded-xs border border-border bg-white overflow-hidden transition-all duration-[0.15s] hover:-translate-y-0.5 hover:bg-surface-2">
+            <div className="flex flex-col h-full rounded-xs border border-border bg-card overflow-hidden transition-all duration-[0.15s] hover:-translate-y-0.5 hover:bg-surface-2">
               <div className="aspect-[4/3] relative w-full overflow-hidden bg-surface-3">
                 <Image
                   src="https://cdn.raisedash.com/media/vertex/834f7f4b-6def-4090-bc16-6de5c21ff18d.webp"

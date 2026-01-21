@@ -75,7 +75,7 @@ export default function RequestDemo() {
           </h2>
 
           <div className="max-w-2xl mx-auto space-y-6">
-            <div className="bg-white rounded-xs border border-border p-6">
+            <div className="bg-card rounded-xs border border-border p-6">
               <h3 className="font-normal text-foreground mb-2">
                 How long is the demo?
               </h3>
@@ -85,7 +85,7 @@ export default function RequestDemo() {
               </p>
             </div>
 
-            <div className="bg-white rounded-xs border border-border p-6">
+            <div className="bg-card rounded-xs border border-border p-6">
               <h3 className="font-normal text-foreground mb-2">
                 Do I need to prepare anything?
               </h3>
@@ -95,7 +95,7 @@ export default function RequestDemo() {
               </p>
             </div>
 
-            <div className="bg-white rounded-xs border border-border p-6">
+            <div className="bg-card rounded-xs border border-border p-6">
               <h3 className="font-normal text-foreground mb-2">
                 What happens after the demo?
               </h3>
