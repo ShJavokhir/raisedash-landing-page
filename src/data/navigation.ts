@@ -1,4 +1,4 @@
-import { MapPin, ClipboardCheck, GraduationCap, BookOpen, FileText, Building2, Users, Mail, LucideIcon } from "lucide-react";
+import { MapPin, ClipboardCheck, GraduationCap, BookOpen, FileText, Building2, Users, Mail, Sparkles, LucideIcon } from "lucide-react";
 
 export interface NavItem {
   title: string;
@@ -46,6 +46,12 @@ export const resources: NavItem[] = [
     description: "Insights on logistics, safety, and industry trends.",
     href: "/blog",
     icon: BookOpen,
+  },
+  {
+    title: "Product Updates",
+    description: "Latest features and improvements.",
+    href: "/product-updates",
+    icon: Sparkles,
   },
   {
     title: "Changelogs",

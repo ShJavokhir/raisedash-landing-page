@@ -33,7 +33,7 @@ export default function Home() {
                 Safety & Security in Days.
               </h1>
               <p className="mt-6 max-w-xl text-xl font-light text-[rgba(24,23,23,0.8)] dark:text-muted-foreground leading-relaxed animate-fade-in-up delay-150">
-                Raisedash strengthens safety and security of corporations in freight logistics.
+                Raisedash strengthens safety and security of companies in freight logistics.
               </p>
 
               <div className="mt-10 flex flex-col sm:flex-row gap-4 animate-fade-in-up delay-200">

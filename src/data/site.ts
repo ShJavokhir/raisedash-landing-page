@@ -39,6 +39,7 @@ export const footerLinks: FooterSection[] = [
     title: "Resources",
     links: [
       { title: "Blog", href: "/blog" },
+      { title: "Product Updates", href: "/product-updates" },
       { title: "Changelogs", href: "/changelogs" },
     ],
   },
