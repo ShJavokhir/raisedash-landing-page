@@ -27,7 +27,7 @@
     "isomorphic-dompurify": "^2.35.0",
     "lucide-react": "^0.544.0",
     "motion": "^12.23.22",
-    "next": "15.5.7",
+    "next": "16.1.4",
     "next-mdx-remote": "^5.0.0",
     "react": "19.2.1",
     "react-dom": "19.2.1",

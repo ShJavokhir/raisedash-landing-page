@@ -15,7 +15,7 @@ interface ChangelogsPageProps {
 
 const mdxComponents = {
   h2: (props: React.HTMLAttributes<HTMLHeadingElement>) => (
-    <h2 className="text-2xl font-bold text-foreground mt-12 first:mt-0 mb-2" {...props} />
+    <h2 className="text-foreground mt-12 mb-2 text-2xl font-bold first:mt-0" {...props} />
   ),
   p: (props: React.HTMLAttributes<HTMLParagraphElement>) => {
     const children = props.children;
@@ -29,11 +29,7 @@ const mdxComponents = {
     const children = props.children as string;
     // Date styling (standalone bold text like "January 15, 2024")
     if (typeof children === "string" && children.match(/^[A-Z][a-z]+ \d+, \d{4}$/)) {
-      return (
-        <p className="text-sm text-muted-foreground mb-6">
-          {children}
-        </p>
-      );
+      return <p className="text-muted-foreground mb-6 text-sm">{children}</p>;
     }
     // Change type badges
     if (typeof children === "string") {
@@ -46,19 +42,21 @@ const mdxComponents = {
       };
       if (colors[type]) {
         return (
-          <span className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium mr-2 ${colors[type]}`}>
+          <span
+            className={`mr-2 inline-flex items-center rounded px-2 py-0.5 text-xs font-medium ${colors[type]}`}
+          >
             {type}
           </span>
         );
       }
     }
-    return <strong className="font-semibold text-foreground" {...props} />;
+    return <strong className="text-foreground font-semibold" {...props} />;
   },
   ul: (props: React.HTMLAttributes<HTMLUListElement>) => (
-    <ul className="space-y-3 mb-8" {...props} />
+    <ul className="mb-8 space-y-3" {...props} />
   ),
   li: (props: React.HTMLAttributes<HTMLLIElement>) => (
-    <li className="flex items-start gap-3 text-muted-foreground" {...props} />
+    <li className="text-muted-foreground flex items-start gap-3" {...props} />
   ),
   hr: () => <hr className="border-border my-8" />,
   em: (props: React.HTMLAttributes<HTMLElement>) => (
@@ -74,7 +72,7 @@ async function renderMdxToHtml(mdx: string): Promise<string> {
   const code = String(
     await compile(mdx, {
       outputFormat: "function-body",
-    }),
+    })
   );
 
   const mdxModule = await run(code, { ...runtime });
@@ -85,21 +83,23 @@ async function renderMdxToHtml(mdx: string): Promise<string> {
 
 export default function Changelogs({ meta, mdxHtml }: ChangelogsPageProps) {
   return (
-    <PageLayout title={meta.title} description={meta.description} keywords={["raisedash changelog", "product updates", "new features", "release notes"]}>
+    <PageLayout
+      title={meta.title}
+      description={meta.description}
+      keywords={["raisedash changelog", "product updates", "new features", "release notes"]}
+    >
       {/* Hero Section */}
-      <Container className="flex items-center bg-card mt-12 rounded-xs border border-border">
+      <Container className="bg-card border-border mt-12 flex items-center rounded-xs border">
         <div className="w-full py-16">
-          <h1 className="text-4xl md:text-5xl font-normal tracking-[-0.01em] text-foreground">
+          <h1 className="text-foreground text-4xl font-normal tracking-[-0.01em] md:text-5xl">
             {meta.title}
           </h1>
-          <p className="mt-4 max-w-3xl text-lg text-muted-foreground">
-            {meta.description}
-          </p>
+          <p className="text-muted-foreground mt-4 max-w-3xl text-lg">{meta.description}</p>
         </div>
       </Container>
 
       {/* Changelog Content */}
-      <Container className="bg-card mt-8 rounded-xs border border-border">
+      <Container className="bg-card border-border mt-8 rounded-xs border">
         <div className="py-16">
           <div className="max-w-3xl">
             <div dangerouslySetInnerHTML={{ __html: mdxHtml }} />
@@ -108,17 +108,17 @@ export default function Changelogs({ meta, mdxHtml }: ChangelogsPageProps) {
       </Container>
 
       {/* CTA Section */}
-      <Container className="bg-card mt-8 rounded-xs border border-border">
+      <Container className="bg-card border-border mt-8 rounded-xs border">
         <div className="py-16 text-center">
-          <h3 className="text-2xl font-normal text-foreground mb-4">
+          <h3 className="text-foreground mb-4 text-2xl font-normal">
             Want to be notified of updates?
           </h3>
-          <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
+          <p className="text-muted-foreground mx-auto mb-6 max-w-2xl">
             Subscribe to our newsletter to get notified about new features, security updates, and
             important announcements.
           </p>
-          <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <Link href="/request-demo">
+          <div className="flex flex-col justify-center gap-3 sm:flex-row">
+            <Link href="/get-started">
               <Button>Request Demo</Button>
             </Link>
             <a href="mailto:support@raisedash.com">

@@ -3,13 +3,13 @@
  * This eliminates code duplication across different form endpoints
  */
 
-import { validateEmail, validateRequiredFields } from './validation';
+import { validateEmail, validateRequiredFields } from "./validation";
 
 // Re-export validation functions for backward compatibility
 export { validateEmail, validateRequiredFields };
 
 export interface TelegramMessageData {
-  type: 'contact' | 'demo' | 'job-application';
+  type: "contact" | "demo" | "job-application";
   timestamp: string;
   [key: string]: string | number | boolean;
 }
@@ -33,7 +33,7 @@ export interface DemoRequestData {
 }
 
 export interface AccountDeletionRequestData {
-  product: 'raisedash' | 'raisedash_vertex';
+  product: "raisedash" | "raisedash_vertex";
   fullName: string;
   email?: string;
   phone?: string;
@@ -57,6 +57,11 @@ export interface UnsubscribeEventData {
   userAgent?: string;
 }
 
+export interface EmailCaptureData {
+  email: string;
+  source: string;
+}
+
 /**
  * Send a message to Telegram
  */
@@ -65,22 +70,24 @@ export async function sendToTelegram(message: string): Promise<Response> {
   const chatId = process.env.TELEGRAM_CHAT_ID;
 
   if (!botToken || !chatId) {
-    throw new Error('Telegram configuration missing. Please set TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID environment variables.');
+    throw new Error(
+      "Telegram configuration missing. Please set TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID environment variables."
+    );
   }
 
   const telegramApiUrl = `https://api.telegram.org/bot${botToken}/sendMessage`;
-  
+
   const payload = {
     chat_id: chatId,
     text: message,
-    parse_mode: 'Markdown',
-    disable_web_page_preview: true
+    parse_mode: "Markdown",
+    disable_web_page_preview: true,
   };
 
   return fetch(telegramApiUrl, {
-    method: 'POST',
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
     body: JSON.stringify(payload),
   });
@@ -91,13 +98,13 @@ export async function sendToTelegram(message: string): Promise<Response> {
  */
 export function formatContactMessage(data: ContactFormData): string {
   const timestamp = new Date().toLocaleString();
-  
+
   return `🔔 *New Contact Form Submission*
 
 📅 *Date:* ${timestamp}
 👤 *Name:* ${data.name}
 📧 *Email:* ${data.email}
-🏢 *Company:* ${data.company || 'Not provided'}
+🏢 *Company:* ${data.company || "Not provided"}
 📋 *Inquiry Type:* ${data.inquiryType}
 📝 *Subject:* ${data.subject}
 
@@ -113,7 +120,7 @@ ${data.message}
  */
 export function formatDemoMessage(data: DemoRequestData): string {
   const timestamp = new Date().toLocaleString();
-  
+
   return `🔔 *New Demo Request*
 
 📅 *Date:* ${timestamp}
@@ -122,7 +129,7 @@ export function formatDemoMessage(data: DemoRequestData): string {
 🏢 *Company:* ${data.companyName}
 🚚 *Fleet Size:* ${data.companySize}
 💼 *Role:* ${data.role}
-📞 *Phone:* ${data.phone || 'Not provided'}
+📞 *Phone:* ${data.phone || "Not provided"}
 
 ---
 *Form Type:* Demo Request`;
@@ -133,14 +140,20 @@ export function formatDemoMessage(data: DemoRequestData): string {
  */
 export function formatAccountDeletionMessage(data: AccountDeletionRequestData): string {
   const timestamp = new Date().toLocaleString();
-  const productLabel = data.product === 'raisedash' ? 'Raisedash (PTI inspections)' : 'Raisedash Vertex';
+  const productLabel =
+    data.product === "raisedash" ? "Raisedash (PTI inspections)" : "Raisedash Vertex";
 
-  const contactLine = data.product === 'raisedash'
-    ? `📧 *Account Email:* ${data.email || 'Not provided'}`
-    : `📞 *Account Phone:* ${data.phone || 'Not provided'}`;
+  const contactLine =
+    data.product === "raisedash"
+      ? `📧 *Account Email:* ${data.email || "Not provided"}`
+      : `📞 *Account Phone:* ${data.phone || "Not provided"}`;
 
-  const optionalEmail = data.email && data.product === 'raisedash_vertex' ? `\n📧 *Email (optional):* ${data.email}` : '';
-  const optionalPhone = data.phone && data.product === 'raisedash' ? `\n📞 *Phone (optional):* ${data.phone}` : '';
+  const optionalEmail =
+    data.email && data.product === "raisedash_vertex"
+      ? `\n📧 *Email (optional):* ${data.email}`
+      : "";
+  const optionalPhone =
+    data.phone && data.product === "raisedash" ? `\n📞 *Phone (optional):* ${data.phone}` : "";
 
   return `🗑️ *Account Deletion Request*
 
@@ -150,7 +163,7 @@ export function formatAccountDeletionMessage(data: AccountDeletionRequestData): 
 ${contactLine}${optionalEmail}${optionalPhone}
 
 📝 *Notes:*
-${data.notes || 'Not provided'}
+${data.notes || "Not provided"}
 
 ---
 *Form Type:* Account Deletion Request`;
@@ -161,7 +174,7 @@ ${data.notes || 'Not provided'}
  */
 export function formatJobApplicationMessage(data: JobApplicationData): string {
   const timestamp = new Date().toLocaleString();
-  
+
   return `🔔 *New Job Application*
 
 📅 *Date:* ${timestamp}
@@ -169,7 +182,7 @@ export function formatJobApplicationMessage(data: JobApplicationData): string {
 👤 *Name:* ${data.firstName} ${data.lastName}
 📧 *Email:* ${data.email}
 📞 *Phone:* ${data.phone}
-🔗 *LinkedIn:* ${data.linkedinUrl || 'Not provided'}
+🔗 *LinkedIn:* ${data.linkedinUrl || "Not provided"}
 💼 *Experience:* ${data.experience}
 
 📝 *Cover Letter:*
@@ -188,10 +201,24 @@ export function formatUnsubscribeMessage(data: UnsubscribeEventData): string {
 
 📅 *Date:* ${timestamp}
 📧 *Email:* ${data.email}
-🌐 *IP:* ${data.ip || 'Unknown'}
-🖥️ *User Agent:* ${data.userAgent || 'Unknown'}
+🌐 *IP:* ${data.ip || "Unknown"}
+🖥️ *User Agent:* ${data.userAgent || "Unknown"}
 
 ---
 *Event:* Unsubscribe`;
 }
 
+/**
+ * Format email capture for Telegram message
+ */
+export function formatEmailCaptureMessage(data: EmailCaptureData): string {
+  const timestamp = new Date().toLocaleString();
+  return `📧 *New Email Capture*
+
+📅 *Date:* ${timestamp}
+📧 *Email:* ${data.email}
+📍 *Source:* ${data.source}
+
+---
+*Event:* Email Capture`;
+}

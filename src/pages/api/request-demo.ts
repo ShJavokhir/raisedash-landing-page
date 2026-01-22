@@ -1,36 +1,59 @@
-import { NextApiRequest, NextApiResponse } from 'next';
-import { sendToTelegram, formatDemoMessage, validateEmail, validateRequiredFields, DemoRequestData } from '@/lib/telegram';
+import { NextApiRequest, NextApiResponse } from "next";
+import {
+  sendToTelegram,
+  formatDemoMessage,
+  validateEmail,
+  validateRequiredFields,
+  DemoRequestData,
+} from "@/lib/telegram";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method not allowed' });
+  if (req.method !== "POST") {
+    return res.status(405).json({ error: "Method not allowed" });
   }
 
   try {
     const data: DemoRequestData = req.body;
 
     // Validate required fields
-    const requiredFields = ['email', 'companyName', 'companySize', 'fullName', 'role'];
-    const missingFields = validateRequiredFields(data as unknown as Record<string, unknown>, requiredFields);
-    
+    const requiredFields = ["email", "companyName", "companySize", "fullName", "role"];
+    const missingFields = validateRequiredFields(
+      data as unknown as Record<string, unknown>,
+      requiredFields
+    );
+
     if (missingFields.length > 0) {
-      return res.status(400).json({ 
-        error: 'Missing required fields', 
-        missingFields 
+      return res.status(400).json({
+        error: "Missing required fields",
+        missingFields,
       });
     }
 
     // Validate email format
     if (!validateEmail(data.email)) {
-      return res.status(400).json({ error: 'Invalid email format' });
+      return res.status(400).json({ error: "Invalid email format" });
     }
 
     // Validate fleet size option - must match frontend fleetSizeOptions values
-    const allowedFleetSizes = ['1-25', '26-100', '101-500', '501-1000', '1000+'];
+    // Supports both old format (EnterpriseDemoForm) and new format (get-started page)
+    const allowedFleetSizes = [
+      // Old format (EnterpriseDemoForm)
+      "1-25",
+      "26-100",
+      "101-500",
+      "501-1000",
+      "1000+",
+      // New format (get-started qualification page)
+      "1-10",
+      "11-50",
+      "51-100",
+      "101-250",
+      "251+",
+    ];
     if (!allowedFleetSizes.includes(data.companySize)) {
       return res.status(400).json({
-        error: 'Invalid fleet size selection',
-        allowedValues: allowedFleetSizes
+        error: "Invalid fleet size selection",
+        allowedValues: allowedFleetSizes,
       });
     }
 
@@ -39,12 +62,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const telegramResponse = await sendToTelegram(telegramMessage);
 
     if (!telegramResponse.ok) {
-      console.error('Telegram API error:', await telegramResponse.text());
-      return res.status(500).json({ error: 'Failed to send notification' });
+      console.error("Telegram API error:", await telegramResponse.text());
+      return res.status(500).json({ error: "Failed to send notification" });
     }
 
     // Log the request (optional - for debugging)
-    console.log('Demo request received:', {
+    console.log("Demo request received:", {
       name: data.fullName,
       email: data.email,
       companyName: data.companyName,
@@ -54,13 +77,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       timestamp: new Date().toISOString(),
     });
 
-    return res.status(200).json({ 
-      success: true, 
-      message: 'Demo request submitted successfully' 
+    return res.status(200).json({
+      success: true,
+      message: "Demo request submitted successfully",
     });
-
   } catch (error) {
-    console.error('Error processing demo request:', error);
-    return res.status(500).json({ error: 'Internal server error' });
+    console.error("Error processing demo request:", error);
+    return res.status(500).json({ error: "Internal server error" });
   }
 }

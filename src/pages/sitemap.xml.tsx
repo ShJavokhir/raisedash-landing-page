@@ -50,7 +50,7 @@ function generateSiteMap(posts: { slug: string; publishedAt: string }[]) {
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>${SITE_URL}/request-demo</loc>
+    <loc>${SITE_URL}/get-started</loc>
     <lastmod>${currentDate}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>

@@ -11,7 +11,19 @@ import {
   NavigationMenuTrigger,
   NavigationMenuContent,
 } from "@/components/ui/navigation-menu";
-import { Menu, X, MapPin, ClipboardCheck, GraduationCap, BookOpen, FileText, Building2, Users, Mail, LucideIcon } from "lucide-react";
+import {
+  Menu,
+  X,
+  MapPin,
+  ClipboardCheck,
+  GraduationCap,
+  BookOpen,
+  FileText,
+  Building2,
+  Users,
+  Mail,
+  LucideIcon,
+} from "lucide-react";
 
 interface Solution {
   id: string;
@@ -24,7 +36,6 @@ interface Solution {
 }
 
 const solutions: Solution[] = [
-
   {
     id: "onboarding",
     title: "Shift (Driver Onboarding)",
@@ -48,7 +59,7 @@ const solutions: Solution[] = [
     href: "/products/raisedash-vertex",
     image: "https://cdn.raisedash.com/media/vertex/834f7f4b-6def-4090-bc16-6de5c21ff18d.webp",
     icon: MapPin,
-  }
+  },
 ];
 
 const resources = [
@@ -107,254 +118,269 @@ export function Header() {
   }, [mobileMenuOpen]);
 
   return (
-    <header className="sticky top-4 md:top-6 z-50 w-full bg-transparent">
+    <header className="sticky top-4 z-50 w-full bg-transparent md:top-6">
       <div className="">
-        <Container className="rounded-xs border border-border bg-white dark:bg-card">
-        <div className="h-[60px] flex items-center justify-between">
-          {/* Logo */}
-          <div className="flex items-center gap-3">
-            <Link href="/" className="flex items-center gap-2 font-normal text-xl tracking-[-0.02em] text-foreground hover:text-foreground-80 transition-colors duration-[0.15s]">
-              <Image src="/logo.webp" alt="Raisedash logo" width={28} height={28} />
-              Raisedash
-            </Link>
-          </div>
+        <Container className="border-border dark:bg-card rounded-xs border bg-white">
+          <div className="flex h-[60px] items-center justify-between">
+            {/* Logo */}
+            <div className="flex items-center gap-3">
+              <Link
+                href="/"
+                className="text-foreground hover:text-foreground-80 flex items-center gap-2 text-xl font-normal tracking-[-0.02em] transition-colors duration-[0.15s]"
+              >
+                <Image src="/logo.webp" alt="Raisedash logo" width={28} height={28} />
+                Raisedash
+              </Link>
+            </div>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex">
-            <NavigationMenu>
-              <NavigationMenuList className="gap-1">
-                <NavigationMenuItem>
-                  <NavigationMenuTrigger className="bg-transparent text-base font-normal text-foreground hover:text-foreground-80 px-4 py-2 transition-colors duration-[0.15s]">
-                    Solutions
-                  </NavigationMenuTrigger>
-                  <NavigationMenuContent>
-                    <div className="flex w-[540px]">
-                      {/* Left column - Product list */}
-                      <div className="w-[270px] p-1 space-y-0.5">
-                        {solutions.map((solution) => {
-                          const Icon = solution.icon;
+            {/* Desktop Navigation */}
+            <nav className="hidden md:flex">
+              <NavigationMenu>
+                <NavigationMenuList className="gap-1">
+                  <NavigationMenuItem>
+                    <NavigationMenuTrigger className="text-foreground hover:text-foreground-80 bg-transparent px-4 py-2 text-base font-normal transition-colors duration-[0.15s]">
+                      Solutions
+                    </NavigationMenuTrigger>
+                    <NavigationMenuContent>
+                      <div className="flex w-[540px]">
+                        {/* Left column - Product list */}
+                        <div className="w-[270px] space-y-0.5 p-1">
+                          {solutions.map((solution) => {
+                            const Icon = solution.icon;
+                            return (
+                              <Link
+                                key={solution.id}
+                                href={solution.href}
+                                className={`hover:bg-surface-3 flex items-start gap-3 rounded-xs p-3 transition-colors duration-[0.15s] ${
+                                  hoveredSolution.id === solution.id ? "bg-surface-3" : ""
+                                }`}
+                                onMouseEnter={() => setHoveredSolution(solution)}
+                              >
+                                <div className="border-border bg-background flex h-10 w-10 shrink-0 items-center justify-center rounded-xs border">
+                                  <Icon className="text-foreground h-5 w-5" />
+                                </div>
+                                <div className="min-w-0 flex-1">
+                                  <div className="flex items-center gap-2">
+                                    <span className="text-foreground text-sm font-normal">
+                                      {solution.title}
+                                    </span>
+                                    {solution.comingSoon && (
+                                      <span className="bg-surface-3 text-muted-foreground rounded-xs px-1.5 py-0.5 text-[10px] font-normal">
+                                        Soon
+                                      </span>
+                                    )}
+                                  </div>
+                                  <p className="text-muted-foreground mt-1 line-clamp-2 text-xs">
+                                    {solution.description}
+                                  </p>
+                                </div>
+                              </Link>
+                            );
+                          })}
+                        </div>
+                        {/* Right column - Image preview */}
+                        <div className="border-border w-[270px] border-l p-2">
+                          <div className="bg-surface-3 relative h-full w-full overflow-hidden rounded-xs">
+                            <Image
+                              src={hoveredSolution.image}
+                              alt={hoveredSolution.title}
+                              fill
+                              className="object-cover transition-opacity duration-[0.15s] dark:invert"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </NavigationMenuContent>
+                  </NavigationMenuItem>
+                  <NavigationMenuItem>
+                    <NavigationMenuTrigger className="text-foreground hover:text-foreground-80 bg-transparent px-4 py-2 text-base font-normal transition-colors duration-[0.15s]">
+                      Resources
+                    </NavigationMenuTrigger>
+                    <NavigationMenuContent>
+                      <div className="w-[300px] space-y-0.5 p-1">
+                        {resources.map((item) => {
+                          const Icon = item.icon;
                           return (
                             <Link
-                              key={solution.id}
-                              href={solution.href}
-                              className={`flex items-start gap-3 rounded-xs p-3 transition-colors duration-[0.15s] hover:bg-surface-3 ${
-                                hoveredSolution.id === solution.id ? "bg-surface-3" : ""
-                              }`}
-                              onMouseEnter={() => setHoveredSolution(solution)}
+                              key={item.title}
+                              href={item.href}
+                              className="hover:bg-surface-3 flex items-start gap-3 rounded-xs p-3 transition-colors duration-[0.15s]"
                             >
-                              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xs border border-border bg-background">
-                                <Icon className="h-5 w-5 text-foreground" />
+                              <div className="border-border bg-background flex h-10 w-10 shrink-0 items-center justify-center rounded-xs border">
+                                <Icon className="text-foreground h-5 w-5" />
                               </div>
-                              <div className="flex-1 min-w-0">
-                                <div className="flex items-center gap-2">
-                                  <span className="text-sm font-normal text-foreground">{solution.title}</span>
-                                  {solution.comingSoon && (
-                                    <span className="text-[10px] px-1.5 py-0.5 rounded-xs bg-surface-3 text-muted-foreground font-normal">
-                                      Soon
-                                    </span>
-                                  )}
-                                </div>
-                                <p className="text-xs text-muted-foreground mt-1 line-clamp-2">
-                                  {solution.description}
+                              <div className="min-w-0 flex-1">
+                                <span className="text-foreground text-sm font-normal">
+                                  {item.title}
+                                </span>
+                                <p className="text-muted-foreground mt-1 line-clamp-2 text-xs">
+                                  {item.description}
                                 </p>
                               </div>
                             </Link>
                           );
                         })}
                       </div>
-                      {/* Right column - Image preview */}
-                      <div className="w-[270px] p-2 border-l border-border">
-                        <div className="relative h-full w-full rounded-xs overflow-hidden bg-surface-3">
-                          <Image
-                            src={hoveredSolution.image}
-                            alt={hoveredSolution.title}
-                            fill
-                            className="object-cover dark:invert transition-opacity duration-[0.15s]"
-                          />
-                        </div>
+                    </NavigationMenuContent>
+                  </NavigationMenuItem>
+                  <NavigationMenuItem>
+                    <NavigationMenuTrigger className="text-foreground hover:text-foreground-80 bg-transparent px-4 py-2 text-base font-normal transition-colors duration-[0.15s]">
+                      Company
+                    </NavigationMenuTrigger>
+                    <NavigationMenuContent>
+                      <div className="w-[300px] space-y-0.5 p-1">
+                        {company.map((item) => {
+                          const Icon = item.icon;
+                          return (
+                            <Link
+                              key={item.title}
+                              href={item.href}
+                              className="hover:bg-surface-3 flex items-start gap-3 rounded-xs p-3 transition-colors duration-[0.15s]"
+                            >
+                              <div className="border-border bg-background flex h-10 w-10 shrink-0 items-center justify-center rounded-xs border">
+                                <Icon className="text-foreground h-5 w-5" />
+                              </div>
+                              <div className="min-w-0 flex-1">
+                                <span className="text-foreground text-sm font-normal">
+                                  {item.title}
+                                </span>
+                                <p className="text-muted-foreground mt-1 line-clamp-2 text-xs">
+                                  {item.description}
+                                </p>
+                              </div>
+                            </Link>
+                          );
+                        })}
                       </div>
-                    </div>
-                  </NavigationMenuContent>
-                </NavigationMenuItem>
-                <NavigationMenuItem>
-                  <NavigationMenuTrigger className="bg-transparent text-base font-normal text-foreground hover:text-foreground-80 px-4 py-2 transition-colors duration-[0.15s]">
-                    Resources
-                  </NavigationMenuTrigger>
-                  <NavigationMenuContent>
-                    <div className="w-[300px] p-1 space-y-0.5">
-                      {resources.map((item) => {
-                        const Icon = item.icon;
-                        return (
-                          <Link
-                            key={item.title}
-                            href={item.href}
-                            className="flex items-start gap-3 rounded-xs p-3 transition-colors duration-[0.15s] hover:bg-surface-3"
-                          >
-                            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xs border border-border bg-background">
-                              <Icon className="h-5 w-5 text-foreground" />
-                            </div>
-                            <div className="flex-1 min-w-0">
-                              <span className="text-sm font-normal text-foreground">{item.title}</span>
-                              <p className="text-xs text-muted-foreground mt-1 line-clamp-2">
-                                {item.description}
-                              </p>
-                            </div>
-                          </Link>
-                        );
-                      })}
-                    </div>
-                  </NavigationMenuContent>
-                </NavigationMenuItem>
-                <NavigationMenuItem>
-                  <NavigationMenuTrigger className="bg-transparent text-base font-normal text-foreground hover:text-foreground-80 px-4 py-2 transition-colors duration-[0.15s]">
-                    Company
-                  </NavigationMenuTrigger>
-                  <NavigationMenuContent>
-                    <div className="w-[300px] p-1 space-y-0.5">
-                      {company.map((item) => {
-                        const Icon = item.icon;
-                        return (
-                          <Link
-                            key={item.title}
-                            href={item.href}
-                            className="flex items-start gap-3 rounded-xs p-3 transition-colors duration-[0.15s] hover:bg-surface-3"
-                          >
-                            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xs border border-border bg-background">
-                              <Icon className="h-5 w-5 text-foreground" />
-                            </div>
-                            <div className="flex-1 min-w-0">
-                              <span className="text-sm font-normal text-foreground">{item.title}</span>
-                              <p className="text-xs text-muted-foreground mt-1 line-clamp-2">
-                                {item.description}
-                              </p>
-                            </div>
-                          </Link>
-                        );
-                      })}
-                    </div>
-                  </NavigationMenuContent>
-                </NavigationMenuItem>
-              </NavigationMenuList>
-            </NavigationMenu>
-          </nav>
+                    </NavigationMenuContent>
+                  </NavigationMenuItem>
+                </NavigationMenuList>
+              </NavigationMenu>
+            </nav>
 
-          {/* Desktop Actions */}
-          <div className="hidden md:flex items-center gap-3">
-            <ThemeToggle />
-            <Link href="/request-demo">
-              <Button variant="primary" size="sm">
-                Request Demo
-              </Button>
-            </Link>
-          </div>
-
-          {/* Mobile Menu Button */}
-          <div className="md:hidden flex items-center gap-2">
-            <ThemeToggle />
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 rounded-xs hover:bg-surface-3 transition-colors duration-[0.15s]"
-              aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
-              aria-expanded={mobileMenuOpen}
-              aria-controls="mobile-navigation"
-            >
-              {mobileMenuOpen ? (
-                <X className="h-5 w-5 text-foreground" />
-              ) : (
-                <Menu className="h-5 w-5 text-foreground" />
-              )}
-            </button>
-          </div>
-        </div>
-
-        {/* Mobile Navigation Menu */}
-        {mobileMenuOpen && (
-          <nav
-            id="mobile-navigation"
-            role="navigation"
-            aria-label="Mobile navigation"
-            ref={mobileMenuRef}
-            className="md:hidden border-t border-border"
-          >
-            <div className="py-4 space-y-1">
-              {/* Solutions Section */}
-              <div className="px-3 py-2">
-                <span className="text-xs font-normal text-muted-foreground uppercase tracking-wide">Solutions</span>
-              </div>
-              {solutions.map((solution) => {
-                const Icon = solution.icon;
-                return (
-                  <Link
-                    key={solution.id}
-                    href={solution.href}
-                    className="flex items-center gap-3 mx-2 px-3 py-2.5 text-sm text-foreground hover:bg-surface-3 rounded-xs transition-colors duration-[0.15s]"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xs border border-border bg-background">
-                      <Icon className="h-4 w-4 text-foreground" />
-                    </div>
-                    <span className="font-normal">{solution.title}</span>
-                    {solution.comingSoon && (
-                      <span className="text-[10px] px-1.5 py-0.5 rounded-xs bg-surface-3 text-muted-foreground font-normal ml-auto">
-                        Soon
-                      </span>
-                    )}
-                  </Link>
-                );
-              })}
-
-              {/* Resources Section */}
-              <div className="px-3 py-2 pt-4">
-                <span className="text-xs font-normal text-muted-foreground uppercase tracking-wide">Resources</span>
-              </div>
-              {resources.map((item) => {
-                const Icon = item.icon;
-                return (
-                  <Link
-                    key={item.title}
-                    href={item.href}
-                    className="flex items-center gap-3 mx-2 px-3 py-2.5 text-sm text-foreground hover:bg-surface-3 rounded-xs transition-colors duration-[0.15s]"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xs border border-border bg-background">
-                      <Icon className="h-4 w-4 text-foreground" />
-                    </div>
-                    <span className="font-normal">{item.title}</span>
-                  </Link>
-                );
-              })}
-
-              {/* Company Section */}
-              <div className="px-3 py-2 pt-4">
-                <span className="text-xs font-normal text-muted-foreground uppercase tracking-wide">Company</span>
-              </div>
-              {company.map((item) => {
-                const Icon = item.icon;
-                return (
-                  <Link
-                    key={item.title}
-                    href={item.href}
-                    className="flex items-center gap-3 mx-2 px-3 py-2.5 text-sm text-foreground hover:bg-surface-3 rounded-xs transition-colors duration-[0.15s]"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xs border border-border bg-background">
-                      <Icon className="h-4 w-4 text-foreground" />
-                    </div>
-                    <span className="font-normal">{item.title}</span>
-                  </Link>
-                );
-              })}
-
-              <div className="pt-4 px-3">
-                <Link href="/request-demo" onClick={() => setMobileMenuOpen(false)}>
-                  <Button variant="primary" size="sm" className="w-full">
-                    Request Demo
-                  </Button>
-                </Link>
-              </div>
+            {/* Desktop Actions */}
+            <div className="hidden items-center gap-3 md:flex">
+              <ThemeToggle />
+              <Link href="/get-started">
+                <Button variant="primary" size="sm">
+                  Request Demo
+                </Button>
+              </Link>
             </div>
-          </nav>
-        )}
+
+            {/* Mobile Menu Button */}
+            <div className="flex items-center gap-2 md:hidden">
+              <ThemeToggle />
+              <button
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                className="hover:bg-surface-3 rounded-xs p-2 transition-colors duration-[0.15s]"
+                aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+                aria-expanded={mobileMenuOpen}
+                aria-controls="mobile-navigation"
+              >
+                {mobileMenuOpen ? (
+                  <X className="text-foreground h-5 w-5" />
+                ) : (
+                  <Menu className="text-foreground h-5 w-5" />
+                )}
+              </button>
+            </div>
+          </div>
+
+          {/* Mobile Navigation Menu */}
+          {mobileMenuOpen && (
+            <nav
+              id="mobile-navigation"
+              role="navigation"
+              aria-label="Mobile navigation"
+              ref={mobileMenuRef}
+              className="border-border border-t md:hidden"
+            >
+              <div className="space-y-1 py-4">
+                {/* Solutions Section */}
+                <div className="px-3 py-2">
+                  <span className="text-muted-foreground text-xs font-normal tracking-wide uppercase">
+                    Solutions
+                  </span>
+                </div>
+                {solutions.map((solution) => {
+                  const Icon = solution.icon;
+                  return (
+                    <Link
+                      key={solution.id}
+                      href={solution.href}
+                      className="text-foreground hover:bg-surface-3 mx-2 flex items-center gap-3 rounded-xs px-3 py-2.5 text-sm transition-colors duration-[0.15s]"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      <div className="border-border bg-background flex h-8 w-8 shrink-0 items-center justify-center rounded-xs border">
+                        <Icon className="text-foreground h-4 w-4" />
+                      </div>
+                      <span className="font-normal">{solution.title}</span>
+                      {solution.comingSoon && (
+                        <span className="bg-surface-3 text-muted-foreground ml-auto rounded-xs px-1.5 py-0.5 text-[10px] font-normal">
+                          Soon
+                        </span>
+                      )}
+                    </Link>
+                  );
+                })}
+
+                {/* Resources Section */}
+                <div className="px-3 py-2 pt-4">
+                  <span className="text-muted-foreground text-xs font-normal tracking-wide uppercase">
+                    Resources
+                  </span>
+                </div>
+                {resources.map((item) => {
+                  const Icon = item.icon;
+                  return (
+                    <Link
+                      key={item.title}
+                      href={item.href}
+                      className="text-foreground hover:bg-surface-3 mx-2 flex items-center gap-3 rounded-xs px-3 py-2.5 text-sm transition-colors duration-[0.15s]"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      <div className="border-border bg-background flex h-8 w-8 shrink-0 items-center justify-center rounded-xs border">
+                        <Icon className="text-foreground h-4 w-4" />
+                      </div>
+                      <span className="font-normal">{item.title}</span>
+                    </Link>
+                  );
+                })}
+
+                {/* Company Section */}
+                <div className="px-3 py-2 pt-4">
+                  <span className="text-muted-foreground text-xs font-normal tracking-wide uppercase">
+                    Company
+                  </span>
+                </div>
+                {company.map((item) => {
+                  const Icon = item.icon;
+                  return (
+                    <Link
+                      key={item.title}
+                      href={item.href}
+                      className="text-foreground hover:bg-surface-3 mx-2 flex items-center gap-3 rounded-xs px-3 py-2.5 text-sm transition-colors duration-[0.15s]"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      <div className="border-border bg-background flex h-8 w-8 shrink-0 items-center justify-center rounded-xs border">
+                        <Icon className="text-foreground h-4 w-4" />
+                      </div>
+                      <span className="font-normal">{item.title}</span>
+                    </Link>
+                  );
+                })}
+
+                <div className="px-3 pt-4">
+                  <Link href="/get-started" onClick={() => setMobileMenuOpen(false)}>
+                    <Button variant="primary" size="sm" className="w-full">
+                      Request Demo
+                    </Button>
+                  </Link>
+                </div>
+              </div>
+            </nav>
+          )}
         </Container>
       </div>
     </header>

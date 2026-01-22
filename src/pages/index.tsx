@@ -5,6 +5,7 @@ import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/layout/Container";
 import { PageLayout } from "@/components/layout/PageLayout";
+import { EmailCapture } from "@/components/ui/EmailCapture";
 
 // Lazy load the globe component - D3.js is 868KB and only needed on desktop
 const RotatingEarth = dynamic(() => import("@/components/ui/wireframe-dotted-globe"), {
@@ -37,17 +38,8 @@ export default function Home() {
                 Raisedash strengthens safety and security of companies in freight logistics.
               </p>
 
-              <div className="animate-fade-in-up mt-10 flex flex-col gap-4 delay-200 sm:flex-row">
-                <Link href="/request-demo" className="w-full sm:w-auto">
-                  <Button variant="primary" size="lg" className="w-full sm:w-auto">
-                    Request a Demo
-                  </Button>
-                </Link>
-                <Link href="/about" className="w-full sm:w-auto">
-                  <Button variant="ghost" size="lg" className="w-full sm:w-auto">
-                    Learn more →
-                  </Button>
-                </Link>
+              <div className="animate-fade-in-up mt-10 delay-200">
+                <EmailCapture source="Hero" />
               </div>
             </div>
 
@@ -82,7 +74,7 @@ export default function Home() {
                   src="https://cdn.raisedash.com/media/landing/797f10f9.webp"
                   alt="Shift (Driver Onboarding)"
                   fill
-                  className="object-cover dark:invert"
+                  className="object-cover"
                 />
               </div>
               <div className="flex flex-1 flex-col p-6">
@@ -112,7 +104,7 @@ export default function Home() {
                   src="https://cdn.raisedash.com/media/landing/fca0b837.webp"
                   alt="PTI (PTI Inspections)"
                   fill
-                  className="object-cover dark:invert"
+                  className="object-cover"
                 />
               </div>
               <div className="flex flex-1 flex-col p-6">
@@ -140,7 +132,7 @@ export default function Home() {
                   alt="Vertex (Freight Tracking)"
                   fill
                   priority
-                  className="object-cover dark:invert"
+                  className="object-cover"
                 />
               </div>
               <div className="flex flex-1 flex-col p-6">
@@ -181,11 +173,9 @@ export default function Home() {
             Get started in days, not months. Our team is ready to help you modernize your
             operations.
           </p>
-          <Link href="/request-demo">
-            <Button variant="secondary" size="lg">
-              Request a Demo
-            </Button>
-          </Link>
+          <div className="mx-auto flex justify-center">
+            <EmailCapture variant="dark" source="CTA" />
+          </div>
         </div>
       </Container>
     </PageLayout>

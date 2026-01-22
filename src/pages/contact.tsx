@@ -83,16 +83,21 @@ export default function Contact() {
     <PageLayout
       title="Contact Us"
       description="Get in touch with Raisedash. Contact our sales, support, or partnership teams to learn more about our freight logistics security solutions."
-      keywords={["contact raisedash", "fleet safety support", "logistics software demo", "sales inquiry"]}
+      keywords={[
+        "contact raisedash",
+        "fleet safety support",
+        "logistics software demo",
+        "sales inquiry",
+      ]}
     >
       {/* Hero Section */}
       <div className="pt-8 pb-12">
-        <Container className="bg-card py-12 sm:py-16 px-8 sm:px-12 rounded-xs border border-border animate-fade-in-scale delay-0">
+        <Container className="bg-card border-border animate-fade-in-scale rounded-xs border px-8 py-12 delay-0 sm:px-12 sm:py-16">
           <div className="max-w-3xl">
-            <h1 className="text-4xl sm:text-[48px] font-normal tracking-[-0.03em] text-foreground leading-tight animate-fade-in-up delay-75">
+            <h1 className="text-foreground animate-fade-in-up text-4xl leading-tight font-normal tracking-[-0.03em] delay-75 sm:text-[48px]">
               Get in Touch
             </h1>
-            <p className="mt-6 text-xl font-normal text-muted-foreground leading-relaxed animate-fade-in-up delay-150">
+            <p className="text-muted-foreground animate-fade-in-up mt-6 text-xl leading-relaxed font-normal delay-150">
               Ready to secure your freight operations? We're here to help. Contact us to learn more
               about our solutions or get started today.
             </p>
@@ -102,19 +107,19 @@ export default function Contact() {
 
       {/* Contact Form Section */}
       <Container className="py-12 md:px-0">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+        <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
           {/* Contact Form */}
-          <div className="bg-card rounded-xs border border-border p-6 sm:p-8 animate-fade-in-scale delay-200">
-            <h2 className="text-2xl sm:text-3xl font-normal tracking-[-0.02em] text-foreground mb-8">
+          <div className="bg-card border-border animate-fade-in-scale rounded-xs border p-6 delay-200 sm:p-8">
+            <h2 className="text-foreground mb-8 text-2xl font-normal tracking-[-0.02em] sm:text-3xl">
               Send us a Message
             </h2>
 
             {isSubmitted ? (
-              <div className="bg-surface-3 border border-border rounded-xs p-8 text-center">
-                <div className="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Check className="w-7 h-7 text-primary" />
+              <div className="bg-surface-3 border-border rounded-xs border p-8 text-center">
+                <div className="bg-primary/10 mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full">
+                  <Check className="text-primary h-7 w-7" />
                 </div>
-                <h3 className="text-xl font-normal text-foreground mb-2">
+                <h3 className="text-foreground mb-2 text-xl font-normal">
                   Message Sent Successfully!
                 </h3>
                 <p className="text-muted-foreground">
@@ -123,7 +128,7 @@ export default function Contact() {
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                   <Input
                     type="text"
                     name="name"
@@ -189,12 +194,12 @@ export default function Contact() {
           </div>
 
           {/* Contact Information */}
-          <div className="space-y-5 animate-fade-in-scale delay-300">
+          <div className="animate-fade-in-scale space-y-5 delay-300">
             <div className="mb-6">
-              <h2 className="text-2xl sm:text-3xl font-normal tracking-[-0.02em] text-foreground mb-2">
+              <h2 className="text-foreground mb-2 text-2xl font-normal tracking-[-0.02em] sm:text-3xl">
                 Contact Information
               </h2>
-              <p className="text-base text-muted-foreground">
+              <p className="text-muted-foreground text-base">
                 Reach out directly to the team that can best assist you.
               </p>
             </div>
@@ -203,20 +208,20 @@ export default function Contact() {
               {contactMethods.map((method, index) => (
                 <div
                   key={method.title}
-                  className={`bg-card rounded-xs border border-border p-6 transition-all duration-[0.15s] hover:-translate-y-0.5 hover:bg-surface-2 animate-fade-in-scale delay-${400 + index * 100}`}
+                  className={`bg-card border-border hover:bg-surface-2 animate-fade-in-scale rounded-xs border p-6 transition-all duration-[0.15s] hover:-translate-y-0.5 delay-${400 + index * 100}`}
                 >
                   <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 bg-primary rounded-xs flex items-center justify-center text-primary-foreground flex-shrink-0">
-                      <method.icon className="w-5 h-5" />
+                    <div className="bg-primary text-primary-foreground flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xs">
+                      <method.icon className="h-5 w-5" />
                     </div>
                     <div className="flex-1">
-                      <h3 className="font-normal text-xl tracking-[-0.01em] text-foreground mb-1">
+                      <h3 className="text-foreground mb-1 text-xl font-normal tracking-[-0.01em]">
                         {method.title}
                       </h3>
-                      <p className="text-sm text-muted-foreground mb-3">{method.description}</p>
+                      <p className="text-muted-foreground mb-3 text-sm">{method.description}</p>
                       <a
                         href={`mailto:${method.email}`}
-                        className="text-sm text-primary hover:text-primary/80 font-normal transition-colors duration-[0.15s]"
+                        className="text-primary hover:text-primary/80 text-sm font-normal transition-colors duration-[0.15s]"
                       >
                         {method.email}
                       </a>
@@ -231,52 +236,52 @@ export default function Contact() {
 
       {/* FAQ Section */}
       <Container className="py-12 md:px-0">
-        <div className="mb-10 text-center animate-fade-in-up delay-700">
-          <h2 className="text-3xl sm:text-4xl font-normal tracking-[-0.02em] text-foreground">
+        <div className="animate-fade-in-up mb-10 text-center delay-700">
+          <h2 className="text-foreground text-3xl font-normal tracking-[-0.02em] sm:text-4xl">
             Frequently Asked Questions
           </h2>
-          <p className="text-lg text-muted-foreground mt-3 max-w-2xl mx-auto">
+          <p className="text-muted-foreground mx-auto mt-3 max-w-2xl text-lg">
             Quick answers to common questions about our services and solutions.
           </p>
         </div>
 
-        <div className="bg-card rounded-xs border border-border p-6 sm:p-8 animate-fade-in-scale delay-800">
-          <div className="max-w-3xl mx-auto space-y-0">
-            <div className="border-b border-border py-6">
-              <h3 className="font-normal text-xl tracking-[-0.01em] text-foreground mb-3">
+        <div className="bg-card border-border animate-fade-in-scale rounded-xs border p-6 delay-800 sm:p-8">
+          <div className="mx-auto max-w-3xl space-y-0">
+            <div className="border-border border-b py-6">
+              <h3 className="text-foreground mb-3 text-xl font-normal tracking-[-0.01em]">
                 How quickly can we get started with Raisedash?
               </h3>
-              <p className="text-base text-muted-foreground leading-relaxed">
+              <p className="text-muted-foreground text-base leading-relaxed">
                 Most implementations can be completed within 1-2 weeks, depending on your specific
                 requirements and infrastructure setup.
               </p>
             </div>
 
-            <div className="border-b border-border py-6">
-              <h3 className="font-normal text-xl tracking-[-0.01em] text-foreground mb-3">
+            <div className="border-border border-b py-6">
+              <h3 className="text-foreground mb-3 text-xl font-normal tracking-[-0.01em]">
                 Do you offer 24/7 support?
               </h3>
-              <p className="text-base text-muted-foreground leading-relaxed">
+              <p className="text-muted-foreground text-base leading-relaxed">
                 Yes, we provide 24/7 monitoring and support for all our security solutions to ensure
                 your cargo is always protected.
               </p>
             </div>
 
-            <div className="border-b border-border py-6">
-              <h3 className="font-normal text-xl tracking-[-0.01em] text-foreground mb-3">
+            <div className="border-border border-b py-6">
+              <h3 className="text-foreground mb-3 text-xl font-normal tracking-[-0.01em]">
                 Can Raisedash integrate with our existing systems?
               </h3>
-              <p className="text-base text-muted-foreground leading-relaxed">
+              <p className="text-muted-foreground text-base leading-relaxed">
                 Absolutely. Our solutions are designed to integrate seamlessly with most logistics
                 and ERP systems through our comprehensive API.
               </p>
             </div>
 
             <div className="py-6">
-              <h3 className="font-normal text-xl tracking-[-0.01em] text-foreground mb-3">
+              <h3 className="text-foreground mb-3 text-xl font-normal tracking-[-0.01em]">
                 What makes Raisedash different from other security solutions?
               </h3>
-              <p className="text-base text-muted-foreground leading-relaxed">
+              <p className="text-muted-foreground text-base leading-relaxed">
                 Our AI-powered approach provides real-time threat detection and predictive
                 analytics, going beyond traditional security measures to prevent incidents before
                 they occur.
@@ -288,14 +293,14 @@ export default function Contact() {
 
       {/* CTA Section */}
       <Container className="pb-12 md:px-0">
-        <div className="bg-primary rounded-xs p-8 sm:p-12 text-center animate-fade-in-scale delay-900">
-          <h2 className="text-2xl sm:text-3xl font-normal tracking-[-0.02em] text-primary-foreground mb-4">
+        <div className="bg-primary animate-fade-in-scale rounded-xs p-8 text-center delay-900 sm:p-12">
+          <h2 className="text-primary-foreground mb-4 text-2xl font-normal tracking-[-0.02em] sm:text-3xl">
             Ready to get started?
           </h2>
-          <p className="text-primary-foreground/80 text-lg mb-8 max-w-xl mx-auto">
+          <p className="text-primary-foreground/80 mx-auto mb-8 max-w-xl text-lg">
             Schedule a demo to see how Raisedash can transform your freight security.
           </p>
-          <Link href="/request-demo">
+          <Link href="/get-started">
             <Button variant="secondary" size="lg">
               Request a Demo
             </Button>

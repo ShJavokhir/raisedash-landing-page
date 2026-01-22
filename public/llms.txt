@@ -21,7 +21,7 @@ Raisedash provides comprehensive tools designed to enhance safety, compliance, a
 - [About](https://raisedash.com/about): Our mission, vision, and the team behind Raisedash
 - [Careers](https://raisedash.com/careers): Job opportunities at Raisedash
 - [Contact](https://raisedash.com/contact): Get in touch with sales and support teams
-- [Request Demo](https://raisedash.com/request-demo): Schedule a product demonstration
+- [Get Started](https://raisedash.com/get-started): Schedule a product demonstration
 
 ## Legal
 
