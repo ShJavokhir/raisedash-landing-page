@@ -5,10 +5,8 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: /sitemap.xml
+Sitemap: https://raisedash.com/sitemap.xml
 
-# Crawl-delay for politeness
-Crawl-delay: 1
 
 # Block Next.js internals
 Disallow: /_next/

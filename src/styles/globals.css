@@ -27,20 +27,20 @@
   --foreground-2: color-mix(in oklab, #26251e 2.5%, transparent);
 
   /* Surface layering - progressive darkening */
-  --surface-1: #f7f7f4;  /* Page background */
-  --surface-2: #f2f1ed;  /* Card background */
-  --surface-3: #ebeae5;  /* Nested/hover */
-  --surface-4: #e6e5e0;  /* Deep nested */
+  --surface-1: #f7f7f4; /* Page background */
+  --surface-2: #f2f1ed; /* Card background */
+  --surface-3: #ebeae5; /* Nested/hover */
+  --surface-4: #e6e5e0; /* Deep nested */
 
   /* Brand + semantic colors */
   --primary: #26251e;
   --primary-foreground: #f7f7f4;
   --secondary: #f2f1ed;
   --secondary-foreground: #26251e;
-  --accent: #f54e00;  /* Cursor orange accent */
+  --accent: #f54e00; /* Cursor orange accent */
   --accent-foreground: #ffffff;
   --muted: #f2f1ed;
-  --muted-foreground: color-mix(in oklab, #26251e 60%, transparent);
+  --muted-foreground: color-mix(in oklab, #26251e 70%, transparent);
   --destructive: #cf2d56;
   --destructive-foreground: #ffffff;
   --success: #1f8a65;
@@ -63,18 +63,18 @@
   --popover-foreground: #26251e;
 
   /* Navy for CTA sections (retained for compatibility) */
-  --navy: #19224A;
+  --navy: #19224a;
 
   /* Typography System */
   --font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Monaco, Consolas, monospace;
 
   /* Letter spacing */
-  --tracking-tighter: -0.03em;  /* Large headings */
-  --tracking-tight: -0.02em;    /* Medium headings */
-  --tracking-snug: -0.01em;     /* Small headings */
-  --tracking-normal: 0;         /* Body text */
-  --tracking-wide: 0.01em;      /* Small text */
+  --tracking-tighter: -0.03em; /* Large headings */
+  --tracking-tight: -0.02em; /* Medium headings */
+  --tracking-snug: -0.01em; /* Small headings */
+  --tracking-normal: 0; /* Body text */
+  --tracking-wide: 0.01em; /* Small text */
 
   /* Line heights */
   --leading-none: 1;
@@ -84,24 +84,24 @@
   --leading-relaxed: 1.625;
 
   /* Vertical Rhythm Unit System (22.4px base) */
-  --v: calc(1rem * 1.4);  /* 22.4px at 16px root */
-  --v-half: calc(var(--v) * 0.5);     /* 11.2px */
-  --v-1: var(--v);                     /* 22.4px */
-  --v-1-5: calc(var(--v) * 1.5);      /* 33.6px */
-  --v-2: calc(var(--v) * 2);          /* 44.8px */
-  --v-2-5: calc(var(--v) * 2.5);      /* 56px */
-  --v-3: calc(var(--v) * 3);          /* 67.2px */
-  --v-4: calc(var(--v) * 4);          /* 89.6px */
-  --v-5: calc(var(--v) * 5);          /* 112px */
-  --v-6: calc(var(--v) * 6);          /* 134.4px */
+  --v: calc(1rem * 1.4); /* 22.4px at 16px root */
+  --v-half: calc(var(--v) * 0.5); /* 11.2px */
+  --v-1: var(--v); /* 22.4px */
+  --v-1-5: calc(var(--v) * 1.5); /* 33.6px */
+  --v-2: calc(var(--v) * 2); /* 44.8px */
+  --v-2-5: calc(var(--v) * 2.5); /* 56px */
+  --v-3: calc(var(--v) * 3); /* 67.2px */
+  --v-4: calc(var(--v) * 4); /* 89.6px */
+  --v-5: calc(var(--v) * 5); /* 112px */
+  --v-6: calc(var(--v) * 6); /* 134.4px */
 
   /* Grid unit (10px base) */
-  --g: calc(10rem / 16);  /* 10px */
-  --g-half: calc(var(--g) * 0.5);   /* 5px */
-  --g-1: var(--g);                   /* 10px */
-  --g-1-5: calc(var(--g) * 1.5);    /* 15px */
-  --g-2: calc(var(--g) * 2);        /* 20px */
-  --g-3: calc(var(--g) * 3);        /* 30px */
+  --g: calc(10rem / 16); /* 10px */
+  --g-half: calc(var(--g) * 0.5); /* 5px */
+  --g-1: var(--g); /* 10px */
+  --g-1-5: calc(var(--g) * 1.5); /* 15px */
+  --g-2: calc(var(--g) * 2); /* 20px */
+  --g-3: calc(var(--g) * 3); /* 30px */
 
   /* Traditional spacing (for compatibility) */
   --space-xs: 8px;
@@ -113,13 +113,13 @@
   --space-3xl: 80px;
 
   /* Border Radius - Cursor.com style */
-  --radius-xs: 4px;    /* Cards, inputs */
+  --radius-xs: 4px; /* Cards, inputs */
   --radius-sm: 4px;
-  --radius-md: 8px;    /* Medium containers */
-  --radius-lg: 12px;   /* Large containers */
+  --radius-md: 8px; /* Medium containers */
+  --radius-lg: 12px; /* Large containers */
   --radius-xl: 16px;
-  --radius-full: 9999px;  /* Pills/buttons */
-  --radius: 4px;       /* Default */
+  --radius-full: 9999px; /* Pills/buttons */
+  --radius: 4px; /* Default */
 
   /* Shadows - very subtle */
   --shadow-xs: 0 0 0.5rem rgba(0, 0, 0, 0.01);
@@ -221,10 +221,10 @@
   --shadow-lg: var(--shadow-lg);
 
   /* Breakpoints */
-  --breakpoint-sm: 40rem;  /* 640px */
-  --breakpoint-md: 48rem;  /* 768px */
-  --breakpoint-lg: 64rem;  /* 1024px */
-  --breakpoint-xl: 80rem;  /* 1280px */
+  --breakpoint-sm: 40rem; /* 640px */
+  --breakpoint-md: 48rem; /* 768px */
+  --breakpoint-lg: 64rem; /* 1024px */
+  --breakpoint-xl: 80rem; /* 1280px */
   --breakpoint-2xl: 96rem; /* 1536px */
 
   /* Sidebar colors */
@@ -273,10 +273,10 @@
   --primary-foreground: #1a1918;
   --secondary: #242322;
   --secondary-foreground: #f7f7f4;
-  --accent: #ff6b35;  /* Slightly adjusted orange for dark mode */
+  --accent: #ff6b35; /* Slightly adjusted orange for dark mode */
   --accent-foreground: #ffffff;
   --muted: #242322;
-  --muted-foreground: color-mix(in oklab, #f7f7f4 60%, transparent);
+  --muted-foreground: color-mix(in oklab, #f7f7f4 70%, transparent);
   --destructive: #e85d56;
   --destructive-foreground: #ffffff;
   --success: #2aad7a;
@@ -299,11 +299,11 @@
   --popover-foreground: #f7f7f4;
 
   /* Navy */
-  --navy: #2A3B6A;
+  --navy: #2a3b6a;
 
   /* Chart colors */
   --chart-1: #ff6b35;
-  --chart-2: #4A5B8A;
+  --chart-2: #4a5b8a;
   --chart-3: #2aad7a;
   --chart-4: #242322;
   --chart-5: #2e2d2c;
@@ -337,7 +337,12 @@ body {
 }
 
 /* Heading styles - Cursor.com approach: light weight, negative tracking */
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-weight: 400;
   line-height: var(--leading-tight);
 }
@@ -350,14 +355,21 @@ h2 {
   letter-spacing: var(--tracking-tight);
 }
 
-h3, h4 {
+h3,
+h4 {
   letter-spacing: var(--tracking-snug);
 }
 
 /* Utility classes for shadows */
-.shadow-subtle { box-shadow: var(--shadow-sm); }
-.shadow-card { box-shadow: var(--shadow-md); }
-.shadow-elevated { box-shadow: var(--shadow-lg); }
+.shadow-subtle {
+  box-shadow: var(--shadow-sm);
+}
+.shadow-card {
+  box-shadow: var(--shadow-md);
+}
+.shadow-elevated {
+  box-shadow: var(--shadow-lg);
+}
 
 @layer base {
   * {
@@ -378,7 +390,6 @@ h3, h4 {
 
 /* UI Utilities */
 @layer utilities {
-
   /* Container utility */
   .container-cursor {
     max-width: var(--container-max);
@@ -451,8 +462,12 @@ h3, h4 {
   }
 
   @keyframes fade-in {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
   }
 
   @keyframes fade-in-scale {
@@ -494,30 +509,61 @@ h3, h4 {
   }
 
   /* Staggered animation delays */
-  .delay-0 { animation-delay: 0ms; }
-  .delay-75 { animation-delay: 75ms; }
-  .delay-150 { animation-delay: 150ms; }
-  .delay-200 { animation-delay: 200ms; }
-  .delay-300 { animation-delay: 300ms; }
-  .delay-400 { animation-delay: 400ms; }
-  .delay-500 { animation-delay: 500ms; }
-  .delay-600 { animation-delay: 600ms; }
-  .delay-700 { animation-delay: 700ms; }
+  .delay-0 {
+    animation-delay: 0ms;
+  }
+  .delay-75 {
+    animation-delay: 75ms;
+  }
+  .delay-150 {
+    animation-delay: 150ms;
+  }
+  .delay-200 {
+    animation-delay: 200ms;
+  }
+  .delay-300 {
+    animation-delay: 300ms;
+  }
+  .delay-400 {
+    animation-delay: 400ms;
+  }
+  .delay-500 {
+    animation-delay: 500ms;
+  }
+  .delay-600 {
+    animation-delay: 600ms;
+  }
+  .delay-700 {
+    animation-delay: 700ms;
+  }
 
   /* Loading animations */
   @keyframes shimmer {
-    0% { background-position: 200% 0; }
-    100% { background-position: -200% 0; }
+    0% {
+      background-position: 200% 0;
+    }
+    100% {
+      background-position: -200% 0;
+    }
   }
 
   @keyframes spin {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
   }
 
   @keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.5; }
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.5;
+    }
   }
 
   .animate-shimmer {

@@ -1,0 +1,30 @@
+# Raisedash
+
+> Continuous compliance and safety for freight trucking carriers. Raisedash is Vanta for Trucking - strengthening safety and security of companies in freight logistics with modern AI-powered solutions.
+
+Raisedash provides comprehensive tools designed to enhance safety, compliance, and efficiency in freight logistics operations. It provides best possible user experience. It's not like legacy old software. We change everything.
+
+## Products
+
+- [Shift (Driver Onboarding)](https://raisedash.com/products/raisedash-shift): Driver onboarding platform with streamlined LMS solution for efficient driver training and compliance
+- [PTI Inspections](https://raisedash.com/products/raisedash-pti-inspections): Digital Driver Vehicle Inspection Reports (DVIR) and pre-trip inspection tools
+- [Vertex (Freight Tracking)](https://raisedash.com/products/raisedash-vertex): Real-time freight tracking with automated arrival alerts
+
+## Resources
+
+- [Blog](https://raisedash.com/blog): Insights on logistics, safety, and industry trends
+- [Product Updates](https://raisedash.com/product-updates): Latest features and improvements
+- [Changelogs](https://raisedash.com/changelogs): Detailed update history and release notes
+
+## Company
+
+- [About](https://raisedash.com/about): Our mission, vision, and the team behind Raisedash
+- [Careers](https://raisedash.com/careers): Job opportunities at Raisedash
+- [Contact](https://raisedash.com/contact): Get in touch with sales and support teams
+- [Request Demo](https://raisedash.com/request-demo): Schedule a product demonstration
+
+## Legal
+
+- [Privacy Policy](https://raisedash.com/privacy-policy)
+- [Terms of Use](https://raisedash.com/terms-of-use)
+- [Security](https://raisedash.com/security)

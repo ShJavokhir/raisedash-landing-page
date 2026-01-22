@@ -7,16 +7,16 @@ const withBundleAnalyzer = bundleAnalyzer({
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
-  output: 'standalone',
+  output: "standalone",
   images: {
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: 'cdn.raisedash.com',
+        protocol: "https",
+        hostname: "cdn.raisedash.com",
       },
       {
-        protocol: 'https',
-        hostname: 'pti.raisedash.com',
+        protocol: "https",
+        hostname: "pti.raisedash.com",
       },
     ],
   },
@@ -27,7 +27,7 @@ const nextConfig: NextConfig = {
   },
   // Enable modern JavaScript output (reduces polyfills)
   experimental: {
-    optimizePackageImports: ["lucide-react", "motion", "d3"],
+    optimizePackageImports: ["lucide-react", "motion", "d3-geo"],
   },
 };
 

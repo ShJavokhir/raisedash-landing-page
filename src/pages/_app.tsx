@@ -4,6 +4,7 @@ import Head from "next/head";
 import { Header } from "@/components/layout/Header";
 import { SkipLink } from "@/components/layout/SkipLink";
 import { OrganizationJsonLd, WebsiteJsonLd } from "@/components/seo/SEO";
+import { IntercomProvider } from "@/components/Intercom";
 
 // Re-export Web Vitals reporting for Next.js performance monitoring
 export { reportWebVitals } from "@/lib/vitals";
@@ -29,6 +30,7 @@ export default function App({ Component, pageProps }: AppProps) {
       <main id="main-content">
         <Component {...pageProps} />
       </main>
+      <IntercomProvider />
     </>
   );
 }
