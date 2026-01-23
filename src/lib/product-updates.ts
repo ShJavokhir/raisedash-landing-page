@@ -9,6 +9,7 @@ export type ProductUpdateTier = "P0" | "P1" | "P2";
 export type ProductUpdateCategory =
   | "ELD Compliance"
   | "Driver Qualification"
+  | "Driver Training"
   | "HOS Management"
   | "Safety Scores"
   | "Fleet Management"
@@ -101,9 +102,7 @@ export function getAllProductUpdateSlugs(): string[] {
   }
 
   const files = fs.readdirSync(PRODUCT_UPDATES_DIR);
-  return files
-    .filter((file) => file.endsWith(".mdx"))
-    .map((file) => file.replace(/\.mdx$/, ""));
+  return files.filter((file) => file.endsWith(".mdx")).map((file) => file.replace(/\.mdx$/, ""));
 }
 
 export function getProductUpdatesByCategory(category: string): ProductUpdate[] {
@@ -126,9 +125,10 @@ export function getRelatedProductUpdates(currentSlug: string, limit = 3): Produc
 
   return allUpdates
     .filter((update) => update.slug !== currentSlug)
-    .filter((update) =>
-      update.category === currentUpdate.category ||
-      update.tags.some((tag) => currentUpdate.tags.includes(tag))
+    .filter(
+      (update) =>
+        update.category === currentUpdate.category ||
+        update.tags.some((tag) => currentUpdate.tags.includes(tag))
     )
     .slice(0, limit);
 }
