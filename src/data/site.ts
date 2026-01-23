@@ -1,6 +1,7 @@
 export const siteConfig = {
   name: "Raisedash",
-  description: "Continuous compliance and safety for freight trucking carriers. Vanta for Trucking.",
+  description:
+    "Continuous compliance and safety for freight trucking carriers. Vanta for Trucking.",
   url: "https://raisedash.com",
   ogImage: "https://cdn.raisedash.com/og-image.png",
   links: {
@@ -40,7 +41,6 @@ export const footerLinks: FooterSection[] = [
     links: [
       { title: "Blog", href: "/blog" },
       { title: "Product Updates", href: "/product-updates" },
-      { title: "Changelogs", href: "/changelogs" },
     ],
   },
   {

@@ -1,11 +1,13 @@
 import Link from "next/link";
 import Image from "next/image";
 import dynamic from "next/dynamic";
+import { GetStaticProps } from "next";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/layout/Container";
 import { PageLayout } from "@/components/layout/PageLayout";
 import { EmailCapture } from "@/components/ui/EmailCapture";
+import { getAllProductUpdates, ProductUpdate } from "@/lib/product-updates";
 
 // Lazy load the globe component - D3.js is 868KB and only needed on desktop
 const RotatingEarth = dynamic(() => import("@/components/ui/wireframe-dotted-globe"), {
@@ -13,7 +15,17 @@ const RotatingEarth = dynamic(() => import("@/components/ui/wireframe-dotted-glo
   loading: () => <div className="bg-surface-3 h-[24rem] w-[24rem] animate-pulse rounded-full" />,
 });
 
-export default function Home() {
+interface HomeProps {
+  recentUpdates: ProductUpdate[];
+}
+
+export default function Home({ recentUpdates }: HomeProps) {
+  const formatDate = (dateString: string) => {
+    return new Date(dateString).toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+    });
+  };
   return (
     <PageLayout
       description="Safety & Security in Days. Raisedash strengthens safety and security of corporations in freight logistics with modern AI-powered solutions."
@@ -160,13 +172,61 @@ export default function Home() {
       </Container>
 
       {/* Social Proof Section */}
-      <Container className="animate-fade-in py-16 delay-700">
+      {/* <Container className="animate-fade-in py-16 delay-700">
         <div className="text-center">
           <p className="text-muted-foreground text-sm font-normal tracking-wide uppercase">
             Trusted by leading logistics companies
           </p>
         </div>
-      </Container>
+      </Container> */}
+
+      {/* Recent Updates Section */}
+      {recentUpdates.length > 0 && (
+        <Container className="pb-12 md:px-0">
+          <div className="mb-10 text-center">
+            <h2 className="text-foreground text-3xl font-normal tracking-[-0.02em] sm:text-4xl">
+              The pace is the proof.
+            </h2>
+            <p className="text-muted-foreground mx-auto mt-3 max-w-2xl text-lg">
+              See what we shipped this month.
+            </p>
+          </div>
+          <div className="bg-card border-border rounded-xs border p-8 sm:p-10">
+            <div className="divide-border divide-y">
+              {recentUpdates.map((update) => (
+                <Link
+                  key={update.slug}
+                  href={`/product-updates/${update.slug}`}
+                  className="group flex items-center justify-between gap-4 py-4 first:pt-0 last:pb-0"
+                >
+                  <div className="min-w-0 flex-1">
+                    <div className="mb-1 flex items-center gap-2">
+                      <span className="bg-surface-3 text-foreground rounded-xs px-2 py-0.5 text-xs font-normal">
+                        {update.category}
+                      </span>
+                      <span className="text-muted-foreground text-xs">
+                        {formatDate(update.publishedAt)}
+                      </span>
+                    </div>
+                    <h3 className="text-foreground group-hover:text-foreground/80 truncate text-base font-normal transition-colors">
+                      {update.title}
+                    </h3>
+                  </div>
+                  <ArrowRight className="text-muted-foreground group-hover:text-foreground h-4 w-4 flex-shrink-0 transition-colors" />
+                </Link>
+              ))}
+            </div>
+            <div className="mt-6 text-center">
+              <Link
+                href="/product-updates"
+                className="text-muted-foreground hover:text-foreground inline-flex items-center gap-1 text-sm transition-colors"
+              >
+                View all updates <ArrowRight className="h-3.5 w-3.5" />
+              </Link>
+            </div>
+          </div>
+        </Container>
+      )}
 
       {/* CTA Section */}
       <Container className="pb-12 md:px-0">
@@ -186,3 +246,15 @@ export default function Home() {
     </PageLayout>
   );
 }
+
+export const getStaticProps: GetStaticProps = async () => {
+  const allUpdates = getAllProductUpdates();
+  const recentUpdates = allUpdates.slice(0, 3);
+
+  return {
+    props: {
+      recentUpdates,
+    },
+    revalidate: 3600,
+  };
+};

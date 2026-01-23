@@ -1,5 +1,6 @@
 import { GetServerSideProps } from "next";
 import { getAllPosts } from "@/lib/blog";
+import { getAllProductUpdates } from "@/lib/product-updates";
 
 const RAW_SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://raisedash.com";
 const SITE_URL = RAW_SITE_URL.endsWith("/") ? RAW_SITE_URL.slice(0, -1) : RAW_SITE_URL;
@@ -11,7 +12,10 @@ const SITE_URL = RAW_SITE_URL.endsWith("/") ? RAW_SITE_URL.slice(0, -1) : RAW_SI
  * For static pages, we use a fixed "last known update" date.
  * For blog posts, we use their actual publication date.
  */
-function generateSiteMap(posts: { slug: string; publishedAt: string }[]) {
+function generateSiteMap(
+  posts: { slug: string; publishedAt: string }[],
+  productUpdates: { slug: string; publishedAt: string }[]
+) {
   // Static page last modification date - update this when you make significant changes
   const staticPagesLastMod = "2025-01-01";
 
@@ -21,6 +25,15 @@ function generateSiteMap(posts: { slug: string; publishedAt: string }[]) {
       ? posts.reduce(
           (latest, post) => (post.publishedAt > latest ? post.publishedAt : latest),
           posts[0].publishedAt
+        )
+      : staticPagesLastMod;
+
+  // Changelog listing page should reflect the most recent product update date
+  const latestUpdateDate =
+    productUpdates.length > 0
+      ? productUpdates.reduce(
+          (latest, update) => (update.publishedAt > latest ? update.publishedAt : latest),
+          productUpdates[0].publishedAt
         )
       : staticPagesLastMod;
 
@@ -57,7 +70,8 @@ function generateSiteMap(posts: { slug: string; publishedAt: string }[]) {
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>${SITE_URL}/changelogs</loc>
+    <loc>${SITE_URL}/product-updates</loc>
+    <lastmod>${latestUpdateDate}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -124,6 +138,19 @@ function generateSiteMap(posts: { slug: string; publishedAt: string }[]) {
   </url>`
     )
     .join("")}
+
+  <!-- Product Updates -->
+  ${productUpdates
+    .map(
+      (update) => `
+  <url>
+    <loc>${SITE_URL}/product-updates/${update.slug}</loc>
+    <lastmod>${update.publishedAt}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>`
+    )
+    .join("")}
 </urlset>`;
 }
 
@@ -139,7 +166,12 @@ export const getServerSideProps: GetServerSideProps = async ({ res }) => {
       publishedAt: post.publishedAt,
     }));
 
-    const sitemap = generateSiteMap(posts);
+    const productUpdates = getAllProductUpdates().map((update) => ({
+      slug: update.slug,
+      publishedAt: update.publishedAt,
+    }));
+
+    const sitemap = generateSiteMap(posts, productUpdates);
 
     res.setHeader("Content-Type", "text/xml");
     res.setHeader("Cache-Control", "public, s-maxage=86400, stale-while-revalidate");
@@ -147,8 +179,8 @@ export const getServerSideProps: GetServerSideProps = async ({ res }) => {
     res.end();
   } catch (error) {
     console.error("Error generating sitemap:", error);
-    // Return a basic sitemap without blog posts if there's an error
-    const sitemap = generateSiteMap([]);
+    // Return a basic sitemap without blog posts or product updates if there's an error
+    const sitemap = generateSiteMap([], []);
     res.setHeader("Content-Type", "text/xml");
     res.write(sitemap);
     res.end();

@@ -17,7 +17,7 @@ export function ChangelogCard({ update }: ChangelogCardProps) {
 
   return (
     <Link
-      href={`/changelogs/${update.slug}`}
+      href={`/product-updates/${update.slug}`}
       className="group block transition-all duration-[0.15s] ease-[cubic-bezier(0.4,0,0.2,1)] hover:-translate-y-0.5"
     >
       <article className="bg-card border-border hover:border-foreground/20 flex h-full flex-col overflow-hidden rounded-xs border transition-colors duration-[0.15s]">

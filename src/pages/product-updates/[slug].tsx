@@ -202,7 +202,7 @@ export default function ProductUpdatePage({
                 Product Updates
               </Link>
               <span>/</span>
-              <span className="text-foreground max-w-[200px] truncate">{update.title}</span>
+              <span className="text-foreground">{update.title}</span>
             </nav>
           </div>
         </Container>
@@ -229,8 +229,8 @@ export default function ProductUpdatePage({
             <article className="mx-auto max-w-4xl">
               {/* Header */}
               <header className="mb-8">
-                <div className="mb-4 flex items-center gap-3">
-                  <span className="bg-primary/10 text-primary inline-flex items-center rounded-full px-3 py-1 text-sm font-medium">
+                <div className="mb-4 flex items-center gap-2">
+                  <span className="bg-surface-3 text-foreground inline-flex items-center rounded-xs px-2 py-0.5 text-xs font-normal">
                     {update.category}
                   </span>
                   <TierBadge tier={update.tier} />
@@ -244,20 +244,10 @@ export default function ProductUpdatePage({
                   {update.excerpt}
                 </p>
 
-                <div className="border-border flex flex-col justify-between gap-4 border-b pb-8 sm:flex-row sm:items-center">
-                  <div className="flex items-center gap-4">
-                    <div className="bg-primary/10 flex h-12 w-12 items-center justify-center rounded-full">
-                      <span className="text-primary text-sm font-medium">RD</span>
-                    </div>
-                    <div>
-                      <div className="text-foreground font-semibold">Raisedash Team</div>
-                      <div className="text-muted-foreground text-sm">Product Updates</div>
-                    </div>
-                  </div>
-                  <div className="text-muted-foreground text-sm">
-                    <div>{formatDate(update.publishedAt)}</div>
-                    <div>{update.readTime}</div>
-                  </div>
+                <div className="border-border text-muted-foreground flex items-center gap-3 border-b pb-8 text-sm">
+                  <span>{formatDate(update.publishedAt)}</span>
+                  <span>·</span>
+                  <span>{update.readTime}</span>
                 </div>
               </header>
 

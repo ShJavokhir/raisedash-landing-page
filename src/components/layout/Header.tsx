@@ -70,9 +70,9 @@ const resources = [
     icon: BookOpen,
   },
   {
-    title: "Changelogs",
-    description: "Latest updates and product improvements.",
-    href: "/changelogs",
+    title: "Product Updates",
+    description: "Latest features and improvements.",
+    href: "/product-updates",
     icon: FileText,
   },
 ];

@@ -3,6 +3,7 @@ import { GetStaticProps } from "next";
 import { Container } from "@/components/layout/Container";
 import { PageLayout } from "@/components/layout/PageLayout";
 import { ProductUpdateCard } from "@/components/product-updates/ProductUpdateCard";
+import { EmailCapture } from "@/components/ui/EmailCapture";
 import { Button } from "@/components/ui/Button";
 import {
   getAllProductUpdates,
@@ -35,56 +36,53 @@ export default function ProductUpdates({ updates, categories }: ProductUpdatesPa
         "fleet management updates",
       ]}
     >
-      {/* Hero Section with Email Capture */}
-      <section className="bg-surface-3">
-        <Container className="py-16 md:py-20">
+      {/* Hero Section */}
+      <section className="bg-background pt-16 pb-8">
+        <Container className="bg-card border-border rounded-xs border px-8 py-12 sm:px-12 sm:py-16">
           <div className="max-w-3xl">
-            <h1 className="text-foreground text-[48px] leading-tight font-normal tracking-[-0.03em]">
+            <h1 className="text-foreground text-4xl leading-tight font-normal tracking-[-0.03em] sm:text-[48px]">
               Product Updates
             </h1>
-            <p className="text-muted-foreground mt-6 text-lg leading-relaxed font-light">
+            <p className="text-muted-foreground mt-6 text-xl leading-relaxed font-normal">
               Stay in the loop. See what we&apos;ve shipped and what&apos;s coming next.
             </p>
-            <div className="mt-8 flex max-w-md flex-col gap-3 sm:flex-row">
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="border-border bg-background text-foreground placeholder:text-muted-foreground/50 focus:border-primary flex-1 rounded-xs border px-4 py-3 transition-colors duration-[0.15s] focus:outline-none"
+            <div className="mt-10">
+              <EmailCapture
+                source="Product Updates Hero"
+                buttonText="Get Started Today"
+                placeholder="What's your work email?"
               />
-              <Button className="bg-primary hover:bg-primary/90 text-white">Subscribe</Button>
             </div>
           </div>
         </Container>
       </section>
 
       {/* Category Filter */}
-      <section className="bg-surface-3 pb-8">
-        <Container>
-          <div className="bg-card border-border rounded-xs border p-6">
-            <div className="flex flex-wrap gap-2">
-              {categories.map((category) => (
-                <button
-                  key={category}
-                  onClick={() => setSelectedCategory(category)}
-                  className={`rounded-xs px-4 py-2 text-sm font-normal transition-all duration-[0.15s] ${
-                    selectedCategory === category
-                      ? "bg-foreground text-background"
-                      : "bg-surface-3 text-foreground border-border hover:border-foreground border"
-                  }`}
-                >
-                  {category}
-                </button>
-              ))}
-            </div>
+      <section className="bg-background pb-6">
+        <Container className="bg-card border-border rounded-xs border p-6">
+          <div className="flex flex-wrap gap-2">
+            {categories.map((category) => (
+              <button
+                key={category}
+                onClick={() => setSelectedCategory(category)}
+                className={`rounded-xs px-4 py-2 text-sm font-normal transition-all duration-[0.15s] ${
+                  selectedCategory === category
+                    ? "bg-foreground text-background"
+                    : "bg-surface-3 text-foreground border-border hover:border-foreground border"
+                }`}
+              >
+                {category}
+              </button>
+            ))}
           </div>
         </Container>
       </section>
 
       {/* Updates Grid */}
-      <section className="bg-surface-3 pb-16 md:pb-24">
-        <Container>
+      <section className="bg-background pt-2 pb-16 md:pb-24">
+        <Container className="md:px-0">
           {filteredUpdates.length > 0 ? (
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
               {filteredUpdates.map((update) => (
                 <ProductUpdateCard key={update.slug} update={update} />
               ))}
@@ -122,28 +120,26 @@ export default function ProductUpdates({ updates, categories }: ProductUpdatesPa
         </Container>
       </section>
 
-      {/* Newsletter CTA Section */}
-      <section className="bg-primary py-16 md:py-20">
-        <Container>
-          <div className="mx-auto max-w-2xl text-center">
-            <h2 className="mb-4 text-[28px] font-normal tracking-[-0.03em] text-white">
-              Never Miss an Update
-            </h2>
-            <p className="mb-8 text-lg font-light text-white/70">
-              Get the latest product updates, feature releases, and compliance tips delivered
-              straight to your inbox.
-            </p>
-            <div className="mx-auto flex max-w-md flex-col justify-center gap-3 sm:flex-row">
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="flex-1 rounded-xs border border-white/20 bg-white/10 px-4 py-3 text-white transition-colors duration-[0.15s] placeholder:text-white/50 focus:border-white/40 focus:outline-none"
-              />
-              <Button className="text-primary bg-white hover:bg-white/90">Subscribe</Button>
-            </div>
+      {/* CTA Section */}
+      <Container className="pb-12 md:px-0">
+        <div className="bg-primary rounded-xs p-8 text-center sm:p-12">
+          <h2 className="text-primary-foreground mb-4 text-2xl font-normal tracking-[-0.02em] sm:text-3xl">
+            Never Miss an Update
+          </h2>
+          <p className="text-primary-foreground/80 mx-auto mb-8 max-w-xl text-lg">
+            Get the latest product updates, feature releases, and compliance tips delivered straight
+            to your inbox.
+          </p>
+          <div className="mx-auto flex justify-center">
+            <EmailCapture
+              variant="dark"
+              source="Product Updates CTA"
+              buttonText="Get Started Today"
+              placeholder="What's your work email?"
+            />
           </div>
-        </Container>
-      </section>
+        </div>
+      </Container>
     </PageLayout>
   );
 }

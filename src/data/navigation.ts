@@ -1,4 +1,14 @@
-import { MapPin, ClipboardCheck, GraduationCap, BookOpen, FileText, Building2, Users, Mail, Sparkles, LucideIcon } from "lucide-react";
+import {
+  MapPin,
+  ClipboardCheck,
+  GraduationCap,
+  BookOpen,
+  Building2,
+  Users,
+  Mail,
+  Sparkles,
+  LucideIcon,
+} from "lucide-react";
 
 export interface NavItem {
   title: string;
@@ -37,7 +47,7 @@ export const solutions: Solution[] = [
     href: "/products/raisedash-vertex",
     image: "https://cdn.raisedash.com/media/vertex/834f7f4b-6def-4090-bc16-6de5c21ff18d.webp",
     icon: MapPin,
-  }
+  },
 ];
 
 export const resources: NavItem[] = [
@@ -52,12 +62,6 @@ export const resources: NavItem[] = [
     description: "Latest features and improvements.",
     href: "/product-updates",
     icon: Sparkles,
-  },
-  {
-    title: "Changelogs",
-    description: "Latest updates and product improvements.",
-    href: "/changelogs",
-    icon: FileText,
   },
 ];
 

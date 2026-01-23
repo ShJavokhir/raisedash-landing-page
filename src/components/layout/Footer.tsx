@@ -106,10 +106,10 @@ export function Footer() {
                 </li>
                 <li>
                   <Link
-                    href="/changelogs"
+                    href="/product-updates"
                     className="text-foreground hover:text-foreground-80 text-sm transition-colors duration-[0.15s]"
                   >
-                    Changelog
+                    Product Updates
                   </Link>
                 </li>
                 <li>
