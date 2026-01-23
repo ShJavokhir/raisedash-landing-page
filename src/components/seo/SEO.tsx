@@ -4,7 +4,8 @@ import { useRouter } from "next/router";
 const RAW_SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://raisedash.com";
 const SITE_URL = RAW_SITE_URL.endsWith("/") ? RAW_SITE_URL.slice(0, -1) : RAW_SITE_URL;
 const SITE_NAME = "Raisedash";
-const DEFAULT_DESCRIPTION = "Safety & Security in Days. Raisedash strengthens safety and security of corporations in freight logistics.";
+const DEFAULT_DESCRIPTION =
+  "Safety & Security in Days. Raisedash strengthens safety, security and compliance of companies in freight logistics.";
 const DEFAULT_OG_IMAGE = `${SITE_URL}/api/og?title=${encodeURIComponent(SITE_NAME)}`;
 
 export interface SEOProps {
@@ -56,17 +57,16 @@ export function SEO({
   const canonicalUrl = canonical || `${SITE_URL}${path}`;
 
   // Build OG image URL
-  const ogImageUrl = ogImage || (title
-    ? `${SITE_URL}/api/og?title=${encodeURIComponent(title)}`
-    : DEFAULT_OG_IMAGE);
+  const ogImageUrl =
+    ogImage || (title ? `${SITE_URL}/api/og?title=${encodeURIComponent(title)}` : DEFAULT_OG_IMAGE);
 
   // Build robots directive
-  const robotsContent = [
-    noindex ? "noindex" : "index",
-    nofollow ? "nofollow" : "follow",
-  ].join(", ");
+  const robotsContent = [noindex ? "noindex" : "index", nofollow ? "nofollow" : "follow"].join(
+    ", "
+  );
 
-  const jsonLdType = ogType === "article" ? "Article" : ogType === "product" && product ? "Product" : "WebPage";
+  const jsonLdType =
+    ogType === "article" ? "Article" : ogType === "product" && product ? "Product" : "WebPage";
 
   // Default JSON-LD for WebPage
   const defaultJsonLd = {
@@ -75,32 +75,36 @@ export function SEO({
     name: title || SITE_NAME,
     description,
     url: canonicalUrl,
-    ...(ogType === "article" && article ? {
-      headline: title,
-      datePublished: article.publishedTime,
-      dateModified: article.modifiedTime || article.publishedTime,
-      author: {
-        "@type": "Person",
-        name: article.author,
-      },
-      publisher: {
-        "@type": "Organization",
-        name: SITE_NAME,
-        url: SITE_URL,
-      },
-      mainEntityOfPage: {
-        "@type": "WebPage",
-        "@id": canonicalUrl,
-      },
-      ...(article.tags && { keywords: article.tags.join(", ") }),
-    } : {}),
-    ...(ogType === "product" && product ? {
-      offers: {
-        "@type": "Offer",
-        price: product.price,
-        priceCurrency: product.currency || "USD",
-      },
-    } : {}),
+    ...(ogType === "article" && article
+      ? {
+          headline: title,
+          datePublished: article.publishedTime,
+          dateModified: article.modifiedTime || article.publishedTime,
+          author: {
+            "@type": "Person",
+            name: article.author,
+          },
+          publisher: {
+            "@type": "Organization",
+            name: SITE_NAME,
+            url: SITE_URL,
+          },
+          mainEntityOfPage: {
+            "@type": "WebPage",
+            "@id": canonicalUrl,
+          },
+          ...(article.tags && { keywords: article.tags.join(", ") }),
+        }
+      : {}),
+    ...(ogType === "product" && product
+      ? {
+          offers: {
+            "@type": "Offer",
+            price: product.price,
+            priceCurrency: product.currency || "USD",
+          },
+        }
+      : {}),
   };
 
   const finalJsonLd = jsonLd || defaultJsonLd;
@@ -111,9 +115,7 @@ export function SEO({
       <title>{fullTitle}</title>
       <meta name="title" content={fullTitle} />
       <meta name="description" content={description} />
-      {keywords.length > 0 && (
-        <meta name="keywords" content={keywords.join(", ")} />
-      )}
+      {keywords.length > 0 && <meta name="keywords" content={keywords.join(", ")} />}
       <meta name="robots" content={robotsContent} />
       <link rel="canonical" href={canonicalUrl} />
 
@@ -135,12 +137,8 @@ export function SEO({
           {article.modifiedTime && (
             <meta property="article:modified_time" content={article.modifiedTime} />
           )}
-          {article.author && (
-            <meta property="article:author" content={article.author} />
-          )}
-          {article.section && (
-            <meta property="article:section" content={article.section} />
-          )}
+          {article.author && <meta property="article:author" content={article.author} />}
+          {article.section && <meta property="article:section" content={article.section} />}
           {article.tags?.map((tag) => (
             <meta property="article:tag" content={tag} key={tag} />
           ))}
@@ -150,9 +148,7 @@ export function SEO({
       {/* Product-specific OG tags */}
       {ogType === "product" && product && (
         <>
-          {product.price && (
-            <meta property="product:price:amount" content={product.price} />
-          )}
+          {product.price && <meta property="product:price:amount" content={product.price} />}
           {product.currency && (
             <meta property="product:price:currency" content={product.currency} />
           )}
@@ -165,6 +161,8 @@ export function SEO({
       <meta name="twitter:title" content={title || SITE_NAME} />
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={ogImageUrl} />
+      <meta name="twitter:site" content="@tryraisedash" />
+      <meta name="twitter:creator" content="@tryraisedash" />
 
       {/* JSON-LD Structured Data */}
       <script
@@ -182,21 +180,38 @@ export function OrganizationJsonLd() {
     "@type": "Organization",
     name: SITE_NAME,
     url: SITE_URL,
-    logo: `${SITE_URL}/favicon.ico`,
+    // SEO: Use proper logo image (min 112x112px recommended)
+    logo: {
+      "@type": "ImageObject",
+      url: `${SITE_URL}/logo.webp`,
+      width: 512,
+      height: 512,
+    },
     description: DEFAULT_DESCRIPTION,
     contactPoint: {
       "@type": "ContactPoint",
       email: "support@raisedash.com",
       contactType: "customer service",
+      availableLanguage: ["English"],
     },
+    // TODO: Add your actual social media URLs here for entity association
     sameAs: [
-      // Add social media URLs when available
+      "https://www.linkedin.com/company/raisedash",
+      "https://twitter.com/tryraisedash",
+      "https://www.youtube.com/@RaiseDash",
     ],
     address: {
       "@type": "PostalAddress",
       addressLocality: "San Francisco",
       addressRegion: "CA",
       addressCountry: "US",
+    },
+    // Additional recommended properties for SaaS companies
+    foundingDate: "2024",
+    numberOfEmployees: {
+      "@type": "QuantitativeValue",
+      minValue: 1,
+      maxValue: 50,
     },
   };
 

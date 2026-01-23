@@ -4,8 +4,25 @@ import { getAllPosts } from "@/lib/blog";
 const RAW_SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://raisedash.com";
 const SITE_URL = RAW_SITE_URL.endsWith("/") ? RAW_SITE_URL.slice(0, -1) : RAW_SITE_URL;
 
+/**
+ * SEO Best Practice: Static pages should NOT use current date for lastmod
+ * unless they've actually been modified. Using current date devalues the signal.
+ *
+ * For static pages, we use a fixed "last known update" date.
+ * For blog posts, we use their actual publication date.
+ */
 function generateSiteMap(posts: { slug: string; publishedAt: string }[]) {
-  const currentDate = new Date().toISOString().split("T")[0];
+  // Static page last modification date - update this when you make significant changes
+  const staticPagesLastMod = "2025-01-01";
+
+  // Blog listing page should reflect the most recent post date
+  const latestPostDate =
+    posts.length > 0
+      ? posts.reduce(
+          (latest, post) => (post.publishedAt > latest ? post.publishedAt : latest),
+          posts[0].publishedAt
+        )
+      : staticPagesLastMod;
 
   return `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
@@ -15,97 +32,82 @@ function generateSiteMap(posts: { slug: string; publishedAt: string }[]) {
   <!-- Static Pages -->
   <url>
     <loc>${SITE_URL}</loc>
-    <lastmod>${currentDate}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>${SITE_URL}/blog</loc>
-    <lastmod>${currentDate}</lastmod>
+    <lastmod>${latestPostDate}</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>${SITE_URL}/about</loc>
-    <lastmod>${currentDate}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>${SITE_URL}/contact</loc>
-    <lastmod>${currentDate}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>${SITE_URL}/careers</loc>
-    <lastmod>${currentDate}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
     <loc>${SITE_URL}/changelogs</loc>
-    <lastmod>${currentDate}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>${SITE_URL}/get-started</loc>
-    <lastmod>${currentDate}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>${SITE_URL}/products/raisedash-pti-inspections</loc>
-    <lastmod>${currentDate}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1</priority>
   </url>
   <url>
     <loc>${SITE_URL}/products/raisedash-pti-inspections/driver-features</loc>
-    <lastmod>${currentDate}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>${SITE_URL}/products/raisedash-pti-inspections/fleet-safety-managers</loc>
-    <lastmod>${currentDate}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>${SITE_URL}/products/raisedash-shift</loc>
-    <lastmod>${currentDate}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1</priority>
   </url>
   <url>
     <loc>${SITE_URL}/products/raisedash-vertex</loc>
-    <lastmod>${currentDate}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1</priority>
   </url>
   <url>
     <loc>${SITE_URL}/vertex-app</loc>
-    <lastmod>${currentDate}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>${SITE_URL}/privacy-policy</loc>
-    <lastmod>${currentDate}</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
     <loc>${SITE_URL}/terms-of-use</loc>
-    <lastmod>${currentDate}</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
     <loc>${SITE_URL}/security</loc>
-    <lastmod>${currentDate}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>

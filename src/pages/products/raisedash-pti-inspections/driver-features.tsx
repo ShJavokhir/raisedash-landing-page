@@ -6,7 +6,18 @@ import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/layout/Container";
 import { Footer } from "@/components/layout/Footer";
 import { SEO } from "@/components/seo/SEO";
-import { ArrowRight, X as XIcon, Smartphone, CheckCircle2, Shield, Zap, Camera, FileCheck, Play, Scan } from "lucide-react";
+import {
+  ArrowRight,
+  X as XIcon,
+  Smartphone,
+  CheckCircle2,
+  Shield,
+  Zap,
+  Camera,
+  FileCheck,
+  Play,
+  Scan,
+} from "lucide-react";
 import { motion, useInView } from "motion/react";
 
 // --- Custom Styles for Tailscale-inspired Theme ---
@@ -34,7 +45,11 @@ const ptiStyles = `
 `;
 
 // --- Lightbox Component ---
-const Lightbox: React.FC<{ isOpen: boolean; onClose: () => void; imageSrc: string | null }> = ({ isOpen, onClose, imageSrc }) => {
+const Lightbox: React.FC<{ isOpen: boolean; onClose: () => void; imageSrc: string | null }> = ({
+  isOpen,
+  onClose,
+  imageSrc,
+}) => {
   React.useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
@@ -53,22 +68,22 @@ const Lightbox: React.FC<{ isOpen: boolean; onClose: () => void; imageSrc: strin
 
   return (
     <div
-      className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 backdrop-blur-sm p-4"
+      className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 p-4 backdrop-blur-sm"
       onClick={onClose}
     >
       <button
         onClick={onClose}
-        className="absolute top-4 right-4 p-2 bg-white/10 hover:bg-white/20 text-white rounded-2xl transition-colors z-[101]"
+        className="absolute top-4 right-4 z-[101] rounded-2xl bg-white/10 p-2 text-white transition-colors hover:bg-white/20"
       >
-        <XIcon className="w-8 h-8" />
+        <XIcon className="h-8 w-8" />
       </button>
       <Image
         src={imageSrc}
-        alt="Preview"
+        alt="RaiseDash driver app feature screenshot expanded view"
         width={2560}
         height={1440}
         onClick={(e) => e.stopPropagation()}
-        className="max-w-[95vw] max-h-[95vh] w-auto h-auto object-contain rounded-2xl shadow-2xl cursor-default"
+        className="h-auto max-h-[95vh] w-auto max-w-[95vw] cursor-default rounded-2xl object-contain shadow-2xl"
       />
     </div>
   );
@@ -76,20 +91,20 @@ const Lightbox: React.FC<{ isOpen: boolean; onClose: () => void; imageSrc: strin
 
 // --- Hero Component ---
 const Hero: React.FC = () => (
-  <section className="relative pt-8 pb-24 md:pt-16 md:pb-32 overflow-hidden bg-[#F9F7F6] dark:bg-secondary">
+  <section className="dark:bg-secondary relative overflow-hidden bg-[#F9F7F6] pt-8 pb-24 md:pt-16 md:pb-32">
     {/* Industrial Grid Background */}
-    <div className="absolute inset-0 industrial-grid" />
+    <div className="industrial-grid absolute inset-0" />
 
     <Container className="relative z-10">
-      <div className="flex flex-col items-center text-center max-w-4xl mx-auto">
+      <div className="mx-auto flex max-w-4xl flex-col items-center text-center">
         {/* Badge */}
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="inline-flex items-center gap-2 rounded-full bg-white dark:bg-white border border-[#EEEBEA] dark:border-border px-4 py-1.5 text-sm font-medium text-[rgba(24,23,23,0.7)] dark:text-muted-foreground mb-8"
+          className="dark:border-border dark:text-muted-foreground mb-8 inline-flex items-center gap-2 rounded-full border border-[#EEEBEA] bg-white px-4 py-1.5 text-sm font-medium text-[rgba(24,23,23,0.7)] dark:bg-white"
         >
-          <span className="flex h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+          <span className="flex h-2 w-2 animate-pulse rounded-full bg-emerald-500" />
           Driver App Features
         </motion.div>
 
@@ -97,12 +112,12 @@ const Hero: React.FC = () => (
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="text-[48px] md:text-5xl lg:text-[3.5rem] font-medium tracking-[-0.03em] text-[#2E2D2D] dark:text-foreground mb-6 leading-[1.1]"
+          className="dark:text-foreground mb-6 text-[48px] leading-[1.1] font-medium tracking-[-0.03em] text-[#2E2D2D] md:text-5xl lg:text-[3.5rem]"
         >
           Pre-Trip and Post-Trip Inspections Made{" "}
           <span className="relative inline-block">
             <span className="relative z-10">Ultra Easy</span>
-            <span className="absolute bottom-1 left-0 right-0 h-3 bg-[#EEEBEA] dark:bg-border -rotate-1" />
+            <span className="dark:bg-border absolute right-0 bottom-1 left-0 h-3 -rotate-1 bg-[#EEEBEA]" />
           </span>
         </motion.h1>
 
@@ -110,25 +125,47 @@ const Hero: React.FC = () => (
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="text-xl text-[rgba(24,23,23,0.7)] dark:text-muted-foreground font-light max-w-2xl mx-auto mb-10 leading-relaxed"
+          className="dark:text-muted-foreground mx-auto mb-10 max-w-2xl text-xl leading-relaxed font-light text-[rgba(24,23,23,0.7)]"
         >
-          We understand that drivers should <strong className="text-[#2E2D2D] dark:text-foreground font-medium">concentrate</strong> on their duties rather than spend time learning a new app. We designed the app to be <strong className="text-[#2E2D2D] dark:text-foreground font-medium">exceptionally user-friendly</strong>, allowing drivers to conduct inspections <strong className="text-[#2E2D2D] dark:text-foreground font-medium">effortlessly</strong>.
+          We understand that drivers should{" "}
+          <strong className="dark:text-foreground font-medium text-[#2E2D2D]">concentrate</strong>{" "}
+          on their duties rather than spend time learning a new app. We designed the app to be{" "}
+          <strong className="dark:text-foreground font-medium text-[#2E2D2D]">
+            exceptionally user-friendly
+          </strong>
+          , allowing drivers to conduct inspections{" "}
+          <strong className="dark:text-foreground font-medium text-[#2E2D2D]">effortlessly</strong>.
         </motion.p>
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3 }}
-          className="flex flex-col sm:flex-row gap-4 mb-12"
+          className="mb-12 flex flex-col gap-4 sm:flex-row"
         >
-          <a href="https://cal.com/javokhir/raisedash-demo-meeting" target="_blank" rel="noopener noreferrer">
-            <Button size="lg" className="w-full sm:w-auto gap-2 group bg-[#1F1E1E] hover:bg-[#2E2D2D] text-white rounded-2xl">
+          <a
+            href="https://cal.com/javokhir/raisedash-demo-meeting"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Button
+              size="lg"
+              className="group w-full gap-2 rounded-2xl bg-[#1F1E1E] text-white hover:bg-[#2E2D2D] sm:w-auto"
+            >
               Book A Demo
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
             </Button>
           </a>
-          <a href="https://app.raisedash.com/auth/register" target="_blank" rel="noopener noreferrer">
-            <Button variant="secondary" size="lg" className="w-full sm:w-auto bg-white dark:bg-white border-[#EEEBEA] dark:border-border text-[#2E2D2D] dark:text-foreground hover:bg-[#F9F7F6] dark:hover:bg-secondary rounded-2xl">
+          <a
+            href="https://app.raisedash.com/auth/register"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Button
+              variant="secondary"
+              size="lg"
+              className="dark:border-border dark:text-foreground dark:hover:bg-secondary w-full rounded-2xl border-[#EEEBEA] bg-white text-[#2E2D2D] hover:bg-[#F9F7F6] sm:w-auto dark:bg-white"
+            >
               Start Free Trial
             </Button>
           </a>
@@ -139,7 +176,7 @@ const Hero: React.FC = () => (
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className="flex flex-wrap items-center justify-center gap-6 text-sm text-[rgba(24,23,23,0.7)] dark:text-muted-foreground mb-16"
+          className="dark:text-muted-foreground mb-16 flex flex-wrap items-center justify-center gap-6 text-sm text-[rgba(24,23,23,0.7)]"
         >
           {[
             { icon: CheckCircle2, text: "No app learning curve" },
@@ -147,7 +184,7 @@ const Hero: React.FC = () => (
             { icon: Zap, text: "Works offline" },
           ].map((item, i) => (
             <div key={i} className="flex items-center gap-2">
-              <item.icon className="h-4 w-4 text-[#2E2D2D] dark:text-foreground" />
+              <item.icon className="dark:text-foreground h-4 w-4 text-[#2E2D2D]" />
               <span>{item.text}</span>
             </div>
           ))}
@@ -160,13 +197,13 @@ const Hero: React.FC = () => (
           transition={{ duration: 0.8, delay: 0.5 }}
           className="w-full max-w-4xl"
         >
-          <div className="relative rounded-2xl overflow-hidden border border-[#EEEBEA] dark:border-border bg-white dark:bg-white shadow-2xl shadow-[#2E2D2D]/10">
+          <div className="dark:border-border relative overflow-hidden rounded-2xl border border-[#EEEBEA] bg-white shadow-2xl shadow-[#2E2D2D]/10 dark:bg-white">
             <Image
               src="https://pti.raisedash.com/wp-content/uploads/2024/06/app-ui.png"
-              alt="RaiseDash Driver App"
+              alt="RaiseDash mobile driver app interface showing pre-trip inspection checklist on iOS and Android"
               width={1440}
               height={1276}
-              className="w-full h-auto"
+              className="h-auto w-full"
               priority
             />
           </div>
@@ -177,20 +214,34 @@ const Hero: React.FC = () => (
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.7 }}
-          className="mt-10 flex flex-col sm:flex-row gap-4 justify-center"
+          className="mt-10 flex flex-col justify-center gap-4 sm:flex-row"
         >
-          <a href="https://apps.apple.com/us/app/raisedash/id6466733418" target="_blank" rel="noopener noreferrer">
-            <Button variant="secondary" className="w-full sm:w-auto gap-2 bg-white dark:bg-white border-[#EEEBEA] dark:border-border text-[#2E2D2D] dark:text-foreground hover:bg-[#F9F7F6] dark:hover:bg-secondary rounded-2xl">
-              <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+          <a
+            href="https://apps.apple.com/us/app/raisedash/id6466733418"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Button
+              variant="secondary"
+              className="dark:border-border dark:text-foreground dark:hover:bg-secondary w-full gap-2 rounded-2xl border-[#EEEBEA] bg-white text-[#2E2D2D] hover:bg-[#F9F7F6] sm:w-auto dark:bg-white"
+            >
+              <svg className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
               </svg>
               App Store
             </Button>
           </a>
-          <a href="https://play.google.com/store/apps/details?id=uz.jdsystems.checklist.checklist" target="_blank" rel="noopener noreferrer">
-            <Button variant="secondary" className="w-full sm:w-auto gap-2 bg-white dark:bg-white border-[#EEEBEA] dark:border-border text-[#2E2D2D] dark:text-foreground hover:bg-[#F9F7F6] dark:hover:bg-secondary rounded-2xl">
-              <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.53,12.9 20.18,13.18L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z"/>
+          <a
+            href="https://play.google.com/store/apps/details?id=uz.jdsystems.checklist.checklist"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Button
+              variant="secondary"
+              className="dark:border-border dark:text-foreground dark:hover:bg-secondary w-full gap-2 rounded-2xl border-[#EEEBEA] bg-white text-[#2E2D2D] hover:bg-[#F9F7F6] sm:w-auto dark:bg-white"
+            >
+              <svg className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.53,12.9 20.18,13.18L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z" />
               </svg>
               Google Play
             </Button>
@@ -217,7 +268,7 @@ const FeatureItem: React.FC<{
   return (
     <div ref={ref} className="py-16 md:py-24">
       <Container>
-        <div className="grid md:grid-cols-2 gap-12 lg:gap-16 items-center">
+        <div className="grid items-center gap-12 md:grid-cols-2 lg:gap-16">
           <motion.div
             initial={{ opacity: 0, x: align === "left" ? -30 : 30 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
@@ -225,18 +276,18 @@ const FeatureItem: React.FC<{
             className={`${align === "right" ? "md:order-2" : "md:order-1"}`}
           >
             <div
-              className="relative rounded-2xl overflow-hidden border border-[#EEEBEA] dark:border-border bg-white dark:bg-white shadow-xl cursor-pointer group"
+              className="dark:border-border group relative cursor-pointer overflow-hidden rounded-2xl border border-[#EEEBEA] bg-white shadow-xl dark:bg-white"
               onClick={() => onImageClick && onImageClick(image)}
             >
               <Image
                 src={image}
-                alt={title}
+                alt={`RaiseDash driver app ${title.toLowerCase()} feature for CDL pre-trip inspections`}
                 width={800}
                 height={800}
-                className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-500"
+                className="h-auto w-full object-cover transition-transform duration-500 group-hover:scale-105"
               />
-              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
-                <span className="bg-white/90 dark:bg-white/90 backdrop-blur-sm text-[#2E2D2D] dark:text-foreground px-4 py-2 rounded-2xl text-sm font-medium shadow-lg">
+              <div className="absolute inset-0 flex items-center justify-center bg-black/0 opacity-0 transition-colors group-hover:bg-black/5 group-hover:opacity-100">
+                <span className="dark:text-foreground rounded-2xl bg-white/90 px-4 py-2 text-sm font-medium text-[#2E2D2D] shadow-lg backdrop-blur-sm dark:bg-white/90">
                   Click to Zoom
                 </span>
               </div>
@@ -249,14 +300,18 @@ const FeatureItem: React.FC<{
             transition={{ duration: 0.6, delay: 0.2 }}
             className={`${align === "right" ? "md:order-1" : "md:order-2"}`}
           >
-            <div className="h-14 w-14 rounded-2xl bg-[#1F1E1E] flex items-center justify-center text-white mb-6">
+            <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-[#1F1E1E] text-white">
               <Icon size={26} />
             </div>
-            <span className="inline-block px-3 py-1 rounded-full bg-[#F9F7F6] dark:bg-secondary border border-[#EEEBEA] dark:border-border text-[rgba(24,23,23,0.7)] dark:text-muted-foreground text-xs font-medium mb-4">
+            <span className="dark:bg-secondary dark:border-border dark:text-muted-foreground mb-4 inline-block rounded-full border border-[#EEEBEA] bg-[#F9F7F6] px-3 py-1 text-xs font-medium text-[rgba(24,23,23,0.7)]">
               Feature {index}
             </span>
-            <h3 className="text-[28px] font-medium text-[#2E2D2D] dark:text-foreground mb-4 tracking-[-0.03em]">{title}</h3>
-            <p className="text-lg text-[rgba(24,23,23,0.7)] dark:text-muted-foreground font-light leading-relaxed">{description}</p>
+            <h3 className="dark:text-foreground mb-4 text-[28px] font-medium tracking-[-0.03em] text-[#2E2D2D]">
+              {title}
+            </h3>
+            <p className="dark:text-muted-foreground text-lg leading-relaxed font-light text-[rgba(24,23,23,0.7)]">
+              {description}
+            </p>
           </motion.div>
         </div>
       </Container>
@@ -270,24 +325,24 @@ const Features: React.FC<{ onImageClick: (src: string) => void }> = ({ onImageCl
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section ref={ref} className="bg-white dark:bg-white relative">
-      <div className="absolute inset-0 industrial-grid opacity-50" />
+    <section ref={ref} className="relative bg-white dark:bg-white">
+      <div className="industrial-grid absolute inset-0 opacity-50" />
 
       <Container className="relative z-10 pt-20 pb-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="text-center max-w-3xl mx-auto mb-8"
+          className="mx-auto mb-8 max-w-3xl text-center"
         >
-          <span className="inline-flex items-center gap-2 text-sm font-medium text-[rgba(24,23,23,0.7)] dark:text-muted-foreground uppercase tracking-wider mb-4">
+          <span className="dark:text-muted-foreground mb-4 inline-flex items-center gap-2 text-sm font-medium tracking-wider text-[rgba(24,23,23,0.7)] uppercase">
             <Smartphone className="h-4 w-4" />
             Driver App Features
           </span>
-          <h2 className="text-[28px] md:text-4xl font-medium tracking-[-0.03em] text-[#2E2D2D] dark:text-foreground mb-4">
+          <h2 className="dark:text-foreground mb-4 text-[28px] font-medium tracking-[-0.03em] text-[#2E2D2D] md:text-4xl">
             Built for Drivers, By Industry Experts
           </h2>
-          <p className="text-lg text-[rgba(24,23,23,0.7)] dark:text-muted-foreground font-light">
+          <p className="dark:text-muted-foreground text-lg font-light text-[rgba(24,23,23,0.7)]">
             Every feature designed to make inspections faster, easier, and fully compliant.
           </p>
         </motion.div>
@@ -340,39 +395,54 @@ const CTA: React.FC = () => {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section ref={ref} className="py-24 bg-[#F9F7F6] dark:bg-secondary">
+    <section ref={ref} className="dark:bg-secondary bg-[#F9F7F6] py-24">
       <Container>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="relative overflow-hidden rounded-2xl bg-[#19224A] p-12 md:p-16 text-center"
+          className="relative overflow-hidden rounded-2xl bg-[#19224A] p-12 text-center md:p-16"
         >
-          <div className="relative z-10 max-w-3xl mx-auto">
+          <div className="relative z-10 mx-auto max-w-3xl">
             <motion.div
               initial={{ scale: 0 }}
               animate={isInView ? { scale: 1 } : {}}
               transition={{ delay: 0.2, type: "spring" }}
-              className="w-16 h-16 mx-auto mb-8 rounded-2xl bg-white flex items-center justify-center"
+              className="mx-auto mb-8 flex h-16 w-16 items-center justify-center rounded-2xl bg-white"
             >
-              <Smartphone className="w-8 h-8 text-[#19224A]" />
+              <Smartphone className="h-8 w-8 text-[#19224A]" />
             </motion.div>
 
-            <h2 className="text-[28px] md:text-4xl font-medium text-white mb-6 tracking-[-0.03em]">
+            <h2 className="mb-6 text-[28px] font-medium tracking-[-0.03em] text-white md:text-4xl">
               Start Your 14-Day Free Trial Today
             </h2>
-            <p className="text-lg text-white/70 font-light mb-10">
+            <p className="mb-10 text-lg font-light text-white/70">
               Experience the easiest way to manage driver inspections. Get started now!
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a href="https://cal.com/javokhir/raisedash-demo-meeting" target="_blank" rel="noopener noreferrer">
-                <Button size="lg" className="w-full sm:w-auto bg-white text-[#19224A] hover:bg-white/90 border-0 rounded-2xl">
+            <div className="flex flex-col justify-center gap-4 sm:flex-row">
+              <a
+                href="https://cal.com/javokhir/raisedash-demo-meeting"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Button
+                  size="lg"
+                  className="w-full rounded-2xl border-0 bg-white text-[#19224A] hover:bg-white/90 sm:w-auto"
+                >
                   Book A Demo
                 </Button>
               </a>
-              <a href="https://app.raisedash.com/auth/register" target="_blank" rel="noopener noreferrer">
-                <Button size="lg" variant="ghost" className="w-full sm:w-auto text-white hover:bg-white/10 border border-white/20 rounded-2xl">
+              <a
+                href="https://app.raisedash.com/auth/register"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Button
+                  size="lg"
+                  variant="ghost"
+                  className="w-full rounded-2xl border border-white/20 text-white hover:bg-white/10 sm:w-auto"
+                >
                   Start Free Trial
                 </Button>
               </a>
@@ -380,7 +450,7 @@ const CTA: React.FC = () => {
 
             <div className="mt-8">
               <Link href="/products/raisedash-pti-inspections">
-                <Button variant="ghost" className="text-white/50 hover:text-white rounded-2xl">
+                <Button variant="ghost" className="rounded-2xl text-white/50 hover:text-white">
                   Back to PTI Overview
                 </Button>
               </Link>
@@ -396,13 +466,18 @@ const CTA: React.FC = () => {
 const DriverFeaturesPage: NextPage = () => {
   const [lightboxImage, setLightboxImage] = useState<string | null>(null);
 
-  
   return (
     <>
       <SEO
         title="Driver App Features | RaiseDash PTI Inspections"
         description="See how RaiseDash makes it easy for drivers to handle their daily CDL Pre-Trip and Post-Trip (DVIR) inspections with an intuitive mobile app for iOS and Android."
-        keywords={["driver DVIR app", "truck driver inspection app", "CDL pre-trip app", "mobile DVIR", "driver inspection software"]}
+        keywords={[
+          "driver DVIR app",
+          "truck driver inspection app",
+          "CDL pre-trip app",
+          "mobile DVIR",
+          "driver inspection software",
+        ]}
       />
       <style dangerouslySetInnerHTML={{ __html: ptiStyles }} />
 
@@ -412,7 +487,7 @@ const DriverFeaturesPage: NextPage = () => {
         onClose={() => setLightboxImage(null)}
       />
 
-      <div className="pti-page min-h-screen bg-[#F9F7F6] dark:bg-secondary text-[#2E2D2D] dark:text-foreground selection:bg-[#19224A]/15 selection:text-[#19224A]">
+      <div className="pti-page dark:bg-secondary dark:text-foreground min-h-screen bg-[#F9F7F6] text-[#2E2D2D] selection:bg-[#19224A]/15 selection:text-[#19224A]">
         <main>
           <Hero />
           <Features onImageClick={setLightboxImage} />

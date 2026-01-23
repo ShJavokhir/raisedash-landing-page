@@ -31,10 +31,13 @@ import {
 
 // Local Navbar removed in favor of global Header
 
-
 // --- Lightbox Component ---
 
-const Lightbox: React.FC<{ isOpen: boolean; onClose: () => void; imageSrc: string | null }> = ({ isOpen, onClose, imageSrc }) => {
+const Lightbox: React.FC<{ isOpen: boolean; onClose: () => void; imageSrc: string | null }> = ({
+  isOpen,
+  onClose,
+  imageSrc,
+}) => {
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
@@ -53,69 +56,93 @@ const Lightbox: React.FC<{ isOpen: boolean; onClose: () => void; imageSrc: strin
 
   return (
     <div
-      className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 backdrop-blur-sm animate-fade-in p-4"
+      className="animate-fade-in fixed inset-0 z-[100] flex items-center justify-center bg-black/90 p-4 backdrop-blur-sm"
       onClick={onClose}
     >
       <button
         onClick={onClose}
-        className="absolute top-4 right-4 p-2 bg-black/50 hover:bg-black/70 text-white rounded-full transition-colors z-[101]"
+        className="absolute top-4 right-4 z-[101] rounded-full bg-black/50 p-2 text-white transition-colors hover:bg-black/70"
       >
-        <XIcon className="w-8 h-8" />
+        <XIcon className="h-8 w-8" />
       </button>
       <Image
         src={imageSrc}
-        alt="Preview"
+        alt="RaiseDash PTI inspection screenshot expanded view"
         width={2560}
         height={1440}
         onClick={(e) => e.stopPropagation()}
-        className="max-w-[95vw] max-h-[95vh] w-auto h-auto object-contain rounded-xs shadow-2xl animate-fade-in-scale cursor-default"
+        className="animate-fade-in-scale h-auto max-h-[95vh] w-auto max-w-[95vw] cursor-default rounded-xs object-contain shadow-2xl"
       />
     </div>
   );
 };
 
-
 // --- Page Sections ---
 
 const Hero: React.FC = () => (
-  <div className="relative overflow-hidden bg-background dark:bg-secondary">
-    <div className="absolute inset-0 z-0 opacity-[0.3]"
-      style={{ backgroundImage: 'radial-gradient(currentColor 1px, transparent 1px)', backgroundSize: '32px 32px' }}>
-    </div>
+  <div className="bg-background dark:bg-secondary relative overflow-hidden">
+    <div
+      className="absolute inset-0 z-0 opacity-[0.3]"
+      style={{
+        backgroundImage: "radial-gradient(currentColor 1px, transparent 1px)",
+        backgroundSize: "32px 32px",
+      }}
+    ></div>
 
-    <div className="pt-32 pb-20 md:pt-40 md:pb-24 relative z-10">
+    <div className="relative z-10 pt-32 pb-20 md:pt-40 md:pb-24">
       <Container className="flex flex-col items-center text-center">
-        <div className="animate-fade-in-up delay-0 inline-flex items-center gap-2 px-3 py-1 rounded-full bg-card border border-border text-xs font-normal text-muted-foreground mb-8">
+        <div className="animate-fade-in-up bg-card border-border text-muted-foreground mb-8 inline-flex items-center gap-2 rounded-full border px-3 py-1 text-xs font-normal delay-0">
           <span className="relative flex h-2 w-2">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500 opacity-75"></span>
+            <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500"></span>
           </span>
           The Modern Standard for DVIR
         </div>
 
-        <h1 className="animate-fade-in-up delay-100 text-[48px] md:text-7xl font-normal tracking-[-0.03em] text-foreground mb-6 max-w-4xl">
-          Toward <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 to-cyan-500">Safer Rides</span>
+        <h1 className="animate-fade-in-up text-foreground mb-6 max-w-4xl text-[48px] font-normal tracking-[-0.03em] delay-100 md:text-7xl">
+          Toward{" "}
+          <span className="bg-gradient-to-r from-emerald-500 to-cyan-500 bg-clip-text text-transparent">
+            Safer Rides
+          </span>
         </h1>
 
-        <p className="animate-fade-in-up delay-200 text-xl text-muted-foreground font-light max-w-2xl mx-auto mb-10 leading-relaxed">
-          RaiseDash simplifies your Driver Vehicle Inspection Report (DVIR) and Pre-Trip inspections (PTIs) with easy-to-use digital tools. Fleet managers benefit from a centralized dashboard for real-time insights into all PTIs, while our mobile app simplifies inspections for drivers.
+        <p className="animate-fade-in-up text-muted-foreground mx-auto mb-10 max-w-2xl text-xl leading-relaxed font-light delay-200">
+          RaiseDash simplifies your Driver Vehicle Inspection Report (DVIR) and Pre-Trip inspections
+          (PTIs) with easy-to-use digital tools. Fleet managers benefit from a centralized dashboard
+          for real-time insights into all PTIs, while our mobile app simplifies inspections for
+          drivers.
         </p>
 
-        <div className="animate-fade-in-up delay-300 flex flex-col sm:flex-row gap-4 w-full sm:w-auto justify-center">
-          <a href="https://cal.com/javokhir/raisedash-demo-meeting" target="_blank" rel="noopener noreferrer">
-            <Button size="lg" className="w-full sm:w-auto bg-[#1F1E1E] hover:bg-foreground text-white rounded-xs">
-              Book A Demo <ArrowRight className="w-4 h-4 ml-2" />
+        <div className="animate-fade-in-up flex w-full flex-col justify-center gap-4 delay-300 sm:w-auto sm:flex-row">
+          <a
+            href="https://cal.com/javokhir/raisedash-demo-meeting"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Button
+              size="lg"
+              className="hover:bg-foreground w-full rounded-xs bg-[#1F1E1E] text-white sm:w-auto"
+            >
+              Book A Demo <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
           </a>
-          <a href="https://www.youtube.com/watch?v=Vjem0ZQtGQc" target="_blank" rel="noopener noreferrer">
-            <Button variant="secondary" size="lg" className="w-full sm:w-auto gap-2 bg-white border-border text-foreground hover:bg-surface-3 rounded-xs">
-              <Play className="w-4 h-4" /> Take A Video Tour
+          <a
+            href="https://www.youtube.com/watch?v=Vjem0ZQtGQc"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Button
+              variant="secondary"
+              size="lg"
+              className="border-border text-foreground hover:bg-surface-3 w-full gap-2 rounded-xs bg-white sm:w-auto"
+            >
+              <Play className="h-4 w-4" /> Take A Video Tour
             </Button>
           </a>
         </div>
 
-        <div className="animate-fade-in-up delay-500 w-full mt-16 md:mt-24 relative z-10 flex justify-center">
-          <div className="relative rounded-xs overflow-hidden border border-border bg-black shadow-2xl w-full max-w-5xl aspect-video">
+        <div className="animate-fade-in-up relative z-10 mt-16 flex w-full justify-center delay-500 md:mt-24">
+          <div className="border-border relative aspect-video w-full max-w-5xl overflow-hidden rounded-xs border bg-black shadow-2xl">
             <iframe
               width="100%"
               height="100%"
@@ -124,7 +151,7 @@ const Hero: React.FC = () => (
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
-              className="w-full h-full"
+              className="h-full w-full"
             ></iframe>
           </div>
         </div>
@@ -143,40 +170,49 @@ const FeatureShowcase: React.FC<{
   buttons?: Array<{ text: string; href: string; variant?: "primary" | "secondary" | "ghost" }>;
   onImageClick?: (src: string) => void;
 }> = ({ title, description, image, align = "left", linkText, linkHref, buttons, onImageClick }) => (
-  <div className="py-12 md:py-20 grid md:grid-cols-2 gap-12 items-center">
+  <div className="grid items-center gap-12 py-12 md:grid-cols-2 md:py-20">
     <div className={`order-2 ${align === "right" ? "md:order-1" : "md:order-2"}`}>
       <div
-        className="relative rounded-xs overflow-hidden border border-border bg-background dark:bg-secondary animate-fade-in-scale cursor-pointer group"
+        className="border-border bg-background dark:bg-secondary animate-fade-in-scale group relative cursor-pointer overflow-hidden rounded-xs border"
         onClick={() => onImageClick && onImageClick(image)}
       >
         <Image
           src={image}
-          alt={title}
+          alt={`RaiseDash ${title} - fleet DVIR and pre-trip inspection software interface`}
           width={800}
           height={800}
-          className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-500"
+          className="h-auto w-full object-cover transition-transform duration-500 group-hover:scale-105"
         />
-        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
-          <span className="bg-white/80 dark:bg-white/80 backdrop-blur-md text-foreground px-3 py-1 rounded-full text-xs font-normal shadow-sm">Click to Zoom</span>
+        <div className="absolute inset-0 flex items-center justify-center bg-black/0 opacity-0 transition-colors group-hover:bg-black/10 group-hover:opacity-100">
+          <span className="text-foreground rounded-full bg-white/80 px-3 py-1 text-xs font-normal shadow-sm backdrop-blur-md dark:bg-white/80">
+            Click to Zoom
+          </span>
         </div>
       </div>
     </div>
     <div className={`order-1 ${align === "right" ? "md:order-2" : "md:order-1"}`}>
       <div className="animate-fade-in-up">
-        <h3 className="text-[28px] font-normal text-foreground mb-4 tracking-[-0.03em]">{title}</h3>
-        <p className="text-lg text-muted-foreground font-light leading-relaxed mb-8">{description}</p>
+        <h3 className="text-foreground mb-4 text-[28px] font-normal tracking-[-0.03em]">{title}</h3>
+        <p className="text-muted-foreground mb-8 text-lg leading-relaxed font-light">
+          {description}
+        </p>
 
         {buttons ? (
           <div className="flex gap-3">
             {buttons.map((btn, i) => (
               <a key={i} href={btn.href} target="_blank" rel="noopener noreferrer">
-                <Button variant={btn.variant || "secondary"} className="rounded-xs">{btn.text}</Button>
+                <Button variant={btn.variant || "secondary"} className="rounded-xs">
+                  {btn.text}
+                </Button>
               </a>
             ))}
           </div>
         ) : (
-          <a href={linkHref || "#"} className="inline-flex items-center text-[#19224A] font-normal hover:underline transition-all">
-            {linkText} <ArrowRight className="w-4 h-4 ml-2" />
+          <a
+            href={linkHref || "#"}
+            className="inline-flex items-center font-normal text-[#19224A] transition-all hover:underline"
+          >
+            {linkText} <ArrowRight className="ml-2 h-4 w-4" />
           </a>
         )}
       </div>
@@ -185,7 +221,7 @@ const FeatureShowcase: React.FC<{
 );
 
 const UIShowcase: React.FC<{ onImageClick: (src: string) => void }> = ({ onImageClick }) => (
-  <Container className="border-t border-border mt-12 pt-12">
+  <Container className="border-border mt-12 border-t pt-12">
     <FeatureShowcase
       title="Fleet Manager UI"
       description="One dashboard for your whole fleet. Effortlessly monitor and manage all PTIs with RaiseDash's centralized dashboard, providing real-time insights and comprehensive oversight for your entire fleet."
@@ -215,11 +251,13 @@ const UIShowcase: React.FC<{ onImageClick: (src: string) => void }> = ({ onImage
 );
 
 const WhyRaisedash: React.FC = () => (
-  <Container className="border-t border-border mt-20 pt-20">
-    <div className="mb-12 text-center max-w-2xl mx-auto">
-      <h2 className="text-[28px] font-normal text-foreground tracking-[-0.03em] mb-4">Why RaiseDash?</h2>
+  <Container className="border-border mt-20 border-t pt-20">
+    <div className="mx-auto mb-12 max-w-2xl text-center">
+      <h2 className="text-foreground mb-4 text-[28px] font-normal tracking-[-0.03em]">
+        Why RaiseDash?
+      </h2>
     </div>
-    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+    <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
       {[
         {
           icon: Shield,
@@ -242,12 +280,16 @@ const WhyRaisedash: React.FC = () => (
           desc: "Accidents can happen despite the best precautions. DVIRs serve as evidence that the vehicle passed inspection and the company followed regulations. With RaiseDash, you have legal protection against negligence claims.",
         },
       ].map((item, idx) => (
-        <div key={idx} className="bg-card p-8 rounded-xs border border-border hover:shadow-lg hover:-translate-y-1 transition-all duration-[0.15s] h-full animate-fade-in-scale" style={{ animationDelay: `${idx * 100}ms` }}>
-          <div className="w-10 h-10 rounded-xs bg-surface-3 dark:bg-secondary flex items-center justify-center mb-4">
-            <item.icon className="w-5 h-5 text-[#19224A] dark:text-primary" />
+        <div
+          key={idx}
+          className="bg-card border-border animate-fade-in-scale h-full rounded-xs border p-8 transition-all duration-[0.15s] hover:-translate-y-1 hover:shadow-lg"
+          style={{ animationDelay: `${idx * 100}ms` }}
+        >
+          <div className="bg-surface-3 dark:bg-secondary mb-4 flex h-10 w-10 items-center justify-center rounded-xs">
+            <item.icon className="dark:text-primary h-5 w-5 text-[#19224A]" />
           </div>
-          <h3 className="text-foreground font-normal mb-2 text-lg">{item.title}</h3>
-          <p className="text-sm text-muted-foreground font-light leading-relaxed">{item.desc}</p>
+          <h3 className="text-foreground mb-2 text-lg font-normal">{item.title}</h3>
+          <p className="text-muted-foreground text-sm leading-relaxed font-light">{item.desc}</p>
         </div>
       ))}
     </div>
@@ -255,31 +297,73 @@ const WhyRaisedash: React.FC = () => (
 );
 
 const Features: React.FC = () => (
-  <Container id="features" className="border-t border-border mt-20 pt-20">
-    <div className="mb-12 text-center max-w-3xl mx-auto">
-      <h2 className="text-[28px] font-normal text-foreground tracking-[-0.03em] mb-4">Comprehensive Features</h2>
-      <p className="text-lg text-muted-foreground font-light">
+  <Container id="features" className="border-border mt-20 border-t pt-20">
+    <div className="mx-auto mb-12 max-w-3xl text-center">
+      <h2 className="text-foreground mb-4 text-[28px] font-normal tracking-[-0.03em]">
+        Comprehensive Features
+      </h2>
+      <p className="text-muted-foreground text-lg font-light">
         Built with modern technology to provide comprehensive fleet management and inspection tools
       </p>
     </div>
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
       {[
-        { title: "Photo-Based DVIR Inspections", desc: "Allow drivers to precisely document any defects with high-quality photos, improving the precision of DVIR inspections.", icon: Camera },
-        { title: "Video Inspections", desc: "Video-based inspections with audio save time for drivers and offer more precise live footage of the fleet.", icon: Video },
-        { title: "Inspection Overview Graph", desc: "Visual display of all inspections using different colors to distinguish between successful inspections and those with defects.", icon: BarChart3 },
-        { title: "Advanced Filters", desc: "Different filters allow you to find specific inspections and analyze your company's inspection trends efficiently.", icon: Filter },
-        { title: "Fleet Management", desc: "Manage your fleet from the same dashboard with auto-generated data when you enter the VIN number.", icon: Truck },
-        { title: "Driver Management", desc: "Efficiently manage your drivers from a single dashboard, keeping track of their performance, inspections, and compliance.", icon: Users },
-        { title: "Customizable Checklists", desc: "Tailor your inspection protocols with fully customizable checklists that align with your company's standards.", icon: FileCheck },
-        { title: "Mobile Apps", desc: "User-friendly mobile apps for both Android and iOS, designed for ease of use and quick inspections on the go.", icon: Smartphone },
-        { title: "Real-time Updates", desc: "Get instant notifications and updates about inspections through integrated communication tools like Telegram and WhatsApp.", icon: Clock },
+        {
+          title: "Photo-Based DVIR Inspections",
+          desc: "Allow drivers to precisely document any defects with high-quality photos, improving the precision of DVIR inspections.",
+          icon: Camera,
+        },
+        {
+          title: "Video Inspections",
+          desc: "Video-based inspections with audio save time for drivers and offer more precise live footage of the fleet.",
+          icon: Video,
+        },
+        {
+          title: "Inspection Overview Graph",
+          desc: "Visual display of all inspections using different colors to distinguish between successful inspections and those with defects.",
+          icon: BarChart3,
+        },
+        {
+          title: "Advanced Filters",
+          desc: "Different filters allow you to find specific inspections and analyze your company's inspection trends efficiently.",
+          icon: Filter,
+        },
+        {
+          title: "Fleet Management",
+          desc: "Manage your fleet from the same dashboard with auto-generated data when you enter the VIN number.",
+          icon: Truck,
+        },
+        {
+          title: "Driver Management",
+          desc: "Efficiently manage your drivers from a single dashboard, keeping track of their performance, inspections, and compliance.",
+          icon: Users,
+        },
+        {
+          title: "Customizable Checklists",
+          desc: "Tailor your inspection protocols with fully customizable checklists that align with your company's standards.",
+          icon: FileCheck,
+        },
+        {
+          title: "Mobile Apps",
+          desc: "User-friendly mobile apps for both Android and iOS, designed for ease of use and quick inspections on the go.",
+          icon: Smartphone,
+        },
+        {
+          title: "Real-time Updates",
+          desc: "Get instant notifications and updates about inspections through integrated communication tools like Telegram and WhatsApp.",
+          icon: Clock,
+        },
       ].map((f, idx) => (
-        <div key={idx} className="group bg-card p-8 rounded-xs border border-border hover:shadow-lg hover:-translate-y-1 transition-all duration-[0.15s] h-full animate-fade-in-scale" style={{ animationDelay: `${idx * 50}ms` }}>
-          <div className="w-10 h-10 rounded-xs bg-surface-3 dark:bg-secondary flex items-center justify-center mb-4 group-hover:bg-[#19224A]/10 transition-colors duration-[0.15s]">
-            <f.icon className="w-5 h-5 text-muted-foreground group-hover:text-[#19224A] dark:group-hover:text-foreground transition-colors duration-[0.15s]" />
+        <div
+          key={idx}
+          className="group bg-card border-border animate-fade-in-scale h-full rounded-xs border p-8 transition-all duration-[0.15s] hover:-translate-y-1 hover:shadow-lg"
+          style={{ animationDelay: `${idx * 50}ms` }}
+        >
+          <div className="bg-surface-3 dark:bg-secondary mb-4 flex h-10 w-10 items-center justify-center rounded-xs transition-colors duration-[0.15s] group-hover:bg-[#19224A]/10">
+            <f.icon className="text-muted-foreground dark:group-hover:text-foreground h-5 w-5 transition-colors duration-[0.15s] group-hover:text-[#19224A]" />
           </div>
-          <h3 className="text-lg font-normal text-foreground mb-2">{f.title}</h3>
-          <p className="text-sm text-muted-foreground font-light leading-relaxed">{f.desc}</p>
+          <h3 className="text-foreground mb-2 text-lg font-normal">{f.title}</h3>
+          <p className="text-muted-foreground text-sm leading-relaxed font-light">{f.desc}</p>
         </div>
       ))}
     </div>
@@ -296,36 +380,55 @@ const PricingCard: React.FC<{
   ctaLink: string;
   isPopular?: boolean;
   extraInfo?: React.ReactNode;
-}> = ({ plan, price, period, description, features, cta, ctaLink, isPopular = false, extraInfo }) => (
-  <div className={`flex flex-col p-8 rounded-xs border ${isPopular ? "bg-card border-[#19224A] ring-1 ring-[#19224A] relative" : "bg-card border-border"} hover:shadow-lg hover:-translate-y-1 transition-all duration-[0.15s] h-full animate-fade-in-up`}>
+}> = ({
+  plan,
+  price,
+  period,
+  description,
+  features,
+  cta,
+  ctaLink,
+  isPopular = false,
+  extraInfo,
+}) => (
+  <div
+    className={`flex flex-col rounded-xs border p-8 ${isPopular ? "bg-card relative border-[#19224A] ring-1 ring-[#19224A]" : "bg-card border-border"} animate-fade-in-up h-full transition-all duration-[0.15s] hover:-translate-y-1 hover:shadow-lg`}
+  >
     {isPopular && (
-      <div className="absolute top-0 right-0 bg-[#19224A] text-white text-xs font-normal px-3 py-1 rounded-bl-xs rounded-tr-xs">
+      <div className="absolute top-0 right-0 rounded-tr-xs rounded-bl-xs bg-[#19224A] px-3 py-1 text-xs font-normal text-white">
         POPULAR
       </div>
     )}
     <div className="mb-6">
-      <h3 className="text-lg font-normal text-foreground mb-2">{plan}</h3>
+      <h3 className="text-foreground mb-2 text-lg font-normal">{plan}</h3>
       <div className="flex items-baseline gap-1">
-        <span className={`font-normal tracking-[-0.03em] text-foreground ${price === "Pay-as-You-Go" ? "text-2xl" : "text-3xl"}`}>{price}</span>
-        {period && <span className="text-sm text-muted-foreground">{period}</span>}
+        <span
+          className={`text-foreground font-normal tracking-[-0.03em] ${price === "Pay-as-You-Go" ? "text-2xl" : "text-3xl"}`}
+        >
+          {price}
+        </span>
+        {period && <span className="text-muted-foreground text-sm">{period}</span>}
       </div>
-      <p className="mt-3 text-sm text-muted-foreground font-light">{description}</p>
+      <p className="text-muted-foreground mt-3 text-sm font-light">{description}</p>
     </div>
-    <ul className="space-y-3 mb-8 flex-1">
+    <ul className="mb-8 flex-1 space-y-3">
       {features.map((feat, i) => (
-        <li key={i} className="flex items-start gap-2 text-sm text-muted-foreground">
-          <CheckCircle className="w-4 h-4 flex-shrink-0 text-emerald-500 mt-0.5" />
+        <li key={i} className="text-muted-foreground flex items-start gap-2 text-sm">
+          <CheckCircle className="mt-0.5 h-4 w-4 flex-shrink-0 text-emerald-500" />
           <span>{feat}</span>
         </li>
       ))}
     </ul>
     <a href={ctaLink} target="_blank" rel="noopener noreferrer" className="mt-auto">
-      <Button variant={isPopular ? "primary" : "secondary"} className={`w-full rounded-xs ${isPopular ? "bg-[#1F1E1E] hover:bg-foreground text-white" : "bg-white border-border text-foreground hover:bg-surface-3"}`}>
+      <Button
+        variant={isPopular ? "primary" : "secondary"}
+        className={`w-full rounded-xs ${isPopular ? "hover:bg-foreground bg-[#1F1E1E] text-white" : "border-border text-foreground hover:bg-surface-3 bg-white"}`}
+      >
         {cta}
       </Button>
     </a>
     {extraInfo && (
-      <div className="mt-6 pt-6 border-t border-border text-xs text-muted-foreground space-y-2">
+      <div className="border-border text-muted-foreground mt-6 space-y-2 border-t pt-6 text-xs">
         {extraInfo}
       </div>
     )}
@@ -333,18 +436,28 @@ const PricingCard: React.FC<{
 );
 
 const Pricing: React.FC = () => (
-  <Container id="pricing" className="border-t border-border mt-20 pt-20">
-    <div className="text-center mb-12 max-w-3xl mx-auto">
-      <h2 className="text-[28px] font-normal tracking-[-0.03em] text-foreground mb-4">Simple, Transparent Pricing</h2>
-      <p className="text-lg text-muted-foreground font-light">Choose the plan that works best for your fleet</p>
+  <Container id="pricing" className="border-border mt-20 border-t pt-20">
+    <div className="mx-auto mb-12 max-w-3xl text-center">
+      <h2 className="text-foreground mb-4 text-[28px] font-normal tracking-[-0.03em]">
+        Simple, Transparent Pricing
+      </h2>
+      <p className="text-muted-foreground text-lg font-light">
+        Choose the plan that works best for your fleet
+      </p>
     </div>
-    <div className="grid md:grid-cols-3 gap-6 items-start">
+    <div className="grid items-start gap-6 md:grid-cols-3">
       <PricingCard
         plan="Basic"
         price="$0"
         period="/month"
         description="Ideal for exploring essential features and experiencing the platform at no cost. Perfect for those just getting started."
-        features={["Video inspection", "Photo inspection", "Android & iOS support", "30 day inspection history retention", "8 inspections/month"]}
+        features={[
+          "Video inspection",
+          "Photo inspection",
+          "Android & iOS support",
+          "30 day inspection history retention",
+          "8 inspections/month",
+        ]}
         cta="App Store"
         ctaLink="https://apps.apple.com/us/app/raisedash/id6466733418"
       />
@@ -353,7 +466,13 @@ const Pricing: React.FC = () => (
         price="$8"
         period="/month"
         description="Unlock the full potential of our platform with advanced features designed for enhanced functionality and productivity."
-        features={["Everything from Basic plan", "Priority support", "1 year inspection history retention", "Unlimited inspections", "Share inspection via link"]}
+        features={[
+          "Everything from Basic plan",
+          "Priority support",
+          "1 year inspection history retention",
+          "Unlimited inspections",
+          "Share inspection via link",
+        ]}
         cta="Get Started"
         ctaLink="https://apps.apple.com/us/app/raisedash/id6466733418"
         isPopular
@@ -392,36 +511,49 @@ const FAQ: React.FC = () => {
   const faqs = [
     {
       question: "How do drivers submit inspections?",
-      answer: "Drivers can easily submit inspections using our mobile app, available for both Android and iOS devices. The app features a straightforward interface designed for quick and hassle-free usage.",
+      answer:
+        "Drivers can easily submit inspections using our mobile app, available for both Android and iOS devices. The app features a straightforward interface designed for quick and hassle-free usage.",
     },
     {
       question: "What's the difference between a checklist inspection and a video inspection?",
-      answer: "The key difference lies in the method of performing the inspection. A checklist inspection mirrors the traditional DVIR format with checkboxes and allows drivers to attach photos of any vehicle issues. On the other hand, a video inspection is a quicker and more convenient option, requiring drivers to simply record a video around the vehicle.",
+      answer:
+        "The key difference lies in the method of performing the inspection. A checklist inspection mirrors the traditional DVIR format with checkboxes and allows drivers to attach photos of any vehicle issues. On the other hand, a video inspection is a quicker and more convenient option, requiring drivers to simply record a video around the vehicle.",
     },
     {
       question: "Can I customize the inspection checklist questions?",
-      answer: "Yes, the inspection questions are fully customizable. You can tailor the inspection checklist to include your own questions. Additionally, RaiseDash offers a default checklist that aligns with the standard DVIR questions.",
+      answer:
+        "Yes, the inspection questions are fully customizable. You can tailor the inspection checklist to include your own questions. Additionally, RaiseDash offers a default checklist that aligns with the standard DVIR questions.",
     },
   ];
 
   return (
-    <Container className="border-t border-border mt-20 pt-20">
-      <div className="max-w-4xl mx-auto">
+    <Container className="border-border mt-20 border-t pt-20">
+      <div className="mx-auto max-w-4xl">
         <div className="mb-12 text-center">
-          <h2 className="text-[28px] font-normal tracking-[-0.03em] text-foreground">Frequently Asked Questions</h2>
+          <h2 className="text-foreground text-[28px] font-normal tracking-[-0.03em]">
+            Frequently Asked Questions
+          </h2>
         </div>
         <div className="space-y-4">
           {faqs.map((faq, idx) => (
-            <div key={idx} className="border border-border rounded-xs overflow-hidden bg-card animate-fade-in-up hover:shadow-lg transition-all duration-[0.15s]" style={{ animationDelay: `${idx * 100}ms` }}>
+            <div
+              key={idx}
+              className="border-border bg-card animate-fade-in-up overflow-hidden rounded-xs border transition-all duration-[0.15s] hover:shadow-lg"
+              style={{ animationDelay: `${idx * 100}ms` }}
+            >
               <button
                 onClick={() => setOpenIndex(openIndex === idx ? null : idx)}
-                className="w-full text-left p-6 flex justify-between items-center hover:bg-surface-3/50 dark:hover:bg-secondary transition-colors duration-[0.15s]"
+                className="hover:bg-surface-3/50 dark:hover:bg-secondary flex w-full items-center justify-between p-6 text-left transition-colors duration-[0.15s]"
               >
-                <span className="font-normal text-foreground pr-4">{faq.question}</span>
-                <ChevronDown className={`w-5 h-5 text-muted-foreground flex-shrink-0 transition-transform duration-300 ${openIndex === idx ? "rotate-180" : ""}`} />
+                <span className="text-foreground pr-4 font-normal">{faq.question}</span>
+                <ChevronDown
+                  className={`text-muted-foreground h-5 w-5 flex-shrink-0 transition-transform duration-300 ${openIndex === idx ? "rotate-180" : ""}`}
+                />
               </button>
-              <div className={`overflow-hidden transition-all duration-300 ease-in-out ${openIndex === idx ? "max-h-60 opacity-100" : "max-h-0 opacity-0"}`}>
-                <div className="p-6 pt-0 text-muted-foreground font-light leading-relaxed">
+              <div
+                className={`overflow-hidden transition-all duration-300 ease-in-out ${openIndex === idx ? "max-h-60 opacity-100" : "max-h-0 opacity-0"}`}
+              >
+                <div className="text-muted-foreground p-6 pt-0 leading-relaxed font-light">
                   {faq.answer}
                 </div>
               </div>
@@ -435,16 +567,25 @@ const FAQ: React.FC = () => {
 
 const CTA: React.FC = () => (
   <>
-    <Container className="border-t border-border mt-20 pt-20" />
-    <Container className="bg-[#19224A] rounded-xs p-12 md:p-16 text-center relative overflow-hidden mb-20">
-      <div className="relative z-10 max-w-3xl mx-auto">
-        <h2 className="text-[28px] md:text-4xl font-normal text-white mb-6 tracking-[-0.03em]">Want To Learn More About RaiseDash?</h2>
-        <p className="text-lg text-white/70 font-light mb-10">
-          Get in touch to schedule a demo and discover how RaiseDash can enhance your fleet's safety and efficiency!
+    <Container className="border-border mt-20 border-t pt-20" />
+    <Container className="relative mb-20 overflow-hidden rounded-xs bg-[#19224A] p-12 text-center md:p-16">
+      <div className="relative z-10 mx-auto max-w-3xl">
+        <h2 className="mb-6 text-[28px] font-normal tracking-[-0.03em] text-white md:text-4xl">
+          Want To Learn More About RaiseDash?
+        </h2>
+        <p className="mb-10 text-lg font-light text-white/70">
+          Get in touch to schedule a demo and discover how RaiseDash can enhance your fleet's safety
+          and efficiency!
         </p>
         <div className="flex justify-center">
-          <a href="https://cal.com/javokhir/raisedash-demo-meeting" target="_blank" rel="noopener noreferrer">
-            <Button size="lg" className="px-8 bg-white text-[#19224A] hover:bg-white/90 rounded-xs">Book A Demo</Button>
+          <a
+            href="https://cal.com/javokhir/raisedash-demo-meeting"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Button size="lg" className="rounded-xs bg-white px-8 text-[#19224A] hover:bg-white/90">
+              Book A Demo
+            </Button>
           </a>
         </div>
       </div>
@@ -464,7 +605,15 @@ const RaisedashPTIPage: NextPage = () => {
       <SEO
         title="PTI Inspections | Digitize DVIR & Pre-Trip Inspections"
         description="RaiseDash simplifies your DVIR and Pre-Trip inspections with easy-to-use digital tools. Enhance fleet safety, ensure FMCSA compliance, and boost efficiency."
-        keywords={["DVIR software", "pre-trip inspection", "fleet inspection app", "FMCSA compliance", "driver vehicle inspection report", "fleet safety software", "PTI app"]}
+        keywords={[
+          "DVIR software",
+          "pre-trip inspection",
+          "fleet inspection app",
+          "FMCSA compliance",
+          "driver vehicle inspection report",
+          "fleet safety software",
+          "PTI app",
+        ]}
         ogType="product"
       />
       <SoftwareApplicationJsonLd
@@ -484,7 +633,7 @@ const RaisedashPTIPage: NextPage = () => {
         onClose={() => setLightboxImage(null)}
       />
 
-      <div className="min-h-screen bg-background dark:bg-secondary text-foreground font-sans selection:bg-[#19224A]/15 selection:text-[#19224A]">
+      <div className="bg-background dark:bg-secondary text-foreground min-h-screen font-sans selection:bg-[#19224A]/15 selection:text-[#19224A]">
         <main>
           <Hero />
           <UIShowcase onImageClick={setLightboxImage} />

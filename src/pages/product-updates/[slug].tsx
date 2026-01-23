@@ -30,40 +30,43 @@ interface ProductUpdatePageProps {
 
 const mdxComponents = {
   h1: (props: React.HTMLAttributes<HTMLHeadingElement>) => (
-    <h1 className="text-3xl font-bold text-foreground mb-6 mt-8 first:mt-0" {...props} />
+    <h1 className="text-foreground mt-8 mb-6 text-3xl font-bold first:mt-0" {...props} />
   ),
   h2: (props: React.HTMLAttributes<HTMLHeadingElement>) => (
-    <h2 className="text-2xl font-semibold text-foreground mb-4 mt-8" {...props} />
+    <h2 className="text-foreground mt-8 mb-4 text-2xl font-semibold" {...props} />
   ),
   h3: (props: React.HTMLAttributes<HTMLHeadingElement>) => (
-    <h3 className="text-xl font-semibold text-foreground mb-3 mt-6" {...props} />
+    <h3 className="text-foreground mt-6 mb-3 text-xl font-semibold" {...props} />
   ),
   p: (props: React.HTMLAttributes<HTMLParagraphElement>) => (
     <p className="text-muted-foreground mb-4 leading-relaxed" {...props} />
   ),
   ul: (props: React.HTMLAttributes<HTMLUListElement>) => (
-    <ul className="list-disc pl-6 mb-4 space-y-2" {...props} />
+    <ul className="mb-4 list-disc space-y-2 pl-6" {...props} />
   ),
   ol: (props: React.HTMLAttributes<HTMLOListElement>) => (
-    <ol className="list-decimal pl-6 mb-4 space-y-2" {...props} />
+    <ol className="mb-4 list-decimal space-y-2 pl-6" {...props} />
   ),
   li: (props: React.HTMLAttributes<HTMLLIElement>) => (
     <li className="text-muted-foreground" {...props} />
   ),
   strong: (props: React.HTMLAttributes<HTMLElement>) => (
-    <strong className="font-semibold text-foreground" {...props} />
+    <strong className="text-foreground font-semibold" {...props} />
   ),
   a: (props: React.AnchorHTMLAttributes<HTMLAnchorElement>) => (
     <a className="text-primary hover:underline" {...props} />
   ),
   blockquote: (props: React.HTMLAttributes<HTMLQuoteElement>) => (
-    <blockquote className="border-l-4 border-primary pl-4 italic text-muted-foreground my-4" {...props} />
+    <blockquote
+      className="border-primary text-muted-foreground my-4 border-l-4 pl-4 italic"
+      {...props}
+    />
   ),
   code: (props: React.HTMLAttributes<HTMLElement>) => (
-    <code className="bg-muted px-1.5 py-0.5 rounded text-sm font-mono" {...props} />
+    <code className="bg-muted rounded px-1.5 py-0.5 font-mono text-sm" {...props} />
   ),
   pre: (props: React.HTMLAttributes<HTMLPreElement>) => (
-    <pre className="bg-muted p-4 rounded-lg overflow-x-auto mb-4" {...props} />
+    <pre className="bg-muted mb-4 overflow-x-auto rounded-lg p-4" {...props} />
   ),
 };
 
@@ -73,7 +76,7 @@ async function renderMdxToHtml(mdx: string): Promise<string> {
   const code = String(
     await compile(mdx, {
       outputFormat: "function-body",
-    }),
+    })
   );
 
   const mdxModule = await run(code, { ...runtime });
@@ -82,7 +85,11 @@ async function renderMdxToHtml(mdx: string): Promise<string> {
   return renderToStaticMarkup(<Content components={mdxComponents} />);
 }
 
-export default function ProductUpdatePage({ update, mdxHtml, relatedUpdates }: ProductUpdatePageProps) {
+export default function ProductUpdatePage({
+  update,
+  mdxHtml,
+  relatedUpdates,
+}: ProductUpdatePageProps) {
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString("en-US", {
       year: "numeric",
@@ -94,10 +101,12 @@ export default function ProductUpdatePage({ update, mdxHtml, relatedUpdates }: P
   if (!update) {
     return (
       <div className="font-sans">
-        <Container className="bg-card mt-12 rounded-xs border border-border">
+        <Container className="bg-card border-border mt-12 rounded-xs border">
           <div className="py-16 text-center">
-            <h1 className="text-2xl font-semibold text-foreground mb-4">Update Not Found</h1>
-            <p className="text-muted-foreground mb-6">The update you&apos;re looking for doesn&apos;t exist.</p>
+            <h1 className="text-foreground mb-4 text-2xl font-semibold">Update Not Found</h1>
+            <p className="text-muted-foreground mb-6">
+              The update you&apos;re looking for doesn&apos;t exist.
+            </p>
             <Link href="/product-updates">
               <Button>Back to Product Updates</Button>
             </Link>
@@ -182,14 +191,18 @@ export default function ProductUpdatePage({ update, mdxHtml, relatedUpdates }: P
 
       <div className="font-sans">
         {/* Breadcrumb */}
-        <Container className="bg-card mt-12 rounded-xs border border-border">
+        <Container className="bg-card border-border mt-12 rounded-xs border">
           <div className="py-4">
-            <nav className="flex items-center gap-2 text-sm text-muted-foreground">
-              <Link href="/" className="hover:text-foreground transition-colors">Home</Link>
+            <nav className="text-muted-foreground flex items-center gap-2 text-sm">
+              <Link href="/" className="hover:text-foreground transition-colors">
+                Home
+              </Link>
               <span>/</span>
-              <Link href="/product-updates" className="hover:text-foreground transition-colors">Product Updates</Link>
+              <Link href="/product-updates" className="hover:text-foreground transition-colors">
+                Product Updates
+              </Link>
               <span>/</span>
-              <span className="text-foreground truncate max-w-[200px]">{update.title}</span>
+              <span className="text-foreground max-w-[200px] truncate">{update.title}</span>
             </nav>
           </div>
         </Container>
@@ -197,11 +210,12 @@ export default function ProductUpdatePage({ update, mdxHtml, relatedUpdates }: P
         {/* Feature Image */}
         {update.image && (
           <Container className="mt-8">
-            <div className="aspect-video relative rounded-2xl overflow-hidden">
+            <div className="relative aspect-video overflow-hidden rounded-2xl">
               <Image
                 src={update.image}
-                alt={update.title}
+                alt={`${update.title} - Raisedash compliance platform feature screenshot`}
                 fill
+                sizes="100vw"
                 className="object-cover"
                 priority
               />
@@ -210,37 +224,37 @@ export default function ProductUpdatePage({ update, mdxHtml, relatedUpdates }: P
         )}
 
         {/* Article */}
-        <Container className="bg-card mt-8 rounded-xs border border-border">
+        <Container className="bg-card border-border mt-8 rounded-xs border">
           <div className="py-12">
-            <article className="max-w-4xl mx-auto">
+            <article className="mx-auto max-w-4xl">
               {/* Header */}
               <header className="mb-8">
-                <div className="flex items-center gap-3 mb-4">
-                  <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-primary/10 text-primary">
+                <div className="mb-4 flex items-center gap-3">
+                  <span className="bg-primary/10 text-primary inline-flex items-center rounded-full px-3 py-1 text-sm font-medium">
                     {update.category}
                   </span>
                   <TierBadge tier={update.tier} />
                 </div>
 
-                <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6 leading-tight">
+                <h1 className="text-foreground mb-6 text-4xl leading-tight font-bold md:text-5xl">
                   {update.title}
                 </h1>
 
-                <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
+                <p className="text-muted-foreground mb-8 text-xl leading-relaxed">
                   {update.excerpt}
                 </p>
 
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-8 border-b border-border">
+                <div className="border-border flex flex-col justify-between gap-4 border-b pb-8 sm:flex-row sm:items-center">
                   <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
-                      <span className="text-sm font-medium text-primary">RD</span>
+                    <div className="bg-primary/10 flex h-12 w-12 items-center justify-center rounded-full">
+                      <span className="text-primary text-sm font-medium">RD</span>
                     </div>
                     <div>
-                      <div className="font-semibold text-foreground">Raisedash Team</div>
-                      <div className="text-sm text-muted-foreground">Product Updates</div>
+                      <div className="text-foreground font-semibold">Raisedash Team</div>
+                      <div className="text-muted-foreground text-sm">Product Updates</div>
                     </div>
                   </div>
-                  <div className="text-sm text-muted-foreground">
+                  <div className="text-muted-foreground text-sm">
                     <div>{formatDate(update.publishedAt)}</div>
                     <div>{update.readTime}</div>
                   </div>
@@ -254,8 +268,8 @@ export default function ProductUpdatePage({ update, mdxHtml, relatedUpdates }: P
 
               {/* Product Link CTA */}
               {update.productLink && (
-                <div className="mt-12 p-6 bg-[#19224A]/5 dark:bg-primary/10 rounded-2xl">
-                  <h3 className="text-lg font-semibold text-foreground mb-2">Try it now</h3>
+                <div className="dark:bg-primary/10 mt-12 rounded-2xl bg-[#19224A]/5 p-6">
+                  <h3 className="text-foreground mb-2 text-lg font-semibold">Try it now</h3>
                   <p className="text-muted-foreground mb-4">
                     This feature is available today. See it in action.
                   </p>
@@ -266,13 +280,13 @@ export default function ProductUpdatePage({ update, mdxHtml, relatedUpdates }: P
               )}
 
               {/* Tags */}
-              <div className="mt-12 pt-8 border-t border-border">
-                <h3 className="text-lg font-semibold text-foreground mb-4">Tags</h3>
+              <div className="border-border mt-12 border-t pt-8">
+                <h3 className="text-foreground mb-4 text-lg font-semibold">Tags</h3>
                 <div className="flex flex-wrap gap-2">
                   {update.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="inline-flex items-center px-3 py-1 rounded-full text-sm bg-muted text-muted-foreground"
+                      className="bg-muted text-muted-foreground inline-flex items-center rounded-full px-3 py-1 text-sm"
                     >
                       {tag}
                     </span>
@@ -285,10 +299,10 @@ export default function ProductUpdatePage({ update, mdxHtml, relatedUpdates }: P
 
         {/* Related Updates */}
         {relatedUpdates.length > 0 && (
-          <Container className="bg-card mt-8 rounded-xs border border-border">
+          <Container className="bg-card border-border mt-8 rounded-xs border">
             <div className="py-12">
-              <h2 className="text-2xl font-semibold text-foreground mb-8">Related Updates</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <h2 className="text-foreground mb-8 text-2xl font-semibold">Related Updates</h2>
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
                 {relatedUpdates.map((relatedUpdate) => (
                   <ProductUpdateCard key={relatedUpdate.slug} update={relatedUpdate} />
                 ))}

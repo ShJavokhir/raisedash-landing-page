@@ -8,6 +8,8 @@ const withBundleAnalyzer = bundleAnalyzer({
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   output: "standalone",
+  // SEO: Enforce consistent URL format (no trailing slashes)
+  trailingSlash: false,
   images: {
     remotePatterns: [
       {

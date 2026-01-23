@@ -47,11 +47,17 @@ export default function Blog({ posts, categories }: BlogPageProps) {
       <section className="bg-background pb-8">
         <Container>
           <div className="bg-card border-border rounded-xs border p-6">
-            <div className="flex flex-wrap gap-2">
+            <div
+              className="flex flex-wrap gap-2"
+              role="group"
+              aria-label="Filter articles by category"
+            >
               {categories.map((category) => (
                 <button
                   key={category}
                   onClick={() => setSelectedCategory(category)}
+                  aria-label={category === "All" ? "Show all articles" : `Filter by ${category}`}
+                  aria-pressed={selectedCategory === category}
                   className={`rounded-full px-4 py-2 text-sm font-normal transition-all duration-[0.15s] ${
                     selectedCategory === category
                       ? "bg-primary text-primary-foreground"

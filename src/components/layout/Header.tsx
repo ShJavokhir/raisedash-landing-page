@@ -183,8 +183,9 @@ export function Header() {
                           <div className="bg-surface-3 relative h-full w-full overflow-hidden rounded-xs">
                             <Image
                               src={hoveredSolution.image}
-                              alt={hoveredSolution.title}
+                              alt={`${hoveredSolution.title} - ${hoveredSolution.description}`}
                               fill
+                              sizes="270px"
                               className="object-cover transition-opacity duration-[0.15s] dark:invert"
                             />
                           </div>

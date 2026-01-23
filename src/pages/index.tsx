@@ -72,8 +72,10 @@ export default function Home() {
               <div className="bg-surface-3 relative aspect-[4/3] w-full overflow-hidden rounded-xs">
                 <Image
                   src="https://cdn.raisedash.com/media/landing/797f10f9.webp"
-                  alt="Shift (Driver Onboarding)"
+                  alt="Shift driver onboarding platform showing streamlined LMS dashboard for efficient driver training and compliance management"
                   fill
+                  priority
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   className="object-cover"
                 />
               </div>
@@ -102,8 +104,10 @@ export default function Home() {
               <div className="bg-surface-3 relative aspect-[4/3] w-full overflow-hidden rounded-xs">
                 <Image
                   src="https://cdn.raisedash.com/media/landing/fca0b837.webp"
-                  alt="PTI (PTI Inspections)"
+                  alt="PTI Pre-Trip Inspection app interface displaying digital DVIR forms and vehicle inspection checklist"
                   fill
+                  priority
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   className="object-cover"
                 />
               </div>
@@ -129,9 +133,10 @@ export default function Home() {
               <div className="bg-surface-3 relative aspect-[4/3] w-full overflow-hidden rounded-xs">
                 <Image
                   src="https://cdn.raisedash.com/media/landing/9ecad1a8.webp"
-                  alt="Vertex (Freight Tracking)"
+                  alt="Vertex freight tracking dashboard showing real-time shipment visibility and automated arrival alerts"
                   fill
                   priority
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   className="object-cover"
                 />
               </div>
