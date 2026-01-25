@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import Head from "next/head";
 import Link from "next/link";
 import { motion, AnimatePresence } from "motion/react";
-import { ArrowLeft, ArrowRight, Check, Loader2, Truck } from "lucide-react";
+import { ArrowLeft, ArrowRight, Loader2, Truck, Mail } from "lucide-react";
 import { Turnstile } from "@marsidev/react-turnstile";
 import { Input } from "@/components/ui/Input";
 import { Button } from "@/components/ui/Button";
@@ -583,16 +583,52 @@ export default function GetStarted() {
                 className="py-12 text-center"
               >
                 <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-emerald-50 dark:bg-emerald-950">
-                  <Check className="h-10 w-10 text-emerald-600 dark:text-emerald-400" />
+                  <Mail className="h-10 w-10 text-emerald-600 dark:text-emerald-400" />
                 </div>
                 <h1 className="text-foreground mb-3 text-3xl font-semibold tracking-tight">
-                  Thank you for your interest
+                  Check your inbox
                 </h1>
-                <p className="text-muted-foreground mx-auto mb-8 max-w-md">
-                  A member of our team will reach out to{" "}
-                  <span className="text-foreground font-medium">{formData.email}</span> within one
-                  business day to schedule your personalized demo.
+                <p className="text-muted-foreground mx-auto mb-6 max-w-md">
+                  We&apos;ve sent an invitation to{" "}
+                  <span className="text-foreground font-medium">{formData.email}</span> to set up
+                  your Raisedash account. Click the link in the email to get started.
                 </p>
+                <p className="text-muted-foreground mx-auto mb-8 max-w-md text-sm">
+                  Can&apos;t find it? Check your spam folder or promotions tab.
+                </p>
+
+                {/* Email provider buttons */}
+                <div className="mx-auto mb-8 flex max-w-sm flex-col gap-3 sm:flex-row sm:justify-center">
+                  <a
+                    href="https://mail.google.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="border-border bg-card hover:bg-surface-2 text-foreground inline-flex items-center justify-center gap-2 rounded-lg border px-5 py-3 text-sm font-medium transition-colors"
+                  >
+                    <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none">
+                      <path
+                        d="M22 6C22 4.9 21.1 4 20 4H4C2.9 4 2 4.9 2 6V18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V6ZM20 6L12 11L4 6H20ZM20 18H4V8L12 13L20 8V18Z"
+                        fill="#EA4335"
+                      />
+                    </svg>
+                    Open Gmail
+                  </a>
+                  <a
+                    href="https://outlook.live.com/mail"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="border-border bg-card hover:bg-surface-2 text-foreground inline-flex items-center justify-center gap-2 rounded-lg border px-5 py-3 text-sm font-medium transition-colors"
+                  >
+                    <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none">
+                      <path
+                        d="M22 6C22 4.9 21.1 4 20 4H4C2.9 4 2 4.9 2 6V18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V6ZM20 6L12 11L4 6H20ZM20 18H4V8L12 13L20 8V18Z"
+                        fill="#0078D4"
+                      />
+                    </svg>
+                    Open Outlook
+                  </a>
+                </div>
+
                 <Link href="/">
                   <Button variant="secondary" size="lg">
                     <ArrowLeft className="mr-2 h-4 w-4" />
