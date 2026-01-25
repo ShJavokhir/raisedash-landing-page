@@ -6,9 +6,9 @@ export function Footer() {
     <footer className="mb-8 w-full bg-transparent sm:mb-12">
       <div>
         <Container className="border-border bg-card rounded-xs border px-8 py-8 sm:px-12 sm:py-12">
-          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 sm:gap-10 md:grid-cols-5">
+          <div className="grid grid-cols-3 gap-4 gap-y-8 sm:gap-8 md:grid-cols-5 md:gap-10">
             {/* Brand Section */}
-            <div className="sm:col-span-2 md:col-span-2">
+            <div className="col-span-3 md:col-span-2">
               <h3 className="text-foreground mb-4 text-base font-normal">Raisedash</h3>
               <p className="text-muted-foreground mb-6 max-w-md text-sm leading-relaxed">
                 Strengthening safety and security of corporations in freight logistics. Get started

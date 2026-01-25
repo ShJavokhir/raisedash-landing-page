@@ -22,40 +22,64 @@ interface BlogPostPageProps {
 
 const mdxComponents = {
   h1: (props: React.HTMLAttributes<HTMLHeadingElement>) => (
-    <h1 className="text-3xl font-bold text-foreground mb-6 mt-8 first:mt-0" {...props} />
+    <h1 className="text-foreground mt-8 mb-6 text-3xl font-bold first:mt-0" {...props} />
   ),
   h2: (props: React.HTMLAttributes<HTMLHeadingElement>) => (
-    <h2 className="text-2xl font-semibold text-foreground mb-4 mt-8" {...props} />
+    <h2 className="text-foreground mt-8 mb-4 text-2xl font-semibold" {...props} />
   ),
   h3: (props: React.HTMLAttributes<HTMLHeadingElement>) => (
-    <h3 className="text-xl font-semibold text-foreground mb-3 mt-6" {...props} />
+    <h3 className="text-foreground mt-6 mb-3 text-xl font-semibold" {...props} />
   ),
   p: (props: React.HTMLAttributes<HTMLParagraphElement>) => (
     <p className="text-muted-foreground mb-4 leading-relaxed" {...props} />
   ),
   ul: (props: React.HTMLAttributes<HTMLUListElement>) => (
-    <ul className="list-disc pl-6 mb-4 space-y-2" {...props} />
+    <ul className="mb-4 list-disc space-y-2 pl-6" {...props} />
   ),
   ol: (props: React.HTMLAttributes<HTMLOListElement>) => (
-    <ol className="list-decimal pl-6 mb-4 space-y-2" {...props} />
+    <ol className="mb-4 list-decimal space-y-2 pl-6" {...props} />
   ),
   li: (props: React.HTMLAttributes<HTMLLIElement>) => (
     <li className="text-muted-foreground" {...props} />
   ),
   strong: (props: React.HTMLAttributes<HTMLElement>) => (
-    <strong className="font-semibold text-foreground" {...props} />
+    <strong className="text-foreground font-semibold" {...props} />
   ),
   a: (props: React.AnchorHTMLAttributes<HTMLAnchorElement>) => (
     <a className="text-primary hover:underline" {...props} />
   ),
   blockquote: (props: React.HTMLAttributes<HTMLQuoteElement>) => (
-    <blockquote className="border-l-4 border-primary pl-4 italic text-muted-foreground my-4" {...props} />
+    <blockquote
+      className="border-primary text-muted-foreground my-4 border-l-4 pl-4 italic"
+      {...props}
+    />
   ),
   code: (props: React.HTMLAttributes<HTMLElement>) => (
-    <code className="bg-muted px-1.5 py-0.5 rounded text-sm font-mono" {...props} />
+    <code className="bg-muted rounded px-1.5 py-0.5 font-mono text-sm" {...props} />
   ),
   pre: (props: React.HTMLAttributes<HTMLPreElement>) => (
-    <pre className="bg-muted p-4 rounded-lg overflow-x-auto mb-4" {...props} />
+    <pre className="bg-muted mb-4 overflow-x-auto rounded-lg p-4" {...props} />
+  ),
+  table: (props: React.HTMLAttributes<HTMLTableElement>) => (
+    <div className="mb-6 overflow-x-auto">
+      <table className="border-border w-full border-collapse border text-sm" {...props} />
+    </div>
+  ),
+  thead: (props: React.HTMLAttributes<HTMLTableSectionElement>) => (
+    <thead className="bg-muted" {...props} />
+  ),
+  tbody: (props: React.HTMLAttributes<HTMLTableSectionElement>) => <tbody {...props} />,
+  tr: (props: React.HTMLAttributes<HTMLTableRowElement>) => (
+    <tr className="border-border border-b" {...props} />
+  ),
+  th: (props: React.HTMLAttributes<HTMLTableCellElement>) => (
+    <th
+      className="text-foreground border-border border px-4 py-3 text-left font-semibold"
+      {...props}
+    />
+  ),
+  td: (props: React.HTMLAttributes<HTMLTableCellElement>) => (
+    <td className="text-muted-foreground border-border border px-4 py-3" {...props} />
   ),
 };
 
@@ -63,11 +87,13 @@ async function renderMdxToHtml(mdx: string): Promise<string> {
   // Render MDX to static HTML at build-time to avoid client-side `eval`/`new Function()`,
   // which can be blocked by strict CSP (no `unsafe-eval`).
   const { compile, run } = await import("@mdx-js/mdx");
+  const remarkGfm = (await import("remark-gfm")).default;
 
   const code = String(
     await compile(mdx, {
       outputFormat: "function-body",
-    }),
+      remarkPlugins: [remarkGfm],
+    })
   );
 
   const mdxModule = await run(code, { ...runtime });
@@ -88,10 +114,12 @@ export default function BlogPostPage({ post, mdxHtml, relatedPosts }: BlogPostPa
   if (!post) {
     return (
       <div className="font-sans">
-        <Container className="bg-card mt-12 rounded-xs border border-border">
+        <Container className="bg-card border-border mt-12 rounded-xs border">
           <div className="py-16 text-center">
-            <h1 className="text-2xl font-normal text-foreground mb-4">Article Not Found</h1>
-            <p className="text-muted-foreground mb-6">The article you&apos;re looking for doesn&apos;t exist.</p>
+            <h1 className="text-foreground mb-4 text-2xl font-normal">Article Not Found</h1>
+            <p className="text-muted-foreground mb-6">
+              The article you&apos;re looking for doesn&apos;t exist.
+            </p>
             <Link href="/blog">
               <Button>Back to Blog</Button>
             </Link>
@@ -183,133 +211,134 @@ export default function BlogPostPage({ post, mdxHtml, relatedPosts }: BlogPostPa
       />
 
       {/* FAQ JSON-LD (if post has FAQs) */}
-      {post.faqs && post.faqs.length > 0 && (
-        <FAQPageJsonLd faqs={post.faqs} />
-      )}
+      {post.faqs && post.faqs.length > 0 && <FAQPageJsonLd faqs={post.faqs} />}
 
       <div className="font-sans">
-      {/* Breadcrumb */}
-      <Container className="bg-card mt-12 rounded-xs border border-border">
-        <div className="py-4">
-          <nav className="flex items-center gap-2 text-sm text-muted-foreground">
-            <Link href="/" className="hover:text-foreground transition-colors">Home</Link>
-            <span>/</span>
-            <Link href="/blog" className="hover:text-foreground transition-colors">Blog</Link>
-            <span>/</span>
-            <span className="text-foreground truncate max-w-[200px]">{post.title}</span>
-          </nav>
-        </div>
-      </Container>
+        {/* Breadcrumb */}
+        <Container className="bg-card border-border mt-12 rounded-xs border">
+          <div className="py-4">
+            <nav className="text-muted-foreground flex items-center gap-2 text-sm">
+              <Link href="/" className="hover:text-foreground transition-colors">
+                Home
+              </Link>
+              <span>/</span>
+              <Link href="/blog" className="hover:text-foreground transition-colors">
+                Blog
+              </Link>
+              <span>/</span>
+              <span className="text-foreground">{post.title}</span>
+            </nav>
+          </div>
+        </Container>
 
-      {/* Article */}
-      <Container className="bg-card mt-8 rounded-xs border border-border">
-        <div className="py-12">
-          <article className="max-w-4xl mx-auto">
-            {/* Header */}
-            <header className="mb-8">
-              <div className="flex items-center gap-3 mb-4">
-                <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-primary/10 text-primary">
-                  {post.category}
-                </span>
-                {post.featured && (
-                  <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-accent text-accent-foreground">
-                    Featured
+        {/* Article */}
+        <Container className="bg-card border-border mt-8 rounded-xs border">
+          <div className="py-12">
+            <article className="mx-auto max-w-4xl">
+              {/* Header */}
+              <header className="mb-8">
+                <div className="mb-4 flex items-center gap-3">
+                  <span className="bg-primary/10 text-primary inline-flex items-center rounded-full px-3 py-1 text-sm font-medium">
+                    {post.category}
                   </span>
-                )}
-              </div>
-
-              <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6 leading-tight">
-                {post.title}
-              </h1>
-
-              <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
-                {post.excerpt}
-              </p>
-
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-8 border-b border-border">
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
-                    <span className="text-sm font-medium text-primary">
-                      {post.author.split(" ").map((n) => n[0]).join("")}
+                  {post.featured && (
+                    <span className="bg-accent text-accent-foreground inline-flex items-center rounded-full px-3 py-1 text-sm font-medium">
+                      Featured
                     </span>
+                  )}
+                </div>
+
+                <h1 className="text-foreground mb-6 text-4xl leading-tight font-bold md:text-5xl">
+                  {post.title}
+                </h1>
+
+                <p className="text-muted-foreground mb-8 text-xl leading-relaxed">{post.excerpt}</p>
+
+                <div className="border-border flex flex-col justify-between gap-4 border-b pb-8 sm:flex-row sm:items-center">
+                  <div className="flex items-center gap-4">
+                    <div className="bg-primary/10 flex h-12 w-12 items-center justify-center rounded-full">
+                      <span className="text-primary text-sm font-medium">
+                        {post.author
+                          .split(" ")
+                          .map((n) => n[0])
+                          .join("")}
+                      </span>
+                    </div>
+                    <div>
+                      <div className="text-foreground font-semibold">{post.author}</div>
+                      <div className="text-muted-foreground text-sm">{post.authorRole}</div>
+                    </div>
                   </div>
-                  <div>
-                    <div className="font-semibold text-foreground">{post.author}</div>
-                    <div className="text-sm text-muted-foreground">{post.authorRole}</div>
+                  <div className="text-muted-foreground text-sm">
+                    <div>{formatDate(post.publishedAt)}</div>
+                    <div>{post.readTime}</div>
                   </div>
                 </div>
-                <div className="text-sm text-muted-foreground">
-                  <div>{formatDate(post.publishedAt)}</div>
-                  <div>{post.readTime}</div>
+              </header>
+
+              {/* MDX Content */}
+              <div className="prose prose-lg max-w-none">
+                <div dangerouslySetInnerHTML={{ __html: mdxHtml }} />
+              </div>
+
+              {/* Tags */}
+              <div className="border-border mt-12 border-t pt-8">
+                <h3 className="text-foreground mb-4 text-lg font-semibold">Tags</h3>
+                <div className="flex flex-wrap gap-2">
+                  {post.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="bg-muted text-muted-foreground inline-flex items-center rounded-full px-3 py-1 text-sm"
+                    >
+                      {tag}
+                    </span>
+                  ))}
                 </div>
               </div>
-            </header>
+            </article>
+          </div>
+        </Container>
 
-            {/* MDX Content */}
-            <div className="prose prose-lg max-w-none">
-              <div dangerouslySetInnerHTML={{ __html: mdxHtml }} />
-            </div>
-
-            {/* Tags */}
-            <div className="mt-12 pt-8 border-t border-border">
-              <h3 className="text-lg font-semibold text-foreground mb-4">Tags</h3>
-              <div className="flex flex-wrap gap-2">
-                {post.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="inline-flex items-center px-3 py-1 rounded-full text-sm bg-muted text-muted-foreground"
-                  >
-                    {tag}
-                  </span>
+        {/* Related Articles */}
+        {relatedPosts.length > 0 && (
+          <Container className="bg-card border-border mt-8 rounded-xs border">
+            <div className="py-12">
+              <h2 className="text-foreground mb-8 text-2xl font-normal">Related Articles</h2>
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+                {relatedPosts.map((relatedPost) => (
+                  <div key={relatedPost.slug} className="group">
+                    <Link href={`/blog/${relatedPost.slug}`} className="block">
+                      <article className="bg-card border-border hover:bg-surface-2 h-full rounded-xs border p-6 transition-colors duration-[0.15s]">
+                        <div className="mb-3 flex items-center gap-2">
+                          <span className="bg-surface-3 text-foreground inline-flex items-center rounded-xs px-2 py-0.5 text-xs font-normal">
+                            {relatedPost.category}
+                          </span>
+                          <span className="text-muted-foreground text-xs">
+                            {formatDate(relatedPost.publishedAt)}
+                          </span>
+                        </div>
+                        <h3 className="text-foreground group-hover:text-foreground-80 mb-2 font-normal transition-colors duration-[0.15s]">
+                          {relatedPost.title}
+                        </h3>
+                        <p className="text-muted-foreground mb-3 text-sm">{relatedPost.excerpt}</p>
+                        <div className="text-muted-foreground flex items-center gap-2 text-xs">
+                          <span>{relatedPost.author}</span>
+                          <span>•</span>
+                          <span>{relatedPost.readTime}</span>
+                        </div>
+                      </article>
+                    </Link>
+                  </div>
                 ))}
               </div>
             </div>
-          </article>
+          </Container>
+        )}
+
+        <div className="mt-8 sm:mt-12">
+          <Footer />
         </div>
-      </Container>
-
-      {/* Related Articles */}
-      {relatedPosts.length > 0 && (
-        <Container className="bg-card mt-8 rounded-xs border border-border">
-          <div className="py-12">
-            <h2 className="text-2xl font-normal text-foreground mb-8">Related Articles</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {relatedPosts.map((relatedPost) => (
-                <div key={relatedPost.slug} className="group">
-                  <Link href={`/blog/${relatedPost.slug}`} className="block">
-                    <article className="bg-card rounded-xs border border-border p-6 h-full hover:bg-surface-2 transition-colors duration-[0.15s]">
-                      <div className="flex items-center gap-2 mb-3">
-                        <span className="inline-flex items-center px-2 py-0.5 rounded-xs text-xs font-normal bg-surface-3 text-foreground">
-                          {relatedPost.category}
-                        </span>
-                        <span className="text-xs text-muted-foreground">
-                          {formatDate(relatedPost.publishedAt)}
-                        </span>
-                      </div>
-                      <h3 className="font-normal text-foreground mb-2 group-hover:text-foreground-80 transition-colors duration-[0.15s]">
-                        {relatedPost.title}
-                      </h3>
-                      <p className="text-sm text-muted-foreground mb-3">
-                        {relatedPost.excerpt}
-                      </p>
-                      <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                        <span>{relatedPost.author}</span>
-                        <span>•</span>
-                        <span>{relatedPost.readTime}</span>
-                      </div>
-                    </article>
-                  </Link>
-                </div>
-              ))}
-            </div>
-          </div>
-        </Container>
-      )}
-
-      <div className="mt-8 sm:mt-12">
-        <Footer />
       </div>
-    </div>
     </>
   );
 }

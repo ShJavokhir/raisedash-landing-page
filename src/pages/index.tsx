@@ -8,6 +8,8 @@ import { Container } from "@/components/layout/Container";
 import { PageLayout } from "@/components/layout/PageLayout";
 import { EmailCapture } from "@/components/ui/EmailCapture";
 import { getAllProductUpdates, ProductUpdate } from "@/lib/product-updates";
+import { getAllPosts, BlogPost } from "@/lib/blog";
+import { BlogCard } from "@/components/blog/BlogCard";
 
 // Lazy load the globe component - D3.js is 868KB and only needed on desktop
 const RotatingEarth = dynamic(() => import("@/components/ui/wireframe-dotted-globe"), {
@@ -17,9 +19,10 @@ const RotatingEarth = dynamic(() => import("@/components/ui/wireframe-dotted-glo
 
 interface HomeProps {
   recentUpdates: ProductUpdate[];
+  recentPosts: BlogPost[];
 }
 
-export default function Home({ recentUpdates }: HomeProps) {
+export default function Home({ recentUpdates, recentPosts }: HomeProps) {
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString("en-US", {
       month: "short",
@@ -228,6 +231,33 @@ export default function Home({ recentUpdates }: HomeProps) {
         </Container>
       )}
 
+      {/* Recent Blog Posts Section */}
+      {recentPosts.length > 0 && (
+        <Container className="pb-12 md:px-0">
+          <div className="mb-10 text-center">
+            <h2 className="text-foreground text-3xl font-normal tracking-[-0.02em] sm:text-4xl">
+              Latest from the Blog
+            </h2>
+            <p className="text-muted-foreground mx-auto mt-3 max-w-2xl text-lg">
+              Insights on fleet safety, logistics security, and industry best practices.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
+            {recentPosts.map((post) => (
+              <BlogCard key={post.slug} post={post} />
+            ))}
+          </div>
+          <div className="mt-8 text-center">
+            <Link
+              href="/blog"
+              className="text-muted-foreground hover:text-foreground inline-flex items-center gap-1 text-sm transition-colors"
+            >
+              View all articles <ArrowRight className="h-3.5 w-3.5" />
+            </Link>
+          </div>
+        </Container>
+      )}
+
       {/* CTA Section */}
       <Container className="pb-12 md:px-0">
         <div className="bg-primary animate-fade-in-scale rounded-xs p-8 text-center delay-700 sm:p-12">
@@ -251,9 +281,13 @@ export const getStaticProps: GetStaticProps = async () => {
   const allUpdates = getAllProductUpdates();
   const recentUpdates = allUpdates.slice(0, 3);
 
+  const allPosts = getAllPosts();
+  const recentPosts = allPosts.slice(0, 3);
+
   return {
     props: {
       recentUpdates,
+      recentPosts,
     },
     revalidate: 3600,
   };

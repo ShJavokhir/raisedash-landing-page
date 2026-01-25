@@ -21,7 +21,7 @@ export interface BlogPost {
   featured?: boolean;
   content: string;
   readTime: string;
-  faqs?: FAQItem[];
+  faqs: FAQItem[] | null;
 }
 
 /**
@@ -34,7 +34,8 @@ function extractFAQsFromContent(content: string): FAQItem[] {
   const faqs: FAQItem[] = [];
 
   // Pattern 1: **Bold question?** followed by paragraph answer
-  const boldQuestionPattern = /\*\*([^*]+\?)\*\*\s*\n\n([^*#]+?)(?=\n\n\*\*|\n\n##|\n\n###|\n---|\n\n$|$)/g;
+  const boldQuestionPattern =
+    /\*\*([^*]+\?)\*\*\s*\n\n([^*#]+?)(?=\n\n\*\*|\n\n##|\n\n###|\n---|\n\n$|$)/g;
   let match;
 
   while ((match = boldQuestionPattern.exec(content)) !== null) {
@@ -92,7 +93,7 @@ export function getAllPosts(): BlogPost[] {
         featured: data.featured || false,
         content,
         readTime: calculateReadTime(content),
-        faqs: faqs.length > 0 ? faqs : undefined,
+        faqs: faqs.length > 0 ? faqs : null,
       };
     })
     .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime());
@@ -125,15 +126,13 @@ export function getPostBySlug(slug: string): BlogPost | null {
     featured: data.featured || false,
     content,
     readTime: calculateReadTime(content),
-    faqs: faqs.length > 0 ? faqs : undefined,
+    faqs: faqs.length > 0 ? faqs : null,
   };
 }
 
 export function getAllSlugs(): string[] {
   const files = fs.readdirSync(BLOG_DIR);
-  return files
-    .filter((file) => file.endsWith(".mdx"))
-    .map((file) => file.replace(/\.mdx$/, ""));
+  return files.filter((file) => file.endsWith(".mdx")).map((file) => file.replace(/\.mdx$/, ""));
 }
 
 export function getPostsByCategory(category: string): BlogPost[] {
@@ -156,9 +155,10 @@ export function getRelatedPosts(currentSlug: string, limit = 3): BlogPost[] {
 
   return allPosts
     .filter((post) => post.slug !== currentSlug)
-    .filter((post) =>
-      post.category === currentPost.category ||
-      post.tags.some((tag) => currentPost.tags.includes(tag))
+    .filter(
+      (post) =>
+        post.category === currentPost.category ||
+        post.tags.some((tag) => currentPost.tags.includes(tag))
     )
     .slice(0, limit);
 }
