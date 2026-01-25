@@ -424,7 +424,7 @@ const Hero: React.FC = () => {
                   size="lg"
                   className="group hover:bg-foreground w-full gap-2 rounded-xs bg-[#1F1E1E] text-white sm:w-auto"
                 >
-                  Request a Demo
+                  See a demo
                   <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </Button>
               </Link>

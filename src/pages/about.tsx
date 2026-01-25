@@ -100,7 +100,7 @@ export default function About() {
           </p>
           <Link href="/get-started">
             <Button variant="secondary" size="lg">
-              Request a Demo
+              See a demo
             </Button>
           </Link>
         </div>

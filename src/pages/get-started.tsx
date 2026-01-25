@@ -1,11 +1,14 @@
-import { useState, useEffect, FormEvent } from "react";
+import { useState, useEffect, FormEvent, useCallback } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import Link from "next/link";
 import { motion, AnimatePresence } from "motion/react";
 import { ArrowLeft, ArrowRight, Check, Loader2, Truck } from "lucide-react";
+import { Turnstile } from "@marsidev/react-turnstile";
 import { Input } from "@/components/ui/Input";
 import { Button } from "@/components/ui/Button";
+
+const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || "";
 
 // Confetti component
 function Confetti({ show }: { show: boolean }) {
@@ -95,6 +98,8 @@ export default function GetStarted() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [showConfetti, setShowConfetti] = useState(false);
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
+  const [turnstileKey, setTurnstileKey] = useState(0); // Used to reset the widget
 
   // Determine initial step based on URL params
   useEffect(() => {
@@ -196,6 +201,12 @@ export default function GetStarted() {
       return;
     }
 
+    // Validate Turnstile token if site key is configured
+    if (TURNSTILE_SITE_KEY && !turnstileToken) {
+      setSubmitError("Please complete the verification challenge.");
+      return;
+    }
+
     setIsSubmitting(true);
     setSubmitError(null);
 
@@ -206,6 +217,7 @@ export default function GetStarted() {
       role: formData.jobTitle.trim(),
       companySize: formData.fleetSize,
       phone: formData.phone.trim() || undefined,
+      turnstileToken: turnstileToken || undefined,
     };
 
     try {
@@ -218,6 +230,10 @@ export default function GetStarted() {
       const result = await response.json();
 
       if (!response.ok) {
+        // Reset Turnstile on error so user can retry
+        if (result.code === "TURNSTILE_FAILED" || result.code === "TURNSTILE_REQUIRED") {
+          resetTurnstile();
+        }
         throw new Error(result.error || "Unable to submit. Please try again.");
       }
 
@@ -239,6 +255,26 @@ export default function GetStarted() {
       setStep("email");
     }
   };
+
+  // Turnstile handlers
+  const handleTurnstileSuccess = useCallback((token: string) => {
+    setTurnstileToken(token);
+    setSubmitError(null);
+  }, []);
+
+  const handleTurnstileError = useCallback(() => {
+    setTurnstileToken(null);
+    setSubmitError("Verification failed. Please try again.");
+  }, []);
+
+  const handleTurnstileExpire = useCallback(() => {
+    setTurnstileToken(null);
+  }, []);
+
+  const resetTurnstile = useCallback(() => {
+    setTurnstileToken(null);
+    setTurnstileKey((prev) => prev + 1);
+  }, []);
 
   return (
     <>
@@ -483,6 +519,23 @@ export default function GetStarted() {
                     />
                   </div>
 
+                  {/* Turnstile CAPTCHA */}
+                  {TURNSTILE_SITE_KEY && (
+                    <div className="flex justify-center pt-2">
+                      <Turnstile
+                        key={turnstileKey}
+                        siteKey={TURNSTILE_SITE_KEY}
+                        onSuccess={handleTurnstileSuccess}
+                        onError={handleTurnstileError}
+                        onExpire={handleTurnstileExpire}
+                        options={{
+                          theme: "light",
+                          size: "normal",
+                        }}
+                      />
+                    </div>
+                  )}
+
                   {submitError && (
                     <p className="text-destructive bg-destructive/10 border-destructive/20 rounded-lg border p-3 text-sm">
                       {submitError}
@@ -492,14 +545,14 @@ export default function GetStarted() {
                   <div className="pt-4">
                     <Button
                       type="submit"
-                      disabled={isSubmitting}
+                      disabled={isSubmitting || (TURNSTILE_SITE_KEY ? !turnstileToken : false)}
                       className="h-12 w-full text-base font-medium"
                     >
                       {isSubmitting ? (
                         <Loader2 className="h-5 w-5 animate-spin" />
                       ) : (
                         <>
-                          Request demo
+                          See a demo
                           <ArrowRight className="ml-2 h-4 w-4" />
                         </>
                       )}

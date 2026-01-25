@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import Link from "next/link";
+import { Turnstile } from "@marsidev/react-turnstile";
 import { Container } from "@/components/layout/Container";
 import { PageLayout } from "@/components/layout/PageLayout";
 import { Button } from "@/components/ui/Button";
@@ -7,6 +8,8 @@ import { Input } from "@/components/ui/Input";
 import { Textarea } from "@/components/ui/Textarea";
 import { Select } from "@/components/ui/Select";
 import { Mail, HeadphonesIcon, Users, Check } from "lucide-react";
+
+const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || "";
 
 const contactMethods = [
   {
@@ -49,31 +52,74 @@ export default function Contact() {
   const [formData, setFormData] = useState(initialFormData);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
+  const [turnstileKey, setTurnstileKey] = useState(0);
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
+    setSubmitError(null);
   };
+
+  // Turnstile handlers
+  const handleTurnstileSuccess = useCallback((token: string) => {
+    setTurnstileToken(token);
+    setSubmitError(null);
+  }, []);
+
+  const handleTurnstileError = useCallback(() => {
+    setTurnstileToken(null);
+    setSubmitError("Verification failed. Please try again.");
+  }, []);
+
+  const handleTurnstileExpire = useCallback(() => {
+    setTurnstileToken(null);
+  }, []);
+
+  const resetTurnstile = useCallback(() => {
+    setTurnstileToken(null);
+    setTurnstileKey((prev) => prev + 1);
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (TURNSTILE_SITE_KEY && !turnstileToken) {
+      setSubmitError("Please complete the verification challenge.");
+      return;
+    }
+
     setIsSubmitting(true);
+    setSubmitError(null);
 
     try {
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          ...formData,
+          turnstileToken: turnstileToken || undefined,
+        }),
       });
+
+      const result = await response.json();
 
       if (response.ok) {
         setIsSubmitted(true);
         setFormData(initialFormData);
+        resetTurnstile();
+      } else {
+        if (result.code === "TURNSTILE_FAILED" || result.code === "TURNSTILE_REQUIRED") {
+          resetTurnstile();
+        }
+        setSubmitError(result.error || "Failed to send message. Please try again.");
       }
     } catch (error) {
       console.error("Error submitting form:", error);
+      setSubmitError("Failed to send message. Please try again.");
     } finally {
       setIsSubmitting(false);
     }
@@ -186,7 +232,35 @@ export default function Contact() {
                   placeholder="Tell us more about your needs..."
                 />
 
-                <Button type="submit" size="lg" className="w-full" disabled={isSubmitting}>
+                {/* Turnstile CAPTCHA */}
+                {TURNSTILE_SITE_KEY && (
+                  <div className="flex justify-center">
+                    <Turnstile
+                      key={turnstileKey}
+                      siteKey={TURNSTILE_SITE_KEY}
+                      onSuccess={handleTurnstileSuccess}
+                      onError={handleTurnstileError}
+                      onExpire={handleTurnstileExpire}
+                      options={{
+                        theme: "light",
+                        size: "normal",
+                      }}
+                    />
+                  </div>
+                )}
+
+                {submitError && (
+                  <p className="text-center text-sm text-red-600 dark:text-red-400">
+                    {submitError}
+                  </p>
+                )}
+
+                <Button
+                  type="submit"
+                  size="lg"
+                  className="w-full"
+                  disabled={isSubmitting || (TURNSTILE_SITE_KEY ? !turnstileToken : false)}
+                >
                   {isSubmitting ? "Sending..." : "Send Message"}
                 </Button>
               </form>
@@ -302,7 +376,7 @@ export default function Contact() {
           </p>
           <Link href="/get-started">
             <Button variant="secondary" size="lg">
-              Request a Demo
+              See a demo
             </Button>
           </Link>
         </div>

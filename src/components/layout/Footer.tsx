@@ -76,7 +76,7 @@ export function Footer() {
                     href="/get-started"
                     className="text-foreground hover:text-foreground-80 text-sm transition-colors duration-[0.15s]"
                   >
-                    Request Demo
+                    See a demo
                   </Link>
                 </li>
               </ul>

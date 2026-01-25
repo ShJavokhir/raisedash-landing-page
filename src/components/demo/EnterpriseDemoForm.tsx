@@ -177,7 +177,7 @@ export function EnterpriseDemoForm() {
     <div className="dark:bg-card border-border dark:border-border rounded-2xl border bg-white p-8 md:p-10">
       <div className="mb-8">
         <h2 className="text-foreground dark:text-foreground mb-2 text-2xl font-semibold">
-          Request a demo
+          See a demo
         </h2>
         <p className="text-muted-foreground dark:text-muted-foreground text-sm">
           Fill out the form and we'll be in touch within one business day.
@@ -322,7 +322,7 @@ export function EnterpriseDemoForm() {
               <Loader2 className="h-5 w-5 animate-spin" />
             ) : (
               <>
-                Request demo
+                See a demo
                 <ArrowRight className="ml-2 h-4 w-4" />
               </>
             )}

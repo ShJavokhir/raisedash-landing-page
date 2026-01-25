@@ -6,6 +6,19 @@ import {
   validateRequiredFields,
   DemoRequestData,
 } from "@/lib/telegram";
+import { sendInvitation, validateWorkOSConfig } from "@/lib/workos";
+import {
+  verifyTurnstileToken,
+  getClientIp,
+  getTurnstileErrorMessage,
+  TurnstileVerificationError,
+  TurnstileConfigError,
+  validateTurnstileConfig,
+} from "@/lib/turnstile";
+
+interface RequestBody extends DemoRequestData {
+  turnstileToken?: string;
+}
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== "POST") {
@@ -13,7 +26,43 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   try {
-    const data: DemoRequestData = req.body;
+    const body: RequestBody = req.body;
+    const { turnstileToken, ...data } = body;
+
+    // Verify Turnstile CAPTCHA (if configured)
+    const turnstileConfig = validateTurnstileConfig();
+    if (turnstileConfig.valid) {
+      if (!turnstileToken) {
+        return res.status(400).json({
+          error: "Please complete the verification challenge",
+          code: "TURNSTILE_REQUIRED",
+        });
+      }
+
+      try {
+        const clientIp = getClientIp(req.headers as Record<string, string>);
+        await verifyTurnstileToken({
+          token: turnstileToken,
+          remoteIp: clientIp,
+        });
+      } catch (error) {
+        if (error instanceof TurnstileVerificationError) {
+          console.warn("[request-demo] Turnstile verification failed:", {
+            errorCodes: error.errorCodes,
+          });
+          return res.status(400).json({
+            error: getTurnstileErrorMessage(error.errorCodes),
+            code: "TURNSTILE_FAILED",
+          });
+        }
+        if (error instanceof TurnstileConfigError) {
+          console.error("[request-demo] Turnstile config error:", error.message);
+          // Don't block request on config errors - log and continue
+        } else {
+          throw error;
+        }
+      }
+    }
 
     // Validate required fields
     const requiredFields = ["email", "companyName", "companySize", "fullName", "role"];
@@ -77,9 +126,32 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       timestamp: new Date().toISOString(),
     });
 
+    // Send WorkOS invitation email
+    // If WorkOS is not configured, skip silently
+    let inviteSent = false;
+    const workosConfig = validateWorkOSConfig();
+
+    if (workosConfig.valid) {
+      try {
+        await sendInvitation({ email: data.email.trim().toLowerCase() });
+        inviteSent = true;
+        console.log("[request-demo] WorkOS invitation sent:", {
+          email: data.email.replace(/(.{2}).*@/, "$1***@"),
+        });
+      } catch (error) {
+        // Log but don't fail the request - Telegram notification is primary
+        console.error("[request-demo] Failed to send WorkOS invitation:", error);
+      }
+    } else {
+      console.log("[request-demo] WorkOS not configured, skipping invitation:", {
+        missing: workosConfig.missing,
+      });
+    }
+
     return res.status(200).json({
       success: true,
       message: "Demo request submitted successfully",
+      inviteSent,
     });
   } catch (error) {
     console.error("Error processing demo request:", error);

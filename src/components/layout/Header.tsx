@@ -262,9 +262,14 @@ export function Header() {
             {/* Desktop Actions */}
             <div className="hidden items-center gap-3 md:flex">
               <ThemeToggle />
+              <a href="https://my.raisedash.com" target="_blank" rel="noopener noreferrer">
+                <Button variant="secondary" size="sm">
+                  Sign in
+                </Button>
+              </a>
               <Link href="/get-started">
                 <Button variant="primary" size="sm">
-                  Request Demo
+                  See a demo
                 </Button>
               </Link>
             </div>
@@ -372,10 +377,20 @@ export function Header() {
                   );
                 })}
 
-                <div className="px-3 pt-4">
+                <div className="flex flex-col gap-2 px-3 pt-4">
+                  <a
+                    href="https://my.raisedash.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    <Button variant="secondary" size="sm" className="w-full">
+                      Sign in
+                    </Button>
+                  </a>
                   <Link href="/get-started" onClick={() => setMobileMenuOpen(false)}>
                     <Button variant="primary" size="sm" className="w-full">
-                      Request Demo
+                      See a demo
                     </Button>
                   </Link>
                 </div>
