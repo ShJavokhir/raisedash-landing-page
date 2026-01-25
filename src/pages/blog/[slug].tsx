@@ -7,7 +7,9 @@ import * as runtime from "react/jsx-runtime";
 import { Container } from "@/components/layout/Container";
 import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/ui/Button";
+import { TableOfContents } from "@/components/blog/TableOfContents";
 import { getPostBySlug, getAllSlugs, getRelatedPosts, BlogPost } from "@/lib/blog";
+import { extractTableOfContents, TocItem } from "@/lib/toc";
 import { BreadcrumbJsonLd, FAQPageJsonLd } from "@/components/seo/SEO";
 
 const RAW_SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://raisedash.com";
@@ -18,6 +20,7 @@ interface BlogPostPageProps {
   post: BlogPost;
   mdxHtml: string;
   relatedPosts: BlogPost[];
+  toc: TocItem[];
 }
 
 const mdxComponents = {
@@ -88,11 +91,13 @@ async function renderMdxToHtml(mdx: string): Promise<string> {
   // which can be blocked by strict CSP (no `unsafe-eval`).
   const { compile, run } = await import("@mdx-js/mdx");
   const remarkGfm = (await import("remark-gfm")).default;
+  const rehypeSlug = (await import("rehype-slug")).default;
 
   const code = String(
     await compile(mdx, {
       outputFormat: "function-body",
       remarkPlugins: [remarkGfm],
+      rehypePlugins: [rehypeSlug],
     })
   );
 
@@ -102,7 +107,7 @@ async function renderMdxToHtml(mdx: string): Promise<string> {
   return renderToStaticMarkup(<Content components={mdxComponents} />);
 }
 
-export default function BlogPostPage({ post, mdxHtml, relatedPosts }: BlogPostPageProps) {
+export default function BlogPostPage({ post, mdxHtml, relatedPosts, toc }: BlogPostPageProps) {
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString("en-US", {
       year: "numeric",
@@ -143,8 +148,9 @@ export default function BlogPostPage({ post, mdxHtml, relatedPosts }: BlogPostPa
     description: post.excerpt,
     image: ogImage,
     author: {
-      "@type": "Person",
+      "@type": "Organization",
       name: post.author,
+      url: SITE_URL,
     },
     publisher: {
       "@type": "Organization",
@@ -234,68 +240,79 @@ export default function BlogPostPage({ post, mdxHtml, relatedPosts }: BlogPostPa
         {/* Article */}
         <Container className="bg-card border-border mt-8 rounded-xs border">
           <div className="py-12">
-            <article className="mx-auto max-w-4xl">
-              {/* Header */}
-              <header className="mb-8">
-                <div className="mb-4 flex items-center gap-3">
-                  <span className="bg-primary/10 text-primary inline-flex items-center rounded-full px-3 py-1 text-sm font-medium">
-                    {post.category}
-                  </span>
-                  {post.featured && (
-                    <span className="bg-accent text-accent-foreground inline-flex items-center rounded-full px-3 py-1 text-sm font-medium">
-                      Featured
+            <div className="flex gap-8">
+              {/* Table of Contents Sidebar - Left */}
+              {toc.length > 0 && (
+                <aside className="hidden w-56 shrink-0 lg:block">
+                  <div className="sticky top-24">
+                    <TableOfContents items={toc} />
+                  </div>
+                </aside>
+              )}
+
+              {/* Main content */}
+              <article className="max-w-3xl flex-1">
+                {/* Header */}
+                <header className="mb-8">
+                  <div className="mb-4 flex items-center gap-3">
+                    <span className="bg-primary/10 text-primary inline-flex items-center rounded-full px-3 py-1 text-sm font-medium">
+                      {post.category}
                     </span>
-                  )}
-                </div>
-
-                <h1 className="text-foreground mb-6 text-4xl leading-tight font-bold md:text-5xl">
-                  {post.title}
-                </h1>
-
-                <p className="text-muted-foreground mb-8 text-xl leading-relaxed">{post.excerpt}</p>
-
-                <div className="border-border flex flex-col justify-between gap-4 border-b pb-8 sm:flex-row sm:items-center">
-                  <div className="flex items-center gap-4">
-                    <div className="bg-primary/10 flex h-12 w-12 items-center justify-center rounded-full">
-                      <span className="text-primary text-sm font-medium">
-                        {post.author
-                          .split(" ")
-                          .map((n) => n[0])
-                          .join("")}
+                    {post.featured && (
+                      <span className="bg-accent text-accent-foreground inline-flex items-center rounded-full px-3 py-1 text-sm font-medium">
+                        Featured
                       </span>
+                    )}
+                  </div>
+
+                  <h1 className="text-foreground mb-6 text-4xl leading-tight font-bold md:text-5xl">
+                    {post.title}
+                  </h1>
+
+                  <p className="text-muted-foreground mb-8 text-xl leading-relaxed">
+                    {post.excerpt}
+                  </p>
+
+                  <div className="border-border flex flex-col justify-between gap-4 border-b pb-8 sm:flex-row sm:items-center">
+                    <div className="flex items-center gap-4">
+                      <img
+                        src="/logo.webp"
+                        alt={post.author}
+                        className="h-10 w-10 object-contain"
+                      />
+                      <div>
+                        <div className="text-foreground font-semibold">{post.author}</div>
+                        <div className="text-muted-foreground text-sm">{post.authorRole}</div>
+                      </div>
                     </div>
-                    <div>
-                      <div className="text-foreground font-semibold">{post.author}</div>
-                      <div className="text-muted-foreground text-sm">{post.authorRole}</div>
+                    <div className="text-muted-foreground text-sm">
+                      <div>{formatDate(post.publishedAt)}</div>
+                      <div>{post.readTime}</div>
                     </div>
                   </div>
-                  <div className="text-muted-foreground text-sm">
-                    <div>{formatDate(post.publishedAt)}</div>
-                    <div>{post.readTime}</div>
+                </header>
+
+                {/* MDX Content */}
+                <div className="prose prose-lg max-w-none">
+                  <div dangerouslySetInnerHTML={{ __html: mdxHtml }} />
+                </div>
+
+                {/* Tags */}
+                <div className="border-border mt-12 border-t pt-8">
+                  <h3 className="text-foreground mb-4 text-lg font-semibold">Tags</h3>
+                  <div className="flex flex-wrap gap-2">
+                    {post.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="bg-muted text-muted-foreground inline-flex items-center rounded-full px-3 py-1 text-sm"
+                      >
+                        {tag}
+                      </span>
+                    ))}
                   </div>
                 </div>
-              </header>
-
-              {/* MDX Content */}
-              <div className="prose prose-lg max-w-none">
-                <div dangerouslySetInnerHTML={{ __html: mdxHtml }} />
-              </div>
-
-              {/* Tags */}
-              <div className="border-border mt-12 border-t pt-8">
-                <h3 className="text-foreground mb-4 text-lg font-semibold">Tags</h3>
-                <div className="flex flex-wrap gap-2">
-                  {post.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="bg-muted text-muted-foreground inline-flex items-center rounded-full px-3 py-1 text-sm"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </article>
+              </article>
+            </div>
           </div>
         </Container>
 
@@ -362,12 +379,14 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   const mdxHtml = await renderMdxToHtml(post.content);
   const relatedPosts = getRelatedPosts(slug, 3);
+  const toc = extractTableOfContents(post.content);
 
   return {
     props: {
       post,
       mdxHtml,
       relatedPosts,
+      toc,
     },
   };
 };
