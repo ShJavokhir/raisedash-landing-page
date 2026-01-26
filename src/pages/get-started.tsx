@@ -1,12 +1,12 @@
 import { useState, useEffect, FormEvent, useCallback } from "react";
 import { useRouter } from "next/router";
-import Head from "next/head";
 import Link from "next/link";
 import { motion, AnimatePresence } from "motion/react";
 import { ArrowLeft, ArrowRight, Loader2, Truck, Mail } from "lucide-react";
 import { Turnstile } from "@marsidev/react-turnstile";
 import { Input } from "@/components/ui/Input";
 import { Button } from "@/components/ui/Button";
+import { SEO } from "@/components/seo/SEO";
 
 const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || "";
 
@@ -278,13 +278,10 @@ export default function GetStarted() {
 
   return (
     <>
-      <Head>
-        <title>Get Started | Raisedash</title>
-        <meta
-          name="description"
-          content="Get started with Raisedash fleet safety solutions. Tell us about your fleet and schedule your personalized demo."
-        />
-      </Head>
+      <SEO
+        title="Get Started"
+        description="Get started with Raisedash fleet safety solutions. Tell us about your fleet and schedule your personalized demo."
+      />
 
       <Confetti show={showConfetti} />
       <div className="bg-background flex min-h-screen items-center justify-center">

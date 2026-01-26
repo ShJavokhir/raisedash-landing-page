@@ -1,5 +1,4 @@
 import { GetStaticPaths, GetStaticProps } from "next";
-import Head from "next/head";
 import Link from "next/link";
 import React from "react";
 import { renderToStaticMarkup } from "react-dom/server";
@@ -10,7 +9,7 @@ import { Button } from "@/components/ui/Button";
 import { TableOfContents } from "@/components/blog/TableOfContents";
 import { getPostBySlug, getAllSlugs, getRelatedPosts, BlogPost } from "@/lib/blog";
 import { extractTableOfContents, TocItem } from "@/lib/toc";
-import { BreadcrumbJsonLd, FAQPageJsonLd } from "@/components/seo/SEO";
+import { BreadcrumbJsonLd, FAQPageJsonLd, SEO } from "@/components/seo/SEO";
 
 const RAW_SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://raisedash.com";
 const SITE_URL = RAW_SITE_URL.endsWith("/") ? RAW_SITE_URL.slice(0, -1) : RAW_SITE_URL;
@@ -168,44 +167,22 @@ export default function BlogPostPage({ post, mdxHtml, relatedPosts, toc }: BlogP
 
   return (
     <>
-      <Head>
-        {/* Primary Meta Tags */}
-        <title>{`${post.title} | ${SITE_NAME}`}</title>
-        <meta name="title" content={`${post.title} | ${SITE_NAME}`} />
-        <meta name="description" content={post.excerpt} />
-        <meta name="keywords" content={post.tags.join(", ")} />
-        <meta name="author" content={post.author} />
-        <meta name="robots" content="index, follow" />
-        <link rel="canonical" href={canonicalUrl} />
-
-        {/* Open Graph / Facebook */}
-        <meta property="og:type" content="article" />
-        <meta property="og:url" content={canonicalUrl} />
-        <meta property="og:title" content={post.title} />
-        <meta property="og:description" content={post.excerpt} />
-        <meta property="og:image" content={ogImage} />
-        <meta property="og:site_name" content={SITE_NAME} />
-        <meta property="article:published_time" content={post.publishedAt} />
-        <meta property="article:modified_time" content={post.publishedAt} />
-        <meta property="article:author" content={post.author} />
-        <meta property="article:section" content={post.category} />
-        {post.tags.map((tag) => (
-          <meta property="article:tag" content={tag} key={tag} />
-        ))}
-
-        {/* Twitter */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:url" content={canonicalUrl} />
-        <meta name="twitter:title" content={post.title} />
-        <meta name="twitter:description" content={post.excerpt} />
-        <meta name="twitter:image" content={ogImage} />
-
-        {/* JSON-LD Structured Data */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
-      </Head>
+      <SEO
+        title={post.title}
+        description={post.excerpt}
+        keywords={post.tags}
+        canonical={canonicalUrl}
+        ogImage={ogImage}
+        ogType="article"
+        article={{
+          publishedTime: post.publishedAt,
+          modifiedTime: post.publishedAt,
+          author: post.author,
+          section: post.category,
+          tags: post.tags,
+        }}
+        jsonLd={jsonLd}
+      />
 
       {/* Breadcrumb JSON-LD */}
       <BreadcrumbJsonLd

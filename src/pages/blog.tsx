@@ -20,13 +20,14 @@ export default function Blog({ posts, categories }: BlogPageProps) {
   return (
     <PageLayout
       title="Blog"
-      description="Read the latest insights on fleet safety, DVIR best practices, driver training, freight logistics security, and Raisedash product updates."
+      description="Read the latest insights on fleet compliance, safety and security in freight logistics."
       keywords={[
         "fleet safety blog",
-        "DVIR tips",
-        "trucking industry news",
-        "driver training articles",
-        "logistics technology",
+        "fleet security blog",
+        "freight logistics news",
+        "cargo security",
+        "cargo theft",
+        "compliance and safety",
       ]}
     >
       {/* Hero Section */}
@@ -37,7 +38,8 @@ export default function Blog({ posts, categories }: BlogPageProps) {
               Blog
             </h1>
             <p className="text-muted-foreground mt-6 text-lg leading-relaxed font-light">
-              Insights, updates, and best practices for fleet safety and logistics security.
+              Insights, updates, and best practices for fleet compliance, safety and security in
+              freight logistics.
             </p>
           </div>
         </Container>
@@ -118,8 +120,8 @@ export default function Blog({ posts, categories }: BlogPageProps) {
               Stay Updated
             </h2>
             <p className="text-muted-foreground mb-8 text-lg font-light">
-              Get the latest insights on fleet safety and logistics security delivered to your
-              inbox.
+              Get the latest insights on fleet compliance, safety and security in freight logistics
+              delivered to your inbox.
             </p>
             <div className="mx-auto flex max-w-md flex-col justify-center gap-3 sm:flex-row">
               <input

@@ -5,7 +5,7 @@ const RAW_SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://raisedash.com"
 const SITE_URL = RAW_SITE_URL.endsWith("/") ? RAW_SITE_URL.slice(0, -1) : RAW_SITE_URL;
 const SITE_NAME = "Raisedash";
 const DEFAULT_DESCRIPTION =
-  "Safety & Security in Days. Raisedash strengthens safety, security and compliance of companies in freight logistics.";
+  "Continuous Compliance & Safety. Raisedash strengthens compliance and safety of companies in freight logistics.";
 const DEFAULT_OG_IMAGE = `${SITE_URL}/api/og?title=${encodeURIComponent(SITE_NAME)}`;
 
 export interface SEOProps {
@@ -49,12 +49,13 @@ export function SEO({
 }: SEOProps) {
   const router = useRouter();
   const path = (router.asPath || "/").split("?")[0].split("#")[0];
+  const normalizedPath = path === "/" ? "" : path.replace(/\/+$/, "");
 
   // Build full title
   const fullTitle = title ? `${title} | ${SITE_NAME}` : SITE_NAME;
 
   // Build canonical URL
-  const canonicalUrl = canonical || `${SITE_URL}${path}`;
+  const canonicalUrl = canonical || `${SITE_URL}${normalizedPath}`;
 
   // Build OG image URL
   const ogImageUrl =
@@ -66,24 +67,30 @@ export function SEO({
   );
 
   const jsonLdType =
-    ogType === "article" ? "Article" : ogType === "product" && product ? "Product" : "WebPage";
+    ogType === "article" ? "Article" : ogType === "product" ? "Product" : "WebPage";
 
-  // Default JSON-LD for WebPage
-  const defaultJsonLd = {
+  const baseJsonLd = {
     "@context": "https://schema.org",
     "@type": jsonLdType,
     name: title || SITE_NAME,
     description,
     url: canonicalUrl,
-    ...(ogType === "article" && article
+  };
+
+  const articleJsonLd =
+    ogType === "article" && article
       ? {
           headline: title,
           datePublished: article.publishedTime,
           dateModified: article.modifiedTime || article.publishedTime,
-          author: {
-            "@type": "Person",
-            name: article.author,
-          },
+          ...(article.author
+            ? {
+                author: {
+                  "@type": "Person",
+                  name: article.author,
+                },
+              }
+            : {}),
           publisher: {
             "@type": "Organization",
             name: SITE_NAME,
@@ -94,20 +101,27 @@ export function SEO({
             "@id": canonicalUrl,
           },
           ...(article.tags && { keywords: article.tags.join(", ") }),
+          ...(ogImageUrl ? { image: ogImageUrl } : {}),
         }
-      : {}),
-    ...(ogType === "product" && product
-      ? {
-          offers: {
-            "@type": "Offer",
-            price: product.price,
-            priceCurrency: product.currency || "USD",
-          },
-        }
-      : {}),
-  };
+      : {};
 
-  const finalJsonLd = jsonLd || defaultJsonLd;
+  const productJsonLd =
+    ogType === "product"
+      ? {
+          ...(ogImageUrl ? { image: ogImageUrl } : {}),
+          ...(product?.price
+            ? {
+                offers: {
+                  "@type": "Offer",
+                  price: product.price,
+                  priceCurrency: product.currency || "USD",
+                },
+              }
+            : {}),
+        }
+      : {};
+
+  const finalJsonLd = jsonLd || { ...baseJsonLd, ...articleJsonLd, ...productJsonLd };
 
   return (
     <Head>
@@ -115,6 +129,7 @@ export function SEO({
       <title>{fullTitle}</title>
       <meta name="title" content={fullTitle} />
       <meta name="description" content={description} />
+      {article?.author && <meta name="author" content={article.author} />}
       {keywords.length > 0 && <meta name="keywords" content={keywords.join(", ")} />}
       <meta name="robots" content={robotsContent} />
       <link rel="canonical" href={canonicalUrl} />

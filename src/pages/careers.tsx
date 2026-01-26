@@ -78,19 +78,24 @@ export default function Careers() {
   return (
     <PageLayout
       title="Careers"
-      description="Join the Raisedash team. Explore career opportunities and help us revolutionize freight logistics safety and security."
-      keywords={["raisedash careers", "logistics tech jobs", "fleet software jobs", "san francisco startup jobs"]}
+      description="Join the Raisedash team. Explore career opportunities and help us revolutionize freight logistics compliance, safety and security."
+      keywords={[
+        "raisedash careers",
+        "logistics tech jobs",
+        "fleet software jobs",
+        "san francisco startup jobs",
+      ]}
     >
       {/* Hero Section */}
       <div className="pt-8 pb-12">
-        <Container className="bg-primary py-12 sm:py-16 px-8 sm:px-12 rounded-xs border border-border animate-fade-in-scale delay-0">
+        <Container className="bg-primary border-border animate-fade-in-scale rounded-xs border px-8 py-12 delay-0 sm:px-12 sm:py-16">
           <div className="max-w-3xl">
-            <h1 className="text-4xl sm:text-[48px] font-normal tracking-[-0.03em] text-primary-foreground leading-tight animate-fade-in-up delay-75">
+            <h1 className="text-primary-foreground animate-fade-in-up text-4xl leading-tight font-normal tracking-[-0.03em] delay-75 sm:text-[48px]">
               Join Our Team
             </h1>
-            <p className="mt-6 text-xl font-normal text-primary-foreground/80 leading-relaxed animate-fade-in-up delay-150">
-              Help us revolutionize freight logistics safety and security. We're looking for talented
-              individuals who are passionate about making a difference.
+            <p className="text-primary-foreground/80 animate-fade-in-up mt-6 text-xl leading-relaxed font-normal delay-150">
+              Help us revolutionize freight logistics compliance and safety. We're looking for
+              talented individuals who are passionate about making a difference.
             </p>
           </div>
         </Container>
@@ -98,11 +103,11 @@ export default function Careers() {
 
       {/* Open Positions Section */}
       <Container className="py-12 md:px-0">
-        <div className="mb-10 text-center animate-fade-in-up delay-200">
-          <h2 className="text-3xl sm:text-4xl font-normal tracking-[-0.02em] text-foreground">
+        <div className="animate-fade-in-up mb-10 text-center delay-200">
+          <h2 className="text-foreground text-3xl font-normal tracking-[-0.02em] sm:text-4xl">
             Open Positions
           </h2>
-          <p className="text-lg text-muted-foreground mt-3 max-w-2xl mx-auto">
+          <p className="text-muted-foreground mx-auto mt-3 max-w-2xl text-lg">
             Explore our current openings and find the perfect role for your next career move.
           </p>
         </div>
@@ -111,33 +116,35 @@ export default function Careers() {
           {jobOpenings.map((job, index) => (
             <div
               key={job.title}
-              className={`bg-card rounded-xs border border-border p-6 sm:p-8 transition-all duration-[0.15s] hover:-translate-y-0.5 hover:bg-surface-2 animate-fade-in-scale delay-${300 + index * 100}`}
+              className={`bg-card border-border hover:bg-surface-2 animate-fade-in-scale rounded-xs border p-6 transition-all duration-[0.15s] hover:-translate-y-0.5 sm:p-8 delay-${300 + index * 100}`}
             >
-              <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6">
+              <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
                 <div className="flex-1">
-                  <div className="flex flex-col sm:flex-row sm:items-center gap-3 mb-3">
-                    <h3 className="font-normal text-xl tracking-[-0.01em] text-foreground">{job.title}</h3>
+                  <div className="mb-3 flex flex-col gap-3 sm:flex-row sm:items-center">
+                    <h3 className="text-foreground text-xl font-normal tracking-[-0.01em]">
+                      {job.title}
+                    </h3>
                     <div className="flex items-center gap-2">
-                      <span className="px-3 py-1 bg-primary/10 text-primary text-sm font-normal rounded-xs">
+                      <span className="bg-primary/10 text-primary rounded-xs px-3 py-1 text-sm font-normal">
                         {job.department}
                       </span>
-                      <span className="px-3 py-1 bg-surface-3 text-muted-foreground text-sm font-normal rounded-xs border border-border">
+                      <span className="bg-surface-3 text-muted-foreground border-border rounded-xs border px-3 py-1 text-sm font-normal">
                         {job.type}
                       </span>
                     </div>
                   </div>
-                  <p className="text-sm text-muted-foreground mb-3">{job.location}</p>
-                  <p className="text-base text-foreground mb-4">{job.description}</p>
+                  <p className="text-muted-foreground mb-3 text-sm">{job.location}</p>
+                  <p className="text-foreground mb-4 text-base">{job.description}</p>
                   <div className="mb-4">
-                    <h4 className="font-normal text-foreground mb-2 text-sm">Key Requirements:</h4>
-                    <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
+                    <h4 className="text-foreground mb-2 text-sm font-normal">Key Requirements:</h4>
+                    <ul className="text-muted-foreground list-inside list-disc space-y-1 text-sm">
                       {job.requirements.map((req) => (
                         <li key={req}>{req}</li>
                       ))}
                     </ul>
                   </div>
                 </div>
-                <div className="flex flex-col sm:flex-row gap-2 lg:flex-shrink-0">
+                <div className="flex flex-col gap-2 sm:flex-row lg:flex-shrink-0">
                   <Button onClick={() => handleApplyClick(job.title)}>Apply Now</Button>
                 </div>
               </div>
@@ -148,31 +155,40 @@ export default function Careers() {
 
       {/* Why Join Us Section */}
       <Container className="py-12 md:px-0">
-        <div className="mb-10 text-center animate-fade-in-up delay-700">
-          <h2 className="text-3xl sm:text-4xl font-normal tracking-[-0.02em] text-foreground">
+        <div className="animate-fade-in-up mb-10 text-center delay-700">
+          <h2 className="text-foreground text-3xl font-normal tracking-[-0.02em] sm:text-4xl">
             Why Join Raisedash?
           </h2>
-          <p className="text-lg text-muted-foreground mt-3 max-w-2xl mx-auto">
+          <p className="text-muted-foreground mx-auto mt-3 max-w-2xl text-lg">
             Be part of a team that's making a real impact in logistics security.
           </p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-          <div className="bg-card rounded-xs border border-border p-6 transition-all duration-[0.15s] hover:-translate-y-0.5 hover:bg-surface-2 animate-fade-in-scale delay-800">
-            <h3 className="font-normal text-xl tracking-[-0.01em] text-foreground mb-2">Impactful Work</h3>
-            <p className="text-base text-muted-foreground leading-relaxed">
-              Your work directly contributes to protecting billions of dollars in freight and keeping supply chains secure.
+        <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
+          <div className="bg-card border-border hover:bg-surface-2 animate-fade-in-scale rounded-xs border p-6 transition-all delay-800 duration-[0.15s] hover:-translate-y-0.5">
+            <h3 className="text-foreground mb-2 text-xl font-normal tracking-[-0.01em]">
+              Impactful Work
+            </h3>
+            <p className="text-muted-foreground text-base leading-relaxed">
+              Your work directly contributes to protecting billions of dollars in freight and
+              keeping supply chains secure.
             </p>
           </div>
-          <div className="bg-card rounded-xs border border-border p-6 transition-all duration-[0.15s] hover:-translate-y-0.5 hover:bg-surface-2 animate-fade-in-scale delay-900">
-            <h3 className="font-normal text-xl tracking-[-0.01em] text-foreground mb-2">Growth Opportunity</h3>
-            <p className="text-base text-muted-foreground leading-relaxed">
-              Join a fast-growing company where you can shape the future of logistics security technology.
+          <div className="bg-card border-border hover:bg-surface-2 animate-fade-in-scale rounded-xs border p-6 transition-all delay-900 duration-[0.15s] hover:-translate-y-0.5">
+            <h3 className="text-foreground mb-2 text-xl font-normal tracking-[-0.01em]">
+              Growth Opportunity
+            </h3>
+            <p className="text-muted-foreground text-base leading-relaxed">
+              Join a fast-growing company where you can shape the future of logistics security
+              technology.
             </p>
           </div>
-          <div className="bg-card rounded-xs border border-border p-6 transition-all duration-[0.15s] hover:-translate-y-0.5 hover:bg-surface-2 animate-fade-in-scale delay-1000">
-            <h3 className="font-normal text-xl tracking-[-0.01em] text-foreground mb-2">Flexible Culture</h3>
-            <p className="text-base text-muted-foreground leading-relaxed">
-              Remote-friendly environment with competitive benefits and a team that values work-life balance.
+          <div className="bg-card border-border hover:bg-surface-2 animate-fade-in-scale rounded-xs border p-6 transition-all delay-1000 duration-[0.15s] hover:-translate-y-0.5">
+            <h3 className="text-foreground mb-2 text-xl font-normal tracking-[-0.01em]">
+              Flexible Culture
+            </h3>
+            <p className="text-muted-foreground text-base leading-relaxed">
+              Remote-friendly environment with competitive benefits and a team that values work-life
+              balance.
             </p>
           </div>
         </div>
@@ -180,11 +196,11 @@ export default function Careers() {
 
       {/* CTA Section */}
       <Container className="pb-12 md:px-0">
-        <div className="bg-card rounded-xs border border-border p-8 sm:p-12 text-center animate-fade-in-scale delay-1100">
-          <h2 className="text-2xl sm:text-3xl font-normal tracking-[-0.02em] text-foreground mb-4">
+        <div className="bg-card border-border animate-fade-in-scale rounded-xs border p-8 text-center delay-1100 sm:p-12">
+          <h2 className="text-foreground mb-4 text-2xl font-normal tracking-[-0.02em] sm:text-3xl">
             Don't See Your Perfect Role?
           </h2>
-          <p className="text-muted-foreground text-lg mb-8 max-w-xl mx-auto">
+          <p className="text-muted-foreground mx-auto mb-8 max-w-xl text-lg">
             We're always looking for exceptional talent. Send us your resume and let us know how
             you'd like to contribute to our mission.
           </p>

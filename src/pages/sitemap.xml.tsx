@@ -1,9 +1,22 @@
+import fs from "fs";
+import path from "path";
 import { GetServerSideProps } from "next";
 import { getAllPosts } from "@/lib/blog";
 import { getAllProductUpdates } from "@/lib/product-updates";
 
 const RAW_SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://raisedash.com";
 const SITE_URL = RAW_SITE_URL.endsWith("/") ? RAW_SITE_URL.slice(0, -1) : RAW_SITE_URL;
+const DEFAULT_LASTMOD = "2025-01-01";
+
+function getLastMod(relativePath: string, fallback = DEFAULT_LASTMOD) {
+  try {
+    const stats = fs.statSync(path.join(process.cwd(), relativePath));
+    return stats.mtime.toISOString().split("T")[0];
+  } catch (error) {
+    console.warn(`Unable to read lastmod for ${relativePath}:`, error);
+    return fallback;
+  }
+}
 
 /**
  * SEO Best Practice: Static pages should NOT use current date for lastmod
@@ -16,9 +29,6 @@ function generateSiteMap(
   posts: { slug: string; publishedAt: string }[],
   productUpdates: { slug: string; publishedAt: string }[]
 ) {
-  // Static page last modification date - update this when you make significant changes
-  const staticPagesLastMod = "2025-01-01";
-
   // Blog listing page should reflect the most recent post date
   const latestPostDate =
     posts.length > 0
@@ -26,7 +36,7 @@ function generateSiteMap(
           (latest, post) => (post.publishedAt > latest ? post.publishedAt : latest),
           posts[0].publishedAt
         )
-      : staticPagesLastMod;
+      : getLastMod("src/pages/blog.tsx");
 
   // Changelog listing page should reflect the most recent product update date
   const latestUpdateDate =
@@ -35,7 +45,106 @@ function generateSiteMap(
           (latest, update) => (update.publishedAt > latest ? update.publishedAt : latest),
           productUpdates[0].publishedAt
         )
-      : staticPagesLastMod;
+      : getLastMod("src/pages/product-updates.tsx");
+
+  const staticPages = [
+    {
+      loc: `${SITE_URL}`,
+      lastmod: getLastMod("src/pages/index.tsx"),
+      changefreq: "weekly",
+      priority: "1.0",
+    },
+    {
+      loc: `${SITE_URL}/blog`,
+      lastmod: latestPostDate,
+      changefreq: "daily",
+      priority: "0.9",
+    },
+    {
+      loc: `${SITE_URL}/about`,
+      lastmod: getLastMod("src/pages/about.tsx"),
+      changefreq: "monthly",
+      priority: "0.6",
+    },
+    {
+      loc: `${SITE_URL}/contact`,
+      lastmod: getLastMod("src/pages/contact.tsx"),
+      changefreq: "monthly",
+      priority: "0.6",
+    },
+    {
+      loc: `${SITE_URL}/careers`,
+      lastmod: getLastMod("src/pages/careers.tsx"),
+      changefreq: "weekly",
+      priority: "0.3",
+    },
+    {
+      loc: `${SITE_URL}/product-updates`,
+      lastmod: latestUpdateDate,
+      changefreq: "weekly",
+      priority: "0.7",
+    },
+    {
+      loc: `${SITE_URL}/get-started`,
+      lastmod: getLastMod("src/pages/get-started.tsx"),
+      changefreq: "monthly",
+      priority: "0.8",
+    },
+    {
+      loc: `${SITE_URL}/products/raisedash-pti-inspections`,
+      lastmod: getLastMod("src/pages/products/raisedash-pti-inspections.tsx"),
+      changefreq: "weekly",
+      priority: "1.0",
+    },
+    {
+      loc: `${SITE_URL}/products/raisedash-pti-inspections/driver-features`,
+      lastmod: getLastMod("src/pages/products/raisedash-pti-inspections/driver-features.tsx"),
+      changefreq: "monthly",
+      priority: "0.8",
+    },
+    {
+      loc: `${SITE_URL}/products/raisedash-pti-inspections/fleet-safety-managers`,
+      lastmod: getLastMod("src/pages/products/raisedash-pti-inspections/fleet-safety-managers.tsx"),
+      changefreq: "monthly",
+      priority: "0.8",
+    },
+    {
+      loc: `${SITE_URL}/products/raisedash-shift`,
+      lastmod: getLastMod("src/pages/products/raisedash-shift.tsx"),
+      changefreq: "weekly",
+      priority: "1.0",
+    },
+    {
+      loc: `${SITE_URL}/products/raisedash-vertex`,
+      lastmod: getLastMod("src/pages/products/raisedash-vertex.tsx"),
+      changefreq: "weekly",
+      priority: "1.0",
+    },
+    {
+      loc: `${SITE_URL}/vertex-app`,
+      lastmod: getLastMod("src/pages/vertex-app.tsx"),
+      changefreq: "monthly",
+      priority: "0.7",
+    },
+    {
+      loc: `${SITE_URL}/privacy-policy`,
+      lastmod: getLastMod("src/pages/privacy-policy.tsx"),
+      changefreq: "yearly",
+      priority: "0.3",
+    },
+    {
+      loc: `${SITE_URL}/terms-of-use`,
+      lastmod: getLastMod("src/pages/terms-of-use.tsx"),
+      changefreq: "yearly",
+      priority: "0.3",
+    },
+    {
+      loc: `${SITE_URL}/security`,
+      lastmod: getLastMod("src/pages/security.tsx"),
+      changefreq: "monthly",
+      priority: "0.5",
+    },
+  ];
 
   return `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
@@ -43,88 +152,17 @@ function generateSiteMap(
         xmlns:xhtml="http://www.w3.org/1999/xhtml"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <!-- Static Pages -->
+  ${staticPages
+    .map(
+      (page) => `
   <url>
-    <loc>${SITE_URL}</loc>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
-  </url>
-  <url>
-    <loc>${SITE_URL}/blog</loc>
-    <lastmod>${latestPostDate}</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>${SITE_URL}/about</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>${SITE_URL}/contact</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>${SITE_URL}/careers</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.3</priority>
-  </url>
-  <url>
-    <loc>${SITE_URL}/product-updates</loc>
-    <lastmod>${latestUpdateDate}</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>${SITE_URL}/get-started</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>${SITE_URL}/products/raisedash-pti-inspections</loc>
-    <changefreq>weekly</changefreq>
-    <priority>1</priority>
-  </url>
-  <url>
-    <loc>${SITE_URL}/products/raisedash-pti-inspections/driver-features</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>${SITE_URL}/products/raisedash-pti-inspections/fleet-safety-managers</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>${SITE_URL}/products/raisedash-shift</loc>
-    <changefreq>weekly</changefreq>
-    <priority>1</priority>
-  </url>
-  <url>
-    <loc>${SITE_URL}/products/raisedash-vertex</loc>
-    <changefreq>weekly</changefreq>
-    <priority>1</priority>
-  </url>
-  <url>
-    <loc>${SITE_URL}/vertex-app</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>${SITE_URL}/privacy-policy</loc>
-    <changefreq>yearly</changefreq>
-    <priority>0.3</priority>
-  </url>
-  <url>
-    <loc>${SITE_URL}/terms-of-use</loc>
-    <changefreq>yearly</changefreq>
-    <priority>0.3</priority>
-  </url>
-  <url>
-    <loc>${SITE_URL}/security</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
+    <loc>${page.loc}</loc>
+    <lastmod>${page.lastmod}</lastmod>
+    <changefreq>${page.changefreq}</changefreq>
+    <priority>${page.priority}</priority>
+  </url>`
+    )
+    .join("")}
 
   <!-- Blog Posts -->
   ${posts

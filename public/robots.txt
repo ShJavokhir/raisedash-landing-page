@@ -8,8 +8,11 @@ Allow: /
 Sitemap: https://raisedash.com/sitemap.xml
 
 
-# Block Next.js internals
-Disallow: /_next/
+# Allow Next.js assets needed for rendering
+Allow: /_next/static/
+Allow: /_next/image/
+
+# Block internal APIs
 Disallow: /api/
 
 # Allow important API routes for SEO

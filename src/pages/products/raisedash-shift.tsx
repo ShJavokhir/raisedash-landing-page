@@ -1,6 +1,6 @@
 import { NextPage } from "next";
 import Link from "next/link";
-import { SEO, SoftwareApplicationJsonLd } from "@/components/seo/SEO";
+import { FAQPageJsonLd, SEO, SoftwareApplicationJsonLd } from "@/components/seo/SEO";
 import React, { useEffect, useState, useRef } from "react";
 import {
   ArrowRight,
@@ -1673,6 +1673,7 @@ const RaisedashShiftPage: NextPage = () => {
         operatingSystem={["iOS", "Android", "Web"]}
         applicationCategory="BusinessApplication"
       />
+      <FAQPageJsonLd faqs={FAQS} />
       <style dangerouslySetInnerHTML={{ __html: shiftStyles }} />
       <div className="shift-page bg-background dark:bg-secondary text-foreground min-h-screen selection:bg-[#19224A]/15 selection:text-[#19224A]">
         <main>

@@ -4,7 +4,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/layout/Container";
 import { Footer } from "@/components/layout/Footer";
-import { SEO, SoftwareApplicationJsonLd } from "@/components/seo/SEO";
+import { FAQPageJsonLd, SEO, SoftwareApplicationJsonLd } from "@/components/seo/SEO";
 import {
   CheckCircle,
   Shield,
@@ -150,6 +150,7 @@ const Hero: React.FC = () => (
               title="RaiseDash PTI Demo"
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              loading="lazy"
               allowFullScreen
               className="h-full w-full"
             ></iframe>
@@ -505,26 +506,26 @@ const Pricing: React.FC = () => (
   </Container>
 );
 
+const FAQ_ITEMS = [
+  {
+    question: "How do drivers submit inspections?",
+    answer:
+      "Drivers can easily submit inspections using our mobile app, available for both Android and iOS devices. The app features a straightforward interface designed for quick and hassle-free usage.",
+  },
+  {
+    question: "What's the difference between a checklist inspection and a video inspection?",
+    answer:
+      "The key difference lies in the method of performing the inspection. A checklist inspection mirrors the traditional DVIR format with checkboxes and allows drivers to attach photos of any vehicle issues. On the other hand, a video inspection is a quicker and more convenient option, requiring drivers to simply record a video around the vehicle.",
+  },
+  {
+    question: "Can I customize the inspection checklist questions?",
+    answer:
+      "Yes, the inspection questions are fully customizable. You can tailor the inspection checklist to include your own questions. Additionally, RaiseDash offers a default checklist that aligns with the standard DVIR questions.",
+  },
+];
+
 const FAQ: React.FC = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
-
-  const faqs = [
-    {
-      question: "How do drivers submit inspections?",
-      answer:
-        "Drivers can easily submit inspections using our mobile app, available for both Android and iOS devices. The app features a straightforward interface designed for quick and hassle-free usage.",
-    },
-    {
-      question: "What's the difference between a checklist inspection and a video inspection?",
-      answer:
-        "The key difference lies in the method of performing the inspection. A checklist inspection mirrors the traditional DVIR format with checkboxes and allows drivers to attach photos of any vehicle issues. On the other hand, a video inspection is a quicker and more convenient option, requiring drivers to simply record a video around the vehicle.",
-    },
-    {
-      question: "Can I customize the inspection checklist questions?",
-      answer:
-        "Yes, the inspection questions are fully customizable. You can tailor the inspection checklist to include your own questions. Additionally, RaiseDash offers a default checklist that aligns with the standard DVIR questions.",
-    },
-  ];
 
   return (
     <Container className="border-border mt-20 border-t pt-20">
@@ -535,7 +536,7 @@ const FAQ: React.FC = () => {
           </h2>
         </div>
         <div className="space-y-4">
-          {faqs.map((faq, idx) => (
+          {FAQ_ITEMS.map((faq, idx) => (
             <div
               key={idx}
               className="border-border bg-card animate-fade-in-up overflow-hidden rounded-xs border transition-all duration-[0.15s] hover:shadow-lg"
@@ -626,6 +627,7 @@ const RaisedashPTIPage: NextPage = () => {
           { price: "8", priceCurrency: "USD" },
         ]}
       />
+      <FAQPageJsonLd faqs={FAQ_ITEMS} />
 
       <Lightbox
         isOpen={!!lightboxImage}

@@ -31,7 +31,7 @@ export default function Home({ recentUpdates, recentPosts }: HomeProps) {
   };
   return (
     <PageLayout
-      description="Safety & Security in Days. Raisedash strengthens safety and security of corporations in freight logistics with modern AI-powered solutions."
+      description="Continuous Compliance & Safety. Raisedash strengthens compliance and safety of companies in freight logistics with modern AI-powered solutions."
       keywords={[
         "freight logistics",
         "fleet safety",
@@ -47,10 +47,10 @@ export default function Home({ recentUpdates, recentPosts }: HomeProps) {
           <div className="relative z-10 flex w-full items-center">
             <div className="flex-1">
               <h1 className="text-foreground animate-fade-in-up text-4xl leading-tight font-normal tracking-[-0.03em] delay-75 sm:text-[48px]">
-                Safety & Security in Days.
+                Continuous Compliance & Safety.
               </h1>
               <p className="text-muted-foreground animate-fade-in-up mt-6 max-w-xl text-xl leading-relaxed font-normal delay-150">
-                Raisedash strengthens safety and security of companies in freight logistics.
+                Raisedash strengthens compliance and safety of companies in freight logistics.
               </p>
 
               <div className="animate-fade-in-up mt-10 delay-200">
@@ -77,7 +77,7 @@ export default function Home({ recentUpdates, recentPosts }: HomeProps) {
             Our Solutions
           </h2>
           <p className="text-muted-foreground mx-auto mt-3 max-w-2xl text-lg">
-            Comprehensive tools designed to enhance safety and efficiency in freight logistics.
+            Comprehensive tools designed to enhance compliance and safety in freight logistics.
           </p>
         </div>
 
@@ -89,7 +89,6 @@ export default function Home({ recentUpdates, recentPosts }: HomeProps) {
                   src="https://cdn.raisedash.com/media/landing/797f10f9.webp"
                   alt="Shift driver onboarding platform showing streamlined LMS dashboard for efficient driver training and compliance management"
                   fill
-                  priority
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   className="object-cover"
                 />
@@ -121,7 +120,6 @@ export default function Home({ recentUpdates, recentPosts }: HomeProps) {
                   src="https://cdn.raisedash.com/media/landing/fca0b837.webp"
                   alt="PTI Pre-Trip Inspection app interface displaying digital DVIR forms and vehicle inspection checklist"
                   fill
-                  priority
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   className="object-cover"
                 />
@@ -150,7 +148,6 @@ export default function Home({ recentUpdates, recentPosts }: HomeProps) {
                   src="https://cdn.raisedash.com/media/landing/9ecad1a8.webp"
                   alt="Vertex freight tracking dashboard showing real-time shipment visibility and automated arrival alerts"
                   fill
-                  priority
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   className="object-cover"
                 />
@@ -239,7 +236,7 @@ export default function Home({ recentUpdates, recentPosts }: HomeProps) {
               Latest from the Blog
             </h2>
             <p className="text-muted-foreground mx-auto mt-3 max-w-2xl text-lg">
-              Insights on fleet safety, logistics security, and industry best practices.
+              Insights on fleet compliance, safety, and industry best practices.
             </p>
           </div>
           <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
@@ -262,7 +259,7 @@ export default function Home({ recentUpdates, recentPosts }: HomeProps) {
       <Container className="pb-12 md:px-0">
         <div className="bg-primary animate-fade-in-scale rounded-xs p-8 text-center delay-700 sm:p-12">
           <h2 className="text-primary-foreground mb-4 text-2xl font-normal tracking-[-0.02em] sm:text-3xl">
-            Ready to strengthen your fleet safety?
+            Ready to strengthen your fleet compliance?
           </h2>
           <p className="text-primary-foreground/80 mx-auto mb-8 max-w-xl text-lg">
             Get started in days, not months. Our team is ready to help you modernize your

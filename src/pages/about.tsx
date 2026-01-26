@@ -7,7 +7,7 @@ export default function About() {
   return (
     <PageLayout
       title="About Us"
-      description="Learn about Raisedash and our mission to revolutionize freight logistics safety and security through AI-powered solutions."
+      description="Learn about Raisedash and our mission to revolutionize freight logistics compliance and safety through AI-powered solutions."
       keywords={[
         "about raisedash",
         "freight logistics company",
@@ -23,8 +23,8 @@ export default function About() {
               About Raisedash
             </h1>
             <p className="text-muted-foreground animate-fade-in-up mt-6 text-xl leading-relaxed font-normal delay-150">
-              We're revolutionizing freight logistics safety and security through modern AI-powered
-              solutions that protect corporations and their valuable cargo.
+              We're revolutionizing freight logistics compliance and safety through modern
+              AI-powered solutions that protect carriers and their operations.
             </p>
           </div>
         </Container>
@@ -37,13 +37,12 @@ export default function About() {
             Our Mission
           </h2>
           <p className="text-muted-foreground mb-6 text-lg leading-relaxed font-normal">
-            To strengthen the safety and security of freight logistics through cutting-edge
-            technology that prevents theft, reduces losses, and ensures cargo reaches its
-            destination safely.
+            To strengthen the compliance and safety of freight logistics through cutting-edge
+            technology that keeps carriers compliant, reduces risk, and ensures smooth operations.
           </p>
           <p className="text-muted-foreground text-base leading-relaxed font-normal">
-            We believe that every shipment deserves protection, and every corporation deserves peace
-            of mind when it comes to their valuable cargo.
+            We believe that every carrier deserves modern tools, and every fleet deserves peace of
+            mind when it comes to compliance and safety.
           </p>
         </div>
       </Container>
@@ -61,11 +60,11 @@ export default function About() {
         <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
           <div className="bg-card border-border hover:bg-surface-2 animate-fade-in-scale rounded-xs border p-6 transition-all delay-400 duration-[0.15s] hover:-translate-y-0.5">
             <h3 className="text-foreground mb-2 text-xl font-normal tracking-[-0.01em]">
-              Security First
+              Compliance First
             </h3>
             <p className="text-muted-foreground text-base leading-relaxed">
-              Every decision we make prioritizes the safety and security of our clients' cargo and
-              operations.
+              Every decision we make prioritizes the compliance and safety of our clients' fleets
+              and operations.
             </p>
           </div>
           <div className="bg-card border-border hover:bg-surface-2 animate-fade-in-scale rounded-xs border p-6 transition-all delay-500 duration-[0.15s] hover:-translate-y-0.5">

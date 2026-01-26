@@ -1,6 +1,6 @@
 # Raisedash
 
-> Continuous compliance and safety for freight trucking carriers. Raisedash is Vanta for Trucking - strengthening safety and security of companies in freight logistics with modern AI-powered solutions.
+> Continuous compliance and safety for freight trucking carriers. Raisedash is Vanta for Trucking - strengthening compliance and safety of companies in freight logistics with modern AI-powered solutions.
 
 Raisedash provides comprehensive tools designed to enhance safety, compliance, and efficiency in freight logistics operations. It provides best possible user experience. It's not like legacy old software. We change everything.
 

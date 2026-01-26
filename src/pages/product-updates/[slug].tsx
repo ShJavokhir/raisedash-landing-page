@@ -1,5 +1,4 @@
 import { GetStaticPaths, GetStaticProps } from "next";
-import Head from "next/head";
 import Link from "next/link";
 import Image from "next/image";
 import React from "react";
@@ -16,7 +15,7 @@ import {
   getRelatedProductUpdates,
   ProductUpdate,
 } from "@/lib/product-updates";
-import { BreadcrumbJsonLd } from "@/components/seo/SEO";
+import { BreadcrumbJsonLd, SEO } from "@/components/seo/SEO";
 
 const RAW_SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://raisedash.com";
 const SITE_URL = RAW_SITE_URL.endsWith("/") ? RAW_SITE_URL.slice(0, -1) : RAW_SITE_URL;
@@ -148,38 +147,21 @@ export default function ProductUpdatePage({
 
   return (
     <>
-      <Head>
-        <title>{`${update.title} | Product Updates | ${SITE_NAME}`}</title>
-        <meta name="title" content={`${update.title} | Product Updates | ${SITE_NAME}`} />
-        <meta name="description" content={update.excerpt} />
-        <meta name="keywords" content={update.tags.join(", ")} />
-        <meta name="robots" content="index, follow" />
-        <link rel="canonical" href={canonicalUrl} />
-
-        <meta property="og:type" content="article" />
-        <meta property="og:url" content={canonicalUrl} />
-        <meta property="og:title" content={update.title} />
-        <meta property="og:description" content={update.excerpt} />
-        <meta property="og:image" content={ogImage} />
-        <meta property="og:site_name" content={SITE_NAME} />
-        <meta property="article:published_time" content={update.publishedAt} />
-        <meta property="article:modified_time" content={update.publishedAt} />
-        <meta property="article:section" content={update.category} />
-        {update.tags.map((tag) => (
-          <meta property="article:tag" content={tag} key={tag} />
-        ))}
-
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:url" content={canonicalUrl} />
-        <meta name="twitter:title" content={update.title} />
-        <meta name="twitter:description" content={update.excerpt} />
-        <meta name="twitter:image" content={ogImage} />
-
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
-      </Head>
+      <SEO
+        title={`${update.title} | Product Updates`}
+        description={update.excerpt}
+        keywords={update.tags}
+        canonical={canonicalUrl}
+        ogImage={ogImage}
+        ogType="article"
+        article={{
+          publishedTime: update.publishedAt,
+          modifiedTime: update.publishedAt,
+          section: update.category,
+          tags: update.tags,
+        }}
+        jsonLd={jsonLd}
+      />
 
       <BreadcrumbJsonLd
         items={[

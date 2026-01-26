@@ -11,8 +11,8 @@ export function Footer() {
             <div className="col-span-3 md:col-span-2">
               <h3 className="text-foreground mb-4 text-base font-normal">Raisedash</h3>
               <p className="text-muted-foreground mb-6 max-w-md text-sm leading-relaxed">
-                Strengthening safety and security of corporations in freight logistics. Get started
-                in days, not months.
+                Continuous compliance and safety for freight logistics. Get started in days, not
+                months.
               </p>
               <div className="text-muted-foreground flex items-center gap-2 text-sm">
                 <svg
