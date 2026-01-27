@@ -112,6 +112,7 @@ export default function BlogPostPage({ post, mdxHtml, relatedPosts, toc }: BlogP
       year: "numeric",
       month: "long",
       day: "numeric",
+      timeZone: "UTC",
     });
   };
 

@@ -13,6 +13,7 @@ export function ProductUpdateCard({ update }: ProductUpdateCardProps) {
       year: "numeric",
       month: "long",
       day: "numeric",
+      timeZone: "UTC",
     });
   };
 

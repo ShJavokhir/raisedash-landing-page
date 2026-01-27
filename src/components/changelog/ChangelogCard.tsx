@@ -12,6 +12,7 @@ export function ChangelogCard({ update }: ChangelogCardProps) {
       year: "numeric",
       month: "long",
       day: "numeric",
+      timeZone: "UTC",
     });
   };
 

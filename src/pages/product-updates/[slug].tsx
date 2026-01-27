@@ -94,6 +94,7 @@ export default function ProductUpdatePage({
       year: "numeric",
       month: "long",
       day: "numeric",
+      timeZone: "UTC",
     });
   };
 
@@ -238,18 +239,16 @@ export default function ProductUpdatePage({
                 <div dangerouslySetInnerHTML={{ __html: mdxHtml }} />
               </div>
 
-              {/* Product Link CTA */}
-              {update.productLink && (
-                <div className="dark:bg-primary/10 mt-12 rounded-2xl bg-[#19224A]/5 p-6">
-                  <h3 className="text-foreground mb-2 text-lg font-semibold">Try it now</h3>
-                  <p className="text-muted-foreground mb-4">
-                    This feature is available today. See it in action.
-                  </p>
-                  <Link href={update.productLink}>
-                    <Button>Learn More</Button>
-                  </Link>
-                </div>
-              )}
+              {/* See a Demo CTA */}
+              <div className="dark:bg-primary/10 mt-12 rounded-2xl bg-[#19224A]/5 p-6">
+                <h3 className="text-foreground mb-2 text-lg font-semibold">See a Demo</h3>
+                <p className="text-muted-foreground mb-4">
+                  Want to see this feature in action? We&apos;ll walk you through it.
+                </p>
+                <Link href="/get-started">
+                  <Button>See a Demo</Button>
+                </Link>
+              </div>
 
               {/* Tags */}
               <div className="border-border mt-12 border-t pt-8">
