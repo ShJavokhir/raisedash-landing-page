@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/layout/Container";
 import { PageLayout } from "@/components/layout/PageLayout";
 import { EmailCapture } from "@/components/ui/EmailCapture";
+import { ProblemsMarquee } from "@/components/home/ProblemsMarquee";
 import { getAllProductUpdates, ProductUpdate } from "@/lib/product-updates";
 import { getAllPosts, BlogPost } from "@/lib/blog";
 import { BlogCard } from "@/components/blog/BlogCard";
@@ -70,6 +71,9 @@ export default function Home({ recentUpdates, recentPosts }: HomeProps) {
           </div>
         </Container>
       </div>
+
+      {/* Problems Marquee */}
+      <ProblemsMarquee />
 
       {/* Solutions Section */}
       <Container className="pt-8 pb-12 md:px-0">
@@ -258,16 +262,16 @@ export default function Home({ recentUpdates, recentPosts }: HomeProps) {
 
       {/* CTA Section */}
       <Container className="pb-12 md:px-0">
-        <div className="bg-primary animate-fade-in-scale rounded-xs p-8 text-center delay-700 sm:p-12">
-          <h2 className="text-primary-foreground mb-4 text-2xl font-normal tracking-[-0.02em] sm:text-3xl">
+        <div className="bg-card border-border animate-fade-in-scale rounded-xs border p-8 text-center delay-700 sm:p-12">
+          <h2 className="text-foreground mb-4 text-2xl font-normal tracking-[-0.02em] sm:text-3xl">
             Ready to strengthen your fleet compliance?
           </h2>
-          <p className="text-primary-foreground/80 mx-auto mb-8 max-w-xl text-lg">
+          <p className="text-muted-foreground mx-auto mb-8 max-w-xl text-lg">
             Get started in days, not months. Our team is ready to help you modernize your
             operations.
           </p>
           <div className="mx-auto flex justify-center">
-            <EmailCapture variant="dark" source="CTA" />
+            <EmailCapture source="CTA" />
           </div>
         </div>
       </Container>
