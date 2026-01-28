@@ -5,6 +5,7 @@ import { Header } from "@/components/layout/Header";
 import { SkipLink } from "@/components/layout/SkipLink";
 import { OrganizationJsonLd, WebsiteJsonLd } from "@/components/seo/SEO";
 import { IntercomProvider } from "@/components/Intercom";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 // Re-export Web Vitals reporting for Next.js performance monitoring
 export { reportWebVitals } from "@/lib/vitals";
@@ -31,6 +32,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <Component {...pageProps} />
       </main>
       <IntercomProvider />
+      <SpeedInsights />
     </>
   );
 }
