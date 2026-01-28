@@ -88,12 +88,12 @@ export default function Careers() {
     >
       {/* Hero Section */}
       <div className="pt-8 pb-12">
-        <Container className="bg-primary border-border animate-fade-in-scale rounded-xs border px-8 py-12 delay-0 sm:px-12 sm:py-16">
+        <Container className="bg-card border-border animate-fade-in-scale rounded-xs border px-8 py-12 delay-0 sm:px-12 sm:py-16">
           <div className="max-w-3xl">
-            <h1 className="text-primary-foreground animate-fade-in-up text-4xl leading-tight font-normal tracking-[-0.03em] delay-75 sm:text-[48px]">
+            <h1 className="text-foreground animate-fade-in-up text-4xl leading-tight font-normal tracking-[-0.03em] delay-75 sm:text-[48px]">
               Join Our Team
             </h1>
-            <p className="text-primary-foreground/80 animate-fade-in-up mt-6 text-xl leading-relaxed font-normal delay-150">
+            <p className="text-muted-foreground animate-fade-in-up mt-6 text-xl leading-relaxed font-normal delay-150">
               Help us revolutionize freight logistics compliance and safety. We're looking for
               talented individuals who are passionate about making a difference.
             </p>

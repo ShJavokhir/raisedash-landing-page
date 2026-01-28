@@ -90,17 +90,15 @@ export default function About() {
 
       {/* CTA Section */}
       <Container className="pb-12 md:px-0">
-        <div className="bg-primary animate-fade-in-scale rounded-xs p-8 text-center delay-700 sm:p-12">
-          <h2 className="text-primary-foreground mb-4 text-2xl font-normal tracking-[-0.02em] sm:text-3xl">
+        <div className="bg-card border-border animate-fade-in-scale rounded-xs border p-8 text-center delay-700 sm:p-12">
+          <h2 className="text-foreground mb-4 text-2xl font-normal tracking-[-0.02em] sm:text-3xl">
             Ready to work with us?
           </h2>
-          <p className="text-primary-foreground/80 mx-auto mb-8 max-w-xl text-lg">
+          <p className="text-muted-foreground mx-auto mb-8 max-w-xl text-lg">
             Get in touch to learn how Raisedash can help protect your freight operations.
           </p>
           <Link href="/get-started">
-            <Button variant="secondary" size="lg">
-              See a demo
-            </Button>
+            <Button size="lg">See a demo</Button>
           </Link>
         </div>
       </Container>

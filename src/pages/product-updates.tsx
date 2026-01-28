@@ -122,17 +122,16 @@ export default function ProductUpdates({ updates, categories }: ProductUpdatesPa
 
       {/* CTA Section */}
       <Container className="pb-12 md:px-0">
-        <div className="bg-primary rounded-xs p-8 text-center sm:p-12">
-          <h2 className="text-primary-foreground mb-4 text-2xl font-normal tracking-[-0.02em] sm:text-3xl">
+        <div className="bg-card border-border rounded-xs border p-8 text-center sm:p-12">
+          <h2 className="text-foreground mb-4 text-2xl font-normal tracking-[-0.02em] sm:text-3xl">
             Never Miss an Update
           </h2>
-          <p className="text-primary-foreground/80 mx-auto mb-8 max-w-xl text-lg">
+          <p className="text-muted-foreground mx-auto mb-8 max-w-xl text-lg">
             Get the latest product updates, feature releases, and compliance tips delivered straight
             to your inbox.
           </p>
           <div className="mx-auto flex justify-center">
             <EmailCapture
-              variant="dark"
               source="Product Updates CTA"
               buttonText="Get Started Today"
               placeholder="What's your work email?"
