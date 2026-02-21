@@ -1,8 +1,12 @@
 {
   "rewrites": [
     {
-      "source": "/tools/road-signs/:path*",
-      "destination": "https://tools.raisedash.com/tools/road-signs/:path*"
+      "source": "/tools/road-signs",
+      "destination": "https://tools.raisedash.com/tools/road-signs"
+    },
+    {
+      "source": "/tools/road-signs/:path+",
+      "destination": "https://tools.raisedash.com/tools/road-signs/:path+"
     }
   ]
 }
