@@ -1672,6 +1672,7 @@ const RaisedashShiftPage: NextPage = () => {
         description="Driver training and certification platform for trucking fleets. DOT-compliant LMS with automatic certificates and audit-ready documentation."
         operatingSystem={["iOS", "Android", "Web"]}
         applicationCategory="BusinessApplication"
+        offers={[{ price: "0", priceCurrency: "USD" }]}
       />
       <FAQPageJsonLd faqs={FAQS} />
       <style dangerouslySetInnerHTML={{ __html: shiftStyles }} />

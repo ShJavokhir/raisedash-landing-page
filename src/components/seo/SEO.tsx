@@ -66,8 +66,9 @@ export function SEO({
     ", "
   );
 
-  const jsonLdType =
-    ogType === "article" ? "Article" : ogType === "product" ? "Product" : "WebPage";
+  // Use WebPage for product pages since they use SoftwareApplicationJsonLd separately
+  // Using "Product" here would create a duplicate schema missing required offers/review/aggregateRating
+  const jsonLdType = ogType === "article" ? "Article" : "WebPage";
 
   const baseJsonLd = {
     "@context": "https://schema.org",

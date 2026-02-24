@@ -916,6 +916,7 @@ const RaisedashVertexPage: NextPage = () => {
         description="Real-time freight tracking platform with automated arrival alerts and driver communication tools."
         operatingSystem={["iOS", "Android", "Web"]}
         applicationCategory="BusinessApplication"
+        offers={[{ price: "0", priceCurrency: "USD" }]}
       />
       <div className="bg-background dark:bg-secondary text-foreground min-h-screen font-sans selection:bg-[#19224A]/15 selection:text-[#19224A]">
         <main>

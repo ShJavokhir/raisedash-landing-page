@@ -1,8 +1,15 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export function middleware(_request: NextRequest) {
+export function middleware(request: NextRequest) {
+  // Redirect www to non-www to prevent duplicate content / canonical issues
+  const host = request.headers.get("host") || "";
+  if (host.startsWith("www.")) {
+    const newUrl = new URL(request.url);
+    newUrl.host = host.replace(/^www\./, "");
+    return NextResponse.redirect(newUrl, 301);
+  }
+
   const response = NextResponse.next();
 
   response.headers.set("X-Frame-Options", "DENY");
