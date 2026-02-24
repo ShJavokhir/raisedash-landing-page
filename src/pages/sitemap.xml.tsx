@@ -4,7 +4,7 @@ import { GetServerSideProps } from "next";
 import { getAllPosts } from "@/lib/blog";
 import { getAllProductUpdates } from "@/lib/product-updates";
 
-const RAW_SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://raisedash.com";
+const RAW_SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://www.raisedash.com";
 const SITE_URL = RAW_SITE_URL.endsWith("/") ? RAW_SITE_URL.slice(0, -1) : RAW_SITE_URL;
 const DEFAULT_LASTMOD = "2025-01-01";
 
