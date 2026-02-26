@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import dynamic from "next/dynamic";
 import { GetStaticProps } from "next";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, BookOpen, Globe, Mic, BarChart3, Languages } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/layout/Container";
 import { PageLayout } from "@/components/layout/PageLayout";
@@ -176,62 +176,145 @@ export default function Home({ recentUpdates, recentPosts }: HomeProps) {
         </div>
       </Container>
 
-      {/* Social Proof Section */}
-      {/* <Container className="animate-fade-in py-16 delay-700">
-        <div className="text-center">
-          <p className="text-muted-foreground text-sm font-normal tracking-wide uppercase">
-            Trusted by leading logistics companies
-          </p>
-        </div>
-      </Container> */}
-
       {/* Recent Updates Section */}
       {recentUpdates.length > 0 && (
         <Container className="pb-12 md:px-0">
-          <div className="mb-10 text-center">
-            <h2 className="text-foreground text-3xl font-normal tracking-[-0.02em] sm:text-4xl">
-              The pace is the proof.
-            </h2>
-            <p className="text-muted-foreground mx-auto mt-3 max-w-2xl text-lg">
-              See what we shipped this month.
-            </p>
-          </div>
-          <div className="bg-card border-border rounded-xs border p-8 sm:p-10">
-            <div className="divide-border divide-y">
-              {recentUpdates.map((update) => (
-                <Link
-                  key={update.slug}
-                  href={`/product-updates/${update.slug}`}
-                  className="group flex items-center justify-between gap-4 py-4 first:pt-0 last:pb-0"
-                >
-                  <div className="min-w-0 flex-1">
-                    <div className="mb-1 flex items-center gap-2">
-                      <span className="bg-surface-3 text-foreground rounded-xs px-2 py-0.5 text-xs font-normal">
-                        {update.category}
-                      </span>
-                      <span className="text-muted-foreground text-xs">
-                        {formatDate(update.publishedAt)}
-                      </span>
-                    </div>
-                    <h3 className="text-foreground group-hover:text-foreground/80 truncate text-base font-normal transition-colors">
-                      {update.title}
-                    </h3>
-                  </div>
-                  <ArrowRight className="text-muted-foreground group-hover:text-foreground h-4 w-4 flex-shrink-0 transition-colors" />
-                </Link>
-              ))}
-            </div>
-            <div className="mt-6 text-center">
+          <p className="text-muted-foreground mb-4 text-sm font-normal tracking-wide uppercase">
+            Recent updates
+          </p>
+          <div className="divide-border divide-y">
+            {recentUpdates.map((update) => (
               <Link
-                href="/product-updates"
-                className="text-muted-foreground hover:text-foreground inline-flex items-center gap-1 text-sm transition-colors"
+                key={update.slug}
+                href={`/product-updates/${update.slug}`}
+                className="group flex items-center justify-between gap-4 py-3 first:pt-0 last:pb-0"
               >
-                View all updates <ArrowRight className="h-3.5 w-3.5" />
+                <div className="flex min-w-0 flex-1 items-center gap-3">
+                  <span className="bg-surface-3 text-foreground rounded-xs px-2 py-0.5 text-xs font-normal">
+                    {update.category}
+                  </span>
+                  <h3 className="text-foreground group-hover:text-foreground/80 truncate text-sm font-normal transition-colors">
+                    {update.title}
+                  </h3>
+                  <span className="text-muted-foreground shrink-0 text-xs">
+                    {formatDate(update.publishedAt)}
+                  </span>
+                </div>
+                <ArrowRight className="text-muted-foreground group-hover:text-foreground h-3.5 w-3.5 flex-shrink-0 transition-colors" />
               </Link>
-            </div>
+            ))}
+          </div>
+          <div className="mt-3">
+            <Link
+              href="/product-updates"
+              className="text-muted-foreground hover:text-foreground inline-flex items-center gap-1 text-sm transition-colors"
+            >
+              View all updates <ArrowRight className="h-3.5 w-3.5" />
+            </Link>
           </div>
         </Container>
       )}
+
+      {/* Driver Tools Section */}
+      <Container className="pb-12 md:px-0">
+        <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+          {/* TruckTalk Card */}
+          <Link href="/tools/elp-practice" className="group">
+            <div className="border-border bg-card hover:bg-surface-2 flex h-full flex-col overflow-hidden rounded-xs border p-2 transition-all duration-[0.15s] hover:-translate-y-0.5 sm:flex-row">
+              {/* Image — 1/3 */}
+              <div className="bg-surface-3 relative aspect-[4/3] w-full overflow-hidden rounded-xs sm:aspect-auto sm:w-1/3">
+                <Image
+                  src="https://cdn.raisedash.com/media/landing/elp-practice.webp"
+                  alt="TruckTalk English language proficiency practice app for CDL truck drivers"
+                  fill
+                  sizes="(max-width: 640px) 100vw, 200px"
+                  className="object-cover"
+                />
+              </div>
+              {/* Content — 2/3 */}
+              <div className="flex flex-1 flex-col p-6">
+                <span className="bg-surface-3 text-foreground mb-3 w-fit rounded-xs px-2 py-0.5 text-xs font-normal">
+                  Free Tool
+                </span>
+                <h3 className="text-foreground mb-2 text-xl font-normal tracking-[-0.01em]">
+                  TruckTalk
+                </h3>
+                <p className="text-foreground/90 mb-4 text-sm leading-relaxed font-normal">
+                  <span className="font-medium">$16,000 fine</span>, out-of-service order, and a CSA
+                  hit that lasts years — from a single failed ELP check.
+                </p>
+                <ul className="mb-5 space-y-2">
+                  <li className="text-muted-foreground flex items-center gap-2 text-sm">
+                    <Mic className="h-3.5 w-3.5 flex-shrink-0" />
+                    50+ AI voice roleplay scenarios
+                  </li>
+                  <li className="text-muted-foreground flex items-center gap-2 text-sm">
+                    <BookOpen className="h-3.5 w-3.5 flex-shrink-0" />
+                    2,300+ CDL terms, 2,900+ quiz questions
+                  </li>
+                  <li className="text-muted-foreground flex items-center gap-2 text-sm">
+                    <Globe className="h-3.5 w-3.5 flex-shrink-0" />
+                    500+ conversations in 10+ languages
+                  </li>
+                </ul>
+                <div className="mt-auto flex justify-end">
+                  <Button variant="primary" size="sm">
+                    Try Free <ArrowRight className="ml-1 h-4 w-4" />
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </Link>
+
+          {/* Road Signs Card */}
+          <Link href="/tools/road-signs" className="group">
+            <div className="border-border bg-card hover:bg-surface-2 flex h-full flex-col overflow-hidden rounded-xs border p-2 transition-all duration-[0.15s] hover:-translate-y-0.5 sm:flex-row">
+              {/* Image — 1/3 */}
+              <div className="bg-surface-3 relative aspect-[4/3] w-full overflow-hidden rounded-xs sm:aspect-auto sm:w-1/3">
+                <Image
+                  src="https://cdn.raisedash.com/media/landing/road-signs.webp"
+                  alt="Road Signs learning app with flashcards and practice tests for US road signs"
+                  fill
+                  sizes="(max-width: 640px) 100vw, 200px"
+                  className="object-cover"
+                />
+              </div>
+              {/* Content — 2/3 */}
+              <div className="flex flex-1 flex-col p-6">
+                <span className="bg-surface-3 text-foreground mb-3 w-fit rounded-xs px-2 py-0.5 text-xs font-normal">
+                  Free Tool
+                </span>
+                <h3 className="text-foreground mb-2 text-xl font-normal tracking-[-0.01em]">
+                  Road Signs
+                </h3>
+                <p className="text-foreground/90 mb-4 text-sm leading-relaxed font-normal">
+                  <span className="font-medium">1,094 road signs</span>, 7.4k practice questions,
+                  and 600+ tests — all in one place.
+                </p>
+                <ul className="mb-5 space-y-2">
+                  <li className="text-muted-foreground flex items-center gap-2 text-sm">
+                    <BookOpen className="h-3.5 w-3.5 flex-shrink-0" />
+                    Flashcards with mastery tracking per sign
+                  </li>
+                  <li className="text-muted-foreground flex items-center gap-2 text-sm">
+                    <BarChart3 className="h-3.5 w-3.5 flex-shrink-0" />6 question formats, custom
+                    test builder
+                  </li>
+                  <li className="text-muted-foreground flex items-center gap-2 text-sm">
+                    <Languages className="h-3.5 w-3.5 flex-shrink-0" />
+                    10 translation languages
+                  </li>
+                </ul>
+                <div className="mt-auto flex justify-end">
+                  <Button variant="primary" size="sm">
+                    Start Learning <ArrowRight className="ml-1 h-4 w-4" />
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </Link>
+        </div>
+      </Container>
 
       {/* Recent Blog Posts Section */}
       {recentPosts.length > 0 && (
