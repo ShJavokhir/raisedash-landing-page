@@ -219,7 +219,7 @@ export default function Home({ recentUpdates, recentPosts }: HomeProps) {
       <Container className="pb-12 md:px-0">
         <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
           {/* TruckTalk Card */}
-          <Link href="https://www.raisedash.com/tools/elp-practice" className="group">
+          <a href="https://www.raisedash.com/tools/elp-practice" className="group">
             <div className="border-border bg-card hover:bg-surface-2 flex h-full flex-col overflow-hidden rounded-xs border p-2 transition-all duration-[0.15s] hover:-translate-y-0.5 sm:flex-row">
               {/* Image — 1/3 */}
               <div className="bg-surface-3 relative aspect-[4/3] w-full overflow-hidden rounded-xs sm:aspect-auto sm:w-1/3">
@@ -264,10 +264,10 @@ export default function Home({ recentUpdates, recentPosts }: HomeProps) {
                 </div>
               </div>
             </div>
-          </Link>
+          </a>
 
           {/* Road Signs Card */}
-          <Link href="https://www.raisedash.com/tools/road-signs" className="group">
+          <a href="https://www.raisedash.com/tools/road-signs" className="group">
             <div className="border-border bg-card hover:bg-surface-2 flex h-full flex-col overflow-hidden rounded-xs border p-2 transition-all duration-[0.15s] hover:-translate-y-0.5 sm:flex-row">
               {/* Image — 1/3 */}
               <div className="bg-surface-3 relative aspect-[4/3] w-full overflow-hidden rounded-xs sm:aspect-auto sm:w-1/3">
@@ -312,7 +312,7 @@ export default function Home({ recentUpdates, recentPosts }: HomeProps) {
                 </div>
               </div>
             </div>
-          </Link>
+          </a>
         </div>
       </Container>
 
