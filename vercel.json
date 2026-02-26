@@ -7,6 +7,14 @@
     {
       "source": "/tools/road-signs/:path+",
       "destination": "https://tools.raisedash.com/tools/road-signs/:path+"
+    },
+    {
+      "source": "/tools/elp-practice",
+      "destination": "https://tools.raisedash.com/tools/elp-practice"
+    },
+    {
+      "source": "/tools/elp-practice/:path+",
+      "destination": "https://tools.raisedash.com/tools/elp-practice/:path+"
     }
   ]
 }
