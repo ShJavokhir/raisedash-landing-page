@@ -1,11 +1,11 @@
 # Robots.txt for Raisedash
-# https://raisedash.com
+# https://www.raisedash.com
 
 User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://raisedash.com/sitemap.xml
+Sitemap: https://www.raisedash.com/sitemap.xml
 
 
 # Allow Next.js assets needed for rendering
@@ -14,9 +14,6 @@ Allow: /_next/image/
 
 # Block internal APIs
 Disallow: /api/
-
-# Allow important API routes for SEO
-Allow: /api/og
 
 # Block admin/internal paths if any
 Disallow: /admin/

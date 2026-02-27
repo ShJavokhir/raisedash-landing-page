@@ -1,30 +1,43 @@
-import fs from "fs";
-import path from "path";
 import { GetServerSideProps } from "next";
 import { getAllPosts } from "@/lib/blog";
 import { getAllProductUpdates } from "@/lib/product-updates";
 
 const RAW_SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://www.raisedash.com";
 const SITE_URL = RAW_SITE_URL.endsWith("/") ? RAW_SITE_URL.slice(0, -1) : RAW_SITE_URL;
-const DEFAULT_LASTMOD = "2025-01-01";
-
-function getLastMod(relativePath: string, fallback = DEFAULT_LASTMOD) {
-  try {
-    const stats = fs.statSync(path.join(process.cwd(), relativePath));
-    return stats.mtime.toISOString().split("T")[0];
-  } catch (error) {
-    console.warn(`Unable to read lastmod for ${relativePath}:`, error);
-    return fallback;
-  }
-}
 
 /**
- * SEO Best Practice: Static pages should NOT use current date for lastmod
- * unless they've actually been modified. Using current date devalues the signal.
+ * Last-known git commit dates for each static page.
  *
- * For static pages, we use a fixed "last known update" date.
- * For blog posts, we use their actual publication date.
+ * These are hardcoded because Vercel's serverless environment does not
+ * preserve source file mtimes — fs.statSync always returns the deploy
+ * timestamp, which makes every page look "just updated" or falls back
+ * to a stale default. Hardcoding the real git dates gives Google an
+ * accurate signal.
+ *
+ * HOW TO MAINTAIN: when you meaningfully change a page's *content*,
+ * update its date here to the date of that change.
  */
+const STATIC_PAGE_DATES: Record<string, string> = {
+  "/": "2026-02-26",
+  "/blog": "2026-01-26", // overridden below by latest post date
+  "/about": "2026-01-27",
+  "/contact": "2026-01-27",
+  "/careers": "2026-01-27",
+  "/product-updates": "2026-01-27", // overridden below by latest update date
+  "/get-started": "2026-01-26",
+  "/products/raisedash-pti-inspections": "2026-01-26",
+  "/products/raisedash-pti-inspections/driver-features": "2026-01-22",
+  "/products/raisedash-pti-inspections/fleet-safety-managers": "2026-01-22",
+  "/products/raisedash-shift": "2026-02-24",
+  "/products/raisedash-vertex": "2026-02-24",
+  "/vertex-app": "2025-12-18",
+  "/privacy-policy": "2026-01-21",
+  "/terms-of-use": "2026-01-21",
+  "/security": "2026-01-21",
+  "/compliance-challenges": "2026-01-27",
+  "/pti-app": "2026-01-28",
+};
+
 function generateSiteMap(
   posts: { slug: string; publishedAt: string }[],
   productUpdates: { slug: string; publishedAt: string }[]
@@ -36,21 +49,21 @@ function generateSiteMap(
           (latest, post) => (post.publishedAt > latest ? post.publishedAt : latest),
           posts[0].publishedAt
         )
-      : getLastMod("src/pages/blog.tsx");
+      : STATIC_PAGE_DATES["/blog"];
 
-  // Changelog listing page should reflect the most recent product update date
+  // Product updates listing page should reflect the most recent update date
   const latestUpdateDate =
     productUpdates.length > 0
       ? productUpdates.reduce(
           (latest, update) => (update.publishedAt > latest ? update.publishedAt : latest),
           productUpdates[0].publishedAt
         )
-      : getLastMod("src/pages/product-updates.tsx");
+      : STATIC_PAGE_DATES["/product-updates"];
 
   const staticPages = [
     {
       loc: `${SITE_URL}`,
-      lastmod: getLastMod("src/pages/index.tsx"),
+      lastmod: STATIC_PAGE_DATES["/"],
       changefreq: "weekly",
       priority: "1.0",
     },
@@ -62,19 +75,19 @@ function generateSiteMap(
     },
     {
       loc: `${SITE_URL}/about`,
-      lastmod: getLastMod("src/pages/about.tsx"),
+      lastmod: STATIC_PAGE_DATES["/about"],
       changefreq: "monthly",
       priority: "0.6",
     },
     {
       loc: `${SITE_URL}/contact`,
-      lastmod: getLastMod("src/pages/contact.tsx"),
+      lastmod: STATIC_PAGE_DATES["/contact"],
       changefreq: "monthly",
       priority: "0.6",
     },
     {
       loc: `${SITE_URL}/careers`,
-      lastmod: getLastMod("src/pages/careers.tsx"),
+      lastmod: STATIC_PAGE_DATES["/careers"],
       changefreq: "weekly",
       priority: "0.3",
     },
@@ -86,61 +99,73 @@ function generateSiteMap(
     },
     {
       loc: `${SITE_URL}/get-started`,
-      lastmod: getLastMod("src/pages/get-started.tsx"),
+      lastmod: STATIC_PAGE_DATES["/get-started"],
       changefreq: "monthly",
       priority: "0.8",
     },
     {
       loc: `${SITE_URL}/products/raisedash-pti-inspections`,
-      lastmod: getLastMod("src/pages/products/raisedash-pti-inspections.tsx"),
+      lastmod: STATIC_PAGE_DATES["/products/raisedash-pti-inspections"],
       changefreq: "weekly",
       priority: "1.0",
     },
     {
       loc: `${SITE_URL}/products/raisedash-pti-inspections/driver-features`,
-      lastmod: getLastMod("src/pages/products/raisedash-pti-inspections/driver-features.tsx"),
+      lastmod: STATIC_PAGE_DATES["/products/raisedash-pti-inspections/driver-features"],
       changefreq: "monthly",
       priority: "0.8",
     },
     {
       loc: `${SITE_URL}/products/raisedash-pti-inspections/fleet-safety-managers`,
-      lastmod: getLastMod("src/pages/products/raisedash-pti-inspections/fleet-safety-managers.tsx"),
+      lastmod: STATIC_PAGE_DATES["/products/raisedash-pti-inspections/fleet-safety-managers"],
       changefreq: "monthly",
       priority: "0.8",
     },
     {
       loc: `${SITE_URL}/products/raisedash-shift`,
-      lastmod: getLastMod("src/pages/products/raisedash-shift.tsx"),
+      lastmod: STATIC_PAGE_DATES["/products/raisedash-shift"],
       changefreq: "weekly",
       priority: "1.0",
     },
     {
       loc: `${SITE_URL}/products/raisedash-vertex`,
-      lastmod: getLastMod("src/pages/products/raisedash-vertex.tsx"),
+      lastmod: STATIC_PAGE_DATES["/products/raisedash-vertex"],
       changefreq: "weekly",
       priority: "1.0",
     },
     {
       loc: `${SITE_URL}/vertex-app`,
-      lastmod: getLastMod("src/pages/vertex-app.tsx"),
+      lastmod: STATIC_PAGE_DATES["/vertex-app"],
+      changefreq: "monthly",
+      priority: "0.7",
+    },
+    {
+      loc: `${SITE_URL}/compliance-challenges`,
+      lastmod: STATIC_PAGE_DATES["/compliance-challenges"],
+      changefreq: "monthly",
+      priority: "0.6",
+    },
+    {
+      loc: `${SITE_URL}/pti-app`,
+      lastmod: STATIC_PAGE_DATES["/pti-app"],
       changefreq: "monthly",
       priority: "0.7",
     },
     {
       loc: `${SITE_URL}/privacy-policy`,
-      lastmod: getLastMod("src/pages/privacy-policy.tsx"),
+      lastmod: STATIC_PAGE_DATES["/privacy-policy"],
       changefreq: "yearly",
       priority: "0.3",
     },
     {
       loc: `${SITE_URL}/terms-of-use`,
-      lastmod: getLastMod("src/pages/terms-of-use.tsx"),
+      lastmod: STATIC_PAGE_DATES["/terms-of-use"],
       changefreq: "yearly",
       priority: "0.3",
     },
     {
       loc: `${SITE_URL}/security`,
-      lastmod: getLastMod("src/pages/security.tsx"),
+      lastmod: STATIC_PAGE_DATES["/security"],
       changefreq: "monthly",
       priority: "0.5",
     },
@@ -217,7 +242,6 @@ export const getServerSideProps: GetServerSideProps = async ({ res }) => {
     res.end();
   } catch (error) {
     console.error("Error generating sitemap:", error);
-    // Return a basic sitemap without blog posts or product updates if there's an error
     const sitemap = generateSiteMap([], []);
     res.setHeader("Content-Type", "text/xml");
     res.write(sitemap);
