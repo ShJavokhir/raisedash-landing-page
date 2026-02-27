@@ -83,6 +83,21 @@ const mdxComponents = {
   td: (props: React.HTMLAttributes<HTMLTableCellElement>) => (
     <td className="text-muted-foreground border-border border px-4 py-3" {...props} />
   ),
+  img: (props: React.ImgHTMLAttributes<HTMLImageElement>) => (
+    <figure className="my-8">
+      <img
+        {...props}
+        className="border-border w-full rounded-lg border"
+        loading="lazy"
+        decoding="async"
+      />
+      {props.alt && (
+        <figcaption className="text-muted-foreground mt-3 text-center text-sm">
+          {props.alt}
+        </figcaption>
+      )}
+    </figure>
+  ),
 };
 
 async function renderMdxToHtml(mdx: string): Promise<string> {
