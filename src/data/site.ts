@@ -29,14 +29,6 @@ export interface FooterSection {
 
 export const footerLinks: FooterSection[] = [
   {
-    title: "Products",
-    links: [
-      { title: "Shift (Driver Onboarding)", href: "/products/raisedash-shift" },
-      { title: "PTI Inspections", href: "/products/raisedash-pti-inspections" },
-      { title: "Vertex (Freight Tracking)", href: "/products/raisedash-vertex" },
-    ],
-  },
-  {
     title: "Resources",
     links: [
       { title: "Blog", href: "/blog" },

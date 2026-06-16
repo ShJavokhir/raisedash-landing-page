@@ -11,56 +11,7 @@ import {
   NavigationMenuTrigger,
   NavigationMenuContent,
 } from "@/components/ui/navigation-menu";
-import {
-  Menu,
-  X,
-  MapPin,
-  ClipboardCheck,
-  GraduationCap,
-  BookOpen,
-  FileText,
-  Building2,
-  Users,
-  Mail,
-  LucideIcon,
-} from "lucide-react";
-
-interface Solution {
-  id: string;
-  title: string;
-  description: string;
-  href: string;
-  image: string;
-  icon: LucideIcon;
-  comingSoon?: boolean;
-}
-
-const solutions: Solution[] = [
-  {
-    id: "onboarding",
-    title: "Shift (Driver Onboarding)",
-    description: "Streamlined driver training and compliance platform.",
-    href: "/products/raisedash-shift",
-    image: "https://cdn.raisedash.com/media/vertex/57c53ef5-ad1a-4508-89a5-329985846a89.webp",
-    icon: GraduationCap,
-  },
-  {
-    id: "pti",
-    title: "PTI (PTI Inspections)",
-    description: "Digital driver vehicle inspection reports and pre-trip tools.",
-    href: "/products/raisedash-pti-inspections",
-    image: "https://cdn.raisedash.com/media/vertex/5bbcc5ad-2b1c-4ddb-9fe6-e8e2bc2c8a1a.webp",
-    icon: ClipboardCheck,
-  },
-  {
-    id: "vertex",
-    title: "Vertex (Freight Tracking)",
-    description: "Real-time freight tracking with automated arrival alerts.",
-    href: "/products/raisedash-vertex",
-    image: "https://cdn.raisedash.com/media/vertex/834f7f4b-6def-4090-bc16-6de5c21ff18d.webp",
-    icon: MapPin,
-  },
-];
+import { Menu, X, BookOpen, FileText, Building2, Users, Mail } from "lucide-react";
 
 const resources = [
   {
@@ -100,7 +51,6 @@ const company = [
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
-  const [hoveredSolution, setHoveredSolution] = React.useState(solutions[0]);
   const mobileMenuRef = React.useRef<HTMLDivElement>(null);
 
   // Close mobile menu on Escape key and trap focus
@@ -137,62 +87,6 @@ export function Header() {
             <nav className="hidden md:flex">
               <NavigationMenu>
                 <NavigationMenuList className="gap-1">
-                  <NavigationMenuItem>
-                    <NavigationMenuTrigger className="text-foreground hover:text-foreground-80 bg-transparent px-4 py-2 text-base font-normal transition-colors duration-[0.15s]">
-                      Solutions
-                    </NavigationMenuTrigger>
-                    <NavigationMenuContent>
-                      <div className="flex w-[540px]">
-                        {/* Left column - Product list */}
-                        <div className="w-[270px] space-y-0.5 p-1">
-                          {solutions.map((solution) => {
-                            const Icon = solution.icon;
-                            return (
-                              <Link
-                                key={solution.id}
-                                href={solution.href}
-                                className={`hover:bg-surface-3 flex items-start gap-3 rounded-xs p-3 transition-colors duration-[0.15s] ${
-                                  hoveredSolution.id === solution.id ? "bg-surface-3" : ""
-                                }`}
-                                onMouseEnter={() => setHoveredSolution(solution)}
-                              >
-                                <div className="border-border bg-background flex h-10 w-10 shrink-0 items-center justify-center rounded-xs border">
-                                  <Icon className="text-foreground h-5 w-5" />
-                                </div>
-                                <div className="min-w-0 flex-1">
-                                  <div className="flex items-center gap-2">
-                                    <span className="text-foreground text-sm font-normal">
-                                      {solution.title}
-                                    </span>
-                                    {solution.comingSoon && (
-                                      <span className="bg-surface-3 text-muted-foreground rounded-xs px-1.5 py-0.5 text-[10px] font-normal">
-                                        Soon
-                                      </span>
-                                    )}
-                                  </div>
-                                  <p className="text-muted-foreground mt-1 line-clamp-2 text-xs">
-                                    {solution.description}
-                                  </p>
-                                </div>
-                              </Link>
-                            );
-                          })}
-                        </div>
-                        {/* Right column - Image preview */}
-                        <div className="border-border w-[270px] border-l p-2">
-                          <div className="bg-surface-3 relative h-full w-full overflow-hidden rounded-xs">
-                            <Image
-                              src={hoveredSolution.image}
-                              alt={`${hoveredSolution.title} - ${hoveredSolution.description}`}
-                              fill
-                              sizes="270px"
-                              className="object-cover transition-opacity duration-[0.15s] dark:invert"
-                            />
-                          </div>
-                        </div>
-                      </div>
-                    </NavigationMenuContent>
-                  </NavigationMenuItem>
                   <NavigationMenuItem>
                     <NavigationMenuTrigger className="text-foreground hover:text-foreground-80 bg-transparent px-4 py-2 text-base font-normal transition-colors duration-[0.15s]">
                       Resources
@@ -303,34 +197,6 @@ export function Header() {
               className="border-border border-t md:hidden"
             >
               <div className="space-y-1 py-4">
-                {/* Solutions Section */}
-                <div className="px-3 py-2">
-                  <span className="text-muted-foreground text-xs font-normal tracking-wide uppercase">
-                    Solutions
-                  </span>
-                </div>
-                {solutions.map((solution) => {
-                  const Icon = solution.icon;
-                  return (
-                    <Link
-                      key={solution.id}
-                      href={solution.href}
-                      className="text-foreground hover:bg-surface-3 mx-2 flex items-center gap-3 rounded-xs px-3 py-2.5 text-sm transition-colors duration-[0.15s]"
-                      onClick={() => setMobileMenuOpen(false)}
-                    >
-                      <div className="border-border bg-background flex h-8 w-8 shrink-0 items-center justify-center rounded-xs border">
-                        <Icon className="text-foreground h-4 w-4" />
-                      </div>
-                      <span className="font-normal">{solution.title}</span>
-                      {solution.comingSoon && (
-                        <span className="bg-surface-3 text-muted-foreground ml-auto rounded-xs px-1.5 py-0.5 text-[10px] font-normal">
-                          Soon
-                        </span>
-                      )}
-                    </Link>
-                  );
-                })}
-
                 {/* Resources Section */}
                 <div className="px-3 py-2 pt-4">
                   <span className="text-muted-foreground text-xs font-normal tracking-wide uppercase">

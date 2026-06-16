@@ -18,7 +18,7 @@ const SITE_URL = RAW_SITE_URL.endsWith("/") ? RAW_SITE_URL.slice(0, -1) : RAW_SI
  * update its date here to the date of that change.
  */
 const STATIC_PAGE_DATES: Record<string, string> = {
-  "/": "2026-02-26",
+  "/": "2026-06-16",
   "/blog": "2026-01-26", // overridden below by latest post date
   "/about": "2026-01-27",
   "/contact": "2026-01-27",

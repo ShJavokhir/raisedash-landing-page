@@ -6,9 +6,9 @@ export function Footer() {
     <footer className="mb-8 w-full bg-transparent sm:mb-12">
       <div>
         <Container className="border-border bg-card rounded-xs border px-8 py-8 sm:px-12 sm:py-12">
-          <div className="grid grid-cols-3 gap-4 gap-y-8 sm:gap-8 md:grid-cols-5 md:gap-10">
+          <div className="grid grid-cols-2 gap-4 gap-y-8 sm:gap-8 md:grid-cols-4 md:gap-10">
             {/* Brand Section */}
-            <div className="col-span-3 md:col-span-2">
+            <div className="col-span-2 md:col-span-2">
               <h3 className="text-foreground mb-4 text-base font-normal">Raisedash</h3>
               <p className="text-muted-foreground mb-6 max-w-md text-sm leading-relaxed">
                 Continuous compliance and safety for freight logistics. Get started in days, not
@@ -39,47 +39,6 @@ export function Footer() {
                   </a>
                 </span>
               </div>
-            </div>
-
-            {/* Product Links */}
-            <div>
-              <h4 className="text-muted-foreground mb-4 text-sm font-normal tracking-wide">
-                Product
-              </h4>
-              <ul className="space-y-3">
-                <li>
-                  <Link
-                    href="/products/raisedash-shift"
-                    className="text-foreground hover:text-foreground-80 text-sm transition-colors duration-[0.15s]"
-                  >
-                    Shift
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/products/raisedash-pti-inspections"
-                    className="text-foreground hover:text-foreground-80 text-sm transition-colors duration-[0.15s]"
-                  >
-                    PTI
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/products/raisedash-vertex"
-                    className="text-foreground hover:text-foreground-80 text-sm transition-colors duration-[0.15s]"
-                  >
-                    Vertex
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/get-started"
-                    className="text-foreground hover:text-foreground-80 text-sm transition-colors duration-[0.15s]"
-                  >
-                    See a demo
-                  </Link>
-                </li>
-              </ul>
             </div>
 
             {/* Company Links */}

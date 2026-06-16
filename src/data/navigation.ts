@@ -1,14 +1,4 @@
-import {
-  MapPin,
-  ClipboardCheck,
-  GraduationCap,
-  BookOpen,
-  Building2,
-  Users,
-  Mail,
-  Sparkles,
-  LucideIcon,
-} from "lucide-react";
+import { BookOpen, Building2, Users, Mail, Sparkles, LucideIcon } from "lucide-react";
 
 export interface NavItem {
   title: string;
@@ -23,32 +13,9 @@ export interface Solution extends NavItem {
   comingSoon?: boolean;
 }
 
-export const solutions: Solution[] = [
-  {
-    id: "onboarding",
-    title: "Shift (Driver Onboarding)",
-    description: "Streamlined driver training and compliance platform.",
-    href: "/products/raisedash-shift",
-    image: "https://cdn.raisedash.com/media/vertex/57c53ef5-ad1a-4508-89a5-329985846a89.webp",
-    icon: GraduationCap,
-  },
-  {
-    id: "pti",
-    title: "PTI (PTI Inspections)",
-    description: "Digital driver vehicle inspection reports and pre-trip tools.",
-    href: "/products/raisedash-pti-inspections",
-    image: "https://cdn.raisedash.com/media/vertex/5bbcc5ad-2b1c-4ddb-9fe6-e8e2bc2c8a1a.webp",
-    icon: ClipboardCheck,
-  },
-  {
-    id: "vertex",
-    title: "Vertex (Freight Tracking)",
-    description: "Real-time freight tracking with automated arrival alerts.",
-    href: "/products/raisedash-vertex",
-    image: "https://cdn.raisedash.com/media/vertex/834f7f4b-6def-4090-bc16-6de5c21ff18d.webp",
-    icon: MapPin,
-  },
-];
+// Products are intentionally hidden from the site UI while we refocus on a single
+// compliance & safety product. The product pages remain live and indexable for SEO.
+export const solutions: Solution[] = [];
 
 export const resources: NavItem[] = [
   {
