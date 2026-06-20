@@ -1,6 +1,7 @@
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 import Head from "next/head";
+import { useRouter } from "next/router";
 import { Header } from "@/components/layout/Header";
 import { SkipLink } from "@/components/layout/SkipLink";
 import { OrganizationJsonLd, WebsiteJsonLd } from "@/components/seo/SEO";
@@ -11,7 +12,11 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 export { reportWebVitals } from "@/lib/vitals";
 
 export default function App({ Component, pageProps }: AppProps) {
-  const hideHeader = false;
+  const router = useRouter();
+  // The /start onboarding funnel (Meta ads) is a distraction-free, full-screen
+  // flow for the FB/IG in-app browser — no marketing header, no Intercom widget.
+  const isFunnel = router.pathname === "/start";
+  const hideHeader = isFunnel;
 
   return (
     <>
@@ -31,7 +36,7 @@ export default function App({ Component, pageProps }: AppProps) {
       <main id="main-content">
         <Component {...pageProps} />
       </main>
-      <IntercomProvider />
+      {!isFunnel && <IntercomProvider />}
       <SpeedInsights />
     </>
   );
