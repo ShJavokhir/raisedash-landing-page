@@ -49,13 +49,13 @@ export function PhoneInput({
     <div className={className}>
       <div
         className={cn(
-          "border-input focus-within:border-ring focus-within:ring-ring/50 dark:bg-input/30 flex h-8 w-full items-center rounded-lg border bg-transparent text-base transition-colors focus-within:ring-3 md:text-sm",
+          "border-input focus-within:border-ring focus-within:ring-ring/50 bg-card flex h-12 w-full items-center rounded-xl border text-base transition-colors focus-within:ring-3",
           incomplete &&
             "border-destructive focus-within:border-destructive focus-within:ring-destructive/20",
           disabled && "pointer-events-none opacity-50"
         )}
       >
-        <span className="text-muted-foreground pr-1.5 pl-2.5 select-none">+1</span>
+        <span className="text-muted-foreground pr-2 pl-4 select-none">+1</span>
         <input
           id={id}
           type="tel"
@@ -71,7 +71,7 @@ export function PhoneInput({
             setDisplay(next);
             onChange(toE164(next) ?? "");
           }}
-          className="placeholder:text-muted-foreground h-full w-full min-w-0 rounded-r-lg bg-transparent pr-2.5 outline-none disabled:cursor-not-allowed"
+          className="placeholder:text-muted-foreground h-full w-full min-w-0 rounded-r-xl bg-transparent pr-4 outline-none disabled:cursor-not-allowed"
         />
       </div>
       {incomplete && (

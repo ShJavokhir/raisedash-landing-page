@@ -22,9 +22,9 @@ export default function StartPage() {
         noindex
         nofollow
       />
-      <div className="mx-auto flex min-h-dvh w-full max-w-md flex-col px-4">
-        <header className="flex items-center justify-center py-5">
-          <Logo size={26} priority />
+      <div className="mx-auto flex min-h-dvh w-full max-w-md flex-col px-5">
+        <header className="flex items-center justify-center py-6">
+          <Logo size={30} priority />
         </header>
         <div className="flex flex-1 flex-col pb-8">
           <OnboardingFunnel />

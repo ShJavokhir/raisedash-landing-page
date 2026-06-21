@@ -1,5 +1,5 @@
 import { useId, useRef, useState } from "react";
-import { ArrowLeft, BadgeCheck, ChevronRight, Loader2 } from "lucide-react";
+import { ArrowLeft, BadgeCheck, Check, ChevronRight, Loader2 } from "lucide-react";
 import { Button } from "@/components/start/button";
 import { Card, CardContent } from "@/components/start/card";
 import { Input } from "@/components/start/input";
@@ -26,23 +26,28 @@ interface Choice {
 
 const FLEET_SIZES: Choice[] = [
   { value: "1", label: "Just 1 — owner-operator" },
-  { value: "2-4", label: "2–4 trucks" },
-  { value: "5-8", label: "5–8 trucks" },
-  { value: "9+", label: "9 or more" },
+  { value: "2-5", label: "2–5 trucks" },
+  { value: "5-15", label: "5–15 trucks" },
+  { value: "15+", label: "15 or more trucks" },
 ];
 
+// Multi-select (a small carrier rarely has just one). Keep these to the pains
+// that genuinely cost an owner-operator sleep — fines, downtime, lost contracts.
 const WORRIES: Choice[] = [
   { value: "audit", label: "Passing a DOT audit" },
-  { value: "deadlines", label: "Missing a deadline" },
-  { value: "paperwork", label: "Messy paperwork" },
+  { value: "csa_scores", label: "Rising CSA scores" },
+  { value: "inspections", label: "Roadside inspection violations" },
+  { value: "deadlines", label: "Missing a filing deadline" },
+  { value: "driver_files", label: "Incomplete driver files" },
   { value: "drug_alcohol", label: "Drug & alcohol program" },
+  { value: "paperwork", label: "Messy paperwork" },
 ];
 
 const TOTAL_STEPS = 5; // fleet, worry, name, email, contact (done is not counted)
 
 interface FunnelData {
   fleetSize: string;
-  biggestWorry: string;
+  worries: string[];
   name: string;
   email: string;
   usDot: string;
@@ -53,7 +58,7 @@ interface FunnelData {
 
 const EMPTY: FunnelData = {
   fleetSize: "",
-  biggestWorry: "",
+  worries: [],
   name: "",
   email: "",
   usDot: "",
@@ -84,6 +89,15 @@ export function OnboardingFunnel() {
     next();
   };
 
+  // Multi-select: toggle a worry in/out without advancing (a Continue button does).
+  const toggleWorry = (value: string) =>
+    setData((d) => ({
+      ...d,
+      worries: d.worries.includes(value)
+        ? d.worries.filter((w) => w !== value)
+        : [...d.worries, value],
+    }));
+
   async function submit() {
     if (!isDot(data.usDot)) {
       setError("Enter a valid USDOT number (5–8 digits).");
@@ -101,7 +115,7 @@ export function OnboardingFunnel() {
         email: data.email.trim(),
         phone: data.phone || undefined,
         fleetSize: data.fleetSize || undefined,
-        biggestWorry: data.biggestWorry || undefined,
+        worries: data.worries.length ? data.worries : undefined,
         companyWebsite: data.companyWebsite || undefined,
         eventId,
         clientUserAgent: typeof navigator !== "undefined" ? navigator.userAgent : undefined,
@@ -138,7 +152,6 @@ export function OnboardingFunnel() {
         {step === 0 && (
           <ChoiceStep
             title="How many trucks do you run?"
-            subtitle="We’ll tailor your DOT file to your operation."
             options={FLEET_SIZES}
             selected={data.fleetSize}
             onSelect={(value) => choose({ fleetSize: value })}
@@ -147,12 +160,13 @@ export function OnboardingFunnel() {
         )}
 
         {step === 1 && (
-          <ChoiceStep
-            title="What’s weighing on you most?"
-            subtitle="Pick the one that’d hurt most right now."
+          <MultiChoiceStep
+            title="What’s keeping you up at night?"
+            subtitle="Pick all that apply."
             options={WORRIES}
-            selected={data.biggestWorry}
-            onSelect={(value) => choose({ biggestWorry: value })}
+            selected={data.worries}
+            onToggle={toggleWorry}
+            onContinue={next}
           />
         )}
 
@@ -166,7 +180,8 @@ export function OnboardingFunnel() {
             valid={data.name.trim().length >= 2}
             inputProps={{
               autoComplete: "name",
-              placeholder: "Sam Carrier",
+              autoCapitalize: "words",
+              enterKeyHint: "next",
               autoFocus: true,
             }}
             onContinue={next}
@@ -190,6 +205,9 @@ export function OnboardingFunnel() {
               type: "email",
               inputMode: "email",
               autoComplete: "email",
+              autoCapitalize: "off",
+              autoCorrect: "off",
+              enterKeyHint: "next",
               placeholder: "you@company.com",
               autoFocus: true,
             }}
@@ -220,25 +238,25 @@ function ProgressHeader({ step, onBack }: { step: number; onBack?: () => void })
           size="icon"
           onClick={onBack}
           aria-label="Back"
-          className="text-muted-foreground hover:text-foreground shrink-0"
+          className="text-muted-foreground hover:text-foreground size-10 shrink-0"
         >
           <ArrowLeft className="size-5" />
         </Button>
       ) : (
-        <div className="size-8 shrink-0" aria-hidden />
+        <div className="size-10 shrink-0" aria-hidden />
       )}
       <div className="flex flex-1 items-center gap-1.5" aria-hidden>
         {Array.from({ length: TOTAL_STEPS }).map((_, i) => (
           <span
             key={i}
             className={cn(
-              "h-1.5 flex-1 rounded-full transition-colors duration-300",
+              "h-2 flex-1 rounded-full transition-colors duration-300",
               i <= step ? "bg-primary" : "bg-muted"
             )}
           />
         ))}
       </div>
-      <span className="text-muted-foreground w-9 shrink-0 text-right text-xs font-medium tabular-nums">
+      <span className="text-muted-foreground w-10 shrink-0 text-right text-sm font-medium tabular-nums">
         {step + 1} / {TOTAL_STEPS}
       </span>
     </div>
@@ -247,9 +265,9 @@ function ProgressHeader({ step, onBack }: { step: number; onBack?: () => void })
 
 function StepHeading({ title, subtitle }: { title: string; subtitle?: string }) {
   return (
-    <div className="space-y-1.5">
-      <h1 className="text-xl font-semibold tracking-tight sm:text-2xl">{title}</h1>
-      {subtitle ? <p className="text-muted-foreground text-sm">{subtitle}</p> : null}
+    <div className="space-y-2">
+      <h1 className="text-2xl font-semibold tracking-tight text-balance sm:text-3xl">{title}</h1>
+      {subtitle ? <p className="text-muted-foreground text-base">{subtitle}</p> : null}
     </div>
   );
 }
@@ -270,27 +288,93 @@ function ChoiceStep({
   footer?: string;
 }) {
   return (
-    <div className="space-y-6">
+    <div className="space-y-7">
       <StepHeading title={title} subtitle={subtitle} />
-      <div className="space-y-2.5">
+      <div className="space-y-3">
         {options.map((opt) => (
           <button
             key={opt.value}
             type="button"
             onClick={() => onSelect(opt.value)}
             className={cn(
-              "bg-card flex w-full items-center justify-between gap-3 rounded-lg border px-4 py-3.5 text-left text-sm font-medium transition-colors",
-              "hover:border-primary/40 hover:bg-muted active:translate-y-px",
+              "bg-card flex min-h-14 w-full items-center justify-between gap-3 rounded-xl border px-5 py-4 text-left text-base font-medium transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)]",
+              "hover:border-primary/40 hover:bg-muted active:translate-y-px motion-safe:hover:scale-[1.01] motion-safe:active:scale-[0.97]",
               "focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-3 focus-visible:outline-none",
               selected === opt.value ? "border-primary ring-primary/20 ring-2" : "border-border"
             )}
           >
             {opt.label}
-            <ChevronRight className="text-muted-foreground size-4 shrink-0" />
+            <ChevronRight className="text-muted-foreground size-5 shrink-0" />
           </button>
         ))}
       </div>
-      {footer ? <p className="text-muted-foreground text-center text-xs">{footer}</p> : null}
+      {footer ? <p className="text-muted-foreground text-center text-[13px]">{footer}</p> : null}
+    </div>
+  );
+}
+
+/**
+ * Like ChoiceStep but the user can pick several answers (carriers usually have
+ * more than one pain). Tapping toggles instead of advancing, so a Continue
+ * button — enabled once at least one is chosen — moves the funnel forward.
+ */
+function MultiChoiceStep({
+  title,
+  subtitle,
+  options,
+  selected,
+  onToggle,
+  onContinue,
+}: {
+  title: string;
+  subtitle?: string;
+  options: Choice[];
+  selected: string[];
+  onToggle: (value: string) => void;
+  onContinue: () => void;
+}) {
+  return (
+    <div className="space-y-7">
+      <StepHeading title={title} subtitle={subtitle} />
+      <div className="space-y-3">
+        {options.map((opt) => {
+          const isSelected = selected.includes(opt.value);
+          return (
+            <button
+              key={opt.value}
+              type="button"
+              onClick={() => onToggle(opt.value)}
+              aria-pressed={isSelected}
+              className={cn(
+                "bg-card flex min-h-14 w-full items-center justify-between gap-3 rounded-xl border px-5 py-4 text-left text-base font-medium transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)]",
+                "hover:border-primary/40 hover:bg-muted active:translate-y-px motion-safe:hover:scale-[1.01] motion-safe:active:scale-[0.97]",
+                "focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-3 focus-visible:outline-none",
+                isSelected ? "border-primary ring-primary/20 ring-2" : "border-border"
+              )}
+            >
+              {opt.label}
+              <span
+                aria-hidden
+                className={cn(
+                  "flex size-6 shrink-0 items-center justify-center rounded-md border transition-colors",
+                  isSelected ? "border-primary bg-primary text-primary-foreground" : "border-input"
+                )}
+              >
+                {isSelected ? <Check className="size-4" /> : null}
+              </span>
+            </button>
+          );
+        })}
+      </div>
+      <Button
+        type="button"
+        size="lg"
+        className="h-12 w-full rounded-xl text-base"
+        onClick={onContinue}
+        disabled={selected.length === 0}
+      >
+        Continue
+      </Button>
     </div>
   );
 }
@@ -320,7 +404,7 @@ function TextStep({
   const hintId = `${fieldId}-hint`;
   return (
     <form
-      className="space-y-6"
+      className="space-y-7"
       onSubmit={(e) => {
         e.preventDefault();
         if (valid) onContinue();
@@ -342,7 +426,12 @@ function TextStep({
           </p>
         ) : null}
       </Field>
-      <Button type="submit" size="lg" className="w-full" disabled={!valid}>
+      <Button
+        type="submit"
+        size="lg"
+        className="h-12 w-full rounded-xl text-base"
+        disabled={!valid}
+      >
         Continue
       </Button>
     </form>
@@ -368,7 +457,7 @@ function ContactStep({
   const phoneHintId = `${phoneId}-hint`;
   return (
     <form
-      className="space-y-6"
+      className="space-y-7"
       onSubmit={(e) => {
         e.preventDefault();
         if (!submitting) onSubmit();
@@ -379,7 +468,7 @@ function ContactStep({
         subtitle="It’s how we pull your carrier’s record and build your file."
       />
 
-      <div className="space-y-4">
+      <div className="space-y-5">
         <Field label="USDOT number" htmlFor={dotId}>
           <Input
             id={dotId}
@@ -388,6 +477,7 @@ function ContactStep({
             type="text"
             inputMode="numeric"
             autoComplete="off"
+            enterKeyHint="go"
             placeholder="e.g. 1234567"
             autoFocus
           />
@@ -395,7 +485,7 @@ function ContactStep({
 
         <Field label="Phone (optional)" htmlFor={phoneId}>
           <PhoneInput id={phoneId} value={data.phone} onChange={(phone) => set({ phone })} />
-          <p id={phoneHintId} className="text-muted-foreground text-xs">
+          <p id={phoneHintId} className="text-muted-foreground text-[13px]">
             Only if you’d like setup help by text.
           </p>
         </Field>
@@ -423,17 +513,22 @@ function ContactStep({
       ) : null}
 
       <div className="space-y-3">
-        <Button type="submit" size="lg" className="w-full" disabled={!dotValid || submitting}>
+        <Button
+          type="submit"
+          size="lg"
+          className="h-12 w-full rounded-xl text-base"
+          disabled={!dotValid || submitting}
+        >
           {submitting ? (
             <>
-              <Loader2 className="size-4 animate-spin" />
+              <Loader2 className="size-5 animate-spin" />
               Setting up…
             </>
           ) : (
             "Get my access"
           )}
         </Button>
-        <p className="text-muted-foreground text-center text-xs">
+        <p className="text-muted-foreground text-center text-[13px]">
           We use your details only to set up your account. No spam, ever.
         </p>
       </div>
@@ -445,21 +540,21 @@ function DoneStep({ email }: { email: string }) {
   return (
     <div className="animate-in fade-in-0 slide-in-from-bottom-2 flex flex-1 flex-col justify-center py-10 duration-300">
       <Card>
-        <CardContent className="space-y-5 py-9 text-center">
-          <div className="bg-primary/10 text-primary mx-auto flex size-12 items-center justify-center rounded-full">
-            <BadgeCheck className="size-6" />
+        <CardContent className="space-y-6 py-10 text-center">
+          <div className="bg-primary/10 text-primary mx-auto flex size-16 items-center justify-center rounded-full">
+            <BadgeCheck className="size-8" />
           </div>
-          <div className="space-y-1.5">
-            <h1 className="text-xl font-semibold tracking-tight sm:text-2xl">
+          <div className="space-y-2">
+            <h1 className="text-2xl font-semibold tracking-tight text-balance sm:text-3xl">
               You’re in — check your email.
             </h1>
-            <p className="text-muted-foreground text-sm">
+            <p className="text-muted-foreground text-base">
               We just sent{" "}
               {email ? <span className="text-foreground font-medium">{email}</span> : "you"} a link
               to open Raisedash and start getting your DOT file ready.
             </p>
           </div>
-          <p className="text-muted-foreground text-xs">
+          <p className="text-muted-foreground text-[13px]">
             It can take a minute to arrive. If you don’t see it, check your spam or promotions
             folder.
           </p>
