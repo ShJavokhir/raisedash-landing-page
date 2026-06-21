@@ -16,6 +16,7 @@ export interface BlogPost {
   author: string;
   authorRole: string;
   publishedAt: string;
+  updatedAt: string | null;
   category: string;
   tags: string[];
   featured?: boolean;
@@ -88,6 +89,7 @@ export function getAllPosts(): BlogPost[] {
         author: data.author,
         authorRole: data.authorRole,
         publishedAt: data.publishedAt,
+        updatedAt: data.updatedAt || null,
         category: data.category,
         tags: data.tags || [],
         featured: data.featured || false,
@@ -121,6 +123,7 @@ export function getPostBySlug(slug: string): BlogPost | null {
     author: data.author,
     authorRole: data.authorRole,
     publishedAt: data.publishedAt,
+    updatedAt: data.updatedAt || null,
     category: data.category,
     tags: data.tags || [],
     featured: data.featured || false,

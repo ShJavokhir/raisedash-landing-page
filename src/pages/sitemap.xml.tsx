@@ -38,7 +38,7 @@ const STATIC_PAGE_DATES: Record<string, string> = {
 };
 
 function generateSiteMap(
-  posts: { slug: string; publishedAt: string }[],
+  posts: { slug: string; publishedAt: string; updatedAt?: string | null }[],
   productUpdates: { slug: string; publishedAt: string }[]
 ) {
   // Blog listing page should reflect the most recent post date
@@ -188,7 +188,7 @@ function generateSiteMap(
       (post) => `
   <url>
     <loc>${SITE_URL}/blog/${post.slug}</loc>
-    <lastmod>${post.publishedAt}</lastmod>
+    <lastmod>${post.updatedAt || post.publishedAt}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>`
@@ -220,6 +220,7 @@ export const getServerSideProps: GetServerSideProps = async ({ res }) => {
     const posts = getAllPosts().map((post) => ({
       slug: post.slug,
       publishedAt: post.publishedAt,
+      updatedAt: post.updatedAt,
     }));
 
     const productUpdates = getAllProductUpdates().map((update) => ({

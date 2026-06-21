@@ -35,6 +35,8 @@ export default function App({ Component, pageProps }: AppProps) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="theme-color" content="#0f172a" />
         <link rel="icon" href="/favicon.ico" />
+        {/* Blog feed auto-discovery for readers/aggregators */}
+        <link rel="alternate" type="application/rss+xml" title="Raisedash Blog" href="/rss.xml" />
       </Head>
 
       {/* Global Organization & Website structured data */}

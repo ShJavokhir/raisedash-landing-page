@@ -9,6 +9,7 @@ export default async function handler(req: NextRequest) {
   const { searchParams } = new URL(req.url);
   const title = searchParams.get("title") || "Raisedash";
   const description = searchParams.get("description") || "Continuous Compliance & Safety";
+  const category = searchParams.get("category");
 
   return new ImageResponse(
     <div
@@ -58,26 +59,28 @@ export default async function handler(req: NextRequest) {
       </div>
 
       {/* Category badge */}
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          marginBottom: "24px",
-        }}
-      >
-        <span
+      {category && (
+        <div
           style={{
-            backgroundColor: "#3b82f6",
-            color: "white",
-            padding: "8px 16px",
-            borderRadius: "9999px",
-            fontSize: "18px",
-            fontWeight: 500,
+            display: "flex",
+            alignItems: "center",
+            marginBottom: "24px",
           }}
         >
-          Blog
-        </span>
-      </div>
+          <span
+            style={{
+              backgroundColor: "#3b82f6",
+              color: "white",
+              padding: "8px 16px",
+              borderRadius: "9999px",
+              fontSize: "18px",
+              fontWeight: 500,
+            }}
+          >
+            {category}
+          </span>
+        </div>
+      )}
 
       {/* Title */}
       <div

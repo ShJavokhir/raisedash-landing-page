@@ -111,31 +111,6 @@ export default function Blog({ posts, categories }: BlogPageProps) {
           )}
         </Container>
       </section>
-
-      {/* Newsletter CTA Section */}
-      <section className="bg-background border-border border-t py-16 md:py-20">
-        <Container>
-          <div className="mx-auto max-w-2xl text-center">
-            <h2 className="text-foreground mb-4 text-[28px] font-normal tracking-[-0.03em]">
-              Stay Updated
-            </h2>
-            <p className="text-muted-foreground mb-8 text-lg font-light">
-              Get the latest insights on fleet compliance, safety and security in freight logistics
-              delivered to your inbox.
-            </p>
-            <div className="mx-auto flex max-w-md flex-col justify-center gap-3 sm:flex-row">
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="border-border bg-background text-foreground placeholder:text-muted-foreground/50 focus:border-foreground-40 h-11 flex-1 rounded-xs border px-4 transition-colors duration-[0.15s] focus:outline-none"
-              />
-              <Button size="lg" className="h-11">
-                Subscribe
-              </Button>
-            </div>
-          </div>
-        </Container>
-      </section>
     </PageLayout>
   );
 }

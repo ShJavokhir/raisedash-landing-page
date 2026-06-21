@@ -23,8 +23,11 @@ interface BlogPostPageProps {
 }
 
 const mdxComponents = {
+  // The article header renders `post.title` as the page's single <h1>. Any stray
+  // top-level heading inside MDX is rendered as an <h2> so we never emit a second
+  // <h1> (getStaticProps also strips/demotes a leading body H1 before render).
   h1: (props: React.HTMLAttributes<HTMLHeadingElement>) => (
-    <h1 className="text-foreground mt-8 mb-6 text-3xl font-bold first:mt-0" {...props} />
+    <h2 className="text-foreground mt-8 mb-4 text-2xl font-semibold" {...props} />
   ),
   h2: (props: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h2 className="text-foreground mt-8 mb-4 text-2xl font-semibold" {...props} />
@@ -153,7 +156,8 @@ export default function BlogPostPage({ post, mdxHtml, relatedPosts, toc }: BlogP
   }
 
   const canonicalUrl = `${SITE_URL}/blog/${post.slug}`;
-  const ogImage = `${SITE_URL}/api/og?title=${encodeURIComponent(post.title)}`;
+  const ogImage = `${SITE_URL}/api/og?title=${encodeURIComponent(post.title)}&description=${encodeURIComponent(post.excerpt)}&category=${encodeURIComponent(post.category)}`;
+  const modifiedTime = post.updatedAt || post.publishedAt;
 
   // JSON-LD structured data for Article
   const jsonLd = {
@@ -173,7 +177,7 @@ export default function BlogPostPage({ post, mdxHtml, relatedPosts, toc }: BlogP
       url: SITE_URL,
     },
     datePublished: post.publishedAt,
-    dateModified: post.publishedAt,
+    dateModified: modifiedTime,
     mainEntityOfPage: {
       "@type": "WebPage",
       "@id": canonicalUrl,
@@ -192,7 +196,7 @@ export default function BlogPostPage({ post, mdxHtml, relatedPosts, toc }: BlogP
         ogType="article"
         article={{
           publishedTime: post.publishedAt,
-          modifiedTime: post.publishedAt,
+          modifiedTime,
           author: post.author,
           section: post.category,
           tags: post.tags,
@@ -280,6 +284,9 @@ export default function BlogPostPage({ post, mdxHtml, relatedPosts, toc }: BlogP
                     </div>
                     <div className="text-muted-foreground text-sm">
                       <div>{formatDate(post.publishedAt)}</div>
+                      {post.updatedAt && post.updatedAt !== post.publishedAt && (
+                        <div>Updated {formatDate(post.updatedAt)}</div>
+                      )}
                       <div>{post.readTime}</div>
                     </div>
                   </div>
@@ -353,6 +360,40 @@ export default function BlogPostPage({ post, mdxHtml, relatedPosts, toc }: BlogP
   );
 }
 
+function normalizeHeading(value: string): string {
+  return value
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, " ")
+    .trim();
+}
+
+/**
+ * Guarantee a post body never ships a second <h1>. The article header already
+ * renders `title` as the page's single <h1>; posts authored with a leading
+ * `# Heading` would otherwise add a competing one. If that heading merely
+ * repeats the title it is dropped; if it complements the title it is demoted to
+ * an <h2> so it survives as the first section heading (and shows up in the TOC).
+ */
+function reconcileBodyH1(content: string, title: string): string {
+  const lines = content.split("\n");
+  const idx = lines.findIndex((line) => line.trim() !== "");
+  if (idx === -1) return content;
+
+  const match = lines[idx].match(/^#\s+(.+?)\s*$/);
+  if (!match) return content;
+
+  if (normalizeHeading(match[1]) === normalizeHeading(title)) {
+    lines.splice(idx, 1);
+    while (idx < lines.length && lines[idx].trim() === "") {
+      lines.splice(idx, 1);
+    }
+  } else {
+    lines[idx] = lines[idx].replace(/^#\s+/, "## ");
+  }
+
+  return lines.join("\n");
+}
+
 export const getStaticPaths: GetStaticPaths = async () => {
   const slugs = getAllSlugs();
 
@@ -370,9 +411,10 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     return { notFound: true };
   }
 
-  const mdxHtml = await renderMdxToHtml(post.content);
+  const content = reconcileBodyH1(post.content, post.title);
+  const mdxHtml = await renderMdxToHtml(content);
   const relatedPosts = getRelatedPosts(slug, 3);
-  const toc = extractTableOfContents(post.content);
+  const toc = extractTableOfContents(content);
 
   return {
     props: {

@@ -24,9 +24,8 @@ tags:
 featured: false
 ---
 
-# Your H1 Title (Include Primary Keyword)
-
-Intro paragraph here.
+Intro paragraph here. Do NOT add a `#` H1 — the `title` above is rendered as the
+page's single `<h1>` automatically. Start your sections at H2.
 
 ## First Main Section
 
@@ -62,26 +61,31 @@ Answer paragraph here.
 | `author` | Yes | Author name |
 | `authorRole` | Yes | e.g., "Author", "Admin", "Product Team" |
 | `publishedAt` | Yes | Date in `YYYY-MM-DD` format |
+| `updatedAt` | No | Date of last meaningful edit, `YYYY-MM-DD`. Sets `dateModified` (sitemap + JSON-LD) and shows an "Updated" line on the post. |
 | `category` | Yes | e.g., "Product", "News", "Feature" |
 | `tags` | Yes | Array of keywords for SEO |
 | `featured` | No | Set `true` to highlight post |
 
 ## Heading Rules
 
+The `title` frontmatter is rendered as the page's single `<h1>` automatically.
+**Do not add a `#` H1 in the body** — start your sections at H2. (A leading body
+`# H1` is auto-stripped if it repeats the title, or demoted to H2 if it differs,
+but you should not rely on that — author at H2.)
+
 ```
-# H1 - Only ONE per post (main title with primary keyword)
 ## H2 - Major sections
 ### H3 - Subsections under H2
 ```
 
 **Do:**
-- Start with H1 containing your main keyword
+- Open with an intro paragraph, then H2 sections
 - Use H2 for each major topic
 - Use H3 for subtopics within H2 sections
 
 **Don't:**
-- Skip heading levels (H1 → H3)
-- Use multiple H1s
+- Add a `#` H1 in the body (the title is already the H1)
+- Skip heading levels (H2 → H4)
 - Leave section titles as plain bold text
 
 ## FAQ Section (for SEO Rich Snippets)
@@ -127,7 +131,7 @@ Before publishing:
 - [ ] Excerpt is under 160 characters
 - [ ] Date is correct
 - [ ] Tags are relevant
-- [ ] H1 matches/complements the title
-- [ ] Heading hierarchy is correct (H1 → H2 → H3)
+- [ ] No `#` H1 in the body (the title is the H1); sections start at H2
+- [ ] Heading hierarchy is correct (H2 → H3, no skipped levels)
 - [ ] FAQ section uses bold question format
 - [ ] Build passes (`npm run build`)
