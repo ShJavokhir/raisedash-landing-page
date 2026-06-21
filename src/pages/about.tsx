@@ -97,7 +97,7 @@ export default function About() {
           <p className="text-muted-foreground mx-auto mb-8 max-w-xl text-lg">
             Get in touch to learn how Raisedash can help protect your freight operations.
           </p>
-          <Link href="/get-started">
+          <Link href="/start">
             <Button size="lg">See a demo</Button>
           </Link>
         </div>

@@ -1,6 +1,6 @@
 import { useEffect, useId, useRef, useState } from "react";
-import { ArrowLeft, BadgeCheck, Check, ChevronRight, Loader2 } from "lucide-react";
-import { Button } from "@/components/start/button";
+import { ArrowLeft, BadgeCheck, Check, ChevronRight, Loader2, Mail } from "lucide-react";
+import { Button, buttonVariants } from "@/components/start/button";
 import { Card, CardContent } from "@/components/start/card";
 import { Input } from "@/components/start/input";
 import { Field } from "@/components/start/form-field";
@@ -184,7 +184,6 @@ export function OnboardingFunnel() {
             options={FLEET_SIZES}
             selected={data.fleetSize}
             onSelect={(value) => choose({ fleetSize: value })}
-            footer="Free to start · No credit card · About a minute"
           />
         )}
 
@@ -307,14 +306,12 @@ function ChoiceStep({
   options,
   selected,
   onSelect,
-  footer,
 }: {
   title: string;
   subtitle?: string;
   options: Choice[];
   selected: string;
   onSelect: (value: string) => void;
-  footer?: string;
 }) {
   return (
     <div className="space-y-7">
@@ -337,7 +334,6 @@ function ChoiceStep({
           </button>
         ))}
       </div>
-      {footer ? <p className="text-muted-foreground text-center text-[13px]">{footer}</p> : null}
     </div>
   );
 }
@@ -565,7 +561,52 @@ function ContactStep({
   );
 }
 
+/**
+ * Webmail "open inbox" shortcuts only make sense on a real desktop browser, where
+ * the user is already signed into Gmail/Outlook on the web — one click lands them
+ * in their inbox. We deliberately do NOT show them on mobile or inside the Meta
+ * (FB/IG) in-app browser: there the WebView session is isolated and usually logged
+ * out, and Google outright blocks sign-in from embedded browsers, so the link would
+ * dead-end at a login wall. Default to hidden; reveal only when confident it's a
+ * desktop browser.
+ */
+function isDesktopBrowser(): boolean {
+  if (typeof navigator === "undefined") return false;
+  const ua = navigator.userAgent || "";
+  // Embedded / in-app browsers (Meta and peers) — never treat as desktop.
+  if (/FBAN|FBAV|FB_IAB|Instagram|Line\/|MicroMessenger|Twitter|TikTok|Snapchat|; wv\)/i.test(ua)) {
+    return false;
+  }
+  // Phones and tablets — native mail apps are the norm there.
+  if (
+    /Android|iPhone|iPad|iPod|Mobile|Silk|Kindle|BlackBerry|Opera Mini|IEMobile|Windows Phone/i.test(
+      ua
+    )
+  ) {
+    return false;
+  }
+  // iPadOS Safari masquerades as macOS — unmask it via touch support.
+  if (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1) return false;
+  return true;
+}
+
+// The two providers that cover the vast majority of inboxes. Link to the web
+// inbox (reliable when already signed in on desktop), opened in a new tab. Shown
+// unconditionally on desktop — we don't infer the provider from the typed email.
+const INBOX_PROVIDERS = [
+  { label: "Gmail", href: "https://mail.google.com/mail/u/0/", color: "#EA4335" },
+  { label: "Outlook", href: "https://outlook.live.com/mail/0/", color: "#0072C6" },
+] as const;
+
 function DoneStep({ email }: { email: string }) {
+  // Default hidden; reveal only on a confirmed desktop browser. Deciding after
+  // mount keeps the safe state ("no buttons") as the server/first-paint output,
+  // so there's never a hydration mismatch.
+  const [showInbox, setShowInbox] = useState(false);
+  useEffect(() => {
+    setShowInbox(isDesktopBrowser());
+  }, []);
+
   return (
     <div className="animate-in fade-in-0 slide-in-from-bottom-2 flex flex-1 flex-col justify-center py-10 duration-300">
       <Card>
@@ -583,6 +624,27 @@ function DoneStep({ email }: { email: string }) {
               to open Raisedash and start getting your DOT file ready.
             </p>
           </div>
+
+          {showInbox ? (
+            <div className="flex items-center justify-center gap-3">
+              {INBOX_PROVIDERS.map((provider) => (
+                <a
+                  key={provider.label}
+                  href={provider.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  className={cn(
+                    buttonVariants({ variant: "outline" }),
+                    "h-11 flex-1 gap-2 rounded-xl text-sm font-medium"
+                  )}
+                >
+                  <Mail className="size-4" style={{ color: provider.color }} />
+                  Open {provider.label}
+                </a>
+              ))}
+            </div>
+          ) : null}
+
           <p className="text-muted-foreground text-[13px]">
             It can take a minute to arrive. If you don’t see it, check your spam or promotions
             folder.

@@ -24,7 +24,6 @@ const STATIC_PAGE_DATES: Record<string, string> = {
   "/contact": "2026-01-27",
   "/careers": "2026-01-27",
   "/product-updates": "2026-01-27", // overridden below by latest update date
-  "/get-started": "2026-01-26",
   "/products/raisedash-pti-inspections": "2026-01-26",
   "/products/raisedash-pti-inspections/driver-features": "2026-01-22",
   "/products/raisedash-pti-inspections/fleet-safety-managers": "2026-01-22",
@@ -96,12 +95,6 @@ function generateSiteMap(
       lastmod: latestUpdateDate,
       changefreq: "weekly",
       priority: "0.7",
-    },
-    {
-      loc: `${SITE_URL}/get-started`,
-      lastmod: STATIC_PAGE_DATES["/get-started"],
-      changefreq: "monthly",
-      priority: "0.8",
     },
     {
       loc: `${SITE_URL}/products/raisedash-pti-inspections`,

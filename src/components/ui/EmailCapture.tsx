@@ -51,10 +51,12 @@ export function EmailCapture({
       // Silently fail - don't block navigation
     });
 
-    router.push({
-      pathname: "/get-started",
-      query: { email: trimmedEmail },
-    });
+    // Send everyone into the self-serve onboarding funnel (the old /get-started
+    // demo flow is retired). We intentionally do NOT forward the email in the URL:
+    // /start runs the Meta Pixel, which ships the full URL (event_source_url) to
+    // Meta and would leak the raw address. The email is already captured above;
+    // the funnel re-collects it at its email step.
+    router.push("/start");
   };
 
   const isDark = variant === "dark";

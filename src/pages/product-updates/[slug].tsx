@@ -245,7 +245,7 @@ export default function ProductUpdatePage({
                 <p className="text-muted-foreground mb-4">
                   Want to see this feature in action? We&apos;ll walk you through it.
                 </p>
-                <Link href="/get-started">
+                <Link href="/start">
                   <Button>See a Demo</Button>
                 </Link>
               </div>

@@ -69,6 +69,42 @@ export function captureClickId(): void {
   document.cookie = `_fbc=${fbc}; max-age=${90 * 24 * 60 * 60}; path=/; samesite=lax`;
 }
 
+/**
+ * Strip personal data (e.g. a forwarded `?email=`) from the funnel URL before the
+ * Pixel reads it. The Pixel's PageView and the CAPI Lead both send
+ * `event_source_url` — the full page URL — to Meta, which must never carry raw
+ * PII. A stale `/get-started?email=…` link redirects here as `/start?email=…`
+ * (Next forwards query strings), so we scrub it in place via replaceState (no
+ * reload) as the very first thing on mount, before initPixel fires PageView.
+ */
+export function stripSensitiveParams(): void {
+  if (typeof window === "undefined") return;
+  const url = new URL(window.location.href);
+  let changed = false;
+  for (const key of ["email", "phone", "name"]) {
+    if (url.searchParams.has(key)) {
+      url.searchParams.delete(key);
+      changed = true;
+    }
+  }
+  if (changed) window.history.replaceState(window.history.state, "", url.toString());
+}
+
+/**
+ * Ensure an `_fbp` browser id exists. The Pixel normally sets this, but in the
+ * FB/IG in-app browser the Pixel is routinely suppressed, so `_fbp` is never
+ * created and the server CAPI loses a matching signal. When it's missing we
+ * synthesize one ourselves — fb.{subdomainIndex}.{creationTimeMs}.{random} — and
+ * persist it, exactly as the Pixel would. If the real Pixel later loads it adopts
+ * our cookie, so the browser Pixel and server CAPI stay on one consistent id.
+ */
+export function ensureFbp(): void {
+  if (typeof document === "undefined") return;
+  if (readCookie("_fbp")) return;
+  const fbp = `fb.1.${Date.now()}.${Math.floor(Math.random() * 1e10)}`;
+  document.cookie = `_fbp=${fbp}; max-age=${90 * 24 * 60 * 60}; path=/; samesite=lax`;
+}
+
 /** Bootstrap fbq (the standard Meta snippet) and fire PageView. Idempotent. */
 export function initPixel(): void {
   if (!PIXEL_ID || typeof window === "undefined" || window.fbq) return;

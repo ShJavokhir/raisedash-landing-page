@@ -626,7 +626,7 @@ const Hero: React.FC = () => (
         </p>
 
         <div className="animate-fade-in-up mb-16 flex w-full flex-col justify-center gap-4 delay-300 sm:w-auto sm:flex-row">
-          <Link href="/get-started">
+          <Link href="/start">
             <Button
               size="lg"
               className="hover:bg-foreground w-full gap-2 rounded-xs bg-[#1F1E1E] text-white sm:w-auto"
@@ -860,7 +860,7 @@ const CTA: React.FC = () => (
           Get real-time visibility and automated arrival alerts in seconds.
         </p>
         <div className="flex justify-center">
-          <Link href="/get-started">
+          <Link href="/start">
             <Button size="lg" className="rounded-xs bg-white px-8 text-[#19224A] hover:bg-white/90">
               Create Your First Load
             </Button>

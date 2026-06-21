@@ -10,6 +10,21 @@ const nextConfig: NextConfig = {
   output: "standalone",
   // SEO: Enforce consistent URL format (no trailing slashes)
   trailingSlash: false,
+  // The old /get-started demo-request flow is retired; the self-serve onboarding
+  // funnel at /start replaces it. Permanent (308) so old/indexed/bookmarked links
+  // move to the new funnel. NOTE: Next forwards query strings on redirect, so a
+  // stale /get-started?email=… would arrive as /start?email=… — /start strips PII
+  // params from its URL before the Pixel captures event_source_url (see
+  // lib/meta-pixel.ts → stripSensitiveParams) so no raw email reaches Meta.
+  async redirects() {
+    return [
+      {
+        source: "/get-started",
+        destination: "/start",
+        permanent: true,
+      },
+    ];
+  },
   images: {
     remotePatterns: [
       {

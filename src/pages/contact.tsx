@@ -374,7 +374,7 @@ export default function Contact() {
           <p className="text-muted-foreground mx-auto mb-8 max-w-xl text-lg">
             Schedule a demo to see how Raisedash can transform your freight security.
           </p>
-          <Link href="/get-started">
+          <Link href="/start">
             <Button size="lg">See a demo</Button>
           </Link>
         </div>

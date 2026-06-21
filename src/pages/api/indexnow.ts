@@ -12,7 +12,6 @@ const STATIC_PATHS = [
   "/contact",
   "/careers",
   "/product-updates",
-  "/get-started",
   "/products/raisedash-pti-inspections",
   "/products/raisedash-pti-inspections/driver-features",
   "/products/raisedash-pti-inspections/fleet-safety-managers",

@@ -161,7 +161,7 @@ export function Header() {
                   Sign in
                 </Button>
               </a>
-              <Link href="/get-started">
+              <Link href="/start">
                 <Button variant="primary" size="sm">
                   See a demo
                 </Button>
@@ -254,7 +254,7 @@ export function Header() {
                       Sign in
                     </Button>
                   </a>
-                  <Link href="/get-started" onClick={() => setMobileMenuOpen(false)}>
+                  <Link href="/start" onClick={() => setMobileMenuOpen(false)}>
                     <Button variant="primary" size="sm" className="w-full">
                       See a demo
                     </Button>

@@ -419,7 +419,7 @@ const Hero: React.FC = () => {
               transition={{ duration: 0.6, delay: 0.3 }}
               className="mb-12 flex flex-col gap-4 sm:flex-row"
             >
-              <Link href="/get-started">
+              <Link href="/start">
                 <Button
                   size="lg"
                   className="group hover:bg-foreground w-full gap-2 rounded-xs bg-[#1F1E1E] text-white sm:w-auto"
@@ -1606,7 +1606,7 @@ const CTA: React.FC = () => {
             </p>
 
             <div className="flex flex-col justify-center gap-4 sm:flex-row">
-              <Link href="/get-started">
+              <Link href="/start">
                 <Button
                   size="lg"
                   className="w-full rounded-xs border-0 bg-white text-[#19224A] hover:bg-white/90 sm:w-auto"
@@ -1614,7 +1614,7 @@ const CTA: React.FC = () => {
                   Request Your Free Demo
                 </Button>
               </Link>
-              <Link href="/get-started">
+              <Link href="/start">
                 <Button
                   size="lg"
                   variant="ghost"
