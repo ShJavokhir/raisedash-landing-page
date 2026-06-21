@@ -1,4 +1,4 @@
-import { useId, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import { ArrowLeft, BadgeCheck, Check, ChevronRight, Loader2 } from "lucide-react";
 import { Button } from "@/components/start/button";
 import { Card, CardContent } from "@/components/start/card";
@@ -7,6 +7,7 @@ import { Field } from "@/components/start/form-field";
 import { PhoneInput } from "@/components/start/phone-input";
 import { apiPost, errorMessage } from "@/lib/start-api";
 import { collectAttribution, compactAttribution, newEventId, trackPixel } from "@/lib/meta-pixel";
+import { trackFunnel } from "@/lib/funnel-analytics";
 import { cn } from "@/lib/utils";
 
 /**
@@ -45,6 +46,10 @@ const WORRIES: Choice[] = [
 
 const TOTAL_STEPS = 5; // fleet, worry, name, email, contact (done is not counted)
 
+// Readable name per step index, so the PostHog funnel reads "fleet → worry → …"
+// rather than "0 → 1 → …". See lib/funnel-analytics.ts.
+const STEP_NAMES = ["fleet", "worry", "name", "email", "contact"] as const;
+
 interface FunnelData {
   fleetSize: string;
   worries: string[];
@@ -79,6 +84,22 @@ export function OnboardingFunnel() {
   const eventIdRef = useRef<string>("");
   const pixelFiredRef = useRef(false);
 
+  // Per-session id for funnel telemetry — distinct from the Lead dedup event id
+  // above; this one stitches every step event of one run together in PostHog.
+  const sidRef = useRef<string>("");
+  const track = (event: string, props?: Record<string, unknown>) => {
+    if (!sidRef.current) sidRef.current = newEventId();
+    trackFunnel({ sid: sidRef.current, event, props });
+  };
+
+  // One event per step the user lands on — including the final "done" screen —
+  // so PostHog can chart exactly where the funnel leaks. Fires on mount (step 0)
+  // and on every step change; intentionally keyed on `step` only.
+  useEffect(() => {
+    const stepName = step >= TOTAL_STEPS ? "done" : STEP_NAMES[step];
+    track("funnel_step_viewed", { step, step_name: stepName });
+  }, [step]);
+
   const set = (patch: Partial<FunnelData>) => setData((d) => ({ ...d, ...patch }));
   const next = () => setStep((s) => s + 1);
   const back = () => setStep((s) => Math.max(0, s - 1));
@@ -107,6 +128,7 @@ export function OnboardingFunnel() {
     setError(null);
     if (!eventIdRef.current) eventIdRef.current = newEventId();
     const eventId = eventIdRef.current;
+    track("funnel_submit_started");
 
     try {
       await apiPost("public/onboarding", {
@@ -128,9 +150,16 @@ export function OnboardingFunnel() {
         trackPixel("Lead", {}, eventId);
         pixelFiredRef.current = true;
       }
+      // Funnel conversion — categorical answers only, never the contact PII.
+      track("funnel_lead_captured", {
+        fleet_size: data.fleetSize || undefined,
+        worries: data.worries,
+      });
       setStep(TOTAL_STEPS); // done
     } catch (e) {
-      setError(errorMessage(e, "Something went wrong — please try again."));
+      const message = errorMessage(e, "Something went wrong — please try again.");
+      track("funnel_submit_error", { message });
+      setError(message);
     } finally {
       setSubmitting(false);
     }
