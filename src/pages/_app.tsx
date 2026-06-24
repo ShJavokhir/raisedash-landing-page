@@ -23,9 +23,10 @@ export { reportWebVitals } from "@/lib/vitals";
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
-  // The /start onboarding funnel (Meta ads) is a distraction-free, full-screen
-  // flow for the FB/IG in-app browser — no marketing header, no Intercom widget.
-  const isFunnel = router.pathname === "/start";
+  // The /start and /start-v2 ad funnels (Meta ads) are distraction-free,
+  // full-screen flows for the FB/IG in-app browser — no marketing header, no
+  // Intercom widget.
+  const isFunnel = router.pathname === "/start" || router.pathname === "/start-v2";
   const hideHeader = isFunnel;
 
   return (
