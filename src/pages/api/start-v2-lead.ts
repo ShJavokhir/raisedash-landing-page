@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { sendToTelegram, formatStartV2LeadMessage } from "@/lib/telegram";
 import { validateEmail } from "@/lib/validation";
-import { isValidPhone } from "@/lib/phone";
+import { isValidIntlPhone } from "@/lib/phone";
 import {
   FLEET_VALUES,
   PROBLEM_VALUES,
@@ -71,7 +71,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if (!ROLE_VALUES.has(role)) invalid.push("role");
     if (fullName.length < 2) invalid.push("fullName");
     if (!validateEmail(email)) invalid.push("email");
-    if (!isValidPhone(phone)) invalid.push("phone");
+    if (!isValidIntlPhone(phone)) invalid.push("phone");
     if (driverProblems.length === 0 || !driverProblems.every((p) => PROBLEM_VALUES.has(p))) {
       invalid.push("driverProblems");
     }

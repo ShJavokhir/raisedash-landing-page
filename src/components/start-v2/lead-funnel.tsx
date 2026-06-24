@@ -5,7 +5,7 @@ import { Card, CardContent } from "@/components/start/card";
 import { Input } from "@/components/start/input";
 import { Field } from "@/components/start/form-field";
 import { PhoneInput } from "@/components/start/phone-input";
-import { isValidPhone } from "@/lib/phone";
+import { isValidIntlPhone } from "@/lib/phone";
 import { collectAttribution, compactAttribution, newEventId, trackPixel } from "@/lib/meta-pixel";
 import { trackFunnel } from "@/lib/funnel-analytics";
 import { cn } from "@/lib/utils";
@@ -446,7 +446,7 @@ function ContactStep({
   const phoneId = useId();
   const emailHintId = `${emailId}-hint`;
   const emailValid = isEmail(data.email);
-  const phoneValid = isValidPhone(data.phone);
+  const phoneValid = isValidIntlPhone(data.phone);
   const showEmailHint = data.email.length > 3 && !emailValid;
   const canContinue = emailValid && phoneValid;
 
@@ -488,7 +488,12 @@ function ContactStep({
         </Field>
 
         <Field label="Phone number" htmlFor={phoneId} required>
-          <PhoneInput id={phoneId} value={data.phone} onChange={(phone) => set({ phone })} />
+          <PhoneInput
+            id={phoneId}
+            value={data.phone}
+            onChange={(phone) => set({ phone })}
+            international
+          />
         </Field>
       </div>
 

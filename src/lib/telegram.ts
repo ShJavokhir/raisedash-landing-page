@@ -4,7 +4,7 @@
  */
 
 import { validateEmail, validateRequiredFields } from "./validation";
-import { displayPhone } from "./phone";
+import { displayIntlPhone } from "./phone";
 import {
   fleetLabel,
   roleLabel,
@@ -292,7 +292,7 @@ export function formatStartV2LeadMessage(data: StartV2Lead): string {
 💼 *Role:* ${roleLabel(data.role)}
 👤 *Name:* ${escapeMd(data.fullName)}
 📧 *Email:* ${escapeMd(data.email)}
-📞 *Phone:* ${escapeMd(displayPhone(data.phone))}
+📞 *Phone:* ${escapeMd(displayIntlPhone(data.phone))}
 ${carrierLine}
 
 🧩 *Drivers need help with:*
