@@ -32,6 +32,7 @@ export function PhoneInput({
   disabled,
   className,
   international = false,
+  incompleteHint: incompleteHintProp,
 }: {
   /** Canonical value: E.164 (e.g. "+15551234567") or "". */
   value: string;
@@ -43,6 +44,8 @@ export function PhoneInput({
   className?: string;
   /** Accept any country code instead of forcing US/Canada (+1). */
   international?: boolean;
+  /** Override the "number looks incomplete" hint (e.g. to localize it). */
+  incompleteHint?: string;
 }) {
   const format = international ? formatIntlPhone : formatPhone;
   const toCanonical = international ? toIntlE164 : toE164;
@@ -50,9 +53,11 @@ export function PhoneInput({
   const isComplete = international ? isValidIntlPhone : isValidPhone;
   const prefix = international ? "+" : "+1";
   const fieldPlaceholder = placeholder ?? (international ? "1 555 123 4567" : "(555) 123-4567");
-  const incompleteHint = international
-    ? "Enter your phone number, including country code."
-    : "Enter a 10-digit US or Canada number.";
+  const incompleteHint =
+    incompleteHintProp ??
+    (international
+      ? "Enter your phone number, including country code."
+      : "Enter a 10-digit US or Canada number.");
 
   const [display, setDisplay] = useState(() => toDisplay(value));
   const focused = useRef(false);

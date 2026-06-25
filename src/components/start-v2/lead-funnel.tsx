@@ -10,7 +10,8 @@ import { isValidIntlPhone } from "@/lib/phone";
 import { collectAttribution, compactAttribution, newEventId, trackPixel } from "@/lib/meta-pixel";
 import { trackFunnel } from "@/lib/funnel-analytics";
 import { cn } from "@/lib/utils";
-import { DRIVER_PROBLEMS, FLEET_SIZES, ROLES, type Choice } from "@/lib/start-v2";
+import { type Choice } from "@/lib/start-v2";
+import { useStartV2Options, useStartV2T } from "@/components/start-v2/i18n";
 
 /**
  * Public lead-capture funnel for the /start-v2 page (a Meta-ad destination for
@@ -63,6 +64,8 @@ const isEmail = (v: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim());
 const isDot = (v: string) => /^\d{5,8}$/.test(v.trim());
 
 export function LeadFunnel() {
+  const t = useStartV2T();
+  const options = useStartV2Options();
   const [step, setStep] = useState(0);
   const [data, setData] = useState<FunnelData>(EMPTY);
   const [submitting, setSubmitting] = useState(false);
@@ -158,7 +161,7 @@ export function LeadFunnel() {
       const message =
         e instanceof Error && e.message ? e.message : "Something went wrong — please try again.";
       track("funnel_submit_error", { message });
-      setError("Something went wrong — please try again.");
+      setError(t.error.generic);
     } finally {
       setSubmitting(false);
     }
@@ -177,8 +180,8 @@ export function LeadFunnel() {
       >
         {step === 0 && (
           <ChoiceStep
-            title="How many trucks does your company run?"
-            options={FLEET_SIZES}
+            title={t.fleet.title}
+            options={options.fleet}
             selected={data.fleetSize}
             onSelect={(value) => choose({ fleetSize: value })}
           />
@@ -186,9 +189,9 @@ export function LeadFunnel() {
 
         {step === 1 && (
           <MultiChoiceStep
-            title="What do your drivers need help with?"
-            subtitle="Pick all that apply."
-            options={DRIVER_PROBLEMS}
+            title={t.problems.title}
+            subtitle={t.problems.subtitle}
+            options={options.problems}
             selected={data.driverProblems}
             onToggle={toggleProblem}
             onContinue={next}
@@ -197,8 +200,8 @@ export function LeadFunnel() {
 
         {step === 2 && (
           <ChoiceStep
-            title="What’s your role in the company?"
-            options={ROLES}
+            title={t.role.title}
+            options={options.roles}
             selected={data.role}
             onSelect={(value) => choose({ role: value })}
           />
@@ -206,8 +209,8 @@ export function LeadFunnel() {
 
         {step === 3 && (
           <TextStep
-            title="What should we call you?"
-            label="Full name"
+            title={t.name.title}
+            label={t.name.label}
             value={data.fullName}
             onChange={(fullName) => set({ fullName })}
             valid={data.fullName.trim().length >= 2}
@@ -238,6 +241,7 @@ export function LeadFunnel() {
 }
 
 function ProgressHeader({ step, onBack }: { step: number; onBack?: () => void }) {
+  const t = useStartV2T();
   return (
     <div className="mb-6 flex items-center gap-3">
       {onBack ? (
@@ -245,7 +249,7 @@ function ProgressHeader({ step, onBack }: { step: number; onBack?: () => void })
           variant="ghost"
           size="icon"
           onClick={onBack}
-          aria-label="Back"
+          aria-label={t.progress.back}
           className="text-muted-foreground hover:text-foreground size-10 shrink-0"
         >
           <ArrowLeft className="size-5" />
@@ -338,6 +342,7 @@ function MultiChoiceStep({
   onToggle: (value: string) => void;
   onContinue: () => void;
 }) {
+  const t = useStartV2T();
   return (
     <div className="space-y-7">
       <StepHeading title={title} subtitle={subtitle} />
@@ -378,7 +383,7 @@ function MultiChoiceStep({
         onClick={onContinue}
         disabled={selected.length === 0}
       >
-        Continue
+        {t.common.continue}
       </Button>
     </div>
   );
@@ -405,6 +410,7 @@ function TextStep({
   inputProps?: React.ComponentProps<typeof Input>;
   onContinue: () => void;
 }) {
+  const t = useStartV2T();
   const fieldId = useId();
   const hintId = `${fieldId}-hint`;
   return (
@@ -437,7 +443,7 @@ function TextStep({
         className="h-12 w-full rounded-xl text-base"
         disabled={!valid}
       >
-        Continue
+        {t.common.continue}
       </Button>
     </form>
   );
@@ -453,6 +459,7 @@ function ContactStep({
   set: (patch: Partial<FunnelData>) => void;
   onContinue: () => void;
 }) {
+  const t = useStartV2T();
   const emailId = useId();
   const phoneId = useId();
   const emailHintId = `${emailId}-hint`;
@@ -469,13 +476,10 @@ function ContactStep({
         if (canContinue) onContinue();
       }}
     >
-      <StepHeading
-        title="How can we reach you?"
-        subtitle="We’ll use this to follow up about your drivers — no spam, ever."
-      />
+      <StepHeading title={t.contact.title} subtitle={t.contact.subtitle} />
 
       <div className="space-y-5">
-        <Field label="Email address" htmlFor={emailId} required>
+        <Field label={t.contact.emailLabel} htmlFor={emailId} required>
           <Input
             id={emailId}
             value={data.email}
@@ -486,24 +490,25 @@ function ContactStep({
             autoCapitalize="off"
             autoCorrect="off"
             enterKeyHint="next"
-            placeholder="you@company.com"
+            placeholder={t.contact.emailPlaceholder}
             aria-invalid={showEmailHint ? true : undefined}
             aria-describedby={showEmailHint ? emailHintId : undefined}
             autoFocus
           />
           {showEmailHint ? (
             <p id={emailHintId} role="alert" className="text-destructive text-xs">
-              Enter a valid email address.
+              {t.contact.emailHint}
             </p>
           ) : null}
         </Field>
 
-        <Field label="Phone number" htmlFor={phoneId} required>
+        <Field label={t.contact.phoneLabel} htmlFor={phoneId} required>
           <PhoneInput
             id={phoneId}
             value={data.phone}
             onChange={(phone) => set({ phone })}
             international
+            incompleteHint={t.contact.phoneHint}
           />
         </Field>
       </div>
@@ -514,7 +519,7 @@ function ContactStep({
         className="h-12 w-full rounded-xl text-base"
         disabled={!canContinue}
       >
-        Continue
+        {t.common.continue}
       </Button>
     </form>
   );
@@ -538,6 +543,7 @@ function CompanyStep({
   error: string | null;
   onSubmit: () => void;
 }) {
+  const t = useStartV2T();
   const dotId = useId();
   const companyId = useId();
   const dotHintId = `${dotId}-hint`;
@@ -555,14 +561,11 @@ function CompanyStep({
         if (!submitting && canSubmit) onSubmit();
       }}
     >
-      <StepHeading
-        title="Last step — your USDOT number."
-        subtitle="It helps us pull your carrier’s record before we reach out. Optional."
-      />
+      <StepHeading title={t.company.title} subtitle={t.company.subtitle} />
 
       <div className="space-y-5">
         {!data.dontKnowDot ? (
-          <Field label="USDOT number (optional)" htmlFor={dotId}>
+          <Field label={t.company.dotLabel} htmlFor={dotId}>
             <Input
               id={dotId}
               value={data.usDot}
@@ -571,19 +574,19 @@ function CompanyStep({
               inputMode="numeric"
               autoComplete="off"
               enterKeyHint="go"
-              placeholder="e.g. 1234567"
+              placeholder={t.company.dotPlaceholder}
               aria-invalid={dotInvalid ? true : undefined}
               aria-describedby={dotInvalid ? dotHintId : undefined}
               autoFocus
             />
             {dotInvalid ? (
               <p id={dotHintId} role="alert" className="text-destructive text-xs">
-                A USDOT number is 5–8 digits.
+                {t.company.dotHint}
               </p>
             ) : null}
           </Field>
         ) : (
-          <Field label="Company name" htmlFor={companyId} required>
+          <Field label={t.company.companyLabel} htmlFor={companyId} required>
             <Input
               id={companyId}
               value={data.companyName}
@@ -592,7 +595,7 @@ function CompanyStep({
               autoComplete="organization"
               autoCapitalize="words"
               enterKeyHint="go"
-              placeholder="Your company’s legal name"
+              placeholder={t.company.companyPlaceholder}
               autoFocus
             />
           </Field>
@@ -627,7 +630,7 @@ function CompanyStep({
           >
             {data.dontKnowDot ? <Check className="size-3.5" /> : null}
           </span>
-          I don’t know my USDOT number
+          {t.company.dontKnow}
         </button>
 
         {/* Honeypot: hidden from humans, catches form-filling bots. */}
@@ -661,21 +664,20 @@ function CompanyStep({
           {submitting ? (
             <>
               <Loader2 className="size-5 animate-spin" />
-              Sending…
+              {t.company.sending}
             </>
           ) : (
-            "Request a callback"
+            t.company.submit
           )}
         </Button>
-        <p className="text-muted-foreground text-center text-[13px]">
-          We use your details only to reach out about your drivers. No spam, ever.
-        </p>
+        <p className="text-muted-foreground text-center text-[13px]">{t.company.reassurance}</p>
       </div>
     </form>
   );
 }
 
 function DoneStep() {
+  const t = useStartV2T();
   return (
     <div className="animate-in fade-in-0 slide-in-from-bottom-2 flex flex-1 flex-col justify-center py-10 duration-300">
       <Card>
@@ -685,18 +687,15 @@ function DoneStep() {
           </div>
           <div className="space-y-2">
             <h1 className="text-2xl font-semibold tracking-tight text-balance sm:text-3xl">
-              Thanks — we’ll be in touch soon.
+              {t.done.title}
             </h1>
-            <p className="text-muted-foreground text-base">
-              We’ve got your details. A Raisedash specialist will reach out shortly to help get your
-              drivers trained and road-ready.
-            </p>
+            <p className="text-muted-foreground text-base">{t.done.body}</p>
           </div>
           <Link
             href="/tools/elp-practice"
             className={cn(buttonVariants(), "h-12 w-full gap-2 rounded-xl text-base")}
           >
-            See features
+            {t.done.cta}
             <ArrowRight className="size-5" />
           </Link>
         </CardContent>
