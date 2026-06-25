@@ -1,6 +1,7 @@
+import Link from "next/link";
 import { useEffect, useId, useRef, useState } from "react";
-import { ArrowLeft, BadgeCheck, Check, ChevronRight, Loader2 } from "lucide-react";
-import { Button } from "@/components/start/button";
+import { ArrowLeft, ArrowRight, BadgeCheck, Check, ChevronRight, Loader2 } from "lucide-react";
+import { Button, buttonVariants } from "@/components/start/button";
 import { Card, CardContent } from "@/components/start/card";
 import { Input } from "@/components/start/input";
 import { Field } from "@/components/start/form-field";
@@ -691,6 +692,13 @@ function DoneStep() {
               drivers trained and road-ready.
             </p>
           </div>
+          <Link
+            href="/tools/elp-practice"
+            className={cn(buttonVariants(), "h-12 w-full gap-2 rounded-xl text-base")}
+          >
+            See features
+            <ArrowRight className="size-5" />
+          </Link>
         </CardContent>
       </Card>
     </div>
