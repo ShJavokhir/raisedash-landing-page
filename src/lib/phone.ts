@@ -52,9 +52,15 @@ export function displayPhone(stored?: string | null): string {
 
 // --- International variant (used by the /start-v2 lead funnel) ----------------
 // We can't know the caller's country, so we stay permissive: keep the full
-// country-code-plus-number as digits, store "+" followed by 7–15 of them (the
-// E.164 length bounds), and group only for legibility. A teammate reads these
-// off Telegram and calls back, so loose-but-clean beats strict-but-rejecting.
+// country-code-plus-number as digits and store "+" followed by 7–15 of them (the
+// E.164 length bounds). A teammate reads these off Telegram and calls back, so
+// loose-but-clean beats strict-but-rejecting.
+//
+// We deliberately do NOT pretty-print as you type. Without a phone-number library
+// we can't know any country's real grouping, and inserting arbitrary spaces makes
+// the field look wrong for every number — so the field shows exactly the digits
+// the user typed (the "+" prefix lives in the input chrome) and we normalize to
+// E.164 only for storage and for the Meta CAPI Lead.
 
 /**
  * Digits only, capped at E.164's 15-digit maximum. A leading "00" (the IDD/
@@ -68,14 +74,12 @@ function intlDigits(raw: string): string {
 }
 
 /**
- * Light, country-agnostic formatting as the user types: the digits space-grouped
- * in threes from the right ("442012345678" → "442 012 345 678"). The fixed "+"
- * prefix lives in the input chrome, so this returns the digits only.
+ * Country-agnostic display: just the digits, no grouping (see the note above on
+ * why we don't mask). The fixed "+" prefix lives in the input chrome, so this
+ * returns the digits only.
  */
 export function formatIntlPhone(raw: string): string {
-  const d = intlDigits(raw);
-  if (!d) return "";
-  return d.replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+  return intlDigits(raw);
 }
 
 /** A plausible international number: between 7 and 15 digits. */
@@ -93,7 +97,7 @@ export function toIntlE164(raw: string): string | null {
   return d.length >= 7 && d.length <= 15 ? `+${d}` : null;
 }
 
-/** Render a stored international value ("+15551234567") back to "+1 555 123 4567". */
+/** Render a stored international value back to "+15551234567" (E.164) for display. */
 export function displayIntlPhone(stored?: string | null): string {
   if (!stored) return "";
   const pretty = formatIntlPhone(stored);
