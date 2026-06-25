@@ -1,5 +1,15 @@
 import { useEffect, useId, useRef, useState } from "react";
-import { ArrowLeft, BadgeCheck, Check, ChevronRight, Loader2, Mail } from "lucide-react";
+import {
+  AlertCircle,
+  AlertTriangle,
+  ArrowLeft,
+  BadgeCheck,
+  Check,
+  CheckCircle2,
+  ChevronRight,
+  Loader2,
+  Mail,
+} from "lucide-react";
 import { Button, buttonVariants } from "@/components/start/button";
 import { Card, CardContent } from "@/components/start/card";
 import { Input } from "@/components/start/input";
@@ -74,11 +84,42 @@ const EMPTY: FunnelData = {
 const isEmail = (v: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim());
 const isDot = (v: string) => /^\d{5,8}$/.test(v.trim());
 
+// ── Carrier scan preview (mirrors the backend ScanService.buildPreview output) ──
+type PreviewStatus = "looks_good" | "needs_attention" | "critical";
+interface PreviewCard {
+  status: PreviewStatus;
+  title: string;
+  note: string;
+}
+interface ScanPreview {
+  carrier: {
+    usDot: string;
+    legalName: string;
+    powerUnits: number;
+    drivers: number;
+    operatingStatus: string;
+    isNewEntrant: boolean;
+    city?: string;
+    state?: string;
+    source: "fmcsa" | "mock";
+  };
+  counts: { critical: number; needs_attention: number; looks_good: number };
+  cards: PreviewCard[];
+  disclaimer: string;
+}
+
 export function OnboardingFunnel() {
   const [step, setStep] = useState(0);
   const [data, setData] = useState<FunnelData>(EMPTY);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  // After the lead is captured we pull the carrier's PUBLIC DOT record and show
+  // an honest, real-data preview (the "aha"). Best-effort: if no real record
+  // resolves (e.g. no verified source yet) we fall back to the plain "check your
+  // email" screen — we never invent findings.
+  const [scanState, setScanState] = useState<"idle" | "scanning" | "ready" | "failed">("idle");
+  const [preview, setPreview] = useState<ScanPreview | null>(null);
 
   // Stable across retries so the Pixel and CAPI Lead always dedup to one event.
   const eventIdRef = useRef<string>("");
@@ -119,6 +160,26 @@ export function OnboardingFunnel() {
         : [...d.worries, value],
     }));
 
+  async function runScan(usDot: string) {
+    setScanState("scanning");
+    const TIMEOUT = Symbol("timeout");
+    try {
+      const result = await Promise.race([
+        apiPost<ScanPreview>("public/scan", { usDot }),
+        new Promise<typeof TIMEOUT>((resolve) => setTimeout(() => resolve(TIMEOUT), 7000)),
+      ]);
+      if (result === TIMEOUT || !result.cards?.length) {
+        setScanState("failed");
+        return;
+      }
+      setPreview(result);
+      setScanState("ready");
+    } catch {
+      // No real record we can stand behind — fall back to the email screen.
+      setScanState("failed");
+    }
+  }
+
   async function submit() {
     if (!isDot(data.usDot)) {
       setError("Enter a valid USDOT number (5–8 digits).");
@@ -155,7 +216,8 @@ export function OnboardingFunnel() {
         fleet_size: data.fleetSize || undefined,
         worries: data.worries,
       });
-      setStep(TOTAL_STEPS); // done
+      setStep(TOTAL_STEPS); // done — now reveal the real DOT-record preview
+      void runScan(data.usDot.trim());
     } catch (e) {
       const message = errorMessage(e, "Something went wrong — please try again.");
       track("funnel_submit_error", { message });
@@ -166,6 +228,10 @@ export function OnboardingFunnel() {
   }
 
   if (step >= TOTAL_STEPS) {
+    if (scanState === "scanning") return <ScanningStep />;
+    if (scanState === "ready" && preview)
+      return <ScanReveal preview={preview} email={data.email.trim()} />;
+    // idle or failed → the dependable "check your email" screen
     return <DoneStep email={data.email.trim()} />;
   }
 
@@ -597,6 +663,183 @@ const INBOX_PROVIDERS = [
   { label: "Gmail", href: "https://mail.google.com/mail/u/0/", color: "#EA4335" },
   { label: "Outlook", href: "https://outlook.live.com/mail/0/", color: "#0072C6" },
 ] as const;
+
+/**
+ * Webmail shortcuts, shown only on a confirmed desktop browser. Default hidden so
+ * the first-paint output is the safe state (no buttons) — never a hydration mismatch.
+ */
+function InboxButtons() {
+  const [showInbox, setShowInbox] = useState(false);
+  useEffect(() => {
+    setShowInbox(isDesktopBrowser());
+  }, []);
+  if (!showInbox) return null;
+  return (
+    <div className="flex items-center justify-center gap-3">
+      {INBOX_PROVIDERS.map((provider) => (
+        <a
+          key={provider.label}
+          href={provider.href}
+          target="_blank"
+          rel="noreferrer"
+          className={cn(
+            buttonVariants({ variant: "outline" }),
+            "h-11 flex-1 gap-2 rounded-xl text-sm font-medium"
+          )}
+        >
+          <Mail className="size-4" style={{ color: provider.color }} />
+          Open {provider.label}
+        </a>
+      ))}
+    </div>
+  );
+}
+
+/** Brief "labour illusion" while we pull the carrier's public DOT record. */
+function ScanningStep() {
+  return (
+    <div className="animate-in fade-in-0 slide-in-from-bottom-2 flex flex-1 flex-col justify-center py-10 duration-300">
+      <Card>
+        <CardContent className="space-y-6 py-12 text-center">
+          <div className="bg-primary/10 text-primary mx-auto flex size-16 items-center justify-center rounded-full">
+            <Loader2 className="size-8 animate-spin" />
+          </div>
+          <div className="space-y-2">
+            <h1 className="text-2xl font-semibold tracking-tight text-balance sm:text-3xl">
+              Pulling your carrier record…
+            </h1>
+            <p className="text-muted-foreground text-base">
+              Checking your authority, safety record, and what an auditor would see today.
+            </p>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
+  );
+}
+
+const STATUS_STYLE: Record<
+  PreviewStatus,
+  { icon: typeof Check; label: string; dot: string; card: string; iconClass: string }
+> = {
+  critical: {
+    icon: AlertTriangle,
+    label: "Critical",
+    dot: "bg-red-500",
+    card: "border-red-200 bg-red-50/60",
+    iconClass: "text-red-600",
+  },
+  needs_attention: {
+    icon: AlertCircle,
+    label: "Needs attention",
+    dot: "bg-amber-500",
+    card: "border-amber-200 bg-amber-50/60",
+    iconClass: "text-amber-600",
+  },
+  looks_good: {
+    icon: CheckCircle2,
+    label: "Looks good",
+    dot: "bg-emerald-500",
+    card: "border-emerald-200 bg-emerald-50/50",
+    iconClass: "text-emerald-600",
+  },
+};
+
+function CountsBar({ counts }: { counts: ScanPreview["counts"] }) {
+  const items: { key: PreviewStatus; n: number }[] = [
+    { key: "critical", n: counts.critical },
+    { key: "needs_attention", n: counts.needs_attention },
+    { key: "looks_good", n: counts.looks_good },
+  ];
+  return (
+    <div className="flex items-center justify-center gap-2">
+      {items.map(({ key, n }) => (
+        <div
+          key={key}
+          className="bg-card flex flex-1 flex-col items-center gap-1 rounded-xl border px-2 py-3"
+        >
+          <span className="text-2xl font-semibold tabular-nums">{n}</span>
+          <span className="text-muted-foreground flex items-center gap-1.5 text-[11px] font-medium">
+            <span className={cn("size-2 rounded-full", STATUS_STYLE[key].dot)} aria-hidden />
+            {STATUS_STYLE[key].label}
+          </span>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function FindingCard({ card }: { card: PreviewCard }) {
+  const style = STATUS_STYLE[card.status];
+  const Icon = style.icon;
+  return (
+    <div className={cn("flex gap-3 rounded-xl border p-4 text-left", style.card)}>
+      <Icon className={cn("mt-0.5 size-5 shrink-0", style.iconClass)} aria-hidden />
+      <div className="space-y-0.5">
+        <p className="text-sm font-semibold">{card.title}</p>
+        <p className="text-muted-foreground text-[13px] leading-relaxed">{card.note}</p>
+      </div>
+    </div>
+  );
+}
+
+/**
+ * The "aha": an honest, real-data preview of the carrier's PUBLIC DOT record,
+ * shown right after the lead is captured. Findings come straight from the backend
+ * ScanService (authority from the real record; internal records are "not confirmed
+ * yet", never "missing"). Demo/dev data is labelled so it never reads as real.
+ */
+function ScanReveal({ preview, email }: { preview: ScanPreview; email: string }) {
+  const { carrier, counts, cards, disclaimer } = preview;
+  const isDemo = carrier.source !== "fmcsa";
+  return (
+    <div className="animate-in fade-in-0 slide-in-from-bottom-2 flex flex-1 flex-col gap-6 py-8 duration-300">
+      <div className="space-y-2 text-center">
+        <p className="text-muted-foreground text-xs font-medium tracking-wide uppercase">
+          USDOT {carrier.usDot}
+        </p>
+        <h1 className="text-2xl font-semibold tracking-tight text-balance sm:text-3xl">
+          Here’s what we found on {carrier.legalName}.
+        </h1>
+        <p className="text-muted-foreground text-base">
+          Straight from your public DOT record — this is what an auditor sees today.
+        </p>
+        {isDemo ? (
+          <p className="text-muted-foreground bg-muted mx-auto inline-block rounded-full px-3 py-1 text-xs font-medium">
+            Demo data — your real record loads once you’re in.
+          </p>
+        ) : null}
+      </div>
+
+      <CountsBar counts={counts} />
+
+      <div className="space-y-3">
+        {cards.map((card, i) => (
+          <FindingCard key={i} card={card} />
+        ))}
+      </div>
+
+      <p className="text-muted-foreground text-center text-[13px] leading-relaxed text-balance">
+        {disclaimer}
+      </p>
+
+      <div className="bg-card space-y-4 rounded-2xl border p-6 text-center">
+        <div className="space-y-1">
+          <h2 className="text-lg font-semibold">Fix these before they cost you.</h2>
+          <p className="text-muted-foreground text-sm">
+            We emailed{" "}
+            {email ? <span className="text-foreground font-medium">{email}</span> : "you"} a link to
+            open Raisedash and start clearing your file.
+          </p>
+        </div>
+        <InboxButtons />
+        <p className="text-muted-foreground text-[13px]">
+          It can take a minute to arrive — check spam or promotions if you don’t see it.
+        </p>
+      </div>
+    </div>
+  );
+}
 
 function DoneStep({ email }: { email: string }) {
   // Default hidden; reveal only on a confirmed desktop browser. Deciding after
