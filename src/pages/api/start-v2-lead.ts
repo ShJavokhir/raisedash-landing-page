@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { sendToTelegram, formatStartV2LeadMessage } from "@/lib/telegram";
+import { sendCapiLead } from "@/lib/meta-capi";
 import { validateEmail } from "@/lib/validation";
 import { isValidIntlPhone } from "@/lib/phone";
 import {
@@ -12,13 +13,32 @@ import {
 
 /**
  * Lead capture for the /start-v2 funnel. Unlike /start (which posts to the
- * backend and triggers a welcome email), this is purely a notification flow:
- * validate, then send the answers to Telegram so the team can reach out. No
- * account, no email. Routes to TELEGRAM_LEADS_CHAT_ID when set, else the default
- * chat (see sendToTelegram).
+ * backend and triggers a welcome email), this is a notification flow: validate,
+ * then send the answers to Telegram so the team can reach out. No account, no
+ * email. Routes to TELEGRAM_LEADS_CHAT_ID when set, else the default chat (see
+ * sendToTelegram).
+ *
+ * Also fires the server-side Meta Conversions API Lead (best-effort), deduplicated
+ * with the browser Pixel via the shared eventId — the durable conversion signal
+ * for Meta-ad traffic, which lands in the FB/IG in-app browser where the Pixel is
+ * routinely suppressed. No-ops unless META_PIXEL_ID + META_CAPI_ACCESS_TOKEN are
+ * set; never blocks or fails the lead capture (see src/lib/meta-capi.ts).
  */
 
 const MAX_ATTRIBUTION_LEN = 500;
+
+/**
+ * The public client IP for Meta CAPI matching/geolocation. On Vercel the real
+ * client IP is the first hop of x-forwarded-for (x-real-ip as a fallback);
+ * req.socket.remoteAddress would be Vercel's internal proxy.
+ */
+function clientIp(req: NextApiRequest): string | undefined {
+  const xff = req.headers["x-forwarded-for"];
+  const first = (Array.isArray(xff) ? xff[0] : xff)?.split(",")[0]?.trim();
+  if (first) return first;
+  const xrip = req.headers["x-real-ip"];
+  return (Array.isArray(xrip) ? xrip[0] : xrip)?.trim() || undefined;
+}
 
 /** Keep only known attribution keys, as trimmed short strings — never trust client sizes. */
 function sanitizeAttribution(raw: unknown): LeadAttribution | undefined {
@@ -94,7 +114,36 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       attribution: sanitizeAttribution(body.attribution),
     });
 
+    // Raw Meta match signals. sanitizeAttribution (above) intentionally drops
+    // fbp/fbc before Telegram; CAPI needs them for match quality, so read them
+    // straight from the body here.
+    const rawAttr = (body.attribution ?? {}) as Record<string, unknown>;
+    const str = (v: unknown) => (typeof v === "string" && v.trim() ? v.trim() : undefined);
+
+    // Fire the server-side CAPI Lead (best-effort) CONCURRENTLY with the Telegram
+    // notification so neither adds the other's latency. sendCapiLead never throws
+    // and no-ops unless Meta is configured. Awaited before responding because a
+    // serverless function may freeze after the response is sent.
+    const capiPromise = sendCapiLead({
+      email,
+      phone,
+      name: fullName,
+      usDot: usDot || undefined,
+      eventId: str(body.eventId),
+      eventSourceUrl: str(rawAttr.landingUrl),
+      clientIp: clientIp(req),
+      clientUserAgent: req.headers["user-agent"],
+      fbp: str(rawAttr.fbp),
+      fbc: str(rawAttr.fbc),
+      fbclid: str(rawAttr.fbclid),
+      contentName: "start_v2_lead",
+    });
+
     const telegramResponse = await sendToTelegram(message, process.env.TELEGRAM_LEADS_CHAT_ID);
+    const capiResult = await capiPromise;
+    if (capiResult.error) {
+      console.warn("Start-v2 Meta CAPI Lead not sent:", capiResult.error);
+    }
 
     if (!telegramResponse.ok) {
       console.error("Telegram API error:", await telegramResponse.text());

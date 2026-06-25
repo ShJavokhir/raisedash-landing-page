@@ -71,6 +71,11 @@ export function LeadFunnel() {
   // Fire the Pixel Lead at most once, even across submit retries.
   const pixelFiredRef = useRef(false);
 
+  // Stable Meta event id for THIS submission, shared between the browser Pixel
+  // Lead and the server CAPI Lead so Meta deduplicates the pair (one conversion,
+  // not two). Distinct from sidRef below (which is PostHog funnel telemetry).
+  const eventIdRef = useRef<string>("");
+
   // Per-session id for funnel telemetry — stitches every step event of one run
   // together in PostHog.
   const sidRef = useRef<string>("");
@@ -109,11 +114,15 @@ export function LeadFunnel() {
     setError(null);
     track("funnel_submit_started");
 
+    // One id for the deduped Pixel + CAPI Lead pair; stable across submit retries.
+    if (!eventIdRef.current) eventIdRef.current = newEventId();
+
     try {
       const res = await fetch("/api/start-v2-lead", {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({
+          eventId: eventIdRef.current,
           fleetSize: data.fleetSize,
           driverProblems: data.driverProblems,
           role: data.role,
@@ -132,9 +141,10 @@ export function LeadFunnel() {
       }
 
       // Browser-side Meta Lead so the ad algorithm can optimize for conversions.
-      // (No server CAPI on this funnel — leads go to Telegram, not the backend.)
+      // The server CAPI Lead (fired by /api/start-v2-lead) shares this eventId, so
+      // Meta deduplicates the pair into one conversion.
       if (!pixelFiredRef.current) {
-        trackPixel("Lead", { content_name: "start_v2_lead" });
+        trackPixel("Lead", { content_name: "start_v2_lead" }, eventIdRef.current);
         pixelFiredRef.current = true;
       }
       track("funnel_lead_captured", {

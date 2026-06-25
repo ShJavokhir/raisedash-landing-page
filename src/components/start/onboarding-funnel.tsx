@@ -192,6 +192,15 @@ export function OnboardingFunnel() {
     track("funnel_submit_started");
 
     try {
+      const attribution = compactAttribution(collectAttribution());
+      // The backend is Meta-free: it stores ad-source PROVENANCE only (which
+      // campaign converted them). The Meta match cookies (fbp/fbc), the dedup
+      // eventId, and the server CAPI Lead are NOT its concern — they go solely to
+      // our Vercel CAPI route below. All Meta tracking lives in this project.
+      const provenance = { ...attribution };
+      delete provenance.fbp;
+      delete provenance.fbc;
+
       await apiPost("public/onboarding", {
         usDot: data.usDot.trim(),
         name: data.name.trim(),
@@ -200,10 +209,26 @@ export function OnboardingFunnel() {
         fleetSize: data.fleetSize || undefined,
         worries: data.worries.length ? data.worries : undefined,
         companyWebsite: data.companyWebsite || undefined,
-        eventId,
-        clientUserAgent: typeof navigator !== "undefined" ? navigator.userAgent : undefined,
-        attribution: compactAttribution(collectAttribution()),
+        attribution: provenance,
       });
+
+      // Fire the server-side Meta CAPI Lead via our Vercel route (best-effort,
+      // fire-and-forget) — deduplicated with the browser Pixel by the shared
+      // eventId. Same-origin, so the route sees the real client IP. /start posts
+      // its lead straight to the backend (for rate-limit IP), so unlike /start-v2
+      // the CAPI event can't ride that request — it fires here instead.
+      void fetch("/api/start-capi", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          eventId,
+          usDot: data.usDot.trim(),
+          name: data.name.trim(),
+          email: data.email.trim(),
+          phone: data.phone || undefined,
+          attribution,
+        }),
+      }).catch(() => {});
 
       // Fire the browser Lead only after a real, persisted lead — same event id
       // as the server event, so Meta keeps one. Once, even across retries.
