@@ -23,6 +23,7 @@ const STATIC_PATHS = [
   "/security",
   "/compliance-challenges",
   "/pti-app",
+  "/tools/elp-practice",
 ];
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {

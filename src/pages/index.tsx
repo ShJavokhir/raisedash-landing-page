@@ -1,9 +1,11 @@
 import Link from "next/link";
+import Image from "next/image";
 import dynamic from "next/dynamic";
 import { GetStaticProps } from "next";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Mic, BookOpen, Languages } from "lucide-react";
 import { Container } from "@/components/layout/Container";
 import { PageLayout } from "@/components/layout/PageLayout";
+import { Button } from "@/components/ui/Button";
 import { EmailCapture } from "@/components/ui/EmailCapture";
 import { ProblemsMarquee } from "@/components/home/ProblemsMarquee";
 import { getAllProductUpdates, ProductUpdate } from "@/lib/product-updates";
@@ -111,6 +113,63 @@ export default function Home({ recentUpdates, recentPosts }: HomeProps) {
           </div>
         </Container>
       )}
+
+      {/* Driver Tools Section */}
+      <Container className="pb-12 md:px-0">
+        <p className="text-muted-foreground mb-4 text-sm font-normal tracking-wide uppercase">
+          Driver tools
+        </p>
+        {/* TruckTalk — CDL English Language Proficiency practice. Links to our own
+            /tools/elp-practice landing page (which funnels to /start-v2), not the
+            external product, so the CTA stays "Learn more" rather than "Try Free". */}
+        <Link href="/tools/elp-practice" className="group block">
+          <div className="border-border bg-card hover:bg-surface-2 flex h-full flex-col overflow-hidden rounded-xs border p-2 transition-all duration-[0.15s] hover:-translate-y-0.5 sm:flex-row">
+            {/* Image — 1/3 */}
+            <div className="bg-surface-3 relative aspect-[4/3] w-full overflow-hidden rounded-xs sm:aspect-auto sm:w-1/3">
+              <Image
+                src="https://cdn.raisedash.com/media/landing/elp-practice.webp"
+                alt="TruckTalk English language proficiency practice app for CDL truck drivers"
+                fill
+                sizes="(max-width: 640px) 100vw, 400px"
+                className="object-cover"
+              />
+            </div>
+            {/* Content — 2/3 */}
+            <div className="flex flex-1 flex-col p-6">
+              <span className="bg-surface-3 text-foreground mb-3 w-fit rounded-xs px-2 py-0.5 text-xs font-normal">
+                CDL English Practice
+              </span>
+              <h3 className="text-foreground mb-2 text-xl font-normal tracking-[-0.01em]">
+                TruckTalk
+              </h3>
+              <p className="text-foreground/90 mb-4 max-w-xl text-sm leading-relaxed font-normal">
+                A <span className="font-medium">five-figure fine</span>, an out-of-service order,
+                and a CSA hit that lasts years — from a single failed English proficiency check.
+                TruckTalk gets your drivers ready for the roadside exam.
+              </p>
+              <ul className="mb-5 space-y-2">
+                <li className="text-muted-foreground flex items-center gap-2 text-sm">
+                  <Mic className="h-3.5 w-3.5 flex-shrink-0" />
+                  50+ AI voice roleplay scenarios
+                </li>
+                <li className="text-muted-foreground flex items-center gap-2 text-sm">
+                  <BookOpen className="h-3.5 w-3.5 flex-shrink-0" />
+                  2,300+ CDL terms, 2,900+ quiz questions
+                </li>
+                <li className="text-muted-foreground flex items-center gap-2 text-sm">
+                  <Languages className="h-3.5 w-3.5 flex-shrink-0" />
+                  500+ conversations in 11 languages
+                </li>
+              </ul>
+              <div className="mt-auto flex justify-end">
+                <Button variant="primary" size="sm">
+                  Learn more <ArrowRight className="ml-1 h-4 w-4" />
+                </Button>
+              </div>
+            </div>
+          </div>
+        </Link>
+      </Container>
 
       {/* Recent Blog Posts Section */}
       {recentPosts.length > 0 && (

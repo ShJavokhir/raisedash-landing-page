@@ -18,7 +18,7 @@ const SITE_URL = RAW_SITE_URL.endsWith("/") ? RAW_SITE_URL.slice(0, -1) : RAW_SI
  * update its date here to the date of that change.
  */
 const STATIC_PAGE_DATES: Record<string, string> = {
-  "/": "2026-06-16",
+  "/": "2026-06-24",
   "/blog": "2026-01-26", // overridden below by latest post date
   "/about": "2026-01-27",
   "/contact": "2026-01-27",
@@ -35,6 +35,7 @@ const STATIC_PAGE_DATES: Record<string, string> = {
   "/security": "2026-01-21",
   "/compliance-challenges": "2026-01-27",
   "/pti-app": "2026-01-28",
+  "/tools/elp-practice": "2026-06-24",
 };
 
 function generateSiteMap(
@@ -143,6 +144,12 @@ function generateSiteMap(
       lastmod: STATIC_PAGE_DATES["/pti-app"],
       changefreq: "monthly",
       priority: "0.7",
+    },
+    {
+      loc: `${SITE_URL}/tools/elp-practice`,
+      lastmod: STATIC_PAGE_DATES["/tools/elp-practice"],
+      changefreq: "monthly",
+      priority: "0.8",
     },
     {
       loc: `${SITE_URL}/privacy-policy`,
