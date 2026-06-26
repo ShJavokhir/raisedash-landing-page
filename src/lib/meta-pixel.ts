@@ -26,7 +26,7 @@ declare global {
   }
 }
 
-export type PixelEvent = "PageView" | "ViewContent" | "Lead";
+export type PixelEvent = "PageView" | "ViewContent" | "Lead" | "CompleteRegistration";
 
 /** Ad-click attribution captured at first load, forwarded to the server CAPI. */
 export interface Attribution {
@@ -164,6 +164,69 @@ export function collectAttribution(): Attribution {
     utmContent: trim(params.get("utm_content")),
     utmTerm: trim(params.get("utm_term")),
   };
+}
+
+/**
+ * Ad attribution for PostHog funnel telemetry, already keyed with PostHog's
+ * canonical property names so the sink can attach it verbatim. Deliberately a
+ * NON-PII, URL-only subset of {@link Attribution}: utm_* + fbclid + referrer.
+ *
+ * We intentionally omit `landingUrl` and the `_fbp`/`_fbc` cookies. The funnel's
+ * first telemetry event fires on mount, before MetaPixel's stripSensitiveParams()
+ * runs, so the live URL can still carry a forwarded `?email=` — capturing it would
+ * leak PII into PostHog. The query params we DO read (utm_*, fbclid) and
+ * document.referrer (the ad/Facebook page, not our URL) are safe at any moment.
+ */
+export type CampaignAttribution = {
+  utm_source?: string;
+  utm_medium?: string;
+  utm_campaign?: string;
+  utm_content?: string;
+  utm_term?: string;
+  fbclid?: string;
+  $referrer?: string;
+  $referring_domain?: string;
+};
+
+/**
+ * Collect non-PII ad attribution for PostHog, in canonical property names. Wrapped
+ * in a catch-all returning {} so it can be called inline on the funnel's hot path
+ * (including before submit) without any chance of throwing into the funnel.
+ */
+export function campaignAttribution(): CampaignAttribution {
+  if (typeof window === "undefined") return {};
+  try {
+    const params = new URLSearchParams(window.location.search);
+    const trim = (v: string | null) => (v ? v.slice(0, 500) : undefined);
+    const referrer =
+      typeof document !== "undefined" && document.referrer
+        ? document.referrer.slice(0, 2048)
+        : undefined;
+    let referringDomain: string | undefined;
+    if (referrer) {
+      try {
+        referringDomain = new URL(referrer).hostname;
+      } catch {
+        // Malformed referrer — skip the derived domain, keep the raw value.
+      }
+    }
+    const out: CampaignAttribution = {
+      utm_source: trim(params.get("utm_source")),
+      utm_medium: trim(params.get("utm_medium")),
+      utm_campaign: trim(params.get("utm_campaign")),
+      utm_content: trim(params.get("utm_content")),
+      utm_term: trim(params.get("utm_term")),
+      fbclid: trim(params.get("fbclid")),
+      $referrer: referrer,
+      $referring_domain: referringDomain,
+    };
+    // Drop empties so we never send a bag of nulls (and never set_once an empty).
+    return Object.fromEntries(
+      Object.entries(out).filter(([, v]) => v != null && v !== "")
+    ) as CampaignAttribution;
+  } catch {
+    return {};
+  }
 }
 
 /**

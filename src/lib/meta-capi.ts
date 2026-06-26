@@ -37,6 +37,10 @@ export interface CapiLeadInput {
   /** Matches the browser Pixel Lead's content_name so reporting reads consistently
    *  (e.g. "start_v2_lead"). Omit to send no content_name (the /start funnel). */
   contentName?: string;
+  /** Standard Meta event name. Defaults to "Lead". The /start-v2 full submission
+   *  passes "CompleteRegistration" so it stays a distinct, higher-value conversion
+   *  from the early name-step Lead the ad set optimizes against. */
+  eventName?: string;
 }
 
 /** SHA-256 → lowercase hex, per Meta's customer-information hashing spec. */
@@ -144,7 +148,7 @@ export async function sendCapiLead(
   if (!hasStrongId) return { sent: false, error: "no usable identifier for matching" };
 
   const event: Record<string, unknown> = {
-    event_name: "Lead",
+    event_name: input.eventName || "Lead",
     event_time: Math.floor(Date.now() / 1000),
     action_source: "website",
     event_source_url: input.eventSourceUrl || "https://www.raisedash.com",

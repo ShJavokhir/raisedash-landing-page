@@ -54,6 +54,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         sid?: unknown;
         event?: unknown;
         props?: unknown;
+        attribution?: unknown;
         ts?: unknown;
       };
       const sid = typeof body.sid === "string" ? body.sid : "";
@@ -64,7 +65,18 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           body.props && typeof body.props === "object"
             ? (body.props as Record<string, unknown>)
             : {};
+        // Canonical PostHog attribution props (utm_*, fbclid, $referrer), already
+        // keyed by the client (see meta-pixel.ts campaignAttribution).
+        const attribution =
+          body.attribution && typeof body.attribution === "object"
+            ? (body.attribution as Record<string, unknown>)
+            : {};
+        const hasAttribution = Object.keys(attribution).length > 0;
         const timestamp = typeof body.ts === "number" ? new Date(body.ts).toISOString() : undefined;
+
+        // Stable funnel discriminator: the client now sends `funnel` ("start" |
+        // "start_v2"); fall back to the legacy value for any old client still live.
+        const source = typeof props.funnel === "string" ? props.funnel : "start-funnel";
 
         await fetch(`${POSTHOG_HOST}/capture/`, {
           method: "POST",
@@ -76,10 +88,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             timestamp,
             properties: {
               ...props,
+              ...attribution, // event-level attribution → breakdowns on this event
+              // First-touch attribution on the person, so every event of the run
+              // (and the funnel/visitor insights) can break down by campaign.
+              ...(hasAttribution ? { $set_once: attribution } : {}),
               $ip: clientIp(req), // lets PostHog resolve GeoIP for server-sent events
               user_agent: req.headers["user-agent"],
               $lib: "raisedash-funnel-beacon",
-              source: "start-funnel",
+              source,
             },
           }),
         });

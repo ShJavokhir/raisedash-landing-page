@@ -24,13 +24,20 @@ export interface FunnelEvent {
   event: string;
   /** Arbitrary non-PII properties (step index, step name, fleet size, …). */
   props?: Record<string, unknown>;
+  /**
+   * Non-PII ad attribution in PostHog's canonical property names (utm_*, fbclid,
+   * $referrer). The sink sets these on the event AND $set_once on the person, so
+   * every visitor/lead is attributable to the campaign that drove them. Pass the
+   * same object on every event of a run; $set_once keeps the first-touch value.
+   */
+  attribution?: Record<string, unknown>;
 }
 
 /** Fire-and-forget a funnel event to the same-origin sink. Best-effort. */
-export function trackFunnel({ sid, event, props }: FunnelEvent): void {
+export function trackFunnel({ sid, event, props, attribution }: FunnelEvent): void {
   if (typeof window === "undefined" || !sid || !event) return;
   try {
-    const payload = JSON.stringify({ sid, event, props, ts: Date.now() });
+    const payload = JSON.stringify({ sid, event, props, attribution, ts: Date.now() });
 
     if (typeof navigator !== "undefined" && typeof navigator.sendBeacon === "function") {
       // The Blob's type sets the request Content-Type; same-origin, so there's

@@ -16,7 +16,14 @@ import { Input } from "@/components/start/input";
 import { Field } from "@/components/start/form-field";
 import { PhoneInput } from "@/components/start/phone-input";
 import { apiPost, errorMessage } from "@/lib/start-api";
-import { collectAttribution, compactAttribution, newEventId, trackPixel } from "@/lib/meta-pixel";
+import {
+  campaignAttribution,
+  collectAttribution,
+  compactAttribution,
+  newEventId,
+  trackPixel,
+  type CampaignAttribution,
+} from "@/lib/meta-pixel";
 import { trackFunnel } from "@/lib/funnel-analytics";
 import { cn } from "@/lib/utils";
 
@@ -128,9 +135,19 @@ export function OnboardingFunnel() {
   // Per-session id for funnel telemetry — distinct from the Lead dedup event id
   // above; this one stitches every step event of one run together in PostHog.
   const sidRef = useRef<string>("");
+  // Ad attribution (utm_*, fbclid, referrer), captured once on the first event of
+  // the run and replayed on every subsequent one so PostHog can attribute both the
+  // visitor and the lead to the campaign that drove them.
+  const attributionRef = useRef<CampaignAttribution | null>(null);
   const track = (event: string, props?: Record<string, unknown>) => {
     if (!sidRef.current) sidRef.current = newEventId();
-    trackFunnel({ sid: sidRef.current, event, props });
+    if (!attributionRef.current) attributionRef.current = campaignAttribution();
+    trackFunnel({
+      sid: sidRef.current,
+      event,
+      attribution: attributionRef.current,
+      props: { funnel: "start", ...props },
+    });
   };
 
   // One event per step the user lands on — including the final "done" screen —

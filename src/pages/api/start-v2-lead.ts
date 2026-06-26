@@ -18,11 +18,14 @@ import {
  * email. Routes to TELEGRAM_LEADS_CHAT_ID when set, else the default chat (see
  * sendToTelegram).
  *
- * Also fires the server-side Meta Conversions API Lead (best-effort), deduplicated
- * with the browser Pixel via the shared eventId — the durable conversion signal
- * for Meta-ad traffic, which lands in the FB/IG in-app browser where the Pixel is
- * routinely suppressed. No-ops unless META_PIXEL_ID + META_CAPI_ACCESS_TOKEN are
- * set; never blocks or fails the lead capture (see src/lib/meta-capi.ts).
+ * Also fires the server-side Meta Conversions API "CompleteRegistration"
+ * (best-effort), deduplicated with the browser Pixel via the shared eventId — the
+ * durable, higher-value conversion for completed submissions. (The ad set optimizes
+ * for the earlier, higher-volume "Lead" fired at the name step via
+ * /api/start-v2-interest.) Meta-ad traffic lands in the FB/IG in-app browser where
+ * the Pixel is routinely suppressed, so the CAPI send is the source of truth.
+ * No-ops unless META_PIXEL_ID + META_CAPI_ACCESS_TOKEN are set; never blocks or
+ * fails the lead capture (see src/lib/meta-capi.ts).
  */
 
 const MAX_ATTRIBUTION_LEN = 500;
@@ -120,7 +123,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const rawAttr = (body.attribution ?? {}) as Record<string, unknown>;
     const str = (v: unknown) => (typeof v === "string" && v.trim() ? v.trim() : undefined);
 
-    // Fire the server-side CAPI Lead (best-effort) CONCURRENTLY with the Telegram
+    // Fire the server-side CAPI CompleteRegistration (best-effort) CONCURRENTLY with the Telegram
     // notification so neither adds the other's latency. sendCapiLead never throws
     // and no-ops unless Meta is configured. Awaited before responding because a
     // serverless function may freeze after the response is sent.
@@ -136,7 +139,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       fbp: str(rawAttr.fbp),
       fbc: str(rawAttr.fbc),
       fbclid: str(rawAttr.fbclid),
-      contentName: "start_v2_lead",
+      contentName: "start_v2_complete",
+      eventName: "CompleteRegistration",
     });
 
     const telegramResponse = await sendToTelegram(message, process.env.TELEGRAM_LEADS_CHAT_ID);
