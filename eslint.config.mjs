@@ -20,6 +20,9 @@ const eslintConfig = [
       // Vendored reference template — untracked and already excluded in
       // tsconfig.json; not part of the app, so don't lint it.
       "template-solar-main/**",
+      // Self-contained content pipeline tool — carries its own tooling and is
+      // excluded from the website tsconfig; not part of the app build.
+      "tools/content-pipeline/**",
     ],
   },
   {

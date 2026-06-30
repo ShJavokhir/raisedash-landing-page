@@ -1,0 +1,25 @@
+{
+  "name": "raisedash-content-pipeline",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Isolated local content pipeline for the Raisedash blog. Generates publish-ready MDX drafts for human review. It never deploys, never runs git, and is excluded from the website build.",
+  "scripts": {
+    "check": "tsx src/cli.ts check",
+    "generate": "tsx src/cli.ts generate",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@anthropic-ai/bedrock-sdk": "latest",
+    "@mdx-js/mdx": "^3.1.1",
+    "dotenv": "^16.4.7",
+    "gray-matter": "^4.0.3",
+    "rehype-slug": "^6.0.0",
+    "remark-gfm": "^4.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.5",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.3"
+  }
+}

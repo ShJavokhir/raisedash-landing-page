@@ -1,0 +1,8 @@
+node_modules
+.runs
+.env
+.env.*
+dist
+*.tsbuildinfo
+Dockerfile
+.dockerignore
