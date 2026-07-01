@@ -26,7 +26,10 @@ export default function App({ Component, pageProps }: AppProps) {
   // The /start and /start-v2 ad funnels (Meta ads) are distraction-free,
   // full-screen flows for the FB/IG in-app browser — no marketing header, no
   // Intercom widget.
-  const isFunnel = router.pathname === "/start" || router.pathname === "/start-v2";
+  const isFunnel =
+    router.pathname === "/start" ||
+    router.pathname === "/start-v2" ||
+    router.pathname === "/start-v3";
   const hideHeader = isFunnel;
 
   return (
