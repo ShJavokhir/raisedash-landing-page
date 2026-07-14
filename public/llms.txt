@@ -1,26 +1,35 @@
 # Raisedash
 
-> Continuous compliance and safety for freight trucking carriers. Raisedash is Vanta for Trucking - strengthening compliance and safety of companies in freight logistics with modern AI-powered solutions.
+> The driver readiness platform for modern fleets. Raisedash gets every new driver trained, signed, and road-ready before they arrive at the terminal, and keeps a permanent, version-locked record of it all.
 
-Raisedash provides comprehensive tools designed to enhance safety, compliance, and efficiency in freight logistics operations. It provides best possible user experience. It's not like legacy old software. We change everything.
+Raisedash is a mobile-first platform for U.S. trucking fleets. New drivers complete orientation on their phones before day one, while the fleet keeps a court-ready evidence record of every lesson, quiz, signature, and score. The driver experience is passwordless and works in English and Spanish. The product is for safety directors, operations leaders, and owners at fleets that hire regularly.
 
-## Products
+## Platform
 
-- [Shift (Driver Onboarding)](https://raisedash.com/products/raisedash-shift): Driver onboarding platform with streamlined LMS solution for efficient driver training and compliance
-- [PTI Inspections](https://raisedash.com/products/raisedash-pti-inspections): Digital Driver Vehicle Inspection Reports (DVIR) and pre-trip inspection tools
-- [Vertex (Freight Tracking)](https://raisedash.com/products/raisedash-vertex): Real-time freight tracking with automated arrival alerts
+- [Pre-arrival readiness](https://raisedash.com/platform/pre-arrival-readiness): Hire approved, the driver gets an SMS link and finishes lessons, quizzes, and signatures on their phone before orientation day. A ready board shows exactly who is prepared.
+- [Training evidence](https://raisedash.com/platform/training-evidence): Every content version, timestamp, quiz attempt, score, and signature is preserved immutably. A one-click evidence packet assembles a complete record for any driver. A driver's history is never rewritten when content is edited.
+- [First 90 days](https://raisedash.com/platform/first-90-days): Pre-built day-1, week-1, and day-30 / 60 / 90 programs actively manage a new driver's riskiest stretch.
+- [Driver experience](https://raisedash.com/platform/driver-experience): No passwords, no app store, no email. Short lessons in English and Spanish with captions and transcripts, built for drivers who live on their phones.
+
+## Get a demo
+
+- [Book a demo](https://raisedash.com/demo): Talk to the team and see the ready board and evidence packet on your own drivers.
 
 ## Resources
 
-- [Blog](https://raisedash.com/blog): Insights on logistics, safety, and industry trends
-- [Product Updates](https://raisedash.com/product-updates): Latest features and improvements
-- [Changelogs](https://raisedash.com/changelogs): Detailed update history and release notes
+- [Blog](https://raisedash.com/blog): Notes on driver readiness, orientation, and fleet safety.
+- [Product Updates](https://raisedash.com/product-updates): Latest features and improvements.
 
 ## Company
 
-- [About](https://raisedash.com/about): Our mission, vision, and the team behind Raisedash
-- [Careers](https://raisedash.com/careers): Job opportunities at Raisedash
-- [Contact](https://raisedash.com/contact): Get in touch with sales and support teams
+- [About](https://raisedash.com/about): Our mission, vision, and the team behind Raisedash.
+- [Careers](https://raisedash.com/careers): Job opportunities at Raisedash.
+- [Contact](https://raisedash.com/contact): Get in touch with sales and support teams.
+
+## More products (separate driver tools)
+
+- [Raisedash Academy](https://academy.raisedash.com): Phone-first CDL compliance courses for individual drivers and small carriers.
+- [TruckTalk ELP Practice](https://raisedash.com/tools/elp-practice): Roadside English language proficiency practice with AI voice roleplay scenarios.
 
 ## Legal
 

@@ -18,11 +18,16 @@ const SITE_URL = RAW_SITE_URL.endsWith("/") ? RAW_SITE_URL.slice(0, -1) : RAW_SI
  * update its date here to the date of that change.
  */
 const STATIC_PAGE_DATES: Record<string, string> = {
-  "/": "2026-06-24",
+  "/": "2026-07-14",
   "/blog": "2026-01-26", // overridden below by latest post date
-  "/about": "2026-01-27",
-  "/contact": "2026-01-27",
-  "/careers": "2026-01-27",
+  "/about": "2026-07-14",
+  "/contact": "2026-07-14",
+  "/careers": "2026-07-14",
+  "/demo": "2026-07-14",
+  "/platform/pre-arrival-readiness": "2026-07-14",
+  "/platform/training-evidence": "2026-07-14",
+  "/platform/first-90-days": "2026-07-14",
+  "/platform/driver-experience": "2026-07-14",
   "/product-updates": "2026-01-27", // overridden below by latest update date
   "/products/raisedash-pti-inspections": "2026-01-26",
   "/products/raisedash-pti-inspections/driver-features": "2026-01-22",
@@ -32,7 +37,7 @@ const STATIC_PAGE_DATES: Record<string, string> = {
   "/vertex-app": "2025-12-18",
   "/privacy-policy": "2026-01-21",
   "/terms-of-use": "2026-01-21",
-  "/security": "2026-01-21",
+  "/security": "2026-07-14",
   "/compliance-challenges": "2026-01-27",
   "/pti-app": "2026-01-28",
   "/tools/elp-practice": "2026-06-24",
@@ -74,6 +79,36 @@ function generateSiteMap(
       priority: "0.9",
     },
     {
+      loc: `${SITE_URL}/platform/pre-arrival-readiness`,
+      lastmod: STATIC_PAGE_DATES["/platform/pre-arrival-readiness"],
+      changefreq: "weekly",
+      priority: "0.9",
+    },
+    {
+      loc: `${SITE_URL}/platform/training-evidence`,
+      lastmod: STATIC_PAGE_DATES["/platform/training-evidence"],
+      changefreq: "weekly",
+      priority: "0.9",
+    },
+    {
+      loc: `${SITE_URL}/platform/first-90-days`,
+      lastmod: STATIC_PAGE_DATES["/platform/first-90-days"],
+      changefreq: "weekly",
+      priority: "0.9",
+    },
+    {
+      loc: `${SITE_URL}/platform/driver-experience`,
+      lastmod: STATIC_PAGE_DATES["/platform/driver-experience"],
+      changefreq: "weekly",
+      priority: "0.9",
+    },
+    {
+      loc: `${SITE_URL}/demo`,
+      lastmod: STATIC_PAGE_DATES["/demo"],
+      changefreq: "monthly",
+      priority: "0.8",
+    },
+    {
       loc: `${SITE_URL}/about`,
       lastmod: STATIC_PAGE_DATES["/about"],
       changefreq: "monthly",
@@ -100,8 +135,8 @@ function generateSiteMap(
     {
       loc: `${SITE_URL}/products/raisedash-pti-inspections`,
       lastmod: STATIC_PAGE_DATES["/products/raisedash-pti-inspections"],
-      changefreq: "weekly",
-      priority: "1.0",
+      changefreq: "monthly",
+      priority: "0.5",
     },
     {
       loc: `${SITE_URL}/products/raisedash-pti-inspections/driver-features`,
@@ -118,14 +153,14 @@ function generateSiteMap(
     {
       loc: `${SITE_URL}/products/raisedash-shift`,
       lastmod: STATIC_PAGE_DATES["/products/raisedash-shift"],
-      changefreq: "weekly",
-      priority: "1.0",
+      changefreq: "monthly",
+      priority: "0.5",
     },
     {
       loc: `${SITE_URL}/products/raisedash-vertex`,
       lastmod: STATIC_PAGE_DATES["/products/raisedash-vertex"],
-      changefreq: "weekly",
-      priority: "1.0",
+      changefreq: "monthly",
+      priority: "0.5",
     },
     {
       loc: `${SITE_URL}/vertex-app`,

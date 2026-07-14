@@ -1,4 +1,15 @@
-import { BookOpen, Building2, Users, Mail, Sparkles, LucideIcon } from "lucide-react";
+import {
+  BookOpen,
+  Building2,
+  Users,
+  Mail,
+  Sparkles,
+  ClipboardCheck,
+  ShieldCheck,
+  CalendarClock,
+  Smartphone,
+  LucideIcon,
+} from "lucide-react";
 
 export interface NavItem {
   title: string;
@@ -13,14 +24,43 @@ export interface Solution extends NavItem {
   comingSoon?: boolean;
 }
 
-// Products are intentionally hidden from the site UI while we refocus on a single
-// compliance & safety product. The product pages remain live and indexable for SEO.
+// Legacy product pages remain live and indexable for SEO but are hidden from the
+// site UI now that Raisedash is a single driver readiness platform.
 export const solutions: Solution[] = [];
+
+// The four core loops of the platform. These drive the Platform dropdown in the
+// header and link to the dedicated /platform/* pages.
+export const platform: NavItem[] = [
+  {
+    title: "Pre-arrival readiness",
+    description: "New hires finish orientation on their phone before day one.",
+    href: "/platform/pre-arrival-readiness",
+    icon: ClipboardCheck,
+  },
+  {
+    title: "Training evidence",
+    description: "A court-ready record of every lesson, signature, and score.",
+    href: "/platform/training-evidence",
+    icon: ShieldCheck,
+  },
+  {
+    title: "First 90 days",
+    description: "A new driver's riskiest stretch, actively managed.",
+    href: "/platform/first-90-days",
+    icon: CalendarClock,
+  },
+  {
+    title: "Driver experience",
+    description: "No passwords, no app. A text and a phone, in English or Spanish.",
+    href: "/platform/driver-experience",
+    icon: Smartphone,
+  },
+];
 
 export const resources: NavItem[] = [
   {
     title: "Blog",
-    description: "Insights on logistics, safety, and industry trends.",
+    description: "Notes on driver readiness, orientation, and fleet safety.",
     href: "/blog",
     icon: BookOpen,
   },
@@ -41,7 +81,7 @@ export const company: NavItem[] = [
   },
   {
     title: "Careers",
-    description: "Join our team and help shape the future of logistics.",
+    description: "Join our team and help build the readiness platform for trucking.",
     href: "/careers",
     icon: Users,
   },

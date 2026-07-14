@@ -12,24 +12,25 @@ const jobOpenings = [
     location: "San Francisco Bay Area / Remote",
     type: "Full-time",
     description:
-      "Join our engineering team to build the next generation of freight security solutions.",
+      "Join our engineering team to build the driver readiness platform for modern trucking fleets.",
     requirements: [
       "5+ years of software development experience",
       "Expertise in React, Node.js, and cloud technologies",
-      "Experience with security-focused applications",
+      "Experience building mobile-first, product-led web applications",
       "Strong problem-solving and communication skills",
     ],
   },
   {
-    title: "Security Solutions Architect",
+    title: "Solutions Architect",
     department: "Product",
     location: "San Francisco Bay Area / Remote",
     type: "Full-time",
-    description: "Design and implement security solutions for enterprise freight logistics.",
+    description:
+      "Design and implement the readiness workflows and evidence records that fleets rely on.",
     requirements: [
-      "7+ years in security architecture or related field",
-      "Deep understanding of logistics and supply chain",
-      "Experience with enterprise security solutions",
+      "7+ years in solutions architecture or related field",
+      "Comfort partnering with operations and safety teams",
+      "Experience with data-rich, records-heavy enterprise systems",
       "Strong client-facing and presentation skills",
     ],
   },
@@ -38,12 +39,12 @@ const jobOpenings = [
     department: "Customer Success",
     location: "San Francisco Bay Area / Remote",
     type: "Full-time",
-    description: "Help our clients maximize the value of our security platform.",
+    description: "Help fleets get up and running and get the most out of Raisedash.",
     requirements: [
       "3+ years in customer success or account management",
       "Experience with B2B SaaS platforms",
       "Strong relationship-building skills",
-      "Background in logistics or security preferred",
+      "Background in trucking, logistics, or fleet safety preferred",
     ],
   },
   {
@@ -78,11 +79,12 @@ export default function Careers() {
   return (
     <PageLayout
       title="Careers"
-      description="Join the Raisedash team. Explore career opportunities and help us revolutionize freight logistics compliance, safety and security."
+      description="Join the Raisedash team. Explore career opportunities and help us build the driver readiness platform for modern trucking fleets."
       keywords={[
         "raisedash careers",
-        "logistics tech jobs",
+        "trucking software jobs",
         "fleet software jobs",
+        "driver readiness platform jobs",
         "san francisco startup jobs",
       ]}
     >
@@ -94,8 +96,9 @@ export default function Careers() {
               Join Our Team
             </h1>
             <p className="text-muted-foreground animate-fade-in-up mt-6 text-xl leading-relaxed font-normal delay-150">
-              Help us revolutionize freight logistics compliance and safety. We're looking for
-              talented individuals who are passionate about making a difference.
+              Help us build the driver readiness platform for modern trucking fleets. We're looking
+              for people who want to ship great product in an industry that has been waiting decades
+              for it.
             </p>
           </div>
         </Container>
@@ -160,7 +163,7 @@ export default function Careers() {
             Why Join Raisedash?
           </h2>
           <p className="text-muted-foreground mx-auto mt-3 max-w-2xl text-lg">
-            Be part of a team that's making a real impact in logistics security.
+            Modern product engineering in an industry still running on twenty-year-old software.
           </p>
         </div>
         <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
@@ -169,8 +172,8 @@ export default function Careers() {
               Impactful Work
             </h3>
             <p className="text-muted-foreground text-base leading-relaxed">
-              Your work directly contributes to protecting billions of dollars in freight and
-              keeping supply chains secure.
+              Your work helps get new drivers road-ready before day one, and gives fleets a
+              complete, defensible record of every bit of training.
             </p>
           </div>
           <div className="bg-card border-border hover:bg-surface-2 animate-fade-in-scale rounded-xs border p-6 transition-all delay-900 duration-[0.15s] hover:-translate-y-0.5">
@@ -178,8 +181,8 @@ export default function Careers() {
               Growth Opportunity
             </h3>
             <p className="text-muted-foreground text-base leading-relaxed">
-              Join a fast-growing company where you can shape the future of logistics security
-              technology.
+              Join a fast-growing company where you can shape the driver readiness platform for
+              trucking fleets from the ground up.
             </p>
           </div>
           <div className="bg-card border-border hover:bg-surface-2 animate-fade-in-scale rounded-xs border p-6 transition-all delay-1000 duration-[0.15s] hover:-translate-y-0.5">

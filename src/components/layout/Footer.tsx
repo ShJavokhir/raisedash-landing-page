@@ -1,127 +1,78 @@
 import { Container } from "./Container";
 import Link from "next/link";
+import { footerLinks, emails } from "@/data/site";
 
 export function Footer() {
   return (
     <footer className="mb-8 w-full bg-transparent sm:mb-12">
       <div>
         <Container className="border-border bg-card rounded-xs border px-8 py-8 sm:px-12 sm:py-12">
-          <div className="grid grid-cols-2 gap-4 gap-y-8 sm:gap-8 md:grid-cols-4 md:gap-10">
-            {/* Brand Section */}
-            <div className="col-span-2 md:col-span-2">
-              <h3 className="text-foreground mb-4 text-base font-normal">Raisedash</h3>
-              <p className="text-muted-foreground mb-6 max-w-md text-sm leading-relaxed">
-                Continuous compliance and safety for freight logistics. Get started in days, not
-                months.
-              </p>
-              <div className="text-muted-foreground flex items-center gap-2 text-sm">
-                <svg
-                  className="h-4 w-4"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
+          {/* Brand Section */}
+          <div className="mb-10 max-w-md">
+            <h3 className="text-foreground mb-4 text-base font-normal">Raisedash</h3>
+            <p className="text-muted-foreground mb-6 text-sm leading-relaxed">
+              The driver readiness platform for modern fleets. Every new driver trained, signed, and
+              road-ready before day one.
+            </p>
+            <div className="text-muted-foreground flex items-center gap-2 text-sm">
+              <svg
+                className="h-4 w-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                />
+              </svg>
+              <span>
+                Need help?{" "}
+                <a
+                  href={`mailto:${emails.support}`}
+                  className="text-foreground hover:text-foreground-80 transition-colors duration-[0.15s]"
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                  />
-                </svg>
-                <span>
-                  Need help?{" "}
-                  <a
-                    href="mailto:support@raisedash.com"
-                    className="text-foreground hover:text-foreground-80 transition-colors duration-[0.15s]"
-                  >
-                    support@raisedash.com
-                  </a>
-                </span>
+                  {emails.support}
+                </a>
+              </span>
+            </div>
+          </div>
+
+          {/* Link Columns */}
+          <div className="grid grid-cols-2 gap-8 gap-y-10 sm:grid-cols-3 md:grid-cols-5">
+            {footerLinks.map((section) => (
+              <div key={section.title}>
+                <h4 className="text-muted-foreground mb-4 text-sm font-normal tracking-wide">
+                  {section.title}
+                </h4>
+                <ul className="space-y-3">
+                  {section.links.map((link) => (
+                    <li key={link.title}>
+                      {link.external ? (
+                        <a
+                          href={link.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-foreground hover:text-foreground-80 text-sm transition-colors duration-[0.15s]"
+                        >
+                          {link.title}
+                        </a>
+                      ) : (
+                        <Link
+                          href={link.href}
+                          className="text-foreground hover:text-foreground-80 text-sm transition-colors duration-[0.15s]"
+                        >
+                          {link.title}
+                        </Link>
+                      )}
+                    </li>
+                  ))}
+                </ul>
               </div>
-            </div>
-
-            {/* Company Links */}
-            <div>
-              <h4 className="text-muted-foreground mb-4 text-sm font-normal tracking-wide">
-                Company
-              </h4>
-              <ul className="space-y-3">
-                <li>
-                  <Link
-                    href="/about"
-                    className="text-foreground hover:text-foreground-80 text-sm transition-colors duration-[0.15s]"
-                  >
-                    About
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/blog"
-                    className="text-foreground hover:text-foreground-80 text-sm transition-colors duration-[0.15s]"
-                  >
-                    Blog
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/product-updates"
-                    className="text-foreground hover:text-foreground-80 text-sm transition-colors duration-[0.15s]"
-                  >
-                    Product Updates
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/careers"
-                    className="text-foreground hover:text-foreground-80 text-sm transition-colors duration-[0.15s]"
-                  >
-                    Careers
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/contact"
-                    className="text-foreground hover:text-foreground-80 text-sm transition-colors duration-[0.15s]"
-                  >
-                    Contact
-                  </Link>
-                </li>
-              </ul>
-            </div>
-
-            {/* Legal Links */}
-            <div>
-              <h4 className="text-muted-foreground mb-4 text-sm font-normal tracking-wide">
-                Legal
-              </h4>
-              <ul className="space-y-3">
-                <li>
-                  <Link
-                    href="/terms-of-use"
-                    className="text-foreground hover:text-foreground-80 text-sm transition-colors duration-[0.15s]"
-                  >
-                    Terms
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/privacy-policy"
-                    className="text-foreground hover:text-foreground-80 text-sm transition-colors duration-[0.15s]"
-                  >
-                    Privacy
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/security"
-                    className="text-foreground hover:text-foreground-80 text-sm transition-colors duration-[0.15s]"
-                  >
-                    Security
-                  </Link>
-                </li>
-              </ul>
-            </div>
+            ))}
           </div>
 
           {/* Bottom Section */}

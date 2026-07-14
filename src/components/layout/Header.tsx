@@ -10,43 +10,16 @@ import {
   NavigationMenuItem,
   NavigationMenuTrigger,
   NavigationMenuContent,
+  NavigationMenuLink,
 } from "@/components/ui/navigation-menu";
-import { Menu, X, BookOpen, FileText, Building2, Users, Mail } from "lucide-react";
+import { Menu, X } from "lucide-react";
+import { platform } from "@/data/navigation";
 
-const resources = [
-  {
-    title: "Blog",
-    description: "Insights on logistics, safety, and industry trends.",
-    href: "/blog",
-    icon: BookOpen,
-  },
-  {
-    title: "Product Updates",
-    description: "Latest features and improvements.",
-    href: "/product-updates",
-    icon: FileText,
-  },
-];
+const SIGN_IN_URL = "https://app.raisedash.com/login";
 
-const company = [
-  {
-    title: "About",
-    description: "Our mission, vision, and the team behind Raisedash.",
-    href: "/about",
-    icon: Building2,
-  },
-  {
-    title: "Careers",
-    description: "Join our team and help shape the future of logistics.",
-    href: "/careers",
-    icon: Users,
-  },
-  {
-    title: "Contact",
-    description: "Get in touch with our sales and support teams.",
-    href: "/contact",
-    icon: Mail,
-  },
+const directLinks = [
+  { title: "Blog", href: "/blog" },
+  { title: "About", href: "/about" },
 ];
 
 export function Header() {
@@ -89,11 +62,11 @@ export function Header() {
                 <NavigationMenuList className="gap-1">
                   <NavigationMenuItem>
                     <NavigationMenuTrigger className="text-foreground hover:text-foreground-80 bg-transparent px-4 py-2 text-base font-normal transition-colors duration-[0.15s]">
-                      Resources
+                      Platform
                     </NavigationMenuTrigger>
                     <NavigationMenuContent>
-                      <div className="w-[300px] space-y-0.5 p-1">
-                        {resources.map((item) => {
+                      <div className="w-[360px] space-y-0.5 p-1">
+                        {platform.map((item) => {
                           const Icon = item.icon;
                           return (
                             <Link
@@ -118,37 +91,18 @@ export function Header() {
                       </div>
                     </NavigationMenuContent>
                   </NavigationMenuItem>
-                  <NavigationMenuItem>
-                    <NavigationMenuTrigger className="text-foreground hover:text-foreground-80 bg-transparent px-4 py-2 text-base font-normal transition-colors duration-[0.15s]">
-                      Company
-                    </NavigationMenuTrigger>
-                    <NavigationMenuContent>
-                      <div className="w-[300px] space-y-0.5 p-1">
-                        {company.map((item) => {
-                          const Icon = item.icon;
-                          return (
-                            <Link
-                              key={item.title}
-                              href={item.href}
-                              className="hover:bg-surface-3 flex items-start gap-3 rounded-xs p-3 transition-colors duration-[0.15s]"
-                            >
-                              <div className="border-border bg-background flex h-10 w-10 shrink-0 items-center justify-center rounded-xs border">
-                                <Icon className="text-foreground h-5 w-5" />
-                              </div>
-                              <div className="min-w-0 flex-1">
-                                <span className="text-foreground text-sm font-normal">
-                                  {item.title}
-                                </span>
-                                <p className="text-muted-foreground mt-1 line-clamp-2 text-xs">
-                                  {item.description}
-                                </p>
-                              </div>
-                            </Link>
-                          );
-                        })}
-                      </div>
-                    </NavigationMenuContent>
-                  </NavigationMenuItem>
+                  {directLinks.map((item) => (
+                    <NavigationMenuItem key={item.title}>
+                      <NavigationMenuLink asChild>
+                        <Link
+                          href={item.href}
+                          className="text-foreground hover:text-foreground-80 hover:bg-surface-3 flex items-center rounded-xs bg-transparent px-4 py-2 text-base font-normal transition-colors duration-[0.15s]"
+                        >
+                          {item.title}
+                        </Link>
+                      </NavigationMenuLink>
+                    </NavigationMenuItem>
+                  ))}
                 </NavigationMenuList>
               </NavigationMenu>
             </nav>
@@ -156,14 +110,14 @@ export function Header() {
             {/* Desktop Actions */}
             <div className="hidden items-center gap-3 md:flex">
               <ThemeToggle />
-              <a href="https://my.raisedash.com" target="_blank" rel="noopener noreferrer">
+              <a href={SIGN_IN_URL} target="_blank" rel="noopener noreferrer">
                 <Button variant="secondary" size="sm">
                   Sign in
                 </Button>
               </a>
-              <Link href="/start">
+              <Link href="/demo">
                 <Button variant="primary" size="sm">
-                  See a demo
+                  Book a demo
                 </Button>
               </Link>
             </div>
@@ -197,13 +151,13 @@ export function Header() {
               className="border-border border-t md:hidden"
             >
               <div className="space-y-1 py-4">
-                {/* Resources Section */}
+                {/* Platform Section */}
                 <div className="px-3 py-2 pt-4">
                   <span className="text-muted-foreground text-xs font-normal tracking-wide uppercase">
-                    Resources
+                    Platform
                   </span>
                 </div>
-                {resources.map((item) => {
+                {platform.map((item) => {
                   const Icon = item.icon;
                   return (
                     <Link
@@ -220,32 +174,26 @@ export function Header() {
                   );
                 })}
 
-                {/* Company Section */}
+                {/* Direct Links */}
                 <div className="px-3 py-2 pt-4">
                   <span className="text-muted-foreground text-xs font-normal tracking-wide uppercase">
-                    Company
+                    More
                   </span>
                 </div>
-                {company.map((item) => {
-                  const Icon = item.icon;
-                  return (
-                    <Link
-                      key={item.title}
-                      href={item.href}
-                      className="text-foreground hover:bg-surface-3 mx-2 flex items-center gap-3 rounded-xs px-3 py-2.5 text-sm transition-colors duration-[0.15s]"
-                      onClick={() => setMobileMenuOpen(false)}
-                    >
-                      <div className="border-border bg-background flex h-8 w-8 shrink-0 items-center justify-center rounded-xs border">
-                        <Icon className="text-foreground h-4 w-4" />
-                      </div>
-                      <span className="font-normal">{item.title}</span>
-                    </Link>
-                  );
-                })}
+                {directLinks.map((item) => (
+                  <Link
+                    key={item.title}
+                    href={item.href}
+                    className="text-foreground hover:bg-surface-3 mx-2 flex items-center gap-3 rounded-xs px-3 py-2.5 text-sm transition-colors duration-[0.15s]"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    <span className="font-normal">{item.title}</span>
+                  </Link>
+                ))}
 
                 <div className="flex flex-col gap-2 px-3 pt-4">
                   <a
-                    href="https://my.raisedash.com"
+                    href={SIGN_IN_URL}
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={() => setMobileMenuOpen(false)}
@@ -254,9 +202,9 @@ export function Header() {
                       Sign in
                     </Button>
                   </a>
-                  <Link href="/start" onClick={() => setMobileMenuOpen(false)}>
+                  <Link href="/demo" onClick={() => setMobileMenuOpen(false)}>
                     <Button variant="primary" size="sm" className="w-full">
-                      See a demo
+                      Book a demo
                     </Button>
                   </Link>
                 </div>

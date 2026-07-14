@@ -3,72 +3,48 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Container } from "@/components/layout/Container";
 
-// All problem statements mixed together for variety
+// Driver-readiness pains, mixed for variety. These are the day-to-day frustrations
+// a safety director, owner, and driver each feel before Raisedash.
 const ALL_PROBLEMS = [
-  // DQF
-  "Forgot to pull pre-employment MVR?",
-  "Driver's medical card expired yesterday?",
-  "Missing documents in your driver files?",
-  "Driver's CDL expired and no one noticed?",
-  "Driver file wouldn't survive an audit?",
-  "Employment application missing required fields?",
-  // Drug & Alcohol
-  "Need to run a Clearinghouse query?",
-  "Missed the annual limited query deadline?",
-  "Random testing pool selections overdue?",
-  "Post-accident test window closing in hours?",
-  "Pre-employment drug test results lost in email?",
-  "Not hitting your 50% drug / 10% alcohol testing rates?",
-  // Employer Verification
-  "Previous employer won't respond to your inquiry?",
-  "30-day deadline for employment verification approaching?",
-  "Can't prove 'good faith effort' to contact employers?",
-  "Safety performance history investigation incomplete?",
-  // Medical
-  "Medical certificate expiring this month?",
-  "Driver operating with an expired DOT physical?",
-  "Forgot to check if examiner is on National Registry?",
-  "CDLIS MVR doesn't match driver's medical card?",
-  // MVR
-  "Annual MVR pull date missed?",
-  "Driver had violations you didn't know about?",
-  "No documented review of the MVR you pulled?",
-  "MVR shows suspension but driver is still driving?",
-  // HOS
-  "Unassigned drive time piling up?",
-  "HOS violations hurting your CSA score?",
-  "ELD data scattered across multiple providers?",
-  "30-minute break violations mounting?",
-  // Maintenance
-  "Annual inspection due date missed?",
-  "DVIR defects not certified before operation?",
-  "Pre-trip inspection completion not tracked?",
-  // CSA
-  "Don't know which drivers are hurting your score?",
-  "DataQs dispute deadline missed?",
-  "Unsafe Driving BASIC over 65%?",
-  // Audit
-  "DOT audit notice arrived with 48-hour deadline?",
-  "Can't find the documents auditors requested?",
-  "No idea if you'd pass a mock audit?",
-  "Safety rating downgraded to Conditional?",
-  // Training
-  "Onboarding training checklist incomplete?",
-
-  // Accidents
-  "Accident register not maintained?",
-  "Post-accident drug test window expired?",
-  "Crash rate trending above industry average?",
-  "Root cause analysis not documented?",
-  // General Chaos
-  "Compliance spread across spreadsheets and emails?",
-  "No single source of truth for driver status?",
+  // Orientation day
+  "Half the class shows up having done nothing?",
+  "Burning a paid classroom day on the handbook?",
+  "Scheduled drivers who never show up?",
+  "Paid for a hotel room for a no-show?",
+  "Orientation runs long because nobody prepped?",
+  "Re-teaching the same policies every single week?",
+  // Records & proof
+  "Training records scattered across folders and inboxes?",
+  "Signed acknowledgments buried in a desk drawer?",
+  "Can't prove what a driver was trained on two years ago?",
+  "Quiz scores and certificates lost in email?",
+  "A week-long scramble when a lawyer asks for records?",
+  "Auditor wants the file and you can't assemble it?",
+  "Insurance renewal and no documented safety process?",
+  "Road-test forms sitting in a paper folder somewhere?",
+  "No single place that shows who's actually ready?",
+  // Driver experience
+  "Drivers who hate portals and passwords?",
+  "New hires who don't even use email?",
+  "Desktop training software your drivers won't touch?",
+  "Spanish-speaking drivers stuck with English-only lessons?",
+  "Making a driver reset a password before day one?",
+  // After an incident
+  "A crash and no record of the driver's training?",
+  "A citation with no follow-up training assigned?",
+  "Failed road test and nothing documented afterward?",
+  "Roadside inspection issue that never got addressed?",
+  "No paper trail for corrective action?",
+  // First 90 days
+  "New driver's first 90 days left to chance?",
+  "No day-30 or day-60 check-in that actually happens?",
+  "Refresher training that everyone forgets to send?",
+  // Admin reality
+  "One person doing safety, HR, and half of recruiting?",
+  "Onboarding that takes weeks instead of days?",
+  "Software that needs a support call to add a driver?",
   "Expiration dates tracked on sticky notes?",
-  "Audit prep takes weeks instead of minutes?",
-  "Can't answer 'are we compliant?' in one click?",
-  "Small fleet, no dedicated safety department?",
-  "New driver onboarding takes weeks instead of days?",
-  "No idea if you're actually DOT-ready right now?",
+  "Six-week implementation before you can even start?",
 ];
 
 // Fisher-Yates shuffle
@@ -99,7 +75,7 @@ interface ProblemBadgeProps {
 const ProblemBadge = memo(function ProblemBadge({ text }: ProblemBadgeProps) {
   return (
     <Link
-      href="/compliance-challenges"
+      href="/demo"
       className="bg-card text-muted-foreground border-border hover:border-foreground/30 hover:text-foreground group inline-flex shrink-0 items-center gap-1 rounded-xs border px-3 py-1.5 text-lg whitespace-nowrap transition-colors duration-150"
     >
       {text}
@@ -153,11 +129,11 @@ export function ProblemsMarquee() {
   }, []);
 
   return (
-    <section className="py-6" aria-labelledby="compliance-challenges-heading">
+    <section className="py-6" aria-labelledby="readiness-pains-heading">
       <Container>
         {/* SEO: Visible heading for search engines */}
         <h2
-          id="compliance-challenges-heading"
+          id="readiness-pains-heading"
           className="text-muted-foreground mb-4 text-center text-lg font-normal"
         >
           Sound familiar?

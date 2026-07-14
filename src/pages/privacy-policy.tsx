@@ -6,7 +6,7 @@ export default function PrivacyPolicy() {
   return (
     <PageLayout
       title="Privacy Policy"
-      description="Learn how Raisedash collects, uses, and protects your information when you use our freight logistics security services."
+      description="Learn how Raisedash collects, uses, and protects your information when you use our driver readiness services."
       keywords={["raisedash privacy policy", "data privacy", "fleet software privacy"]}
     >
       {/* Hero Section */}

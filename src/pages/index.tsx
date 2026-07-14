@@ -1,34 +1,19 @@
 import Link from "next/link";
-import Image from "next/image";
-import dynamic from "next/dynamic";
 import { GetStaticProps } from "next";
-import {
-  ArrowRight,
-  Award,
-  BookOpen,
-  ClipboardCheck,
-  GraduationCap,
-  Languages,
-  Mic,
-} from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Container } from "@/components/layout/Container";
 import { PageLayout } from "@/components/layout/PageLayout";
 import { Button } from "@/components/ui/Button";
 import { EmailCapture } from "@/components/ui/EmailCapture";
+import { ReadinessBoard } from "@/components/home/ReadinessBoard";
 import { ProblemsMarquee } from "@/components/home/ProblemsMarquee";
+import { CoreLoops } from "@/components/home/CoreLoops";
+import { ForDrivers } from "@/components/home/ForDrivers";
+import { HowItWorks } from "@/components/home/HowItWorks";
+import { MoreFromRaisedash } from "@/components/home/MoreFromRaisedash";
 import { getAllProductUpdates, ProductUpdate } from "@/lib/product-updates";
 import { getAllPosts, BlogPost } from "@/lib/blog";
 import { BlogCard } from "@/components/blog/BlogCard";
-
-// Lazy load the globe component - D3.js is 868KB and only needed on desktop
-const RotatingEarth = dynamic(() => import("@/components/ui/wireframe-dotted-globe"), {
-  ssr: false,
-  loading: () => <div className="bg-surface-3 h-[24rem] w-[24rem] animate-pulse rounded-full" />,
-});
-
-const ACADEMY_URL = (
-  process.env.NEXT_PUBLIC_ACADEMY_URL || "https://academy.raisedash.com"
-).replace(/\/$/, "");
 
 interface HomeProps {
   recentUpdates: ProductUpdate[];
@@ -45,47 +30,63 @@ export default function Home({ recentUpdates, recentPosts }: HomeProps) {
   };
   return (
     <PageLayout
-      description="Continuous Compliance & Safety. Raisedash strengthens compliance and safety of companies in freight logistics with modern AI-powered solutions."
+      description="The driver readiness platform for modern fleets. Raisedash sends orientation to new hires' phones and keeps a court-ready record of every lesson, signature, and score."
       keywords={[
-        "freight logistics",
+        "driver readiness platform",
+        "driver orientation software",
+        "trucking driver onboarding",
+        "training records for trucking fleets",
+        "driver training evidence",
+        "pre-arrival orientation",
         "fleet safety",
-        "DVIR software",
-        "pre-trip inspections",
-        "fleet management",
-        "cargo security",
       ]}
     >
       {/* Hero Section */}
       <div className="pt-16 pb-8">
         <Container className="bg-card border-border animate-fade-in-scale relative flex items-center overflow-hidden rounded-xs border px-8 py-12 delay-0 sm:px-12 sm:py-16">
-          <div className="relative z-10 flex w-full items-center">
+          <div className="relative z-10 flex w-full items-center gap-12">
             <div className="flex-1">
               <h1 className="text-foreground animate-fade-in-up text-4xl leading-tight font-normal tracking-[-0.03em] delay-75 sm:text-[48px]">
-                Continuous Compliance & Safety.
+                Every driver road-ready before day one.
               </h1>
               <p className="text-muted-foreground animate-fade-in-up mt-6 max-w-xl text-xl leading-relaxed font-normal delay-150">
-                Raisedash strengthens compliance and safety of companies in freight logistics.
+                Raisedash sends orientation to your new hires&apos; phones: lessons, quizzes, and
+                signatures. They arrive trained and signed. And when an auditor, insurer, or lawyer
+                asks what a driver was trained on, you have the complete record in one click.
               </p>
 
-              <div className="animate-fade-in-up mt-10 delay-200">
-                <EmailCapture source="Hero" />
+              <div className="animate-fade-in-up mt-10 flex flex-wrap items-center gap-3 delay-200">
+                <Link href="/demo">
+                  <Button variant="primary" size="lg">
+                    Book a demo <ArrowRight className="ml-1 h-4 w-4" />
+                  </Button>
+                </Link>
+                <a href="#how-it-works">
+                  <Button variant="secondary" size="lg">
+                    See how it works
+                  </Button>
+                </a>
               </div>
             </div>
 
             <div className="hidden flex-shrink-0 lg:block">
-              <RotatingEarth
-                width={380}
-                height={380}
-                className="h-[24rem] w-[24rem]"
-                rotationSpeed={0.3}
-              />
+              <ReadinessBoard />
             </div>
           </div>
         </Container>
       </div>
 
-      {/* Problems Marquee */}
+      {/* Readiness pains marquee */}
       <ProblemsMarquee />
+
+      {/* Four core loops */}
+      <CoreLoops />
+
+      {/* For drivers */}
+      <ForDrivers />
+
+      {/* How it works */}
+      <HowItWorks />
 
       {/* Recent Updates Section */}
       {recentUpdates.length > 0 && (
@@ -126,113 +127,6 @@ export default function Home({ recentUpdates, recentPosts }: HomeProps) {
         </Container>
       )}
 
-      {/* Driver Tools Section */}
-      <Container className="pb-12 md:px-0">
-        <p className="text-muted-foreground mb-4 text-sm font-normal tracking-wide uppercase">
-          Driver tools
-        </p>
-        <div className="space-y-4">
-          <a href={ACADEMY_URL} className="group block">
-            <div className="border-border bg-card hover:bg-surface-2 flex h-full flex-col overflow-hidden rounded-xs border p-2 transition-all duration-[0.15s] hover:-translate-y-0.5 sm:flex-row">
-              {/* Image — 1/3 */}
-              <div className="bg-surface-3 relative aspect-[4/3] w-full overflow-hidden rounded-xs sm:aspect-auto sm:w-1/3">
-                <Image
-                  src="/images/raisedash-courses-card.webp"
-                  alt="Raisedash Courses mobile trucking compliance training interface"
-                  fill
-                  sizes="(max-width: 640px) 100vw, 400px"
-                  className="object-cover"
-                />
-              </div>
-              {/* Content — 2/3 */}
-              <div className="flex flex-1 flex-col p-6">
-                <span className="bg-surface-3 text-foreground mb-3 w-fit rounded-xs px-2 py-0.5 text-xs font-normal">
-                  Compliance Training
-                </span>
-                <h3 className="text-foreground mb-2 text-xl font-normal tracking-[-0.01em]">
-                  Raisedash Courses
-                </h3>
-                <p className="text-foreground/90 mb-4 max-w-xl text-sm leading-relaxed font-normal">
-                  Phone-first trucking compliance lessons for FMCSA rules, hours of service,
-                  inspections, drug & alcohol, driver files, and audit prep — built so drivers and
-                  small carriers can learn between loads.
-                </p>
-                <ul className="mb-5 space-y-2">
-                  <li className="text-muted-foreground flex items-center gap-2 text-sm">
-                    <GraduationCap className="h-3.5 w-3.5 flex-shrink-0" />
-                    20+ compliance and safety modules
-                  </li>
-                  <li className="text-muted-foreground flex items-center gap-2 text-sm">
-                    <ClipboardCheck className="h-3.5 w-3.5 flex-shrink-0" />
-                    Video, text lessons, quizzes, and progress tracking
-                  </li>
-                  <li className="text-muted-foreground flex items-center gap-2 text-sm">
-                    <Award className="h-3.5 w-3.5 flex-shrink-0" />
-                    Certificates and records for training proof
-                  </li>
-                </ul>
-                <div className="mt-auto flex justify-end">
-                  <Button variant="primary" size="sm">
-                    Explore courses <ArrowRight className="ml-1 h-4 w-4" />
-                  </Button>
-                </div>
-              </div>
-            </div>
-          </a>
-
-          {/* TruckTalk — CDL English Language Proficiency practice. Links to our own
-            /tools/elp-practice landing page (which funnels to /start-v2), not the
-            external product, so the CTA stays "Learn more" rather than "Try Free". */}
-          <Link href="/tools/elp-practice" className="group block">
-            <div className="border-border bg-card hover:bg-surface-2 flex h-full flex-col overflow-hidden rounded-xs border p-2 transition-all duration-[0.15s] hover:-translate-y-0.5 sm:flex-row">
-              {/* Image — 1/3 */}
-              <div className="bg-surface-3 relative aspect-[4/3] w-full overflow-hidden rounded-xs sm:aspect-auto sm:w-1/3">
-                <Image
-                  src="https://cdn.raisedash.com/media/landing/elp-practice.webp"
-                  alt="TruckTalk English language proficiency practice app for CDL truck drivers"
-                  fill
-                  sizes="(max-width: 640px) 100vw, 400px"
-                  className="object-cover"
-                />
-              </div>
-              {/* Content — 2/3 */}
-              <div className="flex flex-1 flex-col p-6">
-                <span className="bg-surface-3 text-foreground mb-3 w-fit rounded-xs px-2 py-0.5 text-xs font-normal">
-                  CDL English Practice
-                </span>
-                <h3 className="text-foreground mb-2 text-xl font-normal tracking-[-0.01em]">
-                  TruckTalk
-                </h3>
-                <p className="text-foreground/90 mb-4 max-w-xl text-sm leading-relaxed font-normal">
-                  A <span className="font-medium">five-figure fine</span>, an out-of-service order,
-                  and a CSA hit that lasts years — from a single failed English proficiency check.
-                  TruckTalk gets your drivers ready for the roadside exam.
-                </p>
-                <ul className="mb-5 space-y-2">
-                  <li className="text-muted-foreground flex items-center gap-2 text-sm">
-                    <Mic className="h-3.5 w-3.5 flex-shrink-0" />
-                    50+ AI voice roleplay scenarios
-                  </li>
-                  <li className="text-muted-foreground flex items-center gap-2 text-sm">
-                    <BookOpen className="h-3.5 w-3.5 flex-shrink-0" />
-                    2,300+ CDL terms, 2,900+ quiz questions
-                  </li>
-                  <li className="text-muted-foreground flex items-center gap-2 text-sm">
-                    <Languages className="h-3.5 w-3.5 flex-shrink-0" />
-                    500+ conversations in 11 languages
-                  </li>
-                </ul>
-                <div className="mt-auto flex justify-end">
-                  <Button variant="primary" size="sm">
-                    Learn more <ArrowRight className="ml-1 h-4 w-4" />
-                  </Button>
-                </div>
-              </div>
-            </div>
-          </Link>
-        </div>
-      </Container>
-
       {/* Recent Blog Posts Section */}
       {recentPosts.length > 0 && (
         <Container className="pb-12 md:px-0">
@@ -241,7 +135,7 @@ export default function Home({ recentUpdates, recentPosts }: HomeProps) {
               Latest from the Blog
             </h2>
             <p className="text-muted-foreground mx-auto mt-3 max-w-2xl text-lg">
-              Insights on fleet compliance, safety, and industry best practices.
+              Notes on driver readiness, orientation, and keeping the proof.
             </p>
           </div>
           <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
@@ -264,17 +158,29 @@ export default function Home({ recentUpdates, recentPosts }: HomeProps) {
       <Container className="pb-12 md:px-0">
         <div className="bg-card border-border animate-fade-in-scale rounded-xs border p-8 text-center delay-700 sm:p-12">
           <h2 className="text-foreground mb-4 text-2xl font-normal tracking-[-0.02em] sm:text-3xl">
-            Ready to strengthen your fleet compliance?
+            Get your drivers ready before they arrive.
           </h2>
           <p className="text-muted-foreground mx-auto mb-8 max-w-xl text-lg">
-            Get started in days, not months. Our team is ready to help you modernize your
-            operations.
+            Set up before lunch, not after a six-week implementation. See the ready board and the
+            one-click evidence packet on your own drivers.
           </p>
-          <div className="mx-auto flex justify-center">
-            <EmailCapture source="CTA" />
+          <div className="mx-auto flex max-w-md flex-col items-center gap-4">
+            <EmailCapture source="CTA" buttonText="Get started" />
+            <div className="text-muted-foreground flex items-center gap-3 text-sm">
+              <span>or</span>
+              <Link
+                href="/demo"
+                className="text-foreground hover:text-foreground/80 inline-flex items-center gap-1 transition-colors"
+              >
+                Book a demo <ArrowRight className="h-3.5 w-3.5" />
+              </Link>
+            </div>
           </div>
         </div>
       </Container>
+
+      {/* More from Raisedash (demoted) */}
+      <MoreFromRaisedash />
     </PageLayout>
   );
 }

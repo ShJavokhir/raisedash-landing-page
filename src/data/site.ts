@@ -1,7 +1,7 @@
 export const siteConfig = {
   name: "Raisedash",
   description:
-    "Continuous compliance and safety for freight trucking carriers. Vanta for Trucking.",
+    "The driver readiness platform for modern fleets. Raisedash gets new drivers trained, signed, and road-ready before day one, and keeps court-ready proof of it all.",
   url: "https://raisedash.com",
   ogImage: "https://cdn.raisedash.com/og-image.png",
   links: {
@@ -29,10 +29,29 @@ export interface FooterSection {
 
 export const footerLinks: FooterSection[] = [
   {
+    title: "Platform",
+    links: [
+      { title: "Pre-arrival readiness", href: "/platform/pre-arrival-readiness" },
+      { title: "Training evidence", href: "/platform/training-evidence" },
+      { title: "First 90 days", href: "/platform/first-90-days" },
+      { title: "Driver experience", href: "/platform/driver-experience" },
+      { title: "Book a demo", href: "/demo" },
+    ],
+  },
+  {
     title: "Resources",
     links: [
       { title: "Blog", href: "/blog" },
       { title: "Product Updates", href: "/product-updates" },
+    ],
+  },
+  {
+    title: "More products",
+    links: [
+      { title: "Raisedash Academy", href: "https://academy.raisedash.com", external: true },
+      { title: "TruckTalk ELP Practice", href: "/tools/elp-practice" },
+      { title: "PTI & DVIR App", href: "/pti-app" },
+      { title: "Vertex", href: "/vertex-app" },
     ],
   },
   {
@@ -41,6 +60,7 @@ export const footerLinks: FooterSection[] = [
       { title: "About", href: "/about" },
       { title: "Careers", href: "/careers" },
       { title: "Contact", href: "/contact" },
+      { title: "Security", href: "/security" },
     ],
   },
   {

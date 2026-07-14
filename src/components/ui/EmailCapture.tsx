@@ -51,12 +51,11 @@ export function EmailCapture({
       // Silently fail - don't block navigation
     });
 
-    // Send everyone into the self-serve onboarding funnel (the old /get-started
-    // demo flow is retired). We intentionally do NOT forward the email in the URL:
-    // /start runs the Meta Pixel, which ships the full URL (event_source_url) to
-    // Meta and would leak the raw address. The email is already captured above;
-    // the funnel re-collects it at its email step.
-    router.push("/start");
+    // Send everyone into the demo/readiness funnel. /start ("DOT compliance")
+    // and /start-v2/v3 are reserved for paid Meta traffic only — routing organic
+    // visitors there would both confuse them and pollute the ad pixels. The email
+    // is already captured above; /demo re-collects it at its contact step.
+    router.push("/demo");
   };
 
   const isDark = variant === "dark";

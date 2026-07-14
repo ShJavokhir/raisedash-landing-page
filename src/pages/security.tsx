@@ -5,21 +5,27 @@ export default function Security() {
   return (
     <PageLayout
       title="Security"
-      description="Learn about Raisedash's security practices and how we protect your freight logistics data with enterprise-grade security measures."
-      keywords={["raisedash security", "data protection", "fleet data security", "logistics software security"]}
+      description="Learn about Raisedash's security practices and how we protect the driver training records and personal information fleets trust us with."
+      keywords={[
+        "raisedash security",
+        "data protection",
+        "driver data security",
+        "training records security",
+      ]}
     >
       {/* Hero Section */}
-      <Container className="flex items-center bg-card mt-12 rounded-xs border border-border">
+      <Container className="bg-card border-border mt-12 flex items-center rounded-xs border">
         <div className="w-full py-16 sm:py-24 md:py-28">
-          <h1 className="text-4xl md:text-5xl font-semibold tracking-[-0.01em] text-foreground">
+          <h1 className="text-foreground text-4xl font-semibold tracking-[-0.01em] md:text-5xl">
             Security
           </h1>
-          <p className="mt-4 max-w-3xl text-lg text-muted-foreground">
-            Security is a top priority at Raisedash. As an early-stage startup, we're building
-            robust security foundations to protect your freight logistics data with industry best
+          <p className="text-muted-foreground mt-4 max-w-3xl text-lg">
+            Security is a top priority at Raisedash. Fleets trust us with driver training records
+            and personal information that can end up as legal evidence, so we treat it accordingly.
+            As an early-stage startup, we're building robust security foundations with industry best
             practices.
           </p>
-          <p className="mt-2 text-sm text-muted-foreground">
+          <p className="text-muted-foreground mt-2 text-sm">
             Last updated:{" "}
             {new Date().toLocaleDateString("en-US", {
               year: "numeric",
@@ -31,27 +37,28 @@ export default function Security() {
       </Container>
 
       {/* Security Content */}
-      <Container className="bg-card mt-8 rounded-xs border border-border">
+      <Container className="bg-card border-border mt-8 rounded-xs border">
         <div className="py-16">
-          <div className="max-w-4xl mx-auto prose prose-slate dark:prose-invert">
+          <div className="prose prose-slate dark:prose-invert mx-auto max-w-4xl">
             <section className="mb-12">
-              <h2 className="text-2xl font-semibold text-foreground mb-4">
+              <h2 className="text-foreground mb-4 text-2xl font-semibold">
                 1. Our Security Approach
               </h2>
               <p className="text-muted-foreground mb-4">
                 As a growing startup, we take security seriously and are building our security
-                foundation with industry best practices. We understand that freight logistics
-                involves sensitive cargo information that needs protection.
+                foundation with industry best practices. We hold driver personal information and
+                training evidence records that a fleet may one day have to produce for an insurer,
+                an auditor, or a court, and we protect that data with the seriousness it deserves.
               </p>
               <p className="text-muted-foreground mb-4">
                 We're committed to implementing robust security measures as we scale, starting with
                 the fundamentals and continuously improving our security posture.
               </p>
-              <div className="bg-muted rounded-lg p-6 mt-6">
-                <h3 className="text-lg font-semibold text-foreground mb-3">
+              <div className="bg-muted mt-6 rounded-lg p-6">
+                <h3 className="text-foreground mb-3 text-lg font-semibold">
                   Current Security Focus
                 </h3>
-                <ul className="list-disc list-inside text-muted-foreground space-y-2">
+                <ul className="text-muted-foreground list-inside list-disc space-y-2">
                   <li>
                     <strong>Data Encryption:</strong> All data encrypted in transit and at rest
                   </li>
@@ -72,7 +79,7 @@ export default function Security() {
             </section>
 
             <section className="mb-12">
-              <h2 className="text-2xl font-semibold text-foreground mb-4">
+              <h2 className="text-foreground mb-4 text-2xl font-semibold">
                 2. Infrastructure Security
               </h2>
               <p className="text-muted-foreground mb-4">
@@ -80,10 +87,10 @@ export default function Security() {
                 infrastructure and security features to protect your data.
               </p>
 
-              <h3 className="text-xl font-semibold text-foreground mb-3 mt-6">
+              <h3 className="text-foreground mt-6 mb-3 text-xl font-semibold">
                 Current AWS Security Setup
               </h3>
-              <ul className="list-disc list-inside text-muted-foreground space-y-2 ml-4">
+              <ul className="text-muted-foreground ml-4 list-inside list-disc space-y-2">
                 <li>
                   <strong>AWS VPC:</strong> Isolated network environment
                 </li>
@@ -101,10 +108,10 @@ export default function Security() {
                 </li>
               </ul>
 
-              <h3 className="text-xl font-semibold text-foreground mb-3 mt-6">
+              <h3 className="text-foreground mt-6 mb-3 text-xl font-semibold">
                 Planned Security Enhancements
               </h3>
-              <ul className="list-disc list-inside text-muted-foreground space-y-2 ml-4">
+              <ul className="text-muted-foreground ml-4 list-inside list-disc space-y-2">
                 <li>AWS WAF for additional application protection</li>
                 <li>Enhanced monitoring with AWS CloudWatch</li>
                 <li>Automated security scanning and vulnerability assessment</li>
@@ -113,17 +120,17 @@ export default function Security() {
             </section>
 
             <section className="mb-12">
-              <h2 className="text-2xl font-semibold text-foreground mb-4">
+              <h2 className="text-foreground mb-4 text-2xl font-semibold">
                 3. Data Protection and Encryption
               </h2>
               <p className="text-muted-foreground mb-4">
                 We implement strong encryption to protect your data both in transit and at rest.
               </p>
 
-              <h3 className="text-xl font-semibold text-foreground mb-3 mt-6">
+              <h3 className="text-foreground mt-6 mb-3 text-xl font-semibold">
                 Current Encryption
               </h3>
-              <ul className="list-disc list-inside text-muted-foreground space-y-2 ml-4">
+              <ul className="text-muted-foreground ml-4 list-inside list-disc space-y-2">
                 <li>
                   <strong>TLS 1.2+:</strong> All data transmission encrypted
                 </li>
@@ -138,8 +145,8 @@ export default function Security() {
                 </li>
               </ul>
 
-              <h3 className="text-xl font-semibold text-foreground mb-3 mt-6">Data Handling</h3>
-              <ul className="list-disc list-inside text-muted-foreground space-y-2 ml-4">
+              <h3 className="text-foreground mt-6 mb-3 text-xl font-semibold">Data Handling</h3>
+              <ul className="text-muted-foreground ml-4 list-inside list-disc space-y-2">
                 <li>Minimal data collection - only what's necessary</li>
                 <li>Secure data storage with access controls</li>
                 <li>Regular data backups with encryption</li>
@@ -148,7 +155,7 @@ export default function Security() {
             </section>
 
             <section className="mb-12">
-              <h2 className="text-2xl font-semibold text-foreground mb-4">
+              <h2 className="text-foreground mb-4 text-2xl font-semibold">
                 4. Access Control and Authentication
               </h2>
               <p className="text-muted-foreground mb-4">
@@ -156,10 +163,10 @@ export default function Security() {
                 data.
               </p>
 
-              <h3 className="text-xl font-semibold text-foreground mb-3 mt-6">
+              <h3 className="text-foreground mt-6 mb-3 text-xl font-semibold">
                 Current Authentication
               </h3>
-              <ul className="list-disc list-inside text-muted-foreground space-y-2 ml-4">
+              <ul className="text-muted-foreground ml-4 list-inside list-disc space-y-2">
                 <li>
                   <strong>Strong Passwords:</strong> Enforced password complexity requirements
                 </li>
@@ -174,10 +181,10 @@ export default function Security() {
                 </li>
               </ul>
 
-              <h3 className="text-xl font-semibold text-foreground mb-3 mt-6">
+              <h3 className="text-foreground mt-6 mb-3 text-xl font-semibold">
                 Planned Enhancements
               </h3>
-              <ul className="list-disc list-inside text-muted-foreground space-y-2 ml-4">
+              <ul className="text-muted-foreground ml-4 list-inside list-disc space-y-2">
                 <li>Multi-factor authentication (MFA) implementation</li>
                 <li>Single sign-on (SSO) integration</li>
                 <li>Role-based access controls</li>
@@ -186,17 +193,17 @@ export default function Security() {
             </section>
 
             <section className="mb-12">
-              <h2 className="text-2xl font-semibold text-foreground mb-4">
+              <h2 className="text-foreground mb-4 text-2xl font-semibold">
                 5. Security Monitoring
               </h2>
               <p className="text-muted-foreground mb-4">
                 We implement basic security monitoring to detect and respond to potential threats.
               </p>
 
-              <h3 className="text-xl font-semibold text-foreground mb-3 mt-6">
+              <h3 className="text-foreground mt-6 mb-3 text-xl font-semibold">
                 Current Monitoring
               </h3>
-              <ul className="list-disc list-inside text-muted-foreground space-y-2 ml-4">
+              <ul className="text-muted-foreground ml-4 list-inside list-disc space-y-2">
                 <li>
                   <strong>Application Logs:</strong> Basic logging of security events
                 </li>
@@ -211,8 +218,8 @@ export default function Security() {
                 </li>
               </ul>
 
-              <h3 className="text-xl font-semibold text-foreground mb-3 mt-6">Incident Response</h3>
-              <ul className="list-disc list-inside text-muted-foreground space-y-2 ml-4">
+              <h3 className="text-foreground mt-6 mb-3 text-xl font-semibold">Incident Response</h3>
+              <ul className="text-muted-foreground ml-4 list-inside list-disc space-y-2">
                 <li>Designated security contact for incidents</li>
                 <li>Basic incident response procedures</li>
                 <li>Customer notification process</li>
@@ -221,22 +228,22 @@ export default function Security() {
             </section>
 
             <section className="mb-12">
-              <h2 className="text-2xl font-semibold text-foreground mb-4">6. Security Roadmap</h2>
+              <h2 className="text-foreground mb-4 text-2xl font-semibold">6. Security Roadmap</h2>
               <p className="text-muted-foreground mb-4">
                 As we grow, we're committed to implementing additional security measures and working
                 toward industry certifications.
               </p>
 
-              <h3 className="text-xl font-semibold text-foreground mb-3 mt-6">Current Focus</h3>
-              <ul className="list-disc list-inside text-muted-foreground space-y-2 ml-4">
+              <h3 className="text-foreground mt-6 mb-3 text-xl font-semibold">Current Focus</h3>
+              <ul className="text-muted-foreground ml-4 list-inside list-disc space-y-2">
                 <li>Implementing security best practices</li>
                 <li>Regular security assessments</li>
                 <li>Employee security training</li>
                 <li>Basic compliance with data protection laws</li>
               </ul>
 
-              <h3 className="text-xl font-semibold text-foreground mb-3 mt-6">Future Goals</h3>
-              <ul className="list-disc list-inside text-muted-foreground space-y-2 ml-4">
+              <h3 className="text-foreground mt-6 mb-3 text-xl font-semibold">Future Goals</h3>
+              <ul className="text-muted-foreground ml-4 list-inside list-disc space-y-2">
                 <li>SOC 2 Type I certification (planned for next year)</li>
                 <li>Enhanced security monitoring and alerting</li>
                 <li>Advanced threat detection capabilities</li>
@@ -246,14 +253,14 @@ export default function Security() {
             </section>
 
             <section className="mb-12">
-              <h2 className="text-2xl font-semibold text-foreground mb-4">7. Security Testing</h2>
+              <h2 className="text-foreground mb-4 text-2xl font-semibold">7. Security Testing</h2>
               <p className="text-muted-foreground mb-4">
                 We conduct regular security testing to identify and address potential
                 vulnerabilities.
               </p>
 
-              <h3 className="text-xl font-semibold text-foreground mb-3 mt-6">Current Testing</h3>
-              <ul className="list-disc list-inside text-muted-foreground space-y-2 ml-4">
+              <h3 className="text-foreground mt-6 mb-3 text-xl font-semibold">Current Testing</h3>
+              <ul className="text-muted-foreground ml-4 list-inside list-disc space-y-2">
                 <li>
                   <strong>Code Reviews:</strong> Regular security-focused code reviews
                 </li>
@@ -269,10 +276,10 @@ export default function Security() {
                 </li>
               </ul>
 
-              <h3 className="text-xl font-semibold text-foreground mb-3 mt-6">
+              <h3 className="text-foreground mt-6 mb-3 text-xl font-semibold">
                 Planned Enhancements
               </h3>
-              <ul className="list-disc list-inside text-muted-foreground space-y-2 ml-4">
+              <ul className="text-muted-foreground ml-4 list-inside list-disc space-y-2">
                 <li>Third-party security audits</li>
                 <li>Automated vulnerability scanning</li>
                 <li>Security training for development team</li>
@@ -281,17 +288,17 @@ export default function Security() {
             </section>
 
             <section className="mb-12">
-              <h2 className="text-2xl font-semibold text-foreground mb-4">
+              <h2 className="text-foreground mb-4 text-2xl font-semibold">
                 8. Data Backup and Recovery
               </h2>
               <p className="text-muted-foreground mb-4">
                 We maintain regular backups and have basic disaster recovery procedures in place.
               </p>
 
-              <h3 className="text-xl font-semibold text-foreground mb-3 mt-6">
+              <h3 className="text-foreground mt-6 mb-3 text-xl font-semibold">
                 Current Backup Strategy
               </h3>
-              <ul className="list-disc list-inside text-muted-foreground space-y-2 ml-4">
+              <ul className="text-muted-foreground ml-4 list-inside list-disc space-y-2">
                 <li>
                   <strong>Regular Backups:</strong> Daily automated backups of critical data
                 </li>
@@ -306,10 +313,10 @@ export default function Security() {
                 </li>
               </ul>
 
-              <h3 className="text-xl font-semibold text-foreground mb-3 mt-6">
+              <h3 className="text-foreground mt-6 mb-3 text-xl font-semibold">
                 Service Availability
               </h3>
-              <ul className="list-disc list-inside text-muted-foreground space-y-2 ml-4">
+              <ul className="text-muted-foreground ml-4 list-inside list-disc space-y-2">
                 <li>AWS infrastructure with high availability</li>
                 <li>Basic monitoring and alerting</li>
                 <li>Automated failover capabilities</li>
@@ -318,7 +325,7 @@ export default function Security() {
             </section>
 
             <section className="mb-12">
-              <h2 className="text-2xl font-semibold text-foreground mb-4">9. Contact Us</h2>
+              <h2 className="text-foreground mb-4 text-2xl font-semibold">9. Contact Us</h2>
               <p className="text-muted-foreground mb-4">
                 If you have security concerns, questions, or need to report a security issue, please
                 contact us:
@@ -332,13 +339,13 @@ export default function Security() {
                 <p className="text-muted-foreground">Response Time: 24-48 hours</p>
               </div>
 
-              <h3 className="text-xl font-semibold text-foreground mb-3 mt-6">
+              <h3 className="text-foreground mt-6 mb-3 text-xl font-semibold">
                 Security Issue Reporting
               </h3>
               <p className="text-muted-foreground mb-4">
                 If you discover a security vulnerability, please report it responsibly:
               </p>
-              <ul className="list-disc list-inside text-muted-foreground space-y-2 ml-4">
+              <ul className="text-muted-foreground ml-4 list-inside list-disc space-y-2">
                 <li>Email: security@raisedash.com with "SECURITY ISSUE" in the subject</li>
                 <li>Include detailed description of the issue</li>
                 <li>Provide steps to reproduce if applicable</li>

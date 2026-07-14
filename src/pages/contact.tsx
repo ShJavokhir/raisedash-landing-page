@@ -14,13 +14,13 @@ const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || "";
 const contactMethods = [
   {
     title: "Sales Inquiries",
-    description: "Get in touch with our sales team to learn more about our solutions.",
+    description: "Talk to our team about getting your new drivers road-ready before day one.",
     email: "sales@raisedash.com",
     icon: Mail,
   },
   {
     title: "Support",
-    description: "Need help with your existing Raisedash implementation?",
+    description: "Already using Raisedash and need a hand? We're here for you.",
     email: "support@raisedash.com",
     icon: HeadphonesIcon,
   },
@@ -128,12 +128,12 @@ export default function Contact() {
   return (
     <PageLayout
       title="Contact Us"
-      description="Get in touch with Raisedash. Contact our sales, support, or partnership teams to learn more about our freight logistics security solutions."
+      description="Get in touch with Raisedash, the driver readiness platform for modern fleets. Contact our sales, support, or partnerships team, or book a demo."
       keywords={[
         "contact raisedash",
-        "fleet safety support",
-        "logistics software demo",
-        "sales inquiry",
+        "driver readiness platform",
+        "book a demo",
+        "fleet onboarding software",
       ]}
     >
       {/* Hero Section */}
@@ -144,8 +144,8 @@ export default function Contact() {
               Get in Touch
             </h1>
             <p className="text-muted-foreground animate-fade-in-up mt-6 text-xl leading-relaxed font-normal delay-150">
-              Ready to secure your freight operations? We're here to help. Contact us to learn more
-              about our solutions or get started today.
+              Questions about getting your fleet's new drivers road-ready before day one? We're here
+              to help. Reach out and we'll get back to you fast.
             </p>
           </div>
         </Container>
@@ -326,18 +326,19 @@ export default function Contact() {
                 How quickly can we get started with Raisedash?
               </h3>
               <p className="text-muted-foreground text-base leading-relaxed">
-                Most implementations can be completed within 1-2 weeks, depending on your specific
-                requirements and infrastructure setup.
+                Set up before lunch, not after a six-week implementation. You can be sending
+                orientation to your new hires the same day.
               </p>
             </div>
 
             <div className="border-border border-b py-6">
               <h3 className="text-foreground mb-3 text-xl font-normal tracking-[-0.01em]">
-                Do you offer 24/7 support?
+                Do drivers need an app or a password?
               </h3>
               <p className="text-muted-foreground text-base leading-relaxed">
-                Yes, we provide 24/7 monitoring and support for all our security solutions to ensure
-                your cargo is always protected.
+                No. Drivers get a text message with a link and complete everything on their phone,
+                with no app store, no password, and no email required. Lessons and the driver
+                experience work in English and Spanish.
               </p>
             </div>
 
@@ -346,19 +347,21 @@ export default function Contact() {
                 Can Raisedash integrate with our existing systems?
               </h3>
               <p className="text-muted-foreground text-base leading-relaxed">
-                Absolutely. Our solutions are designed to integrate seamlessly with most logistics
-                and ERP systems through our comprehensive API.
+                Direct integrations with ATS and telematics tools like Tenstreet, DriverReach,
+                Samsara, and Motive are on our roadmap. Today, Raisedash runs as a standalone
+                readiness platform your team sets up in minutes.
               </p>
             </div>
 
             <div className="py-6">
               <h3 className="text-foreground mb-3 text-xl font-normal tracking-[-0.01em]">
-                What makes Raisedash different from other security solutions?
+                What makes Raisedash different?
               </h3>
               <p className="text-muted-foreground text-base leading-relaxed">
-                Our AI-powered approach provides real-time threat detection and predictive
-                analytics, going beyond traditional security measures to prevent incidents before
-                they occur.
+                Most tools stop at delivering a lesson. Raisedash is built around proof: every
+                lesson version, signature, score, and timestamp is preserved forever, so when an
+                auditor, insurer, or lawyer asks what a driver was trained on, you have the complete
+                record in one click.
               </p>
             </div>
           </div>
@@ -369,13 +372,14 @@ export default function Contact() {
       <Container className="pb-12 md:px-0">
         <div className="bg-card border-border animate-fade-in-scale rounded-xs border p-8 text-center delay-900 sm:p-12">
           <h2 className="text-foreground mb-4 text-2xl font-normal tracking-[-0.02em] sm:text-3xl">
-            Ready to get started?
+            Ready to get your drivers road-ready?
           </h2>
           <p className="text-muted-foreground mx-auto mb-8 max-w-xl text-lg">
-            Schedule a demo to see how Raisedash can transform your freight security.
+            Book a demo to see how Raisedash gets every new driver trained, signed, and road-ready
+            before day one.
           </p>
-          <Link href="/start">
-            <Button size="lg">See a demo</Button>
+          <Link href="/demo">
+            <Button size="lg">Book a demo</Button>
           </Link>
         </div>
       </Container>

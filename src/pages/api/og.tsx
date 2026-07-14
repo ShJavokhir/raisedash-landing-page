@@ -8,7 +8,8 @@ export const config = {
 export default async function handler(req: NextRequest) {
   const { searchParams } = new URL(req.url);
   const title = searchParams.get("title") || "Raisedash";
-  const description = searchParams.get("description") || "Continuous Compliance & Safety";
+  const description =
+    searchParams.get("description") || "The driver readiness platform for modern fleets";
   const category = searchParams.get("category");
 
   return new ImageResponse(
@@ -102,7 +103,7 @@ export default async function handler(req: NextRequest) {
         >
           {title}
         </h1>
-        {description && description !== "Continuous Compliance & Safety" && (
+        {description && description !== "The driver readiness platform for modern fleets" && (
           <p
             style={{
               fontSize: "24px",

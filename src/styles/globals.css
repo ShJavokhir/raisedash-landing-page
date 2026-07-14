@@ -46,6 +46,14 @@
   --success: #1f8a65;
   --success-foreground: #ffffff;
 
+  /* Vignette accents — one hue per product story (theme-aware) */
+  --accent-blue: #2f6ce0;
+  --accent-blue-soft: color-mix(in oklab, #2f6ce0 9%, transparent);
+  --accent-amber: #a86a0c;
+  --accent-amber-soft: color-mix(in oklab, #b57d1e 12%, transparent);
+  --accent-violet: #6e4fd0;
+  --accent-violet-soft: color-mix(in oklab, #6e4fd0 9%, transparent);
+
   /* Borders - subtle opacity-based */
   --border: color-mix(in oklab, #26251e 10%, transparent);
   --border-subtle: color-mix(in oklab, #26251e 5%, transparent);
@@ -183,6 +191,12 @@
   --color-destructive-foreground: var(--destructive-foreground);
   --color-success: var(--success);
   --color-success-foreground: var(--success-foreground);
+  --color-accent-blue: var(--accent-blue);
+  --color-accent-blue-soft: var(--accent-blue-soft);
+  --color-accent-amber: var(--accent-amber);
+  --color-accent-amber-soft: var(--accent-amber-soft);
+  --color-accent-violet: var(--accent-violet);
+  --color-accent-violet-soft: var(--accent-violet-soft);
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
@@ -281,6 +295,14 @@
   --destructive-foreground: #ffffff;
   --success: #2aad7a;
   --success-foreground: #ffffff;
+
+  /* Vignette accents — dark theme */
+  --accent-blue: #7aa3f2;
+  --accent-blue-soft: color-mix(in oklab, #7aa3f2 14%, transparent);
+  --accent-amber: #e0a83c;
+  --accent-amber-soft: color-mix(in oklab, #e0a83c 13%, transparent);
+  --accent-violet: #a78bfa;
+  --accent-violet-soft: color-mix(in oklab, #a78bfa 14%, transparent);
 
   /* Borders */
   --border: color-mix(in oklab, #f7f7f4 10%, transparent);
@@ -538,6 +560,60 @@ h4 {
   }
 
   /* Loading animations */
+  /* Vignette micro-animations — looping product figures */
+  @keyframes vignette-in {
+    from {
+      opacity: 0;
+      transform: translateY(6px) scale(0.97);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  @keyframes typing-dot {
+    0%,
+    60%,
+    100% {
+      transform: translateY(0);
+      opacity: 0.4;
+    }
+    30% {
+      transform: translateY(-3px);
+      opacity: 1;
+    }
+  }
+
+  @keyframes pulse-soft {
+    0% {
+      box-shadow: 0 0 0 0 color-mix(in oklab, currentColor 30%, transparent);
+    }
+    100% {
+      box-shadow: 0 0 0 9px transparent;
+    }
+  }
+
+  .animate-vignette-in {
+    animation: vignette-in 0.4s var(--ease-out-spring) both;
+  }
+
+  .animate-typing-dot {
+    animation: typing-dot 1.2s ease-in-out infinite;
+  }
+
+  .animate-pulse-soft {
+    animation: pulse-soft 1.5s var(--ease-out) infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .animate-vignette-in,
+    .animate-typing-dot,
+    .animate-pulse-soft {
+      animation: none;
+    }
+  }
+
   @keyframes shimmer {
     0% {
       background-position: 200% 0;

@@ -76,9 +76,8 @@ export function DemoForm({
         <div className="space-y-3">
           <h2 className="text-foreground text-3xl font-bold tracking-tight">Request received</h2>
           <p className="text-muted-foreground mx-auto max-w-sm leading-relaxed">
-            We’re gearing up your tailored demo. Keep an eye on{" "}
-            <span className="text-foreground font-semibold">{formData.email}</span> for your
-            scheduling link.
+            We’ll reach out within one business day to set up your demo. Keep an eye on{" "}
+            <span className="text-foreground font-semibold">{formData.email}</span>.
           </p>
         </div>
         <Button onClick={resetFlow} variant="ghost" className="group">
@@ -98,10 +97,10 @@ export function DemoForm({
       <div className="p-6 md:p-10">
         <div className="mb-8">
           <h1 className="text-foreground mb-2 text-2xl font-bold tracking-tight md:text-3xl">
-            See a demo
+            Book a demo
           </h1>
           <p className="text-muted-foreground text-sm">
-            Complete the form to schedule your personalized demo.
+            See how Raisedash gets your new drivers road-ready before day one.
           </p>
         </div>
 
