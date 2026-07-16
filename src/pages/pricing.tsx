@@ -74,35 +74,32 @@ const TIERS: Tier[] = [
   {
     name: "Core",
     tagline:
-      "Everything a fleet needs to get new drivers trained, signed, and road-ready before day one.",
+      "The current tools for sending driver training, tracking progress, and downloading a PDF report.",
     price: null, // TODO(launch): { perDriver: "$5", minimum: "$149 / mo minimum" }
     status: "available",
     cta: "secondary",
     features: [
-      "Mobile-first driver training — no passwords, no app store, no email required",
-      "Pre-arrival and onboarding program templates",
-      "Quizzes with passing scores and automatic retries",
-      "SMS and email reminders",
+      "Mobile driver training with one-time-code sign-in",
+      "Video, reading, and quiz lessons",
+      "SMS and email invitations",
       "Program-level and driver-level reporting",
-      "Permanent audit records, exportable as PDF and CSV",
-      "Unlimited admins, always",
+      "Driver training report exported as PDF",
     ],
   },
   {
-    name: "Growth",
+    name: "Growth · planned",
     tagline:
-      "Core, plus AI authoring, e-signatures, and the automation a growing safety team leans on.",
+      "A planned tier for content tools, forms, and more assignment options. These features are not available yet.",
     price: null, // TODO(launch): { perDriver: "$7", minimum: "$249 / mo minimum" }
     status: "available",
     cta: "primary",
     features: [
-      "Everything in Core",
-      "Policy-to-course AI authoring, with a source citation on every lesson",
-      "Multilingual generation — English and Spanish",
-      "Forms and e-signatures",
-      "Advanced assignment rules by role, terminal, equipment, or status",
-      "API and webhooks",
-      "Dedicated onboarding help",
+      "Planned: everything in Core",
+      "Planned: policy-to-course authoring tools",
+      "Planned: multilingual content tools",
+      "Planned: forms and e-signatures",
+      "Planned: assignment rules by role, terminal, equipment, or status",
+      "Planned: API and webhooks",
     ],
   },
 ];
@@ -110,15 +107,15 @@ const TIERS: Tier[] = [
 const RISK_TIER: Tier = {
   name: "Risk",
   tagline:
-    "For fleets ready to close the loop from a telematics event to assigned training and insurer-ready proof.",
+    "A future tier for connecting fleet events with follow-up training. This is not available yet.",
   price: null, // TODO(launch): { perDriver: "$10", minimum: "$399 / mo minimum" }
   status: "later",
   cta: "secondary",
   features: [
-    "Telematics-triggered training assignments",
-    "Incident and corrective-action workflows",
-    "Risk analytics",
-    "Insurer and broker reporting",
+    "Planned: telematics-triggered training assignments",
+    "Planned: incident and corrective-action workflows",
+    "Planned: risk analytics",
+    "Planned: insurer and broker reporting",
   ],
 };
 
@@ -131,61 +128,61 @@ interface Promise {
 const PROMISES: Promise[] = [
   {
     icon: Gauge,
-    title: "You pay for active drivers, not headcount",
-    body: "An active driver is someone assigned or completing content during the billing period. Drivers you aren't training that month don't count toward your bill.",
+    title: "Planned: pay for active drivers",
+    body: "We are considering billing around drivers who are assigned or completing training during the billing period.",
   },
   {
     icon: Users,
-    title: "Unlimited admins, always",
-    body: "Add every safety director, recruiter, and terminal manager you want. Admin seats are always included and never billed.",
+    title: "Planned: simple admin access",
+    body: "We are considering including admin access without a separate seat charge.",
   },
   {
     icon: UserPlus,
-    title: "Applicants are nearly free",
-    body: "Every account includes a pre-hire candidate allowance. Candidates beyond it cost a small fraction of a driver seat — never a full seat for someone who might ghost.",
+    title: "Planned: lower cost for applicants",
+    body: "We are considering a lower rate for pre-hire candidates than for active drivers.",
   },
   {
     icon: Sparkles,
-    title: "No metered surprises",
-    body: "No charges per AI generation, per video minute, or per content view. What you see in a demo is what you pay for.",
+    title: "Planned: easy-to-read billing",
+    body: "Our goal is to avoid small usage charges that make the monthly bill hard to predict.",
   },
   {
     icon: Receipt,
-    title: "No mandatory implementation fee",
-    body: "You can launch it yourself. Optional paid help for content migration or a custom rollout exists if you want it — optional means optional.",
+    title: "Planned: optional setup help",
+    body: "Our goal is to let fleets set up the product themselves and choose paid setup help only when needed.",
   },
   {
     icon: Percent,
-    title: "A discount for paying annually",
-    body: "Pay for the year up front and pay less than month to month. No renewal games.",
+    title: "Planned: annual option",
+    body: "We are considering a lower effective price for fleets that choose annual billing.",
   },
   {
     icon: Download,
-    title: "Your records are always yours",
-    body: "PDF and CSV exports of every completion, signature, and record are in every plan, always. We never hold a fleet's own history hostage.",
+    title: "Download a driver training report",
+    body: "The current product can export a driver's Raisedash training information as a PDF report.",
   },
 ];
 
 const FAQS: { q: string; a: string }[] = [
   {
-    q: "What counts as an active driver?",
-    a: "An active driver is someone who is assigned content or completing content during the billing period. If a driver isn't being trained in a given month, they don't count toward your bill. Admins — safety directors, recruiters, terminal managers — are always unlimited and free.",
+    q: "What would count as an active driver?",
+    a: "The model we are considering counts a driver who is assigned or completing training during the billing period. This definition is not final.",
   },
   {
-    q: "Do applicants cost a full seat?",
-    a: "No. Every account includes a pre-hire candidate allowance so you can send orientation to people before they're hired. Candidates beyond that allowance cost only a small fraction of a driver seat — never the full price. You shouldn't pay a full seat for a candidate who never shows up.",
+    q: "Would applicants cost a full seat?",
+    a: "We are considering a lower rate for pre-hire candidates. Final billing rules have not been announced.",
   },
   {
-    q: "Is there an implementation fee?",
-    a: "No mandatory implementation fee. The platform is built to set up yourself. If you'd rather have us migrate existing content or run a custom rollout, that's an optional paid service — optional means optional.",
+    q: "Will there be an implementation fee?",
+    a: "Final setup and service fees have not been announced. Our goal is to support self-serve setup with optional help when a fleet needs it.",
   },
   {
-    q: "Can we export everything?",
-    a: "Yes. PDF and CSV exports of your completion records, signatures, quiz results, and training history are included in every plan, always — not a premium add-on.",
+    q: "What can we export today?",
+    a: "The current product can export a PDF report with a driver's Raisedash training information, including trainings, quizzes, recorded activity, and certificates.",
   },
   {
     q: "What happens to our records if we leave?",
-    a: "They're yours to take. You can export your complete training and evidence records at any time, on any plan. We will never hold a fleet's own records hostage to keep your business.",
+    a: "Download the available driver training report before closing your account. Ask our team about any other data you need to keep.",
   },
 ];
 
@@ -221,7 +218,7 @@ function PriceDisplay({ tier }: { tier: Tier }) {
         {label}
       </div>
       <p className="text-muted-foreground/70 mt-2 text-xs">
-        One flat price per active driver, per month. No quote call.
+        Planned pricing model. Final terms have not been announced.
       </p>
     </div>
   );
@@ -231,7 +228,7 @@ export default function Pricing() {
   return (
     <PageLayout
       title="Pricing"
-      description="Simple, transparent pricing for the Raisedash driver readiness platform. One price per active driver, unlimited admins, free data exports, and no surprise invoices."
+      description="Planned pricing for Raisedash driver orientation and training records. Final pricing has not been announced."
       keywords={[
         "driver readiness pricing",
         "fleet onboarding software pricing",
@@ -250,9 +247,8 @@ export default function Pricing() {
               Simple, transparent pricing.
             </h1>
             <p className="text-muted-foreground animate-fade-in-up mt-6 text-xl leading-relaxed font-normal delay-150">
-              One price per active driver. No quote calls, no seat games, no surprise invoices.
-              Unlimited admins, free exports, and applicants that never cost a full seat — the
-              honest math a safety director can plan a budget around.
+              Final pricing has not been announced. This page shows the pricing model we are
+              considering and clearly marks features that are still planned.
             </p>
             <div className="animate-fade-in-up mt-8 delay-200">
               <span className="bg-surface-2 border-border text-muted-foreground inline-flex items-center gap-2 rounded-full border px-3 py-1 text-xs">
@@ -349,11 +345,10 @@ export default function Pricing() {
       <Container className="py-12 md:px-0">
         <div className="animate-fade-in-up mb-10 delay-100">
           <h2 className="text-foreground text-3xl font-normal tracking-[-0.02em] sm:text-4xl">
-            Billing promises, not fine print
+            Pricing ideas under consideration
           </h2>
           <p className="text-muted-foreground mt-3 max-w-2xl text-lg">
-            The pricing model is part of the product. Here is exactly how billing works — and what
-            we will never do.
+            These are product goals, not final prices or contract terms.
           </p>
         </div>
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -379,7 +374,7 @@ export default function Pricing() {
       <Container className="py-12 md:px-0">
         <div className="mx-auto max-w-3xl">
           <h2 className="text-foreground mb-8 text-3xl font-normal tracking-[-0.02em] sm:text-4xl">
-            Pricing questions, answered plainly
+            Current pricing questions
           </h2>
           <div className="divide-border divide-y">
             {FAQS.map((faq) => (

@@ -33,25 +33,25 @@ export const solutions: Solution[] = [];
 export const platform: NavItem[] = [
   {
     title: "Pre-arrival readiness",
-    description: "New hires finish orientation on their phone before day one.",
+    description: "Prepare new drivers before they reach the terminal.",
     href: "/platform/pre-arrival-readiness",
     icon: ClipboardCheck,
   },
   {
     title: "Training evidence",
-    description: "A court-ready record of every lesson, signature, and score.",
+    description: "Keep a reliable record of what was completed and when.",
     href: "/platform/training-evidence",
     icon: ShieldCheck,
   },
   {
-    title: "First 90 days",
-    description: "A new driver's riskiest stretch, actively managed.",
+    title: "First 90 days · in development",
+    description: "Support new drivers through their first months with your fleet.",
     href: "/platform/first-90-days",
     icon: CalendarClock,
   },
   {
     title: "Driver experience",
-    description: "No passwords, no app. A text and a phone, in English or Spanish.",
+    description: "A simple training experience built around the driver's phone.",
     href: "/platform/driver-experience",
     icon: Smartphone,
   },

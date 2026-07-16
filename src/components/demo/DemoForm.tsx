@@ -100,7 +100,7 @@ export function DemoForm({
             Book a demo
           </h1>
           <p className="text-muted-foreground text-sm">
-            See how Raisedash gets your new drivers road-ready before day one.
+            See how Raisedash helps you send orientation and track driver training.
           </p>
         </div>
 

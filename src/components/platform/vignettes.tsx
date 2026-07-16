@@ -42,7 +42,7 @@ export function PipelineVignette() {
     { title: "Invited", count: 1 + (malikColumn === 0 ? 1 : 0), chips: ["D. Alvarez"] },
     { title: "In progress", count: 1 + (malikColumn === 1 ? 1 : 0), chips: ["J. Okafor"] },
     {
-      title: "Ready",
+      title: "Complete",
       count: 2 + (malikColumn === 2 ? 1 : 0),
       chips: ["M. Rodriguez", "T. Nguyen"],
     },
@@ -58,7 +58,7 @@ export function PipelineVignette() {
           </div>
           <span className="bg-accent-blue-soft text-accent-blue inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs">
             <Smartphone className="h-3 w-3" />
-            All by text
+            SMS or email
           </span>
         </div>
 
@@ -135,7 +135,7 @@ export function PipelineVignette() {
           <span className="bg-accent-blue-soft text-accent-blue flex h-6 w-6 items-center justify-center rounded-full">
             <MessageSquareText className="h-3.5 w-3.5" />
           </span>
-          <span className="text-foreground text-xs">Orientation link texted to R. Malik</span>
+          <span className="text-foreground text-xs">Orientation invite sent to R. Malik</span>
         </div>
       ) : null}
     </div>
@@ -151,7 +151,7 @@ const LEDGER_ENTRIES = [
   },
   {
     icon: FileCheck,
-    label: "Hazmat handling · Lesson v3 completed",
+    label: "HOS & ELD basics · lesson completed",
     meta: "12 min on lesson",
     date: "Mar 14 · 8:02 AM",
   },
@@ -163,8 +163,8 @@ const LEDGER_ENTRIES = [
   },
   {
     icon: PenLine,
-    label: "Safety policy acknowledged",
-    meta: "Signed on phone",
+    label: "Accident procedures · reading completed",
+    meta: "Completed on phone",
     date: "Mar 14 · 8:24 AM",
   },
 ];
@@ -188,7 +188,7 @@ export function LedgerVignette() {
         </div>
         <span className="bg-accent-amber-soft text-accent-amber inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[10px]">
           <History className="h-3 w-3" />
-          Append-only
+          Sample data
         </span>
       </div>
 
@@ -242,9 +242,7 @@ export function LedgerVignette() {
           <span className="bg-accent-amber absolute top-2 -left-[1.4rem] h-2 w-2 rounded-full" />
           <div className="border-accent-amber/40 bg-accent-amber-soft flex items-center gap-2 rounded-xs border px-3 py-2">
             <Lock className="text-accent-amber h-3.5 w-3.5 flex-shrink-0" />
-            <p className="text-foreground text-xs">
-              Version-locked — editing a course never rewrites this history
-            </p>
+            <p className="text-foreground text-xs">Training activity recorded under the driver</p>
           </div>
         </div>
       </div>
@@ -253,9 +251,9 @@ export function LedgerVignette() {
 }
 
 const PACKET_PARTS = [
-  "Training history & content versions",
-  "Quiz scores and every attempt",
-  "Signatures & acknowledgment text",
+  "Assigned trainings and completion dates",
+  "Quiz attempts and scores",
+  "Recorded training activity",
   "Completion certificates",
 ];
 
@@ -273,22 +271,22 @@ export function EvidencePacketVignette() {
     <BrowserFrame url="app.raisedash.com/drivers/packet">
       <div className="mb-4 flex items-start justify-between">
         <div>
-          <p className="text-foreground text-sm font-normal">Evidence packet — M. Rodriguez</p>
-          <p className="text-muted-foreground mt-0.5 text-xs">Complete training record</p>
+          <p className="text-foreground text-sm font-normal">Training report — M. Rodriguez</p>
+          <p className="text-muted-foreground mt-0.5 text-xs">Raisedash training activity</p>
         </div>
         {done ? (
           <span className="animate-vignette-in bg-success/10 text-success inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[10px]">
             <FileCheck className="h-3 w-3" />
-            Ready in seconds
+            PDF ready
           </span>
         ) : assembling ? (
           <span className="bg-accent-amber-soft text-accent-amber inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[10px]">
             <Loader2 className="h-3 w-3 animate-spin" />
-            Assembling
+            Preparing report
           </span>
         ) : (
           <span className="border-border bg-surface-2 text-muted-foreground inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[10px]">
-            One click
+            PDF report
           </span>
         )}
       </div>
@@ -321,7 +319,7 @@ export function EvidencePacketVignette() {
         <div className="animate-vignette-in border-border bg-surface-2 mb-3 grid grid-cols-3 gap-2 rounded-xs border p-3 text-center">
           {[
             { value: "14", label: "Lessons" },
-            { value: "9", label: "Signatures" },
+            { value: "9", label: "Activities" },
             { value: "6", label: "Quizzes" },
           ].map((stat) => (
             <div key={stat.label}>
@@ -343,7 +341,7 @@ export function EvidencePacketVignette() {
           )}
         >
           <Download className="h-3.5 w-3.5" />
-          {done ? "Export PDF" : "Generate packet"}
+          {done ? "Download PDF" : "Prepare report"}
         </span>
         <span
           className={cn(
@@ -352,7 +350,7 @@ export function EvidencePacketVignette() {
           )}
         >
           <Download className="h-3.5 w-3.5" />
-          Export CSV
+          Report preview
         </span>
       </div>
     </BrowserFrame>
@@ -364,7 +362,7 @@ const MILESTONES = [
   { label: "Week 1", title: "Policy check-in", meta: "Backing & docking refresher" },
   { label: "Day 30", title: "Reinforcement + check-in", meta: "Manager check-in · short quiz" },
   { label: "Day 60", title: "Reinforcement", meta: "Route & fuel habits lesson" },
-  { label: "Day 90", title: "Review + graduation", meta: "Full record archived to evidence" },
+  { label: "Day 90", title: "Program review", meta: "Follow-up training complete" },
 ];
 
 /**
@@ -378,10 +376,10 @@ export function JourneyTrackVignette() {
   const milestone = MILESTONES[current];
 
   return (
-    <BrowserFrame url="app.raisedash.com/programs">
+    <BrowserFrame url="Concept preview · in development">
       <div className="mb-5 flex items-start justify-between gap-2">
         <div className="min-w-0">
-          <p className="text-foreground truncate text-sm font-normal">New driver program</p>
+          <p className="text-foreground truncate text-sm font-normal">Planned driver program</p>
           <p className="text-muted-foreground mt-0.5 truncate text-xs">
             J. Okafor · started Jun 30
           </p>
@@ -455,10 +453,10 @@ export function JourneyTrackVignette() {
             </span>
             <div className="min-w-0 flex-1">
               <p className="text-foreground truncate text-xs font-normal">
-                90 days, fully documented
+                Planned 90-day program complete
               </p>
               <p className="text-muted-foreground truncate text-[10px]">
-                Every check-in and lesson is in the evidence record
+                Concept preview with sample data
               </p>
             </div>
           </div>
@@ -514,10 +512,10 @@ export function CorrectiveLoopVignette() {
   const sealed = step >= 3;
 
   return (
-    <BrowserFrame url="app.raisedash.com/corrective-action">
+    <BrowserFrame url="Concept preview · in development">
       <div className="mb-4">
-        <p className="text-foreground text-sm font-normal">Corrective action — S. Patel</p>
-        <p className="text-muted-foreground mt-0.5 text-xs">Close the loop, and document it</p>
+        <p className="text-foreground text-sm font-normal">Planned corrective action — S. Patel</p>
+        <p className="text-muted-foreground mt-0.5 text-xs">Concept preview with sample data</p>
       </div>
       <div className="flex flex-col gap-2 sm:flex-row sm:items-stretch">
         {LOOP_STAGES.map((stage, index) => {
@@ -575,7 +573,7 @@ export function CorrectiveLoopVignette() {
         >
           <Lock className="text-accent-amber h-3.5 w-3.5 flex-shrink-0" />
           <p className="text-foreground text-xs">
-            Sealed into the evidence record — the insurer sees the whole loop at renewal
+            Planned: follow-up completion appears with the driver's training activity
           </p>
         </div>
       </div>

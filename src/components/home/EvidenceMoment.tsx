@@ -44,7 +44,7 @@ interface Fragment {
 const FRAGMENTS: Fragment[] = [
   {
     icon: FileText,
-    label: "Winter driving · v3",
+    label: "Winter driving",
     sub: "Lesson viewed · 11 min",
     tint: "text-accent-blue bg-accent-blue-soft",
     left: "6%",
@@ -54,7 +54,7 @@ const FRAGMENTS: Fragment[] = [
   },
   {
     icon: ClipboardCheck,
-    label: "Hazmat quiz · 92%",
+    label: "HOS & ELD quiz · 92%",
     sub: "Attempt 1 of 1",
     tint: "text-accent-amber bg-accent-amber-soft",
     left: "26%",
@@ -63,8 +63,8 @@ const FRAGMENTS: Fragment[] = [
   },
   {
     icon: FileCheck2,
-    label: "Policy signed",
-    sub: "Drug & alcohol · e-sign",
+    label: "Reading completed",
+    sub: "Accident procedures",
     tint: "text-accent-violet bg-accent-violet-soft",
     left: "64%",
     top: "10%",
@@ -92,8 +92,8 @@ const FRAGMENTS: Fragment[] = [
   },
   {
     icon: ClipboardCheck,
-    label: "Road test · Passed",
-    sub: "Examiner checklist",
+    label: "Pre-trip quiz · Passed",
+    sub: "Attempt 1 of 2",
     tint: "text-accent-blue bg-accent-blue-soft",
     left: "58%",
     top: "64%",
@@ -113,15 +113,14 @@ export function EvidenceMoment() {
       <div className="border-border bg-card rounded-xs border p-8 sm:p-12">
         <div className="mb-10 max-w-2xl">
           <p className="text-muted-foreground mb-3 text-sm font-normal tracking-wide uppercase">
-            The evidence engine
+            Training evidence
           </p>
           <h2 className="text-foreground text-3xl font-normal tracking-[-0.02em] sm:text-4xl">
-            Two years from now, in one click.
+            When someone asks, the record is already there.
           </h2>
           <p className="text-muted-foreground mt-3 text-lg">
-            Every lesson version, quiz score, signature, and timestamp is preserved forever. When an
-            auditor, insurer, or attorney asks, the complete packet assembles itself in seconds, not
-            days.
+            Raisedash keeps each driver&apos;s training history organized as the work happens, so
+            your team can review it without searching paper folders, inboxes, and spreadsheets.
           </p>
         </div>
 
@@ -188,7 +187,7 @@ export function EvidenceMoment() {
               )}
             >
               <ShieldCheck className="h-4 w-4" />
-              Generate packet
+              Download report
               {step === 2 ? (
                 <span className="animate-tap-ring border-foreground/40 absolute inset-0 rounded-xs border-2" />
               ) : null}
@@ -222,9 +221,9 @@ export function EvidenceMoment() {
             <div className="border-border bg-card absolute -top-[3px] left-[3px] h-full w-full rounded-xs border" />
             <div className="border-border bg-card relative rounded-xs border p-4 shadow-lg">
               <p className="text-muted-foreground text-[10px] tracking-wide uppercase">
-                Evidence packet
+                Training report
               </p>
-              <p className="text-foreground mt-0.5 text-sm">J. Carter — complete record</p>
+              <p className="text-foreground mt-0.5 text-sm">J. Carter — training record</p>
               <div className="mt-2.5 space-y-1">
                 <div className="bg-surface-3 h-1 w-full rounded-full" />
                 <div className="bg-surface-3 h-1 w-4/5 rounded-full" />
@@ -235,10 +234,7 @@ export function EvidenceMoment() {
                 <span className="bg-surface-3 text-muted-foreground rounded-xs px-1.5 py-0.5 text-[10px]">
                   PDF
                 </span>
-                <span className="bg-surface-3 text-muted-foreground rounded-xs px-1.5 py-0.5 text-[10px]">
-                  CSV
-                </span>
-                <span className="text-muted-foreground text-[10px]">· 34 pages · 2 years</span>
+                <span className="text-muted-foreground text-[10px]">· Training activity</span>
               </div>
               {/* Stamp */}
               {packetVisible ? (
@@ -251,7 +247,7 @@ export function EvidenceMoment() {
 
           {/* Scene caption */}
           <p className="text-muted-foreground absolute top-4 left-4 text-xs">
-            {gathered ? "Assembled in seconds." : "Two years of training records, scattered."}
+            {gathered ? "Report ready." : "Training details in one driver record."}
           </p>
         </div>
       </div>

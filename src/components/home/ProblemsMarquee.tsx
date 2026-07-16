@@ -6,45 +6,21 @@ import { Container } from "@/components/layout/Container";
 // Driver-readiness pains, mixed for variety. These are the day-to-day frustrations
 // a safety director, owner, and driver each feel before Raisedash.
 const ALL_PROBLEMS = [
-  // Orientation day
-  "Half the class shows up having done nothing?",
-  "Burning a paid classroom day on the handbook?",
-  "Scheduled drivers who never show up?",
-  "Paid for a hotel room for a no-show?",
-  "Orientation runs long because nobody prepped?",
-  "Re-teaching the same policies every single week?",
-  // Records & proof
-  "Training records scattered across folders and inboxes?",
-  "Signed acknowledgments buried in a desk drawer?",
-  "Can't prove what a driver was trained on two years ago?",
-  "Quiz scores and certificates lost in email?",
-  "A week-long scramble when a lawyer asks for records?",
-  "Auditor wants the file and you can't assemble it?",
-  "Insurance renewal and no documented safety process?",
-  "Road-test forms sitting in a paper folder somewhere?",
-  "No single place that shows who's actually ready?",
-  // Driver experience
-  "Drivers who hate portals and passwords?",
-  "New hires who don't even use email?",
-  "Desktop training software your drivers won't touch?",
-  "Spanish-speaking drivers stuck with English-only lessons?",
-  "Making a driver reset a password before day one?",
-  // After an incident
-  "A crash and no record of the driver's training?",
-  "A citation with no follow-up training assigned?",
-  "Failed road test and nothing documented afterward?",
-  "Roadside inspection issue that never got addressed?",
-  "No paper trail for corrective action?",
-  // First 90 days
-  "New driver's first 90 days left to chance?",
-  "No day-30 or day-60 check-in that actually happens?",
-  "Refresher training that everyone forgets to send?",
-  // Admin reality
+  "Orientation starts from zero every Monday?",
+  "Repeating the same material for every class?",
+  "Paid orientation time spent on paperwork?",
+  "Travel booked before prerequisites are finished?",
+  "A driver no-shows after plans are already made?",
+  "No clear view of who is prepared?",
+  "Training records spread across paper, email, and spreadsheets?",
+  "Hard to answer what a driver completed and when?",
+  "Follow-up stops when orientation ends?",
+  "The first 90 days managed from memory?",
+  "A safety issue handled but the response never documented?",
+  "Each terminal runs orientation differently?",
+  "Drivers struggling with office-first software?",
   "One person doing safety, HR, and half of recruiting?",
-  "Onboarding that takes weeks instead of days?",
-  "Software that needs a support call to add a driver?",
-  "Expiration dates tracked on sticky notes?",
-  "Six-week implementation before you can even start?",
+  "Pulling a driver record together takes too long?",
 ];
 
 // Fisher-Yates shuffle

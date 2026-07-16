@@ -28,75 +28,70 @@ import {
 
 const FEATURES: PlatformFeature[] = [
   {
-    title: "A text message, that's it",
-    description:
-      "The driver gets an SMS with a link. Tapping it opens everything they need — no account to set up, no form to fill out first.",
+    title: "A direct invitation",
+    description: "The driver gets a clear link to the orientation assigned by your fleet.",
     icon: MessageSquare,
   },
   {
-    title: "No passwords",
-    description:
-      "Nothing to remember and nothing to reset. The link is the sign-in, so a driver is never locked out of their own training.",
+    title: "A simple sign-in",
+    description: "A one-time code replaces another password to create, remember, or reset.",
     icon: KeyRound,
   },
   {
-    title: "No app store",
+    title: "Nothing to install",
     description:
       "It runs in the phone's browser. There's no app to download, no update to install, and no storage to free up.",
     icon: Smartphone,
   },
   {
-    title: "No email required",
-    description:
-      "Plenty of drivers don't use email. Invitations, reminders, and sign-in all work over SMS, so no one is left out.",
+    title: "Built around the phone",
+    description: "Pages, lessons, and questions are designed for the screen drivers already use.",
     icon: MailX,
   },
   {
-    title: "Short, plain-language lessons",
+    title: "Everything in one place",
     description:
-      "Lessons run a few minutes each, written in plain language, so they fit into the gaps of a real driving day.",
+      "Drivers can move through video, reading, and quiz lessons in the same experience.",
     icon: Timer,
   },
   {
-    title: "English and Spanish, with captions",
-    description:
-      "The driver picks their language and the video is captioned. There's nothing for your team to configure.",
+    title: "A clear next step",
+    description: "Drivers can see what was assigned, what is complete, and what comes next.",
     icon: Languages,
   },
   {
-    title: "A clear reason for every assignment",
-    description:
-      "Each lesson shows why it was assigned. The driver isn't treated as a suspect — they know what they're doing and why.",
+    title: "Progress that saves",
+    description: "Completed work stays recorded when a driver leaves and returns later.",
     icon: BadgeInfo,
   },
   {
-    title: "Works for owner-operators too",
+    title: "Progress your team can see",
     description:
-      "An owner-operator contracting with your fleet gets the same simple, passwordless experience as a company driver.",
+      "The safety team can see whether the driver's assignment has started, is moving, or is done.",
     icon: Truck,
   },
 ];
 
 const STEPS: PlatformStep[] = [
   {
-    title: "A text lands",
+    title: "Receive a clear invitation",
     description:
-      "The driver gets an SMS from your fleet with a single link. No app prompt, no signup wall, no welcome email to dig for.",
+      "The driver gets an SMS or email from your fleet with a direct link to the assigned training.",
   },
   {
-    title: "They tap and start",
+    title: "Get in without setup trouble",
     description:
-      "The link opens their assignments right in the browser. No password to create, no email to verify, nothing to install.",
+      "The link opens in the phone browser. A one-time code confirms the driver's identity without a saved password.",
   },
   {
-    title: "They finish on their own time",
+    title: "Know what to do next",
     description:
-      "Short lessons in English or Spanish, with captions, that save progress — so they can stop for a load and resume right where they were.",
+      "A simple assignment list guides the driver through videos, readings, and quizzes in order.",
   },
   {
-    title: "They always know why",
+    title: "Stop and return when needed",
     description:
-      "Every assignment shows the reason it was given, so training reads as part of the job rather than a gotcha.",
+      "Completed work stays recorded, so the driver can return without starting the whole assignment again.",
   },
 ];
 
@@ -104,27 +99,26 @@ const FAQS: PlatformFaq[] = [
   {
     question: "Do drivers need to download an app?",
     answer:
-      "No. Everything runs in the phone's web browser from a text-message link. There's no app store, and nothing to install or keep updated.",
+      "No. Everything runs in the phone's web browser from an SMS or email link. There is nothing to install or keep updated.",
   },
   {
-    question: "Do drivers need an email address or a password?",
+    question: "Do drivers need an email address?",
     answer:
-      "Neither. The SMS link is the sign-in. Invitations and reminders come by text, so a driver who doesn't use email is never blocked from finishing their training.",
+      "Not if you invite them by SMS. Drivers sign in with a one-time code instead of creating a password.",
   },
   {
-    question: "Is it available in Spanish?",
-    answer:
-      "Yes. The lessons and the whole experience work in English and Spanish, and the video is captioned. The driver chooses their language; your team doesn't have to manage it.",
+    question: "What can drivers complete on a phone?",
+    answer: "Drivers can complete video, reading, and quiz lessons in the mobile browser.",
   },
   {
-    question: "Does it work for owner-operators?",
+    question: "Does Raisedash replace hands-on training?",
     answer:
-      "Yes. An owner-operator who contracts with your fleet gets the same passwordless, phone-first experience as a company driver.",
+      "No. Raisedash handles online lessons and quizzes. Your fleet still runs road tests, equipment checks, and other hands-on work through its normal process.",
   },
   {
-    question: "Will older phones or weak signal be a problem?",
+    question: "What happens when a driver leaves and comes back?",
     answer:
-      "The experience is built to be light. Lessons are short, pages load on modest connections, and progress saves as the driver goes — so a dropped signal at a truck stop doesn't cost them their work.",
+      "Completed work stays recorded, so the driver can return to the assignment without starting the whole training again.",
   },
 ];
 
@@ -154,7 +148,7 @@ function DriverPhoneVignette() {
           </div>
         ) : (
           <div className="animate-vignette-in bg-surface-2 text-foreground mb-4 max-w-[85%] rounded-xs rounded-tl-none px-3 py-2 text-xs leading-relaxed">
-            You&apos;re set to start Monday. Tap to begin your orientation — no login needed:{" "}
+            You&apos;re set to start Monday. Tap to open your orientation:{" "}
             <span className="text-accent-violet">rd.sh/a1b2</span>
           </div>
         )}
@@ -167,7 +161,7 @@ function DriverPhoneVignette() {
           >
             <div className="mb-2 flex items-center justify-between">
               <span className="text-muted-foreground text-[10px]">
-                {spanish ? "Orientación · 2 de 6" : "Orientation · 2 of 6"}
+                {spanish ? "Orientation · quiz" : "Orientation · video"}
               </span>
               <div className="flex gap-1">
                 <span
@@ -176,7 +170,7 @@ function DriverPhoneVignette() {
                     spanish ? "bg-surface-3 text-muted-foreground" : "bg-accent-violet text-white"
                   )}
                 >
-                  EN
+                  VIDEO
                 </span>
                 <span
                   className={cn(
@@ -184,21 +178,21 @@ function DriverPhoneVignette() {
                     spanish ? "bg-accent-violet text-white" : "bg-surface-3 text-muted-foreground"
                   )}
                 >
-                  ES
+                  QUIZ
                 </span>
               </div>
             </div>
             <div className="bg-surface-3 relative mb-3 flex aspect-video items-center justify-center overflow-hidden rounded-xs">
               <PlayCircle className="text-foreground/70 h-8 w-8" />
               <span className="text-muted-foreground absolute bottom-1.5 left-2 text-[9px]">
-                {spanish ? "subtítulos" : "captions on"}
+                {spanish ? "Knowledge check" : "Video lesson"}
               </span>
             </div>
             <p className="text-foreground text-xs font-normal">
-              {spanish ? "Inspección antes del viaje" : "Pre-trip inspection basics"}
+              {spanish ? "Backing at customer sites" : "Pre-trip inspection basics"}
             </p>
             <p className="text-muted-foreground mt-0.5 text-[10px]">
-              {spanish ? "4 min · lenguaje sencillo" : "4 min · plain language"}
+              {spanish ? "Quiz · 5 questions" : "Assigned lesson"}
             </p>
             <div className="bg-surface-3 mt-2.5 h-1.5 w-full overflow-hidden rounded-full">
               <div
@@ -207,7 +201,7 @@ function DriverPhoneVignette() {
               />
             </div>
             <div className="bg-primary text-primary-foreground mt-3 flex items-center justify-center rounded-xs px-3 py-2 text-xs">
-              {spanish ? "Continuar" : "Continue"}
+              Continue
             </div>
           </div>
         ) : null}
@@ -235,38 +229,40 @@ function DriverPhoneVignette() {
 export default function DriverExperience() {
   return (
     <PageLayout
-      title="Mobile Driver Training Experience — SMS Onboarding"
-      description="No passwords. No app store. No email. Raisedash sends driver training by text and opens it in the phone's browser — short lessons in English and Spanish, with captions and a clear reason for every assignment. Owner-operators included."
+      title="Mobile Driver Training for Trucking Fleets"
+      description="Give drivers a clear, phone-friendly path through orientation without an app download or another password to remember."
       keywords={[
         "mobile driver training experience",
         "SMS driver onboarding",
         "passwordless driver training",
         "phone-first trucking training",
-        "bilingual driver training app",
+        "easy driver training software",
       ]}
     >
       <PlatformHero
         eyebrow="The driver experience"
         eyebrowIcon={Smartphone}
-        title="No passwords. No app store. No email. A text and a phone — that's it."
-        subhead="Drivers live on their phones, not at desks. Raisedash meets them there: a text message opens their training in the browser, in English or Spanish, with short lessons and a clear reason for every one. Nothing to download, nothing to remember."
+        title="Training should be easy to start and easy to finish."
+        subhead="Raisedash gives drivers a clear path from the first invite to completed orientation, built around the phone they already use so getting into training does not become another task."
         vignette={<DriverPhoneVignette />}
       />
 
       {/* Problem */}
-      <PlatformSection eyebrow="The problem" title="Why drivers quit on training software">
+      <PlatformSection
+        eyebrow="The problem"
+        title="Every extra step gives a driver another reason to stop"
+      >
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-5">
           <div className="border-border bg-card rounded-xs border p-6 sm:p-8 lg:col-span-3">
             <p className="text-muted-foreground text-lg leading-relaxed font-normal">
-              Most training tools were built for someone at a desk. They hand a driver a
-              password-protected desktop portal, ask for an email address the driver doesn't use,
-              and push them to an app store to download something that eats their storage. Every one
-              of those is a place to give up — and drivers do.
+              Drivers are not desk workers. When training expects a desktop, another password, or an
+              app download, a simple assignment can quickly turn into a support call or another
+              incomplete task.
             </p>
             <p className="text-muted-foreground mt-4 text-lg leading-relaxed font-normal">
-              A driver who can't get in doesn't get trained. And a fleet that can't get drivers
-              through training doesn't have a record to show for it. The interface is the whole
-              problem.
+              Raisedash keeps the path clear from the first message to the final lesson. Drivers
+              spend their time on the orientation itself, while your team spends less time helping
+              people get into it.
             </p>
           </div>
           <div className="border-border bg-surface-2 rounded-xs border p-6 sm:p-8 lg:col-span-2">
@@ -276,9 +272,9 @@ export default function DriverExperience() {
             <ul className="space-y-3">
               {[
                 "Passwords to create, forget, and reset",
-                "An email address they may not have",
+                "An email-only invitation",
                 "An app to find, download, and update",
-                "No idea why a lesson was even assigned",
+                "A desktop-only training page",
               ].map((item) => (
                 <li
                   key={item}
@@ -297,8 +293,8 @@ export default function DriverExperience() {
       <PlatformSection
         id="how-it-works"
         eyebrow="How it works"
-        title="From a text to a finished lesson, with nothing in the way"
-        lede="Remove every step that gives a driver a reason to quit, and what's left is a text and a phone."
+        title="A clear path from invite to completion"
+        lede="Each step is designed to answer the driver's next question without adding more work for your office."
       >
         <StepList steps={STEPS} />
       </PlatformSection>
@@ -306,7 +302,7 @@ export default function DriverExperience() {
       {/* Feature grid */}
       <PlatformSection
         eyebrow="Built for the driver"
-        title="Everything a driver needs, nothing they don't"
+        title="Less friction for the driver. Less chasing for your team."
       >
         <FeatureGrid features={FEATURES} columns={4} accent="violet" />
       </PlatformSection>
@@ -319,9 +315,9 @@ export default function DriverExperience() {
 
       {/* CTA */}
       <PlatformCTA
-        title="Try the driver experience the way a driver would."
-        subtitle="Book a demo and open a real lesson from a text message — no passwords, no app, no email."
-        footnote="English and Spanish, with captions, on the phone drivers already carry."
+        title="See orientation from the driver's side."
+        subtitle="Book a demo and follow the same path a new driver would take."
+        footnote="Raisedash runs in a mobile browser. No app download is required."
       />
     </PageLayout>
   );

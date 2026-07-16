@@ -6,18 +6,18 @@ import { useVignetteTimeline } from "@/hooks/useVignetteTimeline";
 const steps = [
   {
     number: "1",
-    title: "Hire an approved driver",
-    body: "Add them in seconds and pick a program. Their pre-arrival orientation is assigned automatically, no support call required.",
+    title: "Prepare the driver before arrival",
+    body: "Assign the orientation your fleet expects and give the driver time to complete the online portion before terminal day.",
   },
   {
     number: "2",
-    title: "They finish it on their phone",
-    body: "The driver gets a text link and completes lessons, quizzes, and signatures before they ever reach the terminal.",
+    title: "See who needs attention",
+    body: "Know who is prepared, who is still working, and who needs a follow-up before orientation day.",
   },
   {
     number: "3",
-    title: "You see who's ready, and keep the proof",
-    body: "Watch the ready board fill in, then keep a permanent, version-locked record of everything, ready to produce in one click.",
+    title: "Keep the record as you go",
+    body: "Training history stays with the driver, ready for your team to review when questions come later.",
   },
 ];
 
@@ -35,7 +35,7 @@ export function HowItWorks() {
             How it works
           </p>
           <h2 className="text-foreground text-3xl font-normal tracking-[-0.02em] sm:text-4xl">
-            Set up before lunch. Not after a six-week implementation.
+            One workflow from new hire to documented readiness.
           </h2>
         </div>
 

@@ -4,23 +4,23 @@ import { Container } from "@/components/layout/Container";
 const points = [
   {
     icon: Smartphone,
-    title: "A text and a phone",
-    body: "Hire approved, driver gets an SMS link. No app store, no download.",
+    title: "Open from the invite",
+    body: "A text or email takes the driver directly to the assigned work.",
   },
   {
     icon: KeyRound,
-    title: "No passwords, no email",
-    body: "Passwordless sign-in built for drivers who live on their phones.",
+    title: "No password to remember",
+    body: "A one-time code keeps sign-in simple.",
   },
   {
     icon: Languages,
-    title: "English and Spanish",
-    body: "The full driver experience, with captions and transcripts on everything.",
+    title: "Nothing to install",
+    body: "Training opens in the phone&apos;s browser, with no app download.",
   },
   {
     icon: PlayCircle,
-    title: "Short lessons",
-    body: "Three to ten minutes each, low-bandwidth, and resume where you left off.",
+    title: "Clear progress",
+    body: "Drivers can see what is left and return without losing completed work.",
   },
 ];
 
@@ -33,10 +33,10 @@ export function ForDrivers() {
             For drivers
           </p>
           <h2 className="text-foreground text-2xl font-normal tracking-[-0.02em] sm:text-3xl">
-            Built for the driver, not the office.
+            Simple for the driver from the first tap.
           </h2>
           <p className="text-muted-foreground mt-3 text-lg">
-            No passwords. No app store. No email. A text message and a phone, that&apos;s it.
+            A clear path into training, without another app or account to manage.
           </p>
         </div>
 

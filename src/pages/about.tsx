@@ -1,46 +1,91 @@
+import * as React from "react";
 import Link from "next/link";
+import {
+  Boxes,
+  Eye,
+  FileText,
+  HeartHandshake,
+  Milestone,
+  MousePointerClick,
+  Receipt,
+} from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import { Container } from "@/components/layout/Container";
 import { PageLayout } from "@/components/layout/PageLayout";
-import { Button } from "@/components/ui/Button";
+import { PlatformCTA } from "@/components/platform";
+import { HalftoneTruck } from "@/components/ui/HalftoneTruck";
+import { cn } from "@/lib/cn";
 
-const principles = [
+const principles: { icon: LucideIcon; title: string; body: string }[] = [
   {
-    title: "Proof over volume",
-    body: "We measure ourselves by the strength of the record we keep, not the size of a video library. A defensible evidence trail matters more than a bigger catalog.",
-    delay: "delay-400",
+    icon: FileText,
+    title: "Clear records over a large catalog",
+    body: "We focus on making your own training easy to send, track, and review. A useful driver record matters more than a long list of generic courses.",
   },
   {
-    title: "We never rewrite history",
-    body: "When a policy or lesson changes, we never silently alter what a driver already completed. A finished record stays exactly as it was, with its original version and timestamp, forever.",
-    delay: "delay-500",
+    icon: Eye,
+    title: "Be clear about what the product does",
+    body: "We explain current features as current and planned features as planned. Fleet teams should know exactly what they are buying.",
   },
   {
+    icon: HeartHandshake,
     title: "The driver is a user, not a suspect",
     body: "Drivers deserve a clear, respectful experience, a plain reason for every assignment, and their privacy protected. We build for the person holding the phone.",
-    delay: "delay-600",
   },
   {
+    icon: MousePointerClick,
     title: "Self-serve first",
-    body: "You should be able to add a driver, launch a program, or pull a record without a support call. Software should do the basic work so people can add strategy.",
-    delay: "delay-700",
+    body: "You should be able to add a driver, send training, or download a report without a support call. Software should make the basic work easier.",
   },
   {
+    icon: Boxes,
     title: "Vendor-neutral by design",
-    body: "Fleets switch cameras, ELDs, and recruiting systems. Your readiness workflow and evidence archive should survive every switch, not reset with it.",
-    delay: "delay-800",
+    body: "Fleets use different cameras, ELDs, and recruiting systems. Training software should not force a fleet into one hardware vendor.",
   },
   {
+    icon: Receipt,
     title: "Honest, transparent pricing",
-    body: "Plain prices, an honest definition of an active driver, and your own records exportable any time. No quote games, no hostage data.",
-    delay: "delay-900",
+    body: "Pricing and product limits should be easy to understand. We will publish final pricing when it is ready.",
   },
 ];
+
+/**
+ * A titled prose band: heading held in a narrow left column, body text flowing
+ * in the wider right column. Keeps the section rhythm editorial and consistent
+ * with the platform pages instead of stacking identical full-width cards.
+ */
+function StorySection({ title, paragraphs }: { title: string; paragraphs: React.ReactNode[] }) {
+  return (
+    <Container className="py-12 md:px-0">
+      <div className="grid gap-x-10 gap-y-5 md:grid-cols-12">
+        <div className="md:col-span-4">
+          <h2 className="text-foreground text-2xl font-normal tracking-[-0.02em] sm:text-3xl">
+            {title}
+          </h2>
+        </div>
+        <div className="max-w-2xl space-y-4 md:col-span-8">
+          {paragraphs.map((paragraph, index) => (
+            <p
+              key={index}
+              className={cn(
+                "text-muted-foreground leading-relaxed font-normal",
+                index === 0 ? "text-lg" : "text-base"
+              )}
+            >
+              {paragraph}
+            </p>
+          ))}
+        </div>
+      </div>
+    </Container>
+  );
+}
 
 export default function About() {
   return (
     <PageLayout
       title="About Us"
-      description="Raisedash is the driver readiness platform for modern trucking fleets. We get every new driver road-ready before day one and keep court-ready proof of every bit of training, forever."
+      description="Raisedash helps U.S. trucking fleets send driver orientation, track training progress, and download a clear PDF report."
       keywords={[
         "about raisedash",
         "driver readiness platform",
@@ -49,134 +94,108 @@ export default function About() {
         "training evidence records",
       ]}
     >
-      {/* Hero Section */}
-      <div className="pt-8 pb-12">
-        <Container className="bg-card border-border animate-fade-in-scale rounded-xs border px-8 py-12 delay-0 sm:px-12 sm:py-16">
-          <div className="max-w-3xl">
+      {/* Hero */}
+      <div className="pt-8 pb-8">
+        <Container className="bg-card border-border animate-fade-in-scale relative overflow-hidden rounded-xs border px-6 py-12 delay-0 sm:px-12 sm:py-16">
+          <HalftoneTruck
+            flip
+            className="text-foreground pointer-events-none absolute -right-10 -bottom-10 hidden w-72 opacity-[0.09] sm:block sm:w-96"
+          />
+          <div className="relative max-w-3xl">
             <h1 className="text-foreground animate-fade-in-up text-4xl leading-tight font-normal tracking-[-0.03em] delay-75 sm:text-[48px]">
               About Raisedash
             </h1>
-            <p className="text-muted-foreground animate-fade-in-up mt-6 text-xl leading-relaxed font-normal delay-150">
-              We build the driver readiness platform for modern trucking fleets. Our job is to get
-              every new driver trained, signed, and road-ready before they arrive at the terminal,
-              and to keep the proof of it for as long as a fleet needs it.
+            <p className="text-muted-foreground animate-fade-in-up mt-6 max-w-2xl text-lg leading-relaxed font-normal delay-150 sm:text-xl">
+              We build simple driver orientation software for U.S. trucking fleets. Safety teams
+              send training by SMS or email, drivers complete it on a phone, and the fleet tracks
+              the record in one place.
             </p>
           </div>
         </Container>
       </div>
 
-      {/* Mission Section */}
-      <Container className="py-12 md:px-0">
-        <div className="bg-card border-border animate-fade-in-scale rounded-xs border p-8 delay-200 sm:p-12">
-          <h2 className="text-foreground mb-6 text-3xl font-normal tracking-[-0.02em] sm:text-4xl">
-            Our Mission
-          </h2>
-          <p className="text-muted-foreground mb-6 text-lg leading-relaxed font-normal">
-            Get every driver road-ready before day one, and keep proof that lasts forever. A new
-            driver should finish orientation on their phone before they ever walk in the door, and a
-            safety director should see exactly who is ready before orientation morning.
-          </p>
-          <p className="text-muted-foreground text-base leading-relaxed font-normal">
-            When an insurer, an auditor, or a lawyer asks what a driver was trained on, the answer
-            should take one click, not one week. Every lesson version, signature, score, and
-            timestamp preserved, and a complete record assembled in seconds. That is the promise we
-            build toward every day.
-          </p>
-        </div>
-      </Container>
+      {/* Mission */}
+      <StorySection
+        title="Our mission"
+        paragraphs={[
+          "Make driver orientation easier for the people running it and the drivers completing it. Online lessons should work on a phone, and safety teams should be able to see progress without chasing several files.",
+          "Raisedash records the online training activity it handles and lets the fleet download a PDF report for one driver. It does not decide whether a driver is legally qualified or replace the carrier’s other required records.",
+        ]}
+      />
 
-      {/* Problem Section */}
-      <Container className="py-12 md:px-0">
-        <div className="bg-card border-border animate-fade-in-scale rounded-xs border p-8 delay-300 sm:p-12">
-          <h2 className="text-foreground mb-6 text-3xl font-normal tracking-[-0.02em] sm:text-4xl">
-            The problem we saw
-          </h2>
-          <p className="text-muted-foreground mb-6 text-lg leading-relaxed font-normal">
-            A mid-size fleet hires constantly, and every new driver goes through orientation,
-            usually one to three days of paid classroom time, often with travel and a hotel on top.
-            Too often, half the class shows up having done nothing in advance, and the safety
-            director burns a paid day walking people through a handbook they could have read at
-            home. Some scheduled drivers never show up at all, after the fleet already paid for the
-            room.
-          </p>
-          <p className="text-muted-foreground mb-6 text-base leading-relaxed font-normal">
-            The records are worse. Policy acknowledgments, quiz results, road-test forms, and
-            certificates end up scattered across paper folders, spreadsheets, email threads, and
-            someone's desk drawer. When a crash leads to a discovery request, or an insurer or
-            auditor asks, reconstructing exactly what one driver was trained on two years ago can
-            take days, if it is possible at all.
-          </p>
-          <p className="text-muted-foreground text-base leading-relaxed font-normal">
-            And the software built to fix this mostly looks like it shipped twenty years ago:
-            desktop portals and passwords for people who live on their phones, and a support call
-            for the simplest task. We thought a fleet running on one overloaded safety director
-            deserved better.
-          </p>
-        </div>
-      </Container>
+      {/* Problem */}
+      <StorySection
+        title="The problem we saw"
+        paragraphs={[
+          "Trucking fleets repeat the same orientation material for each group of new hires. Safety teams spend time sending links, checking progress, answering sign-in questions, and pulling records together by hand.",
+          "Training assignments, quiz results, completion dates, and certificates can end up split across paper, spreadsheets, email, and separate course tools. That makes a simple driver training review harder than it needs to be.",
+          "Drivers need a simple mobile experience. Safety teams need a clear progress view and a report they can download without rebuilding the record by hand.",
+        ]}
+      />
 
-      {/* Principles Section */}
+      {/* Principles */}
       <Container className="py-12 md:px-0">
-        <div className="animate-fade-in-up mb-10 text-center delay-300">
-          <h2 className="text-foreground text-3xl font-normal tracking-[-0.02em] sm:text-4xl">
+        <div className="mb-8 max-w-2xl">
+          <h2 className="text-foreground text-2xl font-normal tracking-[-0.02em] sm:text-3xl">
             What we believe
           </h2>
-          <p className="text-muted-foreground mx-auto mt-3 max-w-2xl text-lg">
+          <p className="text-muted-foreground mt-3 text-lg leading-relaxed font-normal">
             The principles that guide every product and pricing decision we make.
           </p>
         </div>
-        <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
-          {principles.map((principle) => (
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {principles.map(({ icon: Icon, title, body }) => (
             <div
-              key={principle.title}
-              className={`bg-card border-border hover:bg-surface-2 animate-fade-in-scale rounded-xs border p-6 transition-all duration-[0.15s] hover:-translate-y-0.5 ${principle.delay}`}
+              key={title}
+              className="group bg-card border-border hover:bg-surface-2 flex flex-col rounded-xs border p-6 transition-all duration-[0.15s] hover:-translate-y-0.5"
             >
-              <h3 className="text-foreground mb-2 text-xl font-normal tracking-[-0.01em]">
-                {principle.title}
+              <div className="bg-surface-2 border-border text-foreground group-hover:bg-primary group-hover:text-primary-foreground group-hover:border-primary mb-4 flex h-10 w-10 items-center justify-center rounded-xs border transition-colors duration-[0.15s]">
+                <Icon className="h-5 w-5" />
+              </div>
+              <h3 className="text-foreground mb-2 text-base font-normal tracking-[-0.01em]">
+                {title}
               </h3>
-              <p className="text-muted-foreground text-base leading-relaxed">{principle.body}</p>
+              <p className="text-muted-foreground text-sm leading-relaxed font-normal">{body}</p>
             </div>
           ))}
         </div>
       </Container>
 
-      {/* Refocus Note Section */}
+      {/* Where we're headed — a distinct note band before the CTA */}
       <Container className="py-12 md:px-0">
-        <div className="bg-card border-border animate-fade-in-scale rounded-xs border p-8 delay-1000 sm:p-12">
-          <h2 className="text-foreground mb-6 text-2xl font-normal tracking-[-0.02em] sm:text-3xl">
-            Where we're headed
-          </h2>
-          <p className="text-muted-foreground text-base leading-relaxed font-normal">
-            Raisedash refocused on driver readiness in July 2026. We used to frame our work around
-            continuous compliance and safety monitoring. Today we build the system that gets drivers
-            ready before day one and keeps the proof, because that is where the real pain, the
-            paperwork, and the risk sit for the fleets we serve. You can read the full story in our{" "}
-            <Link
-              href="/blog/raisedash-driver-readiness-platform-pivot"
-              className="text-foreground underline underline-offset-4 hover:no-underline"
-            >
-              announcement
-            </Link>
-            .
-          </p>
+        <div className="bg-surface-2 border-border rounded-xs border p-6 sm:p-8">
+          <div className="max-w-3xl">
+            <div className="text-muted-foreground mb-4 flex items-center gap-2">
+              <span className="border-border bg-card text-foreground flex h-8 w-8 items-center justify-center rounded-xs border">
+                <Milestone className="h-4 w-4" />
+              </span>
+              <span className="text-xs tracking-wide uppercase">The 2026 refocus</span>
+            </div>
+            <h2 className="text-foreground mb-4 text-2xl font-normal tracking-[-0.02em] sm:text-3xl">
+              Where we&apos;re headed
+            </h2>
+            <p className="text-muted-foreground text-base leading-relaxed font-normal">
+              Raisedash refocused on driver readiness in July 2026. We used to frame our work around
+              continuous compliance and safety monitoring. Today we focus on phone-based driver
+              orientation and training records because that is a clear, everyday job for the fleets
+              we serve. You can read the full story in our{" "}
+              <Link
+                href="/blog/raisedash-driver-readiness-platform-pivot"
+                className="text-foreground underline underline-offset-4 hover:no-underline"
+              >
+                announcement
+              </Link>
+              .
+            </p>
+          </div>
         </div>
       </Container>
 
-      {/* CTA Section */}
-      <Container className="pb-12 md:px-0">
-        <div className="bg-card border-border animate-fade-in-scale rounded-xs border p-8 text-center delay-1100 sm:p-12">
-          <h2 className="text-foreground mb-4 text-2xl font-normal tracking-[-0.02em] sm:text-3xl">
-            Ready to get your drivers road-ready?
-          </h2>
-          <p className="text-muted-foreground mx-auto mb-8 max-w-xl text-lg">
-            Book a demo and we'll walk you through the readiness board and a one-click evidence
-            packet, built around your own orientation.
-          </p>
-          <Link href="/demo">
-            <Button size="lg">Book a demo</Button>
-          </Link>
-        </div>
-      </Container>
+      {/* CTA */}
+      <PlatformCTA
+        title="Ready to simplify driver orientation?"
+        subtitle="Book a demo and we'll show you the driver experience, progress tracking, and PDF report."
+      />
     </PageLayout>
   );
 }

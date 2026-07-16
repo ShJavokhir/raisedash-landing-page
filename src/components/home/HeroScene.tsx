@@ -97,7 +97,7 @@ function PhoneScreen({ step }: { step: number }) {
       {view === "signature" ? (
         <div key="signature" className="animate-vignette-in flex flex-1 flex-col">
           <p className="text-muted-foreground mb-1 text-[9px] tracking-wide uppercase">
-            L. Sosa · Drug &amp; alcohol policy
+            L. Sosa · Knowledge check
           </p>
           <div className="border-border bg-surface-2 relative mt-1 flex-1 rounded-xs border">
             <svg
@@ -121,10 +121,10 @@ function PhoneScreen({ step }: { step: number }) {
           <div className="mt-2">
             {step >= 5 ? (
               <p className="animate-vignette-in text-success flex items-center gap-1 text-[10px]">
-                <CheckCircle2 className="h-3 w-3" /> Signed &amp; recorded
+                <CheckCircle2 className="h-3 w-3" /> Quiz submitted
               </p>
             ) : (
-              <p className="text-muted-foreground text-[10px]">Sign to acknowledge</p>
+              <p className="text-muted-foreground text-[10px]">Review and submit</p>
             )}
           </div>
         </div>
@@ -138,8 +138,8 @@ function PhoneScreen({ step }: { step: number }) {
           <span className="bg-success/10 text-success mb-2 flex h-8 w-8 items-center justify-center rounded-full">
             <CheckCircle2 className="h-4 w-4" />
           </span>
-          <p className="text-foreground text-[11px]">You&apos;re set for Monday</p>
-          <p className="text-muted-foreground mt-0.5 text-[10px]">Orientation · 8:00 AM</p>
+          <p className="text-foreground text-[11px]">Assigned training complete</p>
+          <p className="text-muted-foreground mt-0.5 text-[10px]">Orientation program</p>
         </div>
       ) : null}
     </div>
@@ -160,7 +160,7 @@ export function HeroScene() {
       <div className="border-border bg-background absolute top-0 right-0 w-[19rem] rounded-xs border p-4">
         <div className="mb-3 flex items-center justify-between">
           <div>
-            <p className="text-foreground text-sm font-normal">Ready board</p>
+            <p className="text-foreground text-sm font-normal">Training progress</p>
             <p className="text-muted-foreground text-xs">Monday orientation</p>
           </div>
           <span
@@ -171,7 +171,7 @@ export function HeroScene() {
                 : "bg-surface-3 text-foreground"
             )}
           >
-            {allReady ? "All 5 ready" : `${readyCount} of 5 ready`}
+            {allReady ? "All 5 complete" : `${readyCount} of 5 complete`}
           </span>
         </div>
 
@@ -205,12 +205,12 @@ export function HeroScene() {
                     )}
                   >
                     <CheckCircle2 className="h-3.5 w-3.5" />
-                    Ready
+                    Complete
                   </span>
                 ) : isSosa ? (
                   <span className="bg-accent-violet-soft text-accent-violet inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 text-xs">
                     <FileSignature className="h-3.5 w-3.5" />
-                    Signature
+                    Quiz left
                   </span>
                 ) : (
                   <span className="bg-accent-amber-soft text-accent-amber inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 text-xs">
@@ -263,7 +263,7 @@ export function HeroScene() {
             } as React.CSSProperties
           }
         >
-          <FileSignature className="h-3 w-3" /> Signed
+          <FileSignature className="h-3 w-3" /> Quiz passed
         </div>
       ) : null}
 

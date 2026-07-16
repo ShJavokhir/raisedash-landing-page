@@ -27,153 +27,148 @@ import {
 
 const FEATURES: PlatformFeature[] = [
   {
-    title: "Version-locked records",
-    description:
-      "Every lesson version, acknowledgment text, quiz attempt, score, signature, and timestamp is captured and preserved. What a driver saw is exactly what stays on file.",
+    title: "What was assigned",
+    description: "See the training assigned to a driver and the current status of each assignment.",
     icon: Lock,
   },
   {
-    title: "Editing never rewrites history",
-    description:
-      "Improve a course tomorrow and a driver who finished last year keeps the exact version they completed. A completed record is never silently changed.",
+    title: "When it was completed",
+    description: "Keep a clear date for every training the driver completed.",
     icon: History,
   },
   {
-    title: "One-click evidence packet",
-    description:
-      "Assemble a complete, organized record for any driver in seconds — the thing that used to take days of digging through folders and inboxes.",
+    title: "One report to review",
+    description: "Bring the driver's Raisedash training details together in one PDF.",
     icon: FileCheck,
   },
   {
-    title: "Built for the people who ask",
+    title: "A copy you can share",
     description:
-      "Auditors, insurers, and attorneys in discovery all ask the same question: what was this driver trained on, and when? The packet answers it.",
+      "Use the report for an internal review or send it to the people your fleet chooses.",
     icon: Scale,
   },
   {
-    title: "Exports in every plan",
-    description:
-      "PDF and CSV exports are included on every plan. Your completion records are yours — we never hold them hostage behind a higher tier.",
+    title: "How the driver did",
+    description: "Review recorded quiz attempts and scores next to the training assignment.",
     icon: Download,
   },
   {
-    title: "Signatures with the real text",
-    description:
-      "Policy acknowledgments and e-signatures are stored with the exact language the driver agreed to, not just a checked box.",
+    title: "Recorded activity",
+    description: "See the active time recorded while the driver worked through the training.",
     icon: PenLine,
   },
   {
-    title: "Everything under one driver",
+    title: "One driver history",
     description:
-      "Lessons, quizzes, signatures, and road-test checklists live together on each driver's record.",
+      "Keep trainings, quiz results, activity, and certificates together under one driver.",
     icon: Layers,
   },
   {
-    title: "A timeline with timestamps",
-    description:
-      "Each record carries its own date and time, assembled into a chronological history you can hand over as generated.",
+    title: "Available certificates",
+    description: "Include certificates issued through Raisedash in the driver's PDF report.",
     icon: Clock,
   },
 ];
 
 const STEPS: PlatformStep[] = [
   {
-    title: "Every action is recorded as it happens",
-    description:
-      "As a driver watches a lesson, passes a quiz, or signs a policy, the record is written with its version and timestamp — automatically, in the background.",
+    title: "Assign the work",
+    description: "Choose the training the driver needs to complete.",
   },
   {
-    title: "Content edits create versions, not overwrites",
+    title: "The record builds as they work",
     description:
-      "When you improve a course, the new version applies to future assignments. Drivers who already finished keep their original record, exactly as it was.",
+      "Raisedash records progress, activity, quiz results, and completion details along the way.",
   },
   {
-    title: "Pull a complete packet in seconds",
+    title: "Review everything under the driver",
     description:
-      "Open any driver, click once, and get an organized record of everything they completed — ready to export as PDF or CSV.",
+      "Review training status, completion dates, quiz attempts, activity, and certificates in one place.",
   },
   {
-    title: "Hand it to whoever is asking",
+    title: "Save a copy when you need it",
     description:
-      "Give the packet to an auditor, an insurer at renewal, or your attorney in discovery, exactly as it was generated.",
+      "Export the Raisedash training information for that driver as a PDF when you need a copy.",
   },
 ];
 
 const FAQS: PlatformFaq[] = [
   {
-    question: "What's actually in an evidence packet?",
+    question: "What's in the PDF training report?",
     answer:
-      "For a given driver: which lessons they completed and the exact version, the acknowledgment text they signed, quiz attempts and scores, e-signatures, and a timestamp for each — organized into one record you can export as PDF or CSV.",
+      "The report includes a driver summary, assigned trainings, completion details, quiz attempts and scores, recorded activity, and certificates available in Raisedash.",
   },
   {
-    question: "If we edit a course, does it change what past drivers completed?",
+    question: "Does the report include every document in our driver file?",
     answer:
-      "No. Editing a course creates a new version that applies to future assignments. A driver who completed the earlier version keeps that exact record. We never rewrite a completed driver's history.",
+      "No. It covers training information recorded in Raisedash. It does not replace your driver qualification file, Clearinghouse process, medical records, road tests, or other carrier records.",
   },
   {
-    question: "Can we export our data, or is it locked in?",
+    question: "Can we download a report for one driver?",
     answer:
-      "You can export at any time. PDF and CSV exports are included on every plan. Your completion records belong to you, and we will not hold them hostage.",
+      "Yes. Open the driver's record and download the available Raisedash training information as a PDF.",
   },
   {
     question: "Is this a legal or compliance guarantee?",
     answer:
-      "No. Raisedash organizes and preserves the records of what training was delivered and acknowledged. What those records demonstrate in an audit or a lawsuit is a question for your auditor, insurer, or attorney — we provide the documentation, not legal advice.",
+      "No. Raisedash helps organize training records. Your carrier remains responsible for driver qualification, required records, training decisions, and compliance with applicable laws and rules.",
   },
   {
-    question: "How long are records kept?",
+    question: "Does Raisedash record policy signatures or road tests?",
     answer:
-      "Records are preserved for the life of your account, so you can produce history for a driver hired years ago. Exports let you keep your own copies as well.",
+      "Not today. The current product records online training activity, quiz results, and certificates. Policy e-signatures and road-test records are not part of the current report.",
   },
 ];
 
 export default function TrainingEvidence() {
   return (
     <PageLayout
-      title="Driver Training Records & Litigation-Ready Proof"
-      description="Raisedash preserves every lesson version, acknowledgment, quiz score, signature, and timestamp permanently — and assembles a complete, litigation-ready training packet for any driver in one click. PDF and CSV exports in every plan."
+      title="Driver Training Records for Trucking Fleets"
+      description="Keep each driver's online training activity together, quickly see what they completed and when, and download a clear PDF report."
       keywords={[
         "driver training records",
         "training documentation for trucking",
         "DOT audit training records",
-        "litigation-ready training proof",
+        "driver training reports",
         "trucking training evidence",
       ]}
     >
       <PlatformHero
-        eyebrow="The evidence engine"
+        eyebrow="Training evidence"
         eyebrowIcon={ShieldCheck}
-        title="Every signature and score. Preserved forever. Assembled in one click."
-        subhead="When an auditor, insurer, or attorney asks what a driver was trained on two years ago, most fleets spend days reconstructing it. Raisedash keeps a permanent, version-locked record of everything — and produces the complete packet before they've finished asking."
+        title="Know what happened without rebuilding the story."
+        subhead="Raisedash keeps each driver's online training activity together as it happens, so your safety team can answer what was completed, when it happened, and how the driver did."
         vignette={<LedgerVignette />}
       />
 
       {/* Problem */}
-      <PlatformSection eyebrow="The problem" title="The question nobody can answer fast">
+      <PlatformSection
+        eyebrow="The problem"
+        title="The record should not be harder to find than the training"
+      >
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-5">
           <div className="border-border bg-card rounded-xs border p-6 sm:p-8 lg:col-span-3">
             <p className="text-muted-foreground text-lg leading-relaxed font-normal">
-              A crash happens. Months later, a discovery request lands: prove exactly what this
-              driver was trained on, and when. The records are in paper folders, a spreadsheet, an
-              old email thread, and a filing cabinet — and the course was edited twice since then,
-              so nobody's even sure which version the driver actually saw.
+              When training details sit in paper folders, email threads, spreadsheets, and separate
+              course tools, even a simple question can turn into a search. Your team loses time
+              piecing together what was assigned, what was finished, and when it happened.
             </p>
             <p className="text-muted-foreground mt-4 text-lg leading-relaxed font-normal">
-              In an industry where a single verdict can run into the millions, that gap isn't an
-              inconvenience. It's exposure. And it's the same gap an insurer probes at renewal and
-              an auditor opens a file to check.
+              Raisedash builds the online training record while the driver does the work. When your
+              team, an insurer, or another authorized reviewer asks for the details, you have a
+              clear place to start.
             </p>
           </div>
           <div className="border-border bg-surface-2 rounded-xs border p-6 sm:p-8 lg:col-span-2">
             <p className="text-muted-foreground mb-4 text-xs tracking-wide uppercase">
-              Who asks, and why it matters
+              What a useful record should answer
             </p>
             <ul className="space-y-3">
               {[
-                "Auditors checking that training happened and was documented",
-                "Insurers weighing your safety process at renewal",
-                "Attorneys in discovery after a serious event",
-                "You — trying to reconstruct a record from two years ago",
+                "What was assigned to this driver?",
+                "What was completed, and when?",
+                "What result or activity was recorded?",
+                "Where can we get a copy?",
               ].map((item) => (
                 <li
                   key={item}
@@ -192,17 +187,17 @@ export default function TrainingEvidence() {
       <PlatformSection
         id="how-it-works"
         eyebrow="How it works"
-        title="Recorded as it happens. Never rewritten."
-        lede="The record builds itself while drivers work, and stays true to what each driver actually saw."
+        title="The record builds while the work happens"
+        lede="The driver completes training once. Raisedash organizes the details your team may need later."
       >
         <StepList steps={STEPS} />
       </PlatformSection>
 
       {/* Evidence packet showcase */}
       <PlatformSection
-        eyebrow="The demo weapon"
-        title="The one-click evidence packet"
-        lede="Open a driver, click once, and hand over a complete, organized, exportable record — in seconds, not days."
+        eyebrow="PDF report"
+        title="One driver. One organized training report."
+        lede="Review the online training recorded in Raisedash and save the available details as a PDF."
         align="center"
       >
         <div className="mx-auto max-w-xl">
@@ -211,7 +206,7 @@ export default function TrainingEvidence() {
       </PlatformSection>
 
       {/* Feature grid */}
-      <PlatformSection eyebrow="What's inside" title="Proof, built into the platform">
+      <PlatformSection eyebrow="What's inside" title="A record your team can actually use">
         <FeatureGrid features={FEATURES} columns={4} accent="amber" />
       </PlatformSection>
 
@@ -223,9 +218,9 @@ export default function TrainingEvidence() {
 
       {/* CTA */}
       <PlatformCTA
-        title="Watch a full evidence packet come together in seconds."
-        subtitle="Book a demo and see the record an auditor, insurer, or attorney would actually receive."
-        footnote="Exports included in every plan. Your records are always yours."
+        title="See the record your team would work with."
+        subtitle="Book a demo to follow one driver's training from assignment to PDF report."
+        footnote="The report covers training information recorded in Raisedash."
       />
     </PageLayout>
   );

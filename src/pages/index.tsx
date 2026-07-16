@@ -32,7 +32,8 @@ export default function Home({ recentUpdates, recentPosts }: HomeProps) {
   };
   return (
     <PageLayout
-      description="The driver readiness platform for modern fleets. Raisedash sends orientation to new hires' phones and keeps a court-ready record of every lesson, signature, and score."
+      title="Driver Readiness for U.S. Trucking Fleets"
+      description="Prepare new drivers before they arrive, support them through their first 90 days, and keep a clear training record in one place."
       keywords={[
         "driver readiness platform",
         "driver orientation software",
@@ -49,12 +50,12 @@ export default function Home({ recentUpdates, recentPosts }: HomeProps) {
           <div className="relative z-10 flex w-full items-center gap-12">
             <div className="flex-1">
               <h1 className="text-foreground animate-fade-in-up text-4xl leading-tight font-normal tracking-[-0.03em] delay-75 sm:text-[48px]">
-                Every driver road-ready before day one.
+                Orientation done before the driver walks in the door.
               </h1>
               <p className="text-muted-foreground animate-fade-in-up mt-6 max-w-xl text-xl leading-relaxed font-normal delay-150">
-                Raisedash sends orientation to your new hires&apos; phones: lessons, quizzes, and
-                signatures. They arrive trained and signed. And when an auditor, insurer, or lawyer
-                asks what a driver was trained on, you have the complete record in one click.
+                Raisedash gives trucking fleets one place to prepare new drivers before arrival,
+                support them through their first 90 days, and keep a reliable record of every step.
+                Less repeat work for your safety team. Fewer surprises on orientation day.
               </p>
 
               <div className="animate-fade-in-up mt-10 flex flex-wrap items-center gap-3 delay-200">
@@ -140,7 +141,7 @@ export default function Home({ recentUpdates, recentPosts }: HomeProps) {
               Latest from the Blog
             </h2>
             <p className="text-muted-foreground mx-auto mt-3 max-w-2xl text-lg">
-              Notes on driver readiness, orientation, and keeping the proof.
+              Practical ideas for more consistent driver orientation, follow-up, and recordkeeping.
             </p>
           </div>
           <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
@@ -168,14 +169,14 @@ export default function Home({ recentUpdates, recentPosts }: HomeProps) {
           />
           <div className="relative">
             <h2 className="text-foreground mb-4 text-2xl font-normal tracking-[-0.02em] sm:text-3xl">
-              Get your drivers ready before they arrive.
+              Walk into orientation knowing where everyone stands.
             </h2>
             <p className="text-muted-foreground mx-auto mb-8 max-w-xl text-lg">
-              Set up before lunch, not after a six-week implementation. See the ready board and the
-              one-click evidence packet on your own drivers.
+              See how Raisedash can help your fleet spend less time repeating the same work and more
+              time on the hands-on training that matters.
             </p>
             <div className="mx-auto flex max-w-md flex-col items-center gap-4">
-              <EmailCapture source="CTA" buttonText="Get started" />
+              <EmailCapture source="CTA" buttonText="Request a demo" />
               <div className="text-muted-foreground flex items-center gap-3 text-sm">
                 <span>or</span>
                 <Link

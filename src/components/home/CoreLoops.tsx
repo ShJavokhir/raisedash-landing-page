@@ -31,32 +31,32 @@ interface Loop {
 const loops: Loop[] = [
   {
     eyebrow: "Pre-arrival readiness",
-    title: "They arrive trained and signed.",
-    body: "Hire approved, and the driver gets a text. They finish lessons, quizzes, and signatures on their phone before day one. You watch a ready board fill in and know exactly who is prepared for orientation, before anyone books a hotel room.",
+    title: "Start orientation before terminal day.",
+    body: "Give new hires the information they need before they arrive, so in-person time can focus on road tests, equipment, and the work that belongs at the terminal.",
     href: "/platform/pre-arrival-readiness",
     linkLabel: "See pre-arrival readiness",
     vignette: PipelineVignette,
   },
   {
-    eyebrow: "The evidence engine",
-    title: "The packet, before the lawyer hangs up.",
-    body: "Every lesson version, timestamp, quiz attempt, score, and signature is preserved for good. When an auditor, insurer, or attorney asks what a driver was trained on, you assemble a complete, organized record in one click. We never rewrite a driver's history when content changes.",
+    eyebrow: "Training evidence",
+    title: "Know what happened—and keep the record.",
+    body: "Keep training activity and results together under each driver, so your team can answer what was completed and when without rebuilding the story.",
     href: "/platform/training-evidence",
     linkLabel: "See training evidence",
     vignette: LedgerVignette,
   },
   {
-    eyebrow: "First 90 days",
-    title: "The riskiest 90 days, managed.",
-    body: "Pre-built day-1, week-1, and day-30 / 60 / 90 programs keep reinforcing what matters while a new driver settles in. The stretch where most problems start stops being left to chance.",
+    eyebrow: "First 90 days · in development",
+    title: "Keep new drivers supported after day one.",
+    body: "Plan check-ins and follow-up training while drivers are learning your routes, equipment, customers, and expectations.",
     href: "/platform/first-90-days",
     linkLabel: "See the first 90 days",
     vignette: JourneyTrackVignette,
   },
   {
-    eyebrow: "Corrective action",
-    title: "Something happens? Close the loop.",
-    body: "Record an event, whether a crash, a citation, an inspection issue, or a failed road test, and assign targeted refresher training. Completion flows straight into the evidence record your insurer and auditors see.",
+    eyebrow: "Corrective action · in development",
+    title: "Turn a safety issue into a documented response.",
+    body: "Connect an event with the right follow-up and keep the response with the driver's training history.",
     href: "/platform/training-evidence",
     linkLabel: "See how it's documented",
     vignette: CorrectiveLoopVignette,
@@ -65,16 +65,18 @@ const loops: Loop[] = [
 
 export function CoreLoops() {
   return (
-    <Container className="pb-12 md:px-0">
+    <Container className="pt-6 pb-12 md:px-0">
       <div className="mb-8 max-w-2xl">
         <p className="text-muted-foreground mb-3 text-sm font-normal tracking-wide uppercase">
-          The platform
+          The driver readiness platform
         </p>
         <h2 className="text-foreground text-3xl font-normal tracking-[-0.02em] sm:text-4xl">
-          One system, from applicant-approved to day 90.
+          From approved hire to a record you can stand behind.
         </h2>
         <p className="text-muted-foreground mt-3 text-lg">
-          Four loops that get drivers ready, prove it, and keep it that way.
+          Raisedash connects the work before orientation, during a driver&apos;s first months, and
+          after a safety issue—so readiness does not depend on memory, paperwork, or scattered
+          systems.
         </p>
       </div>
 

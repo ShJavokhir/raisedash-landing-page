@@ -25,75 +25,69 @@ import {
 
 const FEATURES: PlatformFeature[] = [
   {
-    title: "One text, no password",
-    description:
-      "The onboarding account is created the moment recruiting approves the hire. The driver gets a single SMS link — no password to set, no app to install, no email to find.",
+    title: "Reach drivers directly",
+    description: "Send each approved new hire a clear orientation invite by text or email.",
     icon: Send,
   },
   {
-    title: "Everything on the phone",
-    description:
-      "Lessons, quizzes, and policy signatures all happen right from the text thread, on the device the driver already carries.",
+    title: "Make it easy to begin",
+    description: "Drivers open orientation in their phone browser, with no app to download.",
     icon: Smartphone,
   },
   {
-    title: "A real readiness view",
-    description:
-      "See who is actually prepared for Monday — who's finished, who's mid-way, and who hasn't started — before anyone books a hotel room.",
+    title: "Know who is ready",
+    description: "See who has not started, who is working, and who finished before arrival.",
     icon: ListChecks,
   },
   {
-    title: "English and Spanish",
+    title: "Keep your orientation consistent",
     description:
-      "The lessons and the whole flow work in English and Spanish, with captions on the video. The driver picks their language; your team doesn't manage it.",
+      "Give every new hire the same videos, policy material, and checks for understanding.",
     icon: Languages,
   },
   {
-    title: "Resume where they left off",
-    description:
-      "Drivers finish between loads. Progress saves automatically, so a dropped signal or a closed tab never means starting over.",
+    title: "Let drivers finish in stages",
+    description: "Progress saves, so drivers can stop and return without starting over.",
     icon: RotateCcw,
   },
   {
-    title: "Built for weak signal",
-    description:
-      "Short lessons and light pages are designed to load on the kind of connection a truck stop or a yard actually has.",
+    title: "Remove password trouble",
+    description: "A one-time code gets drivers in without another password to create or remember.",
     icon: WifiOff,
   },
   {
-    title: "One hire or a whole class",
-    description:
-      "Add a single driver in seconds or invite an entire orientation class at once — the readiness board keeps count either way.",
+    title: "Handle one hire or a class",
+    description: "Prepare one driver or a group of incoming drivers from the same place.",
     icon: Users,
   },
   {
-    title: "Reminders that nudge",
+    title: "Keep the training record",
     description:
-      "Automatic SMS reminders keep unfinished work moving so you're not personally chasing anyone the weekend before orientation.",
+      "Keep assignments, results, dates, activity, and certificates together for each driver.",
     icon: BellRing,
   },
 ];
 
 const STEPS: PlatformStep[] = [
   {
-    title: "Approve the hire",
+    title: "Prepare one clear orientation",
     description:
-      "When a candidate is approved, Raisedash creates their pre-arrival onboarding automatically. You add a driver in seconds, or import a batch — no spreadsheet handoff to a separate system.",
+      "Organize the policy material, videos, and knowledge checks every approved new hire should complete.",
   },
   {
-    title: "The driver gets a text",
+    title: "Start before terminal day",
     description:
-      "A single SMS link opens everything on their phone. There's no password to create, no app to download, and no email address required to get started.",
+      "Assign orientation as soon as the hire is approved, then send a direct link by text or email.",
   },
   {
-    title: "They finish before they travel",
+    title: "See who needs attention",
     description:
-      "Videos, quizzes, and policy acknowledgments get done at home or between loads — in English or Spanish, picking up wherever they left off.",
+      "Follow progress before arrival so your team can help the drivers who are behind instead of chasing everyone.",
   },
   {
-    title: "You watch the readiness board",
+    title: "Use terminal time where it matters",
     description:
-      "Track who's ready in real time. Walk into orientation with a class that has already covered the handbook, and commit travel and hotel spend only to drivers who are genuinely prepared to show up.",
+      "Walk into orientation knowing what is complete, then focus on road tests, equipment, and hands-on work.",
   },
 ];
 
@@ -101,35 +95,35 @@ const FAQS: PlatformFaq[] = [
   {
     question: "Do drivers need to download an app?",
     answer:
-      "No. Everything runs in the phone's web browser from a single text-message link. There's no app store, no password to create, and no email required to complete pre-arrival work.",
+      "No. Training opens in the phone's web browser. Drivers sign in with a one-time code instead of creating a password.",
   },
   {
-    question: "What if a driver doesn't have an email address?",
+    question: "Can we invite drivers by text?",
     answer:
-      "That's fine. The invitation and every reminder are sent by SMS, and the driver opens their work straight from the link. Email is never required to finish pre-arrival readiness.",
+      "Yes. You can send an invite by SMS or email, depending on the contact information you have for the driver.",
   },
   {
-    question: "Does it work in Spanish?",
+    question: "Where does the training content come from?",
     answer:
-      "Yes. The lessons and the entire driver flow are available in English and Spanish, and captions are on the video. The driver chooses the language; there is nothing for your team to switch.",
+      "Bring the videos and policy text your fleet already uses. You can organize that material into phone-friendly lessons and quizzes in Raisedash.",
   },
   {
-    question: "What happens if a driver loses signal partway through?",
+    question: "How do we know a driver is ready for terminal day?",
     answer:
-      "Progress saves as they go, so they resume exactly where they left off. Lessons are short and pages are intentionally light, which helps on the weak connections common at truck stops and yards.",
+      "Your team can see what was assigned, what is still in progress, what was completed, and the driver's quiz results. You decide what must be finished before the driver arrives.",
   },
   {
     question: "Does this replace hands-on orientation at the terminal?",
     answer:
-      "No. Pre-arrival readiness covers the handbook, policies, and acknowledgments so your in-person time is shorter and focused on the driving and hands-on parts that genuinely need a terminal.",
+      "No. Use it for the parts of orientation that work well as video, reading, and quizzes. Road tests, equipment checks, and other hands-on work still happen through your normal process.",
   },
 ];
 
 export default function PreArrivalReadiness() {
   return (
     <PageLayout
-      title="Driver Orientation Software — Pre-Arrival Readiness"
-      description="Send driver orientation to your new hires' phones before day one. Lessons, quizzes, and signatures finished by text — with a readiness board that shows who's actually prepared."
+      title="Driver Orientation Software for Trucking Fleets"
+      description="Prepare approved new hires before terminal day, see who is ready, and keep each driver's orientation record in one place."
       keywords={[
         "driver orientation software",
         "pre-hire onboarding for trucking",
@@ -141,26 +135,24 @@ export default function PreArrivalReadiness() {
       <PlatformHero
         eyebrow="Pre-arrival readiness"
         eyebrowIcon={Send}
-        title="Orientation starts the moment you say you're hired."
-        subhead="Raisedash sends orientation to a new driver's phone the day they're approved — lessons, quizzes, and signatures, all by text. So they arrive trained and signed, and you know who's ready before you book a single hotel room."
+        title="Start orientation before terminal day."
+        subhead="Prepare new drivers before they travel, so your team knows who is ready and can use terminal time for road tests, equipment, and hands-on work."
         vignette={<PipelineVignette />}
       />
 
       {/* Problem — the safety director's Monday */}
-      <PlatformSection eyebrow="The problem" title="The Monday you already know">
+      <PlatformSection eyebrow="The problem" title="Orientation should not start from zero">
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-5">
           <div className="border-border bg-card rounded-xs border p-6 sm:p-8 lg:col-span-3">
             <p className="text-muted-foreground text-lg leading-relaxed font-normal">
-              Half the orientation class shows up having done nothing in advance. You spend a paid
-              classroom day walking new hires through the same handbook they could have read at
-              home. One driver you scheduled never shows — after the hotel room was already booked.
-              And the acknowledgments, quiz results, and road-test forms end up in paper folders,
-              email threads, and somewhere on your desk.
+              When a new driver arrives unprepared, the whole day slows down. Your safety team
+              repeats basic policies, rearranges the schedule, and tries to work out what the driver
+              has already seen.
             </p>
             <p className="text-muted-foreground mt-4 text-lg leading-relaxed font-normal">
-              You're also handling claims, CSA, and half of recruiting. There is no full-time person
-              to run onboarding software. Whatever you use has to work for someone with fifteen
-              other jobs.
+              For a small or midsize fleet, that lost time adds up quickly. A simple view of who is
+              ready lets your team plan the day, follow up earlier, and spend in-person time on the
+              work that must happen at the terminal.
             </p>
           </div>
           <div className="border-border bg-surface-2 rounded-xs border p-6 sm:p-8 lg:col-span-2">
@@ -169,10 +161,10 @@ export default function PreArrivalReadiness() {
             </p>
             <ul className="space-y-3">
               {[
-                "Paid classroom hours spent on material drivers could finish at home",
-                "Travel and hotel spent on drivers who never arrive",
-                "Signed acknowledgments scattered across paper, email, and desks",
-                "No clear answer to “who is actually ready for Monday?”",
+                "Terminal time lost to material that could be covered earlier",
+                "Late surprises when a driver has not finished",
+                "Extra calls, emails, and spreadsheet checks",
+                "No shared answer to who is ready for orientation day",
               ].map((item) => (
                 <li
                   key={item}
@@ -191,17 +183,14 @@ export default function PreArrivalReadiness() {
       <PlatformSection
         id="how-it-works"
         eyebrow="How it works"
-        title="Approved to ready, without the spreadsheet"
-        lede="Four steps run from the moment a candidate is approved to the moment they walk in prepared."
+        title="From approved hire to a more useful orientation day"
+        lede="Raisedash moves the repeatable parts of orientation earlier and gives your team a clear view before the driver arrives."
       >
         <StepList steps={STEPS} />
       </PlatformSection>
 
       {/* Feature grid */}
-      <PlatformSection
-        eyebrow="What's inside"
-        title="Everything a new hire needs, on the device they already carry"
-      >
+      <PlatformSection eyebrow="What supports it" title="Simple for drivers. Clear for your team.">
         <FeatureGrid features={FEATURES} columns={4} accent="blue" />
       </PlatformSection>
 
@@ -213,9 +202,9 @@ export default function PreArrivalReadiness() {
 
       {/* CTA */}
       <PlatformCTA
-        title="See a readiness board with your own hires on it."
-        subtitle="Book a short demo and watch a new driver go from approved to road-ready — before day one."
-        footnote="Set up before lunch. Not after a six-week implementation."
+        title="See what changes before orientation day."
+        subtitle="Book a short demo to follow the workflow from approved hire to terminal arrival."
+        footnote="Raisedash supports the online part of orientation. Your fleet still decides qualification and completes all hands-on work."
       />
     </PageLayout>
   );

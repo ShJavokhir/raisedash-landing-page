@@ -14,7 +14,7 @@ const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || "";
 const contactMethods = [
   {
     title: "Sales Inquiries",
-    description: "Talk to our team about getting your new drivers road-ready before day one.",
+    description: "Talk to our team about driver orientation and training records.",
     email: "sales@raisedash.com",
     icon: Mail,
   },
@@ -128,7 +128,7 @@ export default function Contact() {
   return (
     <PageLayout
       title="Contact Us"
-      description="Get in touch with Raisedash, the driver readiness platform for modern fleets. Contact our sales, support, or partnerships team, or book a demo."
+      description="Contact Raisedash about driver orientation, training records, sales, support, or partnerships."
       keywords={[
         "contact raisedash",
         "driver readiness platform",
@@ -144,8 +144,8 @@ export default function Contact() {
               Get in Touch
             </h1>
             <p className="text-muted-foreground animate-fade-in-up mt-6 text-xl leading-relaxed font-normal delay-150">
-              Questions about getting your fleet's new drivers road-ready before day one? We're here
-              to help. Reach out and we'll get back to you fast.
+              Questions about sending driver orientation or keeping training records in one place?
+              Reach out and we&apos;ll help.
             </p>
           </div>
         </Container>
@@ -326,8 +326,8 @@ export default function Contact() {
                 How quickly can we get started with Raisedash?
               </h3>
               <p className="text-muted-foreground text-base leading-relaxed">
-                Set up before lunch, not after a six-week implementation. You can be sending
-                orientation to your new hires the same day.
+                Add your training content, publish it, add a driver, and send the assignment. The
+                exact setup time depends on how much content your fleet needs to prepare.
               </p>
             </div>
 
@@ -336,9 +336,8 @@ export default function Contact() {
                 Do drivers need an app or a password?
               </h3>
               <p className="text-muted-foreground text-base leading-relaxed">
-                No. Drivers get a text message with a link and complete everything on their phone,
-                with no app store, no password, and no email required. Lessons and the driver
-                experience work in English and Spanish.
+                Drivers do not need an app. They open an SMS or email invite in a mobile browser and
+                sign in with a one-time code instead of creating a password.
               </p>
             </div>
 
@@ -348,8 +347,8 @@ export default function Contact() {
               </h3>
               <p className="text-muted-foreground text-base leading-relaxed">
                 Direct integrations with ATS and telematics tools like Tenstreet, DriverReach,
-                Samsara, and Motive are on our roadmap. Today, Raisedash runs as a standalone
-                readiness platform your team sets up in minutes.
+                Samsara, and Motive are on our roadmap. Today, Raisedash runs as a standalone driver
+                training platform.
               </p>
             </div>
 
@@ -358,10 +357,9 @@ export default function Contact() {
                 What makes Raisedash different?
               </h3>
               <p className="text-muted-foreground text-base leading-relaxed">
-                Most tools stop at delivering a lesson. Raisedash is built around proof: every
-                lesson version, signature, score, and timestamp is preserved forever, so when an
-                auditor, insurer, or lawyer asks what a driver was trained on, you have the complete
-                record in one click.
+                Raisedash keeps the driver experience simple and gives the safety team one place to
+                track assignments, completion dates, quiz attempts, activity, and certificates. You
+                can also download a PDF report for one driver.
               </p>
             </div>
           </div>
@@ -372,11 +370,10 @@ export default function Contact() {
       <Container className="pb-12 md:px-0">
         <div className="bg-card border-border animate-fade-in-scale rounded-xs border p-8 text-center delay-900 sm:p-12">
           <h2 className="text-foreground mb-4 text-2xl font-normal tracking-[-0.02em] sm:text-3xl">
-            Ready to get your drivers road-ready?
+            Ready to simplify driver orientation?
           </h2>
           <p className="text-muted-foreground mx-auto mb-8 max-w-xl text-lg">
-            Book a demo to see how Raisedash gets every new driver trained, signed, and road-ready
-            before day one.
+            Book a demo to see the driver experience, progress tracking, and PDF training report.
           </p>
           <Link href="/demo">
             <Button size="lg">Book a demo</Button>

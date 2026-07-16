@@ -172,8 +172,8 @@ export default function Careers() {
               Impactful Work
             </h3>
             <p className="text-muted-foreground text-base leading-relaxed">
-              Your work helps get new drivers road-ready before day one, and gives fleets a
-              complete, defensible record of every bit of training.
+              Your work helps drivers complete orientation on a phone, and gives fleets a complete,
+              defensible record of every bit of training.
             </p>
           </div>
           <div className="bg-card border-border hover:bg-surface-2 animate-fade-in-scale rounded-xs border p-6 transition-all delay-900 duration-[0.15s] hover:-translate-y-0.5">

@@ -71,7 +71,7 @@ export interface StartV2Messages {
 const EN: StartV2Messages = {
   nav: { language: "Language" },
   seo: {
-    title: "Get your drivers trained & road-ready",
+    title: "Make driver orientation easier",
     description:
       "Tell us about your fleet and we’ll reach out with a plan to train your drivers — English proficiency, road signs, safety, and more.",
   },
@@ -110,7 +110,7 @@ const EN: StartV2Messages = {
   },
   done: {
     title: "Thanks — we’ll be in touch soon.",
-    body: "We’ve got your details. A Raisedash specialist will reach out shortly to help get your drivers trained and road-ready.",
+    body: "We’ve got your details. A Raisedash specialist will reach out shortly to talk about driver orientation and training records.",
     cta: "See features",
   },
 };

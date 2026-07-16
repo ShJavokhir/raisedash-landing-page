@@ -33,6 +33,9 @@ export function PrivacyPolicyContent() {
           <li>Account credentials and preferences</li>
           <li>Payment and billing information</li>
           <li>Communication records and support interactions</li>
+          <li>Learner profile information provided by a fleet or learner</li>
+          <li>Training assignments, progress, completion dates, quiz attempts, and scores</li>
+          <li>Training activity, certificates, and identity-verification information</li>
         </ul>
 
         <h3 className="text-foreground mt-6 mb-3 text-xl font-semibold">Usage Information</h3>
@@ -53,7 +56,7 @@ export function PrivacyPolicyContent() {
           We use the information we collect to provide, maintain, and improve our services:
         </p>
         <ul className="text-muted-foreground ml-4 list-inside list-disc space-y-2">
-          <li>Deliver and maintain our security monitoring services</li>
+          <li>Deliver and maintain our driver training and recordkeeping services</li>
           <li>Process transactions and manage your account</li>
           <li>Provide customer support and respond to inquiries</li>
           <li>Send important service updates and notifications</li>
@@ -97,15 +100,13 @@ export function PrivacyPolicyContent() {
         <p className="text-muted-foreground mb-4">
           We implement appropriate technical and organizational security measures to protect your
           personal information against unauthorized access, alteration, disclosure, or destruction.
-          Our security measures include:
+          These measures may include:
         </p>
         <ul className="text-muted-foreground ml-4 list-inside list-disc space-y-2">
-          <li>End-to-end encryption for data transmission</li>
+          <li>Encryption for data transmission</li>
           <li>Secure data storage with access controls</li>
-          <li>Regular security audits and assessments</li>
-          <li>Employee training on data protection</li>
           <li>Incident response and breach notification procedures</li>
-          <li>Compliance with industry security standards</li>
+          <li>Administrative and technical controls appropriate to the service</li>
         </ul>
       </section>
 
@@ -276,15 +277,15 @@ export function TermsOfUseContent() {
       <section className="mb-12">
         <h2 className="text-foreground mb-4 text-2xl font-semibold">2. Description of Service</h2>
         <p className="text-muted-foreground mb-4">
-          Raisedash provides freight logistics security and monitoring services through our
-          AI-powered platform. Our services include:
+          Raisedash provides driver training and recordkeeping software for trucking fleets. Our
+          services include:
         </p>
         <ul className="text-muted-foreground ml-4 list-inside list-disc space-y-2">
-          <li>Real-time cargo monitoring and tracking</li>
-          <li>Security threat detection and alerts</li>
-          <li>Risk assessment and analytics</li>
-          <li>Incident response and management</li>
-          <li>Compliance reporting and documentation</li>
+          <li>Tools for creating and publishing online training</li>
+          <li>SMS and email invitations for assigned training</li>
+          <li>Mobile access to video, reading, and quiz lessons</li>
+          <li>Training progress, activity, quiz, and certificate records</li>
+          <li>Driver-level PDF training reports</li>
         </ul>
       </section>
 
@@ -326,8 +327,8 @@ export function TermsOfUseContent() {
           collection and use of information in accordance with our Privacy Policy.
         </p>
         <p className="text-muted-foreground">
-          We implement industry-standard security measures to protect your data, including
-          encryption, access controls, and regular security audits.
+          We use technical and organizational measures designed to protect data, including
+          encryption in transit and access controls.
         </p>
       </section>
 

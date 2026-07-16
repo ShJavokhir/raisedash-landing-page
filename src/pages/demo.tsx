@@ -8,18 +8,18 @@ const CAL_LINK = "https://cal.com/javokhir/raisedash-demo-meeting";
 const DEMO_COVERS = [
   {
     icon: CalendarClock,
-    title: "The readiness board",
-    body: "Watch a new hire go from a text message to trained, signed, and road-ready — so you know who's ready before orientation day.",
+    title: "Training progress",
+    body: "See how to invite a new hire and track whether assigned training has not started, is in progress, or is complete.",
   },
   {
     icon: FileCheck2,
-    title: "A one-click evidence packet",
-    body: "Every lesson version, quiz score, signature, and timestamp — assembled into one court-ready record in seconds.",
+    title: "The PDF training report",
+    body: "Review assignments, completion details, quiz attempts, active time, and certificates for one driver.",
   },
   {
     icon: Smartphone,
     title: "The driver's phone experience",
-    body: "No passwords, no app store, no email. A text message and a phone — that's the whole thing, in English and Spanish.",
+    body: "Open an SMS or email invite, sign in with a one-time code, and complete training in a mobile browser.",
   },
 ];
 
@@ -27,7 +27,7 @@ export default function DemoPage() {
   return (
     <PageLayout
       title="Book a demo"
-      description="Book a demo of Raisedash — the driver readiness platform for modern fleets. See how new drivers arrive trained, signed, and road-ready before day one, with court-ready proof of every step."
+      description="Book a demo of Raisedash driver orientation software. See the mobile driver experience, progress tracking, and PDF training report."
       keywords={[
         "book a demo",
         "driver readiness platform",
@@ -44,9 +44,9 @@ export default function DemoPage() {
               Book a demo
             </h1>
             <p className="text-muted-foreground animate-fade-in-up mt-6 max-w-2xl text-xl leading-relaxed font-normal delay-150">
-              See how Raisedash gets every new driver trained, signed, and road-ready before they
-              arrive at the terminal — and keeps court-ready proof of all of it. Answer a few quick
-              questions and we'll reach out within one business day.
+              See how to send driver orientation by SMS or email, track progress, and download a PDF
+              training report. Answer a few quick questions and we&apos;ll reach out within one
+              business day.
             </p>
           </div>
         </Container>
@@ -78,8 +78,7 @@ export default function DemoPage() {
 
             <div className="border-border mt-8 border-t pt-6">
               <p className="text-muted-foreground text-sm">
-                Set up before lunch — not after a six-week implementation. Prefer to pick a time
-                yourself?{" "}
+                Prefer to pick a time yourself?{" "}
                 <a
                   href={CAL_LINK}
                   target="_blank"
