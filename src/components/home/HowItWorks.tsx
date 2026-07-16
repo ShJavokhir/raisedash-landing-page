@@ -1,4 +1,7 @@
+import { useRef } from "react";
+import { cn } from "@/lib/cn";
 import { Container } from "@/components/layout/Container";
+import { useVignetteTimeline } from "@/hooks/useVignetteTimeline";
 
 const steps = [
   {
@@ -19,6 +22,11 @@ const steps = [
 ];
 
 export function HowItWorks() {
+  const gridRef = useRef<HTMLDivElement>(null);
+  // A quiet "current step" pulse walks 1 → 2 → 3, so the order reads as a
+  // flow even for someone who skips the copy.
+  const step = useVignetteTimeline([2200, 2200, 2600], { startInView: gridRef });
+
   return (
     <section id="how-it-works" className="scroll-mt-24">
       <Container className="pb-12 md:px-0">
@@ -31,18 +39,32 @@ export function HowItWorks() {
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-          {steps.map((step) => (
-            <div key={step.number} className="border-border bg-card rounded-xs border p-6 sm:p-8">
-              <div className="border-border bg-background text-foreground mb-5 flex h-9 w-9 items-center justify-center rounded-full border text-sm font-normal">
-                {step.number}
+        <div ref={gridRef} className="grid grid-cols-1 gap-4 md:grid-cols-3">
+          {steps.map((item, i) => {
+            const active = step === i;
+            return (
+              <div
+                key={item.number}
+                className={cn(
+                  "border-border bg-card rounded-xs border p-6 transition-colors duration-500 sm:p-8",
+                  active && "border-foreground/25"
+                )}
+              >
+                <div
+                  className={cn(
+                    "border-border bg-background text-foreground mb-5 flex h-9 w-9 items-center justify-center rounded-full border text-sm font-normal transition-colors duration-500",
+                    active && "border-foreground bg-foreground text-background"
+                  )}
+                >
+                  {item.number}
+                </div>
+                <h3 className="text-foreground mb-3 text-lg font-normal tracking-[-0.01em]">
+                  {item.title}
+                </h3>
+                <p className="text-muted-foreground text-sm leading-relaxed">{item.body}</p>
               </div>
-              <h3 className="text-foreground mb-3 text-lg font-normal tracking-[-0.01em]">
-                {step.title}
-              </h3>
-              <p className="text-muted-foreground text-sm leading-relaxed">{step.body}</p>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </Container>
     </section>

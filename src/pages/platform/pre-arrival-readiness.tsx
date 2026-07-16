@@ -1,23 +1,19 @@
 import {
   BellRing,
-  CheckCircle2,
   Languages,
   ListChecks,
-  MessageSquareText,
   RotateCcw,
   Send,
   Smartphone,
   Users,
   WifiOff,
 } from "lucide-react";
-import { cn } from "@/lib/cn";
-import { useVignetteLoop } from "@/hooks/useVignetteLoop";
 import { PageLayout } from "@/components/layout/PageLayout";
 import {
-  BrowserFrame,
   CrossLinks,
   FaqSection,
   FeatureGrid,
+  PipelineVignette,
   PlatformCTA,
   PlatformHero,
   PlatformSection,
@@ -128,111 +124,6 @@ const FAQS: PlatformFaq[] = [
       "No. Pre-arrival readiness covers the handbook, policies, and acknowledgments so your in-person time is shorter and focused on the driving and hands-on parts that genuinely need a terminal.",
   },
 ];
-
-/**
- * Looping pipeline vignette: a just-hired driver ("R. Malik") advances
- * Invited → In progress → Ready while the columns keep count. Blue is this
- * page's accent. Placeholder names only — obviously generic, not real data.
- */
-function PipelineVignette() {
-  const step = useVignetteLoop(5, 1400);
-
-  const malikColumn = step === 0 ? 0 : step <= 2 ? 1 : 2;
-  const malikProgress = step === 0 ? 0 : step === 1 ? 30 : step === 2 ? 80 : 100;
-  const columns = [
-    { title: "Invited", count: 1 + (malikColumn === 0 ? 1 : 0), chips: ["D. Alvarez"] },
-    { title: "In progress", count: 1 + (malikColumn === 1 ? 1 : 0), chips: ["J. Okafor"] },
-    {
-      title: "Ready",
-      count: 2 + (malikColumn === 2 ? 1 : 0),
-      chips: ["M. Rodriguez", "T. Nguyen"],
-    },
-  ];
-
-  return (
-    <div className="relative">
-      <BrowserFrame url="app.raisedash.com/readiness">
-        <div className="mb-4 flex items-start justify-between">
-          <div>
-            <p className="text-foreground text-sm font-normal">Orientation — Mon, Jul 20</p>
-            <p className="text-muted-foreground mt-0.5 text-xs">Springfield terminal</p>
-          </div>
-          <span className="bg-accent-blue-soft text-accent-blue inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs">
-            <Smartphone className="h-3 w-3" />
-            All by text
-          </span>
-        </div>
-
-        <div className="grid grid-cols-3 gap-2">
-          {columns.map((col, colIndex) => (
-            <div key={col.title} className="bg-surface-2 rounded-xs p-2">
-              <div className="mb-2 flex items-center justify-between px-1">
-                <span className="text-muted-foreground text-[10px] tracking-wide uppercase">
-                  {col.title}
-                </span>
-                <span
-                  className={cn(
-                    "rounded-full px-1.5 text-[10px] transition-colors duration-300",
-                    colIndex === 2 ? "bg-success/10 text-success" : "bg-surface-3 text-foreground"
-                  )}
-                >
-                  {col.count}
-                </span>
-              </div>
-              <div className="space-y-1.5">
-                {col.chips.map((chip) => (
-                  <div
-                    key={chip}
-                    className="border-border bg-card text-foreground rounded-xs border px-2 py-1.5 text-[11px]"
-                  >
-                    {chip}
-                    {colIndex === 2 ? (
-                      <CheckCircle2 className="text-success ml-1 inline h-3 w-3" />
-                    ) : null}
-                  </div>
-                ))}
-
-                {/* The moving driver */}
-                {malikColumn === colIndex ? (
-                  <div
-                    key={`malik-${malikColumn}`}
-                    className={cn(
-                      "animate-vignette-in rounded-xs border px-2 py-1.5 text-[11px]",
-                      malikColumn === 2
-                        ? "border-success/40 bg-success/10 text-success animate-pulse-soft"
-                        : "border-accent-blue/40 bg-accent-blue-soft text-foreground"
-                    )}
-                  >
-                    R. Malik
-                    {malikColumn === 1 ? (
-                      <div className="bg-surface-3 mt-1.5 h-1 overflow-hidden rounded-full">
-                        <div
-                          className="bg-accent-blue h-full rounded-full transition-all duration-1000 ease-out"
-                          style={{ width: `${malikProgress}%` }}
-                        />
-                      </div>
-                    ) : null}
-                    {malikColumn === 2 ? <CheckCircle2 className="ml-1 inline h-3 w-3" /> : null}
-                  </div>
-                ) : null}
-              </div>
-            </div>
-          ))}
-        </div>
-      </BrowserFrame>
-
-      {/* Floating SMS chip — the moment the invite goes out */}
-      {step <= 1 ? (
-        <div className="animate-vignette-in border-border bg-card absolute right-6 -bottom-4 flex items-center gap-2 rounded-xs border px-3 py-2 shadow-lg">
-          <span className="bg-accent-blue-soft text-accent-blue flex h-6 w-6 items-center justify-center rounded-full">
-            <MessageSquareText className="h-3.5 w-3.5" />
-          </span>
-          <span className="text-foreground text-xs">Orientation link texted to R. Malik</span>
-        </div>
-      ) : null}
-    </div>
-  );
-}
 
 export default function PreArrivalReadiness() {
   return (

@@ -142,6 +142,8 @@
   --duration-slower: 0.5s;
   --ease-out: cubic-bezier(0.4, 0, 0.2, 1);
   --ease-out-spring: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-out-strong: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out-strong: cubic-bezier(0.77, 0, 0.175, 1);
   --transition-fast: 0.14s cubic-bezier(0.25, 1, 0.5, 1);
   --transition-normal: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
 
@@ -594,6 +596,87 @@ h4 {
     }
   }
 
+  /* A completion chip flying from the driver's phone to a ready-board row.
+     Flight path comes from --fly-x/--fly-y set inline per beat. */
+  @keyframes chip-fly {
+    0% {
+      opacity: 0;
+      transform: translate(0, 0) scale(0.92);
+    }
+    12% {
+      opacity: 1;
+      transform: translate(0, 0) scale(1);
+    }
+    82% {
+      opacity: 1;
+      transform: translate(var(--fly-x, 6rem), var(--fly-y, 0)) scale(1);
+    }
+    100% {
+      opacity: 0;
+      transform: translate(var(--fly-x, 6rem), var(--fly-y, 0)) scale(0.85);
+    }
+  }
+
+  /* A rubber-stamp landing: big and tilted → settled. Marketing beat, so the
+     slightly theatrical scale is intentional. */
+  @keyframes stamp-in {
+    0% {
+      opacity: 0;
+      transform: scale(1.6) rotate(-10deg);
+    }
+    55% {
+      opacity: 1;
+      transform: scale(0.96) rotate(1deg);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1) rotate(0deg);
+    }
+  }
+
+  /* Self-drawing SVG stroke (pathLength=1, dasharray=1). Runs on mount so
+     freshly-mounted vignette views animate from undrawn. */
+  @keyframes draw-stroke {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  /* A lesson progress bar filling on mount (2/5 → full). Width animation is
+     fine here: it's a 1.5px-tall bar inside a fixed-size vignette. */
+  @keyframes lesson-fill {
+    from {
+      width: 40%;
+    }
+    to {
+      width: 100%;
+    }
+  }
+
+  /* Cursor tap ripple for the animated "click" in explanatory scenes. */
+  @keyframes tap-ring {
+    0% {
+      opacity: 0.5;
+      transform: scale(0.4);
+    }
+    100% {
+      opacity: 0;
+      transform: scale(1.6);
+    }
+  }
+
+  .animate-chip-fly {
+    animation: chip-fly 0.8s var(--ease-in-out-strong) both;
+  }
+
+  .animate-stamp-in {
+    animation: stamp-in 0.45s var(--ease-out-strong) both;
+  }
+
+  .animate-tap-ring {
+    animation: tap-ring 0.5s var(--ease-out) both;
+  }
+
   .animate-vignette-in {
     animation: vignette-in 0.4s var(--ease-out-spring) both;
   }
@@ -609,7 +692,10 @@ h4 {
   @media (prefers-reduced-motion: reduce) {
     .animate-vignette-in,
     .animate-typing-dot,
-    .animate-pulse-soft {
+    .animate-pulse-soft,
+    .animate-chip-fly,
+    .animate-stamp-in,
+    .animate-tap-ring {
       animation: none;
     }
   }

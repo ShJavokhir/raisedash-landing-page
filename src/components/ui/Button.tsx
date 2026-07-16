@@ -4,8 +4,7 @@ import { cn } from "@/lib/cn";
 type ButtonVariant = "primary" | "secondary" | "light" | "ghost" | "destructive" | "accent";
 type ButtonSize = "xs" | "sm" | "md" | "lg";
 
-export interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: ButtonVariant;
   size?: ButtonSize;
   isLoading?: boolean;
@@ -13,8 +12,7 @@ export interface ButtonProps
   pill?: boolean;
 }
 
-const focusRing =
-  "outline outline-offset-2 outline-0 focus-visible:outline-2 outline-ring";
+const focusRing = "outline outline-offset-2 outline-0 focus-visible:outline-2 outline-ring";
 
 const variantClasses: Record<ButtonVariant, string> = {
   primary: [
@@ -68,69 +66,68 @@ const sizeClasses: Record<ButtonSize, string> = {
   lg: "h-11 px-5 py-2.5 text-base",
 };
 
-export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  function Button(
-    {
-      className,
-      variant = "primary",
-      size = "md",
-      isLoading = false,
-      loadingText,
-      disabled,
-      pill = true,
-      children,
-      ...props
-    },
-    ref
-  ) {
-    return (
-      <button
-        ref={ref}
-        disabled={disabled || isLoading}
-        className={cn(
-          "relative inline-flex items-center justify-center font-normal whitespace-nowrap cursor-pointer",
-          "transition-[background-color,border-color,color] duration-[0.15s] ease-[cubic-bezier(0.4,0,0.2,1)]",
-          "disabled:pointer-events-none disabled:cursor-not-allowed",
-          focusRing,
-          variantClasses[variant],
-          sizeClasses[size],
-          pill ? "rounded-full" : "rounded-xs",
-          className
-        )}
-        {...props}
-      >
-        {isLoading ? (
-          <span className="pointer-events-none flex shrink-0 items-center justify-center gap-2">
-            <svg
-              className="size-4 shrink-0 animate-spin"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              aria-hidden="true"
-            >
-              <circle
-                className="opacity-25"
-                cx="12"
-                cy="12"
-                r="10"
-                stroke="currentColor"
-                strokeWidth="4"
-              />
-              <path
-                className="opacity-75"
-                fill="currentColor"
-                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-              />
-            </svg>
-            <span className="sr-only">{loadingText ?? "Loading"}</span>
-            {loadingText ?? children}
-          </span>
-        ) : (
-          children
-        )}
-      </button>
-    );
-  }
-);
+export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(function Button(
+  {
+    className,
+    variant = "primary",
+    size = "md",
+    isLoading = false,
+    loadingText,
+    disabled,
+    pill = true,
+    children,
+    ...props
+  },
+  ref
+) {
+  return (
+    <button
+      ref={ref}
+      disabled={disabled || isLoading}
+      className={cn(
+        "relative inline-flex cursor-pointer items-center justify-center font-normal whitespace-nowrap",
+        "transition-[background-color,border-color,color,transform] duration-[0.15s] ease-[cubic-bezier(0.4,0,0.2,1)]",
+        "active:scale-[0.97] motion-reduce:active:scale-100",
+        "disabled:pointer-events-none disabled:cursor-not-allowed",
+        focusRing,
+        variantClasses[variant],
+        sizeClasses[size],
+        pill ? "rounded-full" : "rounded-xs",
+        className
+      )}
+      {...props}
+    >
+      {isLoading ? (
+        <span className="pointer-events-none flex shrink-0 items-center justify-center gap-2">
+          <svg
+            className="size-4 shrink-0 animate-spin"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+          >
+            <circle
+              className="opacity-25"
+              cx="12"
+              cy="12"
+              r="10"
+              stroke="currentColor"
+              strokeWidth="4"
+            />
+            <path
+              className="opacity-75"
+              fill="currentColor"
+              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+            />
+          </svg>
+          <span className="sr-only">{loadingText ?? "Loading"}</span>
+          {loadingText ?? children}
+        </span>
+      ) : (
+        children
+      )}
+    </button>
+  );
+});
 
 export default Button;

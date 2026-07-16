@@ -1,13 +1,23 @@
+import type { ComponentType } from "react";
 import Link from "next/link";
-import {
-  ArrowRight,
-  ClipboardCheck,
-  ShieldCheck,
-  CalendarClock,
-  RotateCcw,
-  LucideIcon,
-} from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Container } from "@/components/layout/Container";
+import {
+  CorrectiveLoopVignette,
+  JourneyTrackVignette,
+  LedgerVignette,
+  PipelineVignette,
+} from "@/components/platform";
+
+/**
+ * The four core loops, each headed by the same living product vignette that
+ * headlines its platform page — the readiness pipeline, the self-writing
+ * evidence ledger, the 90-day journey track, and the corrective loop closing.
+ * The vignettes are reused straight from @/components/platform/vignettes so the
+ * homepage and the platform pages never drift apart. They're pure CSS/token
+ * mockups (no images), loop on their own, and rest on their final frame under
+ * prefers-reduced-motion.
+ */
 
 interface Loop {
   eyebrow: string;
@@ -15,9 +25,7 @@ interface Loop {
   body: string;
   href: string;
   linkLabel: string;
-  icon: LucideIcon;
-  /** Icon-chip tint — each loop keeps its own accent across the site. */
-  tint: string;
+  vignette: ComponentType;
 }
 
 const loops: Loop[] = [
@@ -27,8 +35,7 @@ const loops: Loop[] = [
     body: "Hire approved, and the driver gets a text. They finish lessons, quizzes, and signatures on their phone before day one. You watch a ready board fill in and know exactly who is prepared for orientation, before anyone books a hotel room.",
     href: "/platform/pre-arrival-readiness",
     linkLabel: "See pre-arrival readiness",
-    icon: ClipboardCheck,
-    tint: "bg-accent-blue-soft text-accent-blue",
+    vignette: PipelineVignette,
   },
   {
     eyebrow: "The evidence engine",
@@ -36,8 +43,7 @@ const loops: Loop[] = [
     body: "Every lesson version, timestamp, quiz attempt, score, and signature is preserved for good. When an auditor, insurer, or attorney asks what a driver was trained on, you assemble a complete, organized record in one click. We never rewrite a driver's history when content changes.",
     href: "/platform/training-evidence",
     linkLabel: "See training evidence",
-    icon: ShieldCheck,
-    tint: "bg-accent-amber-soft text-accent-amber",
+    vignette: LedgerVignette,
   },
   {
     eyebrow: "First 90 days",
@@ -45,8 +51,7 @@ const loops: Loop[] = [
     body: "Pre-built day-1, week-1, and day-30 / 60 / 90 programs keep reinforcing what matters while a new driver settles in. The stretch where most problems start stops being left to chance.",
     href: "/platform/first-90-days",
     linkLabel: "See the first 90 days",
-    icon: CalendarClock,
-    tint: "bg-success/10 text-success",
+    vignette: JourneyTrackVignette,
   },
   {
     eyebrow: "Corrective action",
@@ -54,8 +59,7 @@ const loops: Loop[] = [
     body: "Record an event, whether a crash, a citation, an inspection issue, or a failed road test, and assign targeted refresher training. Completion flows straight into the evidence record your insurer and auditors see.",
     href: "/platform/training-evidence",
     linkLabel: "See how it's documented",
-    icon: RotateCcw,
-    tint: "bg-destructive/10 text-destructive",
+    vignette: CorrectiveLoopVignette,
   },
 ];
 
@@ -76,16 +80,16 @@ export function CoreLoops() {
 
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
         {loops.map((loop) => {
-          const Icon = loop.icon;
+          const Vignette = loop.vignette;
           return (
             <div
               key={loop.eyebrow}
-              className="border-border bg-card flex flex-col rounded-xs border p-6 sm:p-8"
+              className="border-border bg-card hover:border-foreground/20 flex flex-col rounded-xs border p-6 transition-colors duration-200 sm:p-8"
             >
-              <div
-                className={`mb-5 flex h-10 w-10 items-center justify-center rounded-xs ${loop.tint}`}
-              >
-                <Icon className="h-5 w-5" />
+              {/* The living product vignette — reused from its platform page.
+                  Extra bottom room clears the pipeline card's floating SMS chip. */}
+              <div className="mb-9">
+                <Vignette />
               </div>
               <p className="text-muted-foreground mb-2 text-xs font-normal tracking-wide uppercase">
                 {loop.eyebrow}
@@ -96,7 +100,7 @@ export function CoreLoops() {
               <p className="text-muted-foreground mb-6 text-sm leading-relaxed">{loop.body}</p>
               <Link
                 href={loop.href}
-                className="text-foreground hover:text-foreground/80 group mt-auto inline-flex items-center gap-1 text-sm transition-colors"
+                className="bg-primary text-primary-foreground border-primary group mt-auto inline-flex w-fit items-center gap-1.5 rounded-full border px-5 py-2.5 text-sm transition-[background-color,border-color,transform] duration-150 hover:border-[#3b3a33] hover:bg-[#3b3a33] active:scale-[0.97] motion-reduce:active:scale-100"
               >
                 {loop.linkLabel}
                 <ArrowRight className="h-3.5 w-3.5 transition-transform duration-150 group-hover:translate-x-0.5" />

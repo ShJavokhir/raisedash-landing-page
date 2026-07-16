@@ -4,21 +4,18 @@ import {
   FileCheck,
   History,
   Layers,
-  Loader2,
   Lock,
   PenLine,
   Scale,
-  Send,
   ShieldCheck,
 } from "lucide-react";
-import { cn } from "@/lib/cn";
-import { useVignetteLoop } from "@/hooks/useVignetteLoop";
 import { PageLayout } from "@/components/layout/PageLayout";
 import {
-  BrowserFrame,
   CrossLinks,
+  EvidencePacketVignette,
   FaqSection,
   FeatureGrid,
+  LedgerVignette,
   PlatformCTA,
   PlatformHero,
   PlatformSection,
@@ -129,211 +126,6 @@ const FAQS: PlatformFaq[] = [
       "Records are preserved for the life of your account, so you can produce history for a driver hired years ago. Exports let you keep your own copies as well.",
   },
 ];
-
-const LEDGER_ENTRIES = [
-  {
-    icon: Send,
-    label: "Orientation assigned · invite texted",
-    meta: "Opened on phone",
-    date: "Mar 13 · 9:41 AM",
-  },
-  {
-    icon: FileCheck,
-    label: "Hazmat handling · Lesson v3 completed",
-    meta: "12 min on lesson",
-    date: "Mar 14 · 8:02 AM",
-  },
-  {
-    icon: ShieldCheck,
-    label: "Knowledge check passed · 92%",
-    meta: "Attempt 1 of 3",
-    date: "Mar 14 · 8:19 AM",
-  },
-  {
-    icon: PenLine,
-    label: "Safety policy acknowledged",
-    meta: "Signed on phone",
-    date: "Mar 14 · 8:24 AM",
-  },
-];
-
-/**
- * The evidence engine as a ledger that writes itself: entries land one at a
- * time on an amber timeline, each locking as it lands — history is only ever
- * appended, never rewritten. Amber is this page's accent.
- */
-function LedgerVignette() {
-  const step = useVignetteLoop(6, 1300);
-  const visibleCount = Math.min(step + 1, LEDGER_ENTRIES.length);
-  const sealed = step >= LEDGER_ENTRIES.length;
-
-  return (
-    <BrowserFrame url="app.raisedash.com/drivers/records">
-      <div className="mb-4 flex items-start justify-between">
-        <div>
-          <p className="text-foreground text-sm font-normal">M. Rodriguez</p>
-          <p className="text-muted-foreground mt-0.5 text-xs">Driver record · hired Mar 2024</p>
-        </div>
-        <span className="bg-accent-amber-soft text-accent-amber inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[10px]">
-          <History className="h-3 w-3" />
-          Append-only
-        </span>
-      </div>
-
-      {/* Timeline rail */}
-      <div className="border-accent-amber/25 ml-3 min-h-[16.5rem] space-y-3 border-l pb-1 pl-4">
-        {LEDGER_ENTRIES.slice(0, visibleCount).map((row, i) => {
-          const Icon = row.icon;
-          const isNewest = i === visibleCount - 1 && !sealed;
-          return (
-            <div key={row.label} className="animate-vignette-in relative">
-              <span
-                className={cn(
-                  "absolute top-2 -left-[1.4rem] h-2 w-2 rounded-full",
-                  isNewest
-                    ? "bg-accent-amber animate-pulse-soft text-accent-amber"
-                    : "bg-accent-amber/50"
-                )}
-              />
-              <div className="border-border bg-surface-2 flex items-center gap-3 rounded-xs border px-3 py-2">
-                <span className="bg-accent-amber-soft text-accent-amber flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-xs">
-                  <Icon className="h-3.5 w-3.5" />
-                </span>
-                <div className="min-w-0 flex-1">
-                  <p className="text-foreground truncate text-xs font-normal">{row.label}</p>
-                  <p className="text-muted-foreground text-[10px]">{row.meta}</p>
-                </div>
-                <div className="flex flex-shrink-0 flex-col items-end gap-0.5">
-                  <span className="text-muted-foreground text-[10px]">{row.date}</span>
-                  <Lock className="text-accent-amber/70 h-2.5 w-2.5" />
-                </div>
-              </div>
-            </div>
-          );
-        })}
-
-        {sealed ? (
-          <div className="animate-vignette-in relative">
-            <span className="bg-accent-amber absolute top-2 -left-[1.4rem] h-2 w-2 rounded-full" />
-            <div className="border-accent-amber/40 bg-accent-amber-soft flex items-center gap-2 rounded-xs border px-3 py-2">
-              <Lock className="text-accent-amber h-3.5 w-3.5 flex-shrink-0" />
-              <p className="text-foreground text-xs">
-                Version-locked — editing a course never rewrites this history
-              </p>
-            </div>
-          </div>
-        ) : null}
-      </div>
-    </BrowserFrame>
-  );
-}
-
-const PACKET_PARTS = [
-  "Training history & content versions",
-  "Quiz scores and every attempt",
-  "Signatures & acknowledgment text",
-  "Completion certificates",
-];
-
-/**
- * The one-click packet, animated: "Generate" fires, the record assembles piece
- * by piece, and the packet lands ready to export — the demo-weapon moment.
- */
-function EvidencePacketVignette() {
-  const step = useVignetteLoop(7, 1100);
-  const assembling = step >= 1 && step <= 4;
-  const done = step >= 5;
-  const partsDone = step <= 0 ? 0 : Math.min(step, PACKET_PARTS.length);
-
-  return (
-    <BrowserFrame url="app.raisedash.com/drivers/packet">
-      <div className="mb-4 flex items-start justify-between">
-        <div>
-          <p className="text-foreground text-sm font-normal">Evidence packet — M. Rodriguez</p>
-          <p className="text-muted-foreground mt-0.5 text-xs">Complete training record</p>
-        </div>
-        {done ? (
-          <span className="animate-vignette-in bg-success/10 text-success inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[10px]">
-            <FileCheck className="h-3 w-3" />
-            Ready in seconds
-          </span>
-        ) : assembling ? (
-          <span className="bg-accent-amber-soft text-accent-amber inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[10px]">
-            <Loader2 className="h-3 w-3 animate-spin" />
-            Assembling
-          </span>
-        ) : (
-          <span className="border-border bg-surface-2 text-muted-foreground inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[10px]">
-            One click
-          </span>
-        )}
-      </div>
-
-      <div className="mb-3 space-y-1.5">
-        {PACKET_PARTS.map((part, i) => {
-          const collected = i < partsDone;
-          return (
-            <div
-              key={part}
-              className={cn(
-                "flex items-center gap-2.5 rounded-xs border px-3 py-2 transition-all duration-500",
-                collected
-                  ? "border-border bg-surface-2 opacity-100"
-                  : "border-border/50 bg-transparent opacity-40"
-              )}
-            >
-              {collected ? (
-                <FileCheck className="text-success h-3.5 w-3.5 flex-shrink-0" />
-              ) : (
-                <span className="border-border h-3.5 w-3.5 flex-shrink-0 rounded-full border" />
-              )}
-              <span className="text-foreground text-[11px]">{part}</span>
-            </div>
-          );
-        })}
-      </div>
-
-      {done ? (
-        <div className="animate-vignette-in border-border bg-surface-2 mb-3 grid grid-cols-3 gap-2 rounded-xs border p-3 text-center">
-          {[
-            { value: "14", label: "Lessons" },
-            { value: "9", label: "Signatures" },
-            { value: "6", label: "Quizzes" },
-          ].map((stat) => (
-            <div key={stat.label}>
-              <p className="text-foreground text-lg font-normal">{stat.value}</p>
-              <p className="text-muted-foreground text-[10px]">{stat.label}</p>
-            </div>
-          ))}
-        </div>
-      ) : null}
-
-      <div className="flex gap-2">
-        <span
-          className={cn(
-            "flex flex-1 items-center justify-center gap-1.5 rounded-xs border px-3 py-2 text-xs transition-all duration-300",
-            done
-              ? "border-border bg-primary text-primary-foreground"
-              : "border-accent-amber/40 bg-accent-amber-soft text-foreground",
-            step === 0 && "animate-pulse-soft text-accent-amber"
-          )}
-        >
-          <Download className="h-3.5 w-3.5" />
-          {done ? "Export PDF" : "Generate packet"}
-        </span>
-        <span
-          className={cn(
-            "border-border bg-card text-foreground flex flex-1 items-center justify-center gap-1.5 rounded-xs border px-3 py-2 text-xs transition-opacity duration-300",
-            done ? "opacity-100" : "opacity-40"
-          )}
-        >
-          <Download className="h-3.5 w-3.5" />
-          Export CSV
-        </span>
-      </div>
-    </BrowserFrame>
-  );
-}
 
 export default function TrainingEvidence() {
   return (

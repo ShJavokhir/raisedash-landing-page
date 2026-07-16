@@ -1,25 +1,21 @@
 import {
-  ArrowRight,
   BookOpen,
   CalendarClock,
   CalendarDays,
-  Check,
   ClipboardCheck,
   FileCheck,
-  Lock,
   RefreshCw,
   Route,
   TriangleAlert,
   Users,
 } from "lucide-react";
-import { cn } from "@/lib/cn";
-import { useVignetteLoop } from "@/hooks/useVignetteLoop";
 import { PageLayout } from "@/components/layout/PageLayout";
 import {
-  BrowserFrame,
+  CorrectiveLoopVignette,
   CrossLinks,
   FaqSection,
   FeatureGrid,
+  JourneyTrackVignette,
   PlatformCTA,
   PlatformHero,
   PlatformSection,
@@ -130,222 +126,6 @@ const FAQS: PlatformFaq[] = [
       "Everything completed in the first 90 days — and every corrective assignment after — flows into the same permanent, version-locked record you can export for any driver.",
   },
 ];
-
-const MILESTONES = [
-  { label: "Day 1", title: "Orientation wrap-up", meta: "Facility walkthrough · 3 short lessons" },
-  { label: "Week 1", title: "Policy check-in", meta: "Backing & docking refresher" },
-  { label: "Day 30", title: "Reinforcement + check-in", meta: "Manager check-in · short quiz" },
-  { label: "Day 60", title: "Reinforcement", meta: "Route & fuel habits lesson" },
-  { label: "Day 90", title: "Review + graduation", meta: "Full record archived to evidence" },
-];
-
-/**
- * The 90-day journey as a milestone track that fills in as the loop plays —
- * the riskiest period of a driver's career, visibly managed. Green accent.
- */
-function JourneyTrackVignette() {
-  const step = useVignetteLoop(6, 1400);
-  const current = Math.min(step, MILESTONES.length - 1);
-  const complete = step >= MILESTONES.length;
-  const milestone = MILESTONES[current];
-
-  return (
-    <BrowserFrame url="app.raisedash.com/programs">
-      <div className="mb-5 flex items-start justify-between">
-        <div>
-          <p className="text-foreground text-sm font-normal">New driver program</p>
-          <p className="text-muted-foreground mt-0.5 text-xs">J. Okafor · started Jun 30</p>
-        </div>
-        <span
-          className={cn(
-            "inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[10px] transition-colors duration-300",
-            complete ? "bg-success/10 text-success" : "bg-surface-3 text-foreground"
-          )}
-        >
-          <CalendarClock className="h-3 w-3" />
-          {complete ? "Program complete" : milestone.label}
-        </span>
-      </div>
-
-      {/* Milestone track */}
-      <div className="mb-4 flex items-center px-1">
-        {MILESTONES.map((m, i) => {
-          const done = complete || i < current;
-          const active = !complete && i === current;
-          return (
-            <div key={m.label} className={cn("flex items-center", i > 0 && "flex-1")}>
-              {i > 0 ? (
-                <div
-                  className={cn(
-                    "h-px flex-1 transition-colors duration-500",
-                    done || active ? "bg-success/60" : "bg-border"
-                  )}
-                />
-              ) : null}
-              <div className="flex flex-col items-center gap-1 px-0.5">
-                <span
-                  className={cn(
-                    "flex h-5 w-5 items-center justify-center rounded-full border transition-all duration-300",
-                    done
-                      ? "border-success bg-success text-success-foreground"
-                      : active
-                        ? "border-success bg-success/10 text-success animate-pulse-soft"
-                        : "border-border bg-surface-2 text-muted-foreground"
-                  )}
-                >
-                  {done ? (
-                    <Check className="h-3 w-3" />
-                  ) : (
-                    <span className="h-1.5 w-1.5 rounded-full bg-current" />
-                  )}
-                </span>
-                <span
-                  className={cn(
-                    "text-[9px] whitespace-nowrap",
-                    done || active ? "text-foreground" : "text-muted-foreground"
-                  )}
-                >
-                  {m.label}
-                </span>
-              </div>
-            </div>
-          );
-        })}
-      </div>
-
-      {/* Current milestone detail */}
-      <div
-        key={complete ? "complete" : milestone.label}
-        className="animate-vignette-in border-border bg-surface-2 rounded-xs border px-3 py-2.5"
-      >
-        {complete ? (
-          <div className="flex items-center gap-2.5">
-            <span className="bg-success/10 text-success flex h-7 w-7 items-center justify-center rounded-xs">
-              <FileCheck className="h-3.5 w-3.5" />
-            </span>
-            <div>
-              <p className="text-foreground text-xs font-normal">90 days, fully documented</p>
-              <p className="text-muted-foreground text-[10px]">
-                Every check-in and lesson is in the evidence record
-              </p>
-            </div>
-          </div>
-        ) : (
-          <div className="flex items-center gap-2.5">
-            <span className="bg-success/10 text-success flex h-7 w-7 items-center justify-center rounded-xs">
-              <ClipboardCheck className="h-3.5 w-3.5" />
-            </span>
-            <div>
-              <p className="text-foreground text-xs font-normal">
-                {milestone.label} · {milestone.title}
-              </p>
-              <p className="text-muted-foreground text-[10px]">{milestone.meta}</p>
-            </div>
-          </div>
-        )}
-      </div>
-    </BrowserFrame>
-  );
-}
-
-const LOOP_STAGES = [
-  {
-    icon: TriangleAlert,
-    title: "Event recorded",
-    meta: "Roadside inspection issue · Tue 2:14 PM",
-    tone: "border-destructive/40 bg-destructive/10 text-destructive",
-    iconTone: "bg-destructive/10 text-destructive",
-  },
-  {
-    icon: RefreshCw,
-    title: "Refresher assigned",
-    meta: "Targeted lesson texted to driver",
-    tone: "border-accent-blue/40 bg-accent-blue-soft text-accent-blue",
-    iconTone: "bg-accent-blue-soft text-accent-blue",
-  },
-  {
-    icon: FileCheck,
-    title: "Completed · quiz passed",
-    meta: "Done on the driver's phone",
-    tone: "border-success/40 bg-success/10 text-success",
-    iconTone: "bg-success/10 text-success",
-  },
-];
-
-/**
- * The corrective-action loop, played in sequence: a red event becomes a blue
- * assignment, a green completion, and an amber entry in the evidence record.
- */
-function CorrectiveLoopVignette() {
-  const step = useVignetteLoop(5, 1300);
-  const activeStage = Math.min(step, LOOP_STAGES.length - 1);
-  const sealed = step >= 3;
-
-  return (
-    <BrowserFrame url="app.raisedash.com/corrective-action">
-      <div className="mb-4">
-        <p className="text-foreground text-sm font-normal">Corrective action — S. Patel</p>
-        <p className="text-muted-foreground mt-0.5 text-xs">Close the loop, and document it</p>
-      </div>
-      <div className="flex flex-col gap-2 sm:flex-row sm:items-stretch">
-        {LOOP_STAGES.map((stage, index) => {
-          const Icon = stage.icon;
-          const reached = index <= activeStage;
-          const isActive = index === activeStage && !sealed;
-          return (
-            <div key={stage.title} className="flex flex-1 items-stretch gap-2">
-              <div
-                className={cn(
-                  "flex flex-1 flex-col rounded-xs border p-3 transition-all duration-500",
-                  reached
-                    ? "border-border bg-surface-2 opacity-100"
-                    : "border-border/50 opacity-40",
-                  isActive && "animate-vignette-in"
-                )}
-              >
-                <span
-                  className={cn(
-                    "mb-2 flex h-7 w-7 items-center justify-center rounded-xs transition-colors duration-300",
-                    reached ? stage.iconTone : "bg-surface-3 text-muted-foreground",
-                    isActive && "animate-pulse-soft"
-                  )}
-                >
-                  <Icon className="h-3.5 w-3.5" />
-                </span>
-                <p className="text-foreground text-xs font-normal">{stage.title}</p>
-                <p className="text-muted-foreground mt-0.5 text-[10px] leading-snug">
-                  {stage.meta}
-                </p>
-              </div>
-              {index < LOOP_STAGES.length - 1 ? (
-                <div className="hidden items-center sm:flex">
-                  <ArrowRight
-                    className={cn(
-                      "h-4 w-4 transition-colors duration-300",
-                      index < activeStage ? "text-foreground" : "text-muted-foreground/50"
-                    )}
-                  />
-                </div>
-              ) : null}
-            </div>
-          );
-        })}
-      </div>
-
-      {/* The loop's landing place: the evidence record (slot height reserved) */}
-      <div className="mt-3 min-h-[2.25rem]">
-        {sealed ? (
-          <div className="animate-vignette-in border-accent-amber/40 bg-accent-amber-soft flex items-center gap-2 rounded-xs border px-3 py-2">
-            <Lock className="text-accent-amber h-3.5 w-3.5 flex-shrink-0" />
-            <p className="text-foreground text-xs">
-              Sealed into the evidence record — the insurer sees the whole loop at renewal
-            </p>
-          </div>
-        ) : null}
-      </div>
-    </BrowserFrame>
-  );
-}
 
 export default function First90Days() {
   return (

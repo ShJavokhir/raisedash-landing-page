@@ -1,6 +1,13 @@
 export { PLATFORM_PAGES, otherPlatformPages } from "./pages";
 export type { PlatformPage } from "./pages";
 export { BrowserFrame, PhoneFrame } from "./frames";
+export {
+  PipelineVignette,
+  LedgerVignette,
+  EvidencePacketVignette,
+  JourneyTrackVignette,
+  CorrectiveLoopVignette,
+} from "./vignettes";
 export { PlatformHero } from "./PlatformHero";
 export { PlatformSection } from "./PlatformSection";
 export { FeatureGrid } from "./FeatureGrid";

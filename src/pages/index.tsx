@@ -5,15 +5,17 @@ import { Container } from "@/components/layout/Container";
 import { PageLayout } from "@/components/layout/PageLayout";
 import { Button } from "@/components/ui/Button";
 import { EmailCapture } from "@/components/ui/EmailCapture";
-import { ReadinessBoard } from "@/components/home/ReadinessBoard";
+import { HeroScene } from "@/components/home/HeroScene";
 import { ProblemsMarquee } from "@/components/home/ProblemsMarquee";
 import { CoreLoops } from "@/components/home/CoreLoops";
+import { EvidenceMoment } from "@/components/home/EvidenceMoment";
 import { ForDrivers } from "@/components/home/ForDrivers";
 import { HowItWorks } from "@/components/home/HowItWorks";
 import { MoreFromRaisedash } from "@/components/home/MoreFromRaisedash";
 import { getAllProductUpdates, ProductUpdate } from "@/lib/product-updates";
 import { getAllPosts, BlogPost } from "@/lib/blog";
 import { BlogCard } from "@/components/blog/BlogCard";
+import { HalftoneTruck } from "@/components/ui/HalftoneTruck";
 
 interface HomeProps {
   recentUpdates: ProductUpdate[];
@@ -70,7 +72,7 @@ export default function Home({ recentUpdates, recentPosts }: HomeProps) {
             </div>
 
             <div className="hidden flex-shrink-0 lg:block">
-              <ReadinessBoard />
+              <HeroScene />
             </div>
           </div>
         </Container>
@@ -81,6 +83,9 @@ export default function Home({ recentUpdates, recentPosts }: HomeProps) {
 
       {/* Four core loops */}
       <CoreLoops />
+
+      {/* The evidence engine, played out */}
+      <EvidenceMoment />
 
       {/* For drivers */}
       <ForDrivers />
@@ -156,24 +161,30 @@ export default function Home({ recentUpdates, recentPosts }: HomeProps) {
 
       {/* CTA Section */}
       <Container className="pb-12 md:px-0">
-        <div className="bg-card border-border animate-fade-in-scale rounded-xs border p-8 text-center delay-700 sm:p-12">
-          <h2 className="text-foreground mb-4 text-2xl font-normal tracking-[-0.02em] sm:text-3xl">
-            Get your drivers ready before they arrive.
-          </h2>
-          <p className="text-muted-foreground mx-auto mb-8 max-w-xl text-lg">
-            Set up before lunch, not after a six-week implementation. See the ready board and the
-            one-click evidence packet on your own drivers.
-          </p>
-          <div className="mx-auto flex max-w-md flex-col items-center gap-4">
-            <EmailCapture source="CTA" buttonText="Get started" />
-            <div className="text-muted-foreground flex items-center gap-3 text-sm">
-              <span>or</span>
-              <Link
-                href="/demo"
-                className="text-foreground hover:text-foreground/80 inline-flex items-center gap-1 transition-colors"
-              >
-                Book a demo <ArrowRight className="h-3.5 w-3.5" />
-              </Link>
+        <div className="bg-card border-border animate-fade-in-scale relative overflow-hidden rounded-xs border p-8 text-center delay-700 sm:p-12">
+          <HalftoneTruck
+            flip
+            className="text-foreground absolute -right-10 -bottom-9 w-72 opacity-[0.13] sm:w-96"
+          />
+          <div className="relative">
+            <h2 className="text-foreground mb-4 text-2xl font-normal tracking-[-0.02em] sm:text-3xl">
+              Get your drivers ready before they arrive.
+            </h2>
+            <p className="text-muted-foreground mx-auto mb-8 max-w-xl text-lg">
+              Set up before lunch, not after a six-week implementation. See the ready board and the
+              one-click evidence packet on your own drivers.
+            </p>
+            <div className="mx-auto flex max-w-md flex-col items-center gap-4">
+              <EmailCapture source="CTA" buttonText="Get started" />
+              <div className="text-muted-foreground flex items-center gap-3 text-sm">
+                <span>or</span>
+                <Link
+                  href="/demo"
+                  className="text-foreground hover:text-foreground/80 inline-flex items-center gap-1 transition-colors"
+                >
+                  Book a demo <ArrowRight className="h-3.5 w-3.5" />
+                </Link>
+              </div>
             </div>
           </div>
         </div>
