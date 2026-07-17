@@ -500,11 +500,9 @@ export default function Pricing() {
               <span className="text-foreground">
                 ${FOUNDING_OVERAGE_PER_DRIVER} per additional driver
               </span>{" "}
-              instead of ${OVERAGE_PER_DRIVER} for their first year, month-to-month — then standard
-              pricing, locked for the following year. At 75 drivers that&apos;s{" "}
-              {fmtUsd(monthlyFor(75, true))}/month. In exchange, we ask for honest feedback and a
-              short call once a month. No lifetime gimmicks — just a fair head start for fleets who
-              bet on us early.
+              {`instead of $${OVERAGE_PER_DRIVER} for their first year, month-to-month — then standard pricing, locked for the following year. At 75 drivers that's ${fmtUsd(monthlyFor(75, true))}/month.`}{" "}
+              In exchange, we ask for honest feedback and a short call once a month. No lifetime
+              gimmicks — just a fair head start for fleets who bet on us early.
             </p>
           </div>
           <div className="bg-card border-border rounded-xs border p-8">
