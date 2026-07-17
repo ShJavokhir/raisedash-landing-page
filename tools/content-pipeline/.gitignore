@@ -1,8 +1,0 @@
-# The content pipeline is self-contained. Nothing here is part of the website.
-node_modules/
-.env
-.env.*
-!.env.example
-.runs/
-dist/
-*.tsbuildinfo

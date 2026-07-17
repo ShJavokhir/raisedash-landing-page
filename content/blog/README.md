@@ -1,5 +1,9 @@
 # Blog Post Creation Guide
 
+> The full editorial spec (voice, SEO rules, CTA mapping, image generation) lives
+> in `.claude/skills/write-blog/SKILL.md` and is what Claude Code follows when
+> asked to write a post. This file is the quick mechanical reference.
+
 ## Quick Start
 
 1. Create a new `.mdx` file in `content/blog/`
@@ -110,7 +114,7 @@ The system auto-extracts these for Google FAQ rich snippets.
 
 ## Categories
 
-Current categories: `Product`, `News`, `Feature`
+Current categories: `Driver Readiness` (default for new posts), `Compliance`, `Product`, `News`
 
 ## Preview & Publish
 
