@@ -1,4 +1,4 @@
-import { useState, FormEvent } from "react";
+import { useId, useState, FormEvent } from "react";
 import { useRouter } from "next/router";
 import { ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -19,6 +19,7 @@ export function EmailCapture({
   source = "Homepage",
 }: EmailCaptureProps) {
   const router = useRouter();
+  const inputId = useId();
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
 
@@ -79,14 +80,14 @@ export function EmailCapture({
           isDark && ["border border-white/20 bg-white/10", "focus-within:border-white/40"]
         )}
       >
-        <label className="sr-only" htmlFor="email-capture">
+        <label className="sr-only" htmlFor={inputId}>
           Email
         </label>
 
         {/* Input wrapper */}
         <div className="block w-full grow">
           <input
-            id="email-capture"
+            id={inputId}
             type="email"
             required
             value={email}
@@ -124,7 +125,8 @@ export function EmailCapture({
             className={cn(
               "group relative flex w-full cursor-pointer items-center justify-center",
               "h-10 rounded-sm px-4 text-sm font-medium",
-              "transition-colors duration-150",
+              "transition-[background-color,transform] duration-150 ease-out",
+              "active:scale-[0.97] motion-reduce:active:scale-100",
               "focus:ring-2 focus:ring-offset-2 focus:outline-none",
               // Default variant
               !isDark && [

@@ -3,6 +3,7 @@ import Link from "next/link";
 import {
   ArrowRight,
   ArchiveRestore,
+  Calculator,
   Check,
   CircleDollarSign,
   Handshake,
@@ -14,6 +15,7 @@ import {
 import { Container } from "@/components/layout/Container";
 import { PageLayout } from "@/components/layout/PageLayout";
 import { Button } from "@/components/ui/Button";
+import { EmailCapture } from "@/components/ui/EmailCapture";
 import { cn } from "@/lib/cn";
 
 /**
@@ -42,8 +44,8 @@ const OVERAGE_PER_DRIVER = 6;
 const FOUNDING_OVERAGE_PER_DRIVER = 5;
 const FOUNDING_FLEET_COUNT = 10;
 const ANNUAL_MONTHS_CHARGED = 10; // pay for 10 months, get 12
+const ANNUAL_DISCOUNT_PERCENT = Math.round((1 - ANNUAL_MONTHS_CHARGED / 12) * 100);
 const TRIAL_DAYS = 14;
-const APP_SIGNUP_URL = "https://app.raisedash.com/sign-up";
 
 function monthlyFor(drivers: number, founding = false): number {
   const rate = founding ? FOUNDING_OVERAGE_PER_DRIVER : OVERAGE_PER_DRIVER;
@@ -76,7 +78,7 @@ function DriverSlider({ value, onChange }: { value: number; onChange: (value: nu
         type="range"
         min={min}
         max={max}
-        step={5}
+        step={1}
         value={value}
         aria-valuetext={`${value} drivers`}
         onChange={(e) => onChange(Number(e.target.value))}
@@ -194,17 +196,17 @@ const FAQS: { q: string; a: string }[] = [
 
 export default function Pricing() {
   const [drivers, setDrivers] = useState(50);
-  const [annual, setAnnual] = useState(false);
+  const [annual, setAnnual] = useState(true);
 
   const estimate = useMemo(() => {
     const monthly = monthlyFor(drivers);
     const annualTotal = monthly * ANNUAL_MONTHS_CHARGED;
+    const monthlyAnnualTotal = monthly * 12;
     const effectiveMonthly = annualTotal / 12;
     const shown = annual ? effectiveMonthly : monthly;
     return {
-      monthly,
       annualTotal,
-      effectiveMonthly,
+      annualSavings: monthlyAnnualTotal - annualTotal,
       shown,
       perDriver: shown / drivers,
     };
@@ -238,15 +240,12 @@ export default function Pricing() {
           <div className="animate-fade-in-up mt-10 grid grid-cols-1 gap-5 delay-200 lg:grid-cols-12">
             {/* Price panel */}
             <div className="border-border bg-background flex flex-col rounded-xs border p-7 lg:col-span-5">
-              <div className="flex items-center justify-between gap-3">
-                <h2 className="text-foreground text-lg font-normal tracking-[-0.01em]">
-                  Raisedash Readiness
-                </h2>
+              <div className="flex justify-start">
                 {/* Billing period toggle */}
                 <div
                   role="group"
                   aria-label="Billing period"
-                  className="border-border bg-surface-2 flex rounded-full border p-0.5 text-xs"
+                  className="border-border bg-surface-2 flex rounded-full border p-0.5 text-xs whitespace-nowrap"
                 >
                   {(["Monthly", "Annual"] as const).map((label) => {
                     const isAnnual = label === "Annual";
@@ -258,20 +257,37 @@ export default function Pricing() {
                         aria-pressed={active}
                         onClick={() => setAnnual(isAnnual)}
                         className={cn(
-                          "rounded-full px-3 py-1 transition-colors duration-[0.15s]",
+                          "flex items-center gap-1.5 rounded-full px-3 py-1 whitespace-nowrap transition-[background-color,border-color,color,transform] duration-[0.15s] ease-out active:scale-[0.97] motion-reduce:active:scale-100",
                           active
                             ? "bg-card text-foreground border-border border shadow-sm"
                             : "text-muted-foreground hover:text-foreground"
                         )}
                       >
                         {label}
+                        {isAnnual && (
+                          <span
+                            className={cn(
+                              "rounded-full px-1.5 py-0.5 text-[10px] leading-none font-medium whitespace-nowrap",
+                              active
+                                ? "bg-success/10 text-success"
+                                : "bg-surface-3 text-muted-foreground"
+                            )}
+                          >
+                            Save {ANNUAL_DISCOUNT_PERCENT}%
+                          </span>
+                        )}
                       </button>
                     );
                   })}
                 </div>
               </div>
 
-              <div className="mt-5 flex items-baseline gap-1.5">
+              <div className="mt-5 flex flex-wrap items-baseline gap-x-2 gap-y-1">
+                {annual && (
+                  <span className="text-muted-foreground text-lg tabular-nums line-through decoration-1">
+                    {fmtUsd(BASE_MONTHLY)}
+                  </span>
+                )}
                 <span className="text-foreground text-5xl font-normal tracking-[-0.03em] tabular-nums">
                   {fmtUsd(annual ? (BASE_MONTHLY * ANNUAL_MONTHS_CHARGED) / 12 : BASE_MONTHLY)}
                 </span>
@@ -279,14 +295,25 @@ export default function Pricing() {
               </div>
               <p className="text-foreground/90 mt-2 text-sm leading-relaxed">
                 Includes your first {INCLUDED_DRIVERS} managed drivers, then{" "}
-                <span className="text-foreground">${OVERAGE_PER_DRIVER} per additional driver</span>
-                {annual ? ", billed annually — two months free." : ", billed monthly."}
+                <span className="text-foreground">
+                  {annual
+                    ? `$${((OVERAGE_PER_DRIVER * ANNUAL_MONTHS_CHARGED) / 12).toFixed(0)}`
+                    : `$${OVERAGE_PER_DRIVER}`}{" "}
+                  per additional driver / month
+                </span>
+                {annual ? " at the annual rate." : ", billed monthly."}
               </p>
               {annual && (
-                <p className="text-muted-foreground mt-1 text-xs">
-                  {fmtUsd(BASE_MONTHLY * ANNUAL_MONTHS_CHARGED)}/year at {INCLUDED_DRIVERS} drivers
-                  — pay for {ANNUAL_MONTHS_CHARGED} months, get 12.
-                </p>
+                <div className="border-success/20 bg-success/10 mt-4 rounded-xs border px-3 py-2.5">
+                  <p className="text-success text-sm font-medium">
+                    Save {fmtUsd(BASE_MONTHLY * (12 - ANNUAL_MONTHS_CHARGED))} a year — two months
+                    free
+                  </p>
+                  <p className="text-muted-foreground mt-0.5 text-xs">
+                    {fmtUsd(BASE_MONTHLY * ANNUAL_MONTHS_CHARGED)} billed once a year at{" "}
+                    {INCLUDED_DRIVERS} drivers.
+                  </p>
+                </div>
               )}
 
               <ul className="mt-6 space-y-2.5">
@@ -307,16 +334,14 @@ export default function Pricing() {
               </ul>
 
               <div className="mt-auto pt-7">
-                <a href={APP_SIGNUP_URL}>
-                  <Button size="md" className="w-full">
-                    Start your fleet <ArrowRight className="ml-1 h-4 w-4" />
-                  </Button>
-                </a>
-                <Link href="/demo" className="mt-2 block">
-                  <Button variant="secondary" size="md" className="w-full">
-                    Book a demo
-                  </Button>
-                </Link>
+                <EmailCapture
+                  source="Pricing plan"
+                  buttonText="Get started"
+                  className="max-w-none"
+                />
+                <p className="text-muted-foreground mt-2 text-center text-xs">
+                  Start with your work email. No charge today.
+                </p>
               </div>
             </div>
 
@@ -334,7 +359,12 @@ export default function Pricing() {
                 <DriverSlider value={drivers} onChange={setDrivers} />
               </div>
 
-              <div className="border-border mt-6 grid grid-cols-1 gap-4 border-t pt-6 sm:grid-cols-3">
+              <div
+                className={cn(
+                  "border-border mt-6 grid grid-cols-1 gap-4 border-t pt-6",
+                  annual ? "sm:grid-cols-3" : "sm:grid-cols-2"
+                )}
+              >
                 <div>
                   <div className="text-muted-foreground text-xs">
                     {annual ? "Effective monthly" : "Monthly total"}
@@ -344,25 +374,33 @@ export default function Pricing() {
                   </div>
                 </div>
                 <div>
-                  <div className="text-muted-foreground text-xs">Per managed driver</div>
-                  <div className="text-foreground mt-1 text-3xl font-normal tracking-[-0.02em] tabular-nums">
-                    ${estimate.perDriver.toFixed(2)}
-                  </div>
-                </div>
-                <div>
                   <div className="text-muted-foreground text-xs">
-                    {annual ? "Billed once a year" : "Switch to annual and pay"}
+                    {annual ? "Annual payment" : "Per managed driver"}
                   </div>
                   <div className="text-foreground mt-1 text-3xl font-normal tracking-[-0.02em] tabular-nums">
-                    {fmtUsd(estimate.annualTotal)}
+                    {annual ? fmtUsd(estimate.annualTotal) : `$${estimate.perDriver.toFixed(2)}`}
                   </div>
+                  {annual && (
+                    <div className="text-muted-foreground mt-1 text-xs">Billed once a year</div>
+                  )}
                 </div>
+                {annual && (
+                  <div className="border-success/20 bg-success/10 rounded-xs border p-3 sm:-mt-3 sm:-mb-3">
+                    <div className="text-success text-xs font-medium">You save each year</div>
+                    <div className="text-success mt-1 text-3xl font-normal tracking-[-0.02em] tabular-nums">
+                      {fmtUsd(estimate.annualSavings)}
+                    </div>
+                    <div className="text-muted-foreground mt-1 text-xs">Two months free</div>
+                  </div>
+                )}
               </div>
 
               <p className="text-muted-foreground mt-5 text-xs leading-relaxed">
                 {drivers <= INCLUDED_DRIVERS
                   ? `Up to ${INCLUDED_DRIVERS} drivers, the base price covers everything.`
                   : `${fmtUsd(BASE_MONTHLY)} base + ${drivers - INCLUDED_DRIVERS} additional drivers × $${OVERAGE_PER_DRIVER}.`}{" "}
+                {annual &&
+                  `That works out to $${estimate.perDriver.toFixed(2)} per managed driver. `}
                 Founding fleets pay ${FOUNDING_OVERAGE_PER_DRIVER} per additional driver in year
                 one.
               </p>
@@ -370,6 +408,36 @@ export default function Pricing() {
           </div>
         </Container>
       </div>
+
+      {/* Skepticism bridge to the homepage ROI calculator */}
+      <Container className="py-7 md:px-0">
+        <Link
+          href="/#orientation-cost-calculator"
+          className="group border-success/25 bg-success/10 hover:border-success/45 grid rounded-xs border p-7 transition-[border-color,transform] duration-150 ease-out active:scale-[0.99] motion-reduce:active:scale-100 sm:p-8 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center lg:gap-10"
+        >
+          <div className="flex gap-4">
+            <span className="bg-success text-success-foreground flex h-10 w-10 shrink-0 items-center justify-center rounded-full">
+              <Calculator className="h-5 w-5" aria-hidden="true" />
+            </span>
+            <div>
+              <p className="text-success text-sm font-medium">Skeptical? Good.</p>
+              <h2 className="text-foreground mt-1 text-2xl font-normal tracking-[-0.02em] sm:text-3xl">
+                See if Raisedash actually saves your fleet time and money.
+              </h2>
+              <p className="text-muted-foreground mt-2 max-w-2xl text-sm leading-relaxed sm:text-base">
+                Use your own hiring volume, pay rates, orientation hours, travel, and no-show costs.
+                The calculator shows every assumption so you can decide whether the math works.
+              </p>
+            </div>
+          </div>
+          <div className="mt-6 flex items-center gap-2 lg:mt-0">
+            <span className="bg-success text-success-foreground inline-flex items-center rounded-full px-5 py-2.5 text-sm font-medium">
+              Run the savings calculator
+              <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-150 ease-out group-hover:translate-x-0.5" />
+            </span>
+          </div>
+        </Link>
+      </Container>
 
       {/* At-a-glance table */}
       <Container className="py-7 md:px-0">
@@ -385,9 +453,14 @@ export default function Pricing() {
               <thead>
                 <tr className="text-muted-foreground border-border border-b text-left">
                   <th className="py-3 pr-4 font-normal">Managed drivers</th>
-                  <th className="py-3 pr-4 text-right font-normal">Monthly</th>
-                  <th className="py-3 pr-4 text-right font-normal">Annual prepay</th>
-                  <th className="py-3 text-right font-normal">Effective monthly (annual)</th>
+                  <th className="py-3 pr-4 text-right font-normal">Monthly billing</th>
+                  <th className="py-3 pr-4 text-right font-normal">
+                    Annual billing
+                    <span className="text-success ml-1 text-xs">
+                      Save {ANNUAL_DISCOUNT_PERCENT}%
+                    </span>
+                  </th>
+                  <th className="py-3 text-right font-normal">You save / year</th>
                 </tr>
               </thead>
               <tbody className="divide-border divide-y">
@@ -398,13 +471,16 @@ export default function Pricing() {
                     <tr key={count}>
                       <td className="text-foreground py-3 pr-4">{count}</td>
                       <td className="text-foreground py-3 pr-4 text-right tabular-nums">
-                        {fmtUsd(monthly)}
+                        {fmtUsd(monthly)}/mo
                       </td>
-                      <td className="text-foreground py-3 pr-4 text-right tabular-nums">
-                        {fmtUsd(annualTotal)}
+                      <td className="py-3 pr-4 text-right tabular-nums">
+                        <span className="text-foreground block">{fmtUsd(annualTotal / 12)}/mo</span>
+                        <span className="text-muted-foreground block text-xs">
+                          {fmtUsd(annualTotal)} billed yearly
+                        </span>
                       </td>
-                      <td className="text-foreground py-3 text-right tabular-nums">
-                        {fmtUsd(annualTotal / 12)}/mo
+                      <td className="text-success py-3 text-right font-medium tabular-nums">
+                        {fmtUsd(monthly * (12 - ANNUAL_MONTHS_CHARGED))}
                       </td>
                     </tr>
                   );
@@ -557,17 +633,11 @@ export default function Pricing() {
             Set up your fleet in an afternoon. {TRIAL_DAYS} days free, nothing charged up front,
             cancel in two clicks — and your records export free, forever.
           </p>
-          <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <a href={APP_SIGNUP_URL}>
-              <Button size="lg">
-                Start your fleet <ArrowRight className="ml-1 h-4 w-4" />
-              </Button>
-            </a>
-            <Link href="/demo">
-              <Button variant="secondary" size="lg">
-                Book a demo
-              </Button>
-            </Link>
+          <div className="mx-auto max-w-md">
+            <EmailCapture source="Pricing final CTA" buttonText="Get started" />
+            <p className="text-muted-foreground mt-3 text-xs">
+              Start with your work email. We&apos;ll help you choose the right next step.
+            </p>
           </div>
         </div>
       </Container>

@@ -1,10 +1,9 @@
 import { CSSProperties, useEffect, useMemo, useRef, useState } from "react";
-import Link from "next/link";
 import {
-  ArrowRight,
   BedDouble,
   Check,
   ChevronDown,
+  CircleDollarSign,
   ClipboardList,
   Clock3,
   Link2,
@@ -14,6 +13,7 @@ import {
 } from "lucide-react";
 import { Container } from "@/components/layout/Container";
 import { Button } from "@/components/ui/Button";
+import { EmailCapture } from "@/components/ui/EmailCapture";
 import { cn } from "@/lib/cn";
 
 /**
@@ -22,9 +22,9 @@ import { cn } from "@/lib/cn";
  * hours per year.
  *
  * Ground rules that shape this section:
- * - Raisedash pricing is not public yet (see /pricing), so the calculator
- *   never mentions subscription cost or computes ROI against a price. It
- *   estimates the cost of unready orientation from the visitor's own numbers.
+ * - Raisedash pricing is public, but this calculator deliberately measures the
+ *   avoidable cost of unready orientation instead of presenting a manufactured
+ *   ROI multiple. Visitors can compare the result with /pricing themselves.
  * - No invented benchmarks. Every savings lever is an assumption the visitor
  *   can see and adjust, and the output is labeled as an estimate.
  *
@@ -160,6 +160,7 @@ interface SliderRowProps {
   format: (value: number) => string;
   onChange: (value: number) => void;
   compact?: boolean;
+  tone?: "default" | "success";
 }
 
 function SliderRow({
@@ -172,6 +173,7 @@ function SliderRow({
   format,
   onChange,
   compact,
+  tone = "default",
 }: SliderRowProps) {
   const pct = ((value - min) / (max - min)) * 100;
   return (
@@ -201,7 +203,7 @@ function SliderRow({
         className="roi-range"
         style={
           {
-            "--range-fill": `linear-gradient(to right, var(--foreground) ${pct}%, var(--surface-3) ${pct}%)`,
+            "--range-fill": `linear-gradient(to right, var(--${tone === "success" ? "success" : "foreground"}) ${pct}%, var(--surface-3) ${pct}%)`,
           } as CSSProperties
         }
       />
@@ -315,25 +317,6 @@ export function RoiCalculator() {
     copyTimerRef.current = setTimeout(() => setCopied(false), 2000);
   };
 
-  // Count up from zero the first time the results panel scrolls into view.
-  const resultsRef = useRef<HTMLDivElement>(null);
-  const [revealed, setRevealed] = useState(false);
-  useEffect(() => {
-    const el = resultsRef.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setRevealed(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.3 }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
-
   const results = useMemo(() => {
     const {
       hiresPerMonth,
@@ -370,8 +353,8 @@ export function RoiCalculator() {
     };
   }, [values]);
 
-  const animatedTotal = useAnimatedNumber(revealed ? results.total : 0);
-  const animatedHours = useAnimatedNumber(revealed ? results.hoursSaved : 0);
+  const animatedTotal = useAnimatedNumber(results.total);
+  const animatedHours = useAnimatedNumber(results.hoursSaved);
   const largestCategory = Math.max(
     results.classroomDollars,
     results.hotelDollars,
@@ -386,7 +369,7 @@ export function RoiCalculator() {
       <Container className="pb-12 md:px-0">
         <div className="border-border bg-card rounded-xs border p-8 sm:p-12">
           <div className="mb-10 max-w-2xl">
-            <p className="text-muted-foreground mb-3 text-sm font-normal tracking-wide uppercase">
+            <p className="text-success mb-3 text-sm font-medium tracking-wide uppercase">
               Orientation cost calculator
             </p>
             <h2 className="text-foreground text-3xl font-normal tracking-[-0.02em] sm:text-4xl">
@@ -394,8 +377,8 @@ export function RoiCalculator() {
             </h2>
             <p className="text-muted-foreground mt-3 text-lg">
               Estimate what your fleet spends on orientation work that could happen before drivers
-              arrive — paid classroom time, hotel nights booked for no-shows, and admin chasing.
-              Drag the sliders to match your operation.
+              arrive — paid classroom time, hotel nights booked for no-shows, and admin chasing. Use
+              your own numbers and change every assumption. The calculator shows its work.
             </p>
           </div>
 
@@ -471,26 +454,23 @@ export function RoiCalculator() {
               </div>
 
               {/* Savings assumptions — visible, honest, adjustable */}
-              <div className="border-border bg-background mt-8 rounded-xs border">
+              <div className="border-success/20 bg-success/10 mt-8 rounded-xs border">
                 <button
                   type="button"
                   onClick={() => setAssumptionsOpen((open) => !open)}
                   aria-expanded={assumptionsOpen}
                   aria-controls="roi-assumptions"
-                  className="hover:bg-surface-2 flex w-full items-center justify-between gap-3 px-4 py-3 text-left transition-colors duration-150"
+                  className="hover:bg-success/10 flex w-full items-center justify-between gap-3 px-4 py-3 text-left transition-[background-color,transform] duration-150 ease-out active:scale-[0.99] motion-reduce:active:scale-100"
                 >
                   <span className="text-foreground flex items-center gap-2 text-sm">
-                    <SlidersHorizontal
-                      className="text-muted-foreground h-3.5 w-3.5"
-                      aria-hidden="true"
-                    />
+                    <SlidersHorizontal className="text-success h-3.5 w-3.5" aria-hidden="true" />
                     Savings assumptions
                   </span>
                   <span className="text-muted-foreground flex items-center gap-2 text-xs">
                     {values.classroomShift}% classroom · {values.adminReduction}% admin
                     <ChevronDown
                       className={cn(
-                        "h-3.5 w-3.5 transition-transform duration-200",
+                        "h-3.5 w-3.5 transition-transform duration-200 ease-out",
                         assumptionsOpen && "rotate-180"
                       )}
                       aria-hidden="true"
@@ -500,7 +480,7 @@ export function RoiCalculator() {
                 <div
                   id="roi-assumptions"
                   className={cn(
-                    "grid transition-[grid-template-rows] duration-300",
+                    "grid transition-[grid-template-rows] duration-200",
                     assumptionsOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
                   )}
                   style={{ transitionTimingFunction: "var(--ease-out-strong)" }}
@@ -512,6 +492,7 @@ export function RoiCalculator() {
                       </p>
                       <SliderRow
                         compact
+                        tone="success"
                         id="roi-classroom-shift"
                         label="Classroom time moved to pre-arrival"
                         value={values.classroomShift}
@@ -521,6 +502,7 @@ export function RoiCalculator() {
                       />
                       <SliderRow
                         compact
+                        tone="success"
                         id="roi-noshow-avoided"
                         label="No-show hotel spend avoided"
                         value={values.noShowAvoided}
@@ -530,6 +512,7 @@ export function RoiCalculator() {
                       />
                       <SliderRow
                         compact
+                        tone="success"
                         id="roi-admin-reduction"
                         label="Admin time saved"
                         value={values.adminReduction}
@@ -539,6 +522,7 @@ export function RoiCalculator() {
                       />
                       <SliderRow
                         compact
+                        tone="success"
                         id="roi-admin-rate"
                         label="Admin hourly cost"
                         value={values.adminRate}
@@ -553,10 +537,7 @@ export function RoiCalculator() {
             </div>
 
             {/* Results */}
-            <div
-              ref={resultsRef}
-              className="border-border bg-background rounded-xs border p-6 sm:p-8"
-            >
+            <div className="border-success/25 bg-success/10 rounded-xs border p-6 sm:p-8">
               {sharedNotice && (
                 <div className="bg-surface-2 border-border mb-5 flex items-start gap-2.5 rounded-xs border px-3 py-2.5">
                   <Link2
@@ -578,10 +559,11 @@ export function RoiCalculator() {
                 </div>
               )}
 
-              <p className="text-muted-foreground text-xs font-normal tracking-wide uppercase">
+              <p className="text-success flex items-center gap-1.5 text-xs font-medium tracking-wide uppercase">
+                <CircleDollarSign className="h-3.5 w-3.5" aria-hidden="true" />
                 Estimated annual savings
               </p>
-              <p className="text-foreground mt-2 text-5xl font-normal tracking-[-0.03em] tabular-nums">
+              <p className="text-success mt-2 text-5xl font-normal tracking-[-0.03em] tabular-nums">
                 {currency.format(Math.round(animatedTotal))}
               </p>
               <p className="text-muted-foreground mt-1.5 text-sm">
@@ -589,12 +571,9 @@ export function RoiCalculator() {
                 {currency.format(Math.round(perHire))} per hire
               </p>
 
-              <div className="border-border-subtle mt-6 border-t pt-5">
-                <p className="text-foreground flex items-baseline gap-2 text-sm">
-                  <Clock3
-                    className="text-muted-foreground h-3.5 w-3.5 self-center"
-                    aria-hidden="true"
-                  />
+              <div className="border-success/20 bg-card/70 mt-6 rounded-xs border p-4">
+                <p className="text-success flex items-baseline gap-2 text-sm">
+                  <Clock3 className="text-success h-3.5 w-3.5 self-center" aria-hidden="true" />
                   <span className="text-2xl font-normal tracking-[-0.02em] tabular-nums">
                     {Math.round(animatedHours).toLocaleString("en-US")}
                   </span>
@@ -617,7 +596,7 @@ export function RoiCalculator() {
                   amount={results.classroomDollars}
                   share={results.classroomDollars / largestCategory}
                   barClass="bg-accent-blue"
-                  revealed={revealed}
+                  revealed
                 />
                 <BreakdownRow
                   icon={BedDouble}
@@ -626,7 +605,7 @@ export function RoiCalculator() {
                   amount={results.hotelDollars}
                   share={results.hotelDollars / largestCategory}
                   barClass="bg-accent-amber"
-                  revealed={revealed}
+                  revealed
                 />
                 <BreakdownRow
                   icon={ClipboardList}
@@ -635,7 +614,7 @@ export function RoiCalculator() {
                   amount={results.adminDollars}
                   share={results.adminDollars / largestCategory}
                   barClass="bg-accent-violet"
-                  revealed={revealed}
+                  revealed
                 />
               </div>
 
@@ -645,15 +624,18 @@ export function RoiCalculator() {
               </p>
 
               <div className="mt-6 space-y-2.5">
-                <Link href="/demo" className="block">
-                  <Button variant="primary" size="md" className="w-full">
-                    See these numbers on your fleet <ArrowRight className="ml-1 h-4 w-4" />
-                  </Button>
-                </Link>
+                <EmailCapture
+                  source="Orientation cost calculator"
+                  buttonText="Get started"
+                  className="max-w-none"
+                />
+                <p className="text-muted-foreground text-center text-xs">
+                  Start with your work email. We&apos;ll help you pressure-test the estimate.
+                </p>
                 <Button
                   variant="secondary"
                   size="md"
-                  className="w-full"
+                  className="border-success/25 bg-card/70 hover:border-success/40 hover:bg-card w-full"
                   onClick={handleCopyLink}
                   aria-live="polite"
                 >
