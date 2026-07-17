@@ -19,6 +19,7 @@ const SIGN_IN_URL = "https://app.raisedash.com/login";
 
 const directLinks = [
   { title: "Driver onboarding", href: "/solutions/driver-onboarding" },
+  { title: "Pricing", href: "/pricing" },
   { title: "Blog", href: "/blog" },
   { title: "About", href: "/about" },
 ];

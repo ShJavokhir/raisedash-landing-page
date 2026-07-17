@@ -22,7 +22,7 @@ import {
  *  - "Set up my fleet myself": hands off to the dashboard's WorkOS signup at
  *    app.raisedash.com/sign-up. Its ?email= param prefills the WorkOS form
  *    (loginHint); the dashboard then auto-creates the org and collects a card
- *    (7-day trial starts at card-on-file, nothing charged up front).
+ *    (14-day trial starts at card-on-file, nothing charged up front).
  *
  * Keeps the normal marketing design system (site tokens + shared ui components).
  * It is intentionally NOT the stripped ad funnel: no Meta Pixel, no PostHog.
@@ -270,7 +270,7 @@ function PathChooser({ email, onBookDemo }: { email: string; onBookDemo: () => v
               Set up my fleet myself
             </span>
             <span className="text-muted-foreground mt-1 block text-sm leading-relaxed">
-              Create an account and send your first orientation today. Free 7-day trial starts when
+              Create an account and send your first orientation today. Free 14-day trial starts when
               you add a card — nothing is charged up front.
             </span>
           </span>

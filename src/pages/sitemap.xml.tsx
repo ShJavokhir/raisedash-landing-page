@@ -20,10 +20,11 @@ const SITE_URL = RAW_SITE_URL.endsWith("/") ? RAW_SITE_URL.slice(0, -1) : RAW_SI
 const STATIC_PAGE_DATES: Record<string, string> = {
   "/": "2026-07-17",
   "/blog": "2026-01-26", // overridden below by latest post date
-  "/about": "2026-07-16",
+  "/about": "2026-07-17",
   "/contact": "2026-07-14",
   "/careers": "2026-07-14",
   "/demo": "2026-07-17",
+  "/pricing": "2026-07-17",
   "/solutions/driver-onboarding": "2026-07-16",
   "/platform/pre-arrival-readiness": "2026-07-14",
   "/platform/training-evidence": "2026-07-14",
@@ -114,6 +115,12 @@ function generateSiteMap(
       lastmod: STATIC_PAGE_DATES["/demo"],
       changefreq: "monthly",
       priority: "0.8",
+    },
+    {
+      loc: `${SITE_URL}/pricing`,
+      lastmod: STATIC_PAGE_DATES["/pricing"],
+      changefreq: "weekly",
+      priority: "0.9",
     },
     {
       loc: `${SITE_URL}/about`,

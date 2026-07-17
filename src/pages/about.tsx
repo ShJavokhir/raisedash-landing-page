@@ -45,7 +45,7 @@ const principles: { icon: LucideIcon; title: string; body: string }[] = [
   {
     icon: Receipt,
     title: "Honest, transparent pricing",
-    body: "Pricing and product limits should be easy to understand. We will publish final pricing when it is ready.",
+    body: "Our whole price list is public: one plan, $149/month including 25 managed drivers, then $6 per additional driver. No quote calls, no contracts, and data exports are free in every plan.",
   },
 ];
 

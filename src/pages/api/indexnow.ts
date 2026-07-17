@@ -11,6 +11,7 @@ const STATIC_PATHS = [
   "/contact",
   "/careers",
   "/demo",
+  "/pricing",
   "/solutions/driver-onboarding",
   "/platform/pre-arrival-readiness",
   "/platform/training-evidence",

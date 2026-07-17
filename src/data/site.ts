@@ -36,6 +36,7 @@ export const footerLinks: FooterSection[] = [
       { title: "Training records", href: "/platform/training-evidence" },
       { title: "First 90 days · planned", href: "/platform/first-90-days" },
       { title: "Driver experience", href: "/platform/driver-experience" },
+      { title: "Pricing", href: "/pricing" },
       { title: "Book a demo", href: "/demo" },
     ],
   },
