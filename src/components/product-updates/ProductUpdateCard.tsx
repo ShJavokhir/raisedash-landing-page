@@ -1,10 +1,10 @@
 import Link from "next/link";
 import Image from "next/image";
-import { ProductUpdate } from "@/lib/product-updates";
+import { ProductUpdateSummary } from "@/lib/product-updates";
 import { TierBadge } from "./TierBadge";
 
 interface ProductUpdateCardProps {
-  update: ProductUpdate;
+  update: ProductUpdateSummary;
 }
 
 export function ProductUpdateCard({ update }: ProductUpdateCardProps) {

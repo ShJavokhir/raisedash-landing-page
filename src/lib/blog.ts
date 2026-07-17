@@ -26,6 +26,29 @@ export interface BlogPost {
 }
 
 /**
+ * Listing-only view of a post — just the fields the blog index and homepage
+ * cards render. Deliberately drops the heavy `content` MDX body and extracted
+ * `faqs` so listing pages don't ship them in __NEXT_DATA__.
+ */
+export type BlogPostSummary = Pick<
+  BlogPost,
+  "slug" | "title" | "excerpt" | "publishedAt" | "category" | "featured" | "readTime"
+>;
+
+/** Narrow a full post down to the fields a listing card needs. */
+export function toPostSummary(post: BlogPost): BlogPostSummary {
+  return {
+    slug: post.slug,
+    title: post.title,
+    excerpt: post.excerpt,
+    publishedAt: post.publishedAt,
+    category: post.category,
+    featured: post.featured,
+    readTime: post.readTime,
+  };
+}
+
+/**
  * Extract FAQs from MDX content. Supports multiple patterns:
  * 1. Frontmatter faqs array
  * 2. **Question** followed by answer paragraph

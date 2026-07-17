@@ -7,9 +7,6 @@ export default function Document() {
         {/* Preconnect to CDN for faster image loading */}
         <link rel="preconnect" href="https://cdn.raisedash.com" />
         <link rel="dns-prefetch" href="https://cdn.raisedash.com" />
-        {/* Preconnect to GitHub for globe GeoJSON data */}
-        <link rel="preconnect" href="https://raw.githubusercontent.com" />
-        <link rel="dns-prefetch" href="https://raw.githubusercontent.com" />
 
         {/* Inline theme init: default light, apply saved dark before paint */}
         <script
@@ -19,7 +16,8 @@ export default function Document() {
                 try {
                   var stored = localStorage.getItem('theme');
                   // Default to light theme, only apply dark if explicitly set to 'dark'
-                  if (stored === 'dark') {
+                  var isDark = stored === 'dark';
+                  if (isDark) {
                     document.documentElement.classList.add('dark');
                   } else {
                     // Always default to light theme
@@ -29,6 +27,16 @@ export default function Document() {
                       localStorage.setItem('theme', 'light');
                     }
                   }
+                  // Keep <meta name="theme-color"> in sync with the Paper background.
+                  // NOTE: these two hex values duplicate THEME_COLOR_DARK/LIGHT in
+                  // src/lib/theme.ts — change both together.
+                  var meta = document.querySelector('meta[name="theme-color"]');
+                  if (!meta) {
+                    meta = document.createElement('meta');
+                    meta.setAttribute('name', 'theme-color');
+                    document.head.appendChild(meta);
+                  }
+                  meta.setAttribute('content', isDark ? '#1a1918' : '#f7f7f4');
                 } catch (e) {}
               })();
             `,

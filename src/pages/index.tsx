@@ -12,14 +12,14 @@ import { ForDrivers } from "@/components/home/ForDrivers";
 import { HowItWorks } from "@/components/home/HowItWorks";
 import { RoiCalculator } from "@/components/home/RoiCalculator";
 import { MoreFromRaisedash } from "@/components/home/MoreFromRaisedash";
-import { getAllProductUpdates, ProductUpdate } from "@/lib/product-updates";
-import { getAllPosts, BlogPost } from "@/lib/blog";
+import { getAllProductUpdates, toUpdateSummary, ProductUpdateSummary } from "@/lib/product-updates";
+import { getAllPosts, toPostSummary, BlogPostSummary } from "@/lib/blog";
 import { BlogCard } from "@/components/blog/BlogCard";
 import { HalftoneTruck } from "@/components/ui/HalftoneTruck";
 
 interface HomeProps {
-  recentUpdates: ProductUpdate[];
-  recentPosts: BlogPost[];
+  recentUpdates: ProductUpdateSummary[];
+  recentPosts: BlogPostSummary[];
 }
 
 export default function Home({ recentUpdates, recentPosts }: HomeProps) {
@@ -105,9 +105,9 @@ export default function Home({ recentUpdates, recentPosts }: HomeProps) {
       {/* Recent Updates Section */}
       {recentUpdates.length > 0 && (
         <Container className="pb-12 md:px-0">
-          <p className="text-muted-foreground mb-1 text-sm font-normal tracking-wide uppercase">
+          <h2 className="text-muted-foreground mb-1 text-sm font-normal tracking-wide uppercase">
             Recent updates
-          </p>
+          </h2>
           <p className="text-muted-foreground mb-4 text-sm">
             Recent changes and improvements across the platform.
           </p>
@@ -208,10 +208,10 @@ export default function Home({ recentUpdates, recentPosts }: HomeProps) {
 
 export const getStaticProps: GetStaticProps = async () => {
   const allUpdates = getAllProductUpdates();
-  const recentUpdates = allUpdates.slice(0, 3);
+  const recentUpdates = allUpdates.slice(0, 3).map(toUpdateSummary);
 
   const allPosts = getAllPosts();
-  const recentPosts = allPosts.slice(0, 3);
+  const recentPosts = allPosts.slice(0, 3).map(toPostSummary);
 
   return {
     props: {

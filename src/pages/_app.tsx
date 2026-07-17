@@ -18,9 +18,6 @@ const IntercomProvider = dynamic(
   { ssr: false }
 );
 
-// Re-export Web Vitals reporting for Next.js performance monitoring
-export { reportWebVitals } from "@/lib/vitals";
-
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
   // The /start and /start-v2 ad funnels (Meta ads) are distraction-free,
@@ -37,7 +34,6 @@ export default function App({ Component, pageProps }: AppProps) {
       {/* Global Head - viewport and base meta */}
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="theme-color" content="#0f172a" />
         <link rel="icon" href="/favicon.ico" />
         {/* Blog feed auto-discovery for readers/aggregators */}
         <link rel="alternate" type="application/rss+xml" title="Raisedash Blog" href="/rss.xml" />

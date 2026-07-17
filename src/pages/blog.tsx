@@ -4,10 +4,10 @@ import { Container } from "@/components/layout/Container";
 import { PageLayout } from "@/components/layout/PageLayout";
 import { BlogCard } from "@/components/blog/BlogCard";
 import { Button } from "@/components/ui/Button";
-import { getAllPosts, getCategories, BlogPost } from "@/lib/blog";
+import { getAllPosts, getCategories, toPostSummary, BlogPostSummary } from "@/lib/blog";
 
 interface BlogPageProps {
-  posts: BlogPost[];
+  posts: BlogPostSummary[];
   categories: string[];
 }
 
@@ -115,7 +115,7 @@ export default function Blog({ posts, categories }: BlogPageProps) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const posts = getAllPosts();
+  const posts = getAllPosts().map(toPostSummary);
   const categories = getCategories();
 
   return {

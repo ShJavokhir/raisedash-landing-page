@@ -8,11 +8,12 @@ import { Button } from "@/components/ui/Button";
 import {
   getAllProductUpdates,
   getProductUpdateCategories,
-  ProductUpdate,
+  ProductUpdateSummary,
+  toUpdateSummary,
 } from "@/lib/product-updates";
 
 interface ProductUpdatesPageProps {
-  updates: ProductUpdate[];
+  updates: ProductUpdateSummary[];
   categories: string[];
 }
 
@@ -144,7 +145,8 @@ export default function ProductUpdates({ updates, categories }: ProductUpdatesPa
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const updates = getAllProductUpdates();
+  // Summaries only — full update bodies stay out of the listing page's props.
+  const updates = getAllProductUpdates().map(toUpdateSummary);
   const categories = getProductUpdateCategories();
 
   return {

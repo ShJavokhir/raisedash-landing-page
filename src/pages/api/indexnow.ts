@@ -1,6 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { getAllPosts } from "@/lib/blog";
-import { getAllProductUpdates } from "@/lib/product-updates";
 
 const INDEXNOW_KEY = "a8f4e2b1c9d64f3a8e7b0c5d2f1a9e4b";
 const SITE_URL = "https://www.raisedash.com";
@@ -29,6 +28,7 @@ const STATIC_PATHS = [
   "/compliance-challenges",
   "/pti-app",
   "/tools/elp-practice",
+  "/tools/road-signs",
 ];
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -60,11 +60,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       urls.push(`${SITE_URL}/blog/${post.slug}`);
     }
 
-    // Product updates
-    const updates = getAllProductUpdates();
-    for (const update of updates) {
-      urls.push(`${SITE_URL}/product-updates/${update.slug}`);
-    }
+    // NOTE: Individual /product-updates/<slug> pages are intentionally NOT
+    // submitted. They are thin, noindexed changelog entries — only the
+    // /product-updates hub (in STATIC_PATHS) is announced to IndexNow.
 
     const body = {
       host: "www.raisedash.com",

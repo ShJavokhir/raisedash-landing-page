@@ -30,6 +30,30 @@ export interface ProductUpdate {
   productLink: string | null;
 }
 
+/**
+ * Listing-only view of an update — just the fields the changelog index and
+ * homepage rows render. Deliberately drops the heavy `content` MDX body so
+ * listing pages don't ship it in __NEXT_DATA__.
+ */
+export type ProductUpdateSummary = Pick<
+  ProductUpdate,
+  "slug" | "title" | "excerpt" | "publishedAt" | "category" | "tier" | "image" | "readTime"
+>;
+
+/** Narrow a full update down to the fields a listing card/row needs. */
+export function toUpdateSummary(update: ProductUpdate): ProductUpdateSummary {
+  return {
+    slug: update.slug,
+    title: update.title,
+    excerpt: update.excerpt,
+    publishedAt: update.publishedAt,
+    category: update.category,
+    tier: update.tier,
+    image: update.image,
+    readTime: update.readTime,
+  };
+}
+
 function calculateReadTime(content: string): string {
   const wordsPerMinute = 200;
   const words = content.trim().split(/\s+/).length;

@@ -49,7 +49,7 @@ const nextConfig: NextConfig = {
   },
   // Enable modern JavaScript output (reduces polyfills)
   experimental: {
-    optimizePackageImports: ["lucide-react", "motion", "d3-geo"],
+    optimizePackageImports: ["lucide-react", "motion"],
   },
 };
 

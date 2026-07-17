@@ -1,9 +1,9 @@
 import Link from "next/link";
-import { BlogPost } from "@/lib/blog";
+import { BlogPostSummary } from "@/lib/blog";
 import { cn } from "@/lib/cn";
 
 interface BlogCardProps {
-  post: BlogPost;
+  post: BlogPostSummary;
   featured?: boolean;
 }
 

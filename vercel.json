@@ -12,5 +12,13 @@
       "source": "/tools/elp-practice/:path+",
       "destination": "https://tools.raisedash.com/tools/elp-practice/:path+"
     }
+  ],
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "raisedash.com" }],
+      "destination": "https://www.raisedash.com/:path*",
+      "permanent": true
+    }
   ]
 }

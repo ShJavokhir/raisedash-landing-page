@@ -13,6 +13,8 @@ Allow: /_next/static/
 Allow: /_next/image/
 
 # Block internal APIs
+# Allow the OG image endpoint so social/search crawlers can fetch link-preview cards
+Allow: /api/og
 Disallow: /api/
 
 # Block admin/internal paths if any

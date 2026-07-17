@@ -155,6 +155,12 @@ export default function ProductUpdatePage({
         canonical={canonicalUrl}
         ogImage={ogImage}
         ogType="article"
+        // Thin, low-search-intent changelog entries: keep them crawlable and
+        // shareable (OG cards, related-links equity via `follow`) but out of
+        // the index so they don't dilute site-wide quality signals. The
+        // /product-updates hub stays indexed. Do NOT block these in robots.txt
+        // — Google must crawl the page to see this noindex.
+        noindex
         article={{
           publishedTime: update.publishedAt,
           modifiedTime: update.publishedAt,

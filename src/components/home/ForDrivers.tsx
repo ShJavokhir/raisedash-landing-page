@@ -1,4 +1,4 @@
-import { Smartphone, KeyRound, Languages, PlayCircle } from "lucide-react";
+import { Smartphone, KeyRound, Globe, PlayCircle } from "lucide-react";
 import { Container } from "@/components/layout/Container";
 
 const points = [
@@ -13,9 +13,9 @@ const points = [
     body: "A one-time code keeps sign-in simple.",
   },
   {
-    icon: Languages,
+    icon: Globe,
     title: "Nothing to install",
-    body: "Training opens in the phone&apos;s browser, with no app download.",
+    body: "Training opens in the phone's browser, with no app download.",
   },
   {
     icon: PlayCircle,

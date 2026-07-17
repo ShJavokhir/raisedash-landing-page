@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useCallback } from "react";
+import { useEffect, useRef, useCallback, useState } from "react";
 import { useRouter } from "next/router";
 import Intercom from "@intercom/messenger-js-sdk";
 
@@ -10,11 +10,17 @@ const INTERCOM_APP_ID = process.env.NEXT_PUBLIC_INTERCOM_APP_ID || "lpyms5sz";
 const UPDATE_INTERVAL_MS = 90_000; // 90 seconds between periodic updates
 const MIN_UPDATE_INTERVAL_MS = 5_000; // Minimum 5 seconds between any updates
 
+// The messenger SDK is the single biggest third-party cost on the page, so we
+// defer loading it until the visitor shows intent or an idle fallback fires.
+const BOOT_IDLE_TIMEOUT_MS = 5_000; // Idle fallback ~5s after mount
+const BOOT_EVENTS = ["pointerdown", "keydown", "touchstart", "scroll"] as const;
+
 export function IntercomProvider() {
   const router = useRouter();
   const lastUpdateRef = useRef<number>(0);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const isInitializedRef = useRef(false);
+  const [booted, setBooted] = useState(false);
 
   // Throttled update function to ping Intercom for new messages
   const updateIntercom = useCallback((force = false) => {
@@ -41,20 +47,61 @@ export function IntercomProvider() {
     });
   }, []);
 
-  // Initialize Intercom
+  // Lazily boot Intercom on the first user intent, or an idle fallback ~5s in.
+  // Whichever fires first wins; the rest are torn down so boot runs exactly once.
   useEffect(() => {
     if (typeof window === "undefined" || isInitializedRef.current) return;
 
-    Intercom({
-      app_id: INTERCOM_APP_ID,
+    let idleId: number | null = null;
+    let idleTimer: NodeJS.Timeout | null = null;
+
+    const cancelIdle = () => {
+      if (idleId !== null && typeof window.cancelIdleCallback === "function") {
+        window.cancelIdleCallback(idleId);
+      }
+      if (idleTimer !== null) {
+        clearTimeout(idleTimer);
+      }
+    };
+
+    const boot = () => {
+      if (isInitializedRef.current) return;
+      isInitializedRef.current = true;
+
+      // Remove every trigger so nothing fires after boot
+      BOOT_EVENTS.forEach((event) => window.removeEventListener(event, boot));
+      cancelIdle();
+
+      Intercom({
+        app_id: INTERCOM_APP_ID,
+      });
+
+      lastUpdateRef.current = Date.now();
+      setBooted(true);
+    };
+
+    // First user intent wins
+    BOOT_EVENTS.forEach((event) => {
+      window.addEventListener(event, boot, { once: true, passive: true });
     });
 
-    isInitializedRef.current = true;
-    lastUpdateRef.current = Date.now();
+    // Idle fallback so the widget still loads for passive visitors
+    if (typeof window.requestIdleCallback === "function") {
+      idleId = window.requestIdleCallback(boot, { timeout: BOOT_IDLE_TIMEOUT_MS });
+    } else {
+      idleTimer = setTimeout(boot, BOOT_IDLE_TIMEOUT_MS);
+    }
+
+    return () => {
+      BOOT_EVENTS.forEach((event) => window.removeEventListener(event, boot));
+      cancelIdle();
+    };
   }, []);
 
-  // Handle route changes
+  // Handle route changes (only meaningful once Intercom has booted)
   useEffect(() => {
+    if (!booted) return;
+
     const handleRouteChange = () => {
       updateIntercom();
     };
@@ -64,11 +111,11 @@ export function IntercomProvider() {
     return () => {
       router.events.off("routeChangeComplete", handleRouteChange);
     };
-  }, [router.events, updateIntercom]);
+  }, [booted, router.events, updateIntercom]);
 
-  // Periodic updates for real-time message delivery
+  // Periodic updates for real-time message delivery (only after boot)
   useEffect(() => {
-    if (typeof window === "undefined") return;
+    if (typeof window === "undefined" || !booted) return;
 
     // Start periodic updates
     intervalRef.current = setInterval(() => {
@@ -97,7 +144,7 @@ export function IntercomProvider() {
       document.removeEventListener("visibilitychange", handleVisibilityChange);
       window.removeEventListener("focus", handleFocus);
     };
-  }, [updateIntercom]);
+  }, [booted, updateIntercom]);
 
   return null;
 }

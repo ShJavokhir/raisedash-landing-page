@@ -1,4 +1,4 @@
-import { memo, useState, useEffect } from "react";
+import { memo } from "react";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Container } from "@/components/layout/Container";
@@ -23,16 +23,6 @@ const ALL_PROBLEMS = [
   "Pulling a driver record together takes too long?",
 ];
 
-// Fisher-Yates shuffle
-function shuffle<T>(array: T[]): T[] {
-  const result = [...array];
-  for (let i = result.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [result[i], result[j]] = [result[j], result[i]];
-  }
-  return result;
-}
-
 // Split array into rows
 function splitIntoRows(items: string[]): [string[], string[], string[]] {
   const row1 = items.filter((_, i) => i % 3 === 0);
@@ -41,17 +31,22 @@ function splitIntoRows(items: string[]): [string[], string[], string[]] {
   return [row1, row2, row3];
 }
 
-// Default rows for SSR
-const defaultRows = splitIntoRows(ALL_PROBLEMS);
+// Deterministic rows — the same order on the server and the client, so the
+// marquee never visibly re-shuffles its content right after hydration.
+const PROBLEM_ROWS = splitIntoRows(ALL_PROBLEMS);
 
 interface ProblemBadgeProps {
   text: string;
+  // The duplicated (aria-hidden) loop set passes -1 to keep its links out of
+  // the tab order — visible badges stay focusable, the clones don't.
+  tabIndex?: number;
 }
 
-const ProblemBadge = memo(function ProblemBadge({ text }: ProblemBadgeProps) {
+const ProblemBadge = memo(function ProblemBadge({ text, tabIndex }: ProblemBadgeProps) {
   return (
     <Link
       href="/demo"
+      tabIndex={tabIndex}
       className="bg-card text-muted-foreground border-border hover:border-foreground/30 hover:text-foreground group inline-flex shrink-0 items-center gap-1 rounded-xs border px-3 py-1.5 text-lg whitespace-nowrap transition-colors duration-150"
     >
       {text}
@@ -88,7 +83,7 @@ const MarqueeRow = memo(function MarqueeRow({
         {/* Duplicate for seamless loop - hidden from crawlers and screen readers */}
         <div aria-hidden="true" className="flex gap-3">
           {items.map((item, i) => (
-            <ProblemBadge key={`b-${i}`} text={item} />
+            <ProblemBadge key={`b-${i}`} text={item} tabIndex={-1} />
           ))}
         </div>
       </div>
@@ -97,13 +92,6 @@ const MarqueeRow = memo(function MarqueeRow({
 });
 
 export function ProblemsMarquee() {
-  const [rows, setRows] = useState(defaultRows);
-
-  useEffect(() => {
-    // Shuffle on mount for randomized order each page load
-    setRows(splitIntoRows(shuffle(ALL_PROBLEMS)));
-  }, []);
-
   return (
     <section className="py-6" aria-labelledby="readiness-pains-heading">
       <Container>
@@ -122,9 +110,9 @@ export function ProblemsMarquee() {
 
           {/* Marquee rows */}
           <div className="flex flex-col gap-2">
-            <MarqueeRow items={rows[0]} direction="left" speed={280} />
-            <MarqueeRow items={rows[1]} direction="right" speed={240} />
-            <MarqueeRow items={rows[2]} direction="left" speed={260} />
+            <MarqueeRow items={PROBLEM_ROWS[0]} direction="left" speed={280} />
+            <MarqueeRow items={PROBLEM_ROWS[1]} direction="right" speed={240} />
+            <MarqueeRow items={PROBLEM_ROWS[2]} direction="left" speed={260} />
           </div>
         </div>
 

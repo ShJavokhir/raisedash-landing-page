@@ -11,6 +11,8 @@ const DEFAULT_OG_IMAGE = `${SITE_URL}/api/og?title=${encodeURIComponent(SITE_NAM
 export interface SEOProps {
   title?: string;
   description?: string;
+  // Retained for call-site compatibility only; intentionally not rendered as a
+  // <meta name="keywords"> tag (search engines ignore keyword meta).
   keywords?: string[];
   canonical?: string;
   ogImage?: string;
@@ -37,7 +39,6 @@ export interface SEOProps {
 export function SEO({
   title,
   description = DEFAULT_DESCRIPTION,
-  keywords = [],
   canonical,
   ogImage,
   ogType = "website",
@@ -60,6 +61,9 @@ export function SEO({
   // Build OG image URL
   const ogImageUrl =
     ogImage || (title ? `${SITE_URL}/api/og?title=${encodeURIComponent(title)}` : DEFAULT_OG_IMAGE);
+
+  // Only our generated cards have known 1200x630 dimensions; custom images may differ.
+  const isGeneratedOgCard = ogImageUrl.startsWith(`${SITE_URL}/api/og`);
 
   // Build robots directive
   const robotsContent = [noindex ? "noindex" : "index", nofollow ? "nofollow" : "follow"].join(
@@ -131,7 +135,7 @@ export function SEO({
       <meta name="title" content={fullTitle} />
       <meta name="description" content={description} />
       {article?.author && <meta name="author" content={article.author} />}
-      {keywords.length > 0 && <meta name="keywords" content={keywords.join(", ")} />}
+      {/* Keyword meta intentionally omitted: search engines ignore it. */}
       <meta name="robots" content={robotsContent} />
       <link rel="canonical" href={canonicalUrl} />
 
@@ -141,6 +145,13 @@ export function SEO({
       <meta property="og:title" content={title || SITE_NAME} />
       <meta property="og:description" content={description} />
       <meta property="og:image" content={ogImageUrl} />
+      {isGeneratedOgCard && (
+        <>
+          <meta property="og:image:width" content="1200" />
+          <meta property="og:image:height" content="630" />
+          <meta property="og:image:alt" content={title || SITE_NAME} />
+        </>
+      )}
       <meta property="og:site_name" content={SITE_NAME} />
       <meta property="og:locale" content="en_US" />
 
@@ -177,6 +188,7 @@ export function SEO({
       <meta name="twitter:title" content={title || SITE_NAME} />
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={ogImageUrl} />
+      {isGeneratedOgCard && <meta name="twitter:image:alt" content={title || SITE_NAME} />}
       <meta name="twitter:site" content="@tryraisedash" />
       <meta name="twitter:creator" content="@tryraisedash" />
 

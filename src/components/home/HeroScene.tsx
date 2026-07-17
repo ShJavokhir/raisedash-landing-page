@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import { CheckCircle2, FileSignature, MessageSquareText } from "lucide-react";
 import { cn } from "@/lib/cn";
 import { useVignetteTimeline } from "@/hooks/useVignetteTimeline";
@@ -147,7 +148,12 @@ function PhoneScreen({ step }: { step: number }) {
 }
 
 export function HeroScene() {
-  const step = useVignetteTimeline(STEP_DURATIONS);
+  // Gate the timeline on the scene being in view. On phones the homepage wraps
+  // this in `hidden lg:block` (display:none), so the observer never reports
+  // intersecting and no timers run for the invisible scene; on desktop it's
+  // in view immediately, so behavior is unchanged.
+  const rootRef = useRef<HTMLDivElement>(null);
+  const step = useVignetteTimeline(STEP_DURATIONS, { startInView: rootRef });
 
   const carterReady = step >= 4;
   const sosaReady = step >= 6;
@@ -155,7 +161,7 @@ export function HeroScene() {
   const readyCount = 3 + (carterReady ? 1 : 0) + (sosaReady ? 1 : 0);
 
   return (
-    <div aria-hidden="true" className="relative h-[24rem] w-[29rem] select-none">
+    <div ref={rootRef} aria-hidden="true" className="relative h-[24rem] w-[29rem] select-none">
       {/* Ready board — the admin's side of the story */}
       <div className="border-border bg-background absolute top-0 right-0 w-[19rem] rounded-xs border p-4">
         <div className="mb-3 flex items-center justify-between">

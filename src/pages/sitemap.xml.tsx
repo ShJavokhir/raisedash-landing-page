@@ -41,6 +41,7 @@ const STATIC_PAGE_DATES: Record<string, string> = {
   "/compliance-challenges": "2026-01-27",
   "/pti-app": "2026-01-28",
   "/tools/elp-practice": "2026-06-24",
+  "/tools/road-signs": "2026-02-27",
 };
 
 function generateSiteMap(
@@ -187,6 +188,16 @@ function generateSiteMap(
       priority: "0.8",
     },
     {
+      // Proxied to the tools.raisedash.com app via a vercel.json rewrite, but a
+      // real indexable landing page (200, self-canonical, no noindex). Announced
+      // here so the road-signs practice tool ranks on its own instead of only
+      // living as a deindexed /product-updates changelog entry.
+      loc: `${SITE_URL}/tools/road-signs`,
+      lastmod: STATIC_PAGE_DATES["/tools/road-signs"],
+      changefreq: "monthly",
+      priority: "0.8",
+    },
+    {
       loc: `${SITE_URL}/privacy-policy`,
       lastmod: STATIC_PAGE_DATES["/privacy-policy"],
       changefreq: "yearly",
@@ -236,20 +247,12 @@ function generateSiteMap(
   </url>`
     )
     .join("")}
-
-  <!-- Product Updates -->
-  ${productUpdates
-    .map(
-      (update) => `
-  <url>
-    <loc>${SITE_URL}/product-updates/${update.slug}</loc>
-    <lastmod>${update.publishedAt}</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>`
-    )
-    .join("")}
 </urlset>`;
+  // NOTE: Individual /product-updates/<slug> pages are intentionally NOT listed.
+  // They are thin, low-search-intent changelog entries carrying `noindex`, so
+  // they're kept out of the sitemap to avoid index bloat. Only the
+  // /product-updates hub (in staticPages above) is submitted. `productUpdates`
+  // is still used to date-stamp that hub's <lastmod>.
 }
 
 function SiteMap() {
