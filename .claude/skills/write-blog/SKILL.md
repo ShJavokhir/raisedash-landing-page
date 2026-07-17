@@ -1,6 +1,6 @@
 ---
 name: write-blog
-description: Write a Raisedash blog post (content/blog/*.mdx) — SEO rules, brand voice, honest-scope copy, flat brand-illustration images via fal.ai gpt-image-2, R2/CDN upload, and a solution-mapped CTA. Use whenever asked to write, create, or draft a blog post or article for raisedash.com.
+description: Write a Raisedash blog post (content/blog/*.mdx) — SEO rules, brand voice, honest-scope copy, hand-drawn two-tone ink illustrations via Grok Imagine, R2/CDN upload, and a solution-mapped CTA. Use whenever asked to write, create, or draft a blog post or article for raisedash.com.
 ---
 
 # Writing a Raisedash blog post
@@ -132,7 +132,7 @@ Map the topic to the solution:
 
 ## FAQ (rich-snippet format)
 
-End every post with 3–5 FAQs in **exactly** this shape — `lib/blog.ts`
+End every post with 3–5 FAQs in **exactly** this shape — `src/lib/blog.ts`
 auto-extracts bold questions into FAQPage JSON-LD:
 
 ```mdx
@@ -156,18 +156,21 @@ the intro, or a diagram-like illustration that anchors a key concept. If no
 section needs one, ship zero images — a decorative image is worse than none.
 Every post must remain fully useful with images stripped.
 
-**Style is locked** in `tools/generate-blog-image.sh` (flat editorial
-illustration, warm paper `#f7f7f4`, near-black ink `#26251e`, single orange
-accent `#f54e00`, no text, no photorealism, no detailed faces). Do not restyle
-per post — consistency is the point. A good reference output:
-`tools/temp/write-blog-skill-test.png`.
+**The style is a locked moat; the subject is the creativity.** Every blog image
+uses ONE hand-drawn look — pen-and-ink editorial **cross-hatch, strict two-tone**:
+warm near-black ink `#26251e` on warm paper `#f7f7f4`, with a single restrained
+orange `#f54e00` accent (the exact landing palette in `src/styles/globals.css`).
+It is baked into `tools/generate-blog-image.sh` (Grok Imagine
+`xai/grok-imagine-image/quality/text-to-image` via fal.ai, 16:9 @ 2k, ~$0.07/image).
+Never restyle per post — identical style across posts is the whole point; you
+choose only the *scene*. Reference set: `.claude/skills/write-blog/style-reference.webp`.
 
-Workflow (needs `FAL_KEY` and `CF_API_TOKEN`/`CF_ACCOUNT_ID` in `.env.local`):
+Workflow (needs `FAL_KEY` and the R2 S3 creds `R2_ACCESS_KEY_ID`/`R2_SECRET_ACCESS_KEY` in `.env.local`; upload goes through the `aws` CLI over R2's S3 API — one-time `aws`/`cwebp` install steps live in `tools/GUIDE.md`):
 
 ```bash
-# 1. Generate (~60–90s, ≈$0.17). Describe ONLY the scene; style is prepended.
+# 1. Generate (~15–40s). Describe ONLY the scene; the house style is prepended.
 ./tools/generate-blog-image.sh "<scene>" <post-slug-short>-<what>
-# sizes: default 3:2; --size 16:9 for wide covers
+# default 16:9; --size 3:2|1:1 and --resolution 1k|2k available
 
 # 2. LOOK at tools/temp/<name>.png (Read tool). Wrong composition → tweak the
 #    scene wording and regenerate. Judge like an art director, not a spellchecker.
@@ -179,11 +182,35 @@ Workflow (needs `FAL_KEY` and `CF_API_TOKEN`/`CF_ACCOUNT_ID` in `.env.local`):
 ![A messy binder's documents flowing into one clean training-record timeline.](https://cdn.raisedash.com/media/landing/blog/<name>.webp)
 ```
 
-Writing the scene (per the GPT-image prompting guide): one subject + one idea;
-state composition ("centered, viewed from the side"); name which single element
-gets the orange accent; simplified human figures are fine, close-up faces are
-not. No text/labels inside images — if a label is unavoidable, quote the exact
-word and keep it to one or two words. Iterate by changing one thing at a time.
+Writing the scene (order per the image-gen prompting guide — *scene → subject →
+key details → constraints*): one subject + one idea; state composition
+("three-quarter front view, centered, generous margin"); **name the single element
+that gets the orange accent** (a phone screen, a taillight, the top checkmark).
+Hand-drawn people read well. Grok may letter clean text on signs or checklists —
+keep it only if legible, else regenerate. Iterate by changing one thing at a time.
+
+**Placement & naming:** a cover goes immediately after the opening paragraph(s),
+before the first `##`; an in-body illustration goes right after the paragraph it
+anchors. Name files `<slug-short>-cover` or `<slug-short>-<what>`. (To find recent
+posts to illustrate, sort by the `publishedAt` frontmatter — file mtime lies, since
+any later edit touches it.)
+
+**Iterate like an art director, cheaply.** Grok has no seed, so a regenerate is a
+fresh roll, not a tweak — never reroll a strong composition to fix a small thing.
+One restrained orange *zone* is the goal; 2–3 orange marks that read as a single
+accent (a row of file tabs, two status checks) are on-brand, not a defect. Reroll
+only for a wrong *composition* or illegible lettering.
+
+**Proven cover scenes** (2026-07 — copy the *thinking*, not the words): find the
+post's single clearest idea and map it to one concrete object.
+
+- *Literal artifact* — a hand-ruled driver training-record ledger, columns for
+  name / date / status / score, one status cell checked in orange. (record-template post)
+- *Thesis-as-image* — a thin certificate lifted by a hand to reveal the thick,
+  tabbed evidence stack behind it (versions, quiz sheets, timestamps, signatures);
+  orange file tabs. Renders the post's core line literally. (records self-audit post)
+- *Process-as-timeline* — checkbox clusters strung along one horizontal line with a
+  small truck at the pivot milestone, the milestone dot the orange accent. (orientation post)
 
 ## Verify and publish
 
@@ -192,8 +219,11 @@ word and keep it to one or two words. Iterate by changing one thing at a time.
 2. Checklist: title ≤60 chars · excerpt 140–155 · 5–8 unique tags · no body H1 ·
    platform-page link present · CTA section + honest scope · FAQ format exact ·
    images have caption-quality alts · every stat sourced · backlink pass done.
-3. Sitemap, RSS, and the OG image are automatic. After the site deploys,
-   IndexNow can be pinged via `POST /api/indexnow`.
+3. Sitemap, RSS, and the OG image are automatic — the social card is generated
+   from the title, excerpt, and category by `/api/og` (there is **no** cover-image
+   frontmatter field; in-body images are separate). New posts auto-appear in the
+   sitemap via `getAllPosts()`. After the site deploys, IndexNow can be pinged via
+   `POST /api/indexnow`.
 4. Commit only when asked (repo rule).
 
 ## Exemplars

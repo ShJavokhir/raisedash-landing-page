@@ -1,8 +1,8 @@
 export const siteConfig = {
   name: "Raisedash",
   description:
-    "A driver readiness platform for U.S. trucking fleets. Prepare new drivers before arrival, support their first 90 days, and keep a clear training record.",
-  url: "https://raisedash.com",
+    "The driver readiness platform for modern trucking fleets. Prepare new drivers before terminal day and keep a clear record of every training step.",
+  url: "https://www.raisedash.com",
   ogImage: "https://cdn.raisedash.com/og-image.png",
   links: {
     twitter: "https://twitter.com/raisedash",
@@ -31,6 +31,7 @@ export const footerLinks: FooterSection[] = [
   {
     title: "Platform",
     links: [
+      { title: "Driver onboarding", href: "/solutions/driver-onboarding" },
       { title: "Pre-arrival orientation", href: "/platform/pre-arrival-readiness" },
       { title: "Training records", href: "/platform/training-evidence" },
       { title: "First 90 days · planned", href: "/platform/first-90-days" },

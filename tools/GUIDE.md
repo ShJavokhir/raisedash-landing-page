@@ -2,17 +2,24 @@
 
 ## Setup (one time)
 
-1. Add these to `.env.local` in the project root:
+1. Create a **bucket-scoped R2 API token** (Cloudflare → R2 → Manage API Tokens,
+   scoped to the `raisedash` bucket with Object Read & Write) and add its
+   S3 credentials to `.env.local` in the project root:
 
 ```
-CF_API_TOKEN=your-token-here
-CF_ACCOUNT_ID=your-account-id
+R2_ACCESS_KEY_ID=your-access-key-id
+R2_SECRET_ACCESS_KEY=your-secret-access-key
+CF_ACCOUNT_ID=your-account-id   # used to derive the S3 endpoint
 ```
 
-2. Install `cwebp` for automatic PNG/JPG to WebP conversion:
+   (Or set `R2_S3_ENDPOINT=https://<account-id>.r2.cloudflarestorage.com` directly
+   instead of `CF_ACCOUNT_ID`.)
+
+2. Install the CLIs the uploader uses:
 
 ```bash
-brew install webp
+brew install awscli   # uploads to R2 over the S3-compatible API
+brew install webp     # cwebp: automatic PNG/JPG → WebP conversion
 ```
 
 Without `cwebp`, images upload in their original format (larger files).

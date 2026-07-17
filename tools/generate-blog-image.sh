@@ -1,19 +1,20 @@
 #!/bin/bash
 #
-# Generate a Raisedash blog illustration with gpt-image-2 (via fal.ai).
-# Prepends the house flat-illustration style block so every image matches
-# the brand, then saves the result to tools/temp/<name>.png.
+# Generate a Raisedash blog illustration with Grok Imagine (via fal.ai).
+# Prepends the LOCKED hand-drawn "ink cross-hatch" house style block so every
+# image shares one consistent editorial look (the brand moat), while the scene
+# you pass varies per post (the creativity). Saves to tools/temp/<name>.png.
 #
 # Usage: ./tools/generate-blog-image.sh [options] "<scene description>" <output-name>
 #
 # Options:
-#   --size 3:2|16:9|1:1   Aspect ratio (default: 3:2 → 1536x1024)
-#   --quality low|medium|high   gpt-image-2 quality (default: high, ≈$0.17/image)
-#   --raw                 Send the scene description verbatim, skip the style block
+#   --size 16:9|3:2|4:3|1:1|9:16|2:3|3:4   Aspect ratio (default: 16:9)
+#   --resolution 1k|2k                     Grok resolution (default: 2k, ~$0.07/image)
+#   --raw                                  Send the scene verbatim, skip the house style block
 #
 # Examples:
-#   ./tools/generate-blog-image.sh "a clipboard with a driver training checklist, one row highlighted" training-audit-cover
-#   ./tools/generate-blog-image.sh --size 16:9 "a phone receiving an SMS invite in front of a parked semi truck" pre-arrival-hero
+#   ./tools/generate-blog-image.sh "a clipboard holding a driver training checklist, top row checked in orange" training-audit-cover
+#   ./tools/generate-blog-image.sh --size 3:2 "an open interstate highway at dawn, a semi truck driving into the distance, taillight the orange accent" pre-arrival-hero
 #
 # Environment:
 #   FAL_KEY - fal.ai API key (read from .env.local if not exported)
@@ -24,12 +25,14 @@
 
 set -euo pipefail
 
-# House style block — the single source of truth for the blog illustration look.
-# Matches the site's "Paper" palette (src/styles/globals.css).
-STYLE_BLOCK="Flat vector-style editorial illustration for a B2B trucking software blog. Warm paper background (#f7f7f4). Confident, minimal shapes drawn in warm near-black ink (#26251e). Exactly one restrained accent color: orange (#f54e00), used sparingly on the single most important element. Optional muted blue (#2f6ce0) as a quiet supporting tone. Generous negative space, clean geometric composition, subtle matte paper texture. Modern, calm, premium editorial style. Constraints: no gradients, no 3D rendering, no photorealism, no drop shadows, no text, no labels, no watermark, no border or frame. If people appear, render them as simplified flat figures without detailed facial features."
+# ---- LOCKED HOUSE STYLE BLOCK — the single source of truth for the blog look ----
+# Strict two-tone to match the landing palette (src/styles/globals.css):
+# warm near-black ink #26251e on warm paper #f7f7f4, with #f54e00 orange as the
+# single accent. Keep this identical across posts: consistency is the moat.
+STYLE_BLOCK="Hand-drawn pen-and-ink editorial illustration, strictly minimal two-tone: warm near-black ink (#26251e) on warm off-white paper (#f7f7f4). All shading and depth created only through fine liner cross-hatching and stippling — no gray fills, no color washes. Generous negative space, subtle paper grain, clearly hand-drawn by a skilled editorial illustrator. Exactly one accent permitted: a restrained warm orange (#f54e00) on a single small focal element. No other colors at all (no green, no blue, no amber), no photorealism, no 3D render, no text, no labels, no watermark, no border, no signature."
 
-SIZE="3:2"
-QUALITY="high"
+SIZE="16:9"
+RESOLUTION="2k"
 RAW=false
 
 RED='\033[0;31m'
@@ -47,11 +50,11 @@ dim() { echo -e "${DIM}$1${NC}"; }
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
-    --size)    SIZE="$2"; shift 2 ;;
-    --quality) QUALITY="$2"; shift 2 ;;
-    --raw)     RAW=true; shift ;;
-    -*)        die "Unknown option: $1" ;;
-    *)         break ;;
+    --size)       SIZE="$2"; shift 2 ;;
+    --resolution) RESOLUTION="$2"; shift 2 ;;
+    --raw)        RAW=true; shift ;;
+    -*)           die "Unknown option: $1" ;;
+    *)            break ;;
   esac
 done
 
@@ -61,15 +64,13 @@ SCENE="$1"
 NAME="$2"
 
 case "$SIZE" in
-  3:2)  WIDTH=1536; HEIGHT=1024 ;;
-  16:9) WIDTH=1920; HEIGHT=1088 ;;
-  1:1)  WIDTH=1024; HEIGHT=1024 ;;
-  *)    die "Unknown --size: $SIZE (use 3:2, 16:9, or 1:1)" ;;
+  16:9|3:2|4:3|1:1|9:16|2:3|3:4) ;;
+  *) die "Unknown --size: $SIZE (grok aspect ratios: 16:9, 3:2, 4:3, 1:1, 9:16, 2:3, 3:4)" ;;
 esac
 
-case "$QUALITY" in
-  low|medium|high) ;;
-  *) die "Unknown --quality: $QUALITY (use low, medium, or high)" ;;
+case "$RESOLUTION" in
+  1k|2k) ;;
+  *) die "Unknown --resolution: $RESOLUTION (use 1k or 2k)" ;;
 esac
 
 # --- Load env ---
@@ -94,16 +95,16 @@ BODY=$(python3 -c '
 import json, sys
 print(json.dumps({
     "prompt": sys.argv[1],
-    "image_size": {"width": int(sys.argv[2]), "height": int(sys.argv[3])},
-    "quality": sys.argv[4],
+    "aspect_ratio": sys.argv[2],
+    "resolution": sys.argv[3],
     "num_images": 1,
     "output_format": "png",
-}))' "$PROMPT" "$WIDTH" "$HEIGHT" "$QUALITY")
+}))' "$PROMPT" "$SIZE" "$RESOLUTION")
 
-warn "Generating ${WIDTH}x${HEIGHT} ${QUALITY}-quality image (takes 60-90s)..."
+warn "Generating ${SIZE} ${RESOLUTION} hand-drawn illustration via Grok Imagine..."
 dim "  Scene: $SCENE"
 
-RESPONSE=$(curl -s --max-time 300 -X POST "https://fal.run/openai/gpt-image-2" \
+RESPONSE=$(curl -s --max-time 300 -X POST "https://fal.run/xai/grok-imagine-image/quality/text-to-image" \
   -H "Authorization: Key ${FAL_KEY}" \
   -H "Content-Type: application/json" \
   -d "$BODY") || die "fal.ai request failed"

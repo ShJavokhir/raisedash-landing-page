@@ -1,0 +1,2 @@
+driver_name,employee_or_driver_id,training_title,training_topic,content_version_or_reference,assigned_date,completion_date,completion_status,quiz_score,certificate_or_record_id,trainer_or_reviewer,follow_up_required,follow_up_completed_date,notes
+Example Driver,D-001,Company Orientation,New hire orientation,Orientation v3,2026-07-01,2026-07-03,Complete,90%,CERT-001,Safety Manager,No,,Replace this example row with your own record

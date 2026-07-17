@@ -27,13 +27,13 @@ export default function ProductUpdates({ updates, categories }: ProductUpdatesPa
   return (
     <PageLayout
       title="Product Updates"
-      description="Stay up to date with the latest features, improvements, and fixes to Raisedash. See what's new in ELD compliance, driver qualification, fleet management, and more."
+      description="See the latest improvements to Raisedash driver orientation, phone-first training, progress tracking, and training records."
       keywords={[
         "product updates",
         "changelog",
-        "new features",
-        "ELD compliance",
-        "fleet management updates",
+        "Raisedash updates",
+        "driver onboarding software updates",
+        "driver training platform",
       ]}
     >
       {/* Hero Section */}
@@ -127,8 +127,8 @@ export default function ProductUpdates({ updates, categories }: ProductUpdatesPa
             Never Miss an Update
           </h2>
           <p className="text-muted-foreground mx-auto mb-8 max-w-xl text-lg">
-            Get the latest product updates, feature releases, and compliance tips delivered straight
-            to your inbox.
+            Get the latest driver-readiness features and product improvements delivered to your
+            inbox.
           </p>
           <div className="mx-auto flex justify-center">
             <EmailCapture

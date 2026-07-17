@@ -1,9 +1,8 @@
 import Link from "next/link";
 import { GetStaticProps } from "next";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Check } from "lucide-react";
 import { Container } from "@/components/layout/Container";
 import { PageLayout } from "@/components/layout/PageLayout";
-import { Button } from "@/components/ui/Button";
 import { EmailCapture } from "@/components/ui/EmailCapture";
 import { HeroScene } from "@/components/home/HeroScene";
 import { ProblemsMarquee } from "@/components/home/ProblemsMarquee";
@@ -11,6 +10,7 @@ import { CoreLoops } from "@/components/home/CoreLoops";
 import { EvidenceMoment } from "@/components/home/EvidenceMoment";
 import { ForDrivers } from "@/components/home/ForDrivers";
 import { HowItWorks } from "@/components/home/HowItWorks";
+import { RoiCalculator } from "@/components/home/RoiCalculator";
 import { MoreFromRaisedash } from "@/components/home/MoreFromRaisedash";
 import { getAllProductUpdates, ProductUpdate } from "@/lib/product-updates";
 import { getAllPosts, BlogPost } from "@/lib/blog";
@@ -32,8 +32,8 @@ export default function Home({ recentUpdates, recentPosts }: HomeProps) {
   };
   return (
     <PageLayout
-      title="Driver Readiness for U.S. Trucking Fleets"
-      description="Prepare new drivers before they arrive, support them through their first 90 days, and keep a clear training record in one place."
+      title="Driver Readiness Platform for Modern Trucking Fleets"
+      description="Raisedash helps trucking fleets prepare new drivers before terminal day with phone-first orientation and a clear record of every training step."
       keywords={[
         "driver readiness platform",
         "driver orientation software",
@@ -49,27 +49,32 @@ export default function Home({ recentUpdates, recentPosts }: HomeProps) {
         <Container className="bg-card border-border animate-fade-in-scale relative flex items-center overflow-hidden rounded-xs border px-8 py-12 delay-0 sm:px-12 sm:py-16">
           <div className="relative z-10 flex w-full items-center gap-12">
             <div className="flex-1">
+              <p className="text-muted-foreground animate-fade-in-up mb-4 text-sm font-normal tracking-wide uppercase delay-75">
+                The driver readiness platform for modern fleets
+              </p>
               <h1 className="text-foreground animate-fade-in-up text-4xl leading-tight font-normal tracking-[-0.03em] delay-75 sm:text-[48px]">
-                Orientation done before the driver walks in the door.
+                Ready before day one. Proven long after.
               </h1>
               <p className="text-muted-foreground animate-fade-in-up mt-6 max-w-xl text-xl leading-relaxed font-normal delay-150">
-                Raisedash gives trucking fleets one place to prepare new drivers before arrival,
-                support them through their first 90 days, and keep a reliable record of every step.
-                Less repeat work for your safety team. Fewer surprises on orientation day.
+                Prepare new drivers before terminal day, give them a simple phone-first orientation,
+                and keep a clear record of every training step. Less chasing for your safety team.
+                Fewer surprises on day one.
               </p>
 
-              <div className="animate-fade-in-up mt-10 flex flex-wrap items-center gap-3 delay-200">
-                <Link href="/demo">
-                  <Button variant="primary" size="lg">
-                    Book a demo <ArrowRight className="ml-1 h-4 w-4" />
-                  </Button>
-                </Link>
-                <a href="#how-it-works">
-                  <Button variant="secondary" size="lg">
-                    See how it works
-                  </Button>
-                </a>
+              <div className="animate-fade-in-up mt-10 delay-200">
+                <EmailCapture source="Hero" buttonText="Get started" />
               </div>
+
+              <ul className="text-muted-foreground animate-fade-in-up mt-6 flex flex-wrap gap-x-5 gap-y-2 text-sm delay-300">
+                {["No app download", "One-time code access", "Training records in one place"].map(
+                  (item) => (
+                    <li key={item} className="flex items-center gap-1.5">
+                      <Check className="text-foreground h-3.5 w-3.5" aria-hidden="true" />
+                      {item}
+                    </li>
+                  )
+                )}
+              </ul>
             </div>
 
             <div className="hidden flex-shrink-0 lg:block">
@@ -94,26 +99,30 @@ export default function Home({ recentUpdates, recentPosts }: HomeProps) {
       {/* How it works */}
       <HowItWorks />
 
+      {/* Orientation cost calculator */}
+      <RoiCalculator />
+
       {/* Recent Updates Section */}
       {recentUpdates.length > 0 && (
         <Container className="pb-12 md:px-0">
-          <p className="text-muted-foreground mb-4 text-sm font-normal tracking-wide uppercase">
+          <p className="text-muted-foreground mb-1 text-sm font-normal tracking-wide uppercase">
             Recent updates
           </p>
-          <div className="divide-border divide-y">
+          <p className="text-muted-foreground mb-4 text-sm">
+            Recent changes and improvements across the platform.
+          </p>
+          <div className="border-border bg-card divide-border divide-y overflow-hidden rounded-xs border">
             {recentUpdates.map((update) => (
               <Link
                 key={update.slug}
                 href={`/product-updates/${update.slug}`}
-                className="group flex items-center justify-between gap-4 py-3 first:pt-0 last:pb-0"
+                className="group hover:bg-surface-2 flex items-center justify-between gap-4 px-5 py-3.5 transition-colors duration-150"
               >
                 <div className="flex min-w-0 flex-1 items-center gap-3">
-                  <span className="bg-surface-3 text-foreground rounded-xs px-2 py-0.5 text-xs font-normal">
+                  <span className="bg-surface-3 text-foreground shrink-0 rounded-xs px-2 py-0.5 text-xs font-normal">
                     {update.category}
                   </span>
-                  <h3 className="text-foreground group-hover:text-foreground/80 truncate text-sm font-normal transition-colors">
-                    {update.title}
-                  </h3>
+                  <h3 className="text-foreground truncate text-sm font-normal">{update.title}</h3>
                   <span className="text-muted-foreground shrink-0 text-xs">
                     {formatDate(update.publishedAt)}
                   </span>
@@ -122,7 +131,7 @@ export default function Home({ recentUpdates, recentPosts }: HomeProps) {
               </Link>
             ))}
           </div>
-          <div className="mt-3">
+          <div className="mt-4">
             <Link
               href="/product-updates"
               className="text-muted-foreground hover:text-foreground inline-flex items-center gap-1 text-sm transition-colors"

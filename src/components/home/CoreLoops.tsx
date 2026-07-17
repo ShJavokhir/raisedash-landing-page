@@ -71,12 +71,12 @@ export function CoreLoops() {
           The driver readiness platform
         </p>
         <h2 className="text-foreground text-3xl font-normal tracking-[-0.02em] sm:text-4xl">
-          From approved hire to a record you can stand behind.
+          One driver history—from preparation to proof.
         </h2>
         <p className="text-muted-foreground mt-3 text-lg">
-          Raisedash connects the work before orientation, during a driver&apos;s first months, and
-          after a safety issue—so readiness does not depend on memory, paperwork, or scattered
-          systems.
+          Raisedash starts with pre-arrival orientation and a clear training record. First-90-days
+          and corrective-action workflows are in development, designed to extend the same history
+          instead of creating another disconnected system.
         </p>
       </div>
 

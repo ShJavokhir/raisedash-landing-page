@@ -17,9 +17,16 @@
 #   ./tools/upload-blog-image.sh ./images/*.png
 #
 # Environment:
-#   CF_API_TOKEN  - Cloudflare API token (required)
-#   CF_ACCOUNT_ID - Cloudflare account ID (required)
-#   CF_BUCKET     - R2 bucket name (default: raisedash)
+#   R2_ACCESS_KEY_ID     - R2 token Access Key ID (required)
+#   R2_SECRET_ACCESS_KEY - R2 token Secret Access Key (required)
+#   R2_S3_ENDPOINT       - R2 S3 endpoint (optional; derived from CF_ACCOUNT_ID)
+#   CF_ACCOUNT_ID        - Cloudflare account ID (used to derive the endpoint)
+#   CF_BUCKET            - R2 bucket name (default: raisedash)
+#
+# Uploads use the S3-compatible API (AWS SigV4) via the `aws` CLI. Bucket-scoped
+# R2 tokens are S3 credentials and are rejected (HTTP 403) by the Cloudflare REST
+# API this script previously used, so it authenticates with the Access Key /
+# Secret instead of a Bearer token.
 #
 
 set -euo pipefail
@@ -58,15 +65,23 @@ done
 # --- Load env vars ---
 
 ENV_FILE="$(dirname "$0")/../.env.local"
+read_env() { grep "^$1=" "$ENV_FILE" 2>/dev/null | head -1 | cut -d'=' -f2- | tr -d '"' || true; }
 if [[ -f "$ENV_FILE" ]]; then
-  [[ -z "${CF_API_TOKEN:-}" ]] && CF_API_TOKEN=$(grep '^CF_API_TOKEN=' "$ENV_FILE" | cut -d'=' -f2- | tr -d '"' || true)
-  [[ -z "${CF_ACCOUNT_ID:-}" ]] && CF_ACCOUNT_ID=$(grep '^CF_ACCOUNT_ID=' "$ENV_FILE" | cut -d'=' -f2- | tr -d '"' || true)
+  [[ -z "${R2_ACCESS_KEY_ID:-}" ]]     && R2_ACCESS_KEY_ID=$(read_env R2_ACCESS_KEY_ID)
+  [[ -z "${R2_SECRET_ACCESS_KEY:-}" ]] && R2_SECRET_ACCESS_KEY=$(read_env R2_SECRET_ACCESS_KEY)
+  [[ -z "${R2_S3_ENDPOINT:-}" ]]       && R2_S3_ENDPOINT=$(read_env R2_S3_ENDPOINT)
+  [[ -z "${CF_ACCOUNT_ID:-}" ]]        && CF_ACCOUNT_ID=$(read_env CF_ACCOUNT_ID)
 fi
+# Derive the S3 endpoint from the account id when it is not set explicitly.
+[[ -z "${R2_S3_ENDPOINT:-}" && -n "${CF_ACCOUNT_ID:-}" ]] && \
+  R2_S3_ENDPOINT="https://${CF_ACCOUNT_ID}.r2.cloudflarestorage.com"
 
 # --- Validation ---
 
-[[ -z "${CF_API_TOKEN:-}" ]] && die "CF_API_TOKEN is not set. Export it or add to .env.local"
-[[ -z "${CF_ACCOUNT_ID:-}" ]] && die "CF_ACCOUNT_ID is not set. Export it or add to .env.local"
+[[ -z "${R2_ACCESS_KEY_ID:-}" ]]     && die "R2_ACCESS_KEY_ID is not set. Add it to .env.local"
+[[ -z "${R2_SECRET_ACCESS_KEY:-}" ]] && die "R2_SECRET_ACCESS_KEY is not set. Add it to .env.local"
+[[ -z "${R2_S3_ENDPOINT:-}" ]]       && die "R2_S3_ENDPOINT (or CF_ACCOUNT_ID) is not set. Add it to .env.local"
+command -v aws >/dev/null 2>&1 || die "aws CLI not found — install with: brew install awscli"
 [[ $# -lt 1 ]] && die "Usage: $0 <file> [custom-name]\n  Example: $0 hero.png my-article-hero"
 
 convert_to_webp() {
@@ -167,20 +182,17 @@ upload_file() {
 
   warn "Uploading: $(basename "$file") → $r2_key ($(human_bytes "$file_size"))"
 
-  local response
-  response=$(curl -s -w "\n%{http_code}" \
-    -X PUT \
-    "https://api.cloudflare.com/client/v4/accounts/${CF_ACCOUNT_ID}/r2/buckets/${BUCKET}/objects/${r2_key}" \
-    -H "Authorization: Bearer ${CF_API_TOKEN}" \
-    -H "Content-Type: ${content_type}" \
-    --data-binary "@${upload_file}")
-
-  local http_code
-  http_code=$(echo "$response" | tail -1)
-  local body
-  body=$(echo "$response" | sed '$d')
-
-  if [[ "$http_code" -ge 200 && "$http_code" -lt 300 ]]; then
+  local upload_err
+  if upload_err=$(AWS_ACCESS_KEY_ID="$R2_ACCESS_KEY_ID" \
+      AWS_SECRET_ACCESS_KEY="$R2_SECRET_ACCESS_KEY" \
+      AWS_DEFAULT_REGION=auto \
+      aws s3api put-object \
+        --endpoint-url "$R2_S3_ENDPOINT" \
+        --bucket "$BUCKET" \
+        --key "$r2_key" \
+        --body "$upload_file" \
+        --content-type "$content_type" \
+        --no-cli-pager 2>&1 >/dev/null); then
     local url="${PUBLIC_URL}/${r2_key}"
     info "Uploaded: $url"
     echo ""
@@ -188,7 +200,7 @@ upload_file() {
     echo "  MDX:       <img src=\"${url}\" alt=\"\" />"
     echo ""
   else
-    die "Upload failed (HTTP $http_code):\n$body"
+    die "Upload failed:\n${upload_err:-unknown error}"
   fi
 }
 

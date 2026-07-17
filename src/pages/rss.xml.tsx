@@ -5,7 +5,7 @@ const RAW_SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://www.raisedash.
 const SITE_URL = RAW_SITE_URL.endsWith("/") ? RAW_SITE_URL.slice(0, -1) : RAW_SITE_URL;
 const FEED_TITLE = "Raisedash Blog";
 const FEED_DESCRIPTION =
-  "Insights, updates, and best practices for fleet compliance, safety and security in freight logistics.";
+  "Practical guides for truck driver onboarding, orientation, training records, and driver readiness.";
 
 interface FeedPost {
   slug: string;

@@ -5,7 +5,7 @@ const RAW_SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://www.raisedash.
 const SITE_URL = RAW_SITE_URL.endsWith("/") ? RAW_SITE_URL.slice(0, -1) : RAW_SITE_URL;
 const SITE_NAME = "Raisedash";
 const DEFAULT_DESCRIPTION =
-  "A driver readiness platform for U.S. trucking fleets. Prepare new drivers before arrival, support their first 90 days, and keep a clear training record.";
+  "The driver readiness platform for modern trucking fleets. Prepare new drivers before terminal day and keep a clear record of every training step.";
 const DEFAULT_OG_IMAGE = `${SITE_URL}/api/og?title=${encodeURIComponent(SITE_NAME)}`;
 
 export interface SEOProps {

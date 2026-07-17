@@ -19,15 +19,14 @@ export default function Blog({ posts, categories }: BlogPageProps) {
 
   return (
     <PageLayout
-      title="Blog"
-      description="Read the latest insights on fleet compliance, safety and security in freight logistics."
+      title="Driver Readiness Resources for Trucking Fleets"
+      description="Practical guides for truck driver onboarding, orientation, training records, and safer first months with your fleet."
       keywords={[
-        "fleet safety blog",
-        "fleet security blog",
-        "freight logistics news",
-        "cargo security",
-        "cargo theft",
-        "compliance and safety",
+        "truck driver onboarding resources",
+        "truck driver orientation checklist",
+        "driver training records",
+        "fleet safety training",
+        "driver readiness",
       ]}
     >
       {/* Hero Section */}
@@ -35,11 +34,11 @@ export default function Blog({ posts, categories }: BlogPageProps) {
         <Container className="py-16 md:py-20">
           <div className="max-w-3xl">
             <h1 className="text-foreground text-[48px] leading-tight font-normal tracking-[-0.03em]">
-              Blog
+              Driver readiness resources
             </h1>
             <p className="text-muted-foreground mt-6 text-lg leading-relaxed font-light">
-              Insights, updates, and best practices for fleet compliance, safety and security in
-              freight logistics.
+              Practical guides for preparing new drivers, running a clearer orientation, and keeping
+              the training record behind the work.
             </p>
           </div>
         </Container>

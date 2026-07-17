@@ -1,38 +1,41 @@
 # Raisedash
 
-> The driver readiness platform for modern fleets. Raisedash gets every new driver trained, signed, and road-ready before they arrive at the terminal, and keeps a permanent, version-locked record of it all.
+> The driver readiness platform for modern fleets. Ready before day one. Proven long after.
 
-Raisedash is a mobile-first platform for U.S. trucking fleets. New drivers complete orientation on their phones before day one, while the fleet keeps a court-ready evidence record of every lesson, quiz, signature, and score. The driver experience is passwordless and works in English and Spanish. The product is for safety directors, operations leaders, and owners at fleets that hire regularly.
+Raisedash helps U.S. trucking fleets prepare new drivers before terminal day and keep a clear record of every training step. Drivers open an SMS or email invitation in their phone browser and use a one-time code instead of downloading an app or remembering a password. Fleet teams assign videos, readings, and quizzes, track progress, and download a training report. The product is for safety directors, operations leaders, and owners at fleets that hire regularly.
 
 ## Platform
 
-- [Pre-arrival readiness](https://raisedash.com/platform/pre-arrival-readiness): Hire approved, the driver gets an SMS link and finishes lessons, quizzes, and signatures on their phone before orientation day. A ready board shows exactly who is prepared.
-- [Training evidence](https://raisedash.com/platform/training-evidence): Every content version, timestamp, quiz attempt, score, and signature is preserved immutably. A one-click evidence packet assembles a complete record for any driver. A driver's history is never rewritten when content is edited.
-- [First 90 days](https://raisedash.com/platform/first-90-days): Pre-built day-1, week-1, and day-30 / 60 / 90 programs actively manage a new driver's riskiest stretch.
-- [Driver experience](https://raisedash.com/platform/driver-experience): No passwords, no app store, no email. Short lessons in English and Spanish with captions and transcripts, built for drivers who live on their phones.
+- [Driver onboarding](https://www.raisedash.com/solutions/driver-onboarding): The commercial overview of Raisedash truck driver onboarding software, including current capabilities and product boundaries.
+- [Pre-arrival readiness](https://www.raisedash.com/platform/pre-arrival-readiness): Send orientation and training before the driver reaches the terminal, then see what is not started, in progress, or complete.
+- [Training evidence](https://www.raisedash.com/platform/training-evidence): Download a report with assigned training, completion details, quiz attempts and scores, recorded activity, and available certificates. Policy signatures, road-test evidence, and complete version-locked evidence packets are not available today.
+- [First 90 days](https://www.raisedash.com/platform/first-90-days): A planned workflow for scheduled check-ins and refresher training. This capability is in development.
+- [Driver experience](https://www.raisedash.com/platform/driver-experience): A phone-browser experience reached by SMS or email, with a one-time access code and no app download.
 
 ## Get a demo
 
-- [Book a demo](https://raisedash.com/demo): Talk to the team and see the ready board and evidence packet on your own drivers.
+- [Book a demo](https://www.raisedash.com/demo): See how a fleet invites a driver, tracks assigned training, and reviews the training record.
 
 ## Resources
 
-- [Blog](https://raisedash.com/blog): Notes on driver readiness, orientation, and fleet safety.
-- [Product Updates](https://raisedash.com/product-updates): Latest features and improvements.
+- [Blog](https://www.raisedash.com/blog): Practical guides for driver onboarding, orientation, training records, and fleet safety.
+- [Truck driver orientation checklist](https://www.raisedash.com/blog/truck-driver-orientation-checklist): A phase-by-phase checklist for pre-arrival work, terminal day, first dispatch, and follow-up.
+- [Driver training record template](https://www.raisedash.com/blog/driver-training-record-template): A downloadable CSV template and field guide for driver training records.
+- [Product Updates](https://www.raisedash.com/product-updates): Latest features and improvements.
 
 ## Company
 
-- [About](https://raisedash.com/about): Our mission, vision, and the team behind Raisedash.
-- [Careers](https://raisedash.com/careers): Job opportunities at Raisedash.
-- [Contact](https://raisedash.com/contact): Get in touch with sales and support teams.
+- [About](https://www.raisedash.com/about): Our mission, vision, and the team behind Raisedash.
+- [Careers](https://www.raisedash.com/careers): Job opportunities at Raisedash.
+- [Contact](https://www.raisedash.com/contact): Get in touch with sales and support teams.
 
 ## More products (separate driver tools)
 
-- [Raisedash Academy](https://academy.raisedash.com): Phone-first CDL compliance courses for individual drivers and small carriers.
-- [TruckTalk ELP Practice](https://raisedash.com/tools/elp-practice): Roadside English language proficiency practice with AI voice roleplay scenarios.
+- [Raisedash Academy](https://academy.raisedash.com): Phone-first courses for individual drivers and small carriers.
+- [TruckTalk ELP Practice](https://www.raisedash.com/tools/elp-practice): Roadside English-language practice with AI voice roleplay scenarios.
 
 ## Legal
 
-- [Privacy Policy](https://raisedash.com/privacy-policy)
-- [Terms of Use](https://raisedash.com/terms-of-use)
-- [Security](https://raisedash.com/security)
+- [Privacy Policy](https://www.raisedash.com/privacy-policy)
+- [Terms of Use](https://www.raisedash.com/terms-of-use)
+- [Security](https://www.raisedash.com/security)

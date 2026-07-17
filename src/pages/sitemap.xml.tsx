@@ -18,12 +18,13 @@ const SITE_URL = RAW_SITE_URL.endsWith("/") ? RAW_SITE_URL.slice(0, -1) : RAW_SI
  * update its date here to the date of that change.
  */
 const STATIC_PAGE_DATES: Record<string, string> = {
-  "/": "2026-07-16",
+  "/": "2026-07-17",
   "/blog": "2026-01-26", // overridden below by latest post date
   "/about": "2026-07-16",
   "/contact": "2026-07-14",
   "/careers": "2026-07-14",
-  "/demo": "2026-07-14",
+  "/demo": "2026-07-17",
+  "/solutions/driver-onboarding": "2026-07-16",
   "/platform/pre-arrival-readiness": "2026-07-14",
   "/platform/training-evidence": "2026-07-14",
   "/platform/first-90-days": "2026-07-14",
@@ -32,7 +33,6 @@ const STATIC_PAGE_DATES: Record<string, string> = {
   "/products/raisedash-pti-inspections": "2026-01-26",
   "/products/raisedash-pti-inspections/driver-features": "2026-01-22",
   "/products/raisedash-pti-inspections/fleet-safety-managers": "2026-01-22",
-  "/products/raisedash-shift": "2026-02-24",
   "/products/raisedash-vertex": "2026-02-24",
   "/vertex-app": "2025-12-18",
   "/privacy-policy": "2026-01-21",
@@ -103,6 +103,12 @@ function generateSiteMap(
       priority: "0.9",
     },
     {
+      loc: `${SITE_URL}/solutions/driver-onboarding`,
+      lastmod: STATIC_PAGE_DATES["/solutions/driver-onboarding"],
+      changefreq: "weekly",
+      priority: "0.9",
+    },
+    {
       loc: `${SITE_URL}/demo`,
       lastmod: STATIC_PAGE_DATES["/demo"],
       changefreq: "monthly",
@@ -149,12 +155,6 @@ function generateSiteMap(
       lastmod: STATIC_PAGE_DATES["/products/raisedash-pti-inspections/fleet-safety-managers"],
       changefreq: "monthly",
       priority: "0.8",
-    },
-    {
-      loc: `${SITE_URL}/products/raisedash-shift`,
-      lastmod: STATIC_PAGE_DATES["/products/raisedash-shift"],
-      changefreq: "monthly",
-      priority: "0.5",
     },
     {
       loc: `${SITE_URL}/products/raisedash-vertex`,

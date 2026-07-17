@@ -23,6 +23,11 @@ const nextConfig: NextConfig = {
         destination: "/start",
         permanent: true,
       },
+      {
+        source: "/products/raisedash-shift",
+        destination: "/platform/pre-arrival-readiness",
+        permanent: true,
+      },
     ];
   },
   images: {

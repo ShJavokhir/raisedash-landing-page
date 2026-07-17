@@ -53,8 +53,14 @@ export function EmailCapture({
 
     // Send everyone into the demo/readiness funnel. /start ("DOT compliance")
     // and /start-v2/v3 are reserved for paid Meta traffic only — routing organic
-    // visitors there would both confuse them and pollute the ad pixels. The email
-    // is already captured above; /demo re-collects it at its contact step.
+    // visitors there would both confuse them and pollute the ad pixels.
+    // sessionStorage (not a query param) carries the email so it never lands in
+    // URLs, history, or analytics; /demo prefills its contact step from it.
+    try {
+      sessionStorage.setItem("rd_captured_email", trimmedEmail);
+    } catch {
+      // Storage unavailable (private mode etc.) — /demo just asks again.
+    }
     router.push("/demo");
   };
 
