@@ -13,16 +13,11 @@ import {
   NavigationMenuLink,
 } from "@/components/ui/navigation-menu";
 import { Menu, X } from "lucide-react";
-import { platform } from "@/data/navigation";
+import { features, platform, resources } from "@/data/navigation";
 
 const SIGN_IN_URL = "https://app.raisedash.com/login";
 
-const directLinks = [
-  { title: "Driver onboarding", href: "/solutions/driver-onboarding" },
-  { title: "Pricing", href: "/pricing" },
-  { title: "Blog", href: "/blog" },
-  { title: "About", href: "/about" },
-];
+const directLinks = [{ title: "Pricing", href: "/pricing" }];
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
@@ -93,6 +88,37 @@ export function Header() {
                       </div>
                     </NavigationMenuContent>
                   </NavigationMenuItem>
+                  <NavigationMenuItem>
+                    <NavigationMenuTrigger className="text-foreground hover:text-foreground-80 bg-transparent px-4 py-2 text-base font-normal transition-colors duration-[0.15s]">
+                      Features
+                    </NavigationMenuTrigger>
+                    <NavigationMenuContent>
+                      <div className="w-[360px] space-y-0.5 p-1">
+                        {features.map((item) => {
+                          const Icon = item.icon;
+                          return (
+                            <Link
+                              key={item.title}
+                              href={item.href}
+                              className="hover:bg-surface-3 flex items-start gap-3 rounded-xs p-3 transition-colors duration-[0.15s]"
+                            >
+                              <div className="border-border bg-background flex h-10 w-10 shrink-0 items-center justify-center rounded-xs border">
+                                <Icon className="text-foreground h-5 w-5" />
+                              </div>
+                              <div className="min-w-0 flex-1">
+                                <span className="text-foreground text-sm font-normal">
+                                  {item.title}
+                                </span>
+                                <p className="text-muted-foreground mt-1 line-clamp-2 text-xs">
+                                  {item.description}
+                                </p>
+                              </div>
+                            </Link>
+                          );
+                        })}
+                      </div>
+                    </NavigationMenuContent>
+                  </NavigationMenuItem>
                   {directLinks.map((item) => (
                     <NavigationMenuItem key={item.title}>
                       <NavigationMenuLink asChild>
@@ -105,6 +131,37 @@ export function Header() {
                       </NavigationMenuLink>
                     </NavigationMenuItem>
                   ))}
+                  <NavigationMenuItem>
+                    <NavigationMenuTrigger className="text-foreground hover:text-foreground-80 bg-transparent px-4 py-2 text-base font-normal transition-colors duration-[0.15s]">
+                      Resources
+                    </NavigationMenuTrigger>
+                    <NavigationMenuContent>
+                      <div className="w-[360px] space-y-0.5 p-1">
+                        {resources.map((item) => {
+                          const Icon = item.icon;
+                          return (
+                            <Link
+                              key={item.title}
+                              href={item.href}
+                              className="hover:bg-surface-3 flex items-start gap-3 rounded-xs p-3 transition-colors duration-[0.15s]"
+                            >
+                              <div className="border-border bg-background flex h-10 w-10 shrink-0 items-center justify-center rounded-xs border">
+                                <Icon className="text-foreground h-5 w-5" />
+                              </div>
+                              <div className="min-w-0 flex-1">
+                                <span className="text-foreground text-sm font-normal">
+                                  {item.title}
+                                </span>
+                                <p className="text-muted-foreground mt-1 line-clamp-2 text-xs">
+                                  {item.description}
+                                </p>
+                              </div>
+                            </Link>
+                          );
+                        })}
+                      </div>
+                    </NavigationMenuContent>
+                  </NavigationMenuItem>
                 </NavigationMenuList>
               </NavigationMenu>
             </nav>
@@ -176,22 +233,63 @@ export function Header() {
                   );
                 })}
 
-                {/* Direct Links */}
+                {/* Features Section */}
                 <div className="px-3 py-2 pt-4">
                   <span className="text-muted-foreground text-xs font-normal tracking-wide uppercase">
-                    More
+                    Features
                   </span>
                 </div>
+                {features.map((item) => {
+                  const Icon = item.icon;
+                  return (
+                    <Link
+                      key={item.title}
+                      href={item.href}
+                      className="text-foreground hover:bg-surface-3 mx-2 flex items-center gap-3 rounded-xs px-3 py-2.5 text-sm transition-colors duration-[0.15s]"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      <div className="border-border bg-background flex h-8 w-8 shrink-0 items-center justify-center rounded-xs border">
+                        <Icon className="text-foreground h-4 w-4" />
+                      </div>
+                      <span className="font-normal">{item.title}</span>
+                    </Link>
+                  );
+                })}
+
+                {/* Direct Links */}
                 {directLinks.map((item) => (
                   <Link
                     key={item.title}
                     href={item.href}
-                    className="text-foreground hover:bg-surface-3 mx-2 flex items-center gap-3 rounded-xs px-3 py-2.5 text-sm transition-colors duration-[0.15s]"
+                    className="text-foreground hover:bg-surface-3 mx-2 mt-3 flex items-center gap-3 rounded-xs px-3 py-2.5 text-sm transition-colors duration-[0.15s]"
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     <span className="font-normal">{item.title}</span>
                   </Link>
                 ))}
+
+                {/* Resources Section */}
+                <div className="px-3 py-2 pt-4">
+                  <span className="text-muted-foreground text-xs font-normal tracking-wide uppercase">
+                    Resources
+                  </span>
+                </div>
+                {resources.map((item) => {
+                  const Icon = item.icon;
+                  return (
+                    <Link
+                      key={item.title}
+                      href={item.href}
+                      className="text-foreground hover:bg-surface-3 mx-2 flex items-center gap-3 rounded-xs px-3 py-2.5 text-sm transition-colors duration-[0.15s]"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      <div className="border-border bg-background flex h-8 w-8 shrink-0 items-center justify-center rounded-xs border">
+                        <Icon className="text-foreground h-4 w-4" />
+                      </div>
+                      <span className="font-normal">{item.title}</span>
+                    </Link>
+                  );
+                })}
 
                 <div className="flex flex-col gap-2 px-3 pt-4">
                   <a

@@ -3,10 +3,13 @@ import {
   Building2,
   Users,
   Mail,
-  Sparkles,
   ClipboardCheck,
   ShieldCheck,
   Smartphone,
+  Clapperboard,
+  LayoutList,
+  Mic,
+  TabletSmartphone,
   LucideIcon,
 } from "lucide-react";
 
@@ -27,9 +30,14 @@ export interface Solution extends NavItem {
 // site UI now that Raisedash is a single driver readiness platform.
 export const solutions: Solution[] = [];
 
-// The four core loops of the platform. These drive the Platform dropdown in the
-// header and link to the dedicated /platform/* pages.
+// The primary product entry point followed by the three core platform loops.
 export const platform: NavItem[] = [
+  {
+    title: "Driver onboarding",
+    description: "Send orientation, track progress, and keep training records together.",
+    href: "/solutions/driver-onboarding",
+    icon: Users,
+  },
   {
     title: "Pre-arrival readiness",
     description: "Prepare new drivers before they arrive for orientation.",
@@ -50,6 +58,33 @@ export const platform: NavItem[] = [
   },
 ];
 
+export const features: NavItem[] = [
+  {
+    title: "AI training video generator",
+    description: "Describe a topic and get a finished, narrated training video.",
+    href: "/features/ai-training-video-generator",
+    icon: Clapperboard,
+  },
+  {
+    title: "AI training program builder",
+    description: "A brief becomes a full training program you review and approve.",
+    href: "/features/ai-training-program-builder",
+    icon: LayoutList,
+  },
+  {
+    title: "AI voice roleplay",
+    description: "Drivers practice real conversations out loud and get scored.",
+    href: "/features/ai-voice-roleplay-training",
+    icon: Mic,
+  },
+  {
+    title: "Interactive simulations",
+    description: "Tap-through practice replicas of the apps drivers must use.",
+    href: "/features/interactive-training-simulations",
+    icon: TabletSmartphone,
+  },
+];
+
 export const resources: NavItem[] = [
   {
     title: "Blog",
@@ -58,10 +93,10 @@ export const resources: NavItem[] = [
     icon: BookOpen,
   },
   {
-    title: "Product Updates",
-    description: "Latest features and improvements.",
-    href: "/product-updates",
-    icon: Sparkles,
+    title: "About",
+    description: "Our mission, vision, and the team behind Raisedash.",
+    href: "/about",
+    icon: Building2,
   },
 ];
 

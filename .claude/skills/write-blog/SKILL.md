@@ -78,6 +78,12 @@ Hard rules (these fix real defects found in a 2026-07 audit of all 17 posts):
 - `featured: true` only for launches/announcements, and un-feature something else
   — keep at most ~3 featured posts.
 - `updatedAt`: never on first publish; set it on later meaningful edits.
+- `coverImage` (optional, CDN URL) + `coverImageAlt` — the thumbnail shown on the
+  `/blog` and homepage cards. Omit it and the card falls back to the **first image
+  in the body**, which is the cover shot by convention, so a normal post needs
+  nothing here. Only set it explicitly when the card should show a different image
+  than the first one in the article. A post with no images renders a text-only card
+  — that's fine, don't invent an image just to fill the slot.
 
 ## Structure and length
 

@@ -40,6 +40,15 @@ export const footerLinks: FooterSection[] = [
     ],
   },
   {
+    title: "AI features",
+    links: [
+      { title: "Video generator", href: "/features/ai-training-video-generator" },
+      { title: "Program builder", href: "/features/ai-training-program-builder" },
+      { title: "Voice roleplay", href: "/features/ai-voice-roleplay-training" },
+      { title: "Simulations", href: "/features/interactive-training-simulations" },
+    ],
+  },
+  {
     title: "Resources",
     links: [
       { title: "Blog", href: "/blog" },

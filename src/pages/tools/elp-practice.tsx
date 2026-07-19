@@ -441,7 +441,14 @@ export default function ElpPractice() {
                 A driver opens a scenario and an AI-powered DOT officer starts talking out loud. The
                 driver answers out loud, in English. The AI responds based on what was actually said
                 — then scores listening, clarity, vocabulary, and task completion, and even rewrites
-                weak answers to show a better way to respond.
+                weak answers to show a better way to respond. Fleet version:{" "}
+                <Link
+                  href="/features/ai-voice-roleplay-training"
+                  className="text-foreground decoration-border underline underline-offset-4 transition-colors hover:decoration-current"
+                >
+                  AI voice roleplay for your own scenarios
+                </Link>
+                .
               </p>
               <div className="mt-6">
                 <PrimaryCta>Get your drivers practicing</PrimaryCta>

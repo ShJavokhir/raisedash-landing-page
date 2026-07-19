@@ -23,6 +23,10 @@ export interface BlogPost {
   content: string;
   readTime: string;
   faqs: FAQItem[] | null;
+  /** Card/thumbnail image: frontmatter `coverImage`, else the first image in the body. */
+  coverImage: string | null;
+  /** Alt text for `coverImage` — frontmatter `coverImageAlt`, else the body image's alt. */
+  coverImageAlt: string | null;
 }
 
 /**
@@ -32,7 +36,15 @@ export interface BlogPost {
  */
 export type BlogPostSummary = Pick<
   BlogPost,
-  "slug" | "title" | "excerpt" | "publishedAt" | "category" | "featured" | "readTime"
+  | "slug"
+  | "title"
+  | "excerpt"
+  | "publishedAt"
+  | "category"
+  | "featured"
+  | "readTime"
+  | "coverImage"
+  | "coverImageAlt"
 >;
 
 /** Narrow a full post down to the fields a listing card needs. */
@@ -45,7 +57,33 @@ export function toPostSummary(post: BlogPost): BlogPostSummary {
     category: post.category,
     featured: post.featured,
     readTime: post.readTime,
+    coverImage: post.coverImage,
+    coverImageAlt: post.coverImageAlt,
   };
+}
+
+/**
+ * Resolve the card image for a post. Frontmatter `coverImage` wins; otherwise we
+ * fall back to the first markdown image in the body, which is the cover shot by
+ * convention (see the `write-blog` skill). Posts with neither render text-only cards.
+ */
+function resolveCoverImage(
+  data: { [key: string]: unknown },
+  content: string
+): { coverImage: string | null; coverImageAlt: string | null } {
+  const alt = typeof data.coverImageAlt === "string" ? data.coverImageAlt : null;
+
+  if (typeof data.coverImage === "string" && data.coverImage.trim()) {
+    return { coverImage: data.coverImage.trim(), coverImageAlt: alt };
+  }
+
+  // ![alt](url) — stop at whitespace so a title attribute isn't swallowed into the URL.
+  const match = /!\[([^\]]*)\]\(\s*([^)\s]+)/.exec(content);
+  if (!match) {
+    return { coverImage: null, coverImageAlt: null };
+  }
+
+  return { coverImage: match[2], coverImageAlt: alt || match[1].trim() || null };
 }
 
 /**
@@ -119,6 +157,7 @@ export function getAllPosts(): BlogPost[] {
         content,
         readTime: calculateReadTime(content),
         faqs: faqs.length > 0 ? faqs : null,
+        ...resolveCoverImage(data, content),
       };
     })
     .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime());
@@ -153,6 +192,7 @@ export function getPostBySlug(slug: string): BlogPost | null {
     content,
     readTime: calculateReadTime(content),
     faqs: faqs.length > 0 ? faqs : null,
+    ...resolveCoverImage(data, content),
   };
 }
 

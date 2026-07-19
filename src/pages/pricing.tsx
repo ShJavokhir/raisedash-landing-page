@@ -194,7 +194,7 @@ const FAQS: { q: string; a: string }[] = [
 ];
 
 export default function Pricing() {
-  const [drivers, setDrivers] = useState(50);
+  const [drivers, setDrivers] = useState(INCLUDED_DRIVERS);
   const [annual, setAnnual] = useState(true);
 
   const estimate = useMemo(() => {

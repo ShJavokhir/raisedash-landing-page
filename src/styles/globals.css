@@ -575,6 +575,41 @@ h4 {
     }
   }
 
+  @keyframes shake-x {
+    0%,
+    100% {
+      transform: translateX(0);
+    }
+    25% {
+      transform: translateX(-4px);
+    }
+    50% {
+      transform: translateX(4px);
+    }
+    75% {
+      transform: translateX(-2px);
+    }
+  }
+
+  .animate-shake-x {
+    animation: shake-x 0.3s ease-in-out;
+  }
+
+  @keyframes waveform {
+    0%,
+    100% {
+      transform: scaleY(0.3);
+    }
+    50% {
+      transform: scaleY(1);
+    }
+  }
+
+  .animate-waveform {
+    animation: waveform 1s ease-in-out infinite;
+    transform-origin: bottom;
+  }
+
   @keyframes typing-dot {
     0%,
     60%,
@@ -666,6 +701,69 @@ h4 {
     }
   }
 
+  /* Shared cursor choreography for the four feature-page product figures.
+     The cursor approaches from the lower-right, clicks, then clears the next
+     state before the figure advances. Only transform and opacity animate. */
+  @keyframes figure-cursor-click {
+    0% {
+      opacity: 0;
+      transform: translate(var(--cursor-from-x, 4rem), var(--cursor-from-y, 3rem));
+    }
+    12% {
+      opacity: 1;
+    }
+    58% {
+      opacity: 1;
+      transform: translate(0, 0) scale(1);
+    }
+    68% {
+      opacity: 1;
+      transform: translate(0, 0) scale(0.9);
+    }
+    76% {
+      opacity: 1;
+      transform: translate(0, 0) scale(1);
+    }
+    88% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+      transform: translate(0, 0) scale(1);
+    }
+  }
+
+  @keyframes figure-cursor-ring {
+    0%,
+    58% {
+      opacity: 0;
+      transform: scale(0.4);
+    }
+    61% {
+      opacity: 0.5;
+      transform: scale(0.4);
+    }
+    88%,
+    100% {
+      opacity: 0;
+      transform: scale(1.6);
+    }
+  }
+
+  @keyframes figure-cursor-target {
+    0%,
+    58%,
+    100% {
+      transform: scale(1);
+    }
+    68% {
+      transform: scale(0.96);
+    }
+    76% {
+      transform: scale(1);
+    }
+  }
+
   .animate-chip-fly {
     animation: chip-fly 0.8s var(--ease-in-out-strong) both;
   }
@@ -676,6 +774,18 @@ h4 {
 
   .animate-tap-ring {
     animation: tap-ring 0.5s var(--ease-out) both;
+  }
+
+  .animate-figure-cursor-click {
+    animation: figure-cursor-click 1.3s var(--ease-in-out-strong) both;
+  }
+
+  .animate-figure-cursor-ring {
+    animation: figure-cursor-ring 1.3s var(--ease-out-strong) both;
+  }
+
+  .animate-figure-cursor-target {
+    animation: figure-cursor-target 1.3s var(--ease-in-out-strong) both;
   }
 
   .animate-vignette-in {
@@ -696,8 +806,17 @@ h4 {
     .animate-pulse-soft,
     .animate-chip-fly,
     .animate-stamp-in,
-    .animate-tap-ring {
+    .animate-tap-ring,
+    .animate-figure-cursor-click,
+    .animate-figure-cursor-ring,
+    .animate-figure-cursor-target,
+    .animate-shake-x,
+    .animate-waveform {
       animation: none;
+    }
+
+    .animate-figure-cursor-click {
+      opacity: 0;
     }
   }
 
