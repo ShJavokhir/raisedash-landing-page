@@ -54,7 +54,7 @@ export function PipelineVignette() {
         <div className="mb-4 flex items-start justify-between">
           <div>
             <p className="text-foreground text-sm font-normal">Orientation — Mon, Jul 20</p>
-            <p className="text-muted-foreground mt-0.5 text-xs">Springfield terminal</p>
+            <p className="text-muted-foreground mt-0.5 text-xs">Springfield location</p>
           </div>
           <span className="bg-accent-blue-soft text-accent-blue inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs">
             <Smartphone className="h-3 w-3" />
@@ -573,7 +573,7 @@ export function CorrectiveLoopVignette() {
         >
           <Lock className="text-accent-amber h-3.5 w-3.5 flex-shrink-0" />
           <p className="text-foreground text-xs">
-            Planned: follow-up completion appears with the driver's training activity
+            Planned: follow-up completion appears with the driver&apos;s training activity
           </p>
         </div>
       </div>

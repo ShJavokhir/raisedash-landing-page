@@ -592,7 +592,7 @@ export function RoiCalculator() {
                 <BreakdownRow
                   icon={Presentation}
                   label="Paid classroom time"
-                  caption="Drivers finish the online portion on their phones before terminal day."
+                  caption="Drivers finish the online portion on their phones before day one."
                   amount={results.classroomDollars}
                   share={results.classroomDollars / largestCategory}
                   barClass="bg-accent-blue"

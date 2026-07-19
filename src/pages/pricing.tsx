@@ -112,7 +112,7 @@ const INCLUDED: IncludedGroup[] = [
       "Mobile driver training with one-time-code sign-in — no app, no passwords",
       "Video, reading, and quiz lessons with passing scores and retries",
       "SMS and email invitations with automatic reminders",
-      "Pre-arrival orientation programs drivers finish before terminal day",
+      "Pre-arrival orientation programs drivers finish before day one",
       "Program-level and driver-level progress reporting",
       "Driver training report exported as PDF — the record, in one click",
       "Completion certificates with public QR verification",
@@ -127,7 +127,6 @@ const INCLUDED: IncludedGroup[] = [
     items: [
       "Policy-to-course authoring tools",
       "Forms and e-signatures",
-      "First-90-days programs and check-ins",
       "Corrective-action workflows after safety events",
       "API and webhooks",
     ],
@@ -149,7 +148,7 @@ const MANAGED_DRIVER_CARDS: DefinitionCard[] = [
   {
     icon: ShieldCheck,
     title: "Free: every admin",
-    body: "Safety directors, HR, dispatchers, terminal managers — unlimited admin seats on every account. You should never ration who can see readiness.",
+    body: "Safety directors, HR, dispatchers, and operations managers — unlimited admin seats on every account. You should never ration who can see readiness.",
   },
   {
     icon: ArchiveRestore,

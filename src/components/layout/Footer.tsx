@@ -11,8 +11,8 @@ export function Footer() {
           <div className="mb-10 max-w-md">
             <h3 className="text-foreground mb-4 text-base font-normal">Raisedash</h3>
             <p className="text-muted-foreground mb-6 text-sm leading-relaxed">
-              The driver readiness platform for modern fleets. Prepare new drivers before terminal
-              day and keep a clear record of every training step.
+              The driver readiness platform for modern fleets. Prepare new drivers before day one
+              and keep a clear record of every training step.
             </p>
             <div className="text-muted-foreground flex items-center gap-2 text-sm">
               <svg

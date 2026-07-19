@@ -9,7 +9,6 @@ import { ProblemsMarquee } from "@/components/home/ProblemsMarquee";
 import { CoreLoops } from "@/components/home/CoreLoops";
 import { EvidenceMoment } from "@/components/home/EvidenceMoment";
 import { ForDrivers } from "@/components/home/ForDrivers";
-import { HowItWorks } from "@/components/home/HowItWorks";
 import { RoiCalculator } from "@/components/home/RoiCalculator";
 import { MoreFromRaisedash } from "@/components/home/MoreFromRaisedash";
 import { getAllProductUpdates, toUpdateSummary, ProductUpdateSummary } from "@/lib/product-updates";
@@ -33,7 +32,7 @@ export default function Home({ recentUpdates, recentPosts }: HomeProps) {
   return (
     <PageLayout
       title="Driver Readiness Platform for Modern Trucking Fleets"
-      description="Raisedash helps trucking fleets prepare new drivers before terminal day with phone-first orientation and a clear record of every training step."
+      description="Raisedash helps trucking fleets prepare new drivers before day one with phone-first orientation, hands-on practice, and a clear record of every training step."
       keywords={[
         "driver readiness platform",
         "driver orientation software",
@@ -56,9 +55,9 @@ export default function Home({ recentUpdates, recentPosts }: HomeProps) {
                 Ready before day one. Proven long after.
               </h1>
               <p className="text-muted-foreground animate-fade-in-up mt-6 max-w-xl text-xl leading-relaxed font-normal delay-150">
-                Prepare new drivers before terminal day, give them a simple phone-first orientation,
-                and keep a clear record of every training step. Less chasing for your safety team.
-                Fewer surprises on day one.
+                Prepare new drivers before day one, give them practical training and hands-on
+                practice, and keep a clear record of every step. Less chasing for your safety team.
+                Fewer surprises when drivers arrive.
               </p>
 
               <div className="animate-fade-in-up mt-10 delay-200">
@@ -87,7 +86,7 @@ export default function Home({ recentUpdates, recentPosts }: HomeProps) {
       {/* Readiness pains marquee */}
       <ProblemsMarquee />
 
-      {/* Four core loops */}
+      {/* Readiness and evidence loops */}
       <CoreLoops />
 
       {/* The evidence engine, played out */}
@@ -95,9 +94,6 @@ export default function Home({ recentUpdates, recentPosts }: HomeProps) {
 
       {/* For drivers */}
       <ForDrivers />
-
-      {/* How it works */}
-      <HowItWorks />
 
       {/* Orientation cost calculator */}
       <RoiCalculator />

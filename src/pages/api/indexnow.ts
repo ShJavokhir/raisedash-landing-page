@@ -15,7 +15,6 @@ const STATIC_PATHS = [
   "/solutions/driver-onboarding",
   "/platform/pre-arrival-readiness",
   "/platform/training-evidence",
-  "/platform/first-90-days",
   "/platform/driver-experience",
   "/product-updates",
   "/products/raisedash-pti-inspections",

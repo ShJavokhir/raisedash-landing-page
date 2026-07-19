@@ -10,8 +10,8 @@ interface CrossLinksProps {
 }
 
 /**
- * Links to the other three platform pillar pages. Keeps the four pages feeling
- * like one connected product rather than four standalone landing pages.
+ * Links to the other live platform pillar pages. Keeps the pages feeling like
+ * one connected product rather than standalone landing pages.
  */
 export function CrossLinks({ currentSlug }: CrossLinksProps) {
   const pages = otherPlatformPages(currentSlug);
@@ -22,10 +22,10 @@ export function CrossLinks({ currentSlug }: CrossLinksProps) {
           Explore the platform
         </p>
         <h2 className="text-foreground text-2xl font-normal tracking-[-0.02em] sm:text-3xl">
-          One system, four loops
+          One system, from preparation to proof
         </h2>
       </div>
-      <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
+      <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
         {pages.map((page) => {
           const Icon = page.icon;
           return (

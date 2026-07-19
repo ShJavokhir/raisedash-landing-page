@@ -6,7 +6,6 @@ import {
   Sparkles,
   ClipboardCheck,
   ShieldCheck,
-  CalendarClock,
   Smartphone,
   LucideIcon,
 } from "lucide-react";
@@ -33,7 +32,7 @@ export const solutions: Solution[] = [];
 export const platform: NavItem[] = [
   {
     title: "Pre-arrival readiness",
-    description: "Prepare new drivers before they reach the terminal.",
+    description: "Prepare new drivers before they arrive for orientation.",
     href: "/platform/pre-arrival-readiness",
     icon: ClipboardCheck,
   },
@@ -42,12 +41,6 @@ export const platform: NavItem[] = [
     description: "Keep a reliable record of what was completed and when.",
     href: "/platform/training-evidence",
     icon: ShieldCheck,
-  },
-  {
-    title: "First 90 days · in development",
-    description: "Support new drivers through their first months with your fleet.",
-    href: "/platform/first-90-days",
-    icon: CalendarClock,
   },
   {
     title: "Driver experience",

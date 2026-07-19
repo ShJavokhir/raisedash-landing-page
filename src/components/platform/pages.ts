@@ -1,9 +1,9 @@
-import { CalendarClock, FileCheck, Send, Smartphone } from "lucide-react";
+import { FileCheck, Send, Smartphone } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
 /**
- * Shared metadata for the four platform pillar pages. Used by cross-link
- * sections so every platform page can point to the other three without
+ * Shared metadata for the live platform pillar pages. Used by cross-link
+ * sections so every platform page can point to the others without
  * duplicating copy, and so nav/footer wiring (owned by other agents) can
  * reference the exact same paths.
  */
@@ -21,7 +21,7 @@ export const PLATFORM_PAGES: PlatformPage[] = [
     slug: "pre-arrival-readiness",
     path: "/platform/pre-arrival-readiness",
     label: "Pre-arrival readiness",
-    tagline: "Prepare new drivers before they reach the terminal.",
+    tagline: "Prepare new drivers before they arrive for orientation.",
     icon: Send,
   },
   {
@@ -30,13 +30,6 @@ export const PLATFORM_PAGES: PlatformPage[] = [
     label: "Training evidence",
     tagline: "Keep a reliable record of what was completed and when.",
     icon: FileCheck,
-  },
-  {
-    slug: "first-90-days",
-    path: "/platform/first-90-days",
-    label: "First 90 days · in development",
-    tagline: "Support new drivers through their first months with your fleet.",
-    icon: CalendarClock,
   },
   {
     slug: "driver-experience",

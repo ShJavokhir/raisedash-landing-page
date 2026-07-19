@@ -28,7 +28,6 @@ const STATIC_PAGE_DATES: Record<string, string> = {
   "/solutions/driver-onboarding": "2026-07-16",
   "/platform/pre-arrival-readiness": "2026-07-14",
   "/platform/training-evidence": "2026-07-14",
-  "/platform/first-90-days": "2026-07-14",
   "/platform/driver-experience": "2026-07-14",
   "/product-updates": "2026-01-27", // overridden below by latest update date
   "/products/raisedash-pti-inspections": "2026-01-26",
@@ -89,12 +88,6 @@ function generateSiteMap(
     {
       loc: `${SITE_URL}/platform/training-evidence`,
       lastmod: STATIC_PAGE_DATES["/platform/training-evidence"],
-      changefreq: "weekly",
-      priority: "0.9",
-    },
-    {
-      loc: `${SITE_URL}/platform/first-90-days`,
-      lastmod: STATIC_PAGE_DATES["/platform/first-90-days"],
       changefreq: "weekly",
       priority: "0.9",
     },

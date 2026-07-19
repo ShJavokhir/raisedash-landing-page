@@ -2,14 +2,13 @@
 
 > The driver readiness platform for modern fleets. Ready before day one. Proven long after.
 
-Raisedash helps U.S. trucking fleets prepare new drivers before terminal day and keep a clear record of every training step. Drivers open an SMS or email invitation in their phone browser and use a one-time code instead of downloading an app or remembering a password. Fleet teams assign videos, readings, and quizzes, track progress, and download a training report. The product is for safety directors, operations leaders, and owners at fleets that hire regularly.
+Raisedash helps U.S. trucking fleets prepare new drivers before day one and keep a clear record of every training step. Drivers open an SMS or email invitation in their phone browser and use a one-time code instead of downloading an app or remembering a password. Fleet teams create fleet-specific training and videos, run AI roleplay practice, turn software walkthroughs into interactive simulations, track progress, and download a training report. The product is for safety directors, operations leaders, and owners at fleets that hire regularly.
 
 ## Platform
 
 - [Driver onboarding](https://www.raisedash.com/solutions/driver-onboarding): The commercial overview of Raisedash truck driver onboarding software, including current capabilities and product boundaries.
-- [Pre-arrival readiness](https://www.raisedash.com/platform/pre-arrival-readiness): Send orientation and training before the driver reaches the terminal, then see what is not started, in progress, or complete.
+- [Pre-arrival readiness](https://www.raisedash.com/platform/pre-arrival-readiness): Send orientation and training before the driver arrives, then see what is not started, in progress, or complete.
 - [Training evidence](https://www.raisedash.com/platform/training-evidence): Download a report with assigned training, completion details, quiz attempts and scores, recorded activity, and available certificates. Policy signatures, road-test evidence, and complete version-locked evidence packets are not available today.
-- [First 90 days](https://www.raisedash.com/platform/first-90-days): A planned workflow for scheduled check-ins and refresher training. This capability is in development.
 - [Driver experience](https://www.raisedash.com/platform/driver-experience): A phone-browser experience reached by SMS or email, with a one-time access code and no app download.
 
 ## Get a demo
@@ -19,7 +18,7 @@ Raisedash helps U.S. trucking fleets prepare new drivers before terminal day and
 ## Resources
 
 - [Blog](https://www.raisedash.com/blog): Practical guides for driver onboarding, orientation, training records, and fleet safety.
-- [Truck driver orientation checklist](https://www.raisedash.com/blog/truck-driver-orientation-checklist): A phase-by-phase checklist for pre-arrival work, terminal day, first dispatch, and follow-up.
+- [Truck driver orientation checklist](https://www.raisedash.com/blog/truck-driver-orientation-checklist): A phase-by-phase checklist for pre-arrival work, in-person orientation, first dispatch, and follow-up.
 - [Driver training record template](https://www.raisedash.com/blog/driver-training-record-template): A downloadable CSV template and field guide for driver training records.
 - [Product Updates](https://www.raisedash.com/product-updates): Latest features and improvements.
 
