@@ -3,23 +3,32 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Container } from "@/components/layout/Container";
 
-// Driver-readiness pains, mixed for variety. These are the day-to-day frustrations
-// a safety director, owner, and driver each feel before Raisedash.
+// Driver-orientation pains across the full training lifecycle: preparing a new
+// hire, keeping delivery consistent, proving what happened, and following up
+// after policies change or a safety issue occurs. The questions mix immediate
+// problems with their operational implications so the section stays concrete.
 const ALL_PROBLEMS = [
-  "Orientation starts from zero every Monday?",
-  "Repeating the same material for every class?",
-  "Paid orientation time spent on paperwork?",
-  "Travel booked before prerequisites are finished?",
-  "A driver no-shows after plans are already made?",
-  "No clear view of who is prepared?",
+  "Repeating the same material to every class?",
+  "Don't have orientation materials for your company?",
   "Training records spread across paper, email, and spreadsheets?",
-  "Hard to answer what a driver completed and when?",
-  "Follow-up stops when orientation ends?",
-  "A safety issue handled but the response never documented?",
   "Each location runs orientation differently?",
-  "Drivers struggling with office-first software?",
-  "One person doing safety, HR, and half of recruiting?",
-  "Pulling a driver record together takes too long?",
+  "Generic training doesn't match how your fleet actually operates?",
+  "Using orientation day to cover material drivers could finish beforehand?",
+  "Drivers arriving before their assigned orientation is complete?",
+  "Calling every driver just to ask if they finished?",
+  "No clear view of who is stuck before orientation day?",
+  "Rebuilding a driver's training history every time someone asks for proof?",
+  "Can you quickly show what a driver completed—and how they did?",
+  "Follow-up training stops when new-hire orientation ends?",
+  "Explaining every new policy to drivers one at a time?",
+  "A policy changes faster than your team can build the training?",
+  "If a driver misses a policy update, when do you find out?",
+  "Corrective action handled, but the follow-up training never documented?",
+  "A safety issue happens—then no refresher gets assigned?",
+  "After an incident, can you show the training response?",
+  "Drivers need practice, but one-on-one coaching doesn't scale?",
+  "When every location teaches it differently, which version should drivers follow?",
+  "How much terminal time is lost getting every driver back to the same starting point?",
 ];
 
 // Split array into rows
@@ -97,10 +106,14 @@ export function ProblemsMarquee() {
         {/* SEO: Visible heading for search engines */}
         <h2
           id="readiness-pains-heading"
-          className="text-muted-foreground mb-4 text-center text-lg font-normal"
+          className="text-muted-foreground text-center text-lg font-normal"
         >
           Sound familiar?
         </h2>
+        <p className="text-muted-foreground mx-auto mt-2 mb-4 max-w-2xl text-center text-sm leading-relaxed">
+          From first-day orientation to policy updates, refresher training, and follow-up after a
+          safety issue—the work keeps coming back.
+        </p>
 
         <div className="relative overflow-hidden rounded-xs">
           {/* Fade overlays */}

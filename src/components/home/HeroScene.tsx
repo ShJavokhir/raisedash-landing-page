@@ -1,24 +1,53 @@
 import { useRef } from "react";
-import { CheckCircle2, FileSignature, MessageSquareText } from "lucide-react";
+import {
+  BellRing,
+  CheckCircle2,
+  ClipboardCheck,
+  MessageSquareText,
+  Mic,
+  MousePointer2,
+  Play,
+  Truck,
+} from "lucide-react";
 import { cn } from "@/lib/cn";
 import { useVignetteTimeline } from "@/hooks/useVignetteTimeline";
 
 /**
- * The homepage hero vignette — a cause-and-effect scene. A driver's phone
- * (left, front) does the work: an SMS lands, a lesson finishes, a signature
- * draws itself. Each completion flies a chip across into the Ready board
- * (right, back), flipping that row green — so the viewer sees WHY a row
- * turns Ready, not just that it does.
+ * The homepage hero vignette — one driver's journey told as a strict
+ * cause-and-effect chain with two actors. The admin's cursor clicks "Invite"
+ * on the readiness board (right, back); a text lands on the driver's phone
+ * (left, front); the driver works through a four-step orientation checklist
+ * and signs; a completion chip flies back and the admin gets the payoff
+ * toast. Only one side is "lit" at a time — the inactive panel dims so the
+ * viewer always knows where to look — and a floating caption names the
+ * current phase.
  *
  * Built entirely from design tokens (no images, no real data); placeholder
- * names are obviously generic. Loops ~11s; prefers-reduced-motion rests on
+ * names are obviously generic. Loops ~17s; prefers-reduced-motion rests on
  * the final all-ready frame.
  *
- * Beats: 0 idle → 1 SMS lands → 2 lesson fills → 3 chip flies (Carter) →
- * 4 signature draws → 5 chip flies (Sosa) → 6 all-ready hold → repeat.
+ * Beats: 0 idle → 1 cursor glides in → 2 click "Invite" → 3 text chip flies
+ * to the phone → 4 SMS lands → 5 driver taps the link → 6 checklist opens →
+ * 7–10 video/simulation/voice/quiz tick off → 11 signature draws → 12 ready
+ * chip flies to the board → 13 all-ready hold + admin toast → repeat.
  */
 
-const STEP_DURATIONS = [1200, 1500, 2100, 800, 2300, 800, 2800];
+const STEP_DURATIONS = [
+  1300, // 0 idle — board lit, invite waiting
+  900, // 1 cursor glides to Invite
+  700, // 2 click
+  1000, // 3 text chip flies to the phone
+  2100, // 4 SMS lands
+  700, // 5 driver taps the link
+  900, // 6 checklist opens
+  700, // 7 video done
+  700, // 8 simulation done
+  700, // 9 voice done
+  700, // 10 quiz done
+  2100, // 11 signature draws
+  1000, // 12 ready chip flies to the board
+  3200, // 13 all-ready hold + toast
+];
 
 const AVATAR_TINTS: Record<string, string> = {
   blue: "bg-accent-blue-soft text-accent-blue",
@@ -28,12 +57,19 @@ const AVATAR_TINTS: Record<string, string> = {
   orange: "bg-chart-1/10 text-chart-1",
 };
 
-const ROWS = [
+/** The four already-ready drivers; J. Carter (the story) renders separately. */
+const READY_ROWS = [
   { name: "M. Rodriguez", tint: "blue" },
   { name: "T. Nguyen", tint: "green" },
-  { name: "J. Carter", tint: "amber" },
   { name: "A. Powell", tint: "orange" },
   { name: "L. Sosa", tint: "violet" },
+];
+
+const TRAINING_STEPS = [
+  { icon: Play, label: "Winter driving video" },
+  { icon: Truck, label: "Backing simulation" },
+  { icon: Mic, label: "Voice check-in practice" },
+  { icon: ClipboardCheck, label: "Final quiz" },
 ];
 
 function initials(name: string) {
@@ -47,58 +83,96 @@ function initials(name: string) {
 const SIGNATURE_PATH =
   "M4 26 C 10 8, 16 6, 18 14 C 20 22, 12 30, 22 24 C 30 19, 32 10, 38 12 C 44 14, 40 26, 50 20 C 58 15, 62 18, 68 16 C 78 13, 88 18, 102 15";
 
+function captionFor(step: number) {
+  if (step <= 2) return "Your team sends one invite";
+  if (step <= 5) return "The driver gets a text — no app";
+  if (step <= 10) return "Videos, simulation, voice, quiz";
+  if (step === 11) return "Documents signed";
+  return "Ready before day one";
+}
+
 function PhoneScreen({ step }: { step: number }) {
   // Which mini-app the phone shows for the current beat.
-  const view = step <= 1 ? "sms" : step <= 3 ? "lesson" : step <= 5 ? "signature" : "done";
+  const view =
+    step <= 3
+      ? "idle"
+      : step <= 5
+        ? "sms"
+        : step <= 10
+          ? "checklist"
+          : step === 11
+            ? "sign"
+            : "done";
 
   return (
     <div className="flex h-[9.5rem] flex-col px-3 py-2.5">
+      {view === "idle" ? (
+        <div key="idle" className="flex flex-1 flex-col items-center justify-center text-center">
+          <p className="text-foreground text-2xl font-light tracking-tight">9:41</p>
+          <p className="text-muted-foreground mt-1 text-[10px]">No new messages</p>
+        </div>
+      ) : null}
+
       {view === "sms" ? (
-        <div key="sms" className="flex flex-1 flex-col">
+        <div key="sms" className="animate-vignette-in flex flex-1 flex-col">
           <p className="text-muted-foreground mb-2 text-[9px] tracking-wide uppercase">
             Messages · Raisedash
           </p>
           <div className="bg-surface-3 text-foreground max-w-[95%] rounded-xs rounded-bl-none px-2.5 py-2 text-[10px] leading-snug">
-            Hi Jordan — 2 lessons left before Monday&apos;s orientation.
+            Hi Jordan — your orientation starts Monday.
           </div>
-          {step >= 1 ? (
-            <div className="animate-vignette-in bg-surface-3 text-foreground mt-1.5 max-w-[95%] rounded-xs rounded-bl-none px-2.5 py-2 text-[10px] leading-snug">
-              Finish on your phone: <span className="text-accent-blue">rd.sh/j8k2</span>
-            </div>
-          ) : null}
-        </div>
-      ) : null}
-
-      {view === "lesson" ? (
-        <div key="lesson" className="animate-vignette-in flex flex-1 flex-col">
-          <p className="text-muted-foreground mb-1 text-[9px] tracking-wide uppercase">
-            Lesson 5 of 5
-          </p>
-          <p className="text-foreground text-[11px] leading-snug">
-            Backing &amp; parking at customer sites
-          </p>
-          <div className="bg-surface-3 mt-2.5 h-1.5 w-full overflow-hidden rounded-full">
-            <div
-              className="bg-accent-amber h-full rounded-full"
-              style={{ animation: "lesson-fill 1.6s var(--ease-out-strong) 0.4s both" }}
-            />
-          </div>
-          <div className="mt-auto">
-            {step >= 3 ? (
-              <p className="animate-vignette-in text-success flex items-center gap-1 text-[10px]">
-                <CheckCircle2 className="h-3 w-3" /> Lessons complete
-              </p>
-            ) : (
-              <p className="text-muted-foreground text-[10px]">3 min left</p>
-            )}
+          <div className="animate-vignette-in bg-surface-3 text-foreground relative mt-1.5 max-w-[95%] rounded-xs rounded-bl-none px-2.5 py-2 text-[10px] leading-snug [animation-delay:400ms]">
+            Get ready on your phone: <span className="text-accent-blue">rd.sh/j8k2</span>
+            {step === 5 ? (
+              <span className="animate-tap-ring border-foreground/40 absolute inset-0 rounded-xs border-2" />
+            ) : null}
           </div>
         </div>
       ) : null}
 
-      {view === "signature" ? (
-        <div key="signature" className="animate-vignette-in flex flex-1 flex-col">
+      {view === "checklist" ? (
+        <div key="checklist" className="animate-vignette-in flex flex-1 flex-col">
+          <p className="text-muted-foreground mb-2 text-[9px] tracking-wide uppercase">
+            Orientation · 4 steps
+          </p>
+          <div className="space-y-1.5">
+            {TRAINING_STEPS.map((item, i) => {
+              const done = step >= 7 + i;
+              const Icon = item.icon;
+              return (
+                <div key={item.label} className="flex items-center gap-1.5">
+                  <span
+                    className={cn(
+                      "flex h-5 w-5 shrink-0 items-center justify-center rounded-full transition-colors duration-300",
+                      done ? "bg-success/10 text-success" : "bg-surface-3 text-muted-foreground"
+                    )}
+                  >
+                    <Icon className="h-2.5 w-2.5" />
+                  </span>
+                  <span
+                    className={cn(
+                      "flex-1 text-[10px] leading-tight transition-colors duration-300",
+                      done ? "text-foreground" : "text-muted-foreground"
+                    )}
+                  >
+                    {item.label}
+                  </span>
+                  {done ? (
+                    <CheckCircle2 className="animate-vignette-in text-success h-3 w-3 shrink-0" />
+                  ) : (
+                    <span className="border-border h-3 w-3 shrink-0 rounded-full border" />
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      ) : null}
+
+      {view === "sign" ? (
+        <div key="sign" className="animate-vignette-in flex flex-1 flex-col">
           <p className="text-muted-foreground mb-1 text-[9px] tracking-wide uppercase">
-            L. Sosa · Knowledge check
+            Last step · Sign documents
           </p>
           <div className="border-border bg-surface-2 relative mt-1 flex-1 rounded-xs border">
             <svg
@@ -114,20 +188,14 @@ function PhoneScreen({ step }: { step: number }) {
                 pathLength={1}
                 strokeDasharray={1}
                 strokeDashoffset={1}
-                style={{ animation: "draw-stroke 1.5s var(--ease-in-out-strong) 0.35s both" }}
+                style={{ animation: "draw-stroke 1.2s var(--ease-in-out-strong) 0.25s both" }}
               />
             </svg>
             <span className="border-border absolute right-2 bottom-1.5 left-2 border-t border-dashed" />
           </div>
-          <div className="mt-2">
-            {step >= 5 ? (
-              <p className="animate-vignette-in text-success flex items-center gap-1 text-[10px]">
-                <CheckCircle2 className="h-3 w-3" /> Quiz submitted
-              </p>
-            ) : (
-              <p className="text-muted-foreground text-[10px]">Review and submit</p>
-            )}
-          </div>
+          <p className="animate-vignette-in text-success mt-2 flex items-center gap-1 text-[10px] [animation-delay:1500ms]">
+            <CheckCircle2 className="h-3 w-3" /> Documents signed
+          </p>
         </div>
       ) : null}
 
@@ -139,7 +207,7 @@ function PhoneScreen({ step }: { step: number }) {
           <span className="bg-success/10 text-success mb-2 flex h-8 w-8 items-center justify-center rounded-full">
             <CheckCircle2 className="h-4 w-4" />
           </span>
-          <p className="text-foreground text-[11px]">Assigned training complete</p>
+          <p className="text-foreground text-[11px]">Onboarding complete</p>
           <p className="text-muted-foreground mt-0.5 text-[10px]">Orientation program</p>
         </div>
       ) : null}
@@ -155,18 +223,32 @@ export function HeroScene() {
   const rootRef = useRef<HTMLDivElement>(null);
   const step = useVignetteTimeline(STEP_DURATIONS, { startInView: rootRef });
 
-  const carterReady = step >= 4;
-  const sosaReady = step >= 6;
-  const allReady = sosaReady;
-  const readyCount = 3 + (carterReady ? 1 : 0) + (sosaReady ? 1 : 0);
+  // Spotlight: the phone owns the middle of the story, the board owns the
+  // bookends. The inactive panel dims and recedes so the eye follows.
+  const phoneFocus = step >= 4 && step <= 11;
+  const allReady = step >= 13;
+  const caption = captionFor(step);
 
   return (
     <div ref={rootRef} aria-hidden="true" className="relative h-[24rem] w-[29rem] select-none">
-      {/* Ready board — the admin's side of the story */}
-      <div className="border-border bg-background absolute top-0 right-0 w-[19rem] rounded-xs border p-4">
+      {/* Phase caption — names what's happening so no beat lands contextless */}
+      <p
+        key={caption}
+        className="animate-vignette-in text-muted-foreground absolute top-0 left-0 max-w-[9rem] text-xs leading-snug"
+      >
+        {caption}
+      </p>
+
+      {/* Readiness board — the admin's side of the story */}
+      <div
+        className={cn(
+          "border-border bg-background absolute top-0 right-0 w-[19rem] rounded-xs border p-4 transition-[opacity,transform] duration-500",
+          phoneFocus && "scale-[0.985] opacity-45"
+        )}
+      >
         <div className="mb-3 flex items-center justify-between">
           <div>
-            <p className="text-foreground text-sm font-normal">Training progress</p>
+            <p className="text-foreground text-sm font-normal">Driver readiness</p>
             <p className="text-muted-foreground text-xs">Monday orientation</p>
           </div>
           <span
@@ -177,60 +259,83 @@ export function HeroScene() {
                 : "bg-surface-3 text-foreground"
             )}
           >
-            {allReady ? "All 5 complete" : `${readyCount} of 5 complete`}
+            {allReady ? "All 5 ready" : "4 of 5 ready"}
           </span>
         </div>
 
         <div className="divide-border divide-y">
-          {ROWS.map((row) => {
-            const isSosa = row.name === "L. Sosa";
-            const isCarter = row.name === "J. Carter";
-            const ready =
-              (!isSosa && !isCarter) || (isSosa && sosaReady) || (isCarter && carterReady);
-            const justFlipped = (isCarter && step === 4) || (isSosa && step === 6);
-
-            return (
-              <div key={row.name} className="flex items-center justify-between gap-3 py-2">
-                <div className="flex items-center gap-2.5">
-                  <div
-                    className={cn(
-                      "flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-[9px]",
-                      AVATAR_TINTS[row.tint]
-                    )}
-                  >
-                    {initials(row.name)}
-                  </div>
-                  <span className="text-foreground text-sm font-normal">{row.name}</span>
+          {READY_ROWS.map((row) => (
+            <div key={row.name} className="flex items-center justify-between gap-3 py-2">
+              <div className="flex items-center gap-2.5">
+                <div
+                  className={cn(
+                    "flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-[9px]",
+                    AVATAR_TINTS[row.tint]
+                  )}
+                >
+                  {initials(row.name)}
                 </div>
-
-                {ready ? (
-                  <span
-                    className={cn(
-                      "bg-success/10 text-success inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 text-xs",
-                      justFlipped && "animate-pulse-soft"
-                    )}
-                  >
-                    <CheckCircle2 className="h-3.5 w-3.5" />
-                    Complete
-                  </span>
-                ) : isSosa ? (
-                  <span className="bg-accent-violet-soft text-accent-violet inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 text-xs">
-                    <FileSignature className="h-3.5 w-3.5" />
-                    Quiz left
-                  </span>
-                ) : (
-                  <span className="bg-accent-amber-soft text-accent-amber inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 text-xs">
-                    Lessons left
-                  </span>
-                )}
+                <span className="text-foreground text-sm font-normal">{row.name}</span>
               </div>
-            );
-          })}
+              <span className="bg-success/10 text-success inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 text-xs">
+                <CheckCircle2 className="h-3.5 w-3.5" />
+                Ready
+              </span>
+            </div>
+          ))}
+
+          {/* J. Carter — the driver whose journey we watch */}
+          <div className="flex items-center justify-between gap-3 py-2">
+            <div className="flex items-center gap-2.5">
+              <div
+                className={cn(
+                  "flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-[9px]",
+                  AVATAR_TINTS.amber
+                )}
+              >
+                JC
+              </div>
+              <span className="text-foreground text-sm font-normal">J. Carter</span>
+            </div>
+
+            {step <= 2 ? (
+              <span
+                className={cn(
+                  "bg-primary text-primary-foreground relative inline-flex items-center rounded-full px-3 py-0.5 text-xs transition-transform duration-150",
+                  step === 2 && "scale-95"
+                )}
+              >
+                Invite
+                {step === 2 ? (
+                  <span className="animate-tap-ring border-foreground/40 absolute inset-0 rounded-full border-2" />
+                ) : null}
+              </span>
+            ) : step <= 6 ? (
+              <span className="animate-vignette-in bg-accent-blue-soft text-accent-blue inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 text-xs">
+                <MessageSquareText className="h-3.5 w-3.5" />
+                Invite sent
+              </span>
+            ) : step <= 12 ? (
+              <span className="animate-vignette-in bg-accent-amber-soft text-accent-amber inline-flex items-center rounded-full px-2 py-0.5 text-xs">
+                In progress
+              </span>
+            ) : (
+              <span className="animate-pulse-soft bg-success/10 text-success inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 text-xs">
+                <CheckCircle2 className="h-3.5 w-3.5" />
+                Ready
+              </span>
+            )}
+          </div>
         </div>
       </div>
 
-      {/* Driver's phone — the cause */}
-      <div className="border-border bg-card absolute bottom-0 left-0 z-10 w-[11rem] rounded-[1.4rem] border p-1.5 shadow-lg">
+      {/* Driver's phone — where the invite becomes readiness */}
+      <div
+        className={cn(
+          "border-border bg-card absolute bottom-0 left-0 z-10 w-[11rem] rounded-[1.4rem] border p-1.5 transition-[opacity,transform,box-shadow] duration-500",
+          phoneFocus ? "scale-[1.04] opacity-100 shadow-xl" : "opacity-80 shadow-lg"
+        )}
+      >
         <div className="border-border bg-background overflow-hidden rounded-[1rem] border">
           <div className="text-muted-foreground flex items-center justify-between px-3 pt-1.5 pb-0.5 text-[9px]">
             <span>9:41</span>
@@ -241,45 +346,61 @@ export function HeroScene() {
         </div>
       </div>
 
-      {/* Completion chips — the causal link, phone → board row */}
+      {/* Admin cursor — the visible actor behind the invite */}
+      <div
+        className="text-foreground absolute z-30"
+        style={{
+          left: "24.9rem",
+          top: "15.5rem",
+          transform: step >= 1 ? "translate(0, 0)" : "translate(-9rem, 4.5rem)",
+          opacity: step >= 3 ? 0 : 1,
+          transition: "transform 0.85s var(--ease-in-out-strong), opacity 0.3s ease",
+        }}
+      >
+        <MousePointer2 className="h-5 w-5 drop-shadow-sm" fill="currentColor" />
+      </div>
+
+      {/* The text message flying board → phone */}
       {step === 3 ? (
         <div
-          className="animate-chip-fly bg-success/10 text-success border-success/20 absolute z-20 inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-[10px] whitespace-nowrap backdrop-blur-sm"
+          className="animate-chip-fly bg-accent-blue-soft text-accent-blue border-accent-blue/20 absolute z-20 inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-[10px] whitespace-nowrap backdrop-blur-sm"
           style={
             {
-              left: "8.5rem",
-              top: "11.5rem",
-              "--fly-x": "13rem",
-              "--fly-y": "-1.5rem",
+              left: "19rem",
+              top: "16.2rem",
+              "--fly-x": "-14rem",
+              "--fly-y": "-2.5rem",
             } as React.CSSProperties
           }
         >
-          <CheckCircle2 className="h-3 w-3" /> Lessons 5/5
-        </div>
-      ) : null}
-      {step === 5 ? (
-        <div
-          className="animate-chip-fly bg-success/10 text-success border-success/20 absolute z-20 inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-[10px] whitespace-nowrap backdrop-blur-sm"
-          style={
-            {
-              left: "8.5rem",
-              top: "11.5rem",
-              "--fly-x": "14rem",
-              "--fly-y": "3.6rem",
-            } as React.CSSProperties
-          }
-        >
-          <FileSignature className="h-3 w-3" /> Quiz passed
+          <MessageSquareText className="h-3 w-3" /> Text sent
         </div>
       ) : null}
 
-      {/* SMS toast on the board side when the reminder goes out */}
-      {step === 1 ? (
-        <div className="animate-vignette-in border-border bg-card absolute -top-9 right-8 flex items-center gap-2 rounded-xs border px-3 py-2 shadow-lg">
-          <span className="bg-accent-blue-soft text-accent-blue flex h-6 w-6 items-center justify-center rounded-full">
-            <MessageSquareText className="h-3.5 w-3.5" />
+      {/* The completion flying phone → board */}
+      {step === 12 ? (
+        <div
+          className="animate-chip-fly bg-success/10 text-success border-success/20 absolute z-20 inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-[10px] whitespace-nowrap backdrop-blur-sm"
+          style={
+            {
+              left: "8.5rem",
+              top: "13rem",
+              "--fly-x": "13.5rem",
+              "--fly-y": "2.4rem",
+            } as React.CSSProperties
+          }
+        >
+          <CheckCircle2 className="h-3 w-3" /> Orientation complete
+        </div>
+      ) : null}
+
+      {/* Admin notification — the payoff */}
+      {allReady ? (
+        <div className="animate-vignette-in border-border bg-card absolute -top-9 right-8 z-20 flex items-center gap-2 rounded-xs border px-3 py-2 shadow-lg">
+          <span className="bg-success/10 text-success flex h-6 w-6 items-center justify-center rounded-full">
+            <BellRing className="h-3.5 w-3.5" />
           </span>
-          <span className="text-foreground text-xs">Reminder texted to J. Carter</span>
+          <span className="text-foreground text-xs">J. Carter is ready for day one</span>
         </div>
       ) : null}
     </div>

@@ -12,7 +12,6 @@ import {
   X,
 } from "lucide-react";
 import { Container } from "@/components/layout/Container";
-import { Button } from "@/components/ui/Button";
 import { EmailCapture } from "@/components/ui/EmailCapture";
 import { cn } from "@/lib/cn";
 
@@ -177,8 +176,8 @@ function SliderRow({
 }: SliderRowProps) {
   const pct = ((value - min) / (max - min)) * 100;
   return (
-    <div className={compact ? "py-2" : "py-3"}>
-      <div className="mb-2 flex items-baseline justify-between gap-3">
+    <div className={compact ? "py-2" : "py-2.5"}>
+      <div className="mb-1.5 flex items-baseline justify-between gap-3">
         <label htmlFor={id} className={cn("text-foreground/90", compact ? "text-xs" : "text-sm")}>
           {label}
         </label>
@@ -367,22 +366,22 @@ export function RoiCalculator() {
   return (
     <section id={SECTION_ID} className="scroll-mt-24">
       <Container className="pb-12 md:px-0">
-        <div className="border-border bg-card rounded-xs border p-8 sm:p-12">
-          <div className="mb-10 max-w-2xl">
-            <p className="text-success mb-3 text-sm font-medium tracking-wide uppercase">
+        <div className="border-border bg-card rounded-xs border p-6 sm:p-10">
+          <div className="mb-8 max-w-2xl">
+            <p className="text-success mb-2 text-sm font-medium tracking-wide uppercase">
               Orientation cost calculator
             </p>
             <h2 className="text-foreground text-3xl font-normal tracking-[-0.02em] sm:text-4xl">
               Put a number on day-one readiness.
             </h2>
-            <p className="text-muted-foreground mt-3 text-lg">
-              Estimate what your fleet spends on orientation work that could happen before drivers
-              arrive — paid classroom time, hotel nights booked for no-shows, and admin chasing. Use
-              your own numbers and change every assumption. The calculator shows its work.
+            <p className="text-muted-foreground mt-2.5 text-base">
+              What your fleet spends on orientation work that could happen before drivers arrive —
+              paid classroom time, hotel nights for no-shows, admin chasing. Your numbers, your
+              assumptions.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,5fr)_minmax(0,4fr)]">
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,5fr)_minmax(0,4fr)] lg:gap-12">
             {/* Inputs */}
             <div>
               <p className="text-muted-foreground mb-1 text-xs font-normal tracking-wide uppercase">
@@ -415,7 +414,7 @@ export function RoiCalculator() {
                 />
               </div>
 
-              <p className="text-muted-foreground mt-8 mb-1 text-xs font-normal tracking-wide uppercase">
+              <p className="text-muted-foreground mt-6 mb-1 text-xs font-normal tracking-wide uppercase">
                 The overhead
               </p>
               <div className="divide-border-subtle divide-y">
@@ -454,13 +453,13 @@ export function RoiCalculator() {
               </div>
 
               {/* Savings assumptions — visible, honest, adjustable */}
-              <div className="border-success/20 bg-success/10 mt-8 rounded-xs border">
+              <div className="border-border bg-surface-2 mt-6 rounded-xs border">
                 <button
                   type="button"
                   onClick={() => setAssumptionsOpen((open) => !open)}
                   aria-expanded={assumptionsOpen}
                   aria-controls="roi-assumptions"
-                  className="hover:bg-success/10 flex w-full items-center justify-between gap-3 px-4 py-3 text-left transition-[background-color,transform] duration-150 ease-out active:scale-[0.99] motion-reduce:active:scale-100"
+                  className="hover:bg-surface-3 flex w-full items-center justify-between gap-3 px-4 py-3 text-left transition-[background-color,transform] duration-150 ease-out active:scale-[0.99] motion-reduce:active:scale-100"
                 >
                   <span className="text-foreground flex items-center gap-2 text-sm">
                     <SlidersHorizontal className="text-success h-3.5 w-3.5" aria-hidden="true" />
@@ -534,12 +533,17 @@ export function RoiCalculator() {
                   </div>
                 </div>
               </div>
+
+              <p className="text-muted-foreground/80 mt-5 text-xs leading-relaxed">
+                Estimates from your inputs and the assumptions shown — not a quote or a promise of
+                results. Trainer time and turnover effects are not counted.
+              </p>
             </div>
 
             {/* Results */}
-            <div className="border-success/25 bg-success/10 rounded-xs border p-6 sm:p-8">
+            <div className="border-border bg-surface-2 h-fit rounded-xs border p-6 sm:p-7">
               {sharedNotice && (
-                <div className="bg-surface-2 border-border mb-5 flex items-start gap-2.5 rounded-xs border px-3 py-2.5">
+                <div className="bg-card border-border mb-5 flex items-start gap-2.5 rounded-xs border px-3 py-2.5">
                   <Link2
                     className="text-muted-foreground mt-0.5 h-3.5 w-3.5 shrink-0"
                     aria-hidden="true"
@@ -571,7 +575,7 @@ export function RoiCalculator() {
                 {currency.format(Math.round(perHire))} per hire
               </p>
 
-              <div className="border-success/20 bg-card/70 mt-6 rounded-xs border p-4">
+              <div className="border-border bg-card mt-5 rounded-xs border p-4">
                 <p className="text-success flex items-baseline gap-2 text-sm">
                   <Clock3 className="text-success h-3.5 w-3.5 self-center" aria-hidden="true" />
                   <span className="text-2xl font-normal tracking-[-0.02em] tabular-nums">
@@ -585,7 +589,7 @@ export function RoiCalculator() {
                 </p>
               </div>
 
-              <div className="border-border-subtle mt-5 space-y-5 border-t pt-5">
+              <div className="border-border mt-5 space-y-4 border-t pt-5">
                 <p className="text-muted-foreground text-xs font-normal tracking-wide uppercase">
                   Where it comes from
                 </p>
@@ -618,40 +622,33 @@ export function RoiCalculator() {
                 />
               </div>
 
-              <p className="text-muted-foreground/80 border-border-subtle mt-6 border-t pt-4 text-xs leading-relaxed">
-                Estimates from your inputs and the assumptions shown — not a quote or a promise of
-                results. Trainer time and driver-turnover effects are not counted.
-              </p>
-
-              <div className="mt-6 space-y-2.5">
+              <div className="border-border mt-5 space-y-2 border-t pt-5">
                 <EmailCapture
                   source="Orientation cost calculator"
                   buttonText="Get started"
                   className="max-w-none"
                 />
-                <p className="text-muted-foreground text-center text-xs">
-                  Start with your work email. We&apos;ll help you pressure-test the estimate.
-                </p>
-                <Button
-                  variant="secondary"
-                  size="md"
-                  className="border-success/25 bg-card/70 hover:border-success/40 hover:bg-card w-full"
-                  onClick={handleCopyLink}
-                  aria-live="polite"
-                >
-                  {copied ? (
-                    <>
-                      Link copied <Check className="text-success ml-1 h-4 w-4" />
-                    </>
-                  ) : (
-                    <>
-                      Copy a link to this estimate <Link2 className="ml-1 h-4 w-4" />
-                    </>
-                  )}
-                </Button>
-                <p className="text-muted-foreground text-center text-xs">
-                  The link keeps your numbers — send it to your owner or safety team.
-                </p>
+                <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1">
+                  <p className="text-muted-foreground text-xs">
+                    We&apos;ll help you pressure-test it.
+                  </p>
+                  <button
+                    type="button"
+                    onClick={handleCopyLink}
+                    aria-live="polite"
+                    className="text-muted-foreground hover:text-foreground inline-flex items-center gap-1.5 text-xs transition-colors"
+                  >
+                    {copied ? (
+                      <>
+                        Link copied <Check className="text-success h-3.5 w-3.5" />
+                      </>
+                    ) : (
+                      <>
+                        Copy a link to this estimate <Link2 className="h-3.5 w-3.5" />
+                      </>
+                    )}
+                  </button>
+                </div>
               </div>
             </div>
           </div>

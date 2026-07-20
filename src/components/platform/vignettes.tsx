@@ -495,7 +495,7 @@ const LOOP_STAGES = [
   },
   {
     icon: FileCheck,
-    title: "Completed · quiz passed",
+    title: "Training completed",
     meta: "Done on the driver's phone",
     tone: "border-success/40 bg-success/10 text-success",
     iconTone: "bg-success/10 text-success",
