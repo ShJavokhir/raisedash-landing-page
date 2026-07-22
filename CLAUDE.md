@@ -104,6 +104,37 @@ Router used by the dashboard/learner-web apps. Node is pinned to **22.x**
 - Meta-ad landing pages (`/start*`) intentionally carry no pricing and stay
   `noindex` — don't add them to the sitemap or make them rank organically.
 
+## Meta ads tracking (two pixels — never mix them)
+
+- The site runs **two separate Meta pixels/datasets**:
+  - **Driver-training pixel** (`NEXT_PUBLIC_META_PIXEL_ID` server twin
+    `META_PIXEL_ID` + `META_CAPI_ACCESS_TOKEN`) — scoped to the `/start*`
+    funnels only (`src/components/start/meta-pixel.tsx`, `/api/start-capi`,
+    `/api/start-v2-lead`).
+  - **FLEET pixel** (`NEXT_PUBLIC_META_FLEET_PIXEL_ID` +
+    `META_FLEET_CAPI_ACCESS_TOKEN`; optional `META_FLEET_PIXEL_ID` server
+    override and `META_FLEET_CAPI_TEST_EVENT_CODE` for Events-Manager QA) —
+    mounted **site-wide** via `FleetMetaPixel` in `_app.tsx`, excluded on
+    `/start*`. The fleet email-capture campaigns (ads land on the homepage)
+    optimize for its "Lead". Both stacks no-op until their env pair is set.
+- **Every browser event goes through `fbq('trackSingle', pixelId, …)` — never
+  `fbq('track', …)`.** One session can initialize both pixels (e.g.
+  `/tools/elp-practice` → `/start-v2` client-side nav), and a broadcast
+  `track` would cross-pollute the datasets. `bootstrapFbq()` in
+  `src/lib/meta-pixel.ts` is the single shared fbq snippet; init guards are
+  per-pixel module flags, NOT "window.fbq exists".
+- Fleet conversions are Pixel + CAPI pairs deduped on a shared `eventId`:
+  **"Lead"** (`content_name: fleet_email_capture`) fires on every email
+  capture — the `EmailCapture` component and the `/demo` email gate, with the
+  durable CAPI twin in `/api/email-capture`; **"Schedule"**
+  (`fleet_demo_request`) fires on a successful `/demo` submit, twin in
+  `/api/demo-lead`. `sendFleetCapiLead` (`src/lib/meta-capi.ts`) never falls
+  back to the driver-training dataset when fleet env is unset.
+- `FleetMetaPixel` also persists `rd_fbclid` (90d) + `rd_utm` (30d) cookies;
+  `/api/email-capture` reads `rd_utm` to append a campaign footer to the
+  Telegram notification, and both fleet API routes use `rd_fbclid` to
+  synthesize `_fbc` when the Pixel never set it.
+
 ## SEO/perf conventions
 
 - Every indexable page goes through `SEO`/`PageLayout` (`src/components/seo`,

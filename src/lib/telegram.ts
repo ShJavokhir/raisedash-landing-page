@@ -68,6 +68,8 @@ export interface UnsubscribeEventData {
 export interface EmailCaptureData {
   email: string;
   source: string;
+  /** Which campaign produced this email (from the rd_utm cookie) — optional. */
+  attribution?: LeadAttribution;
 }
 
 /**
@@ -230,7 +232,7 @@ export function formatEmailCaptureMessage(data: EmailCaptureData): string {
 
 📅 *Date:* ${timestamp}
 📧 *Email:* ${data.email}
-📍 *Source:* ${data.source}
+📍 *Source:* ${data.source}${formatLeadAttribution(data.attribution)}
 
 ---
 *Event:* Email Capture`;

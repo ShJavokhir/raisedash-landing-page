@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { sendToTelegram } from "@/lib/telegram";
+import { sendFleetCapiLead } from "@/lib/meta-capi";
 import { isValidEmail } from "@/lib/validation";
 import { sanitizeString } from "@/lib/sanitize";
 import {
@@ -15,15 +16,19 @@ import {
 /**
  * Lead capture for the /demo "book a demo" funnel (the site's primary CTA).
  *
- * A pure notification flow: validate + sanitize the answers, then send them to
- * Telegram so the team can reach out. No account, no welcome email, no Meta Pixel,
- * no backend — the deliberate opposite of the /start ad funnels. Routes to
- * TELEGRAM_LEADS_CHAT_ID when set, else the default TELEGRAM_CHAT_ID (see
- * sendToTelegram), reusing the exact env vars/lib the other lead routes use.
+ * Validate + sanitize the answers, send them to Telegram so the team can reach
+ * out, and fire the server-side Meta CAPI "Schedule" on the FLEET dataset — the
+ * higher-value fleet conversion above the email-gate "Lead". The browser pixel
+ * fires the same eventId on success (DemoFunnel), so Meta dedupes the pair; this
+ * server twin is the durable half and carries the strongest match signals (raw
+ * email/name/phone hashed in sendFleetCapiLead, request IP/UA, _fbp/_fbc
+ * cookies). Best-effort: a CAPI failure never fails the lead. No account, no
+ * welcome email, no backend. Routes to TELEGRAM_LEADS_CHAT_ID when set, else the
+ * default TELEGRAM_CHAT_ID (see sendToTelegram).
  *
  * Kept cheap and rate-limit-friendly: a filled honeypot short-circuits before any
  * work, every field is length-capped so payloads stay small, and the handler makes
- * exactly one outbound Telegram call.
+ * exactly one outbound Telegram call (plus the best-effort CAPI send).
  */
 
 const MAX_LEN = 200;
@@ -31,6 +36,18 @@ const MAX_LEN = 200;
 /** Trim and cap an untrusted string value; non-strings become "". */
 function clip(v: unknown): string {
   return typeof v === "string" ? v.trim().slice(0, MAX_LEN) : "";
+}
+
+/**
+ * The public client IP for Meta CAPI matching/geolocation. On Vercel the real
+ * client IP is the first hop of x-forwarded-for (x-real-ip as a fallback).
+ */
+function clientIp(req: NextApiRequest): string | undefined {
+  const xff = req.headers["x-forwarded-for"];
+  const first = (Array.isArray(xff) ? xff[0] : xff)?.split(",")[0]?.trim();
+  if (first) return first;
+  const xrip = req.headers["x-real-ip"];
+  return (Array.isArray(xrip) ? xrip[0] : xrip)?.trim() || undefined;
 }
 
 /**
@@ -126,7 +143,30 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       phone: phone || undefined,
     });
 
+    // The durable CAPI "Schedule", concurrent with Telegram so neither adds the
+    // other's latency. Awaited before responding because a serverless function
+    // may freeze after the response is sent.
+    const capiPromise = sendFleetCapiLead({
+      email,
+      phone: phone || undefined,
+      name: fullName,
+      eventId: clip(body.eventId) || undefined,
+      eventSourceUrl: req.headers.referer,
+      clientIp: clientIp(req),
+      clientUserAgent: req.headers["user-agent"],
+      fbp: req.cookies._fbp,
+      fbc: req.cookies._fbc,
+      fbclid: req.cookies.rd_fbclid,
+      contentName: "fleet_demo_request",
+      eventName: "Schedule",
+    });
+
     const telegramResponse = await sendToTelegram(message, process.env.TELEGRAM_LEADS_CHAT_ID);
+
+    const capiResult = await capiPromise;
+    if (capiResult.error) {
+      console.warn("Demo-lead Meta CAPI Schedule not sent:", capiResult.error);
+    }
 
     if (!telegramResponse.ok) {
       console.error("Telegram API error:", await telegramResponse.text());

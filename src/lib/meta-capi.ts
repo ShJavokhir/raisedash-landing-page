@@ -1,18 +1,23 @@
 /**
- * Server-side Meta (Facebook/Instagram) Conversions API for the /start-v2 driver-
- * training funnel. This is the DURABLE half of the Pixel + CAPI pair: Meta ads open
- * in the FB/IG in-app browser where the Pixel is routinely suppressed (sandboxed
- * cookies, ATT opt-out, ad blockers), so the server event — sharing an `event_id`
- * with the browser Pixel for deduplication — is the source of truth for the Lead.
+ * Server-side Meta (Facebook/Instagram) Conversions API. This is the DURABLE half
+ * of the Pixel + CAPI pair: Meta ads open in the FB/IG in-app browser where the
+ * Pixel is routinely suppressed (sandboxed cookies, ATT opt-out, ad blockers), so
+ * the server event — sharing an `event_id` with the browser Pixel for
+ * deduplication — is the source of truth for each conversion.
  *
- * Runs only in the Node API route (src/pages/api/start-v2-lead.ts); never bundled
- * to the client (it reads the secret access token + hashes PII with node:crypto).
- * The /start funnel has the equivalent server send in the backend; this is the
- * Vercel-only mirror for /start-v2, which posts to a Next route, not the backend.
+ * Serves two separate pixels/datasets:
+ *  - sendCapiLead — the /start* driver-training funnels' pixel
+ *    (META_PIXEL_ID + META_CAPI_ACCESS_TOKEN), called from
+ *    /api/start-capi and /api/start-v2-lead.
+ *  - sendFleetCapiLead — the site-wide FLEET pixel the B2B email-capture
+ *    campaigns optimize against (META_FLEET_PIXEL_ID + META_FLEET_CAPI_ACCESS_TOKEN),
+ *    called from /api/email-capture and /api/demo-lead. A separate dataset so
+ *    "Lead" there means only fleet email captures, never driver-training leads.
  *
- * No-ops when META_PIXEL_ID / META_CAPI_ACCESS_TOKEN are unset, so the funnel works
- * before Meta is provisioned. Never throws: a failed send must not fail the lead
- * capture (the Telegram notification already fired).
+ * Node-only (reads secret access tokens + hashes PII with node:crypto); never
+ * bundled to the client. Each entry point no-ops when its own env pair is unset,
+ * so every funnel works before its pixel is provisioned. Never throws: a failed
+ * send must not fail the capture (the Telegram notification already fired).
  */
 import { createHash } from "node:crypto";
 
@@ -127,18 +132,63 @@ export function metaCapiConfigured(): boolean {
   return Boolean(process.env.META_PIXEL_ID && process.env.META_CAPI_ACCESS_TOKEN);
 }
 
+/** One pixel/dataset's server-side credentials. */
+interface CapiDataset {
+  pixelId: string;
+  accessToken: string;
+  testEventCode?: string;
+}
+
+/** The /start* driver-training funnels' dataset. */
+function startDataset(): CapiDataset | undefined {
+  const pixelId = process.env.META_PIXEL_ID;
+  const accessToken = process.env.META_CAPI_ACCESS_TOKEN;
+  if (!pixelId || !accessToken) return undefined;
+  return { pixelId, accessToken, testEventCode: process.env.META_CAPI_TEST_EVENT_CODE };
+}
+
 /**
- * Send the server-side Lead to the Conversions API. Best-effort: returns
- * { sent: false } (never throws) on any failure or when unconfigured, so the
- * caller can fire-and-forget without risking the user's submission.
+ * The fleet (B2B email-capture) dataset. The pixel id falls back to the
+ * NEXT_PUBLIC_ var so one Vercel env serves both the client snippet and CAPI.
+ */
+function fleetDataset(): CapiDataset | undefined {
+  const pixelId = process.env.META_FLEET_PIXEL_ID || process.env.NEXT_PUBLIC_META_FLEET_PIXEL_ID;
+  const accessToken = process.env.META_FLEET_CAPI_ACCESS_TOKEN;
+  if (!pixelId || !accessToken) return undefined;
+  return { pixelId, accessToken, testEventCode: process.env.META_FLEET_CAPI_TEST_EVENT_CODE };
+}
+
+/**
+ * Send the server-side Lead to the /start* funnels' dataset. Best-effort:
+ * returns { sent: false } (never throws) on any failure or when unconfigured,
+ * so the caller can fire-and-forget without risking the user's submission.
  */
 export async function sendCapiLead(
   input: CapiLeadInput
 ): Promise<{ sent: boolean; error?: string }> {
-  const pixelId = process.env.META_PIXEL_ID;
-  const accessToken = process.env.META_CAPI_ACCESS_TOKEN;
-  if (!pixelId || !accessToken) return { sent: false };
+  const dataset = startDataset();
+  if (!dataset) return { sent: false };
+  return sendCapiLeadTo(dataset, input);
+}
 
+/**
+ * Send the server-side event to the FLEET dataset (email captures / demo
+ * requests). Same best-effort contract as sendCapiLead. Deliberately a separate
+ * entry point: when the fleet env is unset it must no-op, never fall back to
+ * the driver-training dataset.
+ */
+export async function sendFleetCapiLead(
+  input: CapiLeadInput
+): Promise<{ sent: boolean; error?: string }> {
+  const dataset = fleetDataset();
+  if (!dataset) return { sent: false };
+  return sendCapiLeadTo(dataset, input);
+}
+
+async function sendCapiLeadTo(
+  dataset: CapiDataset,
+  input: CapiLeadInput
+): Promise<{ sent: boolean; error?: string }> {
   const userData = buildUserData(input);
   // A Lead with only weak/no identifiers is rejected by Meta's baseline-match
   // rule. This funnel always collects email + phone, but guard anyway.
@@ -172,13 +222,13 @@ export async function sendCapiLead(
   // can't leak into logs/proxies. The Graph API accepts it as a body parameter.
   const payload: Record<string, unknown> = {
     data: [event],
-    access_token: accessToken,
+    access_token: dataset.accessToken,
   };
-  if (process.env.META_CAPI_TEST_EVENT_CODE) {
-    payload.test_event_code = process.env.META_CAPI_TEST_EVENT_CODE;
+  if (dataset.testEventCode) {
+    payload.test_event_code = dataset.testEventCode;
   }
 
-  const url = `https://graph.facebook.com/${GRAPH_API_VERSION}/${pixelId}/events`;
+  const url = `https://graph.facebook.com/${GRAPH_API_VERSION}/${dataset.pixelId}/events`;
 
   try {
     const res = await fetch(url, {

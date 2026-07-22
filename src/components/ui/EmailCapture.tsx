@@ -3,6 +3,8 @@ import { useRouter } from "next/router";
 import { ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { setCapturedEmail } from "@/lib/captured-email";
+import { newEventId } from "@/lib/meta-pixel";
+import { trackFleetPixel } from "@/lib/meta-fleet-pixel";
 
 interface EmailCaptureProps {
   className?: string;
@@ -44,11 +46,19 @@ export function EmailCapture({
       return;
     }
 
-    // Log email capture to Telegram (fire and forget)
+    // The email capture IS the conversion the fleet Meta campaigns optimize for.
+    // Fire the browser-pixel Lead and send the same eventId to the server, whose
+    // CAPI twin (in /api/email-capture) Meta dedupes against this one.
+    const eventId = newEventId();
+    trackFleetPixel("Lead", { content_name: "fleet_email_capture" }, eventId);
+
+    // Log email capture to Telegram + fire the server-side CAPI Lead (fire and
+    // forget; keepalive lets it finish through the /demo navigation).
     fetch("/api/email-capture", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email: trimmedEmail, source }),
+      body: JSON.stringify({ email: trimmedEmail, source, eventId }),
+      keepalive: true,
     }).catch(() => {
       // Silently fail - don't block navigation
     });

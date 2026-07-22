@@ -11,7 +11,7 @@
 
 export const PIXEL_ID = process.env.NEXT_PUBLIC_META_PIXEL_ID;
 
-type Fbq = ((...args: unknown[]) => void) & {
+export type Fbq = ((...args: unknown[]) => void) & {
   callMethod?: (...args: unknown[]) => void;
   queue?: unknown[];
   loaded?: boolean;
@@ -105,37 +105,62 @@ export function ensureFbp(): void {
   document.cookie = `_fbp=${fbp}; max-age=${90 * 24 * 60 * 60}; path=/; samesite=lax`;
 }
 
+/**
+ * Create the fbq command queue + inject fbevents.js if no pixel has done so yet.
+ * Shared by this funnel pixel and the site-wide fleet pixel (meta-fleet-pixel.ts):
+ * whichever initializes first bootstraps the stub, the other reuses it — the
+ * standard Meta snippet is one-per-page, however many pixel ids it serves.
+ * Browser-only: callers guard `typeof window` before calling.
+ */
+export function bootstrapFbq(): Fbq {
+  if (!window.fbq) {
+    const fbq: Fbq = function (...args: unknown[]) {
+      if (fbq.callMethod) fbq.callMethod(...args);
+      else fbq.queue!.push(args);
+    };
+    fbq.push = fbq;
+    fbq.loaded = true;
+    fbq.version = "2.0";
+    fbq.queue = [];
+    window.fbq = fbq;
+    if (!window._fbq) window._fbq = fbq;
+
+    const script = document.createElement("script");
+    script.async = true;
+    script.src = "https://connect.facebook.net/en_US/fbevents.js";
+    document.head.appendChild(script);
+  }
+  return window.fbq;
+}
+
+// Whether THIS pixel id has been fbq('init')-ed. Deliberately not "window.fbq
+// exists": the site-wide fleet pixel may have bootstrapped fbq before the visitor
+// reaches a /start* funnel (e.g. /tools/elp-practice → /start-v2), and this pixel
+// still needs its own init.
+let pixelInited = false;
+
 /** Bootstrap fbq (the standard Meta snippet) and fire PageView. Idempotent. */
 export function initPixel(): void {
-  if (!PIXEL_ID || typeof window === "undefined" || window.fbq) return;
+  if (!PIXEL_ID || typeof window === "undefined" || pixelInited) return;
 
-  const fbq: Fbq = function (...args: unknown[]) {
-    if (fbq.callMethod) fbq.callMethod(...args);
-    else fbq.queue!.push(args);
-  };
-  fbq.push = fbq;
-  fbq.loaded = true;
-  fbq.version = "2.0";
-  fbq.queue = [];
-  window.fbq = fbq;
-  if (!window._fbq) window._fbq = fbq;
-
-  const script = document.createElement("script");
-  script.async = true;
-  script.src = "https://connect.facebook.net/en_US/fbevents.js";
-  document.head.appendChild(script);
+  const fbq = bootstrapFbq();
 
   // Limited Data Use must match the server CAPI (which sends LDU on every
   // event). country/state 0 => Meta geolocates from IP. Set before init so it
   // applies to PageView, ViewContent, and the deduped Lead alike.
   fbq("dataProcessingOptions", ["LDU"], 0, 0);
   fbq("init", PIXEL_ID);
-  fbq("track", "PageView");
+  pixelInited = true;
+  fbq("trackSingle", PIXEL_ID, "PageView");
 }
 
 /**
  * Fire a Pixel event. Pass `eventId` for events also sent server-side (Lead) so
  * Meta deduplicates the pair. No-ops when the Pixel isn't loaded.
+ *
+ * trackSingle, not track: a session can hold this funnel pixel AND the site-wide
+ * fleet pixel (separate dataset), and a broadcast fbq('track') would double every
+ * funnel event into the fleet dataset.
  */
 export function trackPixel(
   event: PixelEvent,
@@ -143,8 +168,8 @@ export function trackPixel(
   eventId?: string
 ): void {
   if (!PIXEL_ID || typeof window === "undefined" || !window.fbq) return;
-  if (eventId) window.fbq("track", event, params, { eventID: eventId });
-  else window.fbq("track", event, params);
+  if (eventId) window.fbq("trackSingle", PIXEL_ID, event, params, { eventID: eventId });
+  else window.fbq("trackSingle", PIXEL_ID, event, params);
 }
 
 /** Collect attribution from the URL + cookies at submit time. */

@@ -1,10 +1,12 @@
-import { useId, useState } from "react";
+import { useId, useRef, useState } from "react";
 import { ArrowLeft, ArrowRight, CalendarClock, Check, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { isValidEmail } from "@/lib/validation";
 import { cn } from "@/lib/utils";
 import { getCapturedEmail, setCapturedEmail } from "@/lib/captured-email";
+import { newEventId } from "@/lib/meta-pixel";
+import { trackFleetPixel } from "@/lib/meta-fleet-pixel";
 import {
   FLEET_OPTIONS,
   ROLE_OPTIONS,
@@ -32,9 +34,15 @@ import {
  *    (14-day trial starts at card-on-file, nothing charged up front).
  *
  * Keeps the normal marketing design system (site tokens + shared ui components).
- * It is intentionally NOT the stripped ad funnel: no Meta Pixel, no PostHog.
  * Built standalone (it does not import from the frozen start / start-v2 funnels)
  * so this flow can never regress the live ad funnels.
+ *
+ * Meta tracking: this page is a conversion surface for the FLEET pixel (the
+ * site-wide dataset mounted by _app, separate from the /start* funnels'). The
+ * email gate fires the "Lead" the ad sets optimize for; a completed demo request
+ * fires the higher-value "Schedule". Both are Pixel + CAPI pairs deduped on a
+ * shared eventId — the server twins live in /api/email-capture and
+ * /api/demo-lead. Still no PostHog here.
  */
 
 const CAL_LINK = "https://cal.com/javokhir/raisedash-demo-meeting";
@@ -107,6 +115,9 @@ export function DemoFunnel() {
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  // One Meta eventId per demo request, stable across submit retries so a failed
+  // attempt + retry can't produce two "Schedule" conversions.
+  const scheduleEventIdRef = useRef<string | null>(null);
   // After the gate, the first screen is the demo-vs-self-serve fork, not a step.
   const [choosingPath, setChoosingPath] = useState(true);
 
@@ -121,11 +132,15 @@ export function DemoFunnel() {
     const normalized = email.trim().toLowerCase();
     set({ email: normalized });
     setCapturedEmail(normalized);
+    // The gate submit is the Meta "Lead" the fleet ad sets optimize for: browser
+    // pixel here, CAPI twin in /api/email-capture, deduped on the shared eventId.
+    const eventId = newEventId();
+    trackFleetPixel("Lead", { content_name: "fleet_email_capture" }, eventId);
     // Fire-and-forget; keepalive lets it finish even if they navigate away.
     fetch("/api/email-capture", {
       method: "POST",
       headers: { "content-type": "application/json" },
-      body: JSON.stringify({ email: normalized, source: "Demo gate (/demo)" }),
+      body: JSON.stringify({ email: normalized, source: "Demo gate (/demo)", eventId }),
       keepalive: true,
     }).catch(() => {});
     setEmailConfirmed(true);
@@ -149,6 +164,7 @@ export function DemoFunnel() {
     setSubmitting(true);
     setError(null);
     try {
+      if (!scheduleEventIdRef.current) scheduleEventIdRef.current = newEventId();
       const res = await fetch("/api/demo-lead", {
         method: "POST",
         headers: { "content-type": "application/json" },
@@ -161,9 +177,18 @@ export function DemoFunnel() {
           email: data.email.trim(),
           phone: data.phone.trim() || undefined,
           companyWebsite: data.companyWebsite || undefined,
+          eventId: scheduleEventIdRef.current,
         }),
       });
       if (res.ok) {
+        // The completed demo request is the higher-value fleet conversion. Fired
+        // only on success (the CAPI twin in /api/demo-lead also fires only for a
+        // valid submission); the shared eventId dedupes the pair.
+        trackFleetPixel(
+          "Schedule",
+          { content_name: "fleet_demo_request" },
+          scheduleEventIdRef.current
+        );
         setSubmitted(true);
         return;
       }

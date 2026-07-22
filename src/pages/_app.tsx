@@ -4,6 +4,7 @@ import dynamic from "next/dynamic";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { SkipLink } from "@/components/layout/SkipLink";
+import { FleetMetaPixel } from "@/components/meta/FleetMetaPixel";
 import { OrganizationJsonLd, WebsiteJsonLd } from "@/components/seo/SEO";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
@@ -44,6 +45,9 @@ export default function App({ Component, pageProps }: AppProps) {
       <WebsiteJsonLd />
 
       <SkipLink />
+      {/* Site-wide FLEET Meta Pixel (email-capture campaigns). The /start* funnels
+          are excluded — they mount their own pixel on a separate dataset. */}
+      {!isFunnel && <FleetMetaPixel />}
       {!hideHeader && <Header />}
       <main id="main-content">
         <Component {...pageProps} />
