@@ -14,6 +14,7 @@ import {
 import { Container } from "@/components/layout/Container";
 import { EmailCapture } from "@/components/ui/EmailCapture";
 import { cn } from "@/lib/cn";
+import { capture } from "@/lib/site-analytics";
 
 /**
  * Orientation cost calculator — the visitor drags sliders that describe their
@@ -262,8 +263,15 @@ export function RoiCalculator() {
   const [sharedNotice, setSharedNotice] = useState(false);
   const [copied, setCopied] = useState(false);
   const copyTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  // One engagement event per page load, on the FIRST slider touch — sliders fire
+  // onChange continuously, and "did they engage" is the signal, not each tick.
+  const usedRef = useRef(false);
 
   const setField = (field: CalcField) => (value: number) => {
+    if (!usedRef.current) {
+      usedRef.current = true;
+      capture("roi_calculator_used", { first_field: field });
+    }
     setValues((prev) => ({ ...prev, [field]: value }));
     // First drag makes the estimate theirs — retire the "shared" notice.
     setSharedNotice(false);
@@ -298,6 +306,9 @@ export function RoiCalculator() {
   }, []);
 
   const handleCopyLink = async () => {
+    // Sharing numbers with a colleague is one of the highest-intent moves on
+    // the homepage — the visitor is building an internal case.
+    capture("roi_calculator_link_copied");
     const url = `${window.location.origin}/${encodeShareHash(values)}`;
     try {
       await navigator.clipboard.writeText(url);

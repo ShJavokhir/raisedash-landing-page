@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 import { setCapturedEmail } from "@/lib/captured-email";
 import { newEventId } from "@/lib/meta-pixel";
 import { trackFleetPixel } from "@/lib/meta-fleet-pixel";
+import { capture, identify } from "@/lib/site-analytics";
 
 interface EmailCaptureProps {
   className?: string;
@@ -51,6 +52,10 @@ export function EmailCapture({
     // CAPI twin (in /api/email-capture) Meta dedupes against this one.
     const eventId = newEventId();
     trackFleetPixel("Lead", { content_name: "fleet_email_capture" }, eventId);
+    // PostHog twin of the Meta Lead + tie this session (and its replay) to the
+    // lead. `source` says WHICH form converted (homepage hero, pricing, …).
+    identify(trimmedEmail);
+    capture("email_capture_submitted", { source });
 
     // Log email capture to Telegram + fire the server-side CAPI Lead (fire and
     // forget; keepalive lets it finish through the /demo navigation).

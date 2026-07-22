@@ -1,4 +1,4 @@
-import { useId, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import { ArrowLeft, ArrowRight, CalendarClock, Check, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 import { getCapturedEmail, setCapturedEmail } from "@/lib/captured-email";
 import { newEventId } from "@/lib/meta-pixel";
 import { trackFleetPixel } from "@/lib/meta-fleet-pixel";
+import { capture, identify } from "@/lib/site-analytics";
 import {
   FLEET_OPTIONS,
   ROLE_OPTIONS,
@@ -50,6 +51,9 @@ const APP_SIGNUP_URL = "https://app.raisedash.com/sign-up";
 
 // trucks, role, headache, name+company, contact — the done screen isn't a step.
 const TOTAL_STEPS = 5;
+
+/** PostHog step labels, indexed by `step` — keep in step-render order. */
+const STEP_NAMES = ["fleet_size", "role", "headaches", "name_company", "contact"] as const;
 
 /** Mirrors the /api/demo-lead rule: phone is optional, but 7–15 digits when present. */
 function isPlausiblePhone(phone: string): boolean {
@@ -121,6 +125,14 @@ export function DemoFunnel() {
   // After the gate, the first screen is the demo-vs-self-serve fork, not a step.
   const [choosingPath, setChoosingPath] = useState(true);
 
+  // PostHog step drop-off: one demo_step_viewed per step render on the "book a
+  // demo" path (the fork and done screens have their own events). Where the
+  // funnel leaks shows up as the gap between consecutive step counts.
+  useEffect(() => {
+    if (!emailConfirmed || choosingPath || submitted) return;
+    capture("demo_step_viewed", { step, step_name: STEP_NAMES[step] });
+  }, [step, emailConfirmed, choosingPath, submitted]);
+
   const set = (patch: Partial<FunnelData>) => setData((d) => ({ ...d, ...patch }));
   const next = () => setStep((s) => Math.min(TOTAL_STEPS - 1, s + 1));
   const back = () => setStep((s) => Math.max(0, s - 1));
@@ -136,6 +148,9 @@ export function DemoFunnel() {
     // pixel here, CAPI twin in /api/email-capture, deduped on the shared eventId.
     const eventId = newEventId();
     trackFleetPixel("Lead", { content_name: "fleet_email_capture" }, eventId);
+    // PostHog twin + tie the session/replay to the lead.
+    identify(normalized);
+    capture("email_capture_submitted", { source: "Demo gate (/demo)" });
     // Fire-and-forget; keepalive lets it finish even if they navigate away.
     fetch("/api/email-capture", {
       method: "POST",
@@ -189,6 +204,15 @@ export function DemoFunnel() {
           { content_name: "fleet_demo_request" },
           scheduleEventIdRef.current
         );
+        // PostHog twin. The categorical answers ride along (never name/phone):
+        // event props for funnel breakdowns, $set for filtering lead profiles.
+        identify(data.email);
+        capture("demo_request_submitted", {
+          fleet_size: data.fleetSize,
+          role: data.role,
+          headaches: data.headaches,
+          $set: { fleet_size: data.fleetSize, role: data.role },
+        });
         setSubmitted(true);
         return;
       }
@@ -200,12 +224,15 @@ export function DemoFunnel() {
         // Non-JSON error body — fall through to the generic message.
       }
       const messages = fields.map((f) => FIELD_MESSAGES[f]).filter(Boolean);
+      // Form friction signal: which fields reject real people's submissions.
+      capture("demo_request_error", { status: res.status, fields });
       setError(
         messages.length > 0
           ? messages.join(" ")
           : "We couldn't send your request. Please try again in a moment."
       );
     } catch {
+      capture("demo_request_error", { status: "network" });
       setError("We couldn't reach the server — check your connection and try again.");
     } finally {
       setSubmitting(false);
@@ -225,7 +252,13 @@ export function DemoFunnel() {
   if (choosingPath) {
     return (
       <div className="bg-card border-border rounded-xs border p-6 sm:p-8">
-        <PathChooser email={data.email.trim()} onBookDemo={() => setChoosingPath(false)} />
+        <PathChooser
+          email={data.email.trim()}
+          onBookDemo={() => {
+            capture("demo_path_chosen", { path: "book_demo" });
+            setChoosingPath(false);
+          }}
+        />
       </div>
     );
   }
@@ -353,6 +386,10 @@ function PathChooser({ email, onBookDemo }: { email: string; onBookDemo: () => v
   // Fire-and-forget Telegram note that this lead went self-serve; keepalive lets
   // the request finish while the browser navigates away to the app.
   const logSelfServe = () => {
+    // The self-serve fork is the strongest activation signal on the site —
+    // capture it even when the email is somehow missing (PostHog flushes with
+    // sendBeacon, so the outbound navigation doesn't lose it).
+    capture("demo_path_chosen", { path: "self_serve", has_email: isValidEmail(email) });
     if (!isValidEmail(email)) return;
     fetch("/api/email-capture", {
       method: "POST",
@@ -710,6 +747,7 @@ function DoneScreen() {
           href={CAL_LINK}
           target="_blank"
           rel="noopener noreferrer"
+          onClick={() => capture("scheduling_link_clicked")}
           className="text-primary hover:text-primary/80 inline-flex items-center gap-2 text-sm transition-colors"
         >
           <CalendarClock className="size-4" />

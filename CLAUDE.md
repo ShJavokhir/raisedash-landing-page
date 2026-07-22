@@ -135,6 +135,35 @@ Router used by the dashboard/learner-web apps. Node is pinned to **22.x**
   Telegram notification, and both fleet API routes use `rd_fbclid` to
   synthesize `_fbc` when the Pixel never set it.
 
+## PostHog analytics (site-wide)
+
+- posthog-js inits in `src/instrumentation-client.ts` (pre-hydration; the
+  convention works in the Pages Router) with the publishable
+  `NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN` — the SAME project as the academy app
+  and the legacy /start funnel beacon (`/api/ev`), so all Raisedash web
+  behaviour reconciles in one place. No-ops when the token is unset.
+- All SDK traffic goes through the same-origin **`/rdx` reverse proxy**
+  (next.config.ts rewrites → us.i.posthog.com / us-assets.i.posthog.com) so
+  ad/tracking blockers can't drop events or session replay. Deliberately
+  "/rdx", not PostHog's well-known "/ingest" (filter lists catch it).
+- `skipTrailingSlashRedirect: true` in next.config.ts is REQUIRED by the
+  proxy (PostHog API paths end in "/"); the site's SEO no-trailing-slash 308
+  now lives in `src/middleware.ts` instead. That redirect must build a plain
+  `new URL(request.url)` — `request.nextUrl.clone()` re-applies the original
+  trailing slash on serialization and loops. Don't remove either half.
+- Session replay records with `maskAllInputs` + console logs; it ALSO needs
+  "Record user sessions" enabled in PostHog project settings — code config
+  alone doesn't start recordings.
+- Named money-moment events live in `src/lib/site-analytics.ts` (typed
+  wrapper; capture/identify no-op when PostHog is off):
+  `email_capture_submitted` (Meta Lead twin), `demo_path_chosen`,
+  `demo_step_viewed`, `demo_request_submitted` (Meta Schedule twin),
+  `demo_request_error`, `scheduling_link_clicked`, `roi_calculator_used`,
+  `roi_calculator_link_copied`. `identify(email)` ties sessions/replays to
+  leads at every email-capture moment. Ambient behaviour (pageviews, clicks,
+  scroll depth, utm_*/fbclid attribution) is autocaptured by the SDK's
+  versioned defaults — don't add custom events for those.
+
 ## SEO/perf conventions
 
 - Every indexable page goes through `SEO`/`PageLayout` (`src/components/seo`,
