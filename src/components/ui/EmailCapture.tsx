@@ -2,6 +2,7 @@ import { useId, useState, FormEvent } from "react";
 import { useRouter } from "next/router";
 import { ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { setCapturedEmail } from "@/lib/captured-email";
 
 interface EmailCaptureProps {
   className?: string;
@@ -55,13 +56,9 @@ export function EmailCapture({
     // Send everyone into the demo/readiness funnel. /start ("DOT compliance")
     // and /start-v2/v3 are reserved for paid Meta traffic only — routing organic
     // visitors there would both confuse them and pollute the ad pixels.
-    // sessionStorage (not a query param) carries the email so it never lands in
-    // URLs, history, or analytics; /demo prefills its contact step from it.
-    try {
-      sessionStorage.setItem("rd_captured_email", trimmedEmail);
-    } catch {
-      // Storage unavailable (private mode etc.) — /demo just asks again.
-    }
+    // Stash the email (never a query param, so it stays out of URLs/history/
+    // analytics) so /demo skips its own email gate and prefills the contact step.
+    setCapturedEmail(trimmedEmail);
     router.push("/demo");
   };
 
@@ -89,6 +86,7 @@ export function EmailCapture({
           <input
             id={inputId}
             type="email"
+            name="email"
             required
             value={email}
             onChange={(e) => {
@@ -97,12 +95,20 @@ export function EmailCapture({
             }}
             placeholder={placeholder}
             aria-label="Enter your work email"
+            autoComplete="email"
+            inputMode="email"
+            autoCapitalize="none"
+            autoCorrect="off"
+            spellCheck={false}
+            enterKeyHint="go"
             className={cn(
-              "w-full text-sm transition-all duration-150",
+              // text-base (16px) below lg so iOS Safari doesn't zoom the page
+              // when the field gets focus.
+              "w-full text-base transition-all duration-150 lg:text-sm",
               "focus:ring-0 focus:outline-none",
               "placeholder:text-muted-foreground/60",
-              // Mobile: has border
-              "h-10 rounded-sm px-3 text-center",
+              // Mobile: has border, 44px-tall tap target
+              "h-11 rounded-sm px-3 text-center",
               "border-border bg-background border",
               // Desktop: no border, transparent bg
               "lg:h-10 lg:rounded-sm lg:border-none lg:bg-transparent lg:pr-2 lg:pl-3 lg:text-left",
@@ -124,7 +130,7 @@ export function EmailCapture({
             type="submit"
             className={cn(
               "group relative flex w-full cursor-pointer items-center justify-center",
-              "h-10 rounded-sm px-4 text-sm font-medium",
+              "h-11 rounded-sm px-4 text-sm font-medium lg:h-10",
               "transition-[background-color,transform] duration-150 ease-out",
               "active:scale-[0.97] motion-reduce:active:scale-100",
               "focus:ring-2 focus:ring-offset-2 focus:outline-none",

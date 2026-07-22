@@ -4,7 +4,7 @@ import { ArrowRight, Check } from "lucide-react";
 import { Container } from "@/components/layout/Container";
 import { PageLayout } from "@/components/layout/PageLayout";
 import { EmailCapture } from "@/components/ui/EmailCapture";
-import { HeroScene } from "@/components/home/HeroScene";
+import { HeroScene, MobileHeroScene } from "@/components/home/HeroScene";
 import { ProblemsMarquee } from "@/components/home/ProblemsMarquee";
 import { CoreLoops } from "@/components/home/CoreLoops";
 import { EvidenceMoment } from "@/components/home/EvidenceMoment";
@@ -44,27 +44,27 @@ export default function Home({ recentUpdates, recentPosts }: HomeProps) {
       ]}
     >
       {/* Hero Section */}
-      <div className="pt-16 pb-8">
-        <Container className="bg-card border-border animate-fade-in-scale relative flex items-center overflow-hidden rounded-xs border px-8 py-12 delay-0 sm:px-12 sm:py-16">
+      <div className="pt-8 pb-6 sm:pt-16 sm:pb-8">
+        <Container className="bg-card border-border animate-fade-in-scale relative flex items-center overflow-hidden rounded-xs border px-6 py-9 delay-0 sm:px-12 sm:py-16">
           <div className="relative z-10 flex w-full items-center gap-12">
             <div className="flex-1">
-              <p className="text-muted-foreground animate-fade-in-up mb-4 text-sm font-normal tracking-wide uppercase delay-75">
+              <p className="text-muted-foreground animate-fade-in-up mb-3 text-xs font-normal tracking-wide uppercase delay-75 sm:mb-4 sm:text-sm">
                 The driver readiness platform for modern fleets
               </p>
               <h1 className="text-foreground animate-fade-in-up text-4xl leading-tight font-normal tracking-[-0.03em] delay-75 sm:text-[48px]">
                 Ready before day one. Proven long after.
               </h1>
-              <p className="text-muted-foreground animate-fade-in-up mt-6 max-w-xl text-xl leading-relaxed font-normal delay-150">
+              <p className="text-muted-foreground animate-fade-in-up mt-4 max-w-xl text-lg leading-relaxed font-normal delay-150 sm:mt-6 sm:text-xl">
                 Prepare new drivers before day one, give them practical training and hands-on
                 practice, and keep a clear record of every step. Less chasing for your safety team.
                 Fewer surprises when drivers arrive.
               </p>
 
-              <div className="animate-fade-in-up mt-10 delay-200">
+              <div className="animate-fade-in-up mt-7 delay-200 sm:mt-10">
                 <EmailCapture source="Hero" buttonText="Get started" />
               </div>
 
-              <ul className="text-muted-foreground animate-fade-in-up mt-6 flex flex-wrap gap-x-5 gap-y-2 text-sm delay-300">
+              <ul className="text-muted-foreground animate-fade-in-up mt-5 flex flex-col gap-2 text-sm delay-300 sm:mt-6 sm:flex-row sm:flex-wrap sm:gap-x-5 sm:gap-y-2">
                 {["No app download", "One-time code access", "Training records in one place"].map(
                   (item) => (
                     <li key={item} className="flex items-center gap-1.5">
@@ -74,6 +74,12 @@ export default function Home({ recentUpdates, recentPosts }: HomeProps) {
                   )
                 )}
               </ul>
+
+              {/* Phones get the same animated scene as desktop, scaled down
+                  to the card width (see MobileHeroScene). */}
+              <div className="animate-fade-in-up mt-8 delay-300 lg:hidden">
+                <MobileHeroScene />
+              </div>
             </div>
 
             <div className="hidden flex-shrink-0 lg:block">
@@ -112,18 +118,27 @@ export default function Home({ recentUpdates, recentPosts }: HomeProps) {
               <Link
                 key={update.slug}
                 href={`/product-updates/${update.slug}`}
-                className="group hover:bg-surface-2 flex items-center justify-between gap-4 px-5 py-3.5 transition-colors duration-150"
+                className="group hover:bg-surface-2 flex items-center justify-between gap-4 px-4 py-3.5 transition-colors duration-150 sm:px-5"
               >
-                <div className="flex min-w-0 flex-1 items-center gap-3">
-                  <span className="bg-surface-3 text-foreground shrink-0 rounded-xs px-2 py-0.5 text-xs font-normal">
-                    {update.category}
-                  </span>
-                  <h3 className="text-foreground truncate text-sm font-normal">{update.title}</h3>
-                  <span className="text-muted-foreground shrink-0 text-xs">
+                {/* Phones stack chip+date over the full title; sm+ keeps the
+                    single row with a truncated title. */}
+                <div className="flex min-w-0 flex-1 flex-col gap-1.5 sm:flex-row sm:items-center sm:gap-3">
+                  <div className="flex items-center justify-between gap-3">
+                    <span className="bg-surface-3 text-foreground shrink-0 rounded-xs px-2 py-0.5 text-xs font-normal">
+                      {update.category}
+                    </span>
+                    <span className="text-muted-foreground shrink-0 text-xs sm:hidden">
+                      {formatDate(update.publishedAt)}
+                    </span>
+                  </div>
+                  <h3 className="text-foreground line-clamp-2 text-sm font-normal sm:line-clamp-1">
+                    {update.title}
+                  </h3>
+                  <span className="text-muted-foreground hidden shrink-0 text-xs sm:inline">
                     {formatDate(update.publishedAt)}
                   </span>
                 </div>
-                <ArrowRight className="text-muted-foreground group-hover:text-foreground h-3.5 w-3.5 flex-shrink-0 transition-colors" />
+                <ArrowRight className="text-muted-foreground group-hover:text-foreground hidden h-3.5 w-3.5 flex-shrink-0 transition-colors sm:block" />
               </Link>
             ))}
           </div>
@@ -167,10 +182,10 @@ export default function Home({ recentUpdates, recentPosts }: HomeProps) {
 
       {/* CTA Section */}
       <Container className="pb-12 md:px-0">
-        <div className="bg-card border-border animate-fade-in-scale relative overflow-hidden rounded-xs border p-8 text-center delay-700 sm:p-12">
+        <div className="bg-card border-border animate-fade-in-scale relative overflow-hidden rounded-xs border p-6 text-center delay-700 sm:p-12">
           <HalftoneTruck
             flip
-            className="text-foreground absolute -right-10 -bottom-9 w-72 opacity-[0.13] sm:w-96"
+            className="text-foreground absolute -right-10 -bottom-9 w-72 opacity-[0.07] sm:w-96 sm:opacity-[0.13]"
           />
           <div className="relative">
             <h2 className="text-foreground mb-4 text-2xl font-normal tracking-[-0.02em] sm:text-3xl">

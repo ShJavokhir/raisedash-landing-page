@@ -6,7 +6,7 @@ export function Footer() {
   return (
     <footer className="mb-8 w-full bg-transparent sm:mb-12">
       <div>
-        <Container className="border-border bg-card rounded-xs border px-8 py-8 sm:px-12 sm:py-12">
+        <Container className="border-border bg-card rounded-xs border px-6 py-8 sm:px-12 sm:py-12">
           {/* Brand Section */}
           <div className="mb-10 max-w-md">
             <h3 className="text-foreground mb-4 text-base font-normal">Raisedash</h3>

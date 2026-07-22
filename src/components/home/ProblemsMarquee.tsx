@@ -55,7 +55,7 @@ const ProblemBadge = memo(function ProblemBadge({ text, tabIndex }: ProblemBadge
     <Link
       href="/demo"
       tabIndex={tabIndex}
-      className="bg-card text-muted-foreground border-border hover:border-foreground/30 hover:text-foreground group inline-flex shrink-0 items-center gap-1 rounded-xs border px-3 py-1.5 text-lg whitespace-nowrap transition-colors duration-150"
+      className="bg-card text-muted-foreground border-border hover:border-foreground/30 hover:text-foreground group inline-flex shrink-0 items-center gap-1 rounded-xs border px-3 py-2 text-sm whitespace-nowrap transition-colors duration-150 sm:py-1.5 sm:text-lg"
     >
       {text}
       <ArrowRight className="h-4 w-4 opacity-0 transition-opacity duration-150 group-hover:opacity-100" />

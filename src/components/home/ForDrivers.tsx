@@ -27,7 +27,7 @@ const points = [
 export function ForDrivers() {
   return (
     <Container className="pb-12 md:px-0">
-      <div className="border-border bg-card rounded-xs border p-8 sm:p-12">
+      <div className="border-border bg-card rounded-xs border p-6 sm:p-12">
         <div className="mb-8 max-w-2xl">
           <p className="text-muted-foreground mb-3 text-sm font-normal tracking-wide uppercase">
             For drivers

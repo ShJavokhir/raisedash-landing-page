@@ -1,6 +1,7 @@
 import * as React from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { cn } from "@/lib/cn";
 import { Container } from "@/components/layout/Container";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { Button } from "@/components/ui/Button";
@@ -37,10 +38,36 @@ export function Header() {
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, [mobileMenuOpen]);
 
+  // On phones the sticky header ducks out of the way while scrolling down and
+  // returns on the first scroll up, so the ~90px bar isn't parked over every
+  // one of the page's ~15 viewports. Desktop (md+) keeps it always visible.
+  const [hiddenOnScroll, setHiddenOnScroll] = React.useState(false);
+  const lastScrollY = React.useRef(0);
+  React.useEffect(() => {
+    lastScrollY.current = window.scrollY;
+    const handleScroll = () => {
+      const y = Math.max(0, window.scrollY);
+      const delta = y - lastScrollY.current;
+      // Ignore sub-6px jitter (iOS momentum/rubber-band noise).
+      if (Math.abs(delta) < 6) return;
+      setHiddenOnScroll(delta > 0 && y > 140);
+      lastScrollY.current = y;
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
-    <header className="sticky top-4 z-50 w-full bg-transparent md:top-6">
+    <header
+      className={cn(
+        "sticky top-4 z-50 w-full bg-transparent transition-transform duration-300 ease-out md:top-6",
+        // Never duck away while the menu is open — the menu lives inside the
+        // header.
+        hiddenOnScroll && !mobileMenuOpen && "max-md:-translate-y-[calc(100%+1.5rem)]"
+      )}
+    >
       <div className="">
-        <Container className="border-border dark:bg-card rounded-xs border bg-white">
+        <Container className="border-border dark:bg-card rounded-xs border bg-white px-4 sm:px-5">
           <div className="flex h-[60px] items-center justify-between">
             {/* Logo */}
             <div className="flex items-center gap-3">
@@ -183,7 +210,11 @@ export function Header() {
 
             {/* Mobile Menu Button */}
             <div className="flex items-center gap-2 md:hidden">
-              <ThemeToggle />
+              <Link href="/demo">
+                <Button variant="primary" size="sm">
+                  Book a demo
+                </Button>
+              </Link>
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                 className="hover:bg-surface-3 rounded-xs p-2 transition-colors duration-[0.15s]"
@@ -207,7 +238,11 @@ export function Header() {
               role="navigation"
               aria-label="Mobile navigation"
               ref={mobileMenuRef}
-              className="border-border border-t md:hidden"
+              // The menu is taller than a phone viewport and the header is
+              // sticky, so without its own scroll the bottom items (Sign in,
+              // Book a demo, Theme) are unreachable. 8.5rem ≈ bar height +
+              // the sticky top offset + a bottom peek gap.
+              className="border-border max-h-[calc(100dvh-8.5rem)] overflow-y-auto overscroll-contain border-t md:hidden"
             >
               <div className="space-y-1 py-4">
                 {/* Platform Section */}
@@ -307,6 +342,14 @@ export function Header() {
                       Book a demo
                     </Button>
                   </Link>
+                  {/* The theme toggle lives here on phones — the bar gives its
+                      spot to the demo CTA. */}
+                  <div className="mt-1 flex items-center justify-between px-1">
+                    <span className="text-muted-foreground text-xs font-normal tracking-wide uppercase">
+                      Theme
+                    </span>
+                    <ThemeToggle />
+                  </div>
                 </div>
               </div>
             </nav>

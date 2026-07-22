@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { isValidEmail } from "@/lib/validation";
 import { cn } from "@/lib/utils";
+import { getCapturedEmail, setCapturedEmail } from "@/lib/captured-email";
 import {
   FLEET_OPTIONS,
   ROLE_OPTIONS,
@@ -12,8 +13,14 @@ import {
 } from "@/components/demo-funnel/options";
 
 /**
- * The /demo funnel — the site's primary CTA target. Every "Get started" email
- * capture lands here and picks a path on the first screen:
+ * The /demo funnel — the site's primary CTA target.
+ *
+ * The first screen is an email gate: anyone who reaches /demo without an email
+ * already captured (a direct/ad link, the header "Book a demo" button, any CTA)
+ * must enter one before the two options appear. The capture is logged on submit,
+ * so a lead who enters an email and then bounces is still recorded. Visitors who
+ * already gave their email upstream (a homepage form stashed it) skip the gate
+ * entirely — we never ask twice. Past the gate, they pick a path:
  *
  *  - "Book a demo": a lightweight, one-question-per-screen flow (fleet size,
  *    role, headaches, contact). On submit the answers POST to /api/demo-lead,
@@ -82,27 +89,47 @@ const EMPTY: FunnelData = {
 
 export function DemoFunnel() {
   const [step, setStep] = useState(0);
-  // Prefill the email the homepage capture stashed so the contact step doesn't
-  // ask for it twice. Lazy initializer: sessionStorage exists only client-side,
-  // and the email input isn't rendered on step 0, so hydration stays consistent.
+  // Prefill any email a homepage capture stashed so the contact step doesn't ask
+  // for it twice. Lazy initializer: storage exists only client-side.
   const [data, setData] = useState<FunnelData>(() => {
     if (typeof window === "undefined") return EMPTY;
-    try {
-      const captured = sessionStorage.getItem("rd_captured_email");
-      return captured ? { ...EMPTY, email: captured } : EMPTY;
-    } catch {
-      return EMPTY;
-    }
+    const captured = getCapturedEmail();
+    return captured ? { ...EMPTY, email: captured } : EMPTY;
+  });
+  // Has this visitor given us an email yet? A homepage form (this session or a
+  // prior visit) already captured it → skip the gate and go straight to the fork.
+  // The server has no storage, so it renders the gate; on a client-side nav in
+  // (router.push from a capture form) the initializer reads storage and skips it.
+  const [emailConfirmed, setEmailConfirmed] = useState<boolean>(() => {
+    if (typeof window === "undefined") return false;
+    return getCapturedEmail() !== "";
   });
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  // The first screen is the demo-vs-self-serve fork, not a numbered step.
+  // After the gate, the first screen is the demo-vs-self-serve fork, not a step.
   const [choosingPath, setChoosingPath] = useState(true);
 
   const set = (patch: Partial<FunnelData>) => setData((d) => ({ ...d, ...patch }));
   const next = () => setStep((s) => Math.min(TOTAL_STEPS - 1, s + 1));
   const back = () => setStep((s) => Math.max(0, s - 1));
+
+  // The email gate: record the address (stash + Telegram), then reveal the fork.
+  // Logged on submit so a lead who enters an email and then bounces is still
+  // captured — the whole point of gating /demo.
+  const confirmEmail = (email: string) => {
+    const normalized = email.trim().toLowerCase();
+    set({ email: normalized });
+    setCapturedEmail(normalized);
+    // Fire-and-forget; keepalive lets it finish even if they navigate away.
+    fetch("/api/email-capture", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ email: normalized, source: "Demo gate (/demo)" }),
+      keepalive: true,
+    }).catch(() => {});
+    setEmailConfirmed(true);
+  };
 
   // A clickable single-choice answer commits and advances in one tap.
   const choose = (patch: Partial<FunnelData>) => {
@@ -161,6 +188,14 @@ export function DemoFunnel() {
   }
 
   if (submitted) return <DoneScreen />;
+
+  if (!emailConfirmed) {
+    return (
+      <div className="bg-card border-border rounded-xs border p-6 sm:p-8">
+        <EmailGate initialEmail={data.email} onConfirm={confirmEmail} />
+      </div>
+    );
+  }
 
   if (choosingPath) {
     return (
@@ -226,6 +261,63 @@ const PATH_CARD_CLASSES = cn(
   "border-border bg-card hover:bg-surface-2 hover:-translate-y-0.5",
   "focus-visible:outline-ring focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2"
 );
+
+/**
+ * The email gate — the very first screen for anyone who lands on /demo without an
+ * email already captured. Nothing behind it (the two options, the self-serve
+ * signup/checkout hand-off) is reachable until an email is entered. Deliberately
+ * one field: lowest friction on cold Meta traffic; name/company come later in the
+ * "Book a demo" path.
+ */
+function EmailGate({
+  initialEmail,
+  onConfirm,
+}: {
+  initialEmail: string;
+  onConfirm: (email: string) => void;
+}) {
+  const emailId = useId();
+  const [email, setEmail] = useState(initialEmail);
+  const trimmed = email.trim();
+  const emailValid = isValidEmail(trimmed);
+  // Only nag once they've typed something that clearly isn't an email yet.
+  const showEmailHint = trimmed.length > 3 && !emailValid;
+
+  return (
+    <form
+      className="space-y-6"
+      onSubmit={(e) => {
+        e.preventDefault();
+        if (emailValid) onConfirm(trimmed);
+      }}
+    >
+      <StepHeading
+        title="First, what's your work email?"
+        subtitle="Then pick how you'd like to start — a guided demo, or set up your fleet yourself."
+      />
+      <Input
+        id={emailId}
+        label="Work email"
+        type="email"
+        inputMode="email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        autoComplete="email"
+        autoCapitalize="off"
+        autoCorrect="off"
+        placeholder="you@company.com"
+        error={showEmailHint ? "Enter a valid email address." : undefined}
+        autoFocus
+      />
+      <Button type="submit" size="lg" className="w-full" disabled={!emailValid}>
+        Continue <ArrowRight className="ml-2 size-4" />
+      </Button>
+      <p className="text-muted-foreground text-center text-[13px]">
+        No spam. A real person reads every request.
+      </p>
+    </form>
+  );
+}
 
 /** The fork screen: guided demo funnel vs self-serve signup in the app. */
 function PathChooser({ email, onBookDemo }: { email: string; onBookDemo: () => void }) {

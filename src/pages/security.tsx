@@ -14,7 +14,7 @@ export default function Security() {
       ]}
     >
       {/* Hero Section */}
-      <Container className="bg-card border-border mt-12 flex items-center rounded-xs border">
+      <Container className="bg-card border-border mt-12 flex items-center rounded-xs border px-5">
         <div className="w-full py-16 sm:py-24 md:py-28">
           <h1 className="text-foreground text-4xl font-semibold tracking-[-0.01em] md:text-5xl">
             Security
@@ -37,7 +37,7 @@ export default function Security() {
       </Container>
 
       {/* Security Content */}
-      <Container className="bg-card border-border mt-8 rounded-xs border">
+      <Container className="bg-card border-border mt-8 rounded-xs border px-5">
         <div className="py-16">
           <div className="prose prose-slate dark:prose-invert mx-auto max-w-4xl">
             <section className="mb-12">

@@ -51,12 +51,12 @@ export function PipelineVignette() {
   return (
     <div className="relative">
       <BrowserFrame url="app.raisedash.com/readiness">
-        <div className="mb-4 flex items-start justify-between">
-          <div>
+        <div className="mb-4 flex items-start justify-between gap-2">
+          <div className="min-w-0">
             <p className="text-foreground text-sm font-normal">Orientation — Mon, Jul 20</p>
             <p className="text-muted-foreground mt-0.5 text-xs">Springfield location</p>
           </div>
-          <span className="bg-accent-blue-soft text-accent-blue inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs">
+          <span className="bg-accent-blue-soft text-accent-blue inline-flex shrink-0 items-center gap-1.5 rounded-full px-2.5 py-1 text-xs whitespace-nowrap">
             <Smartphone className="h-3 w-3" />
             SMS or email
           </span>
@@ -65,13 +65,15 @@ export function PipelineVignette() {
         <div className="grid grid-cols-3 gap-2">
           {columns.map((col, colIndex) => (
             <div key={col.title} className="bg-surface-2 rounded-xs p-2">
-              <div className="mb-2 flex items-center justify-between px-1">
-                <span className="text-muted-foreground text-[10px] tracking-wide uppercase">
+              <div className="mb-2 flex items-center justify-between gap-1 px-1">
+                <span className="text-muted-foreground text-[9px] tracking-wide whitespace-nowrap uppercase sm:text-[10px]">
                   {col.title}
                 </span>
+                {/* The animated count pills render sm+ only — a 74px-wide
+                    column can hold "IN PROGRESS" or the pill, not both. */}
                 <span
                   className={cn(
-                    "rounded-full px-1.5 text-[10px] transition-colors duration-300",
+                    "hidden shrink-0 rounded-full px-1.5 text-[10px] transition-colors duration-300 sm:inline-block",
                     colIndex === 2 ? "bg-success/10 text-success" : "bg-surface-3 text-foreground"
                   )}
                 >
@@ -142,30 +144,40 @@ export function PipelineVignette() {
   );
 }
 
+/** `shortLabel` is what phones show — the full label ellipsizes into
+    meaninglessness ("Orientation a…") in a ~140px column. */
 const LEDGER_ENTRIES = [
   {
     icon: Send,
     label: "Orientation assigned · invite texted",
+    shortLabel: "Orientation assigned",
     meta: "Opened on phone",
-    date: "Mar 13 · 9:41 AM",
+    date: "Mar 13",
+    time: "9:41 AM",
   },
   {
     icon: FileCheck,
     label: "HOS & ELD basics · lesson completed",
+    shortLabel: "HOS & ELD lesson",
     meta: "12 min on lesson",
-    date: "Mar 14 · 8:02 AM",
+    date: "Mar 14",
+    time: "8:02 AM",
   },
   {
     icon: ShieldCheck,
     label: "Knowledge check passed · 92%",
+    shortLabel: "Knowledge check",
     meta: "Attempt 1 of 3",
-    date: "Mar 14 · 8:19 AM",
+    date: "Mar 14",
+    time: "8:19 AM",
   },
   {
     icon: PenLine,
     label: "Accident procedures · reading completed",
+    shortLabel: "Accident procedures",
     meta: "Completed on phone",
-    date: "Mar 14 · 8:24 AM",
+    date: "Mar 14",
+    time: "8:24 AM",
   },
 ];
 
@@ -221,11 +233,19 @@ export function LedgerVignette() {
                   <Icon className="h-3.5 w-3.5" />
                 </span>
                 <div className="min-w-0 flex-1">
-                  <p className="text-foreground truncate text-xs font-normal">{row.label}</p>
+                  <p className="text-foreground truncate text-xs font-normal">
+                    <span className="sm:hidden">{row.shortLabel}</span>
+                    <span className="hidden sm:inline">{row.label}</span>
+                  </p>
                   <p className="text-muted-foreground truncate text-[10px]">{row.meta}</p>
                 </div>
                 <div className="flex flex-shrink-0 flex-col items-end gap-0.5">
-                  <span className="text-muted-foreground text-[10px]">{row.date}</span>
+                  {/* The time renders sm+ only — the full stamp starves the
+                      label down to a few characters on a 330px card. */}
+                  <span className="text-muted-foreground text-[10px] whitespace-nowrap">
+                    {row.date}
+                    <span className="hidden sm:inline"> · {row.time}</span>
+                  </span>
                   <Lock className="text-accent-amber/70 h-2.5 w-2.5" />
                 </div>
               </div>

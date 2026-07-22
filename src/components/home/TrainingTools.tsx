@@ -415,7 +415,7 @@ export function TrainingToolsCard() {
             type="button"
             aria-pressed={activeIndex === index}
             onClick={() => setActiveIndex(index)}
-            className={`rounded-xs px-1 py-2 text-[10px] transition-[background-color,color,transform] duration-150 active:scale-[0.97] motion-reduce:active:scale-100 sm:px-1.5 sm:text-xs ${
+            className={`rounded-xs px-1 py-2.5 text-[11px] transition-[background-color,color,transform] duration-150 active:scale-[0.97] motion-reduce:active:scale-100 sm:px-1.5 sm:py-2 sm:text-xs ${
               activeIndex === index
                 ? "bg-primary text-primary-foreground"
                 : "text-muted-foreground hover:bg-surface-2 hover:text-foreground"

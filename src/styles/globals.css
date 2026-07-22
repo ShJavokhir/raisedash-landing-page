@@ -1019,6 +1019,24 @@ h4 {
     border-color 160ms var(--ease-out);
 }
 
+/* Touch devices get a taller hit area and a bigger thumb — a 16px thumb on a
+   20px-tall input is a miserable drag target on a phone. */
+@media (pointer: coarse) {
+  .roi-range {
+    height: 32px;
+  }
+  .roi-range::-webkit-slider-thumb {
+    height: 24px;
+    width: 24px;
+    /* Centers the 24px thumb on the 4px track. */
+    margin-top: -10px;
+  }
+  .roi-range::-moz-range-thumb {
+    height: 24px;
+    width: 24px;
+  }
+}
+
 @media (hover: hover) and (pointer: fine) {
   .roi-range:hover::-webkit-slider-thumb {
     transform: scale(1.12);

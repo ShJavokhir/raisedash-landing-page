@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   BellRing,
   CheckCircle2,
@@ -211,6 +211,54 @@ function PhoneScreen({ step }: { step: number }) {
           <p className="text-muted-foreground mt-0.5 text-[10px]">Orientation program</p>
         </div>
       ) : null}
+    </div>
+  );
+}
+
+/** Stage size of the full scene in px (29rem × 24rem at the 16px root). */
+const SCENE_W = 464;
+const SCENE_H = 384;
+/** The payoff toast renders at -top-9 — keep headroom so it isn't clipped. */
+const SCENE_TOP_OVERHANG = 40;
+
+/**
+ * The mobile hero visual: the exact same two-panel scene as desktop, measured
+ * against the available width and scaled down to fit — not a cut-down variant.
+ * The inner HeroScene gates its own timeline on visibility, so the desktop
+ * copy (display:none here) never runs timers and vice versa.
+ */
+export function MobileHeroScene({ className }: { className?: string }) {
+  const wrapRef = useRef<HTMLDivElement>(null);
+  // Close-enough first paint for a ~375px phone; measurement corrects it.
+  const [scale, setScale] = useState(0.62);
+
+  useEffect(() => {
+    const el = wrapRef.current;
+    if (!el) return;
+    const update = () => setScale(Math.min(1, el.clientWidth / SCENE_W));
+    update();
+    const observer = new ResizeObserver(update);
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div ref={wrapRef} className={cn("w-full", className)}>
+      <div
+        className="mx-auto"
+        style={{ width: SCENE_W * scale, height: (SCENE_H + SCENE_TOP_OVERHANG) * scale }}
+      >
+        <div
+          style={{
+            width: SCENE_W,
+            paddingTop: SCENE_TOP_OVERHANG,
+            transform: `scale(${scale})`,
+            transformOrigin: "top left",
+          }}
+        >
+          <HeroScene />
+        </div>
+      </div>
     </div>
   );
 }

@@ -33,9 +33,13 @@ interface Fragment {
   label: string;
   sub: string;
   tint: string;
-  /** Scattered resting position (percentages of the stage). */
-  left: string;
-  top: string;
+  /**
+   * Scattered resting position as Tailwind left/top classes. The three
+   * fragments phones keep carry mobile-safe base positions plus md:
+   * overrides — desktop coordinates put them off-canvas or on top of each
+   * other on a 330px-wide stage.
+   */
+  pos: string;
   rotate: number;
   /** Hidden on small screens to keep the mobile stage uncluttered. */
   desktopOnly?: boolean;
@@ -47,8 +51,7 @@ const FRAGMENTS: Fragment[] = [
     label: "Winter driving",
     sub: "Lesson viewed · 11 min",
     tint: "text-accent-blue bg-accent-blue-soft",
-    left: "6%",
-    top: "12%",
+    pos: "left-[6%] top-[12%]",
     rotate: -5,
     desktopOnly: true,
   },
@@ -57,8 +60,7 @@ const FRAGMENTS: Fragment[] = [
     label: "HOS & ELD quiz · 92%",
     sub: "Attempt 1 of 1",
     tint: "text-accent-amber bg-accent-amber-soft",
-    left: "26%",
-    top: "46%",
+    pos: "left-[5%] top-[42%] md:left-[26%] md:top-[46%]",
     rotate: 3,
   },
   {
@@ -66,8 +68,7 @@ const FRAGMENTS: Fragment[] = [
     label: "Reading completed",
     sub: "Accident procedures",
     tint: "text-accent-violet bg-accent-violet-soft",
-    left: "64%",
-    top: "10%",
+    pos: "left-[64%] top-[10%]",
     rotate: 4,
     desktopOnly: true,
   },
@@ -76,8 +77,7 @@ const FRAGMENTS: Fragment[] = [
     label: "Mar 14 · 8:02 AM",
     sub: "Completion timestamp",
     tint: "text-muted-foreground bg-surface-3",
-    left: "82%",
-    top: "40%",
+    pos: "left-[82%] top-[40%]",
     rotate: -3,
     desktopOnly: true,
   },
@@ -86,8 +86,7 @@ const FRAGMENTS: Fragment[] = [
     label: "Certificate issued",
     sub: "Orientation · 2024",
     tint: "text-success bg-success/10",
-    left: "8%",
-    top: "72%",
+    pos: "left-[7%] top-[78%] md:left-[8%] md:top-[72%]",
     rotate: 6,
   },
   {
@@ -95,8 +94,7 @@ const FRAGMENTS: Fragment[] = [
     label: "Pre-trip quiz · Passed",
     sub: "Attempt 1 of 2",
     tint: "text-accent-blue bg-accent-blue-soft",
-    left: "58%",
-    top: "64%",
+    pos: "left-[34%] top-[60%] md:left-[58%] md:top-[64%]",
     rotate: -4,
   },
 ];
@@ -110,8 +108,8 @@ export function EvidenceMoment() {
 
   return (
     <Container className="pb-12 md:px-0">
-      <div className="border-border bg-card rounded-xs border p-8 sm:p-12">
-        <div className="mb-10 max-w-2xl">
+      <div className="border-border bg-card rounded-xs border p-6 sm:p-12">
+        <div className="mb-8 max-w-2xl sm:mb-10">
           <p className="text-muted-foreground mb-3 text-sm font-normal tracking-wide uppercase">
             Training evidence
           </p>
@@ -138,11 +136,10 @@ export function EvidenceMoment() {
                 key={fragment.label}
                 className={cn(
                   "border-border bg-card absolute flex w-max items-center gap-2 rounded-xs border px-3 py-2 shadow-sm",
+                  fragment.pos,
                   fragment.desktopOnly && "hidden md:flex"
                 )}
                 style={{
-                  left: fragment.left,
-                  top: fragment.top,
                   transform: gathered
                     ? "translate(0, 0) rotate(0deg) scale(0.5)"
                     : `rotate(${fragment.rotate}deg)`,
@@ -178,11 +175,13 @@ export function EvidenceMoment() {
             );
           })}
 
-          {/* Generate button — the "one click" */}
-          <div className="absolute top-[18%] left-1/2 -translate-x-1/2">
+          {/* Generate button — the "one click". w-max: an absolutely
+              positioned box at left-1/2 otherwise caps its width at the
+              stage's right edge and wraps the label on phones. */}
+          <div className="absolute top-[18%] left-1/2 w-max -translate-x-1/2">
             <span
               className={cn(
-                "bg-primary text-primary-foreground relative inline-flex items-center gap-2 rounded-xs px-4 py-2 text-sm transition-transform duration-150",
+                "bg-primary text-primary-foreground relative inline-flex items-center gap-2 rounded-xs px-4 py-2 text-sm whitespace-nowrap transition-transform duration-150",
                 step === 2 && "scale-[0.96]"
               )}
             >
