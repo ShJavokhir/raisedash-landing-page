@@ -109,20 +109,20 @@ const INCLUDED: IncludedGroup[] = [
   {
     heading: "Everything in the platform today",
     items: [
-      "Mobile driver training with one-time-code sign-in — no app, no passwords",
+      "Mobile driver training with one-time-code sign-in: no app, no passwords",
       "Video, reading, and quiz lessons with passing scores and retries",
       "SMS and email invitations with automatic reminders",
       "Pre-arrival orientation programs drivers finish before day one",
       "Program-level and driver-level progress reporting",
-      "Driver training report exported as PDF — the record, in one click",
+      "Driver training report exported as PDF: the record, in one click",
       "Completion certificates with public QR verification",
       "Photo identity verification on quizzes (optional, per fleet)",
       "Unlimited admin seats for your safety and operations team",
-      "Data export in every plan, always — your records are yours",
+      "Data export in every plan, always: your records are yours",
     ],
   },
   {
-    heading: "In development — included when it ships, same price",
+    heading: "In development: included when it ships, same price",
     note: "We publish what exists and what doesn't. These are being built now and land in the same plan at no extra cost for existing customers.",
     items: [
       "Policy-to-course authoring tools",
@@ -143,22 +143,22 @@ const MANAGED_DRIVER_CARDS: DefinitionCard[] = [
   {
     icon: Users,
     title: "Counts: a driver you manage",
-    body: "A currently employed, contracted, or hired-and-onboarding driver with an active Raisedash profile. Predictable from your roster — not from how much training you assign.",
+    body: "A currently employed, contracted, or hired-and-onboarding driver with an active Raisedash profile. Predictable from your roster, not from how much training you assign.",
   },
   {
     icon: ShieldCheck,
     title: "Free: every admin",
-    body: "Safety directors, HR, dispatchers, and operations managers — unlimited admin seats on every account. You should never ration who can see readiness.",
+    body: "Safety directors, HR, dispatchers, and operations managers: unlimited admin seats on every account. You should never ration who can see readiness.",
   },
   {
     icon: ArchiveRestore,
     title: "Free: former drivers",
-    body: "Archive a departed driver and they stop counting immediately — while their full training record stays preserved and exportable forever.",
+    body: "Archive a departed driver and they stop counting immediately, while their full training record stays preserved and exportable forever.",
   },
   {
     icon: RefreshCcw,
     title: "Free: replacing a driver",
-    body: "Capacity transfers. When one driver leaves and another starts, your count doesn't change — you're never charged twice for one seat.",
+    body: "Capacity transfers. When one driver leaves and another starts, your count doesn't change. You're never charged twice for one seat.",
   },
 ];
 
@@ -169,7 +169,7 @@ const FAQS: { q: string; a: string }[] = [
   },
   {
     q: "What happens when a driver leaves?",
-    a: "Archive them. They stop counting toward your bill right away, and their complete training record — lessons, quizzes, signatures, certificates — stays preserved and exportable. Editing your roster never edits history.",
+    a: "Archive them. They stop counting toward your bill right away, and their complete training record (lessons, quizzes, signatures, certificates) stays preserved and exportable. Editing your roster never edits history.",
   },
   {
     q: "Do applicants cost a full seat?",
@@ -177,19 +177,19 @@ const FAQS: { q: string; a: string }[] = [
   },
   {
     q: "How does the free trial work?",
-    a: `Create an account, add a card, and you have ${TRIAL_DAYS} days free — nothing is charged up front. We email you before the trial ends with your exact upcoming price based on your roster. Cancel in two clicks from Billing settings and you owe nothing.`,
+    a: `Create an account, add a card, and you have ${TRIAL_DAYS} days free. Nothing is charged up front. We email you before the trial ends with your exact upcoming price based on your roster. Cancel in two clicks from Billing settings and you owe nothing.`,
   },
   {
     q: "How does annual billing work?",
-    a: "Pay for 10 months, get 12 — two months free. Start monthly, and switch to annual any time from your billing settings once you know Raisedash is working for your fleet. We'll never push an annual contract on an unproven relationship.",
+    a: "Pay for 10 months, get 12: two months free. Start monthly, and switch to annual any time from your billing settings once you know Raisedash is working for your fleet. We'll never push an annual contract on an unproven relationship.",
   },
   {
     q: "Is there a setup or implementation fee?",
-    a: "No. Setup is self-serve and takes an afternoon, not a six-week implementation call. If you want hands-on help, the Founding Fleet Pilot includes guided setup — and it's credited back if you continue.",
+    a: "No. Setup is self-serve and takes an afternoon, not a six-week implementation call. If you want hands-on help, the Founding Fleet Pilot includes guided setup, and it's credited back if you continue.",
   },
   {
     q: "What happens to our records if we cancel?",
-    a: "You export them, free. Driver training reports and data exports are included in every plan, always. We will never hold a fleet's own completion records hostage — that's a promise, not fine print.",
+    a: "You export them, free. Driver training reports and data exports are included in every plan, always. We will never hold a fleet's own completion records hostage. That's a promise, not fine print.",
   },
 ];
 
@@ -231,8 +231,8 @@ export default function Pricing() {
               Simple, transparent pricing.
             </h1>
             <p className="text-muted-foreground animate-fade-in-up mt-6 text-xl leading-relaxed font-normal delay-150">
-              One plan with everything included. No quote calls, no seat games, no surprise invoices
-              — your bill follows your roster, nothing else.
+              One plan with everything included. No quote calls, no seat games, no surprise
+              invoices. Your bill follows your roster, nothing else.
             </p>
           </div>
 
@@ -305,7 +305,7 @@ export default function Pricing() {
               {annual && (
                 <div className="border-success/20 bg-success/10 mt-4 rounded-xs border px-3 py-2.5">
                   <p className="text-success text-sm font-medium">
-                    Save {fmtUsd(BASE_MONTHLY * (12 - ANNUAL_MONTHS_CHARGED))} a year — two months
+                    Save {fmtUsd(BASE_MONTHLY * (12 - ANNUAL_MONTHS_CHARGED))} a year: two months
                     free
                   </p>
                   <p className="text-muted-foreground mt-0.5 text-xs">
@@ -317,7 +317,7 @@ export default function Pricing() {
 
               <ul className="mt-6 space-y-2.5">
                 {[
-                  `${TRIAL_DAYS}-day free trial — nothing charged up front`,
+                  `${TRIAL_DAYS}-day free trial: nothing charged up front`,
                   "Cancel monthly. No contracts, no minimum term",
                   "Unlimited admins. Archived drivers and replaced seats are free",
                   "Data exports free in every plan, always",
@@ -350,7 +350,7 @@ export default function Pricing() {
                 What would your fleet pay?
               </h3>
               <p className="text-muted-foreground mt-1 text-sm">
-                Drag to your roster size. The math is the whole model — there is nothing else to
+                Drag to your roster size. The math is the whole model. There is nothing else to
                 quote.
               </p>
 
@@ -508,7 +508,7 @@ export default function Pricing() {
             You pay for drivers you manage. Nothing else.
           </h2>
           <p className="text-muted-foreground mt-3 max-w-2xl text-lg">
-            Billing follows your roster, so your invoice is predictable from headcount alone — never
+            Billing follows your roster, so your invoice is predictable from headcount alone, never
             from how much training you assign.
           </p>
         </div>
@@ -559,7 +559,7 @@ export default function Pricing() {
       <Container className="py-7 md:px-0">
         <div className="animate-fade-in-up mb-8">
           <h2 className="text-foreground text-3xl font-normal tracking-[-0.02em] sm:text-4xl">
-            We&apos;re onboarding our first fleets — and it shows in the price.
+            We&apos;re onboarding our first fleets, and it shows in the price.
           </h2>
         </div>
         <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
@@ -575,22 +575,22 @@ export default function Pricing() {
               <span className="text-foreground">
                 ${FOUNDING_OVERAGE_PER_DRIVER} per additional driver
               </span>{" "}
-              {`instead of $${OVERAGE_PER_DRIVER} for their first year, month-to-month — then standard pricing, locked for the following year. At 75 drivers that's ${fmtUsd(monthlyFor(75, true))}/month.`}{" "}
+              {`instead of $${OVERAGE_PER_DRIVER} for their first year, month-to-month. Then standard pricing, locked for the following year. At 75 drivers that's ${fmtUsd(monthlyFor(75, true))}/month.`}{" "}
               In exchange, we ask for honest feedback and a short call once a month. No lifetime
-              gimmicks — just a fair head start for fleets who bet on us early.
+              gimmicks, just a fair head start for fleets who bet on us early.
             </p>
           </div>
           <div className="bg-card border-border rounded-xs border p-8">
             <div className="flex items-center gap-3">
               <Handshake className="text-foreground h-5 w-5" />
               <h3 className="text-foreground text-xl font-normal tracking-[-0.01em]">
-                Founding Fleet Pilot — $500, fully credited
+                Founding Fleet Pilot: $500, fully credited
               </h3>
             </div>
             <p className="text-muted-foreground mt-3 text-sm leading-relaxed">
               Want proof before you commit? Run one live orientation cohort of up to 25 drivers over
               45 days. We do guided setup, your first driver import, and one program build with you,
-              then review the results together — pre-arrival completion, admin time saved, and how
+              then review the results together: pre-arrival completion, admin time saved, and how
               fast you can produce a driver&apos;s record. Continue, and the $500 is credited to
               your subscription.
             </p>
@@ -630,7 +630,7 @@ export default function Pricing() {
           </h2>
           <p className="text-muted-foreground mx-auto mb-8 max-w-xl text-lg">
             Set up your fleet in an afternoon. {TRIAL_DAYS} days free, nothing charged up front,
-            cancel in two clicks — and your records export free, forever.
+            cancel in two clicks, and your records export free, forever.
           </p>
           <div className="mx-auto max-w-md">
             <EmailCapture source="Pricing final CTA" buttonText="Get started" />

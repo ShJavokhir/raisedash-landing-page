@@ -19,7 +19,7 @@ export interface Choice {
 
 /** "How many trucks does your company run?" — single choice. */
 export const FLEET_SIZES: Choice[] = [
-  { value: "1", label: "Just 1 — owner-operator" },
+  { value: "1", label: "Just 1 (owner-operator)" },
   { value: "2-5", label: "2–5 trucks" },
   { value: "6-20", label: "6–20 trucks" },
   { value: "21-50", label: "21–50 trucks" },

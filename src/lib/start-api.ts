@@ -75,7 +75,7 @@ export function errorMessage(
   fallback = "Something went wrong. Please try again."
 ): string {
   if (e instanceof ApiError) {
-    if (e.status === 401) return "Your session expired — please sign in again.";
+    if (e.status === 401) return "Your session expired. Please sign in again.";
     if (e.status >= 500) return fallback;
     return e.message || fallback;
   }

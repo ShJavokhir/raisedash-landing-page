@@ -355,14 +355,14 @@ const tools = [
     tabLabel: "AI training",
     eyebrow: "On-demand AI training",
     title: "Turn any fleet topic into a complete training.",
-    body: "Explain how your company pays drivers, handles accidents, or runs a specific process. Raisedash turns one brief into editable lessons, quizzes, and optional videos—ready for your review.",
+    body: "Explain how your company pays drivers, handles accidents, or runs a specific process. Raisedash turns one brief into editable lessons, quizzes, and optional videos, ready for your review.",
     visual: TrainingGeneratorVisual,
   },
   {
     tabLabel: "AI video",
     eyebrow: "On-demand AI video",
     title: "Create a finished training video without a production crew.",
-    body: "Give Raisedash a topic—like your accident-reporting process. It drafts the script, narration, and visuals, then renders a ready-to-use video without hours of scripting, recording, and editing.",
+    body: "Give Raisedash a topic, like your accident-reporting process. It drafts the script, narration, and visuals, then renders a ready-to-use video without hours of scripting, recording, and editing.",
     visual: VideoGeneratorVisual,
   },
   {

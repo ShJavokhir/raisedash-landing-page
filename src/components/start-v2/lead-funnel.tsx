@@ -222,7 +222,7 @@ export function LeadFunnel() {
       setSubmitted(true);
     } catch (e) {
       const message =
-        e instanceof Error && e.message ? e.message : "Something went wrong — please try again.";
+        e instanceof Error && e.message ? e.message : "Something went wrong. Please try again.";
       track("funnel_submit_error", { message });
       setError(t.error.generic);
     } finally {

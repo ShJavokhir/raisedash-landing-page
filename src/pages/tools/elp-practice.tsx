@@ -40,7 +40,7 @@ const COVER_IMAGE =
 
 const STATS = [
   { value: "600+", label: "drivers pulled off the road in California since enforcement began" },
-  { value: "400+", label: "ELP violations in a single month — a 300% jump over 2025" },
+  { value: "400+", label: "ELP violations in a single month, a 300% jump over 2025" },
   { value: "Out of service", label: "on the spot the moment a driver fails the roadside check" },
   { value: "3 years", label: "the violation stays on the PSP record future employers see" },
 ];
@@ -49,7 +49,7 @@ const ASSESSMENT = [
   {
     icon: MessageSquare,
     title: "1. The driver interview",
-    body: "The inspector asks about the trip, the vehicle, duty status, and the load. The driver has to answer in English — no interpreter, no I-Speak card, no translation app.",
+    body: "The inspector asks about the trip, the vehicle, duty status, and the load. The driver has to answer in English: no interpreter, no I-Speak card, no translation app.",
   },
   {
     icon: ShieldCheck,
@@ -62,12 +62,12 @@ const FEATURES = [
   {
     icon: Mic,
     title: "AI voice roleplay",
-    body: "Drivers speak out loud with an AI DOT officer, dispatcher, or shipper across 50+ scenarios and three difficulty levels — then get scored on clarity, vocabulary, and task completion.",
+    body: "Drivers speak out loud with an AI DOT officer, dispatcher, or shipper across 50+ scenarios and three difficulty levels, then get scored on clarity, vocabulary, and task completion.",
   },
   {
     icon: BookOpen,
     title: "2,300+ trucking terms",
-    body: "Every word a driver meets at a dock, on a shipping paper, or in an ELD log — each with audio, phonetics, and an example sentence.",
+    body: "Every word a driver meets at a dock, on a shipping paper, or in an ELD log, each with audio, phonetics, and an example sentence.",
   },
   {
     icon: MessageSquare,
@@ -77,7 +77,7 @@ const FEATURES = [
   {
     icon: ListChecks,
     title: "2,900+ quiz questions",
-    body: "Six exercise types built on practical trucking knowledge — multiple choice, image matching, listen-and-choose, and more — not abstract grammar.",
+    body: "Six exercise types built on practical trucking knowledge (multiple choice, image matching, listen-and-choose, and more), not abstract grammar.",
   },
   {
     icon: FileText,
@@ -113,7 +113,7 @@ const STEPS = [
   {
     icon: GraduationCap,
     title: "Pick a language and level",
-    body: "Each driver chooses their native language and English level — beginner, intermediate, or advanced.",
+    body: "Each driver chooses their native language and English level: beginner, intermediate, or advanced.",
   },
   {
     icon: Gauge,
@@ -160,7 +160,7 @@ const FAQS: FAQItem[] = [
   {
     question: "How is TruckTalk different from Duolingo or other English apps?",
     answer:
-      "Generic apps teach everyday vocabulary like ordering food. TruckTalk teaches the specific English a CDL driver needs — ELD log terminology, Bill of Lading vocabulary, DOT inspection questions, dispatch communication, and hazmat shipping paper language. Every word, conversation, and quiz is built for trucking.",
+      "Generic apps teach everyday vocabulary like ordering food. TruckTalk teaches the specific English a CDL driver needs: ELD log terminology, Bill of Lading vocabulary, DOT inspection questions, dispatch communication, and hazmat shipping paper language. Every word, conversation, and quiz is built for trucking.",
   },
   {
     question: "Can drivers actually practice speaking, not just reading?",
@@ -221,7 +221,7 @@ export default function ElpPractice() {
   return (
     <PageLayout
       title="CDL English Proficiency Practice (ELP) for Truck Drivers"
-      description="TruckTalk is a CDL English practice tool built only for truck drivers — DOT inspection roleplay, trucking vocabulary, and real roadside scenarios. Prepare your fleet for the FMCSA English Language Proficiency check."
+      description="TruckTalk is a CDL English practice tool built only for truck drivers: DOT inspection roleplay, trucking vocabulary, and real roadside scenarios. Prepare your fleet for the FMCSA English Language Proficiency check."
       keywords={[
         "CDL English proficiency practice",
         "ELP practice truck drivers",
@@ -243,7 +243,7 @@ export default function ElpPractice() {
         ]}
       />
       <SoftwareApplicationJsonLd
-        name="TruckTalk — CDL English Proficiency Practice"
+        name="TruckTalk: CDL English Proficiency Practice"
         description="An English Language Proficiency practice tool built specifically for CDL truck drivers, with AI voice roleplay, trucking vocabulary, example conversations, and quizzes for the FMCSA ELP requirement."
         operatingSystem={["Web", "iOS", "Android"]}
         applicationCategory="EducationalApplication"
@@ -262,7 +262,7 @@ export default function ElpPractice() {
             </h1>
             <p className="text-muted-foreground mx-auto mt-6 max-w-2xl text-xl leading-relaxed">
               TruckTalk is a CDL English practice tool built for one job: passing a DOT inspection.
-              AI voice roleplay, trucking vocabulary, and real roadside scenarios — not generic
+              AI voice roleplay, trucking vocabulary, and real roadside scenarios, not generic
               English lessons.
             </p>
 
@@ -334,8 +334,8 @@ export default function ElpPractice() {
                 Since June 2025, failing the English Language Proficiency check is an out-of-service
                 violation in every state. Under 49 CFR § 391.11(b)(2), every CDL holder must read
                 and speak English well enough to talk with the public, understand traffic signs,
-                respond to official questions, and complete reports — assessed roadside, with no
-                translation help allowed. A single failed check strands the truck, delays the load,
+                respond to official questions, and complete reports (assessed roadside, with no
+                translation help allowed). A single failed check strands the truck, delays the load,
                 and follows the driver for years.
               </p>
             </div>
@@ -439,9 +439,9 @@ export default function ElpPractice() {
               </h2>
               <p className="text-muted-foreground mt-4 leading-relaxed">
                 A driver opens a scenario and an AI-powered DOT officer starts talking out loud. The
-                driver answers out loud, in English. The AI responds based on what was actually said
-                — then scores listening, clarity, vocabulary, and task completion, and even rewrites
-                weak answers to show a better way to respond. Fleet version:{" "}
+                driver answers out loud, in English. The AI responds based on what was actually
+                said, then scores listening, clarity, vocabulary, and task completion, and even
+                rewrites weak answers to show a better way to respond. Fleet version:{" "}
                 <Link
                   href="/features/ai-voice-roleplay-training"
                   className="text-foreground decoration-border underline underline-offset-4 transition-colors hover:decoration-current"

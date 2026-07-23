@@ -127,7 +127,7 @@ const FEATURES: Feature[] = [
   {
     title: "Mobile-First Experience",
     description:
-      "Drivers can complete training on any device. No app download required—just a secure, magic link sent via SMS or email.",
+      "Drivers can complete training on any device. No app download required: just a secure, magic link sent via SMS or email.",
     icon: Smartphone,
   },
   {
@@ -178,7 +178,7 @@ const FAQS: FAQItem[] = [
   {
     question: "Do drivers need to download an app?",
     answer:
-      "No. RaiseDash Shift works entirely in a web browser to reduce friction. Drivers simply click a link to access their training — no downloads, no installations, no app store credentials required. This results in 40% higher adoption rates compared to native apps.",
+      "No. RaiseDash Shift works entirely in a web browser to reduce friction. Drivers simply click a link to access their training: no downloads, no installations, no app store credentials required. This results in 40% higher adoption rates compared to native apps.",
   },
   {
     question: "Will this help me pass a DOT audit?",
@@ -255,7 +255,7 @@ const PRODUCT_MODULES = [
     title: "Small Fleet Training",
     headline: "Enterprise-Level Safety Training, Small Fleet Pricing",
     description:
-      "Our Small Fleet Training program delivers the same comprehensive safety curriculum used by major carriers — without the enterprise price tag. Designed for fleets under 50 trucks.",
+      "Our Small Fleet Training program delivers the same comprehensive safety curriculum used by major carriers, without the enterprise price tag. Designed for fleets under 50 trucks.",
     benefits: [
       "Improve safety without breaking the bank",
       "Lower CSA scores with documented training",
@@ -313,14 +313,14 @@ const VALUE_PROPS = [
     title: "Mobile-First Experience",
     tagline: "Train Anywhere. Complete Anywhere.",
     description:
-      "Drivers aren't at desks — they're on the road. RaiseDash Shift works flawlessly on any phone or tablet, with a mobile experience so smooth it feels native.",
+      "Drivers aren't at desks. They're on the road. RaiseDash Shift works flawlessly on any phone or tablet, with a mobile experience so smooth it feels native.",
     icon: Smartphone,
   },
   {
     title: "Audit-Ready Documentation",
     tagline: "Be Ready When DOT Comes Calling",
     description:
-      "Every training session is automatically documented with complete audit trails. Generate reports instantly — no more digging through file cabinets.",
+      "Every training session is automatically documented with complete audit trails. Generate reports instantly. No more digging through file cabinets.",
     icon: FileText,
   },
   {
@@ -410,7 +410,7 @@ const Hero: React.FC = () => {
               className="text-muted-foreground mb-10 max-w-xl text-xl leading-relaxed font-light"
             >
               The modern platform for trucking fleets to train, certify, and track driver
-              compliance—all in one place.
+              compliance, all in one place.
             </motion.p>
 
             <motion.div
@@ -735,7 +735,7 @@ const SolutionOverview: React.FC = () => {
           <p className="text-muted-foreground mx-auto max-w-3xl text-lg leading-relaxed font-light">
             RaiseDash Shift is a comprehensive driver training and onboarding platform built
             specifically for trucking carriers. Train new hires on company policies, safety
-            procedures, and compliance requirements — then certify their completion with verifiable,
+            procedures, and compliance requirements, then certify their completion with verifiable,
             audit-ready documentation.
           </p>
         </motion.div>
@@ -746,7 +746,7 @@ const SolutionOverview: React.FC = () => {
               icon: Shield,
               title: "For Safety Managers",
               description:
-                "Stop chasing paperwork. See exactly who needs training, who's in progress, and who's certified — all in one dashboard.",
+                "Stop chasing paperwork. See exactly who needs training, who's in progress, and who's certified, all in one dashboard.",
             },
             {
               icon: Truck,
@@ -792,7 +792,7 @@ const SolutionOverview: React.FC = () => {
               <span className="font-serif text-lg text-white">&ldquo;</span>
             </div>
             <p className="text-muted-foreground leading-relaxed font-light italic">
-              Simplicity is the ultimate sophistication — We designed RaiseDash Shift with this
+              Simplicity is the ultimate sophistication. We designed RaiseDash Shift with this
               principle at its core. Modern technology that works for everyone, even drivers who
               aren&apos;t tech-savvy.
             </p>
@@ -958,7 +958,7 @@ const ComplianceSection: React.FC = () => {
                 The Bottom Line
               </h3>
               <p className="text-muted-foreground mx-auto max-w-2xl font-light">
-                Compliance isn&apos;t just about avoiding fines — it&apos;s about protecting your
+                Compliance isn&apos;t just about avoiding fines. It&apos;s about protecting your
                 business, your drivers, and everyone on the road. Proper documentation is your best
                 defense in audits and litigation.
               </p>
@@ -1475,8 +1475,8 @@ const Features: React.FC = () => {
             Everything You Need for Fleet Compliance
           </h2>
           <p className="text-muted-foreground text-lg font-light">
-            From entry-level driver training to ongoing safety education — manage your entire
-            program from a single, intuitive platform.
+            From entry-level driver training to ongoing safety education, manage your entire program
+            from a single, intuitive platform.
           </p>
         </motion.div>
 

@@ -222,7 +222,7 @@ export function EvidenceMoment() {
               <p className="text-muted-foreground text-[10px] tracking-wide uppercase">
                 Training report
               </p>
-              <p className="text-foreground mt-0.5 text-sm">J. Carter — training record</p>
+              <p className="text-foreground mt-0.5 text-sm">J. Carter · training record</p>
               <div className="mt-2.5 space-y-1">
                 <div className="bg-surface-3 h-1 w-full rounded-full" />
                 <div className="bg-surface-3 h-1 w-4/5 rounded-full" />

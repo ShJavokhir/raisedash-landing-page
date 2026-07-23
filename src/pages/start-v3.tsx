@@ -54,7 +54,7 @@ const MESSAGES: Record<
     eyebrow: "AQSH trucking haydovchilari va kompaniyalari uchun",
     title: "Trucking compliance va haydovchilikni telefoningizda o‘rganing",
     subtitle:
-      "FMCSA qoidalari, ish soatlari, tekshiruvlar, giyohvand va alkogol, ingliz tili (ELP) — qisqa video va matnli darslar. Bir marta to‘lang, hammasi ochiladi.",
+      "FMCSA qoidalari, ish soatlari, tekshiruvlar, giyohvand va alkogol, ingliz tili (ELP): qisqa video va matnli darslar. Bir marta to‘lang, hammasi ochiladi.",
     oneTime: "Bir martalik to‘lov · abadiy kirish",
     included: [
       "20+ modul: compliance va safety",
@@ -69,9 +69,9 @@ const MESSAGES: Record<
   },
   en: {
     eyebrow: "For US trucking drivers & carriers",
-    title: "Learn trucking compliance & driving — on your phone",
+    title: "Learn trucking compliance & driving on your phone",
     subtitle:
-      "FMCSA rules, hours of service, inspections, drug & alcohol, English (ELP) — short video and text lessons. Pay once, unlock everything.",
+      "FMCSA rules, hours of service, inspections, drug & alcohol, English (ELP): short video and text lessons. Pay once, unlock everything.",
     oneTime: "One-time payment · lifetime access",
     included: [
       "20+ modules of compliance & safety",
@@ -113,7 +113,7 @@ export default function StartV3Page() {
   return (
     <>
       <SEO
-        title="Raisedash Academy — trucking compliance & driver training"
+        title="Raisedash Academy: trucking compliance & driver training"
         description="Short video and text lessons on FMCSA rules, hours of service, inspections, and driver skills. One-time payment, lifetime access."
         noindex
         nofollow

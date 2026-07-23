@@ -28,7 +28,7 @@ export default function Features() {
         eyebrow="AI features"
         eyebrowIcon={Sparkles}
         title="Training your fleet actually has time to make."
-        subhead="Raisedash generates the four kinds of training content fleets never have time to produce — videos, whole programs, spoken practice, and hands-on app practice — and every one lands in the same assignment, tracking, and evidence system."
+        subhead="Raisedash generates the four kinds of training content fleets never have time to produce (videos, whole programs, spoken practice, and hands-on app practice), and every one lands in the same assignment, tracking, and evidence system."
         howItWorksHref="#generators"
       />
 

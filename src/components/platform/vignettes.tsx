@@ -53,7 +53,7 @@ export function PipelineVignette() {
       <BrowserFrame url="app.raisedash.com/readiness">
         <div className="mb-4 flex items-start justify-between gap-2">
           <div className="min-w-0">
-            <p className="text-foreground text-sm font-normal">Orientation — Mon, Jul 20</p>
+            <p className="text-foreground text-sm font-normal">Orientation: Mon, Jul 20</p>
             <p className="text-muted-foreground mt-0.5 text-xs">Springfield location</p>
           </div>
           <span className="bg-accent-blue-soft text-accent-blue inline-flex shrink-0 items-center gap-1.5 rounded-full px-2.5 py-1 text-xs whitespace-nowrap">
@@ -291,7 +291,7 @@ export function EvidencePacketVignette() {
     <BrowserFrame url="app.raisedash.com/drivers/packet">
       <div className="mb-4 flex items-start justify-between">
         <div>
-          <p className="text-foreground text-sm font-normal">Training report — M. Rodriguez</p>
+          <p className="text-foreground text-sm font-normal">Training report: M. Rodriguez</p>
           <p className="text-muted-foreground mt-0.5 text-xs">Raisedash training activity</p>
         </div>
         {done ? (
@@ -534,7 +534,7 @@ export function CorrectiveLoopVignette() {
   return (
     <BrowserFrame url="Concept preview · in development">
       <div className="mb-4">
-        <p className="text-foreground text-sm font-normal">Planned corrective action — S. Patel</p>
+        <p className="text-foreground text-sm font-normal">Planned corrective action: S. Patel</p>
         <p className="text-muted-foreground mt-0.5 text-xs">Concept preview with sample data</p>
       </div>
       <div className="flex flex-col gap-2 sm:flex-row sm:items-stretch">

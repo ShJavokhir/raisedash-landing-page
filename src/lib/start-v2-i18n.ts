@@ -73,12 +73,12 @@ const EN: StartV2Messages = {
   seo: {
     title: "Make driver orientation easier",
     description:
-      "Tell us about your fleet and we’ll reach out with a plan to train your drivers — English proficiency, road signs, safety, and more.",
+      "Tell us about your fleet and we’ll reach out with a plan to train your drivers: English proficiency, road signs, safety, and more.",
   },
   footer: { privacy: "Privacy Policy", terms: "Terms of Use" },
   progress: { back: "Back" },
   common: { continue: "Continue" },
-  error: { generic: "Something went wrong — please try again." },
+  error: { generic: "Something went wrong. Please try again." },
   fleet: { title: "How many trucks does your company run?" },
   problems: {
     title: "What do your drivers need help with?",
@@ -88,7 +88,7 @@ const EN: StartV2Messages = {
   name: { title: "What should we call you?", label: "Full name" },
   contact: {
     title: "How can we reach you?",
-    subtitle: "We’ll use this to follow up about your drivers — no spam, ever.",
+    subtitle: "We’ll use this to follow up about your drivers. No spam, ever.",
     emailLabel: "Email address",
     emailPlaceholder: "you@company.com",
     emailHint: "Enter a valid email address.",
@@ -96,7 +96,7 @@ const EN: StartV2Messages = {
     phoneHint: "Enter your phone number, including country code.",
   },
   company: {
-    title: "Last step — your USDOT number.",
+    title: "Last step: your USDOT number.",
     subtitle: "It helps us pull your carrier’s record before we reach out. Optional.",
     dotLabel: "USDOT number (optional)",
     dotPlaceholder: "e.g. 1234567",
@@ -109,7 +109,7 @@ const EN: StartV2Messages = {
     reassurance: "We use your details only to reach out about your drivers. No spam, ever.",
   },
   done: {
-    title: "Thanks — we’ll be in touch soon.",
+    title: "Thanks, we’ll be in touch soon.",
     body: "We’ve got your details. A Raisedash specialist will reach out shortly to talk about driver orientation and training records.",
     cta: "See features",
   },
@@ -121,12 +121,12 @@ const UZ: StartV2Messages = {
   seo: {
     title: "Haydovchilaringizni tayyorlang va yoʻlga shay qiling",
     description:
-      "Parkingiz haqida bizga ayting — haydovchilaringizni oʻqitish rejasi bilan bogʻlanamiz: ingliz tili, yoʻl belgilari, xavfsizlik va boshqalar.",
+      "Parkingiz haqida bizga ayting. Haydovchilaringizni oʻqitish rejasi bilan bogʻlanamiz: ingliz tili, yoʻl belgilari, xavfsizlik va boshqalar.",
   },
   footer: { privacy: "Maxfiylik siyosati", terms: "Foydalanish shartlari" },
   progress: { back: "Orqaga" },
   common: { continue: "Davom etish" },
-  error: { generic: "Xatolik yuz berdi — qaytadan urinib koʻring." },
+  error: { generic: "Xatolik yuz berdi. Qaytadan urinib koʻring." },
   fleet: { title: "Kompaniyangizda nechta truck bor?" },
   problems: {
     title: "Haydovchilaringizga nimada yordam kerak?",
@@ -136,7 +136,7 @@ const UZ: StartV2Messages = {
   name: { title: "To'liq ismingizni yozing", label: "Toʻliq ism" },
   contact: {
     title: "Platoforma bo'yicha siz bilan qanday bogʻlansak boʻladi?",
-    subtitle: "Bundan faqat platforma boʻyicha bogʻlanish uchun foydalanamiz — spam yoʻq.",
+    subtitle: "Bundan faqat platforma boʻyicha bogʻlanish uchun foydalanamiz. Spam yoʻq.",
     emailLabel: "Elektron pochta",
     emailPlaceholder: "siz@kompaniya.com",
     emailHint: "Toʻgʻri elektron pochta manzilini kiriting.",
@@ -144,7 +144,7 @@ const UZ: StartV2Messages = {
     phoneHint: "Telefon raqamingizni mamlakat kodi bilan kiriting.",
   },
   company: {
-    title: "Soʻnggi qadam — USDOT raqamingiz.",
+    title: "Soʻnggi qadam: USDOT raqamingiz.",
     subtitle: "",
     dotLabel: "USDOT raqami (ixtiyoriy)",
     dotPlaceholder: "masalan, 1234567",
@@ -158,7 +158,7 @@ const UZ: StartV2Messages = {
       "Maʼlumotlaringizdan faqat haydovchilaringiz boʻyicha bogʻlanish uchun foydalanamiz. Spam yoʻq.",
   },
   done: {
-    title: "Rahmat — tez orada bogʻlanamiz.",
+    title: "Rahmat, tez orada bogʻlanamiz.",
     body: "Maʼlumotlaringizni oldik. Raisedash mutaxassisi tez orada bogʻlanib, demo va haydovchilaringizni tayyorlashga yordam beradi.",
     cta: "Imkoniyatlarni koʻrish",
   },
@@ -180,7 +180,7 @@ const labelsFrom = (choices: Choice[]): Record<string, string> =>
   Object.fromEntries(choices.map((c) => [c.value, c.label]));
 
 const UZ_FLEET: Record<string, string> = {
-  "1": "1 ta — owner-operator",
+  "1": "1 ta (owner-operator)",
   "2-5": "2–5 ta truck",
   "6-20": "6–20 ta truck",
   "21-50": "21–50 ta truck",

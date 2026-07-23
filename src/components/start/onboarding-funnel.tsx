@@ -43,7 +43,7 @@ interface Choice {
 }
 
 const FLEET_SIZES: Choice[] = [
-  { value: "1", label: "Just 1 — owner-operator" },
+  { value: "1", label: "Just 1 (owner-operator)" },
   { value: "2-5", label: "2–5 trucks" },
   { value: "5-15", label: "5–15 trucks" },
   { value: "15+", label: "15 or more trucks" },
@@ -261,7 +261,7 @@ export function OnboardingFunnel() {
       setStep(TOTAL_STEPS); // done — now reveal the real DOT-record preview
       void runScan(data.usDot.trim());
     } catch (e) {
-      const message = errorMessage(e, "Something went wrong — please try again.");
+      const message = errorMessage(e, "Something went wrong. Please try again.");
       track("funnel_submit_error", { message });
       setError(message);
     } finally {
@@ -309,7 +309,7 @@ export function OnboardingFunnel() {
         {step === 2 && (
           <TextStep
             title="Let’s set up your account."
-            subtitle="First — what should we call you?"
+            subtitle="First, what should we call you?"
             label="Your name"
             value={data.name}
             onChange={(name) => set({ name })}
@@ -597,7 +597,7 @@ function ContactStep({
       }}
     >
       <StepHeading
-        title="Last step — your USDOT number."
+        title="Last step: your USDOT number."
         subtitle="It’s how we pull your carrier’s record and build your file."
       />
 
@@ -844,11 +844,11 @@ function ScanReveal({ preview, email }: { preview: ScanPreview; email: string })
           Here’s what we found on {carrier.legalName}.
         </h1>
         <p className="text-muted-foreground text-base">
-          Straight from your public DOT record — this is what an auditor sees today.
+          Straight from your public DOT record. This is what an auditor sees today.
         </p>
         {isDemo ? (
           <p className="text-muted-foreground bg-muted mx-auto inline-block rounded-full px-3 py-1 text-xs font-medium">
-            Demo data — your real record loads once you’re in.
+            Demo data: your real record loads once you’re in.
           </p>
         ) : null}
       </div>
@@ -876,7 +876,7 @@ function ScanReveal({ preview, email }: { preview: ScanPreview; email: string })
         </div>
         <InboxButtons />
         <p className="text-muted-foreground text-[13px]">
-          It can take a minute to arrive — check spam or promotions if you don’t see it.
+          It can take a minute to arrive. Check spam or promotions if you don’t see it.
         </p>
       </div>
     </div>
@@ -901,7 +901,7 @@ function DoneStep({ email }: { email: string }) {
           </div>
           <div className="space-y-2">
             <h1 className="text-2xl font-semibold tracking-tight text-balance sm:text-3xl">
-              You’re in — check your email.
+              You’re in. Check your email.
             </h1>
             <p className="text-muted-foreground text-base">
               We just sent{" "}

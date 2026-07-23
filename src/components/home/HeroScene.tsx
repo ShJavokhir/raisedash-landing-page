@@ -85,7 +85,7 @@ const SIGNATURE_PATH =
 
 function captionFor(step: number) {
   if (step <= 2) return "Your team sends one invite";
-  if (step <= 5) return "The driver gets a text — no app";
+  if (step <= 5) return "The driver gets a text, no app";
   if (step <= 10) return "Videos, simulation, voice, quiz";
   if (step === 11) return "Documents signed";
   return "Ready before day one";
@@ -119,7 +119,7 @@ function PhoneScreen({ step }: { step: number }) {
             Messages · Raisedash
           </p>
           <div className="bg-surface-3 text-foreground max-w-[95%] rounded-xs rounded-bl-none px-2.5 py-2 text-[10px] leading-snug">
-            Hi Jordan — your orientation starts Monday.
+            Hi Jordan, your orientation starts Monday.
           </div>
           <div className="animate-vignette-in bg-surface-3 text-foreground relative mt-1.5 max-w-[95%] rounded-xs rounded-bl-none px-2.5 py-2 text-[10px] leading-snug [animation-delay:400ms]">
             Get ready on your phone: <span className="text-accent-blue">rd.sh/j8k2</span>

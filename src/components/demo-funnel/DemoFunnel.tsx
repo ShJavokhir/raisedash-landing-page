@@ -66,13 +66,13 @@ function isPlausiblePhone(phone: string): boolean {
  * so a rejected submit says what to fix instead of a generic failure.
  */
 const FIELD_MESSAGES: Record<string, string> = {
-  fleetSize: "Your fleet size answer didn't come through — go back and pick it again.",
-  role: "Your role answer didn't come through — go back and pick it again.",
-  headaches: "Your headache answer didn't come through — go back and pick at least one.",
-  fullName: "Your name needs at least 2 characters — go back to fix it.",
-  company: "Your company name needs at least 2 characters — go back to fix it.",
-  email: "That email address doesn't look valid — please check it.",
-  phone: "That phone number doesn't look valid — use 7 to 15 digits, or leave it blank.",
+  fleetSize: "Your fleet size answer didn't come through. Go back and pick it again.",
+  role: "Your role answer didn't come through. Go back and pick it again.",
+  headaches: "Your headache answer didn't come through. Go back and pick at least one.",
+  fullName: "Your name needs at least 2 characters. Go back to fix it.",
+  company: "Your company name needs at least 2 characters. Go back to fix it.",
+  email: "That email address doesn't look valid. Please check it.",
+  phone: "That phone number doesn't look valid. Use 7 to 15 digits, or leave it blank.",
 };
 
 interface FunnelData {
@@ -233,7 +233,7 @@ export function DemoFunnel() {
       );
     } catch {
       capture("demo_request_error", { status: "network" });
-      setError("We couldn't reach the server — check your connection and try again.");
+      setError("We couldn't reach the server. Check your connection and try again.");
     } finally {
       setSubmitting(false);
     }
@@ -351,7 +351,7 @@ function EmailGate({
     >
       <StepHeading
         title="First, what's your work email?"
-        subtitle="Then pick how you'd like to start — a guided demo, or set up your fleet yourself."
+        subtitle="Then pick how you'd like to start: a guided demo, or set up your fleet yourself."
       />
       <Input
         id={emailId}
@@ -403,7 +403,7 @@ function PathChooser({ email, onBookDemo }: { email: string; onBookDemo: () => v
     <div className="space-y-6">
       <StepHeading
         title="How do you want to start?"
-        subtitle="Both take a few minutes — pick what fits."
+        subtitle="Both take a few minutes. Pick what fits."
       />
       <div className="space-y-3">
         <button type="button" onClick={onBookDemo} className={PATH_CARD_CLASSES}>
@@ -425,7 +425,7 @@ function PathChooser({ email, onBookDemo }: { email: string; onBookDemo: () => v
             </span>
             <span className="text-muted-foreground mt-1 block text-sm leading-relaxed">
               Create an account and send your first orientation today. Free 14-day trial starts when
-              you add a card — nothing is charged up front.
+              you add a card. Nothing is charged up front.
             </span>
           </span>
           <ArrowRight className="text-muted-foreground size-5 shrink-0" />
@@ -736,7 +736,7 @@ function DoneScreen() {
         <Check className="text-primary size-7" />
       </div>
       <h2 className="text-foreground text-2xl font-normal tracking-[-0.02em]">
-        Thanks — we&apos;ll reach out within one business day.
+        Thanks, we&apos;ll reach out within one business day.
       </h2>
       <p className="text-muted-foreground mx-auto mt-3 max-w-md text-base leading-relaxed">
         A real person on our team will get back to you to set up your demo of the driver readiness

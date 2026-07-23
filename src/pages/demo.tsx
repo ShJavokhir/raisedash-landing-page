@@ -23,7 +23,7 @@ export default function DemoPage() {
                 Get started
               </h1>
               <p className="text-muted-foreground animate-fade-in-up mt-3 text-base leading-relaxed delay-75">
-                Book a demo, or set up your fleet yourself — your call.
+                Book a demo, or set up your fleet yourself. Your call.
               </p>
             </div>
             <div className="animate-fade-in-scale delay-150">

@@ -18,13 +18,13 @@ const ALL_PROBLEMS = [
   "Calling every driver just to ask if they finished?",
   "No clear view of who is stuck before orientation day?",
   "Rebuilding a driver's training history every time someone asks for proof?",
-  "Can you quickly show what a driver completed—and how they did?",
+  "Can you quickly show what a driver completed, and how they did?",
   "Follow-up training stops when new-hire orientation ends?",
   "Explaining every new policy to drivers one at a time?",
   "A policy changes faster than your team can build the training?",
   "If a driver misses a policy update, when do you find out?",
   "Corrective action handled, but the follow-up training never documented?",
-  "A safety issue happens—then no refresher gets assigned?",
+  "A safety issue happens, then no refresher gets assigned?",
   "After an incident, can you show the training response?",
   "Drivers need practice, but one-on-one coaching doesn't scale?",
   "When every location teaches it differently, which version should drivers follow?",
@@ -112,7 +112,7 @@ export function ProblemsMarquee() {
         </h2>
         <p className="text-muted-foreground mx-auto mt-2 mb-4 max-w-2xl text-center text-sm leading-relaxed">
           From first-day orientation to policy updates, refresher training, and follow-up after a
-          safety issue—the work keeps coming back.
+          safety issue, the work keeps coming back.
         </p>
 
         <div className="relative overflow-hidden rounded-xs">

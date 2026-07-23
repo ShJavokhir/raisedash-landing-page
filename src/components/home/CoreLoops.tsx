@@ -32,7 +32,7 @@ const loops: Loop[] = [
   },
   {
     eyebrow: "Training evidence",
-    title: "Know what happened—and keep the record.",
+    title: "Know what happened, and keep the record.",
     body: "Keep training activity and results together under each driver, so your team can answer what was completed and when without rebuilding the story.",
     href: "/platform/training-evidence",
     linkLabel: "See training evidence",
@@ -82,7 +82,7 @@ export function CoreLoops() {
           The driver readiness platform
         </p>
         <h2 className="text-foreground text-3xl font-normal tracking-[-0.02em] sm:text-4xl">
-          One driver history—from preparation to proof.
+          One driver history, from preparation to proof.
         </h2>
         <p className="text-muted-foreground mt-3 text-lg">
           Raisedash connects pre-arrival orientation, practical training, and a clear driver record.

@@ -386,7 +386,7 @@ export function RoiCalculator() {
               Put a number on day-one readiness.
             </h2>
             <p className="text-muted-foreground mt-2.5 text-base">
-              What your fleet spends on orientation work that could happen before drivers arrive —
+              What your fleet spends on orientation work that could happen before drivers arrive:
               paid classroom time, hotel nights for no-shows, admin chasing. Your numbers, your
               assumptions.
             </p>
@@ -546,7 +546,7 @@ export function RoiCalculator() {
               </div>
 
               <p className="text-muted-foreground/80 mt-5 text-xs leading-relaxed">
-                Estimates from your inputs and the assumptions shown — not a quote or a promise of
+                Estimates from your inputs and the assumptions shown, not a quote or a promise of
                 results. Trainer time and turnover effects are not counted.
               </p>
             </div>
@@ -560,7 +560,7 @@ export function RoiCalculator() {
                     aria-hidden="true"
                   />
                   <p className="text-muted-foreground text-xs leading-relaxed">
-                    Someone shared this estimate with you — the sliders are set to their numbers.
+                    Someone shared this estimate with you. The sliders are set to their numbers.
                     Drag anything to make it yours.
                   </p>
                   <button
@@ -595,7 +595,7 @@ export function RoiCalculator() {
                   hours back per year
                 </p>
                 <p className="text-muted-foreground mt-1 text-xs">
-                  Driver classroom and admin time — roughly {workingDays.toLocaleString("en-US")}{" "}
+                  Driver classroom and admin time, roughly {workingDays.toLocaleString("en-US")}{" "}
                   working days.
                 </p>
               </div>
