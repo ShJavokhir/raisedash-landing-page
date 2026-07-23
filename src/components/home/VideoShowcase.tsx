@@ -198,11 +198,10 @@ export function VideoShowcase() {
               AI video studio
             </p>
             <h2 className="text-foreground text-3xl font-normal tracking-[-0.02em] sm:text-4xl">
-              Turn your company&apos;s rules into training, fast.
+              Turn any topic into a training video.
             </h2>
             <p className="text-muted-foreground mt-3 text-lg">
-              Describe a policy or a hazard. Raisedash builds the video, in your fleet&apos;s name.
-              Tap any example to watch.
+              Give Raisedash a topic. Get a video ready to review.
             </p>
           </div>
 

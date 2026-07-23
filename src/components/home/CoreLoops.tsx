@@ -24,26 +24,26 @@ interface Loop {
 const loops: Loop[] = [
   {
     eyebrow: "Pre-arrival readiness",
-    title: "Start orientation before day one.",
-    body: "Give new hires the information they need before they arrive, so in-person time can focus on road tests, equipment, and the work that belongs face to face.",
+    title: "Start before day one.",
+    body: "Send orientation before drivers arrive, so terminal time stays hands-on.",
     href: "/platform/pre-arrival-readiness",
-    linkLabel: "See pre-arrival readiness",
+    linkLabel: "Pre-arrival readiness",
     vignette: PipelineVignette,
   },
   {
-    eyebrow: "Training evidence",
-    title: "Know what happened, and keep the record.",
-    body: "Keep training activity and results together under each driver, so your team can answer what was completed and when without rebuilding the story.",
+    eyebrow: "Training records",
+    title: "Keep every record together.",
+    body: "See what each driver completed and when.",
     href: "/platform/training-evidence",
-    linkLabel: "See training evidence",
+    linkLabel: "Training records",
     vignette: LedgerVignette,
   },
   {
-    eyebrow: "Corrective action · in development",
-    title: "Turn a safety issue into a documented response.",
-    body: "Connect an event with the right follow-up and keep the response with the driver's training history.",
+    eyebrow: "Corrective action in development",
+    title: "Follow up after a safety issue.",
+    body: "Assign the right training and save the response to the driver record.",
     href: "/platform/training-evidence",
-    linkLabel: "See how it's documented",
+    linkLabel: "Corrective action",
     vignette: CorrectiveLoopVignette,
   },
 ];
@@ -78,16 +78,11 @@ export function CoreLoops() {
   return (
     <Container className="pt-6 pb-12 md:px-0">
       <div className="mb-8 max-w-2xl">
-        <p className="text-muted-foreground mb-3 text-sm font-normal tracking-wide uppercase">
-          The driver readiness platform
-        </p>
         <h2 className="text-foreground text-3xl font-normal tracking-[-0.02em] sm:text-4xl">
-          One driver history, from preparation to proof.
+          Prepare drivers. Keep the record.
         </h2>
         <p className="text-muted-foreground mt-3 text-lg">
-          Raisedash connects pre-arrival orientation, practical training, and a clear driver record.
-          Corrective-action workflows are in development to extend that same history instead of
-          creating another disconnected system.
+          Start before day one, keep training on track, and see what each driver completed.
         </p>
       </div>
 

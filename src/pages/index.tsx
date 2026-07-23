@@ -1,13 +1,11 @@
 import Link from "next/link";
 import { GetStaticProps } from "next";
-import { ArrowRight, Check } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Container } from "@/components/layout/Container";
 import { PageLayout } from "@/components/layout/PageLayout";
 import { EmailCapture } from "@/components/ui/EmailCapture";
 import { HeroScene, MobileHeroScene } from "@/components/home/HeroScene";
-import { ProblemsMarquee } from "@/components/home/ProblemsMarquee";
 import { CoreLoops } from "@/components/home/CoreLoops";
-import { EvidenceMoment } from "@/components/home/EvidenceMoment";
 import { VideoShowcase } from "@/components/home/VideoShowcase";
 import { ForDrivers } from "@/components/home/ForDrivers";
 import { RoiCalculator } from "@/components/home/RoiCalculator";
@@ -30,10 +28,11 @@ export default function Home({ recentUpdates, recentPosts }: HomeProps) {
       timeZone: "UTC",
     });
   };
+
   return (
     <PageLayout
       title="Driver Readiness Platform for Modern Trucking Fleets"
-      description="Raisedash helps trucking fleets prepare new drivers before day one with phone-first orientation, hands-on practice, and a clear record of every training step."
+      description="Prepare truck drivers before day one and keep every training record in one place."
       keywords={[
         "driver readiness platform",
         "driver orientation software",
@@ -50,31 +49,18 @@ export default function Home({ recentUpdates, recentPosts }: HomeProps) {
           <div className="relative z-10 flex w-full items-center gap-12">
             <div className="flex-1">
               <p className="text-muted-foreground animate-fade-in-up mb-3 text-xs font-normal tracking-wide uppercase delay-75 sm:mb-4 sm:text-sm">
-                The driver readiness platform for modern fleets
+                Driver readiness for trucking fleets
               </p>
               <h1 className="text-foreground animate-fade-in-up text-4xl leading-tight font-normal tracking-[-0.03em] delay-75 sm:text-[48px]">
-                Ready before day one. Proven long after.
+                Get drivers ready before day one.
               </h1>
               <p className="text-muted-foreground animate-fade-in-up mt-4 max-w-xl text-lg leading-relaxed font-normal delay-150 sm:mt-6 sm:text-xl">
-                Prepare new drivers before day one, give them practical training and hands-on
-                practice, and keep a clear record of every step. Less chasing for your safety team.
-                Fewer surprises when drivers arrive.
+                Send orientation by text and keep every training record in one place.
               </p>
 
               <div className="animate-fade-in-up mt-7 delay-200 sm:mt-10">
                 <EmailCapture source="Hero" buttonText="Get started" />
               </div>
-
-              <ul className="text-muted-foreground animate-fade-in-up mt-5 flex flex-col gap-2 text-sm delay-300 sm:mt-6 sm:flex-row sm:flex-wrap sm:gap-x-5 sm:gap-y-2">
-                {["No app download", "One-time code access", "Training records in one place"].map(
-                  (item) => (
-                    <li key={item} className="flex items-center gap-1.5">
-                      <Check className="text-foreground h-3.5 w-3.5" aria-hidden="true" />
-                      {item}
-                    </li>
-                  )
-                )}
-              </ul>
 
               {/* Phones get the same animated scene as desktop, scaled down
                   to the card width (see MobileHeroScene). */}
@@ -90,17 +76,11 @@ export default function Home({ recentUpdates, recentPosts }: HomeProps) {
         </Container>
       </div>
 
-      {/* Readiness pains marquee */}
-      <ProblemsMarquee />
-
       {/* Real training videos generated from a brief */}
       <VideoShowcase />
 
       {/* Readiness and evidence loops */}
       <CoreLoops />
-
-      {/* The evidence engine, played out */}
-      <EvidenceMoment />
 
       {/* For drivers */}
       <ForDrivers />
@@ -124,8 +104,6 @@ export default function Home({ recentUpdates, recentPosts }: HomeProps) {
                 href={`/product-updates/${update.slug}`}
                 className="group hover:bg-surface-2 flex items-center justify-between gap-4 px-4 py-3.5 transition-colors duration-150 sm:px-5"
               >
-                {/* Phones stack chip+date over the full title; sm+ keeps the
-                    single row with a truncated title. */}
                 <div className="flex min-w-0 flex-1 flex-col gap-1.5 sm:flex-row sm:items-center sm:gap-3">
                   <div className="flex items-center justify-between gap-3">
                     <span className="bg-surface-3 text-foreground shrink-0 rounded-xs px-2 py-0.5 text-xs font-normal">
@@ -162,10 +140,10 @@ export default function Home({ recentUpdates, recentPosts }: HomeProps) {
         <Container className="pb-12 md:px-0">
           <div className="mb-10 text-center">
             <h2 className="text-foreground text-3xl font-normal tracking-[-0.02em] sm:text-4xl">
-              Latest from the Blog
+              Latest from the blog
             </h2>
             <p className="text-muted-foreground mx-auto mt-3 max-w-2xl text-lg">
-              Practical ideas for more consistent driver orientation, follow-up, and recordkeeping.
+              Practical ideas for driver orientation and training.
             </p>
           </div>
           <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
@@ -192,24 +170,11 @@ export default function Home({ recentUpdates, recentPosts }: HomeProps) {
             className="text-foreground absolute -right-10 -bottom-9 w-72 opacity-[0.07] sm:w-96 sm:opacity-[0.13]"
           />
           <div className="relative">
-            <h2 className="text-foreground mb-4 text-2xl font-normal tracking-[-0.02em] sm:text-3xl">
-              Walk into orientation knowing where everyone stands.
+            <h2 className="text-foreground mb-6 text-2xl font-normal tracking-[-0.02em] sm:text-3xl">
+              See who is ready before orientation starts.
             </h2>
-            <p className="text-muted-foreground mx-auto mb-8 max-w-xl text-lg">
-              See how Raisedash can help your fleet spend less time repeating the same work and more
-              time on the hands-on training that matters.
-            </p>
-            <div className="mx-auto flex max-w-md flex-col items-center gap-4">
+            <div className="mx-auto max-w-md">
               <EmailCapture source="CTA" buttonText="Request a demo" />
-              <div className="text-muted-foreground flex items-center gap-3 text-sm">
-                <span>or</span>
-                <Link
-                  href="/demo"
-                  className="text-foreground hover:text-foreground/80 inline-flex items-center gap-1 transition-colors"
-                >
-                  Book a demo <ArrowRight className="h-3.5 w-3.5" />
-                </Link>
-              </div>
             </div>
           </div>
         </div>

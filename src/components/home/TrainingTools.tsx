@@ -353,30 +353,30 @@ function SimulationVisual() {
 const tools = [
   {
     tabLabel: "AI training",
-    eyebrow: "On-demand AI training",
-    title: "Turn any fleet topic into a complete training.",
-    body: "Explain how your company pays drivers, handles accidents, or runs a specific process. Raisedash turns one brief into editable lessons, quizzes, and optional videos, ready for your review.",
+    eyebrow: "AI training",
+    title: "Build training from a short brief.",
+    body: "Create editable lessons, quizzes, and videos for your fleet.",
     visual: TrainingGeneratorVisual,
   },
   {
     tabLabel: "AI video",
-    eyebrow: "On-demand AI video",
-    title: "Create a finished training video without a production crew.",
-    body: "Give Raisedash a topic, like your accident-reporting process. It drafts the script, narration, and visuals, then renders a ready-to-use video without hours of scripting, recording, and editing.",
+    eyebrow: "AI video",
+    title: "Create a training video.",
+    body: "Raisedash writes the script, narration, and visuals for your review.",
     visual: VideoGeneratorVisual,
   },
   {
-    tabLabel: "ELP roleplay",
-    eyebrow: "ELP and voice roleplay",
-    title: "Practice roadside English before an inspection.",
-    body: "Drivers speak with an AI DOT officer and receive feedback on comprehension, clear spoken responses, and trip details. The same engine can train accident reporting and other difficult conversations.",
+    tabLabel: "English",
+    eyebrow: "Roadside English",
+    title: "Practice before an inspection.",
+    body: "Drivers talk with an AI DOT officer and get feedback.",
     visual: RoleplayVisual,
   },
   {
     tabLabel: "Simulations",
-    eyebrow: "Interactive software simulations",
-    title: "Turn software walkthroughs into hands-on practice.",
-    body: "Record an ELD, DVIR, fuel, proof-of-delivery, or internal workflow once. Raisedash builds a tappable replica drivers must complete, with the result saved to their training record.",
+    eyebrow: "Software practice",
+    title: "Practice the software before using it.",
+    body: "Turn an ELD, DVIR, or other workflow into a tappable simulation.",
     visual: SimulationVisual,
   },
 ];
@@ -430,7 +430,7 @@ export function TrainingToolsCard() {
         <Visual />
       </div>
 
-      <div className="min-h-[12.5rem] sm:min-h-[10.5rem]">
+      <div className="min-h-[9.5rem] sm:min-h-[8.5rem]">
         <p className="text-muted-foreground mb-2 text-xs font-normal tracking-wide uppercase">
           {activeTool.eyebrow}
         </p>
