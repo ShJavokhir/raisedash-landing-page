@@ -8,6 +8,7 @@ import { HeroScene, MobileHeroScene } from "@/components/home/HeroScene";
 import { ProblemsMarquee } from "@/components/home/ProblemsMarquee";
 import { CoreLoops } from "@/components/home/CoreLoops";
 import { EvidenceMoment } from "@/components/home/EvidenceMoment";
+import { VideoShowcase } from "@/components/home/VideoShowcase";
 import { ForDrivers } from "@/components/home/ForDrivers";
 import { RoiCalculator } from "@/components/home/RoiCalculator";
 import { MoreFromRaisedash } from "@/components/home/MoreFromRaisedash";
@@ -91,6 +92,9 @@ export default function Home({ recentUpdates, recentPosts }: HomeProps) {
 
       {/* Readiness pains marquee */}
       <ProblemsMarquee />
+
+      {/* Real training videos generated from a brief */}
+      <VideoShowcase />
 
       {/* Readiness and evidence loops */}
       <CoreLoops />
