@@ -17,18 +17,19 @@ export default function DemoPage() {
     >
       <div className="py-12 sm:py-16">
         <Container>
-          <div className="mx-auto max-w-xl">
-            <div className="mb-8 text-center">
-              <h1 className="text-foreground animate-fade-in-up text-3xl leading-tight font-normal tracking-[-0.02em] sm:text-4xl">
-                Get started
-              </h1>
-              <p className="text-muted-foreground animate-fade-in-up mt-3 text-base leading-relaxed delay-75">
-                Book a demo, or set up your fleet yourself. Your call.
-              </p>
-            </div>
-            <div className="animate-fade-in-scale delay-150">
-              <DemoFunnel />
-            </div>
+          <div className="mx-auto mb-8 max-w-xl text-center">
+            <h1 className="text-foreground animate-fade-in-up text-3xl leading-tight font-normal tracking-[-0.02em] sm:text-4xl">
+              Get started
+            </h1>
+            <p className="text-muted-foreground animate-fade-in-up mt-3 text-base leading-relaxed delay-75">
+              Book a demo, or set up your fleet yourself. Your call.
+            </p>
+          </div>
+          {/* Width is chosen per-screen inside DemoFunnel: the gate/chooser/form
+              stay narrow (max-w-xl); the inline calendar goes wider so cal.com
+              renders its side-by-side desktop layout instead of stacking. */}
+          <div className="animate-fade-in-scale delay-150">
+            <DemoFunnel />
           </div>
         </Container>
       </div>

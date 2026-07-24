@@ -250,11 +250,17 @@ export function DemoFunnel() {
     }
   }
 
-  if (submitted) return <DoneScreen />;
+  if (submitted) {
+    return (
+      <div className="mx-auto w-full max-w-xl">
+        <DoneScreen />
+      </div>
+    );
+  }
 
   if (!emailConfirmed) {
     return (
-      <div className="bg-card border-border rounded-xs border p-6 sm:p-8">
+      <div className="bg-card border-border mx-auto w-full max-w-xl rounded-xs border p-6 sm:p-8">
         <EmailGate initialEmail={data.email} onConfirm={confirmEmail} />
       </div>
     );
@@ -262,7 +268,7 @@ export function DemoFunnel() {
 
   if (choosingPath) {
     return (
-      <div className="bg-card border-border rounded-xs border p-6 sm:p-8">
+      <div className="bg-card border-border mx-auto w-full max-w-xl rounded-xs border p-6 sm:p-8">
         <PathChooser
           email={data.email.trim()}
           onBookDemo={() => {
@@ -279,7 +285,7 @@ export function DemoFunnel() {
   // long form fired on submit, deduped on the same eventId.
   if (USE_CAL_EMBED) {
     return (
-      <div className="bg-card border-border rounded-xs border p-4 sm:p-6">
+      <div className="bg-card border-border mx-auto w-full rounded-xs border p-4 sm:p-6">
         <div className="flex items-center gap-3">
           <button
             type="button"
@@ -311,7 +317,7 @@ export function DemoFunnel() {
   }
 
   return (
-    <div className="bg-card border-border rounded-xs border p-6 sm:p-8">
+    <div className="bg-card border-border mx-auto w-full max-w-xl rounded-xs border p-6 sm:p-8">
       <ProgressHeader step={step} onBack={step > 0 ? back : () => setChoosingPath(true)} />
 
       {/* key re-triggers the enter animation on every step change */}
