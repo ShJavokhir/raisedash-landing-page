@@ -16,6 +16,7 @@
     "prepare": "husky"
   },
   "dependencies": {
+    "@calcom/embed-react": "^1.5.3",
     "@intercom/messenger-js-sdk": "^0.0.19",
     "@marsidev/react-turnstile": "^1.5.3",
     "@mdx-js/mdx": "^3.1.1",

@@ -1,4 +1,5 @@
 import { useEffect, useId, useRef, useState } from "react";
+import Cal, { getCalApi } from "@calcom/embed-react";
 import { ArrowLeft, ArrowRight, CalendarClock, Check, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
@@ -48,6 +49,16 @@ import {
 
 const CAL_LINK = "https://cal.com/javokhir/raisedash-demo-meeting";
 const APP_SIGNUP_URL = "https://app.raisedash.com/sign-up";
+
+// The cal.com booking that the "Book a demo" path shows inline. The link is the
+// "<user>/<event-type>" slug from the cal.com share URL (not the full https URL).
+const CAL_BOOKING_LINK = "raisedash/raisedash-demo";
+
+// Feature flag: cold Meta traffic books straight on an inline calendar right after
+// choosing "Book a demo", instead of the long qualify-then-email-us flow. Flip to
+// `false` to restore the original multi-step form (kept intact below, not deleted)
+// — every step, its validation, and /api/demo-lead submit are still wired up.
+const USE_CAL_EMBED = true;
 
 // trucks, role, headache, name+company, contact — the done screen isn't a step.
 const TOTAL_STEPS = 5;
@@ -257,6 +268,42 @@ export function DemoFunnel() {
           onBookDemo={() => {
             capture("demo_path_chosen", { path: "book_demo" });
             setChoosingPath(false);
+          }}
+        />
+      </div>
+    );
+  }
+
+  // Cold-traffic path: after "Book a demo", drop them straight onto an inline
+  // calendar. Booking success fires the same "Schedule" conversion + PostHog the
+  // long form fired on submit, deduped on the same eventId.
+  if (USE_CAL_EMBED) {
+    return (
+      <div className="bg-card border-border rounded-xs border p-4 sm:p-6">
+        <div className="flex items-center gap-3">
+          <button
+            type="button"
+            onClick={() => setChoosingPath(true)}
+            aria-label="Go back"
+            className="text-muted-foreground hover:text-foreground hover:bg-muted flex size-9 shrink-0 items-center justify-center rounded-xs transition-colors"
+          >
+            <ArrowLeft className="size-5" />
+          </button>
+          <h2 className="text-foreground text-lg font-normal tracking-[-0.02em]">
+            Pick a time that works
+          </h2>
+        </div>
+        <CalScheduler
+          email={data.email.trim()}
+          onBooked={() => {
+            if (!scheduleEventIdRef.current) scheduleEventIdRef.current = newEventId();
+            trackFleetPixel(
+              "Schedule",
+              { content_name: "fleet_demo_request" },
+              scheduleEventIdRef.current
+            );
+            identify(data.email);
+            capture("demo_request_submitted", { via: "cal_embed" });
           }}
         />
       </div>
@@ -726,6 +773,45 @@ function ContactStep({
         No spam. A real person reads every request.
       </p>
     </form>
+  );
+}
+
+/**
+ * Inline cal.com scheduler for the cold-traffic "Book a demo" path. Prefills the
+ * gated email so the visitor only picks a time, and fires `onBooked` once when
+ * cal.com reports a successful booking (guarded against cal's occasional repeat
+ * events) so the "Schedule" conversion tracks a real meeting, not a form submit.
+ */
+function CalScheduler({ email, onBooked }: { email: string; onBooked: () => void }) {
+  const bookedRef = useRef(false);
+
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      const cal = await getCalApi();
+      if (cancelled) return;
+      cal("on", {
+        action: "bookingSuccessful",
+        callback: () => {
+          if (bookedRef.current) return;
+          bookedRef.current = true;
+          onBooked();
+        },
+      });
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [onBooked]);
+
+  return (
+    <div className="animate-fade-in-up mt-4">
+      <Cal
+        calLink={CAL_BOOKING_LINK}
+        config={{ layout: "month_view", theme: "light", ...(email ? { email } : {}) }}
+        style={{ width: "100%", height: "640px", overflow: "auto" }}
+      />
+    </div>
   );
 }
 
