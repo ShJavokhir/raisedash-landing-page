@@ -2,7 +2,6 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { sendToTelegram } from "@/lib/telegram";
 import { sendFleetCapiLead } from "@/lib/meta-capi";
 import { isValidEmail } from "@/lib/validation";
-import { sanitizeString } from "@/lib/sanitize";
 import {
   FLEET_OPTIONS,
   ROLE_OPTIONS,
@@ -36,6 +35,17 @@ const MAX_LEN = 200;
 /** Trim and cap an untrusted string value; non-strings become "". */
 function clip(v: unknown): string {
   return typeof v === "string" ? v.trim().slice(0, MAX_LEN) : "";
+}
+
+/**
+ * Strip anything HTML-tag-shaped from an untrusted value. This lead only ever
+ * becomes a plaintext Telegram message (never rendered as HTML), so a full DOM
+ * sanitizer is unnecessary — and importing one (isomorphic-dompurify → jsdom)
+ * crashed this route's serverless module at init on Vercel. escapeMd downstream
+ * neutralizes Telegram Markdown; this just removes stray angle-bracket markup.
+ */
+function stripTags(v: string): string {
+  return v.replace(/<[^>]*>/g, "").trim();
 }
 
 /**
@@ -109,10 +119,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     const fleetSize = clip(body.fleetSize);
     const role = clip(body.role);
-    const fullName = sanitizeString(clip(body.fullName));
-    const company = sanitizeString(clip(body.company));
+    const fullName = stripTags(clip(body.fullName));
+    const company = stripTags(clip(body.company));
     const email = clip(body.email).toLowerCase();
-    const phone = sanitizeString(clip(body.phone));
+    const phone = stripTags(clip(body.phone));
     const headaches = Array.isArray(body.headaches) ? body.headaches.map((h) => String(h)) : [];
 
     // Validate against the same option sets the funnel renders (options.ts).
