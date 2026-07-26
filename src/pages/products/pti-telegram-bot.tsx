@@ -40,7 +40,7 @@ import { Button } from "@/components/ui/Button";
  * here too. FREE_RETENTION_DAYS especially: it is a product setting that has
  * already changed once.
  */
-const BOT_LINK = "https://t.me/rdashbot";
+const BOT_LINK = "https://t.me/raisedashbot";
 const FOUNDER_LINK = "https://t.me/shjavohir";
 const FOUNDER_HANDLE = "@shjavohir";
 const FREE_RETENTION_DAYS = 90;
