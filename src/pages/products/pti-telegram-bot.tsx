@@ -41,8 +41,13 @@ import { Button } from "@/components/ui/Button";
  * already changed once.
  */
 const BOT_LINK = "https://t.me/raisedashbot";
-const FOUNDER_LINK = "https://t.me/shjavohir";
-const FOUNDER_HANDLE = "@shjavohir";
+/**
+ * Upgrades are a Telegram conversation with a person, not the bot. This handle
+ * must match PTI_UPGRADE_CONTACT_USERNAME in the backend constants — the bot's
+ * own /upgrade reply names it too, so a mismatch sends fleets two ways.
+ */
+const UPGRADE_LINK = "https://t.me/raisedash";
+const UPGRADE_HANDLE = "@raisedash";
 const FREE_RETENTION_DAYS = 90;
 const LINK_HOURS = 24;
 const MAX_STEPS = 20;
@@ -558,12 +563,12 @@ export default function PtiTelegramBotPage() {
           <p>
             There is no checkout page. Type /upgrade in your group, or message{" "}
             <a
-              href={FOUNDER_LINK}
+              href={UPGRADE_LINK}
               target="_blank"
               rel="noopener noreferrer"
               className="text-foreground underline-offset-2 hover:underline"
             >
-              {FOUNDER_HANDLE}
+              {UPGRADE_HANDLE}
             </a>{" "}
             on Telegram. We set it up by hand and keep every inspection you have already run.
           </p>

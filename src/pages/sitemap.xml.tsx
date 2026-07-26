@@ -35,7 +35,7 @@ const STATIC_PAGE_DATES: Record<string, string> = {
   "/features/ai-voice-roleplay-training": "2026-07-19",
   "/features/interactive-training-simulations": "2026-07-19",
   "/product-updates": "2026-01-27", // overridden below by latest update date
-  "/products/pti-telegram-bot": "2026-07-25",
+  "/products/pti-telegram-bot": "2026-07-26",
   "/products/raisedash-pti-inspections": "2026-01-26",
   "/products/raisedash-pti-inspections/driver-features": "2026-01-22",
   "/products/raisedash-pti-inspections/fleet-safety-managers": "2026-01-22",
