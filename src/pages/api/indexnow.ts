@@ -22,6 +22,7 @@ const STATIC_PATHS = [
   "/features/ai-voice-roleplay-training",
   "/features/interactive-training-simulations",
   "/product-updates",
+  "/products/pti-telegram-bot",
   "/products/raisedash-pti-inspections",
   "/products/raisedash-pti-inspections/driver-features",
   "/products/raisedash-pti-inspections/fleet-safety-managers",

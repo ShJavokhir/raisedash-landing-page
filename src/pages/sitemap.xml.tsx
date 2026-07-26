@@ -35,6 +35,7 @@ const STATIC_PAGE_DATES: Record<string, string> = {
   "/features/ai-voice-roleplay-training": "2026-07-19",
   "/features/interactive-training-simulations": "2026-07-19",
   "/product-updates": "2026-01-27", // overridden below by latest update date
+  "/products/pti-telegram-bot": "2026-07-25",
   "/products/raisedash-pti-inspections": "2026-01-26",
   "/products/raisedash-pti-inspections/driver-features": "2026-01-22",
   "/products/raisedash-pti-inspections/fleet-safety-managers": "2026-01-22",
@@ -135,6 +136,12 @@ function generateSiteMap(
     {
       loc: `${SITE_URL}/solutions/driver-onboarding`,
       lastmod: STATIC_PAGE_DATES["/solutions/driver-onboarding"],
+      changefreq: "weekly",
+      priority: "0.9",
+    },
+    {
+      loc: `${SITE_URL}/products/pti-telegram-bot`,
+      lastmod: STATIC_PAGE_DATES["/products/pti-telegram-bot"],
       changefreq: "weekly",
       priority: "0.9",
     },
