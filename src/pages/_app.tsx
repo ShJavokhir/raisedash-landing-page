@@ -28,7 +28,13 @@ export default function App({ Component, pageProps }: AppProps) {
     router.pathname === "/start" ||
     router.pathname === "/start-v2" ||
     router.pathname === "/start-v3";
-  const hideHeader = isFunnel;
+  // /tools/samsara-alerts is a standalone tool page sold to a different buyer
+  // than the platform. It is a deliberate dead end: no marketing header, no
+  // Intercom, and its own link-free footer. It is NOT folded into isFunnel —
+  // that flag also selects the driver-training Meta pixel dataset, and this
+  // page belongs on the site-wide fleet one.
+  const isStandaloneTool = router.pathname === "/tools/samsara-alerts";
+  const hideHeader = isFunnel || isStandaloneTool;
 
   return (
     <>
@@ -52,7 +58,7 @@ export default function App({ Component, pageProps }: AppProps) {
       <main id="main-content">
         <Component {...pageProps} />
       </main>
-      {!isFunnel && <IntercomProvider />}
+      {!isFunnel && !isStandaloneTool && <IntercomProvider />}
       <SpeedInsights />
     </>
   );

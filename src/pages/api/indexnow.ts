@@ -34,6 +34,7 @@ const STATIC_PATHS = [
   "/compliance-challenges",
   "/pti-app",
   "/tools/elp-practice",
+  "/tools/samsara-alerts",
   "/tools/road-signs",
 ];
 

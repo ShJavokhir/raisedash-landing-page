@@ -47,6 +47,7 @@ const STATIC_PAGE_DATES: Record<string, string> = {
   "/compliance-challenges": "2026-01-27",
   "/pti-app": "2026-01-28",
   "/tools/elp-practice": "2026-06-24",
+  "/tools/samsara-alerts": "2026-08-29",
   "/tools/road-signs": "2026-02-27",
 };
 
@@ -226,6 +227,15 @@ function generateSiteMap(
     {
       loc: `${SITE_URL}/tools/elp-practice`,
       lastmod: STATIC_PAGE_DATES["/tools/elp-practice"],
+      changefreq: "monthly",
+      priority: "0.8",
+    },
+    {
+      // Standalone tool page with no internal links out (see the page comment).
+      // Indexed on purpose so it ranks for Samsara/Telegram integration intent
+      // rather than depending entirely on links we hand out ourselves.
+      loc: `${SITE_URL}/tools/samsara-alerts`,
+      lastmod: STATIC_PAGE_DATES["/tools/samsara-alerts"],
       changefreq: "monthly",
       priority: "0.8",
     },
