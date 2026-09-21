@@ -6,6 +6,7 @@ const SITE_URL = "https://www.raisedash.com";
 
 const STATIC_PATHS = [
   "/",
+  "/products/orientation",
   "/blog",
   "/about",
   "/contact",

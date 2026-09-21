@@ -23,7 +23,7 @@ export default async function handler(req: NextRequest) {
   const { searchParams } = new URL(req.url);
   const title = searchParams.get("title") || "Raisedash";
   const description =
-    searchParams.get("description") || "The driver readiness platform for modern fleets";
+    searchParams.get("description") || "Simple and useful tools for trucking companies";
   const category = searchParams.get("category");
 
   return new ImageResponse(
@@ -149,7 +149,7 @@ export default async function handler(req: NextRequest) {
         >
           {title}
         </h1>
-        {description && description !== "The driver readiness platform for modern fleets" && (
+        {description && description !== "Simple and useful tools for trucking companies" && (
           <p
             style={{
               fontSize: "26px",

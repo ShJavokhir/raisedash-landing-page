@@ -4,8 +4,7 @@ import { useRouter } from "next/router";
 const RAW_SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://www.raisedash.com";
 const SITE_URL = RAW_SITE_URL.endsWith("/") ? RAW_SITE_URL.slice(0, -1) : RAW_SITE_URL;
 const SITE_NAME = "Raisedash";
-const DEFAULT_DESCRIPTION =
-  "The driver readiness platform for modern trucking fleets. Prepare new drivers before day one and keep a clear record of every training step.";
+const DEFAULT_DESCRIPTION = "We make simple and useful tools for trucking companies.";
 const DEFAULT_OG_IMAGE = `${SITE_URL}/api/og?title=${encodeURIComponent(SITE_NAME)}`;
 
 export interface SEOProps {

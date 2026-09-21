@@ -29,7 +29,7 @@ import { capture } from "@/lib/site-analytics";
  *   can see and adjust, and the output is labeled as an estimate.
  *
  * Estimates are shareable: "Copy link" encodes every slider into a URL hash
- * (`/#calc=1-6-2-…`) so a safety director can send their exact numbers to an
+ * (`/products/orientation#calc=1-6-2-…`) so a safety director can send their exact numbers to an
  * owner. The hash never reaches the server or the sitemap — opening it applies
  * the values, scrolls here, and shows a dismissible "shared estimate" notice.
  */
@@ -309,7 +309,7 @@ export function RoiCalculator() {
     // Sharing numbers with a colleague is one of the highest-intent moves on
     // the homepage — the visitor is building an internal case.
     capture("roi_calculator_link_copied");
-    const url = `${window.location.origin}/${encodeShareHash(values)}`;
+    const url = `${window.location.origin}/products/orientation${encodeShareHash(values)}`;
     try {
       await navigator.clipboard.writeText(url);
     } catch {

@@ -14,7 +14,7 @@ const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || "";
 const contactMethods = [
   {
     title: "Sales Inquiries",
-    description: "Talk to our team about driver orientation and training records.",
+    description: "Ask about any of our tools and find what fits your team.",
     email: "sales@raisedash.com",
     icon: Mail,
   },
@@ -128,7 +128,7 @@ export default function Contact() {
   return (
     <PageLayout
       title="Contact Us"
-      description="Contact Raisedash about driver orientation, training records, sales, support, or partnerships."
+      description="Contact Raisedash about our trucking tools, sales, support, or partnerships."
       keywords={[
         "contact raisedash",
         "driver readiness platform",
@@ -144,8 +144,8 @@ export default function Contact() {
               Get in Touch
             </h1>
             <p className="text-muted-foreground animate-fade-in-up mt-6 text-xl leading-relaxed font-normal delay-150">
-              Questions about sending driver orientation or keeping training records in one place?
-              Reach out and we&apos;ll help.
+              Questions about one of our tools, or need a hand getting started? Reach out and
+              we&apos;ll help.
             </p>
           </div>
         </Container>
@@ -169,7 +169,7 @@ export default function Contact() {
                   Message Sent Successfully!
                 </h3>
                 <p className="text-muted-foreground">
-                  Thank you for reaching out. We'll get back to you within 24 hours.
+                  Thank you for reaching out. We&apos;ll get back to you within 24 hours.
                 </p>
               </div>
             ) : (
@@ -308,75 +308,17 @@ export default function Contact() {
         </div>
       </Container>
 
-      {/* FAQ Section */}
-      <Container className="py-12 md:px-0">
-        <div className="animate-fade-in-up mb-10 text-center delay-700">
-          <h2 className="text-foreground text-3xl font-normal tracking-[-0.02em] sm:text-4xl">
-            Frequently Asked Questions
-          </h2>
-          <p className="text-muted-foreground mx-auto mt-3 max-w-2xl text-lg">
-            Quick answers to common questions about our services and solutions.
-          </p>
-        </div>
-
-        <div className="bg-card border-border animate-fade-in-scale rounded-xs border p-6 delay-800 sm:p-8">
-          <div className="mx-auto max-w-3xl space-y-0">
-            <div className="border-border border-b py-6">
-              <h3 className="text-foreground mb-3 text-xl font-normal tracking-[-0.01em]">
-                How quickly can we get started with Raisedash?
-              </h3>
-              <p className="text-muted-foreground text-base leading-relaxed">
-                Add your training content, publish it, add a driver, and send the assignment. The
-                exact setup time depends on how much content your fleet needs to prepare.
-              </p>
-            </div>
-
-            <div className="border-border border-b py-6">
-              <h3 className="text-foreground mb-3 text-xl font-normal tracking-[-0.01em]">
-                Do drivers need an app or a password?
-              </h3>
-              <p className="text-muted-foreground text-base leading-relaxed">
-                Drivers do not need an app. They open an SMS or email invite in a mobile browser and
-                sign in with a one-time code instead of creating a password.
-              </p>
-            </div>
-
-            <div className="border-border border-b py-6">
-              <h3 className="text-foreground mb-3 text-xl font-normal tracking-[-0.01em]">
-                Can Raisedash integrate with our existing systems?
-              </h3>
-              <p className="text-muted-foreground text-base leading-relaxed">
-                Direct integrations with ATS and telematics tools like Tenstreet, DriverReach,
-                Samsara, and Motive are on our roadmap. Today, Raisedash runs as a standalone driver
-                training platform.
-              </p>
-            </div>
-
-            <div className="py-6">
-              <h3 className="text-foreground mb-3 text-xl font-normal tracking-[-0.01em]">
-                What makes Raisedash different?
-              </h3>
-              <p className="text-muted-foreground text-base leading-relaxed">
-                Raisedash keeps the driver experience simple and gives the safety team one place to
-                track assignments, completion dates, quiz attempts, activity, and certificates. You
-                can also download a PDF report for one driver.
-              </p>
-            </div>
-          </div>
-        </div>
-      </Container>
-
       {/* CTA Section */}
       <Container className="pb-12 md:px-0">
         <div className="bg-card border-border animate-fade-in-scale rounded-xs border p-8 text-center delay-900 sm:p-12">
           <h2 className="text-foreground mb-4 text-2xl font-normal tracking-[-0.02em] sm:text-3xl">
-            Ready to simplify driver orientation?
+            Find the right tool for your team.
           </h2>
           <p className="text-muted-foreground mx-auto mb-8 max-w-xl text-lg">
-            Book a demo to see the driver experience, progress tracking, and PDF training report.
+            Explore our products to see what each one does and how to get started.
           </p>
-          <Link href="/demo">
-            <Button size="lg">Book a demo</Button>
+          <Link href="/#products">
+            <Button size="lg">Explore our products</Button>
           </Link>
         </div>
       </Container>

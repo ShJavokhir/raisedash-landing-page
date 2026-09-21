@@ -18,10 +18,11 @@ const SITE_URL = RAW_SITE_URL.endsWith("/") ? RAW_SITE_URL.slice(0, -1) : RAW_SI
  * update its date here to the date of that change.
  */
 const STATIC_PAGE_DATES: Record<string, string> = {
-  "/": "2026-07-23",
+  "/": "2026-09-21",
+  "/products/orientation": "2026-09-21",
   "/blog": "2026-01-26", // overridden below by latest post date
-  "/about": "2026-07-17",
-  "/contact": "2026-07-14",
+  "/about": "2026-09-21",
+  "/contact": "2026-09-21",
   "/careers": "2026-07-14",
   "/demo": "2026-07-17",
   "/pricing": "2026-07-19",
@@ -35,7 +36,7 @@ const STATIC_PAGE_DATES: Record<string, string> = {
   "/features/ai-voice-roleplay-training": "2026-07-19",
   "/features/interactive-training-simulations": "2026-07-19",
   "/product-updates": "2026-01-27", // overridden below by latest update date
-  "/products/pti-telegram-bot": "2026-07-26",
+  "/products/pti-telegram-bot": "2026-09-21",
   "/products/raisedash-pti-inspections": "2026-01-26",
   "/products/raisedash-pti-inspections/driver-features": "2026-01-22",
   "/products/raisedash-pti-inspections/fleet-safety-managers": "2026-01-22",
@@ -74,6 +75,12 @@ function generateSiteMap(
       : STATIC_PAGE_DATES["/product-updates"];
 
   const staticPages = [
+    {
+      loc: `${SITE_URL}/products/orientation`,
+      lastmod: STATIC_PAGE_DATES["/products/orientation"],
+      changefreq: "weekly",
+      priority: "0.9",
+    },
     {
       loc: `${SITE_URL}`,
       lastmod: STATIC_PAGE_DATES["/"],

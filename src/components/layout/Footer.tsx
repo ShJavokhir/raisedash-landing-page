@@ -11,8 +11,7 @@ export function Footer() {
           <div className="mb-10 max-w-md">
             <h3 className="text-foreground mb-4 text-base font-normal">Raisedash</h3>
             <p className="text-muted-foreground mb-6 text-sm leading-relaxed">
-              The driver readiness platform for modern fleets. Prepare new drivers before day one
-              and keep a clear record of every training step.
+              We make simple and useful tools for trucking companies.
             </p>
             <div className="text-muted-foreground flex items-center gap-2 text-sm">
               <svg
@@ -42,7 +41,7 @@ export function Footer() {
           </div>
 
           {/* Link Columns */}
-          <div className="grid grid-cols-2 gap-8 gap-y-10 sm:grid-cols-3 md:grid-cols-6">
+          <div className="grid grid-cols-2 gap-8 gap-y-10 sm:grid-cols-3 xl:grid-cols-6">
             {footerLinks.map((section) => (
               <div key={section.title}>
                 <h4 className="text-muted-foreground mb-4 text-sm font-normal tracking-wide">

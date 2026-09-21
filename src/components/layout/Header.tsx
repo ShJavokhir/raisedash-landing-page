@@ -1,4 +1,6 @@
 import * as React from "react";
+import { useRouter } from "next/router";
+import { CompanyHeader } from "./CompanyHeader";
 import Link from "next/link";
 import Image from "next/image";
 import { cn } from "@/lib/cn";
@@ -21,6 +23,20 @@ const SIGN_IN_URL = "https://app.raisedash.com/login";
 const directLinks = [{ title: "Pricing", href: "/pricing" }];
 
 export function Header() {
+  const { pathname } = useRouter();
+  const isOrientationPage =
+    pathname === "/products/orientation" ||
+    pathname.startsWith("/platform/") ||
+    pathname.startsWith("/solutions/") ||
+    pathname === "/features" ||
+    pathname.startsWith("/features/") ||
+    pathname === "/pricing" ||
+    pathname === "/demo";
+
+  return isOrientationPage ? <OrientationHeader /> : <CompanyHeader />;
+}
+
+function OrientationHeader() {
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
   const mobileMenuRef = React.useRef<HTMLDivElement>(null);
 

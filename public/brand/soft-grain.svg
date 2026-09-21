@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="180" height="180" viewBox="0 0 180 180">
+  <!-- Monochrome grain tile for the homepage product plates. Painted over a
+       flat hue with mix-blend-mode: soft-light so a saturated color reads as
+       printed paper instead of a flat digital fill. stitchTiles keeps the
+       noise seamless when the tile repeats. -->
+  <filter id="soft-grain" x="0" y="0" width="100%" height="100%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.82" numOctaves="3" seed="17" stitchTiles="stitch"/>
+    <feColorMatrix type="saturate" values="0"/>
+    <feComponentTransfer>
+      <feFuncA type="linear" slope="0" intercept="1"/>
+    </feComponentTransfer>
+  </filter>
+  <rect width="180" height="180" filter="url(#soft-grain)"/>
+</svg>

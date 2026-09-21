@@ -1057,3 +1057,77 @@ h4 {
   transform: scale(1.2);
   border-color: var(--foreground);
 }
+
+/* ─────────────────────────────────────────────────────────────────────────
+   Homepage product plates (src/pages/index.tsx)
+
+   The five product cards are saturated color plates after the 37signals
+   "pure color · soft grain" studies: one flat hue per product, a blurred
+   light/shade pass so the fill is never dead flat, and a monochrome grain
+   veil so it reads as printed paper. Each card sets --plate-bg inline from
+   src/data/products.ts.
+
+   Everything on a plate is white. Three of the hues (orchid #BE52FF at
+   3.6:1, olive #9AA200 at 2.8:1 and orange #F87917 at 2.7:1) fall below
+   WCAG AA against white — kept on purpose for the look.
+   ───────────────────────────────────────────────────────────────────────── */
+.product-plate {
+  position: relative;
+  /* Contains the grain's soft-light blend and lets the negative-z-index
+     pseudo-elements stack above the flat fill but under the card content. */
+  isolation: isolate;
+  overflow: hidden;
+  background-color: var(--plate-bg);
+  color: #fff;
+}
+
+/* Blurred light from one corner, shade in the opposite one. Inset past the
+   edges so the blur radius never reveals a hard stop inside the plate. */
+.product-plate::before {
+  content: "";
+  position: absolute;
+  inset: -14%;
+  z-index: -2;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      ellipse at var(--plate-light-x, 16%) var(--plate-light-y, 8%),
+      rgb(255 255 255 / 0.26),
+      transparent 58%
+    ),
+    radial-gradient(
+      ellipse at var(--plate-shade-x, 90%) var(--plate-shade-y, 96%),
+      rgb(0 0 0 / 0.16),
+      transparent 62%
+    );
+  filter: blur(18px);
+}
+
+.product-plate::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  border-radius: inherit;
+  background: url("/brand/soft-grain.svg") repeat;
+  background-size: 180px 180px;
+  mix-blend-mode: soft-light;
+  opacity: 0.34;
+}
+
+/* Rotating the light source stops five plates in a grid from looking stamped
+   from one template. Applied by index % 3 in src/pages/index.tsx. */
+.product-plate-light-b {
+  --plate-light-x: 86%;
+  --plate-light-y: 10%;
+  --plate-shade-x: 8%;
+  --plate-shade-y: 92%;
+}
+
+.product-plate-light-c {
+  --plate-light-x: 24%;
+  --plate-light-y: 0%;
+  --plate-shade-x: 74%;
+  --plate-shade-y: 100%;
+}

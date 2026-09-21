@@ -1,7 +1,8 @@
+import { products } from "./products";
+
 export const siteConfig = {
   name: "Raisedash",
-  description:
-    "The driver readiness platform for modern trucking fleets. Prepare new drivers before day one and keep a clear record of every training step.",
+  description: "We make simple and useful tools for trucking companies.",
   url: "https://www.raisedash.com",
   ogImage: "https://cdn.raisedash.com/og-image.png",
   links: {
@@ -29,7 +30,17 @@ export interface FooterSection {
 
 export const footerLinks: FooterSection[] = [
   {
-    title: "Platform",
+    title: "Products",
+    links: products.map(({ name, href }) => ({
+      title: name,
+      href,
+      external: href.startsWith("https:"),
+    })),
+  },
+  // Keep product detail pages linked in server-rendered HTML. The header's
+  // dropdown links are only mounted when a visitor opens a menu.
+  {
+    title: "Orientation",
     links: [
       { title: "Driver onboarding", href: "/solutions/driver-onboarding" },
       { title: "Pre-arrival orientation", href: "/platform/pre-arrival-readiness" },
@@ -40,8 +51,9 @@ export const footerLinks: FooterSection[] = [
     ],
   },
   {
-    title: "AI features",
+    title: "Training features",
     links: [
+      { title: "All features", href: "/features" },
       { title: "Video generator", href: "/features/ai-training-video-generator" },
       { title: "Program builder", href: "/features/ai-training-program-builder" },
       { title: "Voice roleplay", href: "/features/ai-voice-roleplay-training" },
@@ -53,15 +65,8 @@ export const footerLinks: FooterSection[] = [
     links: [
       { title: "Blog", href: "/blog" },
       { title: "Product Updates", href: "/product-updates" },
-    ],
-  },
-  {
-    title: "More products",
-    links: [
-      { title: "Raisedash Academy", href: "https://academy.raisedash.com", external: true },
-      { title: "TruckTalk ELP Practice", href: "/tools/elp-practice" },
-      { title: "PTI & DVIR App", href: "/pti-app" },
-      { title: "Vertex", href: "/vertex-app" },
+      { title: "PTI & DVIR app", href: "/pti-app" },
+      { title: "Vertex driver app", href: "/vertex-app" },
     ],
   },
   {
