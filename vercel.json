@@ -1,5 +1,4 @@
 {
-  "buildCommand": "rm -rf .next/cache/webpack && npm run build",
   "rewrites": [
     {
       "source": "/tools/road-signs",
