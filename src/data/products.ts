@@ -1,11 +1,13 @@
 /**
- * The five products on the homepage grid. Each keeps its own landing page and
+ * The six products on the homepage grid. Each keeps its own landing page and
  * purchase/get-started flow.
  *
- * `plate` is the card's flat background, taken unchanged from the 37signals
- * palette. All five cards carry white type. Contrast against white, for the
- * record: cobalt 5.3, brick 4.9, orchid 3.6, olive 2.8, orange 2.7 — the last
- * three are below WCAG AA, chosen deliberately for the look.
+ * `plate` is the card's flat background. The first five are taken unchanged
+ * from the 37signals palette; jade was added for Receipts Bot to fill the one
+ * gap in the hue wheel. All six cards carry white type. Contrast against white,
+ * for the record: cobalt 5.3, brick 4.9, jade 3.6, orchid 3.6, olive 2.8,
+ * orange 2.7 — the last four are below WCAG AA, chosen deliberately for the
+ * look.
  */
 export const products = [
   {
@@ -21,6 +23,13 @@ export const products = [
       "Collect pre- and post-trip inspection photos, videos, and reported problems through your driver Telegram groups.",
     href: "/products/pti-telegram-bot",
     plate: "#9aa200",
+  },
+  {
+    name: "Receipts Bot",
+    description:
+      "Collect fuel, lumper, and repair receipts from drivers in your Telegram groups, with photos and the amount.",
+    href: "/products/receipts-telegram-bot",
+    plate: "#009a74",
   },
   {
     name: "Samsara to Telegram",

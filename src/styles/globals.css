@@ -1061,15 +1061,15 @@ h4 {
 /* ─────────────────────────────────────────────────────────────────────────
    Homepage product plates (src/pages/index.tsx)
 
-   The five product cards are saturated color plates after the 37signals
+   The six product cards are saturated color plates after the 37signals
    "pure color · soft grain" studies: one flat hue per product, a blurred
    light/shade pass so the fill is never dead flat, and a monochrome grain
    veil so it reads as printed paper. Each card sets --plate-bg inline from
    src/data/products.ts.
 
-   Everything on a plate is white. Three of the hues (orchid #BE52FF at
-   3.6:1, olive #9AA200 at 2.8:1 and orange #F87917 at 2.7:1) fall below
-   WCAG AA against white — kept on purpose for the look.
+   Everything on a plate is white. Four of the hues (jade #009A74 and orchid
+   #BE52FF at 3.6:1, olive #9AA200 at 2.8:1 and orange #F87917 at 2.7:1)
+   fall below WCAG AA against white — kept on purpose for the look.
    ───────────────────────────────────────────────────────────────────────── */
 .product-plate {
   position: relative;
@@ -1116,7 +1116,7 @@ h4 {
   opacity: 0.34;
 }
 
-/* Rotating the light source stops five plates in a grid from looking stamped
+/* Rotating the light source stops six plates in a grid from looking stamped
    from one template. Applied by index % 3 in src/pages/index.tsx. */
 .product-plate-light-b {
   --plate-light-x: 86%;
@@ -1130,4 +1130,97 @@ h4 {
   --plate-light-y: 0%;
   --plate-shade-x: 74%;
   --plate-shade-y: 100%;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   Graphite plates (src/components/receipts/figures.tsx)
+
+   Dark figure panels after the feature cards on the Bookr homepage: one
+   blurred graphite photo (public/brand/graphite-plate.webp, shared by every
+   panel) under a cool tint, with small white pieces of the product on top.
+   Each panel frames a different part of the photo through --plate-pos, and
+   some mirror it with --plate-flip, so a grid of them never repeats.
+
+   The plate is dark in both themes on purpose. Figures on it use literal
+   white and ink, never the light/dark tokens.
+   ───────────────────────────────────────────────────────────────────────── */
+.graphite-plate {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background-color: #3a4043;
+}
+
+.graphite-plate::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    linear-gradient(145deg, #202829b0, #252b2e94 50%, #1b2326d4),
+    url("/brand/graphite-plate.webp") var(--plate-pos, 0% 8%) / var(--plate-size, 130% auto)
+      no-repeat;
+  transform: var(--plate-flip, none);
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   Receipt tour phones (src/components/receipts/ReceiptTour.tsx)
+
+   Telegram's default iOS chat wallpaper, softened to sit on the graphite
+   plate: a four-corner green gradient under a faint doodle tile. Plus the
+   two motions the tour needs: a message popping in from its tail, and the
+   ring a finger leaves on a tap.
+   ───────────────────────────────────────────────────────────────────────── */
+.tg-wallpaper {
+  background-color: #b8d09f;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120' fill='none' stroke='%23213a12' stroke-opacity='.075' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M10 24l22-9-6 22-5-7z'/%3E%3Ccircle cx='86' cy='18' r='6'/%3E%3Cpath d='M52 48l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z'/%3E%3Cpath d='M94 66c0-4 5-6 7-2 2-4 7-2 7 2 0 5-7 9-7 9s-7-4-7-9z'/%3E%3Crect x='14' y='78' width='15' height='19' rx='2'/%3E%3Cpath d='M18 84h7M18 89h7M18 93h4'/%3E%3Cpath d='M64 96h16l6 7v6H64z'/%3E%3Ccircle cx='69' cy='111' r='2.6'/%3E%3Ccircle cx='82' cy='111' r='2.6'/%3E%3C/svg%3E"),
+    radial-gradient(circle at 10% 12%, #e6e7c6 0, transparent 52%),
+    radial-gradient(circle at 92% 10%, #a5cb8e 0, transparent 48%),
+    radial-gradient(circle at 12% 92%, #8cbd93 0, transparent 52%),
+    radial-gradient(circle at 92% 88%, #e0e1a6 0, transparent 52%);
+  background-size:
+    104px 104px,
+    auto,
+    auto,
+    auto,
+    auto;
+}
+
+@keyframes tg-pop {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.tg-pop {
+  animation: tg-pop 420ms cubic-bezier(0.2, 0.9, 0.3, 1.12) both;
+}
+
+@keyframes tg-tap {
+  from {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(0.45);
+  }
+  to {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(1.35);
+  }
+}
+
+.tg-tap {
+  animation: tg-tap 520ms cubic-bezier(0.2, 0.7, 0.3, 1) forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tg-pop,
+  .tg-tap {
+    animation: none;
+  }
 }

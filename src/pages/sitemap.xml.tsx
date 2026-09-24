@@ -18,7 +18,7 @@ const SITE_URL = RAW_SITE_URL.endsWith("/") ? RAW_SITE_URL.slice(0, -1) : RAW_SI
  * update its date here to the date of that change.
  */
 const STATIC_PAGE_DATES: Record<string, string> = {
-  "/": "2026-09-21",
+  "/": "2026-09-23",
   "/products/orientation": "2026-09-21",
   "/blog": "2026-01-26", // overridden below by latest post date
   "/about": "2026-09-21",
@@ -37,6 +37,7 @@ const STATIC_PAGE_DATES: Record<string, string> = {
   "/features/interactive-training-simulations": "2026-07-19",
   "/product-updates": "2026-01-27", // overridden below by latest update date
   "/products/pti-telegram-bot": "2026-09-21",
+  "/products/receipts-telegram-bot": "2026-09-23",
   "/products/raisedash-pti-inspections": "2026-01-26",
   "/products/raisedash-pti-inspections/driver-features": "2026-01-22",
   "/products/raisedash-pti-inspections/fleet-safety-managers": "2026-01-22",
@@ -150,6 +151,12 @@ function generateSiteMap(
     {
       loc: `${SITE_URL}/products/pti-telegram-bot`,
       lastmod: STATIC_PAGE_DATES["/products/pti-telegram-bot"],
+      changefreq: "weekly",
+      priority: "0.9",
+    },
+    {
+      loc: `${SITE_URL}/products/receipts-telegram-bot`,
+      lastmod: STATIC_PAGE_DATES["/products/receipts-telegram-bot"],
       changefreq: "weekly",
       priority: "0.9",
     },
