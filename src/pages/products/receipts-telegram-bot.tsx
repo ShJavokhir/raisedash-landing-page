@@ -1,4 +1,4 @@
-import { ChevronDown, Send } from "lucide-react";
+import { ArrowUpRight, ChevronDown, Send } from "lucide-react";
 import { Container } from "@/components/layout/Container";
 import { PageLayout } from "@/components/layout/PageLayout";
 import { StepList, type PlatformStep } from "@/components/platform/StepList";
@@ -18,6 +18,7 @@ import {
   GraphitePlate,
   LinkFigure,
   NoAppFigure,
+  plateStyle,
   type PlateCrop,
 } from "@/components/receipts/figures";
 import { ReceiptTour } from "@/components/receipts/ReceiptTour";
@@ -38,6 +39,8 @@ import { ReceiptTour } from "@/components/receipts/ReceiptTour";
  */
 
 const CONTACT_LINK = "https://t.me/raisedash";
+const DEMO_LINK = "https://youtube.com/shorts/6rw33V2kXmE";
+const DEMO_EMBED = "https://www.youtube-nocookie.com/embed/6rw33V2kXmE?rel=0";
 
 const steps: PlatformStep[] = [
   {
@@ -192,6 +195,50 @@ export default function ReceiptsTelegramBotPage() {
             <ReceiptTour />
           </div>
         </div>
+      </Container>
+
+      <Container className="pb-12 sm:pb-16">
+        <section
+          aria-labelledby="receipts-demo-heading"
+          className="grid items-center gap-8 lg:grid-cols-12 lg:gap-12"
+        >
+          <div className="lg:col-span-5">
+            <h2
+              id="receipts-demo-heading"
+              className="text-foreground text-2xl font-normal tracking-tight"
+            >
+              Watch the demo
+            </h2>
+            <p className="text-muted-foreground mt-3 max-w-xl text-base leading-relaxed">
+              A real receipt, sent from a real phone. See how it gets from the Telegram group to
+              your dashboard.
+            </p>
+            <a
+              href={DEMO_LINK}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-muted-foreground hover:text-foreground mt-2 inline-flex min-h-11 items-center gap-1.5 text-sm underline-offset-4 hover:underline"
+            >
+              Watch on YouTube <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
+            </a>
+          </div>
+          <div
+            style={plateStyle({ pos: "70% 30%" })}
+            className="graphite-plate border-border grid place-items-center rounded-xs border px-3 py-8 sm:p-10 lg:col-span-7"
+          >
+            <div className="aspect-[9/16] w-full max-w-[320px] overflow-hidden rounded-lg bg-black shadow-[0_16px_32px_-16px_rgba(0,0,0,0.55)]">
+              <iframe
+                className="h-full w-full"
+                src={DEMO_EMBED}
+                title="Raisedash receipts bot demo"
+                loading="lazy"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+                referrerPolicy="strict-origin-when-cross-origin"
+              />
+            </div>
+          </div>
+        </section>
       </Container>
 
       <Container className="pb-12 sm:pb-16">
