@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
@@ -43,7 +44,7 @@ export default function Home() {
           className="scroll-mt-8 sm:scroll-mt-28"
         >
           <ul className="grid auto-rows-fr gap-5 md:grid-cols-2 lg:grid-cols-6">
-            {products.map(({ name, description, href, plate }, index) => (
+            {products.map(({ name, description, href, plate, icon }, index) => (
               <li
                 key={href}
                 className={cn(
@@ -68,6 +69,19 @@ export default function Home() {
                   {/* Hierarchy on a saturated plate comes from size and
                       weight, not color: both are white, so a 24/14 size jump
                       and a 500/400 weight step do the separating. */}
+                  {icon && (
+                    // Decorative: the card's name already says what it is.
+                    <Image
+                      src={icon.src}
+                      alt=""
+                      width={icon.width}
+                      height={icon.height}
+                      // One shared height (widths vary) keeps the titles level
+                      // across a row; the files are 3x that height. self-start stops the
+                      // flex column from stretching it to the card width.
+                      className="mb-5 h-24 w-auto self-start drop-shadow-[0_10px_14px_rgb(0_0_0/0.22)]"
+                    />
+                  )}
                   <h3 className="text-2xl leading-snug font-medium tracking-[-0.02em]">{name}</h3>
                   <p className="mt-2.5 max-w-[46ch] text-sm leading-relaxed text-white/90">
                     {description}
