@@ -44,7 +44,16 @@ export default function Home() {
         >
           <ul className="grid auto-rows-fr gap-5 md:grid-cols-2 lg:grid-cols-6">
             {products.map(({ name, description, href, plate }, index) => (
-              <li key={href} className="min-w-0 lg:col-span-2">
+              <li
+                key={href}
+                className={cn(
+                  "min-w-0 lg:col-span-2",
+                  // A last card alone on its row stretches across it instead of
+                  // leaving a hole: 2 per row at md, 3 per row at lg.
+                  index === products.length - 1 && products.length % 2 === 1 && "md:col-span-2",
+                  index === products.length - 1 && products.length % 3 === 1 && "lg:col-span-6"
+                )}
+              >
                 <Link
                   href={href}
                   aria-label={`Explore ${name}`}

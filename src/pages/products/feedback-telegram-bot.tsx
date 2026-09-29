@@ -71,7 +71,7 @@ const faqs: FAQItem[] = [
   {
     question: "How does anonymous feedback work?",
     answer:
-      "Anonymous responses have no name or Telegram group attached. The same survey link is shared with every selected group. Drivers see a reminder to avoid names or details that could identify them in their answers. If only one person answers, or the answer describes a specific incident, the company may still recognize them.",
+      "Anonymous responses have no name or Telegram group attached. The same survey link is shared with every selected group. If only one person answers, or the answer describes a specific incident, the company may still recognize them.",
   },
   {
     question: "Who can see the answers?",
@@ -110,10 +110,9 @@ function SurveyDemo() {
         {sent ? (
           <div className="space-y-4 px-6 py-12 text-center">
             <CheckCircle2 className="mx-auto h-10 w-10 text-[#265b43]" />
-            <h3 className="text-xl">A small question. A useful answer.</h3>
-            <p className="text-sm text-[#6d6c63]">
-              That is what drivers see after submitting. This example did not save or send anything.
-            </p>
+            <h3 className="text-xl">Thank you</h3>
+            <p className="text-sm text-[#6d6c63]">Your feedback was sent to Example Fleet.</p>
+            <p className="text-xs text-[#6d6c63]">This example did not save or send anything.</p>
             <button
               type="button"
               onClick={() => {
@@ -135,12 +134,10 @@ function SurveyDemo() {
                 Help us make next week a little better.
               </p>
             </div>
-            <div className="flex gap-2 rounded-lg bg-[#f0f1eb] p-3 text-xs leading-relaxed">
-              <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0" />
-              <p>
-                Anonymous feedback. Your name and Telegram group are not attached to your answers.
-              </p>
-            </div>
+            <p className="flex items-center gap-1.5 text-sm">
+              <ShieldCheck className="h-4 w-4 shrink-0" />
+              Anonymous feedback
+            </p>
             <fieldset>
               <legend className="mb-3 text-sm">How supported did you feel?</legend>
               <div className="grid grid-cols-5 gap-2">
