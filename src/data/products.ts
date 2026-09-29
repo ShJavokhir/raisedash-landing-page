@@ -24,7 +24,7 @@ export const products = [
   {
     name: "Feedback Bot",
     description:
-      "Send surveys to your driver Telegram groups. Collect anonymous or named feedback and review the answers in one dashboard.",
+      "Find out why drivers leave. Send anonymous surveys to their Telegram groups and see what to fix in one dashboard.",
     href: "/products/feedback-telegram-bot",
     plate: "#365c93",
   },

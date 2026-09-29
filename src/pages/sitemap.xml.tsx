@@ -38,7 +38,7 @@ const STATIC_PAGE_DATES: Record<string, string> = {
   "/product-updates": "2026-01-27", // overridden below by latest update date
   "/products/pti-telegram-bot": "2026-09-21",
   "/products/receipts-telegram-bot": "2026-09-23",
-  "/products/feedback-telegram-bot": "2026-09-28",
+  "/products/feedback-telegram-bot": "2026-09-29",
   "/products/raisedash-pti-inspections": "2026-01-26",
   "/products/raisedash-pti-inspections/driver-features": "2026-01-22",
   "/products/raisedash-pti-inspections/fleet-safety-managers": "2026-01-22",
