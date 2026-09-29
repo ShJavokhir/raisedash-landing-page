@@ -24,7 +24,7 @@ export default function Home() {
   return (
     <PageLayout
       title="Simple and useful tools for trucking companies"
-      description="We make simple and useful tools for trucking companies. Explore driver orientation, Telegram inspection, receipt, and Samsara bots, DOT compliance training, and TruckTalk English practice."
+      description="We make simple and useful tools for trucking companies. Explore driver orientation, Telegram inspection, receipt, feedback, and Samsara bots, DOT compliance training, and TruckTalk English practice."
     >
       <Container className="py-12 sm:py-16">
         <div className="mx-auto max-w-4xl text-center">
@@ -51,7 +51,7 @@ export default function Home() {
                   style={{ "--plate-bg": plate } as React.CSSProperties}
                   className={cn(
                     "product-plate group focus-visible:outline-foreground flex h-full flex-col rounded-xs p-6 text-white focus-visible:outline-2 focus-visible:outline-offset-4 sm:p-8",
-                    // Rotates the plate's light source so six cards in one
+                    // Rotates the plate's light source so the cards in one
                     // grid don't look stamped from a single template.
                     PLATE_LIGHT[index % PLATE_LIGHT.length]
                   )}

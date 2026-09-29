@@ -1,14 +1,4 @@
-/**
- * The six products on the homepage grid. Each keeps its own landing page and
- * purchase/get-started flow.
- *
- * `plate` is the card's flat background. The first five are taken unchanged
- * from the 37signals palette; jade was added for Receipts Bot to fill the one
- * gap in the hue wheel. All six cards carry white type. Contrast against white,
- * for the record: cobalt 5.3, brick 4.9, jade 3.6, orchid 3.6, olive 2.8,
- * orange 2.7 — the last four are below WCAG AA, chosen deliberately for the
- * look.
- */
+/** Products share the homepage grid and company navigation, with a dedicated page for each. */
 export const products = [
   {
     name: "Raisedash Orientation",
@@ -30,6 +20,13 @@ export const products = [
       "Collect fuel, lumper, and repair receipts from drivers in your Telegram groups, with photos and the amount.",
     href: "/products/receipts-telegram-bot",
     plate: "#009a74",
+  },
+  {
+    name: "Feedback Bot",
+    description:
+      "Send surveys to your driver Telegram groups. Collect anonymous or named feedback and review the answers in one dashboard.",
+    href: "/products/feedback-telegram-bot",
+    plate: "#365c93",
   },
   {
     name: "Samsara to Telegram",
