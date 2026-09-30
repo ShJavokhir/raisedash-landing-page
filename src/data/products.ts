@@ -55,6 +55,13 @@ export const products = [
     href: "/tools/elp-practice",
     plate: "#be52ff",
   },
+  {
+    name: "Raisedash Shield",
+    description:
+      "Local browser warnings for freight phishing, disguised downloads and scam instructions. Preparing for public release.",
+    href: "/products/shield",
+    plate: "#315b50",
+  },
 ];
 
 export type Product = (typeof products)[number];

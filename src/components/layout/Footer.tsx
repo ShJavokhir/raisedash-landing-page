@@ -86,7 +86,7 @@ export function Footer() {
               <div className="flex items-center gap-2 text-sm">
                 <div className="flex items-center gap-2">
                   <div className="bg-success h-2 w-2 animate-pulse rounded-full"></div>
-                  <span className="text-success font-normal">Support is available by email</span>
+                  <span className="text-foreground font-normal">Support is available by email</span>
                 </div>
               </div>
             </div>

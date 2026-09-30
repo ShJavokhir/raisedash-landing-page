@@ -82,6 +82,7 @@ export const footerLinks: FooterSection[] = [
     title: "Legal",
     links: [
       { title: "Privacy Policy", href: "/privacy-policy" },
+      { title: "Shield Privacy", href: "/products/shield/privacy" },
       { title: "Terms of Use", href: "/terms-of-use" },
       { title: "Delete Account", href: "/request-account-deletion" },
     ],
