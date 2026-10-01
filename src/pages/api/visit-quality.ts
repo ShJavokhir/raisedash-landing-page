@@ -2,8 +2,8 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { sendFleetCapiEvent } from "@/lib/meta-capi";
 
 /**
- * Server twin of the fleet pixel's custom "EngagedVisit" event (fired by
- * src/lib/engaged-visit.ts). The durable half of the pair: ad blockers and the
+ * Server twin of the fleet pixel's engaged-visit event — the standard "Contact"
+ * with content_name engaged_visit (fired by src/lib/engaged-visit.ts). The durable half of the pair: ad blockers and the
  * FB/IG in-app browser drop the browser Pixel, but this same-origin request still
  * lands, and the shared eventId lets Meta dedupe the two.
  *
@@ -104,7 +104,7 @@ async function sendEngagedVisit(req: NextApiRequest): Promise<void> {
     // Awaited before responding: a serverless function may freeze after the
     // response is sent.
     const result = await sendFleetCapiEvent({
-      eventName: "EngagedVisit",
+      eventName: "Contact",
       contentName: "engaged_visit",
       eventId,
       eventSourceUrl: cleanSourceUrl(req.headers.referer),
@@ -117,7 +117,7 @@ async function sendEngagedVisit(req: NextApiRequest): Promise<void> {
       customData: { engaged_seconds: engagedSeconds, signals: signals.join(",") },
     });
     if (result.error) {
-      console.warn("EngagedVisit Meta CAPI not sent:", result.error);
+      console.warn("Engaged-visit Meta CAPI Contact not sent:", result.error);
     }
   } catch (error) {
     console.error("Error processing engaged visit:", error);

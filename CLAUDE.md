@@ -117,8 +117,8 @@ Router used by the dashboard/learner-web apps. Node is pinned to **22.x**
   `/start-v2` dropped all Meta tracking 2026-10-01 (their CAPI routes
   `/api/start-capi` + `/api/start-v2-interest` were deleted). Don't touch
   `/start-v3`'s events — it feeds the separate, live Academy campaigns.
-- **Every browser event goes through `fbq('trackSingle' | 'trackSingleCustom',
-  pixelId, …)` — never `fbq('track', …)`.** One session can still initialize
+- **Every browser event goes through `fbq('trackSingle', pixelId, …)` — never
+  `fbq('track', …)`.** One session can still initialize
   both pixels (homepage → `/start-v3` client-side nav), and a broadcast
   `track` would cross-pollute the datasets. `bootstrapFbq()` in
   `src/lib/meta-pixel.ts` is the single shared fbq snippet; init guards are
@@ -126,8 +126,11 @@ Router used by the dashboard/learner-web apps. Node is pinned to **22.x**
 - Fleet conversion ladder — every rung is a Pixel + CAPI pair deduped on a
   shared `eventId`, sent server-side by `sendFleetCapiEvent`
   (`src/lib/meta-capi.ts`):
-  1. **"EngagedVisit"** (custom event, `content_name: engaged_visit`) — the
-     learning-phase optimization event. `src/lib/engaged-visit.ts`: once per
+  1. **"Contact"** = our *engaged visit* (`content_name: engaged_visit`) — the
+     learning-phase optimization event. A standard event on purpose: the Leads
+     objective offers it directly, a brand-new custom event ("EngagedVisit",
+     its name until 2026-10-01) wasn't selectable. Nothing else may send
+     Contact on the fleet pixel. `src/lib/engaged-visit.ts`: once per
      session, ≥30s of *active* time (tab visible + recent input) AND ≥1 intent
      signal (deep scroll, intent page, or a named high-intent site-analytics
      event via `onCapture`). Twin: `/api/visit-quality` (neutral path on
@@ -142,7 +145,7 @@ Router used by the dashboard/learner-web apps. Node is pinned to **22.x**
 - `rd_vid` (1y, random first-party visitor id, `ensureVisitorId` in
   `meta-fleet-pixel.ts`) is sent as `external_id` on every fleet event: raw at
   Pixel init (the Pixel hashes it), SHA-256 from the server routes — so Meta
-  ties one visitor's EngagedVisit → Lead → Schedule together.
+  ties one visitor's engaged visit → Lead → Schedule together.
 - **`META_FLEET_CAPI_TEST_EVENT_CODE` must never be set in Production** — it
   turns every server event into a Test Event that Meta ignores for attribution
   and optimization (it was, until 2026-10-01). Preview only.

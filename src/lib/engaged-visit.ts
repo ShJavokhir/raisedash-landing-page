@@ -1,6 +1,9 @@
 /**
- * "EngagedVisit" — the custom fleet-pixel event the Meta ads optimize on while an
- * ad set is in the learning phase (email-capture "Lead" is too rare to exit it).
+ * The "engaged visit" — sent to the fleet pixel as the STANDARD event "Contact"
+ * (content_name: engaged_visit) so the Leads objective can optimize on it directly
+ * while an ad set is in the learning phase (email-capture "Lead" is too rare to
+ * exit it). Was the custom event "EngagedVisit" until 2026-10-01; Meta wouldn't
+ * offer the new custom event as a conversion.
  *
  * A cheap proxy teaches Meta to find cheap behaviour (accidental Reels/Audience
  * Network taps, idle open tabs), so this fires ONCE per browser session only when
@@ -118,7 +121,7 @@ function maybeFire(): void {
   const signals = [...state.signals];
 
   trackFleetPixel(
-    "EngagedVisit",
+    "Contact",
     { content_name: "engaged_visit", engaged_seconds: engagedSeconds, signals: signals.join(",") },
     eventId
   );

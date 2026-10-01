@@ -18,7 +18,7 @@ import {
  * browser may suppress the Pixel, so cookies are our durable copy), synthesize
  * _fbp for CAPI matching, then boot the pixel. Route changes get their own
  * PageView — the Pages Router triggers no natural page loads. Also runs the
- * EngagedVisit tracker (src/lib/engaged-visit.ts), so it stops on /start* too.
+ * engaged-visit tracker (src/lib/engaged-visit.ts), so it stops on /start* too.
  */
 export function FleetMetaPixel() {
   const router = useRouter();

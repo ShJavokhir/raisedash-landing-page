@@ -16,7 +16,7 @@
  *     → demo_request_submitted (Meta "Schedule" twin) → scheduling_link_clicked
  *
  * plus engagement signals (video_*, embed_clicked, intercom_opened, roi_*).
- * Several of these also feed the Meta "EngagedVisit" event as intent signals
+ * Several of these also feed the Meta engaged-visit event ("Contact") as intent signals
  * (src/lib/engaged-visit.ts subscribes via onCapture), which itself records
  * engaged_visit_qualified here so the proxy can be checked against real leads.
  * outbound/video/embed events are fired by the document-level listeners in

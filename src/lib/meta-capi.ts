@@ -8,7 +8,7 @@
  * Serves ONE dataset: the site-wide FLEET pixel (META_FLEET_PIXEL_ID +
  * META_FLEET_CAPI_ACCESS_TOKEN) via sendFleetCapiEvent, called from
  * /api/email-capture ("Lead"), /api/demo-lead ("Schedule") and
- * /api/visit-quality ("EngagedVisit"). The old /start* driver-training CAPI was
+ * /api/visit-quality ("Contact" = engaged visit). The old /start* driver-training CAPI was
  * removed 2026-10-01; /start-v3 still runs that pixel browser-only.
  *
  * Node-only (reads secret access tokens + hashes PII with node:crypto); never
@@ -26,7 +26,7 @@ export interface CapiEventInput {
   phone?: string; // E.164 ("+1512…") or national digits
   name?: string; // full name; split into fn/ln
   /** First-party visitor id (the rd_vid cookie). The browser Pixel gets the
-   *  same value at init, so Meta can tie one visitor's EngagedVisit, Lead and
+   *  same value at init, so Meta can tie one visitor's engaged visit, Lead and
    *  Schedule together. Hashed here, as Meta recommends. */
   externalId?: string;
   /** Dedup key shared with the browser Pixel's twin event. */
@@ -41,10 +41,10 @@ export interface CapiEventInput {
   /** Matches the browser Pixel twin's content_name so reporting reads
    *  consistently (e.g. "fleet_email_capture"). */
   contentName?: string;
-  /** Meta event name, standard ("Lead", "Schedule") or custom ("EngagedVisit").
+  /** Meta event name ("Lead", "Schedule", "Contact").
    *  Defaults to "Lead". */
   eventName?: string;
-  /** Extra custom_data fields (e.g. EngagedVisit's engaged_seconds). */
+  /** Extra custom_data fields (e.g. the engaged visit's engaged_seconds). */
   customData?: Record<string, string | number>;
 }
 
@@ -157,7 +157,7 @@ export async function sendFleetCapiEvent(
 
   const userData = buildUserData(input);
   // An event with only weak/no identifiers is rejected by Meta's baseline-match
-  // rule. EngagedVisit has no email, so it lives on fbp/fbc/external_id.
+  // rule. The engaged visit has no email, so it lives on fbp/fbc/external_id.
   const hasStrongId = Boolean(
     userData.em || userData.ph || userData.external_id || userData.fbp || userData.fbc
   );

@@ -2,16 +2,19 @@
  * Browser-side helpers for the FLEET Meta Pixel — the only dataset this site's
  * Meta campaigns optimize against. Its conversion ladder, lowest to highest:
  *
- *   EngagedVisit  custom; engaged time + an intent signal (src/lib/engaged-visit.ts).
- *                 The early, high-volume event to optimize on while the ad set
- *                 is in the learning phase.
+ *   Contact       our "engaged visit" (content_name: engaged_visit): engaged time
+ *                 + an intent signal (src/lib/engaged-visit.ts). The early,
+ *                 high-volume event to optimize on while the ad set is in the
+ *                 learning phase. A STANDARD event on purpose: the Leads objective
+ *                 offers it directly as a conversion event, while a brand-new
+ *                 custom event wasn't selectable. Nothing else sends Contact.
  *   Lead          an email capture (EmailCapture, the /demo email gate).
  *   Schedule      a demo request / Cal.com booking on /demo.
  *
  * Move the ad set up a rung once the next one clears ~50 events/week.
  *
  * Mounted site-wide via FleetMetaPixel in _app.tsx (never on /start*). Every call
- * goes through fbq('trackSingle'/'trackSingleCustom', …) so fleet events land
+ * goes through fbq('trackSingle', …) so fleet events land
  * ONLY in this dataset even when a session also initializes the legacy pixel
  * (homepage → /start-v3 client-side navigation).
  *
@@ -24,10 +27,7 @@ import { bootstrapFbq, newEventId } from "@/lib/meta-pixel";
 
 export const FLEET_PIXEL_ID = process.env.NEXT_PUBLIC_META_FLEET_PIXEL_ID;
 
-export type FleetPixelEvent = "PageView" | "EngagedVisit" | "Lead" | "Schedule";
-
-/** Non-standard Meta event names — sent with trackSingleCustom. */
-const CUSTOM_EVENTS: ReadonlySet<FleetPixelEvent> = new Set(["EngagedVisit"]);
+export type FleetPixelEvent = "PageView" | "Contact" | "Lead" | "Schedule";
 
 // Whether the fleet pixel id has been fbq('init')-ed this page load. Module
 // state survives client-side navigation, so the _app-mounted component can
@@ -71,9 +71,8 @@ export function trackFleetPixel(
   eventId?: string
 ): void {
   if (!FLEET_PIXEL_ID || !fleetInited || typeof window === "undefined" || !window.fbq) return;
-  const method = CUSTOM_EVENTS.has(event) ? "trackSingleCustom" : "trackSingle";
-  if (eventId) window.fbq(method, FLEET_PIXEL_ID, event, params, { eventID: eventId });
-  else window.fbq(method, FLEET_PIXEL_ID, event, params);
+  if (eventId) window.fbq("trackSingle", FLEET_PIXEL_ID, event, params, { eventID: eventId });
+  else window.fbq("trackSingle", FLEET_PIXEL_ID, event, params);
 }
 
 const ONE_YEAR = 365 * 24 * 60 * 60;
