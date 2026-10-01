@@ -41,7 +41,7 @@ export function Footer() {
           </div>
 
           {/* Link Columns */}
-          <div className="grid grid-cols-2 gap-8 gap-y-10 sm:grid-cols-3 xl:grid-cols-6">
+          <div className="grid grid-cols-2 gap-8 gap-y-10 sm:grid-cols-4">
             {footerLinks.map((section) => (
               <div key={section.title}>
                 <h4 className="text-muted-foreground mb-4 text-sm font-normal tracking-wide">

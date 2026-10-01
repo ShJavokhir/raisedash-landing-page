@@ -37,29 +37,6 @@ export const footerLinks: FooterSection[] = [
       external: href.startsWith("https:"),
     })),
   },
-  // Keep product detail pages linked in server-rendered HTML. The header's
-  // dropdown links are only mounted when a visitor opens a menu.
-  {
-    title: "Orientation",
-    links: [
-      { title: "Driver onboarding", href: "/solutions/driver-onboarding" },
-      { title: "Pre-arrival orientation", href: "/platform/pre-arrival-readiness" },
-      { title: "Training records", href: "/platform/training-evidence" },
-      { title: "Driver experience", href: "/platform/driver-experience" },
-      { title: "Pricing", href: "/pricing" },
-      { title: "Book a demo", href: "/demo" },
-    ],
-  },
-  {
-    title: "Training features",
-    links: [
-      { title: "All features", href: "/features" },
-      { title: "Video generator", href: "/features/ai-training-video-generator" },
-      { title: "Program builder", href: "/features/ai-training-program-builder" },
-      { title: "Voice roleplay", href: "/features/ai-voice-roleplay-training" },
-      { title: "Simulations", href: "/features/interactive-training-simulations" },
-    ],
-  },
   {
     title: "Resources",
     links: [
