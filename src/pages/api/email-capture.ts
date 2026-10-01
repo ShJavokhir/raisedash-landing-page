@@ -5,7 +5,7 @@ import {
   validateEmail,
   EmailCaptureData,
 } from "@/lib/telegram";
-import { sendFleetCapiLead } from "@/lib/meta-capi";
+import { sendFleetCapiEvent } from "@/lib/meta-capi";
 import { captureServerEvent } from "@/lib/posthog-server";
 import type { LeadAttribution } from "@/lib/start-v2";
 
@@ -19,7 +19,7 @@ import type { LeadAttribution } from "@/lib/start-v2";
  *    the Pixel + CAPI pair (the browser pixel fires the same eventId; Meta ads
  *    open in the FB/IG in-app browser where the Pixel is routinely suppressed).
  *    Match signals come from here, not the client: the raw email is hashed in
- *    sendFleetCapiLead, IP/UA from the request, _fbp/_fbc from first-party
+ *    sendFleetCapiEvent, IP/UA from the request, _fbp/_fbc from first-party
  *    cookies, rd_fbclid as the fallback to synthesize _fbc. Best-effort — a CAPI
  *    failure never fails the capture. No-ops until the META_FLEET_* env is set.
  */
@@ -79,7 +79,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     // The durable CAPI Lead, concurrent with Telegram. Awaited before responding
     // because a serverless function may freeze after the response is sent.
-    const capiPromise = sendFleetCapiLead({
+    const capiPromise = sendFleetCapiEvent({
       email: normalizedEmail,
       eventId:
         typeof eventId === "string" && eventId.trim() ? eventId.trim().slice(0, 200) : undefined,

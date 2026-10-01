@@ -1,13 +1,12 @@
-import { useState } from "react";
-import Head from "next/head";
+import { useEffect, useState } from "react";
 import { SEO } from "@/components/seo/SEO";
 import { Logo } from "@/components/start/logo";
-import { MetaPixel } from "@/components/start/meta-pixel";
 import { LegalSheet } from "@/components/start/legal-sheet";
 import { LeadFunnel } from "@/components/start-v2/lead-funnel";
 import { LanguageSwitcher, StartV2I18nProvider, useStartV2T } from "@/components/start-v2/i18n";
 import { DEFAULT_LOCALE, MESSAGES } from "@/lib/start-v2-i18n";
 import type { LegalDoc } from "@/components/legal/legal-docs";
+import { stripSensitiveParams } from "@/lib/meta-pixel";
 
 /**
  * Public Meta-ad landing + lead funnel for driver-training campaigns (the ad's
@@ -18,8 +17,13 @@ import type { LegalDoc } from "@/components/legal/legal-docs";
  *
  * The audience is largely Uzbek-speaking carriers, so the page defaults to Uzbek
  * (StartV2I18nProvider) with a dropdown to switch to English. Only the visible
- * copy is translated — the lead payload, Meta Pixel/CAPI events, and the Telegram
- * notification are all language-independent (see src/lib/start-v2-i18n.ts).
+ * copy is translated — the lead payload and the Telegram notification are
+ * language-independent (see src/lib/start-v2-i18n.ts).
+ *
+ * No Meta Pixel/CAPI here anymore (removed 2026-10-01 — the driver-training
+ * campaigns that optimized on this page's Lead ended). Meta tracking on this
+ * site is now the fleet pixel only (src/lib/meta-fleet-pixel.ts), which _app.tsx
+ * keeps off /start*.
  *
  * noindex/nofollow: a paid-traffic entry point, not an organic landing page, so it
  * is intentionally NOT in sitemap.xml.tsx / api/indexnow.ts.
@@ -29,15 +33,15 @@ export default function StartV2Page() {
   // locale rather than the live dropdown selection.
   const seo = MESSAGES[DEFAULT_LOCALE].seo;
 
+  // Scrub any PII (?email=, ?phone=) from the URL before the funnel records its
+  // landing URL as lead attribution.
+  useEffect(() => {
+    stripSensitiveParams();
+  }, []);
+
   return (
     <>
       <SEO title={seo.title} description={seo.description} noindex nofollow />
-      {/* Warm up the Meta Pixel connection on a slow mobile/in-app-browser link.
-          The lead itself is posted to this site's own /api route (same origin),
-          so no cross-origin preconnect is needed for it. */}
-      <Head>
-        <link rel="preconnect" href="https://connect.facebook.net" />
-      </Head>
       <StartV2I18nProvider>
         <StartV2Funnel />
       </StartV2I18nProvider>
@@ -88,7 +92,6 @@ function StartV2Funnel() {
             {t.footer.terms}
           </button>
         </footer>
-        <MetaPixel contentName="start_v2" />
       </div>
       <LegalSheet doc={legalDoc} onClose={() => setLegalDoc(null)} />
     </>

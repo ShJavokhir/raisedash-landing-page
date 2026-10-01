@@ -5,32 +5,28 @@
  * the server event — sharing an `event_id` with the browser Pixel for
  * deduplication — is the source of truth for each conversion.
  *
- * Serves two separate pixels/datasets:
- *  - sendCapiLead — the /start* driver-training funnels' pixel
- *    (META_PIXEL_ID + META_CAPI_ACCESS_TOKEN), called from
- *    /api/start-capi and /api/start-v2-lead.
- *  - sendFleetCapiLead — the site-wide FLEET pixel the B2B email-capture
- *    campaigns optimize against (META_FLEET_PIXEL_ID + META_FLEET_CAPI_ACCESS_TOKEN),
- *    called from /api/email-capture and /api/demo-lead. A separate dataset so
- *    "Lead" there means only fleet email captures, never driver-training leads.
+ * Serves ONE dataset: the site-wide FLEET pixel (META_FLEET_PIXEL_ID +
+ * META_FLEET_CAPI_ACCESS_TOKEN) via sendFleetCapiEvent, called from
+ * /api/email-capture ("Lead"), /api/demo-lead ("Schedule") and
+ * /api/visit-quality ("EngagedVisit"). The old /start* driver-training CAPI was
+ * removed 2026-10-01; /start-v3 still runs that pixel browser-only.
  *
  * Node-only (reads secret access tokens + hashes PII with node:crypto); never
- * bundled to the client. Each entry point no-ops when its own env pair is unset,
- * so every funnel works before its pixel is provisioned. Never throws: a failed
- * send must not fail the capture (the Telegram notification already fired).
+ * bundled to the client. No-ops when the env pair is unset. Never throws: a
+ * failed send must not fail the capture (the Telegram notification already fired).
  */
 import { createHash } from "node:crypto";
 
 const GRAPH_API_VERSION = process.env.META_GRAPH_API_VERSION || "v25.0";
 
-/** Everything needed to send a high-match-quality Lead event. */
-export interface CapiLeadInput {
+/** Everything needed to send a high-match-quality server event. */
+export interface CapiEventInput {
   /** Raw contact info — hashed here, never stored hashed. */
   email?: string;
   phone?: string; // E.164 ("+1512…") or national digits
   name?: string; // full name; split into fn/ln
   usDot?: string; // sent as a hashed external_id (optional on this funnel)
-  /** Dedup key shared with the browser Pixel's Lead event. */
+  /** Dedup key shared with the browser Pixel's twin event. */
   eventId?: string;
   eventSourceUrl?: string;
   /** Not hashed. */
@@ -39,13 +35,14 @@ export interface CapiLeadInput {
   fbp?: string;
   fbc?: string;
   fbclid?: string; // used to synthesize fbc if the cookie wasn't captured
-  /** Matches the browser Pixel Lead's content_name so reporting reads consistently
-   *  (e.g. "start_v2_lead"). Omit to send no content_name (the /start funnel). */
+  /** Matches the browser Pixel twin's content_name so reporting reads
+   *  consistently (e.g. "fleet_email_capture"). */
   contentName?: string;
-  /** Standard Meta event name. Defaults to "Lead". The /start-v2 full submission
-   *  passes "CompleteRegistration" so it stays a distinct, higher-value conversion
-   *  from the early name-step Lead the ad set optimizes against. */
+  /** Meta event name, standard ("Lead", "Schedule") or custom ("EngagedVisit").
+   *  Defaults to "Lead". */
   eventName?: string;
+  /** Extra custom_data fields (e.g. EngagedVisit's engaged_seconds). */
+  customData?: Record<string, string | number>;
 }
 
 /** SHA-256 → lowercase hex, per Meta's customer-information hashing spec. */
@@ -94,7 +91,7 @@ function synthesizeFbc(fbclid?: string): string | undefined {
 }
 
 /** Build the user_data object — hashed PII + un-hashed match signals. */
-function buildUserData(input: CapiLeadInput): Record<string, unknown> {
+function buildUserData(input: CapiEventInput): Record<string, unknown> {
   const ud: Record<string, unknown> = {};
 
   if (input.email) {
@@ -127,24 +124,11 @@ function buildUserData(input: CapiLeadInput): Record<string, unknown> {
   return ud;
 }
 
-/** True once both the pixel id and a CAPI access token are present. */
-export function metaCapiConfigured(): boolean {
-  return Boolean(process.env.META_PIXEL_ID && process.env.META_CAPI_ACCESS_TOKEN);
-}
-
 /** One pixel/dataset's server-side credentials. */
 interface CapiDataset {
   pixelId: string;
   accessToken: string;
   testEventCode?: string;
-}
-
-/** The /start* driver-training funnels' dataset. */
-function startDataset(): CapiDataset | undefined {
-  const pixelId = process.env.META_PIXEL_ID;
-  const accessToken = process.env.META_CAPI_ACCESS_TOKEN;
-  if (!pixelId || !accessToken) return undefined;
-  return { pixelId, accessToken, testEventCode: process.env.META_CAPI_TEST_EVENT_CODE };
 }
 
 /**
@@ -159,39 +143,19 @@ function fleetDataset(): CapiDataset | undefined {
 }
 
 /**
- * Send the server-side Lead to the /start* funnels' dataset. Best-effort:
- * returns { sent: false } (never throws) on any failure or when unconfigured,
- * so the caller can fire-and-forget without risking the user's submission.
+ * Send a server-side event to the FLEET dataset. Best-effort: returns
+ * { sent: false } (never throws) on any failure or when unconfigured, so the
+ * caller can fire-and-forget without risking the user's submission.
  */
-export async function sendCapiLead(
-  input: CapiLeadInput
-): Promise<{ sent: boolean; error?: string }> {
-  const dataset = startDataset();
-  if (!dataset) return { sent: false };
-  return sendCapiLeadTo(dataset, input);
-}
-
-/**
- * Send the server-side event to the FLEET dataset (email captures / demo
- * requests). Same best-effort contract as sendCapiLead. Deliberately a separate
- * entry point: when the fleet env is unset it must no-op, never fall back to
- * the driver-training dataset.
- */
-export async function sendFleetCapiLead(
-  input: CapiLeadInput
+export async function sendFleetCapiEvent(
+  input: CapiEventInput
 ): Promise<{ sent: boolean; error?: string }> {
   const dataset = fleetDataset();
   if (!dataset) return { sent: false };
-  return sendCapiLeadTo(dataset, input);
-}
 
-async function sendCapiLeadTo(
-  dataset: CapiDataset,
-  input: CapiLeadInput
-): Promise<{ sent: boolean; error?: string }> {
   const userData = buildUserData(input);
-  // A Lead with only weak/no identifiers is rejected by Meta's baseline-match
-  // rule. This funnel always collects email + phone, but guard anyway.
+  // An event with only weak/no identifiers is rejected by Meta's baseline-match
+  // rule. EngagedVisit has no email, so it lives on fbp/fbc alone.
   const hasStrongId = Boolean(
     userData.em || userData.ph || userData.external_id || userData.fbp || userData.fbc
   );
@@ -203,12 +167,13 @@ async function sendCapiLeadTo(
     action_source: "website",
     event_source_url: input.eventSourceUrl || "https://www.raisedash.com",
     user_data: userData,
-    // content_name (when given) matches the browser Pixel's Lead so reporting reads
-    // consistently across the two funnels.
+    // content_name (when given) matches the browser Pixel twin so reporting reads
+    // consistently across browser and server.
     custom_data: {
       currency: "USD",
       value: 0,
       ...(input.contentName ? { content_name: input.contentName } : {}),
+      ...input.customData,
     },
     // US state-privacy compliance (Limited Data Use), matching the browser Pixel.
     // country/state 0 lets Meta geolocate from client_ip_address.

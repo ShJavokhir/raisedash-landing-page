@@ -1,26 +1,33 @@
 /**
- * Browser-side helpers for the FLEET Meta Pixel — the dataset the fleet (B2B)
- * Meta campaigns optimize against. This is a SEPARATE pixel from the /start*
- * funnels' driver-training pixel (NEXT_PUBLIC_META_PIXEL_ID) so "Lead" on the
- * fleet dataset means exactly one thing: a fleet-side email capture.
+ * Browser-side helpers for the FLEET Meta Pixel — the only dataset this site's
+ * Meta campaigns optimize against. Its conversion ladder, lowest to highest:
  *
- * Mounted site-wide via FleetMetaPixel in _app.tsx (never on /start*, which run
- * their own pixel). Every call goes through fbq('trackSingle', …) so fleet events
- * land ONLY in the fleet dataset even when one session initializes both pixels
- * (e.g. /tools/elp-practice → /start-v2 client-side navigation).
+ *   EngagedVisit  custom; engaged time + an intent signal (src/lib/engaged-visit.ts).
+ *                 The early, high-volume event to optimize on while the ad set
+ *                 is in the learning phase.
+ *   Lead          an email capture (EmailCapture, the /demo email gate).
+ *   Schedule      a demo request / Cal.com booking on /demo.
  *
- * Same Pixel + CAPI discipline as the funnels: the browser event here is the
- * best-effort half; the durable server twin fires from the API route that
- * receives the email (/api/email-capture, /api/demo-lead) under a shared
- * eventId for deduplication. Everything no-ops when
- * NEXT_PUBLIC_META_FLEET_PIXEL_ID is unset.
+ * Move the ad set up a rung once the next one clears ~50 events/week.
+ *
+ * Mounted site-wide via FleetMetaPixel in _app.tsx (never on /start*). Every call
+ * goes through fbq('trackSingle'/'trackSingleCustom', …) so fleet events land
+ * ONLY in this dataset even when a session also initializes the legacy pixel
+ * (homepage → /start-v3 client-side navigation).
+ *
+ * Every event is a Pixel + CAPI pair: the browser event here is the best-effort
+ * half; the durable server twin (/api/email-capture, /api/demo-lead,
+ * /api/visit-quality) shares its eventId so Meta dedupes the pair. Everything
+ * no-ops when NEXT_PUBLIC_META_FLEET_PIXEL_ID is unset.
  */
 import { bootstrapFbq } from "@/lib/meta-pixel";
 
 export const FLEET_PIXEL_ID = process.env.NEXT_PUBLIC_META_FLEET_PIXEL_ID;
 
-/** Lead = email captured (the ad-set optimization event). Schedule = demo requested. */
-export type FleetPixelEvent = "PageView" | "Lead" | "Schedule";
+export type FleetPixelEvent = "PageView" | "EngagedVisit" | "Lead" | "Schedule";
+
+/** Non-standard Meta event names — sent with trackSingleCustom. */
+const CUSTOM_EVENTS: ReadonlySet<FleetPixelEvent> = new Set(["EngagedVisit"]);
 
 // Whether the fleet pixel id has been fbq('init')-ed this page load. Module
 // state survives client-side navigation, so the _app-mounted component can
@@ -60,8 +67,9 @@ export function trackFleetPixel(
   eventId?: string
 ): void {
   if (!FLEET_PIXEL_ID || !fleetInited || typeof window === "undefined" || !window.fbq) return;
-  if (eventId) window.fbq("trackSingle", FLEET_PIXEL_ID, event, params, { eventID: eventId });
-  else window.fbq("trackSingle", FLEET_PIXEL_ID, event, params);
+  const method = CUSTOM_EVENTS.has(event) ? "trackSingleCustom" : "trackSingle";
+  if (eventId) window.fbq(method, FLEET_PIXEL_ID, event, params, { eventID: eventId });
+  else window.fbq(method, FLEET_PIXEL_ID, event, params);
 }
 
 const NINETY_DAYS = 90 * 24 * 60 * 60;

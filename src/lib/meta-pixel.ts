@@ -1,12 +1,12 @@
 /**
- * Browser-side Meta (Facebook/Instagram) Pixel helpers for the public onboarding
- * funnel. The Pixel is the best-effort half of a Pixel + Conversions-API pair: in
- * the FB/IG in-app browser it's routinely suppressed (sandboxed cookies, ATT
- * opt-out, ad blockers), so the server CAPI Lead — sharing an event id with the
- * Pixel for deduplication — is the durable signal. Everything here no-ops when
- * NEXT_PUBLIC_META_PIXEL_ID is unset.
- *
- * Scoped to the funnel on purpose: nothing loads the Pixel app-wide.
+ * Two jobs:
+ *  1. Shared Meta helpers used by the site-wide FLEET pixel too
+ *     (src/lib/meta-fleet-pixel.ts): the fbq bootstrap, _fbc/_fbp cookie
+ *     synthesis, URL PII scrubbing, attribution, event ids.
+ *  2. The legacy driver-training pixel (NEXT_PUBLIC_META_PIXEL_ID) — now mounted
+ *     ONLY by /start-v3 (the Academy buy-now funnel), browser-only. /start and
+ *     /start-v2 dropped it 2026-10-01. Don't touch /start-v3's events without
+ *     the owner's say-so: it feeds the separate Academy campaigns.
  */
 
 export const PIXEL_ID = process.env.NEXT_PUBLIC_META_PIXEL_ID;
@@ -26,7 +26,7 @@ declare global {
   }
 }
 
-export type PixelEvent = "PageView" | "ViewContent" | "Lead" | "CompleteRegistration";
+export type PixelEvent = "PageView" | "ViewContent" | "Lead";
 
 /** Ad-click attribution captured at first load, forwarded to the server CAPI. */
 export interface Attribution {

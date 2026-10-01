@@ -1,11 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Head from "next/head";
 import { SEO } from "@/components/seo/SEO";
 import { Logo } from "@/components/start/logo";
-import { MetaPixel } from "@/components/start/meta-pixel";
 import { OnboardingFunnel } from "@/components/start/onboarding-funnel";
 import { LegalSheet } from "@/components/start/legal-sheet";
 import type { LegalDoc } from "@/components/legal/legal-docs";
+import { stripSensitiveParams } from "@/lib/meta-pixel";
 
 /**
  * Public Meta-ad landing + onboarding funnel (the ad's destination URL: /start).
@@ -13,6 +13,11 @@ import type { LegalDoc } from "@/components/legal/legal-docs";
  * and kept deliberately light for the FB/IG in-app browser. _app.tsx hides the
  * marketing header and Intercom widget on this route so it's a distraction-free
  * flow.
+ *
+ * No Meta Pixel/CAPI here anymore (removed 2026-10-01 — the driver-training
+ * campaigns that optimized on this page's Lead ended). Meta tracking on this
+ * site is now the fleet pixel only (src/lib/meta-fleet-pixel.ts), which _app.tsx
+ * keeps off /start*.
  *
  * noindex/nofollow: this is a paid-traffic entry point, not an organic landing
  * page, so it is intentionally NOT in sitemap.xml.tsx / api/indexnow.ts.
@@ -22,6 +27,12 @@ export default function StartPage() {
   // a bottom sheet rather than navigating, so a tap never discards the funnel.
   const [legalDoc, setLegalDoc] = useState<LegalDoc | null>(null);
 
+  // A stale /get-started?email=… link redirects here with the query intact; scrub
+  // PII from the URL before the funnel records its landing URL as attribution.
+  useEffect(() => {
+    stripSensitiveParams();
+  }, []);
+
   return (
     <>
       <SEO
@@ -30,11 +41,9 @@ export default function StartPage() {
         noindex
         nofollow
       />
-      {/* Warm up the two cross-origin connections this funnel makes on a slow
-          mobile/in-app-browser link: the Meta Pixel script and the lead-capture
-          API (posted to directly — see lib/start-api.ts). */}
+      {/* Warm up the lead-capture API connection on a slow mobile/in-app-browser
+          link (posted to directly — see lib/start-api.ts). */}
       <Head>
-        <link rel="preconnect" href="https://connect.facebook.net" />
         <link rel="preconnect" href="https://api.raisedash.com" crossOrigin="anonymous" />
       </Head>
       <div className="mx-auto flex min-h-dvh w-full max-w-md flex-col px-5">
@@ -67,7 +76,6 @@ export default function StartPage() {
             Terms of Use
           </button>
         </footer>
-        <MetaPixel />
       </div>
       <LegalSheet doc={legalDoc} onClose={() => setLegalDoc(null)} />
     </>

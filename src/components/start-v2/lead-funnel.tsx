@@ -12,7 +12,6 @@ import {
   collectAttribution,
   compactAttribution,
   newEventId,
-  trackPixel,
   type CampaignAttribution,
 } from "@/lib/meta-pixel";
 import { trackFunnel } from "@/lib/funnel-analytics";
@@ -29,10 +28,8 @@ import { useStartV2Options, useStartV2T } from "@/components/start-v2/i18n";
  * to /api/start-v2-lead (which notifies Telegram) and show a "we'll reach out"
  * screen.
  *
- * Meta conversions are split across two events so the ad set has enough volume to
- * exit the learning phase: an early "Lead" fires the moment the user gives their
- * name (fireInterestLead → /api/start-v2-interest), and a separate, higher-value
- * "CompleteRegistration" fires on full submission. Optimize the ad set for "Lead".
+ * No Meta Pixel/CAPI events anymore (removed 2026-10-01 with the end of the
+ * driver-training campaigns); only the PostHog funnel telemetry below remains.
  *
  * The small step components below mirror the /start funnel's, kept self-contained
  * on purpose so editing this lead funnel can never regress the live /start flow.
@@ -84,22 +81,8 @@ export function LeadFunnel() {
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  // Fire the Pixel CompleteRegistration at most once, even across submit retries.
-  const pixelFiredRef = useRef(false);
-
-  // Stable Meta event id for THIS submission, shared between the browser Pixel
-  // CompleteRegistration and the server CAPI CompleteRegistration so Meta dedupes
-  // the pair (one conversion, not two). Distinct from sidRef below (PostHog only).
-  const eventIdRef = useRef<string>("");
-
-  // The EARLY, high-volume conversion: a Meta "Lead" fired once when the user
-  // finishes the name step (step 3 → 4). Far more people reach this than complete
-  // the whole form, so it's the event the ad set optimizes against — enough volume
-  // to exit Meta's learning phase. Its Pixel + server CAPI share this event id so
-  // Meta dedupes them into one conversion; it's separate from the submission's
-  // CompleteRegistration above (different event name AND id, so no cross-dedup).
+  // The interest milestone (name step finished) is recorded once per run.
   const interestFiredRef = useRef(false);
-  const interestEventIdRef = useRef<string>("");
 
   // Per-session id for funnel telemetry — stitches every step event of one run
   // together in PostHog.
@@ -144,30 +127,10 @@ export function LeadFunnel() {
         : [...d.driverProblems, value],
     }));
 
-  // Fire the early Meta "Lead" (Pixel + server CAPI) the moment the user gives
-  // their name. Best-effort and fire-and-forget: it must never block advancing or
-  // throw. We have no email/phone yet — Meta matches on the name + _fbp/_fbc.
-  function fireInterestLead() {
+  // Record the interest milestone the moment the user gives their name.
+  function markInterest() {
     if (interestFiredRef.current) return;
     interestFiredRef.current = true;
-    if (!interestEventIdRef.current) interestEventIdRef.current = newEventId();
-    const eventId = interestEventIdRef.current;
-
-    // Browser Pixel (suppressed in the FB/IG in-app browser — the CAPI call below
-    // is the durable half, deduped via this shared eventId).
-    trackPixel("Lead", { content_name: "start_v2_lead" }, eventId);
-
-    // Server CAPI Lead — fire-and-forget; never await on the funnel's hot path.
-    void fetch("/api/start-v2-interest", {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify({
-        eventId,
-        fullName: data.fullName.trim(),
-        attribution: compactAttribution(collectAttribution()),
-      }),
-    }).catch(() => {});
-
     track("funnel_interest_lead", { fleet_size: data.fleetSize, role: data.role });
   }
 
@@ -176,15 +139,11 @@ export function LeadFunnel() {
     setError(null);
     track("funnel_submit_started");
 
-    // One id for the deduped Pixel + CAPI CompleteRegistration pair; stable across retries.
-    if (!eventIdRef.current) eventIdRef.current = newEventId();
-
     try {
       const res = await fetch("/api/start-v2-lead", {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({
-          eventId: eventIdRef.current,
           fleetSize: data.fleetSize,
           driverProblems: data.driverProblems,
           role: data.role,
@@ -202,18 +161,6 @@ export function LeadFunnel() {
         throw new Error(`Request failed (${res.status})`);
       }
 
-      // Browser-side Meta CompleteRegistration — the higher-value conversion for a
-      // finished submission (the ad set optimizes for the earlier name-step Lead).
-      // The server CAPI CompleteRegistration (fired by /api/start-v2-lead) shares
-      // this eventId, so Meta deduplicates the pair into one conversion.
-      if (!pixelFiredRef.current) {
-        trackPixel(
-          "CompleteRegistration",
-          { content_name: "start_v2_complete" },
-          eventIdRef.current
-        );
-        pixelFiredRef.current = true;
-      }
       track("funnel_lead_captured", {
         fleet_size: data.fleetSize,
         role: data.role,
@@ -284,9 +231,9 @@ export function LeadFunnel() {
               autoFocus: true,
             }}
             onContinue={() => {
-              // The user has given their name — fire the early optimization Lead,
-              // then advance to the contact step as usual.
-              fireInterestLead();
+              // The user has given their name — record the milestone, then
+              // advance to the contact step as usual.
+              markInterest();
               next();
             }}
           />

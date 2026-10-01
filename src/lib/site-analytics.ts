@@ -16,6 +16,9 @@
  *     → demo_request_submitted (Meta "Schedule" twin) → scheduling_link_clicked
  *
  * plus engagement signals (video_*, embed_clicked, intercom_opened, roi_*).
+ * Several of these also feed the Meta "EngagedVisit" event as intent signals
+ * (src/lib/engaged-visit.ts subscribes via onCapture), which itself records
+ * engaged_visit_qualified here so the proxy can be checked against real leads.
  * outbound/video/embed events are fired by the document-level listeners in
  * src/lib/site-autotrack.ts, not by individual pages.
  *
@@ -49,7 +52,22 @@ export type SiteAnalyticsEvent =
   | "intercom_opened"
   | "contact_form_submitted"
   | "contact_form_error"
-  | "job_application_submitted";
+  | "job_application_submitted"
+  | "engaged_visit_qualified";
+
+type CaptureListener = (event: SiteAnalyticsEvent, properties?: Record<string, unknown>) => void;
+const captureListeners = new Set<CaptureListener>();
+
+/**
+ * Observe every named event, whether or not PostHog is live (a failed init must
+ * not starve listeners). Returns an unsubscribe function.
+ */
+export function onCapture(listener: CaptureListener): () => void {
+  captureListeners.add(listener);
+  return () => {
+    captureListeners.delete(listener);
+  };
+}
 
 /** True once instrumentation-client has initialised the singleton. */
 function live(): boolean {
@@ -61,6 +79,13 @@ export function capture(
   properties?: Record<string, unknown>,
   options?: { beacon?: boolean }
 ): void {
+  for (const listener of captureListeners) {
+    try {
+      listener(event, properties);
+    } catch {
+      // A listener must never break the capture.
+    }
+  }
   if (!live()) return;
   try {
     if (options?.beacon) {

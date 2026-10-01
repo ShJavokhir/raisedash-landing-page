@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useRouter } from "next/router";
+import { noteEngagedVisitPage, startEngagedVisitTracking } from "@/lib/engaged-visit";
 import { captureClickId, ensureFbp, stripSensitiveParams } from "@/lib/meta-pixel";
 import {
   captureAdAttributionCookies,
@@ -16,7 +17,8 @@ import {
  * sends it to Meta, persist the ad click id + UTM attribution (the FB/IG in-app
  * browser may suppress the Pixel, so cookies are our durable copy), synthesize
  * _fbp for CAPI matching, then boot the pixel. Route changes get their own
- * PageView — the Pages Router triggers no natural page loads.
+ * PageView — the Pages Router triggers no natural page loads. Also runs the
+ * EngagedVisit tracker (src/lib/engaged-visit.ts), so it stops on /start* too.
  */
 export function FleetMetaPixel() {
   const router = useRouter();
@@ -29,6 +31,7 @@ export function FleetMetaPixel() {
     // Re-mount with the pixel already inited (back from a funnel detour) means
     // init fires no PageView for this view — fire it ourselves.
     if (!initFleetPixel()) trackFleetPageView();
+    return startEngagedVisitTracking();
   }, []);
 
   useEffect(() => {
@@ -38,6 +41,7 @@ export function FleetMetaPixel() {
       captureClickId();
       captureAdAttributionCookies();
       trackFleetPageView();
+      noteEngagedVisitPage(window.location.pathname);
     };
     router.events.on("routeChangeComplete", onRouteChange);
     return () => router.events.off("routeChangeComplete", onRouteChange);

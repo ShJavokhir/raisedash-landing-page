@@ -104,35 +104,44 @@ Router used by the dashboard/learner-web apps. Node is pinned to **22.x**
 - Meta-ad landing pages (`/start*`) intentionally carry no pricing and stay
   `noindex` — don't add them to the sitemap or make them rank organically.
 
-## Meta ads tracking (two pixels — never mix them)
+## Meta ads tracking (fleet pixel; one legacy pixel on /start-v3)
 
-- The site runs **two separate Meta pixels/datasets**:
-  - **Driver-training pixel** (`NEXT_PUBLIC_META_PIXEL_ID` server twin
-    `META_PIXEL_ID` + `META_CAPI_ACCESS_TOKEN`) — scoped to the `/start*`
-    funnels only (`src/components/start/meta-pixel.tsx`, `/api/start-capi`,
-    `/api/start-v2-lead`).
-  - **FLEET pixel** (`NEXT_PUBLIC_META_FLEET_PIXEL_ID` +
-    `META_FLEET_CAPI_ACCESS_TOKEN`; optional `META_FLEET_PIXEL_ID` server
-    override and `META_FLEET_CAPI_TEST_EVENT_CODE` for Events-Manager QA) —
-    mounted **site-wide** via `FleetMetaPixel` in `_app.tsx`, excluded on
-    `/start*`. The fleet email-capture campaigns (ads land on the homepage)
-    optimize for its "Lead". Both stacks no-op until their env pair is set.
-- **Every browser event goes through `fbq('trackSingle', pixelId, …)` — never
-  `fbq('track', …)`.** One session can initialize both pixels (e.g.
-  `/tools/elp-practice` → `/start-v2` client-side nav), and a broadcast
+- **FLEET pixel** (`NEXT_PUBLIC_META_FLEET_PIXEL_ID` +
+  `META_FLEET_CAPI_ACCESS_TOKEN`; optional `META_FLEET_PIXEL_ID` server
+  override and `META_FLEET_CAPI_TEST_EVENT_CODE` for Events-Manager QA) — the
+  only dataset this site's ads optimize on. Mounted **site-wide** via
+  `FleetMetaPixel` in `_app.tsx`, excluded on `/start*`. Ads land on the
+  homepage. No-ops until the env is set.
+- **Legacy driver-training pixel** (`NEXT_PUBLIC_META_PIXEL_ID`) — now mounted
+  ONLY by `/start-v3` (Academy buy-now funnel), browser-only. `/start` and
+  `/start-v2` dropped all Meta tracking 2026-10-01 (their CAPI routes
+  `/api/start-capi` + `/api/start-v2-interest` were deleted). Don't touch
+  `/start-v3`'s events — it feeds the separate, live Academy campaigns.
+- **Every browser event goes through `fbq('trackSingle' | 'trackSingleCustom',
+  pixelId, …)` — never `fbq('track', …)`.** One session can still initialize
+  both pixels (homepage → `/start-v3` client-side nav), and a broadcast
   `track` would cross-pollute the datasets. `bootstrapFbq()` in
   `src/lib/meta-pixel.ts` is the single shared fbq snippet; init guards are
   per-pixel module flags, NOT "window.fbq exists".
-- Fleet conversions are Pixel + CAPI pairs deduped on a shared `eventId`:
-  **"Lead"** (`content_name: fleet_email_capture`) fires on every email
-  capture — the `EmailCapture` component and the `/demo` email gate, with the
-  durable CAPI twin in `/api/email-capture`; **"Schedule"**
-  (`fleet_demo_request`) fires on a successful `/demo` submit, twin in
-  `/api/demo-lead`. `sendFleetCapiLead` (`src/lib/meta-capi.ts`) never falls
-  back to the driver-training dataset when fleet env is unset.
+- Fleet conversion ladder — every rung is a Pixel + CAPI pair deduped on a
+  shared `eventId`, sent server-side by `sendFleetCapiEvent`
+  (`src/lib/meta-capi.ts`):
+  1. **"EngagedVisit"** (custom event, `content_name: engaged_visit`) — the
+     learning-phase optimization event. `src/lib/engaged-visit.ts`: once per
+     session, ≥30s of *active* time (tab visible + recent input) AND ≥1 intent
+     signal (deep scroll, intent page, or a named high-intent site-analytics
+     event via `onCapture`). Twin: `/api/visit-quality` (neutral path on
+     purpose — blockers match "pixel"/"capi"/"track"). PostHog twin
+     `engaged_visit_qualified` is how the proxy is validated against leads;
+     thresholds are constants at the top of the file.
+  2. **"Lead"** (`fleet_email_capture`) — every email capture (`EmailCapture`,
+     `/demo` email gate), twin `/api/email-capture`.
+  3. **"Schedule"** (`fleet_demo_request`) — successful `/demo` submit (twin
+     `/api/demo-lead`) or Cal.com booking (browser-only).
+  Move an ad set up a rung once the next one clears ~50 events/week.
 - `FleetMetaPixel` also persists `rd_fbclid` (90d) + `rd_utm` (30d) cookies;
   `/api/email-capture` reads `rd_utm` to append a campaign footer to the
-  Telegram notification, and both fleet API routes use `rd_fbclid` to
+  Telegram notification, and the fleet API routes use `rd_fbclid` to
   synthesize `_fbc` when the Pixel never set it.
 
 ## PostHog analytics (site-wide)

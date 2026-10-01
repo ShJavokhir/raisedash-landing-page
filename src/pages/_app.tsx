@@ -51,8 +51,8 @@ export default function App({ Component, pageProps }: AppProps) {
       <WebsiteJsonLd />
 
       <SkipLink />
-      {/* Site-wide FLEET Meta Pixel (email-capture campaigns). The /start* funnels
-          are excluded — they mount their own pixel on a separate dataset. */}
+      {/* Site-wide FLEET Meta Pixel + EngagedVisit tracker. The /start* funnels are
+          excluded (/start-v3 mounts the legacy pixel on a separate dataset). */}
       {!isFunnel && <FleetMetaPixel />}
       {!hideHeader && <Header />}
       <main id="main-content">

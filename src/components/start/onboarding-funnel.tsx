@@ -21,7 +21,6 @@ import {
   collectAttribution,
   compactAttribution,
   newEventId,
-  trackPixel,
   type CampaignAttribution,
 } from "@/lib/meta-pixel";
 import { trackFunnel } from "@/lib/funnel-analytics";
@@ -32,9 +31,8 @@ import { cn } from "@/lib/utils";
  * mobile in-app browser: tappable, one question per screen, easy clickable
  * answers first to build commitment, the high-friction contact details last —
  * by the time we ask, the user is invested. On the final submit we persist the
- * lead and fire the Lead conversion (browser Pixel + server CAPI, deduplicated
- * by a shared event id). No account is created here — that happens later, via the
- * email we send. Copied from the dashboard's app/(public)/start/onboarding-funnel.tsx.
+ * lead (no Meta conversion since 2026-10-01). No account is created here — that
+ * happens later, via the email we send. Copied from the dashboard's app/(public)/start/onboarding-funnel.tsx.
  */
 
 interface Choice {
@@ -128,12 +126,8 @@ export function OnboardingFunnel() {
   const [scanState, setScanState] = useState<"idle" | "scanning" | "ready" | "failed">("idle");
   const [preview, setPreview] = useState<ScanPreview | null>(null);
 
-  // Stable across retries so the Pixel and CAPI Lead always dedup to one event.
-  const eventIdRef = useRef<string>("");
-  const pixelFiredRef = useRef(false);
-
-  // Per-session id for funnel telemetry — distinct from the Lead dedup event id
-  // above; this one stitches every step event of one run together in PostHog.
+  // Per-session id for funnel telemetry — stitches every step event of one run
+  // together in PostHog.
   const sidRef = useRef<string>("");
   // Ad attribution (utm_*, fbclid, referrer), captured once on the first event of
   // the run and replayed on every subsequent one so PostHog can attribute both the
@@ -204,16 +198,12 @@ export function OnboardingFunnel() {
     }
     setSubmitting(true);
     setError(null);
-    if (!eventIdRef.current) eventIdRef.current = newEventId();
-    const eventId = eventIdRef.current;
     track("funnel_submit_started");
 
     try {
       const attribution = compactAttribution(collectAttribution());
-      // The backend is Meta-free: it stores ad-source PROVENANCE only (which
-      // campaign converted them). The Meta match cookies (fbp/fbc), the dedup
-      // eventId, and the server CAPI Lead are NOT its concern — they go solely to
-      // our Vercel CAPI route below. All Meta tracking lives in this project.
+      // The backend stores ad-source PROVENANCE only (which campaign converted
+      // them), never the Meta match cookies (fbp/fbc).
       const provenance = { ...attribution };
       delete provenance.fbp;
       delete provenance.fbc;
@@ -229,30 +219,6 @@ export function OnboardingFunnel() {
         attribution: provenance,
       });
 
-      // Fire the server-side Meta CAPI Lead via our Vercel route (best-effort,
-      // fire-and-forget) — deduplicated with the browser Pixel by the shared
-      // eventId. Same-origin, so the route sees the real client IP. /start posts
-      // its lead straight to the backend (for rate-limit IP), so unlike /start-v2
-      // the CAPI event can't ride that request — it fires here instead.
-      void fetch("/api/start-capi", {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify({
-          eventId,
-          usDot: data.usDot.trim(),
-          name: data.name.trim(),
-          email: data.email.trim(),
-          phone: data.phone || undefined,
-          attribution,
-        }),
-      }).catch(() => {});
-
-      // Fire the browser Lead only after a real, persisted lead — same event id
-      // as the server event, so Meta keeps one. Once, even across retries.
-      if (!pixelFiredRef.current) {
-        trackPixel("Lead", {}, eventId);
-        pixelFiredRef.current = true;
-      }
       // Funnel conversion — categorical answers only, never the contact PII.
       track("funnel_lead_captured", {
         fleet_size: data.fleetSize || undefined,

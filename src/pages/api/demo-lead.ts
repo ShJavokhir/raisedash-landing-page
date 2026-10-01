@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { sendToTelegram } from "@/lib/telegram";
-import { sendFleetCapiLead } from "@/lib/meta-capi";
+import { sendFleetCapiEvent } from "@/lib/meta-capi";
 import { captureServerEvent } from "@/lib/posthog-server";
 import { isValidEmail } from "@/lib/validation";
 import {
@@ -21,7 +21,7 @@ import {
  * higher-value fleet conversion above the email-gate "Lead". The browser pixel
  * fires the same eventId on success (DemoFunnel), so Meta dedupes the pair; this
  * server twin is the durable half and carries the strongest match signals (raw
- * email/name/phone hashed in sendFleetCapiLead, request IP/UA, _fbp/_fbc
+ * email/name/phone hashed in sendFleetCapiEvent, request IP/UA, _fbp/_fbc
  * cookies). Best-effort: a CAPI failure never fails the lead. No account, no
  * welcome email, no backend. Routes to TELEGRAM_LEADS_CHAT_ID when set, else the
  * default TELEGRAM_CHAT_ID (see sendToTelegram).
@@ -157,7 +157,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     // The durable CAPI "Schedule", concurrent with Telegram so neither adds the
     // other's latency. Awaited before responding because a serverless function
     // may freeze after the response is sent.
-    const capiPromise = sendFleetCapiLead({
+    const capiPromise = sendFleetCapiEvent({
       email,
       phone: phone || undefined,
       name: fullName,
