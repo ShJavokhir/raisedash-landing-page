@@ -8,8 +8,8 @@ import { sendFleetCapiEvent } from "@/lib/meta-capi";
  * lands, and the shared eventId lets Meta dedupe the two.
  *
  * There's no email at this stage, so matching rides on the first-party _fbp/_fbc
- * cookies (FleetMetaPixel synthesizes both, and rd_fbclid rebuilds _fbc), plus
- * request IP/UA. Paid clicks always carry fbclid, so attribution survives a
+ * cookies (FleetMetaPixel synthesizes both, and rd_fbclid rebuilds _fbc), the
+ * rd_vid visitor id (external_id, same value the Pixel sends), plus request IP/UA. Paid clicks always carry fbclid, so attribution survives a
  * blocked Pixel. The path is deliberately neutral — filter lists match words like
  * "pixel", "capi", "track", "collect".
  *
@@ -95,7 +95,7 @@ async function sendEngagedVisit(req: NextApiRequest): Promise<void> {
     const userAgent = req.headers["user-agent"];
     if (!userAgent || BOT_UA.test(userAgent)) return;
 
-    const { _fbp: fbp, _fbc: fbc, rd_fbclid: fbclid } = req.cookies;
+    const { _fbp: fbp, _fbc: fbc, rd_fbclid: fbclid, rd_vid: externalId } = req.cookies;
     if (!fbp && !fbc && !fbclid) return;
 
     const ip = clientIp(req);
@@ -113,6 +113,7 @@ async function sendEngagedVisit(req: NextApiRequest): Promise<void> {
       fbp,
       fbc,
       fbclid,
+      externalId,
       customData: { engaged_seconds: engagedSeconds, signals: signals.join(",") },
     });
     if (result.error) {

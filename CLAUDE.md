@@ -139,6 +139,13 @@ Router used by the dashboard/learner-web apps. Node is pinned to **22.x**
   3. **"Schedule"** (`fleet_demo_request`) — successful `/demo` submit (twin
      `/api/demo-lead`) or Cal.com booking (browser-only).
   Move an ad set up a rung once the next one clears ~50 events/week.
+- `rd_vid` (1y, random first-party visitor id, `ensureVisitorId` in
+  `meta-fleet-pixel.ts`) is sent as `external_id` on every fleet event: raw at
+  Pixel init (the Pixel hashes it), SHA-256 from the server routes — so Meta
+  ties one visitor's EngagedVisit → Lead → Schedule together.
+- **`META_FLEET_CAPI_TEST_EVENT_CODE` must never be set in Production** — it
+  turns every server event into a Test Event that Meta ignores for attribution
+  and optimization (it was, until 2026-10-01). Preview only.
 - `FleetMetaPixel` also persists `rd_fbclid` (90d) + `rd_utm` (30d) cookies;
   `/api/email-capture` reads `rd_utm` to append a campaign footer to the
   Telegram notification, and the fleet API routes use `rd_fbclid` to

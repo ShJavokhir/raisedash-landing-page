@@ -25,7 +25,10 @@ export interface CapiEventInput {
   email?: string;
   phone?: string; // E.164 ("+1512…") or national digits
   name?: string; // full name; split into fn/ln
-  usDot?: string; // sent as a hashed external_id (optional on this funnel)
+  /** First-party visitor id (the rd_vid cookie). The browser Pixel gets the
+   *  same value at init, so Meta can tie one visitor's EngagedVisit, Lead and
+   *  Schedule together. Hashed here, as Meta recommends. */
+  externalId?: string;
   /** Dedup key shared with the browser Pixel's twin event. */
   eventId?: string;
   eventSourceUrl?: string;
@@ -109,9 +112,8 @@ function buildUserData(input: CapiEventInput): Record<string, unknown> {
     if (fn) ud.fn = [fn];
     if (ln) ud.ln = [ln];
   }
-  // The DOT number is a stable, dedup-friendly id for the carrier (optional here).
-  const dot = input.usDot?.replace(/\D/g, "");
-  if (dot) ud.external_id = [sha256(dot)];
+  const externalId = input.externalId?.trim().toLowerCase();
+  if (externalId) ud.external_id = [sha256(externalId)];
 
   // Never hashed.
   if (input.clientIp) ud.client_ip_address = input.clientIp;
@@ -155,7 +157,7 @@ export async function sendFleetCapiEvent(
 
   const userData = buildUserData(input);
   // An event with only weak/no identifiers is rejected by Meta's baseline-match
-  // rule. EngagedVisit has no email, so it lives on fbp/fbc alone.
+  // rule. EngagedVisit has no email, so it lives on fbp/fbc/external_id.
   const hasStrongId = Boolean(
     userData.em || userData.ph || userData.external_id || userData.fbp || userData.fbc
   );

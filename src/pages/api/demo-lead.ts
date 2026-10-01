@@ -168,6 +168,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       fbp: req.cookies._fbp,
       fbc: req.cookies._fbc,
       fbclid: req.cookies.rd_fbclid,
+      externalId: req.cookies.rd_vid,
       contentName: "fleet_demo_request",
       eventName: "Schedule",
     });
