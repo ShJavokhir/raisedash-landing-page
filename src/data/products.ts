@@ -3,7 +3,7 @@ export const products = [
   {
     name: "Driver Orientation Platform",
     description:
-      "Send orientation to drivers’ phones before they arrive, track their progress, and keep their training records in one place.",
+      "Send orientation and company policies to your drivers’ phones before they arrive, track their progress, and keep their training records in one place.",
     href: "/products/orientation",
     plate: "#0064e6",
     icon: { src: "/brand/orientation-icon.webp", width: 329, height: 288 },
@@ -27,7 +27,7 @@ export const products = [
   {
     name: "Driver Feedback Collector",
     description:
-      "Find out why drivers leave. Send anonymous surveys to their Telegram groups and see what to fix in one dashboard.",
+      "Find out why drivers leave your company. Collect anonymous driver feedback through Telegram and use it to improve your company culture.",
     href: "/products/feedback-telegram-bot",
     plate: "#f87917",
     icon: { src: "/brand/feedback-icon.webp", width: 281, height: 288 },
@@ -43,7 +43,7 @@ export const products = [
   {
     name: "RingCentral to Telegram",
     description:
-      "Listen to your team’s RingCentral calls right in Telegram. Missed calls and voicemails show up there too.",
+      "Monitor your team’s RingCentral call recordings in Telegram for quality assurance. Keep track of missed calls and voicemails too.",
     href: "/products/ringcentral-telegram",
     plate: "#a8325e",
     icon: { src: "/brand/ringcentral-icon.webp", width: 449, height: 288 },
@@ -59,7 +59,7 @@ export const products = [
   {
     name: "TruckTalk ELP Practice",
     description:
-      "Practice trucking vocabulary and roadside conversations in English, including spoken roleplay with an AI DOT officer.",
+      "Help your company’s drivers improve their English for CDL driving. They learn trucking vocabulary and road signs, and practice roadside conversations with an AI DOT officer.",
     href: "/tools/elp-practice",
     plate: "#6d4bd8",
     icon: { src: "/brand/elp-icon.webp", width: 302, height: 288 },
