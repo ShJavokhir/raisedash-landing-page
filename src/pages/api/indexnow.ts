@@ -26,6 +26,7 @@ const STATIC_PATHS = [
   "/products/pti-telegram-bot",
   "/products/receipts-telegram-bot",
   "/products/feedback-telegram-bot",
+  "/products/ringcentral-telegram",
   "/products/raisedash-pti-inspections",
   "/products/raisedash-pti-inspections/driver-features",
   "/products/raisedash-pti-inspections/fleet-safety-managers",

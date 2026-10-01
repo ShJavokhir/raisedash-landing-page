@@ -41,6 +41,14 @@ export const products = [
     icon: { src: "/brand/samsara-icon.webp", width: 370, height: 288 },
   },
   {
+    name: "RingCentral to Telegram",
+    description:
+      "Listen to your team’s RingCentral calls right in Telegram. Missed calls and voicemails show up there too.",
+    href: "/products/ringcentral-telegram",
+    plate: "#a8325e",
+    icon: { src: "/brand/ringcentral-icon.webp", width: 449, height: 288 },
+  },
+  {
     name: "DOT Compliance Course",
     description:
       "Learn about driver files, hours of service, audits, and other compliance tasks through short video lessons, quizzes, and practical forms.",
