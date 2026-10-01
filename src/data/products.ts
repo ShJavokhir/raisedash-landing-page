@@ -1,7 +1,7 @@
 /** Products share the homepage grid and company navigation, with a dedicated page for each. */
 export const products = [
   {
-    name: "Raisedash Orientation",
+    name: "Driver Orientation Platform",
     description:
       "Send orientation to drivers’ phones before they arrive, track their progress, and keep their training records in one place.",
     href: "/products/orientation",
@@ -9,7 +9,7 @@ export const products = [
     icon: { src: "/brand/orientation-icon.webp", width: 329, height: 288 },
   },
   {
-    name: "PTI & DVIR Bot",
+    name: "PTI & DVIR Collector",
     description:
       "Collect pre- and post-trip inspection photos, videos, and reported problems through your driver Telegram groups.",
     href: "/products/pti-telegram-bot",
@@ -17,7 +17,7 @@ export const products = [
     icon: { src: "/brand/pti-icon.webp", width: 298, height: 288 },
   },
   {
-    name: "Receipts Bot",
+    name: "Receipts Collector",
     description:
       "Collect fuel, lumper, and repair receipts from drivers in your Telegram groups, with photos and the amount.",
     href: "/products/receipts-telegram-bot",
@@ -25,7 +25,7 @@ export const products = [
     icon: { src: "/brand/receipts-icon.webp", width: 302, height: 288 },
   },
   {
-    name: "Feedback Bot",
+    name: "Driver Feedback Collector",
     description:
       "Find out why drivers leave. Send anonymous surveys to their Telegram groups and see what to fix in one dashboard.",
     href: "/products/feedback-telegram-bot",
@@ -53,7 +53,8 @@ export const products = [
     description:
       "Practice trucking vocabulary and roadside conversations in English, including spoken roleplay with an AI DOT officer.",
     href: "/tools/elp-practice",
-    plate: "#be52ff",
+    plate: "#6d4bd8",
+    icon: { src: "/brand/elp-icon.webp", width: 302, height: 288 },
   },
   {
     name: "Raisedash Shield",
@@ -61,6 +62,7 @@ export const products = [
       "Local browser warnings for freight phishing, disguised downloads and scam instructions. Preparing for public release.",
     href: "/products/shield",
     plate: "#315b50",
+    icon: { src: "/brand/shield-icon.webp", width: 295, height: 288 },
   },
 ];
 

@@ -1067,9 +1067,9 @@ h4 {
    veil so it reads as printed paper. Each card sets --plate-bg inline from
    src/data/products.ts.
 
-   Everything on a plate is white. Four of the hues (jade #009A74 and orchid
-   #BE52FF at 3.6:1, olive #9AA200 at 2.8:1 and orange #F87917 at 2.7:1)
-   fall below WCAG AA against white — kept on purpose for the look.
+   Everything on a plate is white. Three of the hues (jade #009A74 at 3.6:1,
+   olive #9AA200 at 2.8:1 and orange #F87917 at 2.7:1) fall below WCAG AA
+   against white — kept on purpose for the look.
    ───────────────────────────────────────────────────────────────────────── */
 .product-plate {
   position: relative;
