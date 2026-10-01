@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { sendToTelegram } from "@/lib/telegram";
 import { sendFleetCapiLead } from "@/lib/meta-capi";
+import { captureServerEvent } from "@/lib/posthog-server";
 import { isValidEmail } from "@/lib/validation";
 import {
   FLEET_OPTIONS,
@@ -171,9 +172,19 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       eventName: "Schedule",
     });
 
+    // Blocker-proof PostHog twin of the browser's demo_request_submitted. The
+    // categorical answers only — never name or phone.
+    const posthogPromise = captureServerEvent({
+      req,
+      event: "lead_demo_requested",
+      email,
+      properties: { fleet_size: fleetSize, role, headaches, has_phone: Boolean(phone) },
+      personProperties: { fleet_size: fleetSize, role, company },
+    });
+
     const telegramResponse = await sendToTelegram(message, process.env.TELEGRAM_LEADS_CHAT_ID);
 
-    const capiResult = await capiPromise;
+    const [capiResult] = await Promise.all([capiPromise, posthogPromise]);
     if (capiResult.error) {
       console.warn("Demo-lead Meta CAPI Schedule not sent:", capiResult.error);
     }

@@ -14,9 +14,12 @@ import {
   TurnstileConfigError,
   validateTurnstileConfig,
 } from "@/lib/turnstile";
+import { captureServerEvent } from "@/lib/posthog-server";
 
 interface RequestBody extends ContactFormData {
   turnstileToken?: string;
+  /** PostHog ids from the browser, read by captureServerEvent. */
+  analytics?: unknown;
 }
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -26,7 +29,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   try {
     const body: RequestBody = req.body;
-    const { turnstileToken, ...data } = body;
+    // `analytics` is consumed by captureServerEvent; keep it out of the message.
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { turnstileToken, analytics, ...data } = body;
 
     // Verify Turnstile CAPTCHA (if configured)
     const turnstileConfig = validateTurnstileConfig();
@@ -81,9 +86,19 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       return res.status(400).json({ error: "Invalid email format" });
     }
 
+    // Blocker-proof PostHog twin of the browser's contact_form_submitted.
+    const posthogPromise = captureServerEvent({
+      req,
+      event: "lead_contact_submitted",
+      email: data.email,
+      properties: { inquiry_type: data.inquiryType },
+      personProperties: data.company ? { company: data.company } : {},
+    });
+
     // Send to Telegram
     const telegramMessage = formatContactMessage(data);
     const telegramResponse = await sendToTelegram(telegramMessage);
+    await posthogPromise;
 
     if (!telegramResponse.ok) {
       console.error("Telegram API error:", await telegramResponse.text());

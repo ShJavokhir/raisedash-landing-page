@@ -7,6 +7,8 @@ import { Container } from "@/components/layout/Container";
 import { PageLayout } from "@/components/layout/PageLayout";
 import { cn } from "@/lib/cn";
 import { products } from "@/data/products";
+import { productSlugFromHref } from "@/lib/analytics-context";
+import { capture } from "@/lib/site-analytics";
 
 /** Light-source rotations for the color plates (see .product-plate in globals.css). */
 const PLATE_LIGHT = ["", "product-plate-light-b", "product-plate-light-c"];
@@ -58,6 +60,19 @@ export default function Home() {
                 <Link
                   href={href}
                   aria-label={`Explore ${name}`}
+                  // Which products the hub actually sells: CTR per card + position.
+                  onClick={() =>
+                    capture(
+                      "product_card_clicked",
+                      {
+                        product: productSlugFromHref(href),
+                        product_name: name,
+                        position: index + 1,
+                      },
+                      // The academy card leaves the site.
+                      { beacon: href.startsWith("https:") }
+                    )
+                  }
                   style={{ "--plate-bg": plate } as React.CSSProperties}
                   className={cn(
                     "product-plate group focus-visible:outline-foreground flex h-full flex-col rounded-xs p-6 text-white focus-visible:outline-2 focus-visible:outline-offset-4 sm:p-8",

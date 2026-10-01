@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 import { getCapturedEmail, setCapturedEmail } from "@/lib/captured-email";
 import { newEventId } from "@/lib/meta-pixel";
 import { trackFleetPixel } from "@/lib/meta-fleet-pixel";
-import { capture, identify } from "@/lib/site-analytics";
+import { analyticsContext, capture, identify } from "@/lib/site-analytics";
 import {
   FLEET_OPTIONS,
   ROLE_OPTIONS,
@@ -166,7 +166,12 @@ export function DemoFunnel() {
     fetch("/api/email-capture", {
       method: "POST",
       headers: { "content-type": "application/json" },
-      body: JSON.stringify({ email: normalized, source: "Demo gate (/demo)", eventId }),
+      body: JSON.stringify({
+        email: normalized,
+        source: "Demo gate (/demo)",
+        eventId,
+        analytics: analyticsContext(),
+      }),
       keepalive: true,
     }).catch(() => {});
     setEmailConfirmed(true);
@@ -204,6 +209,7 @@ export function DemoFunnel() {
           phone: data.phone.trim() || undefined,
           companyWebsite: data.companyWebsite || undefined,
           eventId: scheduleEventIdRef.current,
+          analytics: analyticsContext(),
         }),
       });
       if (res.ok) {
@@ -447,7 +453,11 @@ function PathChooser({ email, onBookDemo }: { email: string; onBookDemo: () => v
     fetch("/api/email-capture", {
       method: "POST",
       headers: { "content-type": "application/json" },
-      body: JSON.stringify({ email, source: "Self-serve signup (/demo)" }),
+      body: JSON.stringify({
+        email,
+        source: "Self-serve signup (/demo)",
+        analytics: analyticsContext(),
+      }),
       keepalive: true,
     }).catch(() => {});
   };

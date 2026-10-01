@@ -45,7 +45,7 @@ const STATIC_PAGE_DATES: Record<string, string> = {
   "/products/raisedash-pti-inspections/fleet-safety-managers": "2026-01-22",
   "/products/raisedash-vertex": "2026-02-24",
   "/vertex-app": "2025-12-18",
-  "/privacy-policy": "2026-01-21",
+  "/privacy-policy": "2026-10-01",
   "/terms-of-use": "2026-01-21",
   "/security": "2026-07-14",
   "/compliance-challenges": "2026-01-27",

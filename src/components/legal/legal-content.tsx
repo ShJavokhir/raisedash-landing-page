@@ -160,11 +160,12 @@ export function PrivacyPolicyContent() {
 
       <section className="mb-12">
         <h2 className="text-foreground mb-4 text-2xl font-semibold">
-          7. Cookies and Tracking Technologies
+          7. Cookies, Analytics, and Session Recordings
         </h2>
         <p className="text-muted-foreground mb-4">
-          We use cookies and similar tracking technologies to enhance your experience on our
-          platform. These technologies help us:
+          We use cookies and similar technologies, such as your browser&apos;s local storage, to
+          keep our website working, understand how visitors use it, and measure our advertising.
+          These technologies help us:
         </p>
         <ul className="text-muted-foreground ml-4 list-inside list-disc space-y-2">
           <li>Remember your preferences and settings</li>
@@ -173,9 +174,57 @@ export function PrivacyPolicyContent() {
           <li>Provide personalized content and features</li>
           <li>Ensure security and prevent fraud</li>
         </ul>
+
+        <h3 className="text-foreground mt-6 mb-3 text-xl font-semibold">
+          Website Analytics and Session Recordings
+        </h3>
+        <p className="text-muted-foreground mb-4">
+          On raisedash.com we use PostHog, a product analytics service, to learn which pages are
+          useful and where people get stuck. When you visit our website, it collects:
+        </p>
+        <ul className="text-muted-foreground ml-4 list-inside list-disc space-y-2">
+          <li>
+            The pages you view, the links and buttons you click, how far you scroll, and how long
+            you stay
+          </li>
+          <li>
+            Your browser, device type, the website or ad that brought you here, and an approximate
+            location (city and country) based on your IP address
+          </li>
+          <li>Errors and page loading times</li>
+          <li>
+            <strong>Session recordings:</strong> a replay of your visit that shows how the page
+            looked to you and how you moved, clicked, and scrolled through it
+          </li>
+        </ul>
         <p className="text-muted-foreground mt-4">
-          You can control cookie settings through your browser preferences, but disabling cookies
-          may affect the functionality of our services.
+          Session recordings hide everything you type into form fields, so we can&apos;t see what
+          you entered in them. If you give us your email address through one of our forms, for
+          example to book a demo, we connect your visits and recordings to that email address so we
+          understand what you were looking for when we follow up. PostHog processes this information
+          for us in the United States. You can ask us to delete the analytics data connected to your
+          email address by contacting us.
+        </p>
+
+        <h3 className="text-foreground mt-6 mb-3 text-xl font-semibold">Advertising</h3>
+        <p className="text-muted-foreground">
+          We use the Meta Pixel and Meta Conversions API to measure how our Facebook and Instagram
+          ads perform. When you submit one of our forms, we send Meta a hashed (one-way scrambled)
+          version of the contact details you entered, along with your IP address and browser, so
+          Meta can tell whether the visit came from one of our ads. Meta&apos;s use of this
+          information is covered by Meta&apos;s own privacy policy.
+        </p>
+
+        <h3 className="text-foreground mt-6 mb-3 text-xl font-semibold">Support Chat</h3>
+        <p className="text-muted-foreground">
+          Our website chat is provided by Intercom. If you use it, Intercom stores your messages and
+          may set cookies to keep your conversation going between visits. We may attach a link to
+          your session recording to the chat so our team can see the page you had a question about.
+        </p>
+
+        <p className="text-muted-foreground mt-4">
+          You can block or delete cookies and site data in your browser settings, but doing so may
+          affect how parts of our services work.
         </p>
       </section>
 

@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from "react";
 import { Turnstile } from "@marsidev/react-turnstile";
 import { Button } from "@/components/ui/Button";
+import { capture } from "@/lib/site-analytics";
 
 const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || "";
 
@@ -143,6 +144,9 @@ export function JobApplicationForm({ jobTitle, isOpen, onClose }: JobApplication
       const result = await response.json();
 
       if (response.ok) {
+        // Deliberately not identify()'d: applicants aren't leads, and mixing them
+        // into identified persons would inflate lead counts.
+        capture("job_application_submitted", { job_title: jobTitle, person_type: "applicant" });
         setSubmitStatus("success");
         // Reset form
         setFormData({

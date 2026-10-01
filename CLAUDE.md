@@ -138,31 +138,61 @@ Router used by the dashboard/learner-web apps. Node is pinned to **22.x**
 ## PostHog analytics (site-wide)
 
 - posthog-js inits in `src/instrumentation-client.ts` (pre-hydration; the
-  convention works in the Pages Router) with the publishable
-  `NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN` — the SAME project as the academy app
-  and the legacy /start funnel beacon (`/api/ev`), so all Raisedash web
-  behaviour reconciles in one place. No-ops when the token is unset.
+  convention works in the Pages Router). The publishable project token is a
+  **code constant** in `src/lib/posthog-config.ts`, not env — a stale
+  `NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN` left in Vercel once kept prod reporting
+  into an old project. Switching projects = edit that one constant (the browser
+  SDK, `/api/ev` and the server-side lead events all read it).
+- This is the **website's own** PostHog project. The academy app
+  (academy.raisedash.com) is a SEPARATE project and codebase — never point
+  it at this token or change its analytics from here.
 - All SDK traffic goes through the same-origin **`/rdx` reverse proxy**
   (next.config.ts rewrites → us.i.posthog.com / us-assets.i.posthog.com) so
-  ad/tracking blockers can't drop events or session replay. Deliberately
-  "/rdx", not PostHog's well-known "/ingest" (filter lists catch it).
+  ad/tracking blockers can't drop events or session replay. Filter lists
+  (EasyPrivacy, uBlock privacy, AdGuard; checked 2026-10) target the
+  well-known prefixes `/ingest`, `/ingress`, `/hog`, `/s/…` — keep "/rdx".
 - `skipTrailingSlashRedirect: true` in next.config.ts is REQUIRED by the
   proxy (PostHog API paths end in "/"); the site's SEO no-trailing-slash 308
   now lives in `src/middleware.ts` instead. That redirect must build a plain
   `new URL(request.url)` — `request.nextUrl.clone()` re-applies the original
   trailing slash on serialization and loops. Don't remove either half.
-- Session replay records with `maskAllInputs` + console logs; it ALSO needs
-  "Record user sessions" enabled in PostHog project settings — code config
-  alone doesn't start recordings.
-- Named money-moment events live in `src/lib/site-analytics.ts` (typed
-  wrapper; capture/identify no-op when PostHog is off):
+- Init forces on: session replay (`maskAllInputs` + console logs), exception
+  capture, dead clicks, heatmaps, web vitals + network timing, copied-text
+  autocapture. Replay ALSO needs "Record user sessions" enabled in the
+  PostHog project settings — the remote config overrides code.
+- `before_send` stamps **`page_group`** + **`product`** (stable slug from
+  `src/data/products.ts` hrefs, via `src/lib/analytics-context.ts`) on every
+  event, and redacts `?email=` from URL-ish props. Super props:
+  `deployment_env` (NEXT_PUBLIC_VERCEL_ENV) and `is_internal` (visit any page
+  with `?rd_internal=1` to flag your browser, `=0` to clear).
+- `src/lib/site-autotrack.ts` (document listeners, no per-page wiring):
+  `outbound_link_clicked` (classified by `destination_kind`: telegram_bot /
+  telegram_sales / booking / app_signup / academy / app_store / youtube /
+  email …, plus `placement` + `link_index`), `video_started` /
+  `video_progress` / `video_completed` (muted loops skipped), `embed_clicked`
+  (content iframes: YouTube/cal.com, not Intercom/Turnstile). SAME-TAB
+  outbound clicks drain the batch queue by beacon first (`posthog.shutdown()`
+  — capture keeps working after it) because a t.me tap on mobile hands off to
+  Telegram without a pagehide flush; new-tab/mailto/tel clicks don't drain.
+- Named events live in `src/lib/site-analytics.ts` (typed wrapper; no-ops
+  when PostHog isn't loaded): `product_card_clicked`,
   `email_capture_submitted` (Meta Lead twin), `demo_path_chosen`,
   `demo_step_viewed`, `demo_request_submitted` (Meta Schedule twin),
-  `demo_request_error`, `scheduling_link_clicked`, `roi_calculator_used`,
-  `roi_calculator_link_copied`. `identify(email)` ties sessions/replays to
-  leads at every email-capture moment. Ambient behaviour (pageviews, clicks,
-  scroll depth, utm_*/fbclid attribution) is autocaptured by the SDK's
-  versioned defaults — don't add custom events for those.
+  `demo_request_error`, `scheduling_link_clicked`, `roi_calculator_*`,
+  `contact_form_submitted`/`_error`, `job_application_submitted` (never
+  identified — applicants aren't leads), `intercom_opened`. `identify(email)`
+  at every lead moment. `Intercom.tsx` stamps the replay/person URLs on the
+  Intercom lead (posthog-js's built-in Intercom integration can't, the widget
+  boots lazily).
+- **Server-side twins** (`src/lib/posthog-server.ts`, blocker-proof):
+  `lead_email_captured` (/api/email-capture), `lead_demo_requested`
+  (/api/demo-lead), `lead_contact_submitted` (/api/contact); distinct_id =
+  email, `$session_id` from the `analytics: analyticsContext()` the client
+  sends in the body, `client_tracked: false` when the browser SDK was blocked.
+  Count leads from these; use the browser twins for funnels/replays.
+- Ambient behaviour (pageviews, clicks, scroll depth, utm_*/fbclid
+  attribution) is autocaptured by the SDK's versioned defaults — don't add
+  custom events for those.
 
 ## SEO/perf conventions
 

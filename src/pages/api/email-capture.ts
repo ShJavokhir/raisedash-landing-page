@@ -6,6 +6,7 @@ import {
   EmailCaptureData,
 } from "@/lib/telegram";
 import { sendFleetCapiLead } from "@/lib/meta-capi";
+import { captureServerEvent } from "@/lib/posthog-server";
 import type { LeadAttribution } from "@/lib/start-v2";
 
 /**
@@ -91,16 +92,26 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       contentName: "fleet_email_capture",
     });
 
+    const sourceLabel = typeof source === "string" && source ? source : "Homepage";
+
+    // Blocker-proof PostHog twin of the browser's email_capture_submitted.
+    const posthogPromise = captureServerEvent({
+      req,
+      event: "lead_email_captured",
+      email: normalizedEmail,
+      properties: { source: sourceLabel },
+    });
+
     // Send to Telegram
     const telegramMessage = formatEmailCaptureMessage({
       email: normalizedEmail,
-      source: typeof source === "string" && source ? source : "Homepage",
+      source: sourceLabel,
       attribution: utmFromCookie(req),
     });
 
     const telegramResponse = await sendToTelegram(telegramMessage);
 
-    const capiResult = await capiPromise;
+    const [capiResult] = await Promise.all([capiPromise, posthogPromise]);
     if (capiResult.error) {
       console.warn("Email-capture Meta CAPI Lead not sent:", capiResult.error);
     }

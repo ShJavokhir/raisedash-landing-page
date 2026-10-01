@@ -2,7 +2,8 @@
 
 import { useEffect, useRef, useCallback, useState } from "react";
 import { useRouter } from "next/router";
-import Intercom from "@intercom/messenger-js-sdk";
+import Intercom, { onShow } from "@intercom/messenger-js-sdk";
+import { capture, onSessionLinks } from "@/lib/site-analytics";
 
 const INTERCOM_APP_ID = process.env.NEXT_PUBLIC_INTERCOM_APP_ID || "lpyms5sz";
 
@@ -74,6 +75,21 @@ export function IntercomProvider() {
 
       Intercom({
         app_id: INTERCOM_APP_ID,
+      });
+
+      // Opening the messenger is a sales/support intent signal.
+      onShow(() => capture("intercom_opened"));
+      // Stamp the visitor's PostHog replay + person links on the Intercom lead,
+      // so a chat opens straight into what they were looking at. Done here, not
+      // via posthog-js `integrations.intercom`, because that expects Intercom to
+      // exist at PostHog init and this widget boots lazily. Once per session, so
+      // it stays inside Intercom's 20-updates/30-min budget.
+      onSessionLinks(({ replayUrl, personUrl }) => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (window as any).Intercom?.("update", {
+          latestPosthogReplayURL: replayUrl,
+          latestPosthogPersonURL: personUrl,
+        });
       });
 
       lastUpdateRef.current = Date.now();

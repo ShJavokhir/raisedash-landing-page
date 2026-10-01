@@ -1,4 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
+import { POSTHOG_INGEST_HOST, POSTHOG_TOKEN } from "@/lib/posthog-config";
 
 /**
  * Funnel telemetry sink for /start. The browser posts tiny events here via
@@ -7,20 +8,8 @@ import type { NextApiRequest, NextApiResponse } from "next";
  * the FB/IG in-app browser. It still 204s when PostHog isn't configured, so the
  * client never needs to know whether telemetry is switched on.
  *
- * Env (set in Vercel + .env.local) — same names as PostHog's own Next.js guide:
- *   NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN  the publishable `phc_…` project token
- *   NEXT_PUBLIC_POSTHOG_HOST           ingestion host; defaults to https://us.i.posthog.com
- *
- * These are referenced only here (server-side), so despite the NEXT_PUBLIC_ prefix
- * the token is NOT inlined into the client bundle — yet the shared names mean one
- * env pair keeps working if PostHog is later added to the marketing pages too.
+ * Reports into the same project as the site-wide SDK (src/lib/posthog-config.ts).
  */
-
-const POSTHOG_TOKEN = process.env.NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN;
-const POSTHOG_HOST = (process.env.NEXT_PUBLIC_POSTHOG_HOST ?? "https://us.i.posthog.com").replace(
-  /\/+$/,
-  ""
-);
 
 // Only events the funnel actually emits get forwarded — a small allowlist stops
 // this open endpoint from becoming an arbitrary relay into our PostHog project.
@@ -78,7 +67,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         // "start_v2"); fall back to the legacy value for any old client still live.
         const source = typeof props.funnel === "string" ? props.funnel : "start-funnel";
 
-        await fetch(`${POSTHOG_HOST}/capture/`, {
+        await fetch(`${POSTHOG_INGEST_HOST}/capture/`, {
           method: "POST",
           headers: { "content-type": "application/json" },
           body: JSON.stringify({

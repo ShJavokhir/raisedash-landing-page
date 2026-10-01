@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 import { setCapturedEmail } from "@/lib/captured-email";
 import { newEventId } from "@/lib/meta-pixel";
 import { trackFleetPixel } from "@/lib/meta-fleet-pixel";
-import { capture, identify } from "@/lib/site-analytics";
+import { analyticsContext, capture, identify } from "@/lib/site-analytics";
 
 interface EmailCaptureProps {
   className?: string;
@@ -62,7 +62,12 @@ export function EmailCapture({
     fetch("/api/email-capture", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email: trimmedEmail, source, eventId }),
+      body: JSON.stringify({
+        email: trimmedEmail,
+        source,
+        eventId,
+        analytics: analyticsContext(),
+      }),
       keepalive: true,
     }).catch(() => {
       // Silently fail - don't block navigation

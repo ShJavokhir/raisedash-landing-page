@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/Input";
 import { Textarea } from "@/components/ui/Textarea";
 import { Select } from "@/components/ui/Select";
 import { Mail, HeadphonesIcon, Users, Check } from "lucide-react";
+import { analyticsContext, capture, identify } from "@/lib/site-analytics";
 
 const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || "";
 
@@ -102,12 +103,19 @@ export default function Contact() {
         body: JSON.stringify({
           ...formData,
           turnstileToken: turnstileToken || undefined,
+          analytics: analyticsContext(),
         }),
       });
 
       const result = await response.json();
 
       if (response.ok) {
+        // The subject and message are free text and stay out of analytics.
+        identify(formData.email);
+        capture("contact_form_submitted", {
+          inquiry_type: formData.inquiryType,
+          has_company: Boolean(formData.company.trim()),
+        });
         setIsSubmitted(true);
         setFormData(initialFormData);
         resetTurnstile();
@@ -115,9 +123,11 @@ export default function Contact() {
         if (result.code === "TURNSTILE_FAILED" || result.code === "TURNSTILE_REQUIRED") {
           resetTurnstile();
         }
+        capture("contact_form_error", { status: response.status, code: result.code });
         setSubmitError(result.error || "Failed to send message. Please try again.");
       }
     } catch (error) {
+      capture("contact_form_error", { status: "network" });
       console.error("Error submitting form:", error);
       setSubmitError("Failed to send message. Please try again.");
     } finally {
