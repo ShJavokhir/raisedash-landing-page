@@ -1,9 +1,8 @@
-import { Inter } from "next/font/google";
-import { Bell, Check, Gauge, Send, TriangleAlert, Video } from "lucide-react";
+import { Check, Gauge, Send, TriangleAlert, Video } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/layout/Container";
+import { PageLayout } from "@/components/layout/PageLayout";
 import {
-  SEO,
   BreadcrumbJsonLd,
   FAQPageJsonLd,
   SoftwareApplicationJsonLd,
@@ -13,27 +12,18 @@ import { Shot } from "@/components/samsara/Shot";
 import { BoardTabs } from "@/components/samsara/BoardTabs";
 
 /**
- * Standalone landing page for the Samsara → Telegram alerting service
- * (`raisedash-apps/samsara-alerts`). A deliberate dead end: the marketing header
- * is suppressed for this route in `_app.tsx`, the site footer is replaced with a
- * link-free one, and the only outbound link is the Telegram CTA. Raisedash's
- * main product is a different pitch to a different buyer.
+ * Landing page for the Samsara → Telegram alerting service
+ * (`raisedash-apps/samsara-alerts`), using the shared Raisedash header and footer.
+ * Product calls to action lead to Telegram.
  *
  * Written for a fleet owner who already pays for Samsara, not for an engineer.
  * Keep it short — the screenshots do the selling. No API endpoints, no raw
- * Samsara behaviour labels, no architecture. Do not add internal navigation.
+ * Samsara behaviour labels, no architecture.
  *
  * Every image is a real capture from a live fleet, redacted in the file itself
  * (see `Shot`). If you add one, redact it the same way before it reaches
  * `public/` — that directory deploys.
  */
-
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
-  display: "swap",
-});
 
 const CTA_HREF = "https://t.me/raisedash";
 
@@ -164,12 +154,11 @@ export default function SamsaraAlerts() {
   const examplePrice = PRICE_BASE + (exampleTrucks - PRICE_INCLUDED_TRUCKS) * PRICE_PER_EXTRA_TRUCK;
 
   return (
-    <div className={`${inter.className} font-sans antialiased`}>
-      <SEO
-        title="Samsara Alerts in Telegram: Safety Events, Speeding and Engine Faults"
-        description="Get Samsara safety events, speeding and engine faults in your Telegram group, with the dashcam video attached. Plus advanced weekly fleet reports. $200/mo up to 100 trucks, 3 days free."
-        canonical="https://www.raisedash.com/tools/samsara-alerts"
-      />
+    <PageLayout
+      title="Samsara Alerts in Telegram: Safety Events, Speeding and Engine Faults"
+      description="Get Samsara safety events, speeding and engine faults in your Telegram group, with the dashcam video attached. Plus advanced weekly fleet reports. $200/mo up to 100 trucks, 3 days free."
+      canonical="https://www.raisedash.com/tools/samsara-alerts"
+    >
       <BreadcrumbJsonLd
         items={[
           { name: "Home", url: "/" },
@@ -184,19 +173,6 @@ export default function SamsaraAlerts() {
         offers={[{ price: String(PRICE_BASE), priceCurrency: "USD" }]}
       />
       <FAQPageJsonLd faqs={FAQS} />
-
-      {/* Sticky bar. Deliberately not a link — this page does not navigate. */}
-      <div className="border-border bg-background/85 sticky top-0 z-30 border-b backdrop-blur-sm">
-        <Container className="flex h-14 items-center justify-between px-5">
-          <div className="flex items-center gap-2.5">
-            <span className="bg-accent flex h-6 w-6 items-center justify-center rounded-xs">
-              <Bell className="h-3.5 w-3.5 text-white" />
-            </span>
-            <span className="text-foreground text-sm font-medium">Samsara Alerts</span>
-          </div>
-          <TelegramCta size="md">Talk to us</TelegramCta>
-        </Container>
-      </div>
 
       {/* ----------------------------------------------------------- hero --- */}
       <div className="pt-10 pb-8 sm:pt-14">
@@ -434,32 +410,12 @@ export default function SamsaraAlerts() {
         </div>
       </Container>
 
-      {/* --------------------------------------------------------- footer --- */}
-      <footer className="mb-8 w-full sm:mb-12">
-        <Container className="border-border bg-card rounded-xs border px-6 py-8 sm:px-12">
-          <div className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-center">
-            <div>
-              <p className="text-foreground text-sm">Samsara Alerts, built by Raisedash</p>
-              <p className="text-muted-foreground mt-2 max-w-xl text-xs leading-relaxed">
-                Samsara is a trademark of Samsara Inc. This is an independent integration and is not
-                affiliated with or endorsed by Samsara. Telegram is a trademark of Telegram
-                Messenger Inc.
-              </p>
-            </div>
-            <a
-              href={CTA_HREF}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-foreground hover:text-accent shrink-0 text-sm transition-colors duration-[0.15s]"
-            >
-              t.me/raisedash
-            </a>
-          </div>
-          <p className="text-muted-foreground border-border mt-6 border-t pt-6 text-xs">
-            &copy; {new Date().getFullYear()} Raisedash. All rights reserved.
-          </p>
-        </Container>
-      </footer>
-    </div>
+      <Container className="pb-8">
+        <p className="text-muted-foreground max-w-xl text-xs leading-relaxed">
+          Samsara is a trademark of Samsara Inc. This is an independent integration and is not
+          affiliated with or endorsed by Samsara. Telegram is a trademark of Telegram Messenger Inc.
+        </p>
+      </Container>
+    </PageLayout>
   );
 }
