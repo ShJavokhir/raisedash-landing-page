@@ -1,4 +1,5 @@
-import { ArrowUpRight, ChevronDown, Send } from "lucide-react";
+import { GetDemoLink } from "@/components/demo/GetDemoLink";
+import { ArrowUpRight, ChevronDown } from "lucide-react";
 import { Container } from "@/components/layout/Container";
 import { PageLayout } from "@/components/layout/PageLayout";
 import { StepList, type PlatformStep } from "@/components/platform/StepList";
@@ -38,7 +39,6 @@ import { ReceiptTour } from "@/components/receipts/ReceiptTour";
  * makes paying drivers back easier, but we never pay anyone ourselves.
  */
 
-const CONTACT_LINK = "https://t.me/raisedash";
 const DEMO_LINK = "https://youtube.com/shorts/6rw33V2kXmE";
 const DEMO_EMBED = "https://www.youtube-nocookie.com/embed/6rw33V2kXmE?rel=0";
 
@@ -110,7 +110,7 @@ const faqs: FAQItem[] = [
   {
     question: "How do I get started?",
     answer:
-      "Message us on Telegram at @raisedash. We’ll set it up in your drivers’ groups and show your team how it works.",
+      "Request a demo. We’ll show your team how it works and help set it up in your drivers’ groups.",
   },
   {
     question: "Does it pay drivers back?",
@@ -137,17 +137,6 @@ const faqs: FAQItem[] = [
     answer: "24 hours. After that, just type “receipt” again for a new link.",
   },
 ];
-
-const primaryLink =
-  "bg-primary text-primary-foreground hover:bg-primary/90 inline-flex min-h-11 items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring";
-
-function ContactButton({ className }: { className?: string }) {
-  return (
-    <a href={CONTACT_LINK} className={`${primaryLink} ${className ?? ""}`}>
-      Message us on Telegram <Send className="h-4 w-4" aria-hidden="true" />
-    </a>
-  );
-}
 
 export default function ReceiptsTelegramBotPage() {
   return (
@@ -188,7 +177,7 @@ export default function ReceiptsTelegramBotPage() {
               it. Every receipt shows up in your dashboard, so you know who to pay back and how
               much.
             </p>
-            <ContactButton className="mt-7" />
+            <GetDemoLink product="receipts-telegram-bot" className="mt-7 text-sm" />
             <p className="text-muted-foreground mt-3 text-sm">We’ll set it up for your groups.</p>
           </div>
           <div className="lg:col-span-7">
@@ -316,9 +305,10 @@ export default function ReceiptsTelegramBotPage() {
             Start collecting receipts
           </h2>
           <p className="text-muted-foreground mx-auto mt-3 max-w-2xl text-base leading-relaxed text-balance">
-            Message us on Telegram. We’ll tell you the price and set it up for your groups.
+            Get a demo. We’ll show you how it works, share pricing, and help set it up for your
+            groups.
           </p>
-          <ContactButton className="mt-7" />
+          <GetDemoLink product="receipts-telegram-bot" className="mt-7 text-sm" />
         </section>
       </Container>
     </PageLayout>

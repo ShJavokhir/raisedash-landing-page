@@ -9,6 +9,7 @@ export interface TurnstileVerifyOptions {
   token: string;
   remoteIp?: string;
   idempotencyKey?: string;
+  signal?: AbortSignal;
 }
 
 export interface TurnstileVerifyResponse {
@@ -69,6 +70,7 @@ export async function verifyTurnstileToken(
   try {
     const response = await fetch(TURNSTILE_VERIFY_URL, {
       method: "POST",
+      signal: options.signal,
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
       },

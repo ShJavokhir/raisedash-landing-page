@@ -1,4 +1,5 @@
-import { ChevronDown, Send } from "lucide-react";
+import { GetDemoLink } from "@/components/demo/GetDemoLink";
+import { ChevronDown } from "lucide-react";
 import { Container } from "@/components/layout/Container";
 import { PageLayout } from "@/components/layout/PageLayout";
 import { StepList, type PlatformStep } from "@/components/platform/StepList";
@@ -31,10 +32,8 @@ import {
  * Copy: short, simple words, no em dashes, "we" for what the product does.
  * Only claim what the product does today. Named surveys can prefill a driver's
  * name, but that comes from another product, so this page does not mention it.
- * No public price: the CTA is a Telegram message.
+ * No public price: the CTA goes to the shared demo request page.
  */
-
-const CONTACT_LINK = "https://t.me/raisedash";
 
 const steps: PlatformStep[] = [
   {
@@ -97,7 +96,7 @@ const faqs: FAQItem[] = [
   {
     question: "How do I get started?",
     answer:
-      "Message us on Telegram at @raisedash. We’ll tell you the price and set it up for your groups.",
+      "Request a demo. We’ll show you how it works, share pricing, and help set it up for your groups.",
   },
   {
     question: "Can I see who is thinking about leaving?",
@@ -125,17 +124,6 @@ const faqs: FAQItem[] = [
       "The page stops accidental double sends. It doesn’t check who the driver is, so anyone with the link can answer while the survey is open.",
   },
 ];
-
-const primaryLink =
-  "bg-primary text-primary-foreground hover:bg-primary/90 inline-flex min-h-11 items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring";
-
-function ContactButton({ className }: { className?: string }) {
-  return (
-    <a href={CONTACT_LINK} className={`${primaryLink} ${className ?? ""}`}>
-      Message us on Telegram <Send className="h-4 w-4" aria-hidden="true" />
-    </a>
-  );
-}
 
 export default function FeedbackTelegramBotPage() {
   return (
@@ -173,7 +161,7 @@ export default function FeedbackTelegramBotPage() {
               Just pick a survey and your Telegram groups, and we’ll post the link. Drivers answer
               anonymously on their phone. You see if it’s pay, home time, dispatch, or the truck.
             </p>
-            <ContactButton className="mt-7" />
+            <GetDemoLink product="feedback-telegram-bot" className="mt-7 text-sm" />
             <p className="text-muted-foreground mt-3 text-sm">We’ll set it up for your groups.</p>
           </div>
           <div className="lg:col-span-7">
@@ -257,9 +245,10 @@ export default function FeedbackTelegramBotPage() {
             Ask your drivers what would make them stay
           </h2>
           <p className="text-muted-foreground mx-auto mt-3 max-w-2xl text-base leading-relaxed text-balance">
-            Message us on Telegram. We’ll tell you the price and set it up for your groups.
+            Get a demo. We’ll show you how it works, share pricing, and help set it up for your
+            groups.
           </p>
-          <ContactButton className="mt-7" />
+          <GetDemoLink product="feedback-telegram-bot" className="mt-7 text-sm" />
         </section>
       </Container>
     </PageLayout>

@@ -1,5 +1,5 @@
-import { Check, Gauge, Send, TriangleAlert, Video } from "lucide-react";
-import { Button } from "@/components/ui/Button";
+import { Check, Gauge, TriangleAlert, Video } from "lucide-react";
+import { GetDemoLink } from "@/components/demo/GetDemoLink";
 import { Container } from "@/components/layout/Container";
 import { PageLayout } from "@/components/layout/PageLayout";
 import {
@@ -14,7 +14,7 @@ import { BoardTabs } from "@/components/samsara/BoardTabs";
 /**
  * Landing page for the Samsara → Telegram alerting service
  * (`raisedash-apps/samsara-alerts`), using the shared Raisedash header and footer.
- * Product calls to action lead to Telegram.
+ * Product calls to action lead to the shared demo request page.
  *
  * Written for a fleet owner who already pays for Samsara, not for an engineer.
  * Keep it short — the screenshots do the selling. No API endpoints, no raw
@@ -25,32 +25,11 @@ import { BoardTabs } from "@/components/samsara/BoardTabs";
  * `public/` — that directory deploys.
  */
 
-const CTA_HREF = "https://t.me/raisedash";
-
 // Pricing lives here so a change is one edit. Priced separately from the
 // Raisedash platform in `pricing.tsx` — the two are not linked.
 const PRICE_BASE = 200;
 const PRICE_INCLUDED_TRUCKS = 100;
 const PRICE_PER_EXTRA_TRUCK = 1;
-
-function TelegramCta({
-  children = "Message us on Telegram",
-  variant = "primary",
-  size = "lg",
-}: {
-  children?: React.ReactNode;
-  variant?: "primary" | "secondary";
-  size?: "md" | "lg";
-}) {
-  return (
-    <a href={CTA_HREF} target="_blank" rel="noopener noreferrer">
-      <Button variant={variant} size={size}>
-        {children}
-        <Send className="ml-2 h-4 w-4" />
-      </Button>
-    </a>
-  );
-}
 
 const SENDS = [
   {
@@ -192,7 +171,7 @@ export default function SamsaraAlerts() {
                 </p>
 
                 <div className="mt-8">
-                  <TelegramCta />
+                  <GetDemoLink product="samsara-alerts" />
                 </div>
               </div>
 
@@ -371,7 +350,7 @@ export default function SamsaraAlerts() {
             </div>
 
             <div className="mt-8">
-              <TelegramCta>Ask about your fleet</TelegramCta>
+              <GetDemoLink product="samsara-alerts" />
             </div>
           </div>
         </div>
@@ -405,7 +384,7 @@ export default function SamsaraAlerts() {
             Tell us how many trucks you run.
           </h2>
           <div className="mt-8 flex justify-center">
-            <TelegramCta>t.me/raisedash</TelegramCta>
+            <GetDemoLink product="samsara-alerts" />
           </div>
         </div>
       </Container>

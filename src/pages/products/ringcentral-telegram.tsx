@@ -1,4 +1,5 @@
-import { ChevronDown, Send, ShieldCheck } from "lucide-react";
+import { GetDemoLink } from "@/components/demo/GetDemoLink";
+import { ChevronDown, ShieldCheck } from "lucide-react";
 import { Container } from "@/components/layout/Container";
 import { PageLayout } from "@/components/layout/PageLayout";
 import { StepList, type PlatformStep } from "@/components/platform/StepList";
@@ -39,14 +40,12 @@ import {
  * Copy: plain words a person would say out loud, no em dashes, "we" for what
  * the product does. Avoid stiff phrasing like "posts a few minutes after each
  * call".
- * No public price: the CTA is a Telegram message.
+ * No public price: the CTA goes to the shared demo request page.
  */
-
-const CONTACT_LINK = "https://t.me/raisedash";
 
 const steps: PlatformStep[] = [
   {
-    title: "Message us",
+    title: "Get a demo",
     description:
       "Tell us which RingCentral account to connect and which Telegram chat the calls should go to.",
   },
@@ -162,17 +161,6 @@ const faqs: FAQItem[] = [
   },
 ];
 
-const primaryLink =
-  "bg-primary text-primary-foreground hover:bg-primary/90 inline-flex min-h-11 items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring";
-
-function ContactButton({ className }: { className?: string }) {
-  return (
-    <a href={CONTACT_LINK} className={`${primaryLink} ${className ?? ""}`}>
-      Message us on Telegram <Send className="h-4 w-4" aria-hidden="true" />
-    </a>
-  );
-}
-
 export default function RingCentralTelegramPage() {
   return (
     <PageLayout
@@ -212,9 +200,9 @@ export default function RingCentralTelegramPage() {
               Your team’s recorded calls show up in a Telegram chat. Tap play to listen. No logging
               in to RingCentral, no digging through the call log.
             </p>
-            <ContactButton className="mt-7" />
+            <GetDemoLink product="ringcentral-telegram" className="mt-7 text-sm" />
             <p className="text-muted-foreground mt-3 text-sm">
-              Message us for a demo. We’ll set it up for you.
+              We’ll walk you through it and help you get set up.
             </p>
           </div>
           <div className="min-w-0 lg:col-span-7">
@@ -353,10 +341,9 @@ export default function RingCentralTelegramPage() {
             Hear your office from your phone
           </h2>
           <p className="text-muted-foreground mx-auto mt-3 max-w-2xl text-base leading-relaxed text-balance">
-            Message us on Telegram for a demo. We’ll give you the price and set it up with your
-            RingCentral admin.
+            Get a demo. We’ll share pricing and help you set it up with your RingCentral admin.
           </p>
-          <ContactButton className="mt-7" />
+          <GetDemoLink product="ringcentral-telegram" className="mt-7 text-sm" />
           <p className="text-muted-foreground/70 mx-auto mt-8 max-w-2xl text-xs leading-relaxed">
             RingCentral is a trademark of RingCentral, Inc. This is an independent integration and
             is not affiliated with or endorsed by RingCentral. Telegram is a trademark of Telegram

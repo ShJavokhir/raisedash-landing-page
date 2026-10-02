@@ -18,13 +18,14 @@ const SITE_URL = RAW_SITE_URL.endsWith("/") ? RAW_SITE_URL.slice(0, -1) : RAW_SI
  * update its date here to the date of that change.
  */
 const STATIC_PAGE_DATES: Record<string, string> = {
-  "/": "2026-10-01",
+  "/": "2026-10-02",
   "/products/orientation": "2026-09-21",
   "/blog": "2026-01-26", // overridden below by latest post date
   "/about": "2026-09-21",
   "/contact": "2026-09-21",
   "/careers": "2026-07-14",
   "/demo": "2026-07-17",
+  "/get-a-demo": "2026-10-02",
   "/pricing": "2026-07-19",
   "/solutions/driver-onboarding": "2026-07-16",
   "/platform/pre-arrival-readiness": "2026-07-14",
@@ -37,9 +38,10 @@ const STATIC_PAGE_DATES: Record<string, string> = {
   "/features/interactive-training-simulations": "2026-07-19",
   "/product-updates": "2026-01-27", // overridden below by latest update date
   "/products/pti-telegram-bot": "2026-09-21",
-  "/products/receipts-telegram-bot": "2026-09-23",
-  "/products/feedback-telegram-bot": "2026-09-29",
-  "/products/ringcentral-telegram": "2026-10-01",
+  "/products/receipts-telegram-bot": "2026-10-02",
+  "/products/feedback-telegram-bot": "2026-10-02",
+  "/products/ringcentral-telegram": "2026-10-02",
+  "/products/driver-paperwork": "2026-10-02",
   "/products/raisedash-pti-inspections": "2026-01-26",
   "/products/raisedash-pti-inspections/driver-features": "2026-01-22",
   "/products/raisedash-pti-inspections/fleet-safety-managers": "2026-01-22",
@@ -50,8 +52,8 @@ const STATIC_PAGE_DATES: Record<string, string> = {
   "/security": "2026-07-14",
   "/compliance-challenges": "2026-01-27",
   "/pti-app": "2026-01-28",
-  "/tools/elp-practice": "2026-06-24",
-  "/tools/samsara-alerts": "2026-08-29",
+  "/tools/elp-practice": "2026-10-02",
+  "/tools/samsara-alerts": "2026-10-02",
   "/tools/road-signs": "2026-02-27",
 };
 
@@ -78,6 +80,12 @@ function generateSiteMap(
       : STATIC_PAGE_DATES["/product-updates"];
 
   const staticPages = [
+    {
+      loc: `${SITE_URL}/get-a-demo`,
+      lastmod: STATIC_PAGE_DATES["/get-a-demo"],
+      changefreq: "monthly",
+      priority: "0.8",
+    },
     {
       loc: `${SITE_URL}/products/orientation`,
       lastmod: STATIC_PAGE_DATES["/products/orientation"],
@@ -165,6 +173,12 @@ function generateSiteMap(
     {
       loc: `${SITE_URL}/products/ringcentral-telegram`,
       lastmod: STATIC_PAGE_DATES["/products/ringcentral-telegram"],
+      changefreq: "monthly",
+      priority: "0.8",
+    },
+    {
+      loc: `${SITE_URL}/products/driver-paperwork`,
+      lastmod: STATIC_PAGE_DATES["/products/driver-paperwork"],
       changefreq: "monthly",
       priority: "0.8",
     },

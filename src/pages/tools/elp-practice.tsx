@@ -1,7 +1,7 @@
+import { GetDemoLink } from "@/components/demo/GetDemoLink";
 import Link from "next/link";
 import Image from "next/image";
 import {
-  ArrowRight,
   AlertTriangle,
   Mic,
   BookOpen,
@@ -29,12 +29,11 @@ import {
 /**
  * Organic SEO landing page for TruckTalk, our CDL English Language Proficiency
  * (ELP) practice tool. This is a marketing page only — every CTA funnels to the
- * /start-v2 lead funnel, and the page deliberately does not link out to the live
- * product or surface any pricing. Indexed (unlike /start-v2) and registered in
+ * shared /get-a-demo page. It does not link out to the live product or surface
+ * any pricing. Indexed and registered in
  * sitemap.xml.tsx + api/indexnow.ts.
  */
 
-const CTA_HREF = "/start-v2";
 const COVER_IMAGE =
   "https://cdn.raisedash.com/media/landing/blog/trucktalk-elp-practice-cover.webp";
 
@@ -179,22 +178,6 @@ const FAQS: FAQItem[] = [
   },
 ];
 
-function PrimaryCta({
-  children = "Get your drivers road-ready",
-  className,
-}: {
-  children?: React.ReactNode;
-  className?: string;
-}) {
-  return (
-    <Link href={CTA_HREF}>
-      <Button size="lg" className={className}>
-        {children} <ArrowRight className="ml-2 h-4 w-4" />
-      </Button>
-    </Link>
-  );
-}
-
 function SectionHeading({
   eyebrow,
   title,
@@ -267,7 +250,7 @@ export default function ElpPractice() {
             </p>
 
             <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
-              <PrimaryCta />
+              <GetDemoLink product="elp-practice" />
               <Link href="#inside">
                 <Button variant="secondary" size="lg">
                   See what&apos;s inside
@@ -451,7 +434,7 @@ export default function ElpPractice() {
                 .
               </p>
               <div className="mt-6">
-                <PrimaryCta>Get your drivers practicing</PrimaryCta>
+                <GetDemoLink product="elp-practice" />
               </div>
             </div>
             <div className="border-border overflow-hidden rounded-xs border">
@@ -568,7 +551,7 @@ export default function ElpPractice() {
             road-ready on English proficiency, road signs, and safety.
           </p>
           <div className="flex justify-center">
-            <PrimaryCta />
+            <GetDemoLink product="elp-practice" />
           </div>
         </div>
       </Container>

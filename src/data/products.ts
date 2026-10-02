@@ -9,6 +9,14 @@ export const products = [
     icon: { src: "/brand/orientation-icon.webp", width: 329, height: 288 },
   },
   {
+    name: "Driver Paperwork",
+    description:
+      "Send driver applications, documents to sign, and requests for files like a CDL or medical card. Drivers finish them on their phone and you get a clean PDF.",
+    href: "/products/driver-paperwork",
+    plate: "#0f7d8c",
+    icon: { src: "/brand/paperwork-icon.webp", width: 284, height: 288 },
+  },
+  {
     name: "PTI & DVIR Collector",
     description:
       "Collect pre- and post-trip inspection photos, videos, and reported problems through your driver Telegram groups.",

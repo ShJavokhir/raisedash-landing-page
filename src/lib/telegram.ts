@@ -80,7 +80,11 @@ export interface EmailCaptureData {
  * omitted or unset we fall back to TELEGRAM_CHAT_ID, so existing callers are
  * unaffected.
  */
-export async function sendToTelegram(message: string, overrideChatId?: string): Promise<Response> {
+export async function sendToTelegram(
+  message: string,
+  overrideChatId?: string,
+  options?: { plainText?: boolean; signal?: AbortSignal }
+): Promise<Response> {
   const botToken = process.env.TELEGRAM_BOT_TOKEN;
   const chatId = overrideChatId || process.env.TELEGRAM_CHAT_ID;
 
@@ -95,12 +99,13 @@ export async function sendToTelegram(message: string, overrideChatId?: string): 
   const payload = {
     chat_id: chatId,
     text: message,
-    parse_mode: "Markdown",
+    parse_mode: options?.plainText ? undefined : "Markdown",
     disable_web_page_preview: true,
   };
 
   return fetch(telegramApiUrl, {
     method: "POST",
+    signal: options?.signal,
     headers: {
       "Content-Type": "application/json",
     },

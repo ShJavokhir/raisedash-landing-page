@@ -58,6 +58,7 @@ const PAGE_GROUPS: Record<string, string> = {
   solutions: "platform",
   pricing: "pricing",
   demo: "demo",
+  "get-a-demo": "demo",
   blog: "blog",
   "product-updates": "updates",
   changelogs: "updates",

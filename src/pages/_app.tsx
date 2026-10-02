@@ -28,8 +28,9 @@ export default function App({ Component, pageProps }: AppProps) {
     router.pathname === "/start" ||
     router.pathname === "/start-v2" ||
     router.pathname === "/start-v3";
-  // Samsara inquiries go through Telegram; keep Intercom off that page.
-  const hideIntercom = isFunnel || router.pathname === "/tools/samsara-alerts";
+  // Keep these focused contact experiences free of an additional chat widget.
+  const hideIntercom =
+    isFunnel || router.pathname === "/tools/samsara-alerts" || router.pathname === "/get-a-demo";
 
   return (
     <>
