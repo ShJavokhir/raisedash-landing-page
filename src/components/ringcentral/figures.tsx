@@ -347,12 +347,12 @@ const TG_STEPS = ["Open Telegram", "Tap play"];
 
 export function TwoWays() {
   return (
-    <div className="grid gap-4 md:grid-cols-[1.25fr_1fr]">
+    <div className="grid gap-4 md:grid-cols-2">
       <div className="bg-card border-border rounded-xs border p-6 sm:p-8">
         <p className="text-muted-foreground font-mono text-xs tracking-[0.14em] uppercase">
-          In RingCentral
+          Before Raisedash
         </p>
-        <ol className="mt-5 grid gap-2 sm:grid-cols-2">
+        <ol className="mt-5 grid gap-2">
           {RC_STEPS.map((step, i) => (
             <li
               key={step}
@@ -365,12 +365,9 @@ export function TwoWays() {
             </li>
           ))}
         </ol>
-        <p className="text-muted-foreground mt-5 text-sm leading-relaxed">
-          And to hear other people’s calls, you need admin access.
-        </p>
       </div>
-      <div className="border-accent/30 bg-accent/[0.04] flex flex-col rounded-xs border p-6 sm:p-8">
-        <p className="text-accent font-mono text-xs tracking-[0.14em] uppercase">In Telegram</p>
+      <div className="border-accent/30 bg-accent/[0.04] rounded-xs border p-6 sm:p-8">
+        <p className="text-accent font-mono text-xs tracking-[0.14em] uppercase">With Raisedash</p>
         <ol className="mt-5 grid gap-2">
           {TG_STEPS.map((step, i) => (
             <li
@@ -384,9 +381,6 @@ export function TwoWays() {
             </li>
           ))}
         </ol>
-        <p className="text-muted-foreground mt-auto pt-5 text-sm leading-relaxed">
-          You decide who’s in the chat. They don’t need RingCentral accounts.
-        </p>
       </div>
     </div>
   );

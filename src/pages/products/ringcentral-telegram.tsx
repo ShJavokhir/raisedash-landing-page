@@ -219,14 +219,10 @@ export default function RingCentralTelegramPage() {
         <section aria-labelledby="rc-two-ways-heading">
           <h2
             id="rc-two-ways-heading"
-            className="text-foreground mb-2 text-2xl font-normal tracking-tight"
+            className="text-foreground mb-6 text-2xl font-normal tracking-tight"
           >
             One call, two ways
           </h2>
-          <p className="text-muted-foreground mb-6 max-w-2xl text-base leading-relaxed">
-            Your calls are already recorded in RingCentral. Finding one there takes so many clicks
-            that most of them never get played.
-          </p>
           <TwoWays />
         </section>
       </Container>
