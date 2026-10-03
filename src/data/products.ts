@@ -17,6 +17,14 @@ export const products = [
     icon: { src: "/brand/paperwork-icon.webp", width: 284, height: 288 },
   },
   {
+    name: "Driver Coaching",
+    description:
+      "Coach drivers after a hard brake, an accident or a roadside violation. Send a short lesson with their dashcam clip, assign it automatically from Samsara or Motive, and keep the record.",
+    href: "/products/driver-coaching",
+    plate: "#7c5a2e",
+    icon: { src: "/brand/coaching-icon.webp", width: 274, height: 288 },
+  },
+  {
     name: "PTI & DVIR Collector",
     description:
       "Collect pre- and post-trip inspection photos, videos, and reported problems through your driver Telegram groups.",

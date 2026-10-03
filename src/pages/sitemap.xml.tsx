@@ -42,6 +42,7 @@ const STATIC_PAGE_DATES: Record<string, string> = {
   "/products/feedback-telegram-bot": "2026-10-02",
   "/products/ringcentral-telegram": "2026-10-02",
   "/products/driver-paperwork": "2026-10-02",
+  "/products/driver-coaching": "2026-10-02",
   "/products/raisedash-pti-inspections": "2026-01-26",
   "/products/raisedash-pti-inspections/driver-features": "2026-01-22",
   "/products/raisedash-pti-inspections/fleet-safety-managers": "2026-01-22",
@@ -179,6 +180,12 @@ function generateSiteMap(
     {
       loc: `${SITE_URL}/products/driver-paperwork`,
       lastmod: STATIC_PAGE_DATES["/products/driver-paperwork"],
+      changefreq: "monthly",
+      priority: "0.8",
+    },
+    {
+      loc: `${SITE_URL}/products/driver-coaching`,
+      lastmod: STATIC_PAGE_DATES["/products/driver-coaching"],
       changefreq: "monthly",
       priority: "0.8",
     },

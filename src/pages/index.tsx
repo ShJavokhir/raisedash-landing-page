@@ -51,10 +51,12 @@ export default function Home() {
                 key={href}
                 className={cn(
                   "min-w-0 lg:col-span-2",
-                  // A last card alone on its row stretches across it instead of
-                  // leaving a hole: 2 per row at md, 3 per row at lg.
+                  // A short last row stretches across instead of leaving a hole:
+                  // 2 per row at md, 3 per row at lg (one card takes the row, two
+                  // split it).
                   index === products.length - 1 && products.length % 2 === 1 && "md:col-span-2",
-                  index === products.length - 1 && products.length % 3 === 1 && "lg:col-span-6"
+                  index === products.length - 1 && products.length % 3 === 1 && "lg:col-span-6",
+                  index >= products.length - 2 && products.length % 3 === 2 && "lg:col-span-3"
                 )}
               >
                 <Link
