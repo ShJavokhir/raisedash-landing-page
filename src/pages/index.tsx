@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { Container } from "@/components/layout/Container";
 import { PageLayout } from "@/components/layout/PageLayout";
+import { useHomepageProductNavigation } from "@/components/layout/HomepageProductNavigation";
 import { cn } from "@/lib/cn";
 import { products } from "@/data/products";
 import { productSlugFromHref } from "@/lib/analytics-context";
@@ -15,6 +16,7 @@ const PLATE_LIGHT = ["", "product-plate-light-b", "product-plate-light-c"];
 
 export default function Home() {
   const router = useRouter();
+  const onProductNavigate = useHomepageProductNavigation();
 
   // Keep previously shared orientation calculator links working after the move.
   useEffect(() => {
@@ -62,6 +64,7 @@ export default function Home() {
                 <Link
                   href={href}
                   aria-label={`Explore ${name}`}
+                  onNavigate={() => onProductNavigate(href)}
                   // Which products the hub actually sells: CTR per card + position.
                   onClick={() =>
                     capture(
