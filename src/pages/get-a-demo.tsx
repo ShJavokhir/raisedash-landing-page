@@ -5,15 +5,7 @@ import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Turnstile, type TurnstileInstance } from "@marsidev/react-turnstile";
-import {
-  ArrowLeft,
-  ArrowRight,
-  ArrowUpRight,
-  Check,
-  Mail,
-  MessageSquare,
-  Send,
-} from "lucide-react";
+import { ArrowLeft, ArrowRight, ArrowUpRight, Check } from "lucide-react";
 import { Container } from "@/components/layout/Container";
 import { PageLayout } from "@/components/layout/PageLayout";
 import { Button } from "@/components/ui/Button";
@@ -66,14 +58,14 @@ export default function GetADemoPage() {
 
   return (
     <PageLayout
-      title="Get a demo"
+      title="Get a risk-free demo"
       description="See how Raisedash can help your trucking company. Email us, leave your details for a product demo, or contact our team on Telegram."
       canonical="https://www.raisedash.com/get-a-demo"
     >
       <Container className="py-12 sm:py-16 lg:py-20">
         <div className="max-w-xl">
           <h1 className="text-foreground text-4xl leading-tight font-normal tracking-tight sm:text-5xl">
-            Get a demo.
+            Get a risk-free demo.
           </h1>
           <p className="text-muted-foreground mt-5 max-w-md text-lg leading-relaxed">
             {product
@@ -87,8 +79,26 @@ export default function GetADemoPage() {
             hidden={formOpen}
             className="mt-8 sm:mt-10"
           >
+            <a
+              href={DEMO_TELEGRAM_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={choiceClass}
+            >
+              <TelegramLogo className="h-7 w-7 shrink-0" />
+              <span className="flex-1">
+                <span className="text-foreground block text-base">Contact us on Telegram</span>
+                <span className="text-muted-foreground mt-1 block text-sm">
+                  @raisedash <span className="sr-only">(opens in a new tab)</span>
+                </span>
+              </span>
+              <ArrowUpRight
+                className="text-muted-foreground group-hover:text-foreground h-4 w-4 shrink-0"
+                aria-hidden="true"
+              />
+            </a>
             <a href={emailHref} className={choiceClass}>
-              <Mail className="text-muted-foreground h-5 w-5 shrink-0" aria-hidden="true" />
+              <MailFilled className="text-foreground/70 h-7 w-7 shrink-0 p-0.5" />
               <span className="min-w-0 flex-1">
                 <span className="text-foreground block text-base">Email us</span>
                 <span className="text-muted-foreground mt-1 block text-sm">{emails.sales}</span>
@@ -105,10 +115,7 @@ export default function GetADemoPage() {
               aria-expanded={formOpen}
               onClick={openForm}
             >
-              <MessageSquare
-                className="text-muted-foreground h-5 w-5 shrink-0"
-                aria-hidden="true"
-              />
+              <ChatFilled className="text-foreground/70 h-7 w-7 shrink-0 p-0.5" />
               <span className="flex-1">
                 <span className="text-foreground block text-base">Leave your details</span>
                 <span className="text-muted-foreground mt-1 block text-sm">
@@ -120,24 +127,6 @@ export default function GetADemoPage() {
                 aria-hidden="true"
               />
             </button>
-            <a
-              href={DEMO_TELEGRAM_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={choiceClass}
-            >
-              <Send className="text-muted-foreground h-5 w-5 shrink-0" aria-hidden="true" />
-              <span className="flex-1">
-                <span className="text-foreground block text-base">Contact us on Telegram</span>
-                <span className="text-muted-foreground mt-1 block text-sm">
-                  @raisedash <span className="sr-only">(opens in a new tab)</span>
-                </span>
-              </span>
-              <ArrowUpRight
-                className="text-muted-foreground group-hover:text-foreground h-4 w-4 shrink-0"
-                aria-hidden="true"
-              />
-            </a>
           </nav>
 
           {formMounted && (
@@ -165,6 +154,40 @@ export default function GetADemoPage() {
         </div>
       </Container>
     </PageLayout>
+  );
+}
+
+/** Telegram's mark: brand-blue circle, white plane. */
+function TelegramLogo({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} aria-hidden="true">
+      <circle cx="12" cy="12" r="11" fill="#fff" />
+      <path
+        fill="#26a5e4"
+        d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"
+      />
+    </svg>
+  );
+}
+
+function MailFilled({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden="true">
+      <path d="M1.5 8.67v8.58a3 3 0 0 0 3 3h15a3 3 0 0 0 3-3V8.67l-8.928 5.493a3 3 0 0 1-3.144 0L1.5 8.67Z" />
+      <path d="M22.5 6.908V6.75a3 3 0 0 0-3-3h-15a3 3 0 0 0-3 3v.158l9.714 5.978a1.5 1.5 0 0 0 1.572 0L22.5 6.908Z" />
+    </svg>
+  );
+}
+
+function ChatFilled({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden="true">
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M4.848 2.771A49.144 49.144 0 0 1 12 2.25c2.43 0 4.817.178 7.152.52 1.978.292 3.348 2.024 3.348 3.97v6.02c0 1.946-1.37 3.678-3.348 3.97a48.901 48.901 0 0 1-3.476.383.39.39 0 0 0-.297.17l-2.755 4.133a.75.75 0 0 1-1.248 0l-2.755-4.133a.39.39 0 0 0-.297-.17 48.9 48.9 0 0 1-3.476-.384c-1.978-.29-3.348-2.024-3.348-3.97V6.741c0-1.946 1.37-3.68 3.348-3.97Z"
+      />
+    </svg>
   );
 }
 

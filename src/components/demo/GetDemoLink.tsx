@@ -12,7 +12,7 @@ export function GetDemoLink({ product, className }: { product: string; className
         className
       )}
     >
-      Get a demo <ArrowRight className="h-4 w-4" aria-hidden="true" />
+      Get a risk-free demo <ArrowRight className="h-4 w-4" aria-hidden="true" />
     </Link>
   );
 }
