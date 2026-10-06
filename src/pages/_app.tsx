@@ -9,29 +9,21 @@ import { FleetMetaPixel } from "@/components/meta/FleetMetaPixel";
 import { OrganizationJsonLd, WebsiteJsonLd } from "@/components/seo/SEO";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
-// Code-split the marketing header and Intercom out of the shared _app bundle so
-// the /start ad funnel never downloads them — Header pulls in the Radix
-// navigation menu and Intercom pulls in the messenger SDK, neither of which the
-// paid-traffic funnel renders. They still server-render on every other page
-// (Header keeps ssr so there's no nav flash); Intercom is client-only anyway.
+// Code-split the marketing header out of the shared _app bundle so the /start ad
+// funnel never downloads the Radix navigation menu it pulls in. It still
+// server-renders on every other page, so there's no nav flash.
+// The Intercom messenger is switched off for now. To bring it back, mount
+// `IntercomProvider` from "@/components/Intercom" here (client-only, ssr: false).
 const Header = dynamic(() => import("@/components/layout/Header").then((m) => m.Header));
-const IntercomProvider = dynamic(
-  () => import("@/components/Intercom").then((m) => m.IntercomProvider),
-  { ssr: false }
-);
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
   // The /start and /start-v2 ad funnels (Meta ads) are distraction-free,
-  // full-screen flows for the FB/IG in-app browser — no marketing header, no
-  // Intercom widget.
+  // full-screen flows for the FB/IG in-app browser with no marketing header.
   const isFunnel =
     router.pathname === "/start" ||
     router.pathname === "/start-v2" ||
     router.pathname === "/start-v3";
-  // Keep these focused contact experiences free of an additional chat widget.
-  const hideIntercom =
-    isFunnel || router.pathname === "/tools/samsara-alerts" || router.pathname === "/get-a-demo";
 
   return (
     <>
@@ -57,7 +49,6 @@ export default function App({ Component, pageProps }: AppProps) {
           <Component {...pageProps} />
         </main>
       </HomepageProductNavigation>
-      {!hideIntercom && <IntercomProvider />}
       <SpeedInsights />
     </>
   );
