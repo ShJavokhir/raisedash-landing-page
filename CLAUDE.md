@@ -131,7 +131,7 @@ Router used by the dashboard/learner-web apps. Node is pinned to **22.x**
      objective offers it directly, a brand-new custom event ("EngagedVisit",
      its name until 2026-10-01) wasn't selectable. Nothing else may send
      Contact on the fleet pixel. `src/lib/engaged-visit.ts`: once per
-     session, ≥30s of *active* time (tab visible + recent input) AND ≥1 intent
+     session, ≥60s of *active* time (tab visible + recent input) AND ≥1 intent
      signal (deep scroll, intent page, or a named high-intent site-analytics
      event via `onCapture`). Twin: `/api/visit-quality` (neutral path on
      purpose — blockers match "pixel"/"capi"/"track"). PostHog twin

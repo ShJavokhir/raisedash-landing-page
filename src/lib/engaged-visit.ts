@@ -32,7 +32,7 @@ import { newEventId } from "@/lib/meta-pixel";
 import { FLEET_PIXEL_ID, trackFleetPixel } from "@/lib/meta-fleet-pixel";
 import { capture, onCapture, type SiteAnalyticsEvent } from "@/lib/site-analytics";
 
-const ENGAGED_SECONDS = 30;
+const ENGAGED_SECONDS = 60;
 const ACTIVE_WINDOW_MS = 15_000;
 /** Bottom of the viewport past this share of the page = deep scroll. */
 const DEEP_SCROLL_RATIO = 0.6;
