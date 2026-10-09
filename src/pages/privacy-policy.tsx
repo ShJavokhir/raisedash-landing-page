@@ -1,6 +1,7 @@
 import { Container } from "@/components/layout/Container";
 import { PageLayout } from "@/components/layout/PageLayout";
 import { PrivacyPolicyContent } from "@/components/legal/legal-content";
+import { PRIVACY_EFFECTIVE_DATE } from "@/components/legal/legal-docs";
 
 export default function PrivacyPolicy() {
   return (
@@ -19,14 +20,7 @@ export default function PrivacyPolicy() {
             Your privacy is important to us. This Privacy Policy explains how Raisedash collects,
             uses, and protects your information when you use our services.
           </p>
-          <p className="text-muted-foreground mt-2 text-sm">
-            Last updated:{" "}
-            {new Date().toLocaleDateString("en-US", {
-              year: "numeric",
-              month: "long",
-              day: "numeric",
-            })}
-          </p>
+          <p className="text-muted-foreground mt-2 text-sm">Effective: {PRIVACY_EFFECTIVE_DATE}</p>
         </div>
       </Container>
 

@@ -11,3 +11,13 @@ export const LEGAL_TITLES: Record<LegalDoc, string> = {
   privacy: "Privacy Policy",
   terms: "Terms of Use",
 };
+
+/**
+ * Fixed effective date of the current Terms. Bump it (and the sitemap lastmod) whenever the
+ * Terms change. Never derive it from `new Date()`: we must be able to prove which version was
+ * in force on a given day.
+ */
+export const TERMS_EFFECTIVE_DATE = "October 9, 2026";
+
+/** Same rule for the Privacy Policy. */
+export const PRIVACY_EFFECTIVE_DATE = "October 9, 2026";
