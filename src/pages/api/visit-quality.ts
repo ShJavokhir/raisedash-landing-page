@@ -1,4 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
+import { BOT_UA, cleanSourceUrl, clientIp, createIpRateLimiter } from "@/lib/capi-request";
 import { sendFleetCapiEvent } from "@/lib/meta-capi";
 
 /**
@@ -18,54 +19,13 @@ import { sendFleetCapiEvent } from "@/lib/meta-capi";
  * shaped body. Best-effort: no-ops until the META_FLEET_* env is set.
  */
 
-const BOT_UA =
-  /bot|crawl|spider|slurp|headless|lighthouse|pagespeed|preview|facebookexternalhit|python|curl|wget/i;
 const EVENT_ID = /^[\w-]{8,200}$/;
 const SIGNAL = /^[a-z_]{1,32}$/;
 const MAX_SIGNALS = 12;
 
 // One engaged visit per session is the norm; a handful per IP per hour covers
-// shared office/carrier networks. In-memory, so per warm instance only.
-const RATE_WINDOW_MS = 60 * 60 * 1000;
-const RATE_MAX = 5;
-const hitsByIp = new Map<string, number[]>();
-
-function rateLimited(ip: string): boolean {
-  const now = Date.now();
-  const recent = (hitsByIp.get(ip) ?? []).filter((t) => now - t < RATE_WINDOW_MS);
-  if (recent.length >= RATE_MAX) {
-    hitsByIp.set(ip, recent);
-    return true;
-  }
-  recent.push(now);
-  hitsByIp.set(ip, recent);
-  if (hitsByIp.size > 5000) hitsByIp.clear(); // bound memory on a long-lived instance
-  return false;
-}
-
-/**
- * The public client IP for Meta CAPI matching/geolocation. On Vercel the real
- * client IP is the first hop of x-forwarded-for (x-real-ip as a fallback).
- */
-function clientIp(req: NextApiRequest): string | undefined {
-  const xff = req.headers["x-forwarded-for"];
-  const first = (Array.isArray(xff) ? xff[0] : xff)?.split(",")[0]?.trim();
-  if (first) return first;
-  const xrip = req.headers["x-real-ip"];
-  return (Array.isArray(xrip) ? xrip[0] : xrip)?.trim() || undefined;
-}
-
-/** The page URL without any PII params (/demo links can carry ?email=). */
-function cleanSourceUrl(referer: string | undefined): string | undefined {
-  if (!referer) return undefined;
-  try {
-    const url = new URL(referer);
-    for (const key of ["email", "phone", "name"]) url.searchParams.delete(key);
-    return url.toString();
-  } catch {
-    return undefined;
-  }
-}
+// shared office/carrier networks.
+const rateLimited = createIpRateLimiter(5, 60 * 60 * 1000);
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== "POST") {

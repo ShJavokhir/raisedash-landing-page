@@ -8,6 +8,10 @@
  *                 learning phase. A STANDARD event on purpose: the Leads objective
  *                 offers it directly as a conversion event, while a brand-new
  *                 custom event wasn't selectable. Nothing else sends Contact.
+ *   CompleteRegistration
+ *                 a tap on a Telegram bot link (content_name: telegram_bot_tap,
+ *                 src/lib/bot-tap.ts), once per session. The PTI page's real
+ *                 conversion: the bot is free, so there is no form after it.
  *   Lead          an email capture (EmailCapture, the /demo email gate).
  *   Schedule      a demo request / Cal.com booking on /demo.
  *
@@ -20,14 +24,14 @@
  *
  * Every event is a Pixel + CAPI pair: the browser event here is the best-effort
  * half; the durable server twin (/api/email-capture, /api/demo-lead,
- * /api/visit-quality) shares its eventId so Meta dedupes the pair. Everything
+ * /api/visit-quality, /api/handoff) shares its eventId so Meta dedupes the pair. Everything
  * no-ops when NEXT_PUBLIC_META_FLEET_PIXEL_ID is unset.
  */
 import { bootstrapFbq, newEventId } from "@/lib/meta-pixel";
 
 export const FLEET_PIXEL_ID = process.env.NEXT_PUBLIC_META_FLEET_PIXEL_ID;
 
-export type FleetPixelEvent = "PageView" | "Contact" | "Lead" | "Schedule";
+export type FleetPixelEvent = "PageView" | "Contact" | "CompleteRegistration" | "Lead" | "Schedule";
 
 // Whether the fleet pixel id has been fbq('init')-ed this page load. Module
 // state survives client-side navigation, so the _app-mounted component can

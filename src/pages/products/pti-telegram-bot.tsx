@@ -14,8 +14,8 @@ import { Container } from "@/components/layout/Container";
 import { PageLayout } from "@/components/layout/PageLayout";
 import { BreadcrumbJsonLd, SoftwareApplicationJsonLd } from "@/components/seo/SEO";
 import { ScreenshotGallery } from "@/components/pti/ScreenshotGallery";
+import { TelegramBotHelp, TelegramBotLink } from "@/components/pti/TelegramBotLink";
 
-const BOT_LINK = "https://t.me/raisedashbot";
 const UPGRADE_LINK = "https://t.me/raisedash";
 const DEMO_LINK = "https://youtu.be/0yaCfofuQ-A";
 // Visible history and stored records have different limits on the free plan.
@@ -141,9 +141,9 @@ export default function PtiTelegramBotPage() {
               Drivers follow your checklist. You get the photos, videos, and reported problems in
               your group.
             </p>
-            <a href={BOT_LINK} className={`${primaryLink} mt-7`}>
+            <TelegramBotLink placement="hero" className={`${primaryLink} mt-7`}>
               Add @raisedashbot <ArrowRight className="h-4 w-4" aria-hidden="true" />
-            </a>
+            </TelegramBotLink>
             <p className="text-muted-foreground mt-3 text-sm">
               Free. No signup or payment required.
             </p>
@@ -247,7 +247,7 @@ export default function PtiTelegramBotPage() {
             {
               name: "Free",
               features: freeFeatures,
-              href: BOT_LINK,
+              href: null,
               cta: "Start free in Telegram",
               primary: true,
             },
@@ -276,12 +276,21 @@ export default function PtiTelegramBotPage() {
                   </li>
                 ))}
               </ul>
-              <a
-                href={plan.href}
-                className={`${plan.primary ? primaryLink : secondaryLink} mt-auto self-start`}
-              >
-                {plan.cta} <ArrowRight className="h-4 w-4" aria-hidden="true" />
-              </a>
+              {plan.href ? (
+                <a
+                  href={plan.href}
+                  className={`${plan.primary ? primaryLink : secondaryLink} mt-auto self-start`}
+                >
+                  {plan.cta} <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                </a>
+              ) : (
+                <TelegramBotLink
+                  placement="free_plan"
+                  className={`${plan.primary ? primaryLink : secondaryLink} mt-auto self-start`}
+                >
+                  {plan.cta} <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                </TelegramBotLink>
+              )}
             </section>
           ))}
         </div>
@@ -290,6 +299,7 @@ export default function PtiTelegramBotPage() {
           older records still in storage.
         </p>
       </Container>
+      <TelegramBotHelp />
     </PageLayout>
   );
 }

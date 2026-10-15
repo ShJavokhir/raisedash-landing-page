@@ -8,7 +8,8 @@
  * Serves ONE dataset: the site-wide FLEET pixel (META_FLEET_PIXEL_ID +
  * META_FLEET_CAPI_ACCESS_TOKEN) via sendFleetCapiEvent, called from
  * /api/email-capture ("Lead"), /api/demo-lead ("Schedule") and
- * /api/visit-quality ("Contact" = engaged visit). The old /start* driver-training CAPI was
+ * /api/visit-quality ("Contact" = engaged visit) and /api/handoff
+ * ("CompleteRegistration" = Telegram bot tap). The old /start* driver-training CAPI was
  * removed 2026-10-01; /start-v3 still runs that pixel browser-only.
  *
  * Node-only (reads secret access tokens + hashes PII with node:crypto); never
@@ -41,7 +42,7 @@ export interface CapiEventInput {
   /** Matches the browser Pixel twin's content_name so reporting reads
    *  consistently (e.g. "fleet_email_capture"). */
   contentName?: string;
-  /** Meta event name ("Lead", "Schedule", "Contact").
+  /** Meta event name ("Lead", "Schedule", "Contact", "CompleteRegistration").
    *  Defaults to "Lead". */
   eventName?: string;
   /** Extra custom_data fields (e.g. the engaged visit's engaged_seconds). */
