@@ -1,25 +1,3 @@
 {
-  "buildCommand": "rm -rf .next/cache/webpack && npm run build",
-  "rewrites": [
-    {
-      "source": "/tools/road-signs",
-      "destination": "https://tools.raisedash.com/tools/road-signs"
-    },
-    {
-      "source": "/tools/road-signs/:path+",
-      "destination": "https://tools.raisedash.com/tools/road-signs/:path+"
-    },
-    {
-      "source": "/tools/elp-practice/:path+",
-      "destination": "https://tools.raisedash.com/tools/elp-practice/:path+"
-    }
-  ],
-  "redirects": [
-    {
-      "source": "/:path*",
-      "has": [{ "type": "host", "value": "raisedash.com" }],
-      "destination": "https://www.raisedash.com/:path*",
-      "permanent": true
-    }
-  ]
+  "buildCommand": "rm -rf .next/cache/webpack && npm run build"
 }

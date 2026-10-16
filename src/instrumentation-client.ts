@@ -29,7 +29,12 @@
 
 import posthog from "posthog-js";
 import { pageContext } from "@/lib/analytics-context";
-import { POSTHOG_PROXY_PATH, POSTHOG_TOKEN, POSTHOG_UI_HOST } from "@/lib/posthog-config";
+import {
+  isLocalHost,
+  POSTHOG_PROXY_PATH,
+  POSTHOG_TOKEN,
+  POSTHOG_UI_HOST,
+} from "@/lib/posthog-config";
 import { installSiteAutotrack } from "@/lib/site-autotrack";
 
 // URL-ish properties that could carry a prefilled email (the /demo self-serve
@@ -48,7 +53,9 @@ function applyInternalFlag(): void {
   else if (flag === "0") posthog.unregister("is_internal");
 }
 
-if (typeof window !== "undefined") {
+// Never initialise on localhost: no events, no session replay, no heatmaps. Every
+// wrapper checks `posthog.__loaded`, so they all no-op without an init.
+if (typeof window !== "undefined" && !isLocalHost(window.location.hostname)) {
   try {
     posthog.init(POSTHOG_TOKEN, {
       // Same-origin proxy (see next.config.ts rewrites). Relative path keeps

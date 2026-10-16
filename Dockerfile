@@ -1,45 +1,44 @@
-# Stage 1: Building the application
-FROM --platform=linux/amd64 node:20-alpine AS builder
-
+# Production image for www.raisedash.com: Next standalone server on the
+# Raisedash EC2 box behind Traefik + Cloudflare (infra/docker-compose.yml).
+# NEXT_PUBLIC_* values are inlined at build time, so they are build args;
+# server secrets come from /etc/raisedash/landing.env at runtime.
+FROM node:22-bookworm-slim AS deps
 WORKDIR /app
-
-# Copy package files
-COPY package.json package-lock.json* ./
-
-# Install dependencies
+COPY package.json package-lock.json ./
 RUN npm ci
 
-# Copy the rest of the application code
+FROM node:22-bookworm-slim AS build
+WORKDIR /app
+COPY --from=deps /app/node_modules ./node_modules
 COPY . .
-
-# Build the application
+ARG NEXT_PUBLIC_META_FLEET_PIXEL_ID
+ARG NEXT_PUBLIC_INTERCOM_APP_ID
+ARG NEXT_PUBLIC_TURNSTILE_SITE_KEY
+ARG NEXT_PUBLIC_VERCEL_ENV=production
+ENV NEXT_PUBLIC_META_FLEET_PIXEL_ID=$NEXT_PUBLIC_META_FLEET_PIXEL_ID \
+    NEXT_PUBLIC_INTERCOM_APP_ID=$NEXT_PUBLIC_INTERCOM_APP_ID \
+    NEXT_PUBLIC_TURNSTILE_SITE_KEY=$NEXT_PUBLIC_TURNSTILE_SITE_KEY \
+    NEXT_PUBLIC_VERCEL_ENV=$NEXT_PUBLIC_VERCEL_ENV \
+    NEXT_TELEMETRY_DISABLED=1
 RUN npm run build
 
-# Stage 2: Running the application
-FROM --platform=linux/amd64 node:20-alpine AS runner
-
+FROM node:22-bookworm-slim AS runtime
+ENV NODE_ENV=production \
+    NEXT_TELEMETRY_DISABLED=1 \
+    PORT=3000 \
+    HOSTNAME=0.0.0.0
 WORKDIR /app
-
-# Set to production environment
-ENV NODE_ENV=production
-
-# Create a non-root user
-RUN addgroup --system --gid 1001 nodejs && \
-    adduser --system --uid 1001 nextjs
-
-# Ensure app directory exists and set permissions
-RUN mkdir -p .next && chown -R nextjs:nodejs /app
-
-# Copy only necessary files from builder
-COPY --from=builder --chown=nextjs:nodejs /app/public ./public
-COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
-COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
-
-# Switch to non-root user
-USER nextjs
-
-# Expose the port the app runs on
+RUN apt-get update \
+  && apt-get install -y --no-install-recommends tini wget \
+  && rm -rf /var/lib/apt/lists/*
+COPY --from=build --chown=node:node /app/.next/standalone ./
+COPY --from=build --chown=node:node /app/.next/static ./.next/static
+COPY --from=build --chown=node:node /app/public ./public
+# sitemap.xml, rss.xml, changelogs and the hourly ISR pages read MDX at runtime.
+COPY --from=build --chown=node:node /app/content ./content
+USER node
 EXPOSE 3000
-
-# Command to run the application
+HEALTHCHECK --interval=15s --timeout=5s --start-period=30s --retries=3 \
+  CMD wget -qO- http://127.0.0.1:3000/api/health >/dev/null 2>&1 || exit 1
+ENTRYPOINT ["/usr/bin/tini", "--"]
 CMD ["node", "server.js"]

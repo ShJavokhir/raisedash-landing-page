@@ -13,8 +13,11 @@
  * A deduped pair like the engaged visit: the browser Pixel event and its server
  * CAPI twin via /api/handoff (shared eventId; keepalive, since the tap usually
  * leaves for Telegram at once), plus the PostHog event telegram_bot_tapped.
+ * Also qualifies the engaged visit ("Contact") on the spot, since the visitor
+ * is usually gone before its time requirement is met.
  * Called from TelegramBotLink, so it only ever runs on pages that link the bot.
  */
+import { qualifyEngagedVisitNow } from "@/lib/engaged-visit";
 import { newEventId } from "@/lib/meta-pixel";
 import { FLEET_PIXEL_ID, trackFleetPixel } from "@/lib/meta-fleet-pixel";
 import { capture } from "@/lib/site-analytics";
@@ -58,4 +61,6 @@ export function noteBotTap(placement: string): void {
     }).catch(() => {});
   }
   capture("telegram_bot_tapped", { placement, meta_event_id: eventId });
+  // The tap leaves for Telegram at once, so it also counts as the engaged visit.
+  qualifyEngagedVisitNow("bot_tap");
 }

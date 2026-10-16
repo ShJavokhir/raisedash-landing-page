@@ -7,7 +7,6 @@ import { SkipLink } from "@/components/layout/SkipLink";
 import { HomepageProductNavigation } from "@/components/layout/HomepageProductNavigation";
 import { FleetMetaPixel } from "@/components/meta/FleetMetaPixel";
 import { OrganizationJsonLd, WebsiteJsonLd } from "@/components/seo/SEO";
-import { SpeedInsights } from "@vercel/speed-insights/next";
 
 // Code-split the marketing header out of the shared _app bundle so the /start ad
 // funnel never downloads the Radix navigation menu it pulls in. It still
@@ -49,7 +48,6 @@ export default function App({ Component, pageProps }: AppProps) {
           <Component {...pageProps} />
         </main>
       </HomepageProductNavigation>
-      <SpeedInsights />
     </>
   );
 }

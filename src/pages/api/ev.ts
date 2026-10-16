@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { POSTHOG_INGEST_HOST, POSTHOG_TOKEN } from "@/lib/posthog-config";
+import { isLocalHost, POSTHOG_INGEST_HOST, POSTHOG_TOKEN } from "@/lib/posthog-config";
 
 /**
  * Funnel telemetry sink for /start. The browser posts tiny events here via
@@ -21,6 +21,9 @@ const ALLOWED_EVENTS = new Set([
 ]);
 
 function clientIp(req: NextApiRequest): string | undefined {
+  const cf = req.headers["cf-connecting-ip"];
+  const cfIp = (Array.isArray(cf) ? cf[0] : cf)?.trim();
+  if (cfIp) return cfIp;
   const fwd = req.headers["x-forwarded-for"];
   const raw = Array.isArray(fwd) ? fwd[0] : fwd;
   return raw?.split(",")[0]?.trim() || undefined;
@@ -37,7 +40,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   // moment the response is sent, so we can't fire-and-forget after res.end().
   // The client used sendBeacon and isn't awaiting us, so the extra round-trip
   // costs the user nothing.
-  if (POSTHOG_TOKEN) {
+  if (POSTHOG_TOKEN && !isLocalHost(req.headers.host)) {
     try {
       const body = (req.body ?? {}) as {
         sid?: unknown;

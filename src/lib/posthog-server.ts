@@ -1,6 +1,6 @@
 import type { NextApiRequest } from "next";
 import { pageContext } from "@/lib/analytics-context";
-import { POSTHOG_INGEST_HOST, POSTHOG_TOKEN } from "@/lib/posthog-config";
+import { isLocalHost, POSTHOG_INGEST_HOST, POSTHOG_TOKEN } from "@/lib/posthog-config";
 
 /**
  * Server-side PostHog capture for conversions — the ad-blocker-proof half of
@@ -33,6 +33,7 @@ function header(req: NextApiRequest, name: string): string | undefined {
 
 function clientIp(req: NextApiRequest): string | undefined {
   return (
+    header(req, "cf-connecting-ip")?.trim() ||
     header(req, "x-forwarded-for")?.split(",")[0]?.trim() ||
     header(req, "x-real-ip")?.trim() ||
     undefined
@@ -86,6 +87,8 @@ export async function captureServerEvent({
 }): Promise<void> {
   const distinctId = email.trim().toLowerCase();
   if (!distinctId) return;
+  // Local dev traffic never reaches PostHog.
+  if (isLocalHost(header(req, "host"))) return;
 
   // The browser's ids, when its SDK was alive (see analyticsContext()).
   const context = (req.body as { analytics?: unknown } | undefined)?.analytics;

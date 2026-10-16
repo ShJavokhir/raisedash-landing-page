@@ -17,6 +17,14 @@
  *     (product card, ROI calculator, user-started video, demo path, CTA exit...)
  *     observed through site-analytics' onCapture — no extra instrumentation.
  *
+ * Two PTI-page exceptions, for faster ad-set learning on the free bot (no form
+ * follows it, so this is the page's only early conversion):
+ *  - FAST_PATH pages need FAST_ENGAGED_SECONDS instead of ENGAGED_SECONDS.
+ *  - A Telegram bot tap qualifies at once (qualifyEngagedVisitNow from
+ *    src/lib/bot-tap.ts): the tap hands off to Telegram within seconds, so the
+ *    best visitors never stayed long enough (Oct 1-15: only 12 of 29 bot-tapping
+ *    sessions had qualified).
+ *
  * On qualifying it fires a deduped pair — the browser Pixel event and its server
  * CAPI twin via /api/visit-quality (shared eventId; the server half survives ad
  * blockers and the FB/IG in-app browser suppressing the Pixel) — plus the PostHog
@@ -33,6 +41,8 @@ import { FLEET_PIXEL_ID, trackFleetPixel } from "@/lib/meta-fleet-pixel";
 import { capture, onCapture, type SiteAnalyticsEvent } from "@/lib/site-analytics";
 
 const ENGAGED_SECONDS = 60;
+const FAST_ENGAGED_SECONDS = 30;
+const FAST_PATH = /^\/products\/pti-telegram-bot\/?$/;
 const ACTIVE_WINDOW_MS = 15_000;
 /** Bottom of the viewport past this share of the page = deep scroll. */
 const DEEP_SCROLL_RATIO = 0.6;
@@ -111,8 +121,16 @@ function addSignal(signal: string): void {
   maybeFire();
 }
 
+function requiredMs(): number {
+  return (FAST_PATH.test(window.location.pathname) ? FAST_ENGAGED_SECONDS : ENGAGED_SECONDS) * 1000;
+}
+
 function maybeFire(): void {
-  if (state.fired || state.ms < ENGAGED_SECONDS * 1000 || state.signals.length === 0) return;
+  if (state.fired || state.ms < requiredMs() || state.signals.length === 0) return;
+  fire();
+}
+
+function fire(): void {
   state.fired = true;
   save();
 
@@ -181,6 +199,16 @@ function onAnalyticsEvent(event: SiteAnalyticsEvent, properties?: Record<string,
     return;
   }
   addSignal(signal);
+}
+
+/**
+ * Qualify now, skipping the time requirement, for an action that is itself the
+ * conversion we're after (a Telegram bot tap). Once per session, like the rest.
+ */
+export function qualifyEngagedVisitNow(signal: string): void {
+  if (!running || state.fired) return;
+  if (!state.signals.includes(signal)) state.signals.push(signal);
+  fire();
 }
 
 /** Call on every page view (first load + client-side route changes). */

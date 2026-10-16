@@ -19,3 +19,24 @@ export const POSTHOG_INGEST_HOST = "https://us.i.posthog.com";
 
 /** The PostHog app (toolbar, replay/person links). */
 export const POSTHOG_UI_HOST = "https://us.posthog.com";
+
+/**
+ * Local development (localhost, loopback, *.localhost) must never reach PostHog:
+ * no browser SDK, no session replay, no server-side events. Accepts a bare
+ * hostname or a Host header value (optional port).
+ */
+export function isLocalHost(host: string | undefined | null): boolean {
+  if (!host) return false;
+  const name = host
+    .trim()
+    .toLowerCase()
+    .replace(/^\[([^\]]+)\](:\d+)?$/, "$1")
+    .replace(/:\d+$/, "");
+  return (
+    name === "localhost" ||
+    name.endsWith(".localhost") ||
+    name === "127.0.0.1" ||
+    name === "0.0.0.0" ||
+    name === "::1"
+  );
+}

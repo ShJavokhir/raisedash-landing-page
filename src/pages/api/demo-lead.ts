@@ -50,10 +50,14 @@ function stripTags(v: string): string {
 }
 
 /**
- * The public client IP for Meta CAPI matching/geolocation. On Vercel the real
- * client IP is the first hop of x-forwarded-for (x-real-ip as a fallback).
+ * The public client IP for Meta CAPI matching/geolocation. Behind Cloudflare it
+ * is cf-connecting-ip (the origin only accepts Cloudflare, so it can't be
+ * spoofed); otherwise the first hop of x-forwarded-for, then x-real-ip.
  */
 function clientIp(req: NextApiRequest): string | undefined {
+  const cf = req.headers["cf-connecting-ip"];
+  const cfIp = (Array.isArray(cf) ? cf[0] : cf)?.trim();
+  if (cfIp) return cfIp;
   const xff = req.headers["x-forwarded-for"];
   const first = (Array.isArray(xff) ? xff[0] : xff)?.split(",")[0]?.trim();
   if (first) return first;

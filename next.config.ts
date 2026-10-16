@@ -22,9 +22,22 @@ const nextConfig: NextConfig = {
   // "/rdx"); Next forwards to PostHog. Deliberately an obscure "/rdx" base
   // rather than PostHog's well-known "/ingest", which some filter lists now
   // catch. Order matters — the two asset rules must precede the catch-all.
-  // (The /tools/* proxies live in vercel.json, a disjoint path set.)
+  // The /tools/* proxies (a disjoint path set) serve tools.raisedash.com pages
+  // under our domain; /tools/elp-practice itself is a real page here.
   async rewrites() {
     return [
+      {
+        source: "/tools/road-signs",
+        destination: "https://tools.raisedash.com/tools/road-signs",
+      },
+      {
+        source: "/tools/road-signs/:path+",
+        destination: "https://tools.raisedash.com/tools/road-signs/:path+",
+      },
+      {
+        source: "/tools/elp-practice/:path+",
+        destination: "https://tools.raisedash.com/tools/elp-practice/:path+",
+      },
       {
         source: "/rdx/static/:path*",
         destination: "https://us-assets.i.posthog.com/static/:path*",
@@ -47,6 +60,13 @@ const nextConfig: NextConfig = {
   // lib/meta-pixel.ts → stripSensitiveParams) so no raw email reaches Meta.
   async redirects() {
     return [
+      // Bare and legacy domains -> the canonical www host.
+      ...["raisedash.com", "raisedash.org", "www.raisedash.org"].map((host) => ({
+        source: "/:path*",
+        has: [{ type: "host" as const, value: host }],
+        destination: "https://www.raisedash.com/:path*",
+        permanent: true,
+      })),
       {
         source: "/get-started",
         destination: "/start",

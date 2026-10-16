@@ -2,8 +2,10 @@
 
 Marketing/landing site for Raisedash, a driver-readiness platform for trucking
 fleets. This is its **own git repo** (separate from `raisedash-backend` /
-`raisedash-dashboard` / `raisedash-learner-web`), deployed independently to
-**Vercel**. It uses the Next.js **Pages Router** (`src/pages/`) — NOT the App
+`raisedash-dashboard` / `raisedash-learner-web`). Since 2026-10-16 it runs as
+a Docker container (`Dockerfile`, Next standalone) on the Raisedash EC2 box
+behind Traefik + Cloudflare, NOT Vercel. Deploy = `./infra/deploy-landing.sh`
+from the parent `raisedash-new` repo (a git push does not deploy). It uses the Next.js **Pages Router** (`src/pages/`) — NOT the App
 Router used by the dashboard/learner-web apps. Node is pinned to **22.x**
 (`engines` + `.nvmrc`) — see gotchas below for why.
 
@@ -55,7 +57,7 @@ Router used by the dashboard/learner-web apps. Node is pinned to **22.x**
   from both the sitemap and IndexNow (thin changelog entries) — only the hub
   page is announced.
 - `src/pages/tools/elp-practice.tsx` — real page here; `/tools/road-signs`
-  and `/tools/elp-practice/*` are proxied via `vercel.json` rewrites to
+  and `/tools/elp-practice/*` are proxied via `next.config.ts` rewrites to
   `tools.raisedash.com` but still get real, indexable, self-canonical pages
   (announced in the sitemap/IndexNow so they rank standalone).
 - `src/pages/api/og.tsx` — edge-runtime OG image card (Satori via
@@ -131,7 +133,7 @@ Router used by the dashboard/learner-web apps. Node is pinned to **22.x**
      objective offers it directly, a brand-new custom event ("EngagedVisit",
      its name until 2026-10-01) wasn't selectable. Nothing else may send
      Contact on the fleet pixel. `src/lib/engaged-visit.ts`: once per
-     session, ≥60s of *active* time (tab visible + recent input) AND ≥1 intent
+     session, ≥60s (≥30s on the PTI page; a bot tap qualifies at once) of *active* time (tab visible + recent input) AND ≥1 intent
      signal (deep scroll, intent page, or a named high-intent site-analytics
      event via `onCapture`). Twin: `/api/visit-quality` (neutral path on
      purpose — blockers match "pixel"/"capi"/"track"). PostHog twin
@@ -148,7 +150,8 @@ Router used by the dashboard/learner-web apps. Node is pinned to **22.x**
   ties one visitor's engaged visit → Lead → Schedule together.
 - **`META_FLEET_CAPI_TEST_EVENT_CODE` must never be set in Production** — it
   turns every server event into a Test Event that Meta ignores for attribution
-  and optimization (it was, until 2026-10-01). Preview only.
+  and optimization (it was, until 2026-10-01). Never in
+  `/etc/raisedash/landing.env` except briefly for a Test Events check.
 - `FleetMetaPixel` also persists `rd_fbclid` (90d) + `rd_utm` (30d) cookies;
   `/api/email-capture` reads `rd_utm` to append a campaign footer to the
   Telegram notification, and the fleet API routes use `rd_fbclid` to
@@ -256,12 +259,18 @@ Router used by the dashboard/learner-web apps. Node is pinned to **22.x**
 - **Hidden browser tabs freeze rAF/IntersectionObserver/hydration timers** —
   if you're QA'ing animations or the ROI calculator in a background tab,
   bring it to the foreground first or you'll see false "broken" behavior.
-- `vercel.json` handles the apex-domain redirect (`raisedash.com` →
-  `https://www.raisedash.com`, permanent) and rewrites `/tools/road-signs`
-  and `/tools/elp-practice/*` to `tools.raisedash.com` — don't duplicate
-  these in `next.config.ts` redirects, which handles a different set
-  (`/get-started` → `/start`, `/products/raisedash-shift` →
-  `/platform/pre-arrival-readiness`).
+- `next.config.ts` owns ALL routing: apex `raisedash.com` + `raisedash.org`
+  → `https://www.raisedash.com` (host-based 308s), the `/tools/*` proxies to
+  `tools.raisedash.com`, the `/rdx` PostHog proxy, and page redirects.
+  `vercel.json` only keeps the old Vercel build command.
+- **Client IPs come from `cf-connecting-ip`** (Cloudflare → Traefik → Next;
+  the box only accepts Cloudflare IPs, so it can't be spoofed). Every IP
+  reader prefers it, and `src/middleware.ts` rewrites `x-forwarded-for` to it
+  for `/rdx/*` so PostHog geolocates the visitor, not a Cloudflare edge. New
+  code that needs the visitor IP must do the same — `x-forwarded-for`'s first
+  hop is a Cloudflare edge here.
+- `compiler.removeConsole` strips ALL console calls (warn/error too) in the
+  production build, so container logs won't show CAPI/Telegram failures.
 - `INDEXNOW_KEY` in `api/indexnow.ts` must match the `<key>.txt` file served
   at the site root (`public/`) — IndexNow verifies key ownership that way.
 
@@ -271,6 +280,6 @@ Router used by the dashboard/learner-web apps. Node is pinned to **22.x**
   change, it's enough (per Core rules above).
 - Scoped lint: `npx eslint <files>` (repo-wide `pnpm lint`/`format` reformats
   everything — avoid unless intentional).
-- Real build/visual verification is a Vercel deploy, not a local `next
-  build` — see gotchas above for why local/offline builds are unreliable
-  signal.
+- Real build/visual verification: `docker build` (has network) or a deploy
+  via `./infra/deploy-landing.sh`; offline `next build` is unreliable signal
+  (see gotchas above).

@@ -15,7 +15,19 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(url, 308);
   }
 
-  const response = NextResponse.next();
+  // PostHog geolocates proxied /rdx events from the first x-forwarded-for hop.
+  // Behind Cloudflare -> Traefik that hop is a Cloudflare edge, so hand the
+  // proxy the real visitor IP (cf-connecting-ip; the origin only accepts
+  // Cloudflare, so it can't be spoofed). No-op where the header is absent.
+  const cfIp = request.headers.get("cf-connecting-ip");
+  let response: NextResponse;
+  if (cfIp && pathname.startsWith("/rdx/")) {
+    const headers = new Headers(request.headers);
+    headers.set("x-forwarded-for", cfIp);
+    response = NextResponse.next({ request: { headers } });
+  } else {
+    response = NextResponse.next();
+  }
 
   response.headers.set("X-Frame-Options", "DENY");
   response.headers.set("X-Content-Type-Options", "nosniff");
