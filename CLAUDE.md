@@ -5,7 +5,8 @@ fleets. This is its **own git repo** (separate from `raisedash-backend` /
 `raisedash-dashboard` / `raisedash-learner-web`). Since 2026-10-16 it runs as
 a Docker container (`Dockerfile`, Next standalone) on the Raisedash EC2 box
 behind Traefik + Cloudflare, NOT Vercel. Deploy = `./infra/deploy-landing.sh`
-from the parent `raisedash-new` repo (a git push does not deploy). It uses the Next.js **Pages Router** (`src/pages/`) — NOT the App
+from the parent `raisedash-new` repo (a git push does not deploy). Full
+guide: `DEPLOY.md` (deploy, env changes, rollback, verification). It uses the Next.js **Pages Router** (`src/pages/`) — NOT the App
 Router used by the dashboard/learner-web apps. Node is pinned to **22.x**
 (`engines` + `.nvmrc`) — see gotchas below for why.
 
