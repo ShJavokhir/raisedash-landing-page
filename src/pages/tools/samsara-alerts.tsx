@@ -129,9 +129,6 @@ const FAQS: FAQItem[] = [
 ];
 
 export default function SamsaraAlerts() {
-  const exampleTrucks = 140;
-  const examplePrice = PRICE_BASE + (exampleTrucks - PRICE_INCLUDED_TRUCKS) * PRICE_PER_EXTRA_TRUCK;
-
   return (
     <PageLayout
       title="Samsara Alerts in Telegram: Safety Events, Speeding and Engine Faults"
@@ -332,7 +329,7 @@ export default function SamsaraAlerts() {
               <span className="text-muted-foreground text-lg">per month</span>
             </div>
             <p className="text-muted-foreground mt-3 text-lg">
-              {`Covers your first ${PRICE_INCLUDED_TRUCKS} trucks, then $${PRICE_PER_EXTRA_TRUCK} per truck. A ${exampleTrucks}-truck fleet pays $${examplePrice}.`}
+              {`Covers your first ${PRICE_INCLUDED_TRUCKS} trucks, then $${PRICE_PER_EXTRA_TRUCK} per truck.`}
             </p>
 
             <div className="border-border mt-8 space-y-3 border-t pt-8">
