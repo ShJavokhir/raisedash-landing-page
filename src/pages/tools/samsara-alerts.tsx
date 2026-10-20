@@ -27,8 +27,8 @@ import { BoardTabs } from "@/components/samsara/BoardTabs";
 
 // Pricing lives here so a change is one edit. Priced separately from the
 // Raisedash platform in `pricing.tsx` — the two are not linked.
-const PRICE_BASE = 200;
-const PRICE_INCLUDED_TRUCKS = 100;
+const PRICE_BASE = 100;
+const PRICE_INCLUDED_TRUCKS = 50;
 const PRICE_PER_EXTRA_TRUCK = 1;
 
 const SENDS = [
@@ -135,7 +135,7 @@ export default function SamsaraAlerts() {
   return (
     <PageLayout
       title="Samsara Alerts in Telegram: Safety Events, Speeding and Engine Faults"
-      description="Get Samsara safety events, speeding and engine faults in your Telegram group, with the dashcam video attached. Plus advanced weekly fleet reports. $200/mo up to 100 trucks, 3 days free."
+      description="Get Samsara safety events, speeding and engine faults in your Telegram group, with the dashcam video attached. Plus advanced weekly fleet reports. $100/mo up to 50 trucks, 3 days free."
       canonical="https://www.raisedash.com/tools/samsara-alerts"
     >
       <BreadcrumbJsonLd

@@ -55,7 +55,7 @@ const STATIC_PAGE_DATES: Record<string, string> = {
   "/compliance-challenges": "2026-01-27",
   "/pti-app": "2026-01-28",
   "/tools/elp-practice": "2026-10-02",
-  "/tools/samsara-alerts": "2026-10-02",
+  "/tools/samsara-alerts": "2026-10-19",
   "/tools/road-signs": "2026-02-27",
 };
 
