@@ -14,7 +14,7 @@ import { Container } from "@/components/layout/Container";
 import { PageLayout } from "@/components/layout/PageLayout";
 import { BreadcrumbJsonLd, SoftwareApplicationJsonLd } from "@/components/seo/SEO";
 import { ScreenshotGallery } from "@/components/pti/ScreenshotGallery";
-import { TelegramBotHelp, TelegramBotLink } from "@/components/pti/TelegramBotLink";
+import { TelegramBotHelp, TelegramBotLink } from "@/components/telegram/TelegramLink";
 
 const UPGRADE_LINK = "https://t.me/raisedash";
 const DEMO_LINK = "https://youtu.be/0yaCfofuQ-A";

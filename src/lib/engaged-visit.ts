@@ -17,13 +17,15 @@
  *     (product card, ROI calculator, user-started video, demo path, CTA exit...)
  *     observed through site-analytics' onCapture — no extra instrumentation.
  *
- * Two PTI-page exceptions, for faster ad-set learning on the free bot (no form
- * follows it, so this is the page's only early conversion):
- *  - FAST_PATH pages need FAST_ENGAGED_SECONDS instead of ENGAGED_SECONDS.
- *  - A Telegram bot tap qualifies at once (qualifyEngagedVisitNow from
- *    src/lib/bot-tap.ts): the tap hands off to Telegram within seconds, so the
- *    best visitors never stayed long enough (Oct 1-15: only 12 of 29 bot-tapping
- *    sessions had qualified).
+ * Two exceptions for the pages Meta ads send traffic to directly (the PTI bot
+ * page, the Samsara alerts page), for faster ad-set learning:
+ *  - A session that has seen a FAST_PATH page needs FAST_ENGAGED_SECONDS instead
+ *    of ENGAGED_SECONDS, on every page after it too (a Samsara visitor finishes
+ *    on /get-a-demo).
+ *  - A Telegram tap qualifies at once (qualifyEngagedVisitNow from
+ *    src/lib/telegram-tap.ts): the tap hands off to Telegram within seconds, so
+ *    the best visitors never stayed long enough (Oct 1-15: only 12 of 29
+ *    bot-tapping sessions had qualified).
  *
  * On qualifying it fires a deduped pair — the browser Pixel event and its server
  * CAPI twin via /api/visit-quality (shared eventId; the server half survives ad
@@ -42,13 +44,14 @@ import { capture, onCapture, type SiteAnalyticsEvent } from "@/lib/site-analytic
 
 const ENGAGED_SECONDS = 60;
 const FAST_ENGAGED_SECONDS = 30;
-const FAST_PATH = /^\/products\/pti-telegram-bot\/?$/;
+const FAST_PATH = /^\/(products\/pti-telegram-bot|tools\/samsara-alerts)\/?$/;
 const ACTIVE_WINDOW_MS = 15_000;
 /** Bottom of the viewport past this share of the page = deep scroll. */
 const DEEP_SCROLL_RATIO = 0.6;
 /** Pages shorter than this many viewports can't signal anything by scrolling. */
 const MIN_PAGE_VIEWPORTS = 1.5;
-const INTENT_PATH = /^\/(pricing|demo|platform|solutions|products)(\/|$)/;
+const INTENT_PATH =
+  /^\/(pricing|demo|get-a-demo|platform|solutions|products|tools\/samsara-alerts)(\/|$)/;
 
 /** Named analytics events that count as an intent signal, by signal name. */
 const INTENT_EVENTS: Partial<Record<SiteAnalyticsEvent, string>> = {
@@ -82,9 +85,11 @@ interface EngagedState {
   ms: number;
   signals: string[];
   fired: boolean;
+  /** This session has seen a FAST_PATH page. */
+  fast: boolean;
 }
 
-let state: EngagedState = { ms: 0, signals: [], fired: false };
+let state: EngagedState = { ms: 0, signals: [], fired: false, fast: false };
 let running = false;
 let lastInputAt = 0;
 let lastScrollCheckAt = 0;
@@ -100,6 +105,7 @@ function load(): void {
         ? parsed.signals.filter((s): s is string => typeof s === "string").slice(0, 12)
         : [],
       fired: parsed.fired === true,
+      fast: parsed.fast === true,
     };
   } catch {
     // Storage blocked or corrupt — start fresh.
@@ -122,7 +128,7 @@ function addSignal(signal: string): void {
 }
 
 function requiredMs(): number {
-  return (FAST_PATH.test(window.location.pathname) ? FAST_ENGAGED_SECONDS : ENGAGED_SECONDS) * 1000;
+  return (state.fast ? FAST_ENGAGED_SECONDS : ENGAGED_SECONDS) * 1000;
 }
 
 function maybeFire(): void {
@@ -203,7 +209,7 @@ function onAnalyticsEvent(event: SiteAnalyticsEvent, properties?: Record<string,
 
 /**
  * Qualify now, skipping the time requirement, for an action that is itself the
- * conversion we're after (a Telegram bot tap). Once per session, like the rest.
+ * conversion we're after (a Telegram tap). Once per session, like the rest.
  */
 export function qualifyEngagedVisitNow(signal: string): void {
   if (!running || state.fired) return;
@@ -213,6 +219,10 @@ export function qualifyEngagedVisitNow(signal: string): void {
 
 /** Call on every page view (first load + client-side route changes). */
 export function noteEngagedVisitPage(pathname: string): void {
+  if (running && !state.fired && !state.fast && FAST_PATH.test(pathname)) {
+    state.fast = true;
+    save();
+  }
   if (INTENT_PATH.test(pathname)) addSignal("intent_page");
 }
 

@@ -9,9 +9,11 @@
  *                 offers it directly as a conversion event, while a brand-new
  *                 custom event wasn't selectable. Nothing else sends Contact.
  *   CompleteRegistration
- *                 a tap on a Telegram bot link (content_name: telegram_bot_tap,
- *                 src/lib/bot-tap.ts), once per session. The PTI page's real
- *                 conversion: the bot is free, so there is no form after it.
+ *                 a tap on a Telegram link (src/lib/telegram-tap.ts), once per
+ *                 session per kind: content_name telegram_bot_tap (@raisedashbot,
+ *                 the PTI page's real conversion: the bot is free, so there is
+ *                 no form after it) or telegram_sales_tap (@raisedash on
+ *                 /get-a-demo, where the Samsara page's buttons lead).
  *   Lead          an email capture (EmailCapture, the /demo email gate).
  *   Schedule      a demo request / Cal.com booking on /demo.
  *

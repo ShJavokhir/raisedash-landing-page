@@ -1,7 +1,5 @@
 import { products } from "./products";
 
-export const DEMO_TELEGRAM_URL = "https://t.me/raisedash";
-
 export function getDemoHref(product: string): string {
   return `/get-a-demo?product=${encodeURIComponent(product)}`;
 }

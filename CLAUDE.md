@@ -134,7 +134,7 @@ Router used by the dashboard/learner-web apps. Node is pinned to **22.x**
      objective offers it directly, a brand-new custom event ("EngagedVisit",
      its name until 2026-10-01) wasn't selectable. Nothing else may send
      Contact on the fleet pixel. `src/lib/engaged-visit.ts`: once per
-     session, ≥60s (≥30s on the PTI page; a bot tap qualifies at once) of *active* time (tab visible + recent input) AND ≥1 intent
+     session, ≥60s (≥30s for a session that saw the PTI or Samsara page; a Telegram tap qualifies at once) of *active* time (tab visible + recent input) AND ≥1 intent
      signal (deep scroll, intent page, or a named high-intent site-analytics
      event via `onCapture`). Twin: `/api/visit-quality` (neutral path on
      purpose — blockers match "pixel"/"capi"/"track"). PostHog twin
@@ -142,6 +142,11 @@ Router used by the dashboard/learner-web apps. Node is pinned to **22.x**
      thresholds are constants at the top of the file.
   2. **"Lead"** (`fleet_email_capture`) — every email capture (`EmailCapture`,
      `/demo` email gate), twin `/api/email-capture`.
+  2b. **"CompleteRegistration"** — a Telegram tap (`src/lib/telegram-tap.ts`,
+     once per session per kind): `telegram_bot_tap` (@raisedashbot, PTI page)
+     or `telegram_sales_tap` (@raisedash, `/get-a-demo`). Twin `/api/handoff`.
+     Links go through `TelegramLink` (`src/components/telegram/`), which shows
+     a "Telegram didn't open?" dialog when an in-app browser swallows t.me.
   3. **"Schedule"** (`fleet_demo_request`) — successful `/demo` submit (twin
      `/api/demo-lead`) or Cal.com booking (browser-only).
   Move an ad set up a rung once the next one clears ~50 events/week.

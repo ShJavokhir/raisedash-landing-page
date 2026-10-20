@@ -55,8 +55,11 @@ export type SiteAnalyticsEvent =
   | "job_application_submitted"
   | "engaged_visit_qualified"
   | "telegram_bot_tapped"
+  | "telegram_sales_tapped"
   | "telegram_help_shown"
-  | "telegram_username_copied";
+  | "telegram_username_copied"
+  | "email_help_shown"
+  | "email_address_copied";
 
 type CaptureListener = (event: SiteAnalyticsEvent, properties?: Record<string, unknown>) => void;
 const captureListeners = new Set<CaptureListener>();

@@ -1,21 +1,23 @@
-import { DEMO_TELEGRAM_URL, getDemoProduct } from "@/data/demo";
+import { getDemoProduct } from "@/data/demo";
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Turnstile, type TurnstileInstance } from "@marsidev/react-turnstile";
-import { ArrowLeft, ArrowRight, ArrowUpRight, Check } from "lucide-react";
+import { ArrowLeft, ArrowRight, ArrowUpRight, Check, Copy } from "lucide-react";
 import { Container } from "@/components/layout/Container";
 import { PageLayout } from "@/components/layout/PageLayout";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { Textarea } from "@/components/ui/Textarea";
+import { TelegramHelp, TelegramLink } from "@/components/telegram/TelegramLink";
 import { emails } from "@/data/site";
 import { demoRequestSchema, type DemoRequest } from "@/lib/demo-request";
 import { analyticsContext, capture, identify } from "@/lib/site-analytics";
 import { newEventId } from "@/lib/meta-pixel";
 import { trackFleetPixel } from "@/lib/meta-fleet-pixel";
+import { copyText, IN_APP_UA, isPlainClick, timeoutSignal, watchHandoff } from "@/lib/handoff";
 
 const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || "";
 const choiceClass =
@@ -31,6 +33,9 @@ export default function GetADemoPage() {
   // the options doesn't throw away anything already typed.
   const [formOpen, setFormOpen] = useState(false);
   const [formMounted, setFormMounted] = useState(false);
+  // Set when a mailto tap opened nothing (some in-app browsers drop it).
+  const [emailStuck, setEmailStuck] = useState(false);
+  const emailWatching = useRef(false);
   const choicesRef = useRef<HTMLElement>(null);
 
   function openForm() {
@@ -79,25 +84,43 @@ export default function GetADemoPage() {
             hidden={formOpen}
             className="mt-8 sm:mt-10"
           >
-            <a
-              href={DEMO_TELEGRAM_URL}
-              target="_blank"
-              rel="noopener noreferrer"
+            {/* Same tab on purpose: TelegramLink spots a hand-off the in-app
+                browser swallowed by the page staying visible. */}
+            <TelegramLink
+              kind="sales"
+              placement="get_a_demo"
+              product={productSlug}
               className={choiceClass}
             >
               <TelegramLogo className="h-7 w-7 shrink-0" />
               <span className="flex-1">
                 <span className="text-foreground block text-base">Contact us on Telegram</span>
-                <span className="text-muted-foreground mt-1 block text-sm">
-                  @raisedash <span className="sr-only">(opens in a new tab)</span>
-                </span>
+                <span className="text-muted-foreground mt-1 block text-sm">@raisedash</span>
               </span>
               <ArrowUpRight
                 className="text-muted-foreground group-hover:text-foreground h-4 w-4 shrink-0"
                 aria-hidden="true"
               />
-            </a>
-            <a href={emailHref} className={choiceClass}>
+            </TelegramLink>
+            <a
+              href={emailHref}
+              className={choiceClass}
+              onClick={(event) => {
+                // Repeat taps keep the first watch, so a rage-tapper still gets the help.
+                if (!isPlainClick(event) || emailStuck || emailWatching.current) return;
+                emailWatching.current = true;
+                watchHandoff(
+                  () => {
+                    setEmailStuck(true);
+                    capture("email_help_shown", {
+                      in_app: IN_APP_UA.test(navigator.userAgent),
+                      product: productSlug,
+                    });
+                  },
+                  { requireFocus: true, onEnd: () => (emailWatching.current = false) }
+                );
+              }}
+            >
               <MailFilled className="text-foreground/70 h-7 w-7 shrink-0 p-0.5" />
               <span className="min-w-0 flex-1">
                 <span className="text-foreground block text-base">Email us</span>
@@ -108,6 +131,7 @@ export default function GetADemoPage() {
                 aria-hidden="true"
               />
             </a>
+            {emailStuck && <EmailHelp productSlug={productSlug} />}
             <button
               type="button"
               className={choiceClass}
@@ -153,7 +177,65 @@ export default function GetADemoPage() {
           )}
         </div>
       </Container>
+      <TelegramHelp
+        kind="sales"
+        product={productSlug}
+        alternative={(close) => (
+          <div className="border-border mt-6 border-t pt-5">
+            <p className="text-muted-foreground text-sm leading-relaxed">
+              {`No Telegram? Email us at ${emails.sales}, or leave your details and we’ll reach out.`}
+            </p>
+            <button
+              type="button"
+              onClick={() => {
+                close();
+                openForm();
+              }}
+              className="text-foreground focus-visible:outline-ring mt-2 inline-flex min-h-11 items-center gap-2 text-sm underline underline-offset-4 focus-visible:outline-2"
+            >
+              Leave your details <ArrowRight className="h-4 w-4" aria-hidden="true" />
+            </button>
+          </div>
+        )}
+      />
     </PageLayout>
+  );
+}
+
+/** Shown under "Email us" when the tap opened no mail app. */
+function EmailHelp({ productSlug }: { productSlug?: string }) {
+  const [copied, setCopied] = useState(false);
+  return (
+    <div role="status" className="border-border border-b py-5">
+      <p className="text-foreground text-sm leading-relaxed">
+        Email app didn’t open? Copy our address and send us an email from any app.
+      </p>
+      <div className="border-border mt-3 flex items-center justify-between gap-3 rounded-xs border py-1.5 pr-1.5 pl-4">
+        <span className="text-foreground min-w-0 truncate font-mono text-base select-all">
+          {emails.sales}
+        </span>
+        <button
+          type="button"
+          onClick={async () => {
+            if (await copyText(emails.sales)) {
+              setCopied(true);
+              capture("email_address_copied", {
+                in_app: IN_APP_UA.test(navigator.userAgent),
+                product: productSlug,
+              });
+            }
+          }}
+          className="bg-surface-2 hover:bg-surface-3 text-foreground focus-visible:outline-ring inline-flex min-h-11 shrink-0 items-center gap-2 rounded-xs px-4 text-sm focus-visible:outline-2"
+        >
+          {copied ? (
+            <Check className="h-4 w-4" aria-hidden="true" />
+          ) : (
+            <Copy className="h-4 w-4" aria-hidden="true" />
+          )}
+          {copied ? "Copied" : "Copy"}
+        </button>
+      </div>
+    </div>
   );
 }
 
@@ -243,7 +325,7 @@ function DemoRequestForm({
       const response = await fetch("/api/product-demo", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        signal: AbortSignal.timeout(30000),
+        signal: timeoutSignal(30000),
         body: JSON.stringify({
           ...data,
           product: productSlug,
