@@ -1,39 +1,39 @@
 // English is the source text; every other language is typed against it.
-// Keep in step with the extension's store listing (cargo-security/docs/STORE_PASTE_SHEET_0.1.1.md).
+// Keep in step with the extension's store listing (cargo-security/docs/STORE_PASTE_SHEET_0.1.2.md).
 export const en = {
   seo: {
-    title: "Raisedash Shield",
+    title: "Raisedash Shield – Freight Fraud Protection",
     description:
-      "A Chrome extension that warns carriers about confirmed scam sites, brand-new sites that ask for passwords or documents, and fake paperwork downloads.",
+      "Free Chrome extension for trucking: freight fraud protection that warns about the phishing pages and fake rate confirmations behind cargo and identity theft.",
   },
   hero: {
     status: "Chrome extension · Free",
     title: "Raisedash Shield",
-    lead: "Notice a freight scam site before you type a password, upload your documents or open a download.",
-    body: "Built for dispatchers, drivers and carrier office teams. Scam sites are usually days old, ask for your load-board password or carrier documents, and send “rate confirmations” that are really programs. Shield warns about what it can be sure of and stays quiet everywhere else.",
+    lead: "Freight fraud often starts with one click. Shield warns you before a phishing page gets your load-board login or a fake rate confirmation gets your computer.",
+    body: "Built for dispatchers, drivers and trucking offices. Cargo theft, double brokering and carrier identity theft often begin with a stolen login or a program that hands a stranger your computer. Shield watches the browser moments those attacks use (typing a password, uploading your documents, opening a download, pasting a command) and stays quiet everywhere else.",
     release:
       "No account or payment is required. Install it from the Chrome Web Store and it is working; there is nothing to set up.",
     privacyLink: "Read Shield’s privacy notice",
     contactSupport: "Contact support",
   },
   checks: {
-    heading: "Four checks, each with a reason",
+    heading: "Where Shield steps in",
     items: [
       [
-        "Confirmed scam sites",
-        "A warning on any site on Raisedash’s list of confirmed scam sites. Every entry was reported by a carrier and confirmed by a person before it was added.",
+        "Phishing pages",
+        "When a page asks for your password or a file upload, Shield checks when the site was registered and warns you if it is only days or weeks old. Real load boards and broker portals have been around for years.",
       ],
       [
-        "Brand-new sites asking for passwords or documents",
-        "When a page asks for your password or a file upload, Shield checks when the site was registered and warns you if it is only days or weeks old.",
-      ],
-      [
-        "Programs disguised as paperwork",
+        "Fake rate confirmations",
         "A download that is really a program (like “RateConfirmation.pdf.exe”) or a remote-access installer is paused until you decide.",
       ],
       [
-        "Scam commands on the clipboard",
+        "Fake “verify you’re human” commands",
         "When a page puts a “press Windows + R and paste” command on your clipboard, Shield replaces it with a warning and lets you restore it.",
+      ],
+      [
+        "Reported fraud sites",
+        "A warning on any site on Raisedash’s list of confirmed scam sites. Every entry was reported by a carrier and confirmed by a person before it was added.",
       ],
     ],
   },
