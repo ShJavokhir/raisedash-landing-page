@@ -3,6 +3,7 @@ import { GetStaticProps } from "next";
 import { ArrowRight } from "lucide-react";
 import { Container } from "@/components/layout/Container";
 import { PageLayout } from "@/components/layout/PageLayout";
+import { TrustedBy } from "@/components/layout/TrustedBy";
 import { BreadcrumbJsonLd } from "@/components/seo/SEO";
 import { EmailCapture } from "@/components/ui/EmailCapture";
 import { HeroScene, MobileHeroScene } from "@/components/home/HeroScene";
@@ -68,6 +69,8 @@ export default function Orientation({ recentUpdates, recentPosts }: HomeProps) {
               <div className="animate-fade-in-up mt-7 delay-200 sm:mt-10">
                 <EmailCapture source="Hero" buttonText="Get started" />
               </div>
+
+              <TrustedBy className="animate-fade-in-up mt-8 delay-200" />
 
               {/* Phones get the same animated scene as desktop, scaled down
                   to the card width (see MobileHeroScene). */}

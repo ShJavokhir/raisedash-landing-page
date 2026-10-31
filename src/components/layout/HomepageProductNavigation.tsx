@@ -3,6 +3,11 @@ import type { ReactNode } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { ArrowLeft } from "lucide-react";
+import { stripLocalePrefix } from "@/i18n/locale";
+
+// Compare pages by their English path: a card opens /products/x, which can
+// redirect to /uz/products/x for a visitor who reads Uzbek.
+const pagePath = (url: string) => stripLocalePrefix(url.split(/[?#]/)[0]);
 
 const ProductNavigationContext = createContext<((href: string) => void) | null>(null);
 
@@ -21,12 +26,12 @@ export function HomepageProductNavigation({ children }: { children: ReactNode })
 
   useEffect(() => {
     const onStart = (url: string) => {
-      if (url.split(/[?#]/)[0] !== pendingProduct.current) {
+      if (pagePath(url) !== pendingProduct.current) {
         pendingProduct.current = null;
       }
     };
     const onComplete = (url: string) => {
-      const path = url.split(/[?#]/)[0];
+      const path = pagePath(url);
       const fromCard = pendingProduct.current === path;
       pendingProduct.current = null;
       // Keep the button during query changes on this product, but clear the
@@ -61,7 +66,7 @@ export function HomepageProductNavigation({ children }: { children: ReactNode })
   return (
     <ProductNavigationContext.Provider value={onProductNavigate}>
       {children}
-      {productPath === router.pathname && (
+      {productPath === pagePath(router.asPath) && (
         <Link
           href="/#products"
           aria-label="Back to homepage"

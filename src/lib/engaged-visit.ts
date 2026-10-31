@@ -41,6 +41,7 @@
 import { newEventId } from "@/lib/meta-pixel";
 import { FLEET_PIXEL_ID, trackFleetPixel } from "@/lib/meta-fleet-pixel";
 import { capture, onCapture, type SiteAnalyticsEvent } from "@/lib/site-analytics";
+import { stripLocalePrefix } from "@/i18n/locale";
 
 const ENGAGED_SECONDS = 60;
 const FAST_ENGAGED_SECONDS = 30;
@@ -218,7 +219,9 @@ export function qualifyEngagedVisitNow(signal: string): void {
 }
 
 /** Call on every page view (first load + client-side route changes). */
-export function noteEngagedVisitPage(pathname: string): void {
+export function noteEngagedVisitPage(rawPathname: string): void {
+  // Translated pages (/uz/products/pti-telegram-bot) count as their English path.
+  const pathname = stripLocalePrefix(rawPathname);
   if (running && !state.fired && !state.fast && FAST_PATH.test(pathname)) {
     state.fast = true;
     save();

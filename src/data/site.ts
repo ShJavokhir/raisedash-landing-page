@@ -15,7 +15,11 @@ export const emails = {
   support: "support@raisedash.com",
   sales: "sales@raisedash.com",
   privacy: "privacy@raisedash.com",
+  partnerships: "partnerships@raisedash.com",
 };
+
+/** Our cal.com booking page, the same one the PTI pages and the /demo done screen link to. */
+export const bookingUrl = "https://cal.com/javokhir/raisedash-demo-meeting";
 
 export interface FooterLink {
   title: string;

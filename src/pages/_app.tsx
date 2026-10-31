@@ -7,6 +7,8 @@ import { SkipLink } from "@/components/layout/SkipLink";
 import { HomepageProductNavigation } from "@/components/layout/HomepageProductNavigation";
 import { FleetMetaPixel } from "@/components/meta/FleetMetaPixel";
 import { OrganizationJsonLd, WebsiteJsonLd } from "@/components/seo/SEO";
+import { LocaleProvider } from "@/components/i18n/LocaleProvider";
+import { isLocale } from "@/i18n/locale";
 
 // Code-split the marketing header out of the shared _app bundle so the /start ad
 // funnel never downloads the Radix navigation menu it pulls in. It still
@@ -23,9 +25,11 @@ export default function App({ Component, pageProps }: AppProps) {
     router.pathname === "/start" ||
     router.pathname === "/start-v2" ||
     router.pathname === "/start-v3";
+  // Set only by translated pages (src/i18n/server.ts); undefined = English.
+  const locale = isLocale(pageProps.locale) ? pageProps.locale : undefined;
 
   return (
-    <>
+    <LocaleProvider locale={locale}>
       {/* Global Head - viewport and base meta */}
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -48,6 +52,6 @@ export default function App({ Component, pageProps }: AppProps) {
           <Component {...pageProps} />
         </main>
       </HomepageProductNavigation>
-    </>
+    </LocaleProvider>
   );
 }

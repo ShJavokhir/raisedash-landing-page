@@ -20,6 +20,11 @@ Router used by the dashboard/learner-web apps. Node is pinned to **22.x**
   be added to the sitemap there.
 - When adding a new static page, also add its path to `STATIC_PATHS` in
   `src/pages/api/indexnow.ts` so it gets submitted to IndexNow.
+- `public/llms.txt` is the site summary AI tools read (the footer's "Ask AI
+  tools about us" links tell them to start there). When a tool page is added,
+  removed or changes what the tool does, its limits or how to start, update
+  its line there too. Write only what the live page says; no prices except
+  "free" where the page says free (prices go stale; link /pricing instead).
 
 ## Architecture map
 
@@ -89,6 +94,65 @@ Router used by the dashboard/learner-web apps. Node is pinned to **22.x**
   (needed for social/search crawlers to fetch link-preview cards), blocks
   `/admin/` and `/private/`.
 
+## Translations: Uzbek, Russian, Spanish (product one-pagers)
+
+- The one-page product sites exist in English, Uzbek, Russian and Spanish, each
+  at its **own indexable URL**: English unprefixed (`/products/pti-telegram-bot`),
+  the rest under `/uz`, `/ru`, `/es` (`/ru/products/pti-telegram-bot`). The list
+  is `TRANSLATED_PATHS` in `src/i18n/locale.ts`:
+  `/products/{pti-telegram-bot,feedback-telegram-bot,receipts-telegram-bot,
+  ringcentral-telegram,driver-paperwork,driver-coaching,driver-announcements,shield}`,
+  `/tools/{samsara-alerts,elp-practice}`, `/get-a-demo`. Deliberately NOT
+  translated: the orientation/driver-onboarding platform (homepage,
+  `/products/orientation`, `/platform/*`, `/solutions/*`, `/features/*`,
+  `/pricing`, `/demo`), legacy product pages, legal pages, blog. `/start-v2` has
+  its own older Uzbek setup (`start-v2-i18n`), untouched.
+- Routing (`src/i18n/server.ts`): the English page exports
+  `getServerSideProps = localeServerSideProps`; `src/pages/[locale]/…` are thin
+  re-exports of the same page with `localizedServerSideProps` (404 for unknown
+  locales, `/en/…`, or untranslated paths). A prefixed URL ALWAYS renders its own
+  language (so Google indexes each). An English URL renders English unless the
+  visitor should get another language, then 307s to that URL keeping the query
+  (fbclid survives): `?lang=` → the `rd_lang` cookie → a **Meta ad click**
+  (`fbclid` / Meta `utm_source` in the CURRENT request → Uzbek; the Meta ads
+  run in Uzbekistan) → the visitor's **country** (`COUNTRY_LOCALES`: Cloudflare's
+  `CF-IPCountry` header, `UZ` → Uzbek; verified reaching the container
+  2026-10-22). A cookie of `en` (picked in the switcher) beats ad click and
+  country. Crawlers send none of these and crawl from the US, so they always get
+  English at English URLs — keep these redirects 307, never 301. The long-lived
+  `rd_fbclid` cookie is ignored on purpose (the English fleet campaign lands on
+  the homepage and sets it too). Changing a live ad's URL can restart Meta's
+  learning phase, so existing ads keep their English URLs and rely on this;
+  new Uzbek campaigns can point straight at `/uz/…` to skip the hop.
+- SEO: every version is self-canonical (`SEO` builds it from the path — don't
+  hardcode a `canonical` on these pages), has `hreflang` en/uz/ru/es + x-default
+  (English), `og:locale`, `<html lang>` (`_document.tsx`), and localized
+  breadcrumb URLs. The sitemap lists every language URL with `xhtml:link`
+  alternates and IndexNow submits them, both derived from `TRANSLATED_PATHS`
+  (a translated page listed in the English sitemap/`STATIC_PATHS` gets its
+  language URLs automatically).
+- Links: `localizePath()` / `useLocalizePath()` keep links between translated
+  pages in the current language (`GetDemoLink`, footer product links). Links to
+  untranslated pages stay English. `LanguageSwitcher` (in `CompanyHeader`, only
+  on translated pages) sets `rd_lang` and opens the same page in that language.
+- Analytics: path-based code strips the prefix first (`stripLocalePrefix`):
+  `pageContext` (page_group/product), engaged-visit `FAST_PATH`/`INTENT_PATH`,
+  the homepage back button. Every PostHog event carries `site_language` (from
+  `<html lang>`); the switcher fires `language_changed`.
+- Copy: `src/i18n/pages/<page>/{en,uz,ru,es,index}.ts` (+ `src/i18n/shared/` for
+  header/footer/demo button/Telegram help, `src/i18n/figures/` for explanatory
+  text inside figures). `en.ts` exports `type Copy = typeof en`; each language
+  is typed `Copy`, so a missing key fails `tsc`. Read with `useCopy()`.
+  **Changing English copy on these pages = update uz/ru/es too.** Counts go
+  through `plural()` (`src/i18n/plural.ts`; Russian has 3 forms). Product-UI
+  mockups (`components/*/figures.tsx` UI, `ReceiptTour` phones, Samsara shots)
+  stay English on purpose: the product itself is English.
+- Style: Uzbek Latin script, `oʻ`/`gʻ` with U+02BB and `ʼ` (U+02BC), never ASCII
+  `'`; Russian with «ёлочки» and ё, «трак», «вы»; Spanish neutral Latin American
+  for the US, `usted`, «conductor». Industry terms stay English where the trade
+  talks that way (PTI, DVIR, HOS, CDL, dispatcher/диспетчер…). CTAs: Uzbek `-sh`
+  form, Russian/Spanish infinitive.
+
 ## Product/positioning guardrails
 
 - Site is positioned as a **driver-readiness platform**, not a compliance/
@@ -144,7 +208,11 @@ Router used by the dashboard/learner-web apps. Node is pinned to **22.x**
      `/demo` email gate), twin `/api/email-capture`.
   2b. **"CompleteRegistration"** — a Telegram tap (`src/lib/telegram-tap.ts`,
      once per session per kind): `telegram_bot_tap` (@raisedashbot, PTI page)
-     or `telegram_sales_tap` (@raisedash, `/get-a-demo`). Twin `/api/handoff`.
+     or `telegram_sales_tap` (@raisedash, `/get-a-demo` and `/contact`, told
+     apart by `placement`). Twin `/api/handoff`. Both pages render the same
+     choice list, `src/components/contact/ContactChoices.tsx` (Telegram, email,
+     "Book a call" new-tab link to `bookingUrl` in `src/data/site.ts`, form);
+     `/contact`'s form still posts `/api/contact`, never a demo request.
      Links go through `TelegramLink` (`src/components/telegram/`), which shows
      a "Telegram didn't open?" dialog when an in-app browser swallows t.me.
   3. **"Schedule"** (`fleet_demo_request`) — successful `/demo` submit (twin
@@ -245,6 +313,13 @@ Router used by the dashboard/learner-web apps. Node is pinned to **22.x**
 - `Inter` is loaded via `next/font/google` in `PageLayout.tsx` — this fetches
   `fonts.googleapis.com` at build time (see gotchas: offline builds fail
   here, it's not a code bug).
+- **Product hero loops** (the animated film under a product page's hero, e.g.
+  `/products/pti-telegram-bot`): made in `../marketing/landing-motion/`
+  (Remotion), played by `src/components/motion/ProductMotion.tsx`, files in
+  Cloudflare R2 (`cdn.raisedash.com/media/landing/motion/<tool>/<fingerprint>/`,
+  uploaded immutable by `install.mjs`, never in `public/`), fingerprints in
+  `src/data/motion.json`. Read
+  `../marketing/landing-motion/GUIDE.md` before making or changing one.
 
 ## Gotchas
 

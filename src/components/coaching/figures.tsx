@@ -15,6 +15,8 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/cn";
 import { GraphitePlate } from "@/components/receipts/figures";
+import { useCopy } from "@/components/i18n/LocaleProvider";
+import { figuresCopy } from "@/i18n/figures";
 
 /**
  * Figures for /products/driver-coaching: the office's side (safety events,
@@ -509,11 +511,13 @@ function QuestionCard() {
 }
 
 export function FromTheClipFigure() {
+  const t = useCopy(figuresCopy).tags;
+
   return (
     <Pair
-      leftTag={<Tag icon={Video}>Your dashboard</Tag>}
+      leftTag={<Tag icon={Video}>{t.yourDashboard}</Tag>}
       left={<EventCard />}
-      rightTag={<Tag icon={Smartphone}>Driver’s phone</Tag>}
+      rightTag={<Tag icon={Smartphone}>{t.driversPhone}</Tag>}
       right={<QuestionCard />}
     />
   );
@@ -590,12 +594,14 @@ function ApprovalCard({ className }: { className?: string }) {
 }
 
 export function AutomaticFigure() {
+  const t = useCopy(figuresCopy).tags;
+
   return (
     <Pair
       mobile="left"
-      leftTag={<Tag icon={Zap}>Set once</Tag>}
+      leftTag={<Tag icon={Zap}>{t.setOnce}</Tag>}
       left={<RuleCard />}
-      rightTag={<Tag icon={Check}>When it fires</Tag>}
+      rightTag={<Tag icon={Check}>{t.whenItFires}</Tag>}
       right={<ApprovalCard />}
     />
   );
@@ -659,11 +665,13 @@ function CoachingText({ className }: { className?: string }) {
 }
 
 export function AnyEventFigure() {
+  const t = useCopy(figuresCopy).tags;
+
   return (
     <Pair
-      leftTag={<Tag icon={GraduationCap}>Your dashboard</Tag>}
+      leftTag={<Tag icon={GraduationCap}>{t.yourDashboard}</Tag>}
       left={<AssignDialog />}
-      rightTag={<Tag icon={Smartphone}>Driver’s phone</Tag>}
+      rightTag={<Tag icon={Smartphone}>{t.driversPhone}</Tag>}
       right={<CoachingText />}
     />
   );
@@ -827,29 +835,17 @@ export function DriverPageFigure() {
 
 /* ── Today vs. with Raisedash ────────────────────────────────────────────── */
 
-const TODAY = [
-  "Watch the clip",
-  "Call the driver. Voicemail.",
-  "Wait a week for them to get back",
-  "Talk it over in the office",
-  "Nothing gets written down",
-];
-
-const WITH_US = [
-  "The lesson goes out with the clip",
-  "The driver finishes it on their phone",
-  "It’s on their record",
-];
-
 export function TwoWays() {
+  const t = useCopy(figuresCopy);
+
   return (
     <div className="grid gap-4 md:grid-cols-2">
       <div className="bg-card border-border rounded-xs border p-6 sm:p-8">
         <p className="text-muted-foreground font-mono text-xs tracking-[0.14em] uppercase">
-          Before Raisedash
+          {t.twoWays.before}
         </p>
         <ol className="mt-5 grid gap-2">
-          {TODAY.map((step, i) => (
+          {t.coaching.before.map((step, i) => (
             <li
               key={step}
               className="border-border text-muted-foreground flex min-h-11 items-center gap-3 rounded-xs border px-3 py-2 text-sm"
@@ -863,9 +859,11 @@ export function TwoWays() {
         </ol>
       </div>
       <div className="border-accent/30 bg-accent/[0.04] flex flex-col rounded-xs border p-6 sm:p-8">
-        <p className="text-accent font-mono text-xs tracking-[0.14em] uppercase">With Raisedash</p>
+        <p className="text-accent font-mono text-xs tracking-[0.14em] uppercase">
+          {t.twoWays.withUs}
+        </p>
         <ol className="mt-5 grid gap-2">
-          {WITH_US.map((step, i) => (
+          {t.coaching.withUs.map((step, i) => (
             <li
               key={step}
               className="border-accent/30 bg-card text-foreground flex min-h-11 items-center gap-3 rounded-xs border px-3 py-2 text-sm"

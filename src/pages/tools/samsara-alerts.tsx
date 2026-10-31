@@ -2,14 +2,14 @@ import { Check, Gauge, TriangleAlert, Video } from "lucide-react";
 import { GetDemoLink } from "@/components/demo/GetDemoLink";
 import { Container } from "@/components/layout/Container";
 import { PageLayout } from "@/components/layout/PageLayout";
-import {
-  BreadcrumbJsonLd,
-  FAQPageJsonLd,
-  SoftwareApplicationJsonLd,
-  type FAQItem,
-} from "@/components/seo/SEO";
+import { TrustedBy } from "@/components/layout/TrustedBy";
+import { BreadcrumbJsonLd, FAQPageJsonLd, SoftwareApplicationJsonLd } from "@/components/seo/SEO";
+import { ProductMotion } from "@/components/motion/ProductMotion";
 import { Shot } from "@/components/samsara/Shot";
 import { BoardTabs } from "@/components/samsara/BoardTabs";
+import { useCopy } from "@/components/i18n/LocaleProvider";
+import { samsaraCopy } from "@/i18n/pages/samsara-alerts";
+import { localeServerSideProps } from "@/i18n/server";
 
 /**
  * Landing page for the Samsara → Telegram alerting service
@@ -25,116 +25,21 @@ import { BoardTabs } from "@/components/samsara/BoardTabs";
  * `public/` — that directory deploys.
  */
 
-// Pricing lives here so a change is one edit. Priced separately from the
-// Raisedash platform in `pricing.tsx` — the two are not linked.
-const PRICE_BASE = 100;
-const PRICE_INCLUDED_TRUCKS = 50;
-const PRICE_PER_EXTRA_TRUCK = 1;
+/** The homepage card color (src/data/products.ts), the hero film's stage. */
+const PLATE = "#009a74";
 
+// Copy for every section lives in src/i18n/pages/samsara-alerts.ts (English + Uzbek).
 const SENDS = [
-  {
-    icon: Video,
-    title: "Safety events, with the video",
-    body: "Both camera angles play right in the message. Nobody logs in to watch fifteen seconds of a driver on their phone.",
-  },
-  {
-    icon: Gauge,
-    title: "Speeding, over your limit",
-    body: "How fast, how long, and where. You pick the threshold, so 3 over stays quiet and 15 over does not.",
-  },
-  {
-    icon: TriangleAlert,
-    title: "Engine faults, in plain text",
-    body: "Which warning light came on and what the code means, so your shop knows before the truck gets there.",
-  },
-];
-
-// Every behaviour Samsara reports, in the words a dispatcher would use. Anything
-// not on this list still comes through, just under a generic label.
-const EVENTS = [
-  "Speeding",
-  "Phone use",
-  "Distracted driving",
-  "Drowsy",
-  "No seatbelt",
-  "Blocked camera",
-  "Following too close",
-  "Tailgating",
-  "Harsh braking",
-  "Harsh acceleration",
-  "Harsh turn",
-  "Lane departure",
-  "Rolling stop",
-  "Ran a red light",
-  "Railroad crossing",
-  "Unsafe parking",
-  "Roadside parking",
-  "Passenger in the cab",
-  "Near collision",
-  "Forward collision warning",
-  "Rollover protection",
-  "Crash",
-  "Defensive driving",
-  "Engine fault codes",
-];
-
-// Why the events sitting in Samsara are not already solving this. The same
-// argument runs as the first FAQ; this is the version a scroller sees.
-const WHY = [
-  {
-    t: "The Samsara dashboard",
-    b: "Someone has to be logged in and refreshing it. A busy week is thousands of events, and everyone you want looking needs their own seat.",
-  },
-  {
-    t: "Email alerts",
-    b: "They bury an inbox, they are not instant, and every one of them still ends with somebody opening the dashboard.",
-  },
-  {
-    t: "The group chat you already have",
-    b: "Open on every phone in the company. The video is in the message, and everybody sees the same thing at the same time.",
-  },
-];
-
-const FAQS: FAQItem[] = [
-  {
-    question: "Why not just watch the events in Samsara?",
-    answer:
-      "Because somebody has to be logged in and refreshing. A busy fleet throws thousands of events a week, and everyone you want watching needs their own Samsara seat. Email alerts are worse: they bury an inbox, they are not instant, and they still end with someone opening the dashboard. Your Telegram group is already open on every phone, and the video plays in the message.",
-  },
-  {
-    question: "Where does our data go?",
-    answer:
-      "Onto our own server in AWS us-east-1, inside a private network. Nothing is written to a database and nothing leaves that server. Alerts pass straight through to your group and are gone. The weekly boards are built fresh from Samsara each time they run.",
-  },
-  {
-    question: "Does this replace Samsara?",
-    answer:
-      "No. It reads the Samsara account you already pay for and posts what it finds to Telegram. Samsara stays exactly as it is.",
-  },
-  {
-    question: "Will it spam our group?",
-    answer:
-      "No. Nothing is ever sent twice, speeding only posts past the limit you set, engine faults have to stay on before they alert, and anything your team already dismissed in Samsara never shows up. Each behaviour also gets its own topic, so phone-use alerts do not bury everything else.",
-  },
-  {
-    question: "Can drivers get their own alerts?",
-    answer:
-      "Yes. You can send chosen events to a driver's own group chat, on a separate threshold from the main one, so a driver hears about 15 over without the whole office watching every 3 over.",
-  },
-  {
-    question: "What if a truck has no camera, or the video will not load?",
-    answer:
-      "You still get the alert as text, with the driver, the truck, the time and a map link. The video is a bonus, never a requirement.",
-  },
-];
+  { key: "video", icon: Video },
+  { key: "speeding", icon: Gauge },
+  { key: "faults", icon: TriangleAlert },
+] as const;
 
 export default function SamsaraAlerts() {
+  const t = useCopy(samsaraCopy);
+
   return (
-    <PageLayout
-      title="Samsara Alerts in Telegram: Safety Events, Speeding and Engine Faults"
-      description="Get Samsara safety events, speeding and engine faults in your Telegram group, with the dashcam video attached. Plus advanced weekly fleet reports. $100/mo up to 50 trucks, 3 days free."
-      canonical="https://www.raisedash.com/tools/samsara-alerts"
-    >
+    <PageLayout title={t.seo.title} description={t.seo.description}>
       <BreadcrumbJsonLd
         items={[
           { name: "Home", url: "/" },
@@ -146,46 +51,37 @@ export default function SamsaraAlerts() {
         description="Sends Samsara safety events, speeding and engine faults to your Telegram group with dashcam video attached, and posts advanced weekly fleet reports."
         operatingSystem={["Web"]}
         applicationCategory="BusinessApplication"
-        offers={[{ price: String(PRICE_BASE), priceCurrency: "USD" }]}
       />
-      <FAQPageJsonLd faqs={FAQS} />
+      <FAQPageJsonLd faqs={t.faqs} />
 
       {/* ----------------------------------------------------------- hero --- */}
-      <div className="pt-10 pb-8 sm:pt-14">
-        <Container>
-          <div className="bg-card border-border animate-fade-in-scale rounded-xs border px-6 py-10 sm:px-12 sm:py-14">
-            <div className="grid items-center gap-10 lg:grid-cols-[1.05fr_1fr] lg:gap-14">
-              <div>
-                <p className="text-accent mb-4 font-mono text-xs tracking-[0.14em] uppercase">
-                  Samsara → Telegram
-                </p>
-                <h1 className="text-foreground text-4xl leading-[1.08] font-normal tracking-[-0.03em] sm:text-[48px]">
-                  Samsara alerts in your Telegram group.
-                </h1>
-                <p className="text-muted-foreground mt-6 max-w-xl text-lg leading-relaxed">
-                  Safety events with the dashcam video, speeding, engine faults. Sent to the chat
-                  your team already has open all day.
-                </p>
-
-                <div className="mt-8">
-                  <GetDemoLink product="samsara-alerts" />
-                </div>
-              </div>
-
-              <div className="animate-fade-in-up mx-auto w-full max-w-[420px] delay-150">
-                <Shot
-                  src="/images/samsara/alert-safety-event.webp"
-                  alt="A drowsy-driving alert in a Telegram group: the road-facing clip, the cabin clip, and a caption with the vehicle, the time and a map link."
-                  width={660}
-                  height={877}
-                  sizes="(max-width: 1024px) 90vw, 420px"
-                  priority
-                />
-              </div>
+      <Container className="py-12 sm:py-16">
+        <div className="lg:flex lg:items-end lg:justify-between lg:gap-12">
+          <div className="max-w-2xl">
+            <p className="text-accent mb-4 font-mono text-xs tracking-[0.14em] uppercase">
+              {t.hero.eyebrow}
+            </p>
+            <h1 className="text-foreground text-4xl leading-[1.08] font-normal tracking-[-0.03em] sm:text-[48px]">
+              {t.hero.title}
+            </h1>
+            <p className="text-muted-foreground mt-6 max-w-xl text-lg leading-relaxed">
+              {t.hero.body}
+            </p>
+            <div className="mt-8">
+              <GetDemoLink product="samsara-alerts" />
             </div>
           </div>
-        </Container>
-      </div>
+          <TrustedBy className="mt-8 lg:mt-0 lg:shrink-0" />
+        </div>
+        <ProductMotion
+          name="samsara"
+          label={t.hero.motionLabel}
+          pauseLabel={t.hero.pauseMotion}
+          playLabel={t.hero.playMotion}
+          plate={PLATE}
+          className="mt-10 sm:mt-12"
+        />
+      </Container>
 
       {/* ----------------------------------------------------- the group --- */}
       <Container className="pb-14">
@@ -196,7 +92,7 @@ export default function SamsaraAlerts() {
           <Shot
             title="Samsara Events · Telegram"
             src="/images/samsara/telegram-topics.webp"
-            alt="A Telegram group with a separate topic for each event type: fault codes, following distance, obstructed camera, mobile usage, speeding, no seatbelt, battery voltage, harsh turn, coolant temperature, harsh braking, drowsy, rolling stop, tire pressure and crash."
+            alt={t.group.altPhone}
             width={497}
             height={1500}
             sizes="100vw"
@@ -206,19 +102,17 @@ export default function SamsaraAlerts() {
           <Shot
             title="Samsara Events · Telegram"
             src="/images/samsara/telegram-group.webp"
-            alt="A Telegram group with a separate topic for each event type: fault codes, following distance, obstructed camera, mobile usage, speeding, no seatbelt, harsh turn, drowsy and more, next to a thread of alerts carrying dashcam clips."
+            alt={t.group.altDesktop}
             width={1600}
             height={1548}
             sizes="(max-width: 1200px) 100vw, 1140px"
           />
         </div>
         <p className="text-muted-foreground mx-auto mt-5 max-w-2xl text-center text-sm leading-relaxed">
-          Every event type gets its own topic, and every alert carries the truck number, so
-          searching one truck pulls up everything it has ever done.
+          {t.group.caption}
         </p>
         <p className="text-muted-foreground/70 mx-auto mt-3 max-w-2xl text-center text-xs leading-relaxed">
-          Real screenshots from a fleet running this. Names, plates and locations are blurred for
-          this page, not in your group.
+          {t.group.redacted}
         </p>
       </Container>
 
@@ -226,19 +120,21 @@ export default function SamsaraAlerts() {
       <Container className="pb-14">
         <div className="mx-auto mb-8 max-w-2xl text-center">
           <h2 className="text-foreground text-3xl font-normal tracking-[-0.02em] sm:text-4xl">
-            Samsara already sees all of this. Nobody is watching it.
+            {t.why.heading}
           </h2>
         </div>
         <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-          {WHY.map((w, i) => (
+          {t.why.items.map((w, i) => (
             <div
-              key={w.t}
+              key={w.title}
               className={`rounded-xs border p-6 sm:p-8 ${
-                i === WHY.length - 1 ? "border-accent/30 bg-accent/[0.04]" : "border-border bg-card"
+                i === t.why.items.length - 1
+                  ? "border-accent/30 bg-accent/[0.04]"
+                  : "border-border bg-card"
               }`}
             >
-              <h3 className="text-foreground text-base font-normal">{w.t}</h3>
-              <p className="text-muted-foreground mt-2 text-sm leading-relaxed">{w.b}</p>
+              <h3 className="text-foreground text-base font-normal">{w.title}</h3>
+              <p className="text-muted-foreground mt-2 text-sm leading-relaxed">{w.body}</p>
             </div>
           ))}
         </div>
@@ -247,15 +143,17 @@ export default function SamsaraAlerts() {
       {/* --------------------------------------------------- what arrives --- */}
       <Container className="pb-14">
         <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-          {SENDS.map((t) => {
-            const Icon = t.icon;
+          {SENDS.map((s) => {
+            const Icon = s.icon;
             return (
-              <div key={t.title} className="bg-card border-border rounded-xs border p-6 sm:p-8">
+              <div key={s.key} className="bg-card border-border rounded-xs border p-6 sm:p-8">
                 <div className="bg-accent/10 text-accent flex h-11 w-11 items-center justify-center rounded-xs">
                   <Icon className="h-5 w-5" />
                 </div>
-                <h2 className="text-foreground mt-4 text-lg font-normal">{t.title}</h2>
-                <p className="text-muted-foreground mt-2 text-sm leading-relaxed">{t.body}</p>
+                <h2 className="text-foreground mt-4 text-lg font-normal">{t.sends[s.key].title}</h2>
+                <p className="text-muted-foreground mt-2 text-sm leading-relaxed">
+                  {t.sends[s.key].body}
+                </p>
               </div>
             );
           })}
@@ -263,7 +161,7 @@ export default function SamsaraAlerts() {
         <div className="mx-auto mt-4 max-w-[720px]">
           <Shot
             src="/images/samsara/alert-engine-fault.webp"
-            alt="Two engine-fault alerts in Telegram, each listing the emissions, protect, stop and warning lamp states and spelling out every diagnostic trouble code."
+            alt={t.sends.faultsAlt}
             width={990}
             height={886}
             sizes="(max-width: 760px) 100vw, 720px"
@@ -275,11 +173,11 @@ export default function SamsaraAlerts() {
       <Container className="pb-14">
         <div className="mx-auto mb-8 max-w-2xl text-center">
           <h2 className="text-foreground text-3xl font-normal tracking-[-0.02em] sm:text-4xl">
-            Everything it watches for
+            {t.events.heading}
           </h2>
         </div>
         <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-4">
-          {EVENTS.map((e) => (
+          {t.events.list.map((e) => (
             <div
               key={e}
               className="border-border bg-card flex items-center gap-2.5 rounded-xs border px-3.5 py-3"
@@ -290,8 +188,7 @@ export default function SamsaraAlerts() {
           ))}
         </div>
         <p className="text-muted-foreground mx-auto mt-6 max-w-2xl text-center text-sm leading-relaxed">
-          Turn off the ones you do not want. Anything Samsara adds later still comes through, it
-          just arrives without a nickname until we give it one.
+          {t.events.note}
         </p>
       </Container>
 
@@ -299,46 +196,29 @@ export default function SamsaraAlerts() {
       <Container className="pb-14">
         <div className="mx-auto mb-8 max-w-2xl text-center">
           <p className="text-accent mb-3 text-sm font-medium tracking-wide uppercase">
-            Every Friday
+            {t.boards.eyebrow}
           </p>
           <h2 className="text-foreground text-3xl font-normal tracking-[-0.02em] sm:text-4xl">
-            Three boards get pinned in the group
+            {t.boards.heading}
           </h2>
-          <p className="text-muted-foreground mt-4 text-lg leading-relaxed">
-            The last seven days: what happened, who drove clean, and who is burning the fuel.
-          </p>
+          <p className="text-muted-foreground mt-4 text-lg leading-relaxed">{t.boards.body}</p>
         </div>
         <BoardTabs />
       </Container>
 
-      {/* -------------------------------------------------------- pricing --- */}
+      {/* ---------------------------------------------------------- trial --- */}
       <Container className="pb-14">
         <div className="mx-auto max-w-2xl">
           <div className="bg-card border-border rounded-xs border p-6 sm:p-10">
             <div className="border-accent/35 bg-accent/[0.07] mb-7 rounded-xs border px-5 py-4 text-center">
               <p className="text-accent text-lg font-medium tracking-[-0.01em] sm:text-xl">
-                Try 3 days for free
+                {t.pricing.trial}
               </p>
-              <p className="text-muted-foreground mt-1 text-sm">Pay only if it helps.</p>
+              <p className="text-muted-foreground mt-1 text-sm">{t.pricing.trialNote}</p>
             </div>
 
-            <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-              <span className="text-foreground text-5xl font-normal tracking-[-0.03em]">
-                ${PRICE_BASE}
-              </span>
-              <span className="text-muted-foreground text-lg">per month</span>
-            </div>
-            <p className="text-muted-foreground mt-3 text-lg">
-              {`Covers your first ${PRICE_INCLUDED_TRUCKS} trucks, then $${PRICE_PER_EXTRA_TRUCK} per truck.`}
-            </p>
-
-            <div className="border-border mt-8 space-y-3 border-t pt-8">
-              {[
-                "Everything above, for the whole group. No per-seat charge",
-                "Advanced weekly reports",
-                "Also supports separate driver groups",
-                "Setup takes ~15 minutes, and we do it with you",
-              ].map((f) => (
+            <div className="space-y-3">
+              {t.pricing.features.map((f) => (
                 <div key={f} className="flex items-start gap-3">
                   <Check className="text-accent mt-1 h-4 w-4 shrink-0" />
                   <span className="text-foreground text-sm">{f}</span>
@@ -357,7 +237,7 @@ export default function SamsaraAlerts() {
       <Container className="pb-14">
         <div className="mx-auto max-w-3xl">
           <div className="border-border divide-border bg-card divide-y overflow-hidden rounded-xs border">
-            {FAQS.map((f) => (
+            {t.faqs.map((f) => (
               <details key={f.question} className="group">
                 <summary className="hover:bg-surface-2 flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 transition-colors duration-150 sm:px-6">
                   <span className="text-foreground text-base">{f.question}</span>
@@ -378,7 +258,7 @@ export default function SamsaraAlerts() {
       <Container className="pb-12">
         <div className="bg-card border-border rounded-xs border p-6 text-center sm:p-12">
           <h2 className="text-foreground mx-auto max-w-2xl text-2xl font-normal tracking-[-0.02em] sm:text-3xl">
-            Tell us how many trucks you run.
+            {t.finalCta}
           </h2>
           <div className="mt-8 flex justify-center">
             <GetDemoLink product="samsara-alerts" />
@@ -387,11 +267,10 @@ export default function SamsaraAlerts() {
       </Container>
 
       <Container className="pb-8">
-        <p className="text-muted-foreground max-w-xl text-xs leading-relaxed">
-          Samsara is a trademark of Samsara Inc. This is an independent integration and is not
-          affiliated with or endorsed by Samsara. Telegram is a trademark of Telegram Messenger Inc.
-        </p>
+        <p className="text-muted-foreground max-w-xl text-xs leading-relaxed">{t.trademark}</p>
       </Container>
     </PageLayout>
   );
 }
+
+export const getServerSideProps = localeServerSideProps;

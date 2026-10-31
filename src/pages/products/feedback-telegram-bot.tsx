@@ -2,7 +2,8 @@ import { GetDemoLink } from "@/components/demo/GetDemoLink";
 import { ChevronDown } from "lucide-react";
 import { Container } from "@/components/layout/Container";
 import { PageLayout } from "@/components/layout/PageLayout";
-import { StepList, type PlatformStep } from "@/components/platform/StepList";
+import { TrustedBy } from "@/components/layout/TrustedBy";
+import { StepList } from "@/components/platform/StepList";
 import {
   BreadcrumbJsonLd,
   FAQPageJsonLd,
@@ -13,13 +14,16 @@ import { GraphiteCard, GraphitePlate, type PlateCrop } from "@/components/receip
 import {
   AnonymousFigure,
   GroupsFigure,
-  HeroDemo,
   LeavingFigure,
   NewDriverFigure,
   NoAppFigure,
   ResultsFigure,
   TemplatesFigure,
 } from "@/components/feedback/figures";
+import { ProductMotion } from "@/components/motion/ProductMotion";
+import { useCopy } from "@/components/i18n/LocaleProvider";
+import { feedbackCopy } from "@/i18n/pages/feedback-telegram-bot";
+import { localeServerSideProps } from "@/i18n/server";
 
 /**
  * Driver surveys in Telegram groups (raisedash-backend src/surveys,
@@ -35,101 +39,27 @@ import {
  * No public price: the CTA goes to the shared demo request page.
  */
 
-const steps: PlatformStep[] = [
-  {
-    title: "Pick a survey",
-    description:
-      "Start from a ready-made one like “Pay and home time”, or write your own. Choose anonymous or named.",
-  },
-  {
-    title: "Send it to your groups",
-    description:
-      "Just pick your drivers’ Telegram groups, and we’ll post the link in each one. Drivers answer on their phone in about a minute.",
-  },
-  {
-    title: "See what to fix first",
-    description:
-      "Every score, percentage, and written answer in one dashboard. Start with the lowest score.",
-  },
-];
+/** The homepage card color (src/data/products.ts), the hero film's stage. */
+const PLATE = "#f87917";
 
-const features: { title: string; text: string; figure: React.ReactNode; crop: PlateCrop }[] = [
-  {
-    title: "Hear it before they quit",
-    text: "Ask “Are you thinking about leaving?” every month. When “Maybe” starts to grow, you still have time to fix it.",
-    figure: <LeavingFigure />,
-    crop: { pos: "0% 8%" },
-  },
-  {
-    title: "Anonymous, so they’re honest",
-    text: "We don’t save a name, a group, or a Telegram account with the answer. Drivers tell you what they won’t tell dispatch.",
-    figure: <AnonymousFigure />,
-    crop: { pos: "60% 80%" },
-  },
-  {
-    title: "Six ready-made surveys",
-    text: "Pay, home time, dispatch, equipment, safety, and new drivers. Pick one, change what you like, and send it.",
-    figure: <TemplatesFigure />,
-    crop: { pos: "100% 25%", flip: true },
-  },
-  {
-    title: "Every group at once",
-    text: "Search by group, driver, or truck, then select all. We post the link in every group, even if you have hundreds.",
-    figure: <GroupsFigure />,
-    crop: { pos: "90% 95%" },
-  },
-  {
-    title: "No app for drivers",
-    text: "Drivers tap the link in the group and answer on their phone. No app, no account, no password.",
-    figure: <NoAppFigure />,
-    crop: { pos: "10% 40%", flip: true },
-  },
-  {
-    title: "Check on new drivers",
-    text: "Ask at 30 days how the first month went and whether the office has their back.",
-    figure: <NewDriverFigure />,
-    crop: { pos: "30% 60%", flip: true },
-  },
-];
-
-const faqs: FAQItem[] = [
-  {
-    question: "How do I get started?",
-    answer:
-      "Request a demo. We’ll show you how it works, share pricing, and help set it up for your groups.",
-  },
-  {
-    question: "Can I see who is thinking about leaving?",
-    answer:
-      "Not in an anonymous survey. You see how many and why, not who. If you need names to follow up, send a named survey. Drivers add their name to their answers.",
-  },
-  {
-    question: "Is it really anonymous?",
-    answer:
-      "We don’t save a name, a Telegram account, or the group with an anonymous answer. In a very small group, or if a driver writes about something only they did, you may still guess who wrote it.",
-  },
-  {
-    question: "Can I write my own questions?",
-    answer:
-      "Yes. Written answers, single or multiple choice, and 1 to 5 ratings. Up to 20 questions in one survey.",
-  },
-  {
-    question: "Can I ask the same questions next month?",
-    answer:
-      "Yes. Duplicate the survey and send it again. Each round keeps its own answers, so you can see if things got better.",
-  },
-  {
-    question: "Can a driver answer twice?",
-    answer:
-      "The page stops accidental double sends. It doesn’t check who the driver is, so anyone with the link can answer while the survey is open.",
-  },
-];
+// Copy for every section lives in src/i18n/pages/feedback-telegram-bot.ts (English + Uzbek).
+const features = [
+  { key: "leaving", figure: <LeavingFigure />, crop: { pos: "0% 8%" } },
+  { key: "anonymous", figure: <AnonymousFigure />, crop: { pos: "60% 80%" } },
+  { key: "templates", figure: <TemplatesFigure />, crop: { pos: "100% 25%", flip: true } },
+  { key: "groups", figure: <GroupsFigure />, crop: { pos: "90% 95%" } },
+  { key: "noApp", figure: <NoAppFigure />, crop: { pos: "10% 40%", flip: true } },
+  { key: "newDrivers", figure: <NewDriverFigure />, crop: { pos: "30% 60%", flip: true } },
+] as const satisfies readonly { key: string; figure: React.ReactNode; crop: PlateCrop }[];
 
 export default function FeedbackTelegramBotPage() {
+  const t = useCopy(feedbackCopy);
+  const faqs: FAQItem[] = t.faq.items;
+
   return (
     <PageLayout
-      title="Anonymous Driver Surveys in Telegram"
-      description="Find out why drivers leave. Send an anonymous survey to your drivers’ Telegram groups and see pay, home time, and dispatch scores in one dashboard. No app for drivers."
+      title={t.seo.title}
+      description={t.seo.description}
       keywords={[
         "driver retention",
         "driver turnover",
@@ -152,22 +82,27 @@ export default function FeedbackTelegramBotPage() {
       <FAQPageJsonLd faqs={faqs} />
 
       <Container className="py-12 sm:py-16">
-        <div className="grid items-center gap-8 lg:grid-cols-12 lg:gap-12">
-          <div className="lg:col-span-5">
+        <div className="lg:flex lg:items-end lg:justify-between lg:gap-12">
+          <div className="max-w-2xl">
             <h1 className="text-foreground text-4xl leading-tight font-normal tracking-tight sm:text-5xl">
-              Find out why drivers leave. Before the next one does.
+              {t.hero.title}
             </h1>
             <p className="text-muted-foreground mt-5 max-w-xl text-lg leading-relaxed">
-              Just pick a survey and your Telegram groups, and we’ll post the link. Drivers answer
-              anonymously on their phone. You see if it’s pay, home time, dispatch, or the truck.
+              {t.hero.body}
             </p>
             <GetDemoLink product="feedback-telegram-bot" className="mt-7 text-sm" />
-            <p className="text-muted-foreground mt-3 text-sm">We’ll set it up for your groups.</p>
+            <p className="text-muted-foreground mt-3 text-sm">{t.hero.note}</p>
           </div>
-          <div className="lg:col-span-7">
-            <HeroDemo />
-          </div>
+          <TrustedBy className="mt-8 lg:mt-0 lg:shrink-0" />
         </div>
+        <ProductMotion
+          name="feedback"
+          label={t.hero.motionLabel}
+          pauseLabel={t.hero.pauseMotion}
+          playLabel={t.hero.playMotion}
+          plate={PLATE}
+          className="mt-10 sm:mt-12"
+        />
       </Container>
 
       <Container className="pb-12 sm:pb-16">
@@ -176,10 +111,10 @@ export default function FeedbackTelegramBotPage() {
             id="feedback-how-heading"
             className="text-foreground mb-6 text-2xl font-normal tracking-tight"
           >
-            How it works
+            {t.how.heading}
           </h2>
           <div className="grid items-center gap-8 lg:grid-cols-12 lg:gap-12">
-            <StepList steps={steps} className="lg:col-span-5" />
+            <StepList steps={t.how.steps} className="lg:col-span-5" />
             <GraphitePlate
               crop={{ pos: "20% 70%", flip: true }}
               className="grid place-items-center px-3 py-8 sm:p-10 lg:col-span-7"
@@ -196,11 +131,11 @@ export default function FeedbackTelegramBotPage() {
             id="feedback-features-heading"
             className="text-foreground mb-6 text-2xl font-normal tracking-tight"
           >
-            What you get
+            {t.features.heading}
           </h2>
           <ul className="grid gap-x-5 gap-y-10 md:grid-cols-2 lg:grid-cols-3">
-            {features.map((feature) => (
-              <GraphiteCard key={feature.title} {...feature} />
+            {features.map(({ key, figure, crop }) => (
+              <GraphiteCard key={key} {...t.features[key]} figure={figure} crop={crop} />
             ))}
           </ul>
         </section>
@@ -212,7 +147,7 @@ export default function FeedbackTelegramBotPage() {
             id="feedback-faq-heading"
             className="text-foreground mb-6 text-2xl font-normal tracking-tight"
           >
-            Questions
+            {t.faq.heading}
           </h2>
           <div className="border-border divide-border divide-y border-y">
             {faqs.map((faq) => (
@@ -242,11 +177,10 @@ export default function FeedbackTelegramBotPage() {
             id="feedback-start-heading"
             className="text-foreground text-2xl font-normal tracking-tight sm:text-3xl"
           >
-            Ask your drivers what would make them stay
+            {t.cta.heading}
           </h2>
           <p className="text-muted-foreground mx-auto mt-3 max-w-2xl text-base leading-relaxed text-balance">
-            Get a demo. We’ll show you how it works, share pricing, and help set it up for your
-            groups.
+            {t.cta.body}
           </p>
           <GetDemoLink product="feedback-telegram-bot" className="mt-7 text-sm" />
         </section>
@@ -254,3 +188,5 @@ export default function FeedbackTelegramBotPage() {
     </PageLayout>
   );
 }
+
+export const getServerSideProps = localeServerSideProps;

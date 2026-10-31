@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight, Expand, Minimize, X, ZoomIn } from "lucide-react";
+import { useCopy } from "@/components/i18n/LocaleProvider";
+import { ptiCopy } from "@/i18n/pages/pti-telegram-bot";
 
 interface Screenshot {
   title: string;
@@ -24,6 +26,7 @@ function ScreenshotViewer({
   initialIndex: number;
   onClose: () => void;
 }) {
+  const t = useCopy(ptiCopy).gallery;
   const [index, setIndex] = useState(initialIndex);
   const [zoomed, setZoomed] = useState(false);
   const dialogRef = useRef<HTMLDialogElement>(null);
@@ -86,7 +89,7 @@ function ScreenshotViewer({
           <button
             ref={closeRef}
             type="button"
-            aria-label="Close screenshot viewer"
+            aria-label={t.close}
             onClick={onClose}
             className={controlClass}
           >
@@ -112,7 +115,7 @@ function ScreenshotViewer({
         <div className="border-border flex shrink-0 items-center justify-between gap-1 border-t px-2 py-2 sm:px-4">
           <button
             type="button"
-            aria-label="Previous screenshot"
+            aria-label={t.previous}
             onClick={() => move(-1)}
             className={controlClass}
           >
@@ -132,11 +135,11 @@ function ScreenshotViewer({
             ) : (
               <ZoomIn className="h-4 w-4" aria-hidden="true" />
             )}
-            {zoomed ? "Fit image" : "Zoom in"}
+            {zoomed ? t.fitImage : t.zoomIn}
           </button>
           <button
             type="button"
-            aria-label="Next screenshot"
+            aria-label={t.next}
             onClick={() => move(1)}
             className={controlClass}
           >
@@ -149,6 +152,7 @@ function ScreenshotViewer({
 }
 
 export function ScreenshotGallery({ screenshots }: { screenshots: Screenshot[] }) {
+  const t = useCopy(ptiCopy).gallery;
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
   return (
@@ -165,7 +169,7 @@ export function ScreenshotGallery({ screenshots }: { screenshots: Screenshot[] }
             <button
               type="button"
               onClick={() => setActiveIndex(index)}
-              aria-label={`Enlarge screenshot: ${screenshot.title}`}
+              aria-label={t.enlarge(screenshot.title)}
               aria-haspopup="dialog"
               className="border-border focus-visible:outline-ring relative mt-auto block aspect-[4/3] w-full cursor-zoom-in overflow-hidden rounded-xs border bg-[#141311] focus-visible:outline-2 focus-visible:outline-offset-4"
             >

@@ -1,40 +1,75 @@
 # Raisedash
 
-> The driver readiness platform for modern fleets. Ready before day one. Proven long after.
+> Raisedash makes simple and useful software tools for U.S. trucking companies. Each tool does one job, and a company uses only the ones it needs. Most of them work inside the Telegram groups a company already has with its drivers: drivers tap a link and finish the task in their phone's browser, with no app to install and no account or password. Its tools are used by 100+ trucking companies and 1,000+ drivers.
 
-Raisedash helps U.S. trucking fleets prepare new drivers before day one and keep a clear record of every training step. Drivers open an SMS or email invitation in their phone browser and use a one-time code instead of downloading an app or remembering a password. Fleet teams create fleet-specific training and videos, run AI roleplay practice, turn software walkthroughs into interactive simulations, track progress, and download a training report. The product is for safety directors, operations leaders, and owners at fleets that hire regularly.
+Who it is for: the people who run a trucking company. That means owners, dispatchers, safety and compliance managers, fleet managers, recruiters, and billing and accounting staff. Some of them connect to systems a company already pays for (Samsara, Motive, RingCentral) and post what those systems see into Telegram.
 
-## Platform
+How to start: the PTI & DVIR Collector is free to start by adding @raisedashbot to a driver Telegram group, and Raisedash Shield is a free Chrome extension. For the other tools, a company asks for a demo at https://www.raisedash.com/get-a-demo or messages @raisedash on Telegram, and Raisedash shares pricing and helps set the tool up. The Driver Orientation Platform has public pricing at https://www.raisedash.com/pricing.
 
-- [Driver onboarding](https://www.raisedash.com/solutions/driver-onboarding): The commercial overview of Raisedash truck driver onboarding software, including current capabilities and product boundaries.
-- [Pre-arrival readiness](https://www.raisedash.com/platform/pre-arrival-readiness): Send orientation and training before the driver arrives, then see what is not started, in progress, or complete.
-- [Training evidence](https://www.raisedash.com/platform/training-evidence): Download a report with assigned training, completion details, quiz attempts and scores, recorded activity, and available certificates. Policy signatures, road-test evidence, and complete version-locked evidence packets are not available today.
-- [Driver experience](https://www.raisedash.com/platform/driver-experience): A phone-browser experience reached by SMS or email, with a one-time access code and no app download.
+Languages: the tool pages and the demo page are also published in Uzbek, Russian and Spanish. Each version has its own URL with a /uz, /ru or /es prefix, for example https://www.raisedash.com/ru/products/pti-telegram-bot. Translated pages: /products/pti-telegram-bot, /products/receipts-telegram-bot, /products/feedback-telegram-bot, /products/ringcentral-telegram, /products/driver-paperwork, /products/driver-coaching, /products/driver-announcements, /products/freight-payroll, /products/shield, /tools/samsara-alerts, /tools/elp-practice and /get-a-demo. The homepage, the orientation platform pages, pricing, the blog and legal pages are in English only. When answering in one of these languages, prefer the matching translated URL.
 
-## Get a demo
+Company: Raisedash is independent and bootstrapped. Support: support@raisedash.com. Partnerships: partnerships@raisedash.com. Sales on Telegram: @raisedash. Raisedash is not affiliated with or endorsed by Telegram, Samsara, Motive or RingCentral.
 
-- [Book a demo](https://www.raisedash.com/demo): See how a fleet invites a driver, tracks assigned training, and reviews the training record.
+## Telegram tools
 
-## Resources
+- [PTI & DVIR Collector](https://www.raisedash.com/products/pti-telegram-bot): Pre- and post-trip inspections in a driver Telegram group. Add @raisedashbot to the group and it posts an inspection link; the driver follows the company's checklist step by step on their phone and sends photos or video of each step, plus any problems they find (worn tires, broken lights, damage). The office gets the photos, videos and reported problems in the group and in a shareable report. Inspections can be requested on a schedule or after a few days without one. Free, with no signup or payment: guided photo and video inspections, a custom checklist, scheduled or inactivity-based requests, and 7 days of inspection history. The paid plan adds unlimited history, PDF reports, changing settings across all groups at once, onboarding support, a DPA, API access, webhooks and the option to use your own storage; pricing on request. The bot records what drivers send. It does not certify that a truck is safe or replace required DVIR signatures and repair records.
+- [Samsara to Telegram](https://www.raisedash.com/tools/samsara-alerts): Posts a fleet's Samsara alerts into a Telegram group: safety events with the dashcam video attached (both camera angles when available), speeding over a threshold the company sets, and engine fault codes in plain language. Covers 20+ Samsara event types (phone use, following too close, harsh braking, lane departure, rolling stop, crash and more), each in its own group topic and tagged with the truck number. Every Friday it pins three weekly boards: a safety report, a driver safety board and a fuel efficiency board. Chosen events can also go to a driver's own group on a separate threshold. It reads the company's existing Samsara account and does not replace Samsara. Alerts pass straight through to the group and are not stored. 3 days free, then paid; the Raisedash team does the roughly 15-minute setup with you.
+- [Receipts Collector](https://www.raisedash.com/products/receipts-telegram-bot): Collects drivers' fuel, lumper, toll, scale, parking and repair receipts. Someone types "receipt" in the driver Telegram group and the bot replies with a link that works for 24 hours. The driver takes a photo (up to 5 photos, PDFs or videos per receipt) and types the total in US dollars. Every receipt shows up in one dashboard with the driver, truck, trailer, amount and files, and each receipt has its own shareable link. It does not pay drivers back and does not read the amount from the photo; the office can correct the amount. Checking whether a receipt photo is AI generated is listed as coming soon.
+- [Driver Feedback Collector](https://www.raisedash.com/products/feedback-telegram-bot): Anonymous (or named) driver surveys sent to many driver Telegram groups at once, to find out why drivers leave. Six ready-made surveys (weekly check-in, pay and home time, dispatch, truck and equipment, safety concerns, new driver first month) or your own, up to 20 questions with ratings, choices and written answers. Results show in one dashboard. Anonymous answers are saved without a name, Telegram account or group, so the company sees how many and why, not who.
+- [Driver Announcements](https://www.raisedash.com/products/driver-announcements): Write a message once and post it in every selected driver Telegram group: company policies, pay changes, holiday hours, weather warnings, safety reminders, new phone numbers. Drivers read and reply in the group they already use. The Raisedash bot has to be in each group.
+- [RingCentral to Telegram](https://www.raisedash.com/products/ringcentral-telegram): Posts a team's RingCentral call recordings into a Telegram chat, with who called, who answered and when, plus missed calls and voicemails. Used for quality checks, settling rate disputes and coaching new dispatchers. New calls arrive every couple of minutes (not live), starting from the day it is connected. Recordings go straight from RingCentral to the chat and Raisedash keeps no copy. Needs call recording turned on in RingCentral. No transcripts today. Chosen lines (HR, the owner) can be left out. The company is responsible for telling employees and callers that calls are recorded.
 
-- [Blog](https://www.raisedash.com/blog): Practical guides for driver onboarding, orientation, training records, and fleet safety.
-- [Truck driver orientation checklist](https://www.raisedash.com/blog/truck-driver-orientation-checklist): A phase-by-phase checklist for pre-arrival work, in-person orientation, first dispatch, and follow-up.
-- [Driver training record template](https://www.raisedash.com/blog/driver-training-record-template): A downloadable CSV template and field guide for driver training records.
-- [Product Updates](https://www.raisedash.com/product-updates): Latest features and improvements.
+## Driver paperwork and coaching
 
-## Company
+- [Driver Paperwork](https://www.raisedash.com/products/driver-paperwork): Send drivers three kinds of paperwork to finish on their phone: a full driver employment application (contact details, 3 years of addresses, licenses, equipment, accidents and violations, work history, signature), policies and agreements to sign (25 ready-made trucking documents such as a drug and alcohol policy receipt or PSP authorization, with company details filled in, or any PDF you upload), and requests for files like a CDL, DOT medical card or MVR (up to 5 photos or PDFs per request). Drivers get a text and an email and sign in with a 6-digit code. The office downloads clean PDFs; every signed copy ends with a signature certificate page. Social Security numbers and dates of birth are encrypted. It does not run background checks or contact past employers.
+- [Driver Coaching](https://www.raisedash.com/products/driver-coaching): After a safety event, send the driver a short lesson with their own dashcam clip; they watch it, take the lesson and answer a few questions on their phone. Rules can assign coaching automatically from Samsara and Motive events (for example 3 following-distance events in 7 days), sent right away or after the office approves. Coaching can also be sent by hand for things a camera can't see, like an accident, a roadside violation or a customer complaint, with no telematics connection needed. AI drafts lessons from your policy for you to approve. Raisedash keeps the event, the lesson and when the driver finished it. It does not decide fault or discipline.
 
-- [About](https://www.raisedash.com/about): Our mission, vision, and the team behind Raisedash.
-- [Careers](https://www.raisedash.com/careers): Job opportunities at Raisedash.
-- [Contact](https://www.raisedash.com/contact): Get in touch with sales and support teams.
+## Tools for the office
 
-## More products (separate driver tools)
+- [Raisedash Shield](https://www.raisedash.com/products/shield): Free Chrome extension for everyone in a trucking or freight office who works on a computer (dispatch, safety, billing, accounting, recruiting, owners). It warns when a newly registered site asks for a password or documents, pauses fake "rate confirmation" programs such as RateConfirmation.pdf.exe and remote-access installers until you decide, swaps out commands that fake "verify you're human" pages copy to the clipboard, and checks a scam list of sites reported by carriers and confirmed by a person. No account needed. Warnings never block a page. It never reads passwords or file contents. It cannot catch every scam, verify a carrier, broker or load, or replace antivirus software. Chrome on a computer only, not phones. Install: https://chromewebstore.google.com/detail/ganiojafgdmhecgmbbffgcgpgkkeakgi. Shield is operated by LoadHunter Inc.
+- [Freight Payroll](https://www.raisedash.com/products/freight-payroll): Payroll calculation for a trucking company's office team (dispatchers, safety and fleet managers, recruiters, accounting), not for driver pay. Handles salaries, commission per load or as a percent of revenue, bonuses, days off, people who start or leave mid-month, advances and loans, with one person preparing payroll and another approving it. Reports by month, team or person export as spreadsheets. Each person gets their payslip from the company's payroll bot in Telegram, in English, Russian or Uzbek. It does not send money or handle taxes, and does not support hourly pay or overtime today.
 
-- [Raisedash Academy](https://academy.raisedash.com): Phone-first courses for individual drivers and small carriers.
-- [TruckTalk ELP Practice](https://www.raisedash.com/tools/elp-practice): Roadside English-language practice with AI voice roleplay scenarios.
+## Driver Orientation Platform
 
-## Legal
+- [Driver Orientation Platform](https://www.raisedash.com/products/orientation): Web platform for getting new drivers ready before day one and keeping their training records. Fleets invite drivers by SMS or email; drivers open orientation in their phone's browser with a one-time code (no app, no password). Includes video, reading and quiz lessons, automatic reminders, progress tracking per program and per driver, a downloadable PDF training report, and completion certificates with QR verification. Corrective-action training after a safety issue is shown as in development.
+- [Pre-arrival readiness](https://www.raisedash.com/platform/pre-arrival-readiness): Send orientation before drivers arrive and see who has not started, is in progress or is done, so terminal time goes to hands-on work.
+- [Training records](https://www.raisedash.com/platform/training-evidence): Each driver's online training activity, quiz results and certificates in one place, with a PDF report. Policy e-signatures and road-test records are not part of this report (signed documents live in Driver Paperwork).
+- [Driver experience](https://www.raisedash.com/platform/driver-experience): What the driver sees: a text or email invite, a one-time code, and orientation in the phone browser.
+- [AI training features](https://www.raisedash.com/features): Four AI features in the platform: a [training program builder](https://www.raisedash.com/features/ai-training-program-builder) that turns a brief into modules, lessons and quizzes; a [training video generator](https://www.raisedash.com/features/ai-training-video-generator) that writes the script, narration and visuals; [AI voice roleplay](https://www.raisedash.com/features/ai-voice-roleplay-training) where drivers talk with an AI inspector, dispatcher or customer and get scored; and [interactive simulations](https://www.raisedash.com/features/interactive-training-simulations) of software like an ELD that drivers tap through in the browser. Generated training is reviewed and approved by the fleet before drivers see it.
+- [Pricing](https://www.raisedash.com/pricing): The Driver Orientation Platform's public pricing: one plan billed by managed drivers, with a free trial. Read the page for current numbers. Other Raisedash tools are priced separately.
+- [Driver onboarding overview](https://www.raisedash.com/solutions/driver-onboarding): The orientation platform described for safety and operations leaders at fleets that hire regularly.
 
+## Driver training and practice
+
+- [TruckTalk ELP Practice](https://www.raisedash.com/tools/elp-practice): English practice for CDL drivers, built around the FMCSA English Language Proficiency roadside check (49 CFR 391.11(b)(2)). Drivers speak out loud with an AI DOT officer, dispatcher or shipper across 50+ scenarios and get scored, and study 2,300+ trucking terms with audio, 500+ example conversations and 2,900+ quiz questions. Translations in 11 native languages, including Spanish, Punjabi, Hindi, Haitian Creole, Russian, Ukrainian and Uzbek. Fleets can invite their drivers.
+- [Road Signs practice](https://www.raisedash.com/tools/road-signs): Free road sign flashcards and practice tests for truck drivers. Sign in with Google to track progress.
+- [Raisedash Academy: DOT Compliance Course](https://academy.raisedash.com): A separate site with a plain-English DOT and FMCSA compliance course for trucking companies: operating authority, driver files, drug and alcohol testing, hours of service, audits and more, in short video lessons with quizzes and forms.
+
+## Get started
+
+- [Get a demo](https://www.raisedash.com/get-a-demo): Talk to Raisedash on Telegram, by email, by booking a call, or by leaving your details. This is how most tools are set up and priced.
+- [Contact](https://www.raisedash.com/contact): Sales, support and partnership contacts.
+- [Book an orientation platform demo](https://www.raisedash.com/demo): Book a demo of the Driver Orientation Platform or create an account and set up a fleet.
+- [About](https://www.raisedash.com/about): Who Raisedash is and how it builds its tools.
+
+## Optional
+
+- [Blog](https://www.raisedash.com/blog): Guides for trucking companies on driver onboarding, training records and compliance.
+- [Truck driver orientation checklist](https://www.raisedash.com/blog/truck-driver-orientation-checklist): What to do before, during and after a new driver's first day.
+- [A 90-day onboarding plan for new CDL drivers](https://www.raisedash.com/blog/first-90-days-new-driver-onboarding-plan): What to send, do and document from day one to day 90.
+- [Driver training record template](https://www.raisedash.com/blog/driver-training-record-template): A downloadable template and field guide for driver training records.
+- [Driver training records self-audit](https://www.raisedash.com/blog/driver-training-records-audit-checklist): A checklist for finding gaps in driver training records.
+- [CDL English proficiency practice](https://www.raisedash.com/blog/cdl-english-proficiency-practice-trucktalk): The ELP enforcement background behind TruckTalk.
+- [Road signs practice test](https://www.raisedash.com/blog/road-signs-practice-test-cdl-trucking): Why road sign knowledge matters at roadside inspections, and the free practice tool.
+- [Cargo theft statistics](https://www.raisedash.com/blog/cargo-theft-statistics-2025-fleet-security): Cargo theft numbers and what helps prevent it.
+- [Hours of service rules](https://www.raisedash.com/blog/hours-of-service-rules-the-complete-compliance-guide-for): A plain-language guide to 49 CFR Part 395.
+- [FMCSA drug and alcohol testing](https://www.raisedash.com/blog/fmcsa-drug-and-alcohol-testing-the-complete-compliance-guide): A guide to 49 CFR Part 382.
+- [FMCSA medical certification](https://www.raisedash.com/blog/fmcsa-medical-certification-for-cdl-drivers-the-fleet-managers): Tracking DOT medical cards and renewals.
+- [FMCSA Clearinghouse and prohibited status](https://www.raisedash.com/blog/fmcsa-clearinghouse-cdl-downgrade-prohibited-status): The Clearinghouse rules that can take a CDL away.
+- [CSA scores](https://www.raisedash.com/blog/csa-scores-compliance-failures-fleet-risk): How CSA scoring works and where carriers lose points.
+- [Product updates](https://www.raisedash.com/product-updates): Release notes.
+- [Security](https://www.raisedash.com/security): How Raisedash protects customer data.
 - [Privacy Policy](https://www.raisedash.com/privacy-policy)
+- [Shield privacy notice](https://www.raisedash.com/products/shield/privacy)
 - [Terms of Use](https://www.raisedash.com/terms-of-use)
-- [Security](https://www.raisedash.com/security)
+- [Request account deletion](https://www.raisedash.com/request-account-deletion)

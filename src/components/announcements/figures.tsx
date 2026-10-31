@@ -2,6 +2,8 @@ import Image from "next/image";
 import { Check, Search, Send } from "lucide-react";
 import { cn } from "@/lib/cn";
 import { GraphitePlate } from "@/components/receipts/figures";
+import { useCopy } from "@/components/i18n/LocaleProvider";
+import { figuresCopy } from "@/i18n/figures";
 
 /**
  * Figures for /products/driver-announcements: the office writes one message
@@ -217,25 +219,17 @@ export function HeroFigure() {
 
 /* ── Before and after ────────────────────────────────────────────────────── */
 
-const BY_HAND = [
-  "Open a driver’s group",
-  "Paste the message and send",
-  "Open the next group",
-  `Repeat ${GROUP_COUNT} times`,
-  "Hope you didn’t skip one",
-];
-
-const WITH_US = ["Write the message once", "Select all groups", "Press Send"];
-
 export function TwoWays() {
+  const t = useCopy(figuresCopy);
+
   return (
     <div className="grid gap-4 md:grid-cols-2">
       <div className="bg-card border-border flex flex-col rounded-xs border p-6 sm:p-8">
         <p className="text-muted-foreground font-mono text-xs tracking-[0.14em] uppercase">
-          Before Raisedash
+          {t.twoWays.before}
         </p>
         <ol className="mt-5 grid gap-2">
-          {BY_HAND.map((step, i) => (
+          {t.announcements.before(GROUP_COUNT).map((step, i) => (
             <li
               key={step}
               className="border-border text-muted-foreground flex min-h-11 items-center gap-3 rounded-xs border px-3 py-2 text-sm"
@@ -248,13 +242,16 @@ export function TwoWays() {
           ))}
         </ol>
         <p className="text-muted-foreground mt-auto pt-6 text-sm">
-          Your time: <span className="text-foreground">over an hour</span>
+          {`${t.announcements.yourTime} `}
+          <span className="text-foreground">{t.announcements.beforeTime}</span>
         </p>
       </div>
       <div className="border-accent/30 bg-accent/[0.04] flex flex-col rounded-xs border p-6 sm:p-8">
-        <p className="text-accent font-mono text-xs tracking-[0.14em] uppercase">With Raisedash</p>
+        <p className="text-accent font-mono text-xs tracking-[0.14em] uppercase">
+          {t.twoWays.withUs}
+        </p>
         <ol className="mt-5 grid gap-2">
-          {WITH_US.map((step, i) => (
+          {t.announcements.withUs.map((step, i) => (
             <li
               key={step}
               className="border-accent/30 bg-card text-foreground flex min-h-11 items-center gap-3 rounded-xs border px-3 py-2 text-sm"
@@ -267,7 +264,8 @@ export function TwoWays() {
           ))}
         </ol>
         <p className="text-muted-foreground mt-auto pt-6 text-sm">
-          Your time: <span className="text-foreground">about a minute</span>
+          {`${t.announcements.yourTime} `}
+          <span className="text-foreground">{t.announcements.withUsTime}</span>
         </p>
       </div>
     </div>

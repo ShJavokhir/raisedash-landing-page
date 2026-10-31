@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { getAllPosts } from "@/lib/blog";
+import { PREFIXED_LOCALES, isTranslatedPath, localizePath } from "@/i18n/locale";
 
 const INDEXNOW_KEY = "a8f4e2b1c9d64f3a8e7b0c5d2f1a9e4b";
 const SITE_URL = "https://www.raisedash.com";
@@ -31,6 +32,8 @@ const STATIC_PATHS = [
   "/products/driver-paperwork",
   "/products/driver-coaching",
   "/products/driver-announcements",
+  "/products/freight-payroll",
+  "/products/shield",
   "/products/raisedash-pti-inspections",
   "/products/raisedash-pti-inspections/driver-features",
   "/products/raisedash-pti-inspections/fleet-safety-managers",
@@ -67,6 +70,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     // Static pages
     for (const p of STATIC_PATHS) {
       urls.push(`${SITE_URL}${p}`);
+      // The other languages of a translated page (/uz/…, /ru/…, /es/…).
+      if (isTranslatedPath(p)) {
+        for (const l of PREFIXED_LOCALES) urls.push(`${SITE_URL}${localizePath(p, l)}`);
+      }
     }
 
     // Blog posts

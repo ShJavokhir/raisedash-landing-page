@@ -19,12 +19,17 @@ import {
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/layout/Container";
 import { PageLayout } from "@/components/layout/PageLayout";
+import { TrustedBy } from "@/components/layout/TrustedBy";
 import {
   FAQPageJsonLd,
   BreadcrumbJsonLd,
   SoftwareApplicationJsonLd,
   type FAQItem,
 } from "@/components/seo/SEO";
+import { useCopy } from "@/components/i18n/LocaleProvider";
+import { ProductMotion } from "@/components/motion/ProductMotion";
+import { elpCopy } from "@/i18n/pages/elp-practice";
+import { localeServerSideProps } from "@/i18n/server";
 
 /**
  * Organic SEO landing page for TruckTalk, our CDL English Language Proficiency
@@ -34,149 +39,48 @@ import {
  * sitemap.xml.tsx + api/indexnow.ts.
  */
 
+// The app's cover: the page's social card, and the banner over "Inside TruckTalk" (the hero plays the film).
 const COVER_IMAGE =
   "https://cdn.raisedash.com/media/landing/blog/trucktalk-elp-practice-cover.webp";
 
-const STATS = [
-  { value: "600+", label: "drivers pulled off the road in California since enforcement began" },
-  { value: "400+", label: "ELP violations in a single month, a 300% jump over 2025" },
-  { value: "Out of service", label: "on the spot the moment a driver fails the roadside check" },
-  { value: "3 years", label: "the violation stays on the PSP record future employers see" },
-];
+// The TruckTalk card's plate on the homepage (src/data/products.ts): the hero film plays on it.
+const PLATE = "#6d4bd8";
 
+// Copy for every section lives in src/i18n/pages/elp-practice.ts (English + Uzbek).
 const ASSESSMENT = [
-  {
-    icon: MessageSquare,
-    title: "1. The driver interview",
-    body: "The inspector asks about the trip, the vehicle, duty status, and the load. The driver has to answer in English: no interpreter, no I-Speak card, no translation app.",
-  },
-  {
-    icon: ShieldCheck,
-    title: "2. Highway sign recognition",
-    body: "The officer shows a chart of standard traffic signs and the driver has to identify each one and explain what it means, out loud, in English.",
-  },
-];
+  { key: "interview", icon: MessageSquare },
+  { key: "signs", icon: ShieldCheck },
+] as const;
 
 const FEATURES = [
-  {
-    icon: Mic,
-    title: "AI voice roleplay",
-    body: "Drivers speak out loud with an AI DOT officer, dispatcher, or shipper across 50+ scenarios and three difficulty levels, then get scored on clarity, vocabulary, and task completion.",
-  },
-  {
-    icon: BookOpen,
-    title: "2,300+ trucking terms",
-    body: "Every word a driver meets at a dock, on a shipping paper, or in an ELD log, each with audio, phonetics, and an example sentence.",
-  },
-  {
-    icon: MessageSquare,
-    title: "500+ example conversations",
-    body: "Real driver-to-officer, dispatcher, shipper, and mechanic exchanges, organized by topic, with audio playback on every line.",
-  },
-  {
-    icon: ListChecks,
-    title: "2,900+ quiz questions",
-    body: "Six exercise types built on practical trucking knowledge (multiple choice, image matching, listen-and-choose, and more), not abstract grammar.",
-  },
-  {
-    icon: FileText,
-    title: "Interactive document training",
-    body: "Tap through a live ELD timeline, a Bill of Lading, and hazmat shipping papers to learn the English by actually using it.",
-  },
-  {
-    icon: Languages,
-    title: "11 native languages",
-    body: "Translate any term or lesson into Spanish, Punjabi, Hindi, Haitian Creole, Russian, Ukrainian, Uzbek, and more.",
-  },
-];
+  { key: "roleplay", icon: Mic },
+  { key: "terms", icon: BookOpen },
+  { key: "conversations", icon: MessageSquare },
+  { key: "quizzes", icon: ListChecks },
+  { key: "documents", icon: FileText },
+  { key: "languages", icon: Languages },
+] as const;
 
 const GALLERY = [
   {
+    key: "vocabulary",
     src: "https://cdn.raisedash.com/media/landing/blog/trucktalk-vocabulary.webp",
-    alt: "TruckTalk vocabulary dictionary showing CDL terms with phonetic pronunciation, definitions, and native-language translation",
-    caption: "Trucking-specific dictionary with audio and translations",
   },
   {
+    key: "conversations",
     src: "https://cdn.raisedash.com/media/landing/blog/trucktalk-example-conversations.webp",
-    alt: "TruckTalk example conversations organized by topic including DOT inspection, pre-trip, and logbook talk",
-    caption: "Hundreds of real trucking conversations, by topic",
   },
   {
+    key: "quiz",
     src: "https://cdn.raisedash.com/media/landing/blog/trucktalk-quiz-example.webp",
-    alt: "TruckTalk quiz showing a fill-in-the-blank question about CDL terminology with multiple choice answers",
-    caption: "Quizzes that test the English of the job",
   },
-];
+] as const;
 
 const STEPS = [
-  {
-    icon: GraduationCap,
-    title: "Pick a language and level",
-    body: "Each driver chooses their native language and English level: beginner, intermediate, or advanced.",
-  },
-  {
-    icon: Gauge,
-    title: "Practice 5–10 minutes a day",
-    body: "Short lessons fit a break at a truck stop or the sleeper before a shift. Vocabulary, quizzes, and live voice roleplay.",
-  },
-  {
-    icon: Volume2,
-    title: "Build real roadside readiness",
-    body: "A spaced-repetition system surfaces weak words sooner, tracks streaks and progress, and scores every roleplay session.",
-  },
-];
-
-const TIMELINE = [
-  {
-    date: "Jun 25, 2025",
-    event: "CVSA Out-of-Service criteria for English proficiency failures take effect nationwide.",
-  },
-  {
-    date: "Jan 1, 2026",
-    event: "California, the last holdout state, begins enforcing ELP at roadside inspections.",
-  },
-  {
-    date: "Feb 3, 2026",
-    event: "Congress passes legislation requiring FMCSA to codify ELP out-of-service orders.",
-  },
-  {
-    date: "Feb 20, 2026",
-    event: "The U.S. DOT orders that all CDL exams be administered exclusively in English.",
-  },
-];
-
-const FAQS: FAQItem[] = [
-  {
-    question: "What is the FMCSA English Language Proficiency requirement?",
-    answer:
-      "Under 49 CFR § 391.11(b)(2), every CDL holder must be able to read and speak English well enough to converse with the public, understand highway traffic signs, respond to official inquiries, and make entries on reports and records. It is assessed at roadside inspections without translators or translation devices.",
-  },
-  {
-    question: "What happens if a driver fails an ELP check at a DOT inspection?",
-    answer:
-      "The driver is placed out of service immediately and the truck stays parked until a qualified replacement arrives. The violation goes on the driver's inspection history through the Pre-Employment Screening Program (PSP) for three years, and carriers can face federal civil penalties.",
-  },
-  {
-    question: "How is TruckTalk different from Duolingo or other English apps?",
-    answer:
-      "Generic apps teach everyday vocabulary like ordering food. TruckTalk teaches the specific English a CDL driver needs: ELD log terminology, Bill of Lading vocabulary, DOT inspection questions, dispatch communication, and hazmat shipping paper language. Every word, conversation, and quiz is built for trucking.",
-  },
-  {
-    question: "Can drivers actually practice speaking, not just reading?",
-    answer:
-      "Yes. The AI Voice Roleplay feature lets drivers have real spoken conversations with AI-powered DOT officers, dispatchers, and shippers. Drivers speak out loud in English and get scored on listening comprehension, response clarity, vocabulary, and task completion across 50+ scenarios.",
-  },
-  {
-    question: "What native languages does TruckTalk support?",
-    answer:
-      "TruckTalk supports 11 native languages for in-app translations: Spanish, Punjabi, Hindi, Haitian Creole, Amharic, Somali, Russian, Ukrainian, Polish, French, and Uzbek.",
-  },
-  {
-    question: "Can fleet managers track multiple drivers?",
-    answer:
-      "Yes. Fleets get a management dashboard that tracks each driver's progress, quiz scores, and ELP readiness, with timestamped records you can show an auditor. Drivers can be invited by link, email, or code and start learning in minutes.",
-  },
-];
+  { key: "language", icon: GraduationCap },
+  { key: "practice", icon: Gauge },
+  { key: "readiness", icon: Volume2 },
+] as const;
 
 function SectionHeading({
   eyebrow,
@@ -201,10 +105,13 @@ function SectionHeading({
 }
 
 export default function ElpPractice() {
+  const t = useCopy(elpCopy);
+  const faqs: FAQItem[] = t.faq.items;
+
   return (
     <PageLayout
-      title="CDL English Proficiency Practice (ELP) for Truck Drivers"
-      description="TruckTalk is a CDL English practice tool built only for truck drivers: DOT inspection roleplay, trucking vocabulary, and real roadside scenarios. Prepare your fleet for the FMCSA English Language Proficiency check."
+      title={t.seo.title}
+      description={t.seo.description}
       keywords={[
         "CDL English proficiency practice",
         "ELP practice truck drivers",
@@ -231,64 +138,59 @@ export default function ElpPractice() {
         operatingSystem={["Web", "iOS", "Android"]}
         applicationCategory="EducationalApplication"
       />
-      <FAQPageJsonLd faqs={FAQS} />
+      <FAQPageJsonLd faqs={faqs} />
 
       {/* Hero */}
-      <div className="pt-16 pb-8">
-        <Container>
-          <div className="bg-card border-border animate-fade-in-scale rounded-xs border px-6 py-12 text-center sm:px-12 sm:py-16">
-            <p className="text-accent mb-4 text-sm font-medium tracking-wide uppercase">
-              FMCSA English Language Proficiency
+      <Container className="py-12 sm:py-16">
+        <div className="lg:flex lg:items-end lg:justify-between lg:gap-12">
+          <div className="max-w-2xl">
+            <p className="text-accent mb-4 font-mono text-xs tracking-[0.14em] uppercase">
+              {t.hero.eyebrow}
             </p>
-            <h1 className="text-foreground mx-auto max-w-3xl text-4xl leading-tight font-normal tracking-[-0.03em] sm:text-[48px]">
-              Prepare your drivers for the roadside English check.
+            <h1 className="text-foreground text-4xl leading-tight font-normal tracking-[-0.03em] sm:text-[48px]">
+              {t.hero.title}
             </h1>
-            <p className="text-muted-foreground mx-auto mt-6 max-w-2xl text-xl leading-relaxed">
-              TruckTalk is a CDL English practice tool built for one job: passing a DOT inspection.
-              AI voice roleplay, trucking vocabulary, and real roadside scenarios, not generic
-              English lessons.
+            <p className="text-muted-foreground mt-6 max-w-xl text-lg leading-relaxed">
+              {t.hero.body}
             </p>
 
-            <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
+            <div className="mt-8 flex flex-col items-start gap-3 sm:flex-row sm:items-center">
               <GetDemoLink product="elp-practice" />
               <Link href="#inside">
                 <Button variant="secondary" size="lg">
-                  See what&apos;s inside
+                  {t.hero.seeInside}
                 </Button>
               </Link>
             </div>
 
-            <div className="text-muted-foreground mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm">
+            <div className="text-muted-foreground mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm">
               <span className="inline-flex items-center gap-1.5">
-                <Check className="text-accent h-4 w-4" /> Built only for CDL drivers
+                <Check className="text-accent h-4 w-4" /> {t.hero.badges.cdlOnly}
               </span>
               <span className="inline-flex items-center gap-1.5">
-                <Check className="text-accent h-4 w-4" /> AI voice practice
+                <Check className="text-accent h-4 w-4" /> {t.hero.badges.voice}
               </span>
               <span className="inline-flex items-center gap-1.5">
-                <Check className="text-accent h-4 w-4" /> 11 native languages
+                <Check className="text-accent h-4 w-4" /> {t.hero.badges.languages}
               </span>
-            </div>
-
-            <div className="border-border mt-12 overflow-hidden rounded-xs border">
-              <Image
-                src={COVER_IMAGE}
-                alt="TruckTalk CDL English proficiency practice app showing the study dashboard, vocabulary dictionary, and quiz interface"
-                width={2400}
-                height={1350}
-                priority
-                sizes="(max-width: 1200px) 100vw, 1140px"
-                className="h-auto w-full"
-              />
             </div>
           </div>
-        </Container>
-      </div>
+          <TrustedBy className="mt-8 lg:mt-0 lg:shrink-0" />
+        </div>
+        <ProductMotion
+          name="elp"
+          label={t.hero.motionLabel}
+          pauseLabel={t.hero.pauseMotion}
+          playLabel={t.hero.playMotion}
+          plate={PLATE}
+          className="mt-10 sm:mt-12"
+        />
+      </Container>
 
       {/* Stats */}
       <Container className="pb-12">
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {STATS.map((stat) => (
+          {t.stats.items.map((stat) => (
             <div key={stat.label} className="bg-card border-border rounded-xs border p-6">
               <div className="text-foreground text-2xl font-normal tracking-[-0.02em] sm:text-3xl">
                 {stat.value}
@@ -297,9 +199,7 @@ export default function ElpPractice() {
             </div>
           ))}
         </div>
-        <p className="text-muted-foreground/70 mt-4 text-center text-xs">
-          Sources: FMCSA, CVSA, and California CHP enforcement reporting, 2025–2026.
-        </p>
+        <p className="text-muted-foreground/70 mt-4 text-center text-xs">{t.stats.sources}</p>
       </Container>
 
       {/* The reality */}
@@ -311,16 +211,9 @@ export default function ElpPractice() {
             </div>
             <div>
               <h2 className="text-foreground text-2xl font-normal tracking-[-0.02em] sm:text-3xl">
-                The enforcement crackdown is already here
+                {t.reality.title}
               </h2>
-              <p className="text-muted-foreground mt-4 text-lg leading-relaxed">
-                Since June 2025, failing the English Language Proficiency check is an out-of-service
-                violation in every state. Under 49 CFR § 391.11(b)(2), every CDL holder must read
-                and speak English well enough to talk with the public, understand traffic signs,
-                respond to official questions, and complete reports (assessed roadside, with no
-                translation help allowed). A single failed check strands the truck, delays the load,
-                and follows the driver for years.
-              </p>
+              <p className="text-muted-foreground mt-4 text-lg leading-relaxed">{t.reality.body}</p>
             </div>
           </div>
         </div>
@@ -329,18 +222,22 @@ export default function ElpPractice() {
       {/* What the assessment looks like */}
       <Container className="pb-12">
         <SectionHeading
-          eyebrow="What actually happens"
-          title="The roadside ELP assessment has two parts"
-          sub="Most drivers have never seen what the check involves. Here is exactly what an officer does."
+          eyebrow={t.assessment.eyebrow}
+          title={t.assessment.title}
+          sub={t.assessment.sub}
         />
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           {ASSESSMENT.map((part) => {
             const Icon = part.icon;
             return (
-              <div key={part.title} className="bg-card border-border rounded-xs border p-6 sm:p-8">
+              <div key={part.key} className="bg-card border-border rounded-xs border p-6 sm:p-8">
                 <Icon className="text-accent h-6 w-6" />
-                <h3 className="text-foreground mt-4 text-xl font-normal">{part.title}</h3>
-                <p className="text-muted-foreground mt-3 leading-relaxed">{part.body}</p>
+                <h3 className="text-foreground mt-4 text-xl font-normal">
+                  {t.assessment[part.key].title}
+                </h3>
+                <p className="text-muted-foreground mt-3 leading-relaxed">
+                  {t.assessment[part.key].body}
+                </p>
               </div>
             );
           })}
@@ -353,22 +250,12 @@ export default function ElpPractice() {
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
             <div>
               <h2 className="text-foreground text-2xl font-normal tracking-[-0.02em] sm:text-3xl">
-                Why a generic English app won&apos;t prepare a driver
+                {t.generic.title}
               </h2>
-              <p className="text-muted-foreground mt-4 leading-relaxed">
-                Duolingo and Babbel teach you to order coffee and ask for directions. None of that
-                helps when an officer asks a driver to explain their ELD logs, walk through their
-                hours of service, or read a Bill of Lading and identify the hazmat classifications
-                on the load.
-              </p>
+              <p className="text-muted-foreground mt-4 leading-relaxed">{t.generic.body}</p>
             </div>
             <div className="flex flex-col justify-center gap-3">
-              {[
-                "ELD and hours-of-service terminology",
-                "Bill of Lading and shipping paper vocabulary",
-                "DOT inspection questions and responses",
-                "Hazmat classes, dispatch, and weigh-station talk",
-              ].map((item) => (
+              {t.generic.items.map((item) => (
                 <div key={item} className="flex items-start gap-3">
                   <Check className="text-accent mt-0.5 h-5 w-5 flex-shrink-0" />
                   <span className="text-foreground">{item}</span>
@@ -383,24 +270,36 @@ export default function ElpPractice() {
       <div id="inside" className="scroll-mt-8">
         <Container className="pb-12">
           <SectionHeading
-            eyebrow="Inside TruckTalk"
-            title="Everything is specific to trucking"
-            sub="There is not one lesson about ordering coffee. Every word, conversation, and quiz is built for the inspection a driver will actually face."
+            eyebrow={t.features.eyebrow}
+            title={t.features.title}
+            sub={t.features.sub}
           />
+          <div className="border-border mb-4 overflow-hidden rounded-xs border">
+            <Image
+              src={COVER_IMAGE}
+              alt={t.features.imageAlt}
+              width={2400}
+              height={1350}
+              sizes="(max-width: 1200px) 100vw, 1140px"
+              className="h-auto w-full"
+            />
+          </div>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {FEATURES.map((feature) => {
               const Icon = feature.icon;
               return (
                 <div
-                  key={feature.title}
+                  key={feature.key}
                   className="bg-card border-border rounded-xs border p-6 sm:p-8"
                 >
                   <div className="bg-accent/10 text-accent flex h-11 w-11 items-center justify-center rounded-xs">
                     <Icon className="h-5 w-5" />
                   </div>
-                  <h3 className="text-foreground mt-4 text-lg font-normal">{feature.title}</h3>
+                  <h3 className="text-foreground mt-4 text-lg font-normal">
+                    {t.features[feature.key].title}
+                  </h3>
                   <p className="text-muted-foreground mt-2 text-sm leading-relaxed">
-                    {feature.body}
+                    {t.features[feature.key].body}
                   </p>
                 </div>
               );
@@ -415,21 +314,18 @@ export default function ElpPractice() {
           <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-2">
             <div>
               <p className="text-accent mb-3 text-sm font-medium tracking-wide uppercase">
-                The feature that changes everything
+                {t.spotlight.eyebrow}
               </p>
               <h2 className="text-foreground text-2xl font-normal tracking-[-0.02em] sm:text-3xl">
-                A real conversation, not a flashcard
+                {t.spotlight.title}
               </h2>
               <p className="text-muted-foreground mt-4 leading-relaxed">
-                A driver opens a scenario and an AI-powered DOT officer starts talking out loud. The
-                driver answers out loud, in English. The AI responds based on what was actually
-                said, then scores listening, clarity, vocabulary, and task completion, and even
-                rewrites weak answers to show a better way to respond. Fleet version:{" "}
+                {`${t.spotlight.body} `}
                 <Link
                   href="/features/ai-voice-roleplay-training"
                   className="text-foreground decoration-border underline underline-offset-4 transition-colors hover:decoration-current"
                 >
-                  AI voice roleplay for your own scenarios
+                  {t.spotlight.fleetLink}
                 </Link>
                 .
               </p>
@@ -440,7 +336,7 @@ export default function ElpPractice() {
             <div className="border-border overflow-hidden rounded-xs border">
               <Image
                 src="https://cdn.raisedash.com/media/landing/blog/trucktalk-ai-roleplay.webp"
-                alt="TruckTalk AI voice roleplay simulating a DOT roadside inspection where an officer asks for license, medical card, and vehicle registration"
+                alt={t.spotlight.imageAlt}
                 width={2400}
                 height={1350}
                 loading="lazy"
@@ -462,7 +358,7 @@ export default function ElpPractice() {
             >
               <Image
                 src={shot.src}
-                alt={shot.alt}
+                alt={t.gallery[shot.key].alt}
                 width={2400}
                 height={1350}
                 loading="lazy"
@@ -470,7 +366,7 @@ export default function ElpPractice() {
                 className="h-auto w-full"
               />
               <figcaption className="text-muted-foreground border-border border-t p-4 text-sm">
-                {shot.caption}
+                {t.gallery[shot.key].caption}
               </figcaption>
             </figure>
           ))}
@@ -479,20 +375,24 @@ export default function ElpPractice() {
 
       {/* How it works */}
       <Container className="pb-12">
-        <SectionHeading eyebrow="How it works" title="Up and running in minutes a day" />
+        <SectionHeading eyebrow={t.steps.eyebrow} title={t.steps.title} />
         <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
           {STEPS.map((step, i) => {
             const Icon = step.icon;
             return (
-              <div key={step.title} className="bg-card border-border rounded-xs border p-6 sm:p-8">
+              <div key={step.key} className="bg-card border-border rounded-xs border p-6 sm:p-8">
                 <div className="flex items-center gap-3">
                   <span className="bg-surface-3 text-foreground flex h-8 w-8 items-center justify-center rounded-full text-sm">
                     {i + 1}
                   </span>
                   <Icon className="text-accent h-5 w-5" />
                 </div>
-                <h3 className="text-foreground mt-4 text-lg font-normal">{step.title}</h3>
-                <p className="text-muted-foreground mt-2 text-sm leading-relaxed">{step.body}</p>
+                <h3 className="text-foreground mt-4 text-lg font-normal">
+                  {t.steps[step.key].title}
+                </h3>
+                <p className="text-muted-foreground mt-2 text-sm leading-relaxed">
+                  {t.steps[step.key].body}
+                </p>
               </div>
             );
           })}
@@ -501,13 +401,10 @@ export default function ElpPractice() {
 
       {/* Enforcement timeline */}
       <Container className="pb-12">
-        <SectionHeading
-          eyebrow="The direction is clear"
-          title="The enforcement timeline only goes one way"
-        />
+        <SectionHeading eyebrow={t.timeline.eyebrow} title={t.timeline.title} />
         <div className="bg-card border-border rounded-xs border p-6 sm:p-10">
           <ol className="space-y-6">
-            {TIMELINE.map((item) => (
+            {t.timeline.items.map((item) => (
               <li key={item.date} className="flex gap-4 sm:gap-6">
                 <div className="text-accent w-28 flex-shrink-0 text-sm font-medium sm:w-32">
                   {item.date}
@@ -523,9 +420,9 @@ export default function ElpPractice() {
 
       {/* FAQ */}
       <Container className="pb-12">
-        <SectionHeading eyebrow="FAQ" title="Common questions about the ELP requirement" />
+        <SectionHeading eyebrow={t.faq.eyebrow} title={t.faq.title} />
         <div className="mx-auto max-w-3xl space-y-3">
-          {FAQS.map((faq) => (
+          {faqs.map((faq) => (
             <details
               key={faq.question}
               className="group bg-card border-border rounded-xs border p-6"
@@ -544,12 +441,9 @@ export default function ElpPractice() {
       <Container className="pb-12">
         <div className="bg-card border-border rounded-xs border p-8 text-center sm:p-12">
           <h2 className="text-foreground mb-4 text-2xl font-normal tracking-[-0.02em] sm:text-3xl">
-            Get your drivers ready before the next inspection
+            {t.cta.title}
           </h2>
-          <p className="text-muted-foreground mx-auto mb-8 max-w-xl text-lg">
-            Tell us about your fleet and we&apos;ll put together a plan to get every driver
-            road-ready on English proficiency, road signs, and safety.
-          </p>
+          <p className="text-muted-foreground mx-auto mb-8 max-w-xl text-lg">{t.cta.body}</p>
           <div className="flex justify-center">
             <GetDemoLink product="elp-practice" />
           </div>
@@ -558,3 +452,5 @@ export default function ElpPractice() {
     </PageLayout>
   );
 }
+
+export const getServerSideProps = localeServerSideProps;

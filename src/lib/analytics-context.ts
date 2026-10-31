@@ -1,4 +1,5 @@
 import { products } from "@/data/products";
+import { stripLocalePrefix } from "@/i18n/locale";
 
 /**
  * Page classification stamped onto EVERY PostHog event (see before_send in
@@ -78,7 +79,9 @@ const PAGE_GROUPS: Record<string, string> = {
   "compliance-challenges": "content",
 };
 
-export function pageContext(pathname: string): PageContext {
+export function pageContext(rawPathname: string): PageContext {
+  // /uz/products/x is the same page as /products/x, in another language.
+  const pathname = stripLocalePrefix(rawPathname);
   const first = pathname.split("/").filter(Boolean)[0] ?? "";
   const page_group = first === "" ? "home" : (PAGE_GROUPS[first] ?? "other");
   const product = PRODUCT_PREFIXES.find(({ prefix }) => matches(pathname, prefix))?.product;

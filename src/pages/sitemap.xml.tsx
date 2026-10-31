@@ -1,6 +1,7 @@
 import { GetServerSideProps } from "next";
 import { getAllPosts } from "@/lib/blog";
 import { getAllProductUpdates } from "@/lib/product-updates";
+import { PREFIXED_LOCALES, isTranslatedPath, localizePath } from "@/i18n/locale";
 
 const RAW_SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://www.raisedash.com";
 const SITE_URL = RAW_SITE_URL.endsWith("/") ? RAW_SITE_URL.slice(0, -1) : RAW_SITE_URL;
@@ -18,14 +19,14 @@ const SITE_URL = RAW_SITE_URL.endsWith("/") ? RAW_SITE_URL.slice(0, -1) : RAW_SI
  * update its date here to the date of that change.
  */
 const STATIC_PAGE_DATES: Record<string, string> = {
-  "/": "2026-10-03",
-  "/products/orientation": "2026-09-21",
+  "/": "2026-10-23",
+  "/products/orientation": "2026-10-24",
   "/blog": "2026-01-26", // overridden below by latest post date
   "/about": "2026-09-21",
-  "/contact": "2026-09-21",
+  "/contact": "2026-10-24",
   "/careers": "2026-07-14",
   "/demo": "2026-07-17",
-  "/get-a-demo": "2026-10-19",
+  "/get-a-demo": "2026-10-24",
   "/pricing": "2026-07-19",
   "/solutions/driver-onboarding": "2026-07-16",
   "/platform/pre-arrival-readiness": "2026-07-14",
@@ -37,13 +38,15 @@ const STATIC_PAGE_DATES: Record<string, string> = {
   "/features/ai-voice-roleplay-training": "2026-07-19",
   "/features/interactive-training-simulations": "2026-07-19",
   "/product-updates": "2026-01-27", // overridden below by latest update date
-  "/products/pti-telegram-bot": "2026-09-21",
-  "/products/receipts-telegram-bot": "2026-10-02",
-  "/products/feedback-telegram-bot": "2026-10-02",
-  "/products/ringcentral-telegram": "2026-10-02",
-  "/products/driver-paperwork": "2026-10-02",
-  "/products/driver-coaching": "2026-10-02",
-  "/products/driver-announcements": "2026-10-04",
+  "/products/pti-telegram-bot": "2026-10-24",
+  "/products/receipts-telegram-bot": "2026-10-24",
+  "/products/feedback-telegram-bot": "2026-10-24",
+  "/products/ringcentral-telegram": "2026-10-24",
+  "/products/driver-paperwork": "2026-10-24",
+  "/products/driver-coaching": "2026-10-24",
+  "/products/driver-announcements": "2026-10-24",
+  "/products/freight-payroll": "2026-10-25",
+  "/products/shield": "2026-10-27",
   "/products/raisedash-pti-inspections": "2026-01-26",
   "/products/raisedash-pti-inspections/driver-features": "2026-01-22",
   "/products/raisedash-pti-inspections/fleet-safety-managers": "2026-01-22",
@@ -54,10 +57,22 @@ const STATIC_PAGE_DATES: Record<string, string> = {
   "/security": "2026-07-14",
   "/compliance-challenges": "2026-01-27",
   "/pti-app": "2026-01-28",
-  "/tools/elp-practice": "2026-10-02",
-  "/tools/samsara-alerts": "2026-10-19",
+  "/tools/elp-practice": "2026-10-24",
+  "/tools/samsara-alerts": "2026-10-24",
   "/tools/road-signs": "2026-02-27",
 };
+
+/** hreflang alternates for a translated page (en, uz, ru, es + x-default = English); "" for the rest. */
+function alternates(path: string) {
+  if (!isTranslatedPath(path)) return "";
+  const link = (hreflang: string, href: string) =>
+    `\n    <xhtml:link rel="alternate" hreflang="${hreflang}" href="${SITE_URL}${href}"/>`;
+  return (
+    link("en", path) +
+    PREFIXED_LOCALES.map((locale) => link(locale, localizePath(path, locale))).join("") +
+    link("x-default", path)
+  );
+}
 
 function generateSiteMap(
   posts: { slug: string; publishedAt: string; updatedAt?: string | null }[],
@@ -197,6 +212,18 @@ function generateSiteMap(
       priority: "0.8",
     },
     {
+      loc: `${SITE_URL}/products/freight-payroll`,
+      lastmod: STATIC_PAGE_DATES["/products/freight-payroll"],
+      changefreq: "monthly",
+      priority: "0.8",
+    },
+    {
+      loc: `${SITE_URL}/products/shield`,
+      lastmod: STATIC_PAGE_DATES["/products/shield"],
+      changefreq: "monthly",
+      priority: "0.8",
+    },
+    {
       loc: `${SITE_URL}/products/receipts-telegram-bot`,
       lastmod: STATIC_PAGE_DATES["/products/receipts-telegram-bot"],
       changefreq: "weekly",
@@ -323,22 +350,32 @@ function generateSiteMap(
       changefreq: "monthly",
       priority: "0.5",
     },
-  ];
+  ].map((page) => ({ ...page, path: page.loc.slice(SITE_URL.length) || "/" }));
+
+  // Every translated page also lives at /uz/…, /ru/… and /es/… (src/i18n/locale.ts).
+  const languagePages = staticPages
+    .filter((page) => isTranslatedPath(page.path))
+    .flatMap((page) =>
+      PREFIXED_LOCALES.map((locale) => ({
+        ...page,
+        loc: `${SITE_URL}${localizePath(page.path, locale)}`,
+      }))
+    );
 
   return `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:news="http://www.google.com/schemas/sitemap-news/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
-  <!-- Static Pages -->
-  ${staticPages
+  <!-- Static Pages (+ the other languages of the translated ones) -->
+  ${[...staticPages, ...languagePages]
     .map(
       (page) => `
   <url>
     <loc>${page.loc}</loc>
     <lastmod>${page.lastmod}</lastmod>
     <changefreq>${page.changefreq}</changefreq>
-    <priority>${page.priority}</priority>
+    <priority>${page.priority}</priority>${alternates(page.path)}
   </url>`
     )
     .join("")}

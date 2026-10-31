@@ -91,10 +91,18 @@ export const products = [
   {
     name: "Raisedash Shield",
     description:
-      "Local browser warnings for freight phishing, disguised downloads and scam instructions. Preparing for public release.",
+      "Free Chrome extension for everyone in your office. Warns before someone types a password into a fake sign-in page, opens a fake rate confirmation or runs a command a scam page copied.",
     href: "/products/shield",
     plate: "#315b50",
     icon: { src: "/brand/shield-icon.webp", width: 295, height: 288 },
+  },
+  {
+    name: "Freight Payroll",
+    description:
+      "Payroll for your office team: dispatchers, safety and fleet managers, and accounting. Start the month in one click, approve it, and everyone gets their payslip in Telegram.",
+    href: "/products/freight-payroll",
+    plate: "#8c6a1c",
+    icon: { src: "/brand/payroll-icon.webp", width: 318, height: 288 },
   },
 ];
 

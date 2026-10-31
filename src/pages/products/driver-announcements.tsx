@@ -2,7 +2,8 @@ import { GetDemoLink } from "@/components/demo/GetDemoLink";
 import { ChevronDown } from "lucide-react";
 import { Container } from "@/components/layout/Container";
 import { PageLayout } from "@/components/layout/PageLayout";
-import { StepList, type PlatformStep } from "@/components/platform/StepList";
+import { TrustedBy } from "@/components/layout/TrustedBy";
+import { StepList } from "@/components/platform/StepList";
 import {
   BreadcrumbJsonLd,
   FAQPageJsonLd,
@@ -10,12 +11,11 @@ import {
   type FAQItem,
 } from "@/components/seo/SEO";
 import { GraphiteCard, GraphitePlate, type PlateCrop } from "@/components/receipts/figures";
-import {
-  GroupPickerFigure,
-  HeroFigure,
-  MessageFigure,
-  TwoWays,
-} from "@/components/announcements/figures";
+import { GroupPickerFigure, MessageFigure, TwoWays } from "@/components/announcements/figures";
+import { ProductMotion } from "@/components/motion/ProductMotion";
+import { useCopy } from "@/components/i18n/LocaleProvider";
+import { announcementsCopy } from "@/i18n/pages/driver-announcements";
+import { localeServerSideProps } from "@/i18n/server";
 
 /**
  * Driver announcements: write one message in Raisedash, pick driver Telegram
@@ -37,26 +37,14 @@ import {
  * No public price: the CTA goes to the shared demo request page.
  */
 
-const steps: PlatformStep[] = [
-  {
-    title: "Write it once",
-    description: "Type your message in Raisedash, the same way you’d write it in a group.",
-  },
-  {
-    title: "Pick the groups",
-    description: "Select all, or search and pick only the drivers who need it.",
-  },
-  {
-    title: "Send",
-    description:
-      "We post it in every group you picked. Drivers read it in the chat they already use, and can reply right there.",
-  },
-];
+/** The homepage card color (src/data/products.ts), the hero film's stage. */
+const PLATE = "#4a5d73";
 
-const examples: { title: string; text: string; figure: React.ReactNode; crop: PlateCrop }[] = [
+// Copy for every section lives in src/i18n/pages/driver-announcements.ts (English + Uzbek).
+// The example messages are what the figures depict, so they stay English here.
+const examples = [
   {
-    title: "Company policies",
-    text: "A new rule reaches every driver on the same day.",
+    key: "policies",
     figure: (
       <MessageFigure
         group={0}
@@ -66,8 +54,7 @@ const examples: { title: string; text: string; figure: React.ReactNode; crop: Pl
     crop: { pos: "0% 8%" },
   },
   {
-    title: "Pay changes",
-    text: "Everyone hears it from you at once, not secondhand from another driver.",
+    key: "pay",
     figure: (
       <MessageFigure
         group={1}
@@ -77,8 +64,7 @@ const examples: { title: string; text: string; figure: React.ReactNode; crop: Pl
     crop: { pos: "60% 80%" },
   },
   {
-    title: "Holiday hours",
-    text: "Who to call while the office is closed.",
+    key: "holidays",
     figure: (
       <MessageFigure
         group={2}
@@ -88,8 +74,7 @@ const examples: { title: string; text: string; figure: React.ReactNode; crop: Pl
     crop: { pos: "100% 25%", flip: true },
   },
   {
-    title: "Weather warnings",
-    text: "Send it only to the drivers heading into it.",
+    key: "weather",
     figure: (
       <MessageFigure
         group={3}
@@ -100,8 +85,7 @@ const examples: { title: string; text: string; figure: React.ReactNode; crop: Pl
     crop: { pos: "90% 95%" },
   },
   {
-    title: "Safety reminders",
-    text: "Before an inspection week, or after a close call everyone should hear about.",
+    key: "safety",
     figure: (
       <MessageFigure
         group={4}
@@ -111,8 +95,7 @@ const examples: { title: string; text: string; figure: React.ReactNode; crop: Pl
     crop: { pos: "10% 40%", flip: true },
   },
   {
-    title: "New phone numbers",
-    text: "A new dispatch line in every group, before anyone needs it.",
+    key: "phones",
     figure: (
       <MessageFigure
         group={5}
@@ -121,39 +104,16 @@ const examples: { title: string; text: string; figure: React.ReactNode; crop: Pl
     ),
     crop: { pos: "30% 60%", flip: true },
   },
-];
-
-const faqs: FAQItem[] = [
-  {
-    question: "Do drivers need an app?",
-    answer:
-      "No. Your message shows up in the Telegram group they already use. There’s nothing to install and nothing to log in to.",
-  },
-  {
-    question: "Can I send to only some groups?",
-    answer:
-      "Yes. Select all, or search and pick the groups you need, like the drivers heading into bad weather.",
-  },
-  {
-    question: "Can drivers reply?",
-    answer:
-      "Yes. They reply in their group like any other message, and your team answers them there.",
-  },
-  {
-    question: "What do I need to set up?",
-    answer: "Our bot needs to be in each group you send to. We’ll help you add it.",
-  },
-  {
-    question: "How do I get started?",
-    answer: "Get a demo. We’ll share pricing and help you set it up for your groups.",
-  },
-];
+] as const satisfies readonly { key: string; figure: React.ReactNode; crop: PlateCrop }[];
 
 export default function DriverAnnouncementsPage() {
+  const t = useCopy(announcementsCopy);
+  const faqs: FAQItem[] = t.faq.items;
+
   return (
     <PageLayout
-      title="Send One Message to All Your Drivers’ Telegram Groups"
-      description="Write a message once and we’ll post it in every driver Telegram group. Send company policies, pay changes, and holiday hours to all your drivers in a minute, not one group at a time."
+      title={t.seo.title}
+      description={t.seo.description}
       keywords={[
         "driver announcements",
         "telegram broadcast to groups",
@@ -177,22 +137,27 @@ export default function DriverAnnouncementsPage() {
       <FAQPageJsonLd faqs={faqs} />
 
       <Container className="py-12 sm:py-16">
-        <div className="grid items-center gap-8 lg:grid-cols-12 lg:gap-12">
-          <div className="min-w-0 lg:col-span-5">
+        <div className="lg:flex lg:items-end lg:justify-between lg:gap-12">
+          <div className="max-w-2xl">
             <h1 className="text-foreground text-4xl leading-tight font-normal tracking-tight sm:text-5xl">
-              Write it once. Every driver group gets it.
+              {t.hero.title}
             </h1>
             <p className="text-muted-foreground mt-5 max-w-xl text-lg leading-relaxed">
-              Just write your message and pick your drivers’ Telegram groups, and we’ll post it in
-              every one. No more pasting the same message into group after group.
+              {t.hero.body}
             </p>
             <GetDemoLink product="driver-announcements" className="mt-7 text-sm" />
-            <p className="text-muted-foreground mt-3 text-sm">We’ll set it up for your groups.</p>
+            <p className="text-muted-foreground mt-3 text-sm">{t.hero.note}</p>
           </div>
-          <div className="min-w-0 lg:col-span-7">
-            <HeroFigure />
-          </div>
+          <TrustedBy className="mt-8 lg:mt-0 lg:shrink-0" />
         </div>
+        <ProductMotion
+          name="announcements"
+          label={t.hero.motionLabel}
+          pauseLabel={t.hero.pauseMotion}
+          playLabel={t.hero.playMotion}
+          plate={PLATE}
+          className="mt-10 sm:mt-12"
+        />
       </Container>
 
       <Container className="pb-12 sm:pb-16">
@@ -201,7 +166,7 @@ export default function DriverAnnouncementsPage() {
             id="da-two-ways-heading"
             className="text-foreground mb-6 text-2xl font-normal tracking-tight"
           >
-            A new policy for 148 drivers
+            {t.twoWays.heading}
           </h2>
           <TwoWays />
         </section>
@@ -213,10 +178,10 @@ export default function DriverAnnouncementsPage() {
             id="da-how-heading"
             className="text-foreground mb-6 text-2xl font-normal tracking-tight"
           >
-            How it works
+            {t.how.heading}
           </h2>
           <div className="grid items-center gap-8 lg:grid-cols-12 lg:gap-12">
-            <StepList steps={steps} className="lg:col-span-5" />
+            <StepList steps={t.how.steps} className="lg:col-span-5" />
             <GraphitePlate
               crop={{ pos: "20% 70%", flip: true }}
               className="grid place-items-center px-4 py-8 sm:p-10 lg:col-span-7"
@@ -233,11 +198,11 @@ export default function DriverAnnouncementsPage() {
             id="da-examples-heading"
             className="text-foreground mb-6 text-2xl font-normal tracking-tight"
           >
-            What carriers send
+            {t.examples.heading}
           </h2>
           <ul className="grid gap-x-5 gap-y-10 md:grid-cols-2 lg:grid-cols-3">
-            {examples.map((example) => (
-              <GraphiteCard key={example.title} {...example} />
+            {examples.map(({ key, figure, crop }) => (
+              <GraphiteCard key={key} {...t.examples[key]} figure={figure} crop={crop} />
             ))}
           </ul>
         </section>
@@ -249,7 +214,7 @@ export default function DriverAnnouncementsPage() {
             id="da-faq-heading"
             className="text-foreground mb-6 text-2xl font-normal tracking-tight"
           >
-            Questions
+            {t.faq.heading}
           </h2>
           <div className="border-border divide-border divide-y border-y">
             {faqs.map((faq) => (
@@ -279,18 +244,19 @@ export default function DriverAnnouncementsPage() {
             id="da-start-heading"
             className="text-foreground text-2xl font-normal tracking-tight sm:text-3xl"
           >
-            Tell every driver at once
+            {t.cta.heading}
           </h2>
           <p className="text-muted-foreground mx-auto mt-3 max-w-2xl text-base leading-relaxed text-balance">
-            Get a demo. We’ll share pricing and help you set it up for your groups.
+            {t.cta.body}
           </p>
           <GetDemoLink product="driver-announcements" className="mt-7 text-sm" />
           <p className="text-muted-foreground/70 mx-auto mt-8 max-w-2xl text-xs leading-relaxed">
-            Telegram is a trademark of Telegram Messenger Inc. Raisedash is not affiliated with or
-            endorsed by Telegram.
+            {t.cta.trademark}
           </p>
         </section>
       </Container>
     </PageLayout>
   );
 }
+
+export const getServerSideProps = localeServerSideProps;

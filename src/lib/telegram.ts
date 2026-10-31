@@ -122,14 +122,14 @@ export function formatContactMessage(data: ContactFormData): string {
   return `🔔 *New Contact Form Submission*
 
 📅 *Date:* ${timestamp}
-👤 *Name:* ${data.name}
-📧 *Email:* ${data.email}
-🏢 *Company:* ${data.company || "Not provided"}
-📋 *Inquiry Type:* ${data.inquiryType}
-📝 *Subject:* ${data.subject}
+👤 *Name:* ${escapeMd(data.name)}
+📧 *Email:* ${escapeMd(data.email)}
+🏢 *Company:* ${escapeMd(data.company || "Not provided")}
+📋 *Inquiry Type:* ${escapeMd(data.inquiryType)}
+📝 *Subject:* ${escapeMd(data.subject)}
 
 💬 *Message:*
-${data.message}
+${escapeMd(data.message)}
 
 ---
 *Form Type:* Contact Form`;

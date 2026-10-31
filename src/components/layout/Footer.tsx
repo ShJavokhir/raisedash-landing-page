@@ -1,8 +1,15 @@
 import { Container } from "./Container";
+import { AskAi } from "./AskAi";
 import Link from "next/link";
 import { footerLinks, emails } from "@/data/site";
+import { useCopy, useLocalizePath } from "@/components/i18n/LocaleProvider";
+import { sharedCopy } from "@/i18n/shared";
 
 export function Footer() {
+  const t = useCopy(sharedCopy).footer;
+  // On a translated page, links to other translated pages stay in its language.
+  const localize = useLocalizePath();
+
   return (
     <footer className="mb-8 w-full bg-transparent sm:mb-12">
       <div>
@@ -10,9 +17,7 @@ export function Footer() {
           {/* Brand Section */}
           <div className="mb-10 max-w-md">
             <h3 className="text-foreground mb-4 text-base font-normal">Raisedash</h3>
-            <p className="text-muted-foreground mb-6 text-sm leading-relaxed">
-              We make simple and useful tools for trucking companies.
-            </p>
+            <p className="text-muted-foreground mb-6 text-sm leading-relaxed">{t.tagline}</p>
             <div className="text-muted-foreground flex items-center gap-2 text-sm">
               <svg
                 className="h-4 w-4"
@@ -29,7 +34,7 @@ export function Footer() {
                 />
               </svg>
               <span>
-                Need help?{" "}
+                {t.needHelp}{" "}
                 <a
                   href={`mailto:${emails.support}`}
                   className="text-foreground hover:text-foreground-80 transition-colors duration-[0.15s]"
@@ -45,7 +50,7 @@ export function Footer() {
             {footerLinks.map((section) => (
               <div key={section.title}>
                 <h4 className="text-muted-foreground mb-4 text-sm font-normal tracking-wide">
-                  {section.title}
+                  {t.sections[section.title] ?? section.title}
                 </h4>
                 <ul className="space-y-3">
                   {section.links.map((link) => (
@@ -57,14 +62,14 @@ export function Footer() {
                           rel="noopener noreferrer"
                           className="text-foreground hover:text-foreground-80 text-sm transition-colors duration-[0.15s]"
                         >
-                          {link.title}
+                          {t.links[link.href] ?? link.title}
                         </a>
                       ) : (
                         <Link
-                          href={link.href}
+                          href={localize(link.href)}
                           className="text-foreground hover:text-foreground-80 text-sm transition-colors duration-[0.15s]"
                         >
-                          {link.title}
+                          {t.links[link.href] ?? link.title}
                         </Link>
                       )}
                     </li>
@@ -74,19 +79,21 @@ export function Footer() {
             ))}
           </div>
 
+          <AskAi />
+
           {/* Bottom Section */}
           <div className="border-border mt-12 border-t pt-8">
             <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
               <div className="text-muted-foreground flex flex-col items-center gap-2 text-sm sm:flex-row sm:gap-4">
                 <span>&copy; {new Date().getFullYear()} Raisedash</span>
                 <span className="text-border hidden sm:inline">|</span>
-                <span>All rights reserved</span>
+                <span>{t.rights}</span>
               </div>
 
               <div className="flex items-center gap-2 text-sm">
                 <div className="flex items-center gap-2">
                   <div className="bg-success h-2 w-2 animate-pulse rounded-full"></div>
-                  <span className="text-foreground font-normal">Support is available by email</span>
+                  <span className="text-foreground font-normal">{t.support}</span>
                 </div>
               </div>
             </div>

@@ -15,6 +15,8 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/cn";
 import { plateStyle } from "@/components/receipts/figures";
+import { useCopy } from "@/components/i18n/LocaleProvider";
+import { figuresCopy } from "@/i18n/figures";
 
 /**
  * Figures for /products/feedback-telegram-bot, on the same graphite plate as
@@ -63,6 +65,7 @@ const LEAVING = ["No", "Maybe", "Yes"];
  * collects or sends anything.
  */
 export function HeroDemo() {
+  const t = useCopy(figuresCopy).feedbackDemo;
   const [rating, setRating] = useState<number | null>(null);
   const [leaving, setLeaving] = useState<string | null>(null);
   const [sent, setSent] = useState(false);
@@ -90,7 +93,7 @@ export function HeroDemo() {
               }}
               className="min-h-11 text-sm underline underline-offset-4"
             >
-              Try again
+              {t.tryAgain}
             </button>
           </div>
         ) : (
@@ -149,7 +152,7 @@ export function HeroDemo() {
             >
               Submit
             </button>
-            <p className={cn("text-center text-[11px]", muted)}>Example only. Nothing is sent.</p>
+            <p className={cn("text-center text-[11px]", muted)}>{t.exampleOnly}</p>
           </div>
         )}
       </div>

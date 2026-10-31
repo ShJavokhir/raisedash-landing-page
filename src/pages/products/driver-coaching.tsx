@@ -2,6 +2,7 @@ import { GetDemoLink } from "@/components/demo/GetDemoLink";
 import { Check, ChevronDown } from "lucide-react";
 import { Container } from "@/components/layout/Container";
 import { PageLayout } from "@/components/layout/PageLayout";
+import { TrustedBy } from "@/components/layout/TrustedBy";
 import {
   BreadcrumbJsonLd,
   FAQPageJsonLd,
@@ -15,11 +16,14 @@ import {
   BuildLessonFigure,
   DriverPageFigure,
   FromTheClipFigure,
-  HeroFigure,
   RankFigure,
   RecordFigure,
   TwoWays,
 } from "@/components/coaching/figures";
+import { ProductMotion } from "@/components/motion/ProductMotion";
+import { useCopy } from "@/components/i18n/LocaleProvider";
+import { coachingCopy } from "@/i18n/pages/driver-coaching";
+import { localeServerSideProps } from "@/i18n/server";
 
 /**
  * Driver coaching: a short lesson sent to the driver's phone after a safety
@@ -43,105 +47,49 @@ import {
  * wordier version (2026-10-02): people skim, so less text wins.
  */
 
+/** The homepage card color (src/data/products.ts), the hero film's stage. */
+const PLATE = "#7c5a2e";
+
 const ATRI_SOURCE =
   "https://www.freightwaves.com/news/atri-study-reveals-nuclear-verdicts-on-the-rise";
 
+// Copy for every section lives in src/i18n/pages/driver-coaching.ts (English + Uzbek).
+type CoachingCopy = (typeof coachingCopy)["en"];
+
 const parts: {
   id: string;
-  title: string;
-  text: string;
-  points: string[];
+  key: keyof CoachingCopy["parts"];
   figure: React.ReactNode;
   crop: PlateCrop;
 }[] = [
-  {
-    id: "clip",
-    title: "The driver sees exactly what you saw",
-    text: "They watch their own clip, then a short lesson, then answer a few questions.",
-    points: ["A few minutes, on their phone.", "You see when they finished and how they answered."],
-    figure: <FromTheClipFigure />,
-    crop: { pos: "15% 55%" },
-  },
+  { id: "clip", key: "clip", figure: <FromTheClipFigure />, crop: { pos: "15% 55%" } },
   {
     id: "automatic",
-    title: "Samsara and Motive events assign it for you",
-    text: "Set a rule once, like 3 following-distance events in 7 days, and we send the lesson.",
-    points: ["Send right away, or wait for your OK.", "One set of rules for a mixed fleet."],
+    key: "automatic",
     figure: <AutomaticFigure />,
     crop: { pos: "75% 20%", flip: true },
   },
-  {
-    id: "any-event",
-    title: "Coach for what the camera can’t see",
-    text: "An accident, a roadside violation, a customer complaint. Pick the driver and the lesson.",
-    points: ["Works without a telematics connection.", "Send to one driver or many."],
-    figure: <AnyEventFigure />,
-    crop: { pos: "45% 90%" },
-  },
+  { id: "any-event", key: "anyEvent", figure: <AnyEventFigure />, crop: { pos: "45% 90%" } },
 ];
 
-const features: { title: string; text: string; figure: React.ReactNode; crop: PlateCrop }[] = [
-  {
-    title: "Lessons from your policy",
-    text: "Describe the rule. AI drafts the lesson, you approve it.",
-    figure: <BuildLessonFigure />,
-    crop: { pos: "60% 80%" },
-  },
-  {
-    title: "See who needs it most",
-    text: "Drivers ranked by events per 1,000 miles, not raw counts.",
-    figure: <RankFigure />,
-    crop: { pos: "90% 95%" },
-  },
-  {
-    title: "Next to orientation",
-    text: "Onboarding and every coaching on one driver page.",
-    figure: <DriverPageFigure />,
-    crop: { pos: "30% 60%", flip: true },
-  },
-];
-
-/** Cameras already make drivers wary. Say why this feels fair, briefly. */
-const fairness = [
-  { title: "They see the clip", text: "Not a summary of it." },
-  { title: "You skip false alerts", text: "So coaching only goes out when it fits." },
-  { title: "Only theirs", text: "No driver sees a coworker’s events." },
-];
-
-const faqs: FAQItem[] = [
-  {
-    question: "Do I need Samsara or Motive?",
-    answer:
-      "No. You can send coaching by hand for anything. Connecting Samsara or Motive adds the clips and automatic rules.",
-  },
-  {
-    question: "We already coach in Samsara or Motive. Why add this?",
-    answer:
-      "Raisedash covers events the camera doesn’t see, gives a mixed fleet one set of rules, and keeps coaching on the same record as training. Switch camera vendors and your history stays.",
-  },
-  {
-    question: "Do drivers need an app?",
-    answer: "No. They get a text with a link and sign in with a 6-digit code.",
-  },
-  {
-    question: "What if the camera got it wrong?",
-    answer: "Skip it. With approve-first rules, a false alert never reaches the driver.",
-  },
-  {
-    question: "Does Raisedash decide fault or discipline?",
-    answer: "No. We send coaching and keep the record. What happens next is up to you.",
-  },
-  {
-    question: "How do I get started?",
-    answer: "Get a demo. We’ll share pricing and help you send your first coaching.",
-  },
+const features: {
+  key: keyof CoachingCopy["features"];
+  figure: React.ReactNode;
+  crop: PlateCrop;
+}[] = [
+  { key: "policy", figure: <BuildLessonFigure />, crop: { pos: "60% 80%" } },
+  { key: "rank", figure: <RankFigure />, crop: { pos: "90% 95%" } },
+  { key: "driverPage", figure: <DriverPageFigure />, crop: { pos: "30% 60%", flip: true } },
 ];
 
 export default function DriverCoachingPage() {
+  const t = useCopy(coachingCopy);
+  const faqs: FAQItem[] = t.faq.items;
+
   return (
     <PageLayout
-      title="Driver Coaching Software for Trucking Fleets"
-      description="Send drivers a short coaching lesson with their dashcam clip after a safety event. Assign it automatically from Samsara and Motive, and keep a record of every coaching."
+      title={t.seo.title}
+      description={t.seo.description}
       keywords={[
         "driver coaching software",
         "fleet driver coaching",
@@ -166,21 +114,27 @@ export default function DriverCoachingPage() {
       <FAQPageJsonLd faqs={faqs} />
 
       <Container className="py-12 sm:py-16">
-        <div className="grid items-center gap-8 lg:grid-cols-12 lg:gap-12">
-          <div className="min-w-0 lg:col-span-5">
+        <div className="lg:flex lg:items-end lg:justify-between lg:gap-12">
+          <div className="max-w-2xl">
             <h1 className="text-foreground text-4xl leading-tight font-normal tracking-tight sm:text-5xl">
-              Coach drivers the day it happens.
+              {t.hero.title}
             </h1>
             <p className="text-muted-foreground mt-5 max-w-xl text-lg leading-relaxed">
-              Send a short lesson with the dashcam clip. The driver finishes it on their phone.
+              {t.hero.body}
             </p>
             <GetDemoLink product="driver-coaching" className="mt-7 text-sm" />
-            <p className="text-muted-foreground mt-3 text-sm">Works with Samsara and Motive.</p>
+            <p className="text-muted-foreground mt-3 text-sm">{t.hero.worksWith}</p>
           </div>
-          <div className="min-w-0 lg:col-span-7">
-            <HeroFigure />
-          </div>
+          <TrustedBy className="mt-8 lg:mt-0 lg:shrink-0" />
         </div>
+        <ProductMotion
+          name="coaching"
+          label={t.hero.motionLabel}
+          pauseLabel={t.hero.pauseMotion}
+          playLabel={t.hero.playMotion}
+          plate={PLATE}
+          className="mt-10 sm:mt-12"
+        />
       </Container>
 
       <Container className="pb-12 sm:pb-16">
@@ -189,7 +143,7 @@ export default function DriverCoachingPage() {
             id="dc-two-ways-heading"
             className="text-foreground mb-6 text-2xl font-normal tracking-tight"
           >
-            The camera saw it. Then what?
+            {t.twoWays.heading}
           </h2>
           <TwoWays />
         </section>
@@ -208,11 +162,13 @@ export default function DriverCoachingPage() {
                   id={`dc-${part.id}-heading`}
                   className="text-foreground text-2xl leading-snug font-normal tracking-tight sm:text-3xl"
                 >
-                  {part.title}
+                  {t.parts[part.key].title}
                 </h2>
-                <p className="text-muted-foreground mt-4 text-base leading-relaxed">{part.text}</p>
+                <p className="text-muted-foreground mt-4 text-base leading-relaxed">
+                  {t.parts[part.key].text}
+                </p>
                 <ul className="mt-5 space-y-3">
-                  {part.points.map((point) => (
+                  {t.parts[part.key].points.map((point) => (
                     <li
                       key={point}
                       className="text-foreground flex gap-3 text-base leading-relaxed"
@@ -251,17 +207,14 @@ export default function DriverCoachingPage() {
                 id="dc-record-heading"
                 className="text-foreground text-2xl font-normal tracking-tight sm:text-3xl"
               >
-                Proof you coached, when it matters
+                {t.record.heading}
               </h2>
               <p className="text-muted-foreground mt-4 text-base leading-relaxed">
-                After a crash, lawyers ask for your dashcam events. Flagged events with no coaching
-                after them look like you knew and did nothing.
+                {t.record.body}
               </p>
-              <p className="text-foreground mt-4 text-base leading-relaxed">
-                Raisedash keeps the event, the lesson, and when the driver finished it.
-              </p>
+              <p className="text-foreground mt-4 text-base leading-relaxed">{t.record.kept}</p>
               <p className="text-muted-foreground/80 border-border mt-6 border-t pt-4 text-xs leading-relaxed">
-                Average trucking verdicts grew from $2.3M in 2010 to $22.3M in 2018 (
+                {t.record.sourceBefore}
                 <a
                   href={ATRI_SOURCE}
                   target="_blank"
@@ -270,7 +223,7 @@ export default function DriverCoachingPage() {
                 >
                   ATRI
                 </a>
-                ). Not legal advice.
+                {t.record.sourceAfter}
               </p>
             </div>
             <GraphitePlate
@@ -285,8 +238,8 @@ export default function DriverCoachingPage() {
 
       <Container className="pb-12 sm:pb-16">
         <ul className="grid gap-x-5 gap-y-10 md:grid-cols-3">
-          {features.map((feature) => (
-            <GraphiteCard key={feature.title} {...feature} />
+          {features.map(({ key, ...feature }) => (
+            <GraphiteCard key={key} {...feature} {...t.features[key]} />
           ))}
         </ul>
       </Container>
@@ -297,10 +250,10 @@ export default function DriverCoachingPage() {
             id="dc-fairness-heading"
             className="text-foreground mb-6 text-2xl font-normal tracking-tight"
           >
-            Fair to drivers
+            {t.fairness.heading}
           </h2>
           <ul className="grid gap-x-8 gap-y-6 sm:grid-cols-3">
-            {fairness.map((item) => (
+            {t.fairness.items.map((item) => (
               <li key={item.title} className="border-border border-t pt-5">
                 <h3 className="text-foreground text-lg font-normal tracking-tight">{item.title}</h3>
                 <p className="text-muted-foreground mt-1 text-base leading-relaxed">{item.text}</p>
@@ -316,7 +269,7 @@ export default function DriverCoachingPage() {
             id="dc-faq-heading"
             className="text-foreground mb-6 text-2xl font-normal tracking-tight"
           >
-            Questions
+            {t.faq.heading}
           </h2>
           <div className="border-border divide-border divide-y border-y">
             {faqs.map((faq) => (
@@ -346,7 +299,7 @@ export default function DriverCoachingPage() {
             id="dc-start-heading"
             className="text-foreground text-2xl font-normal tracking-tight sm:text-3xl"
           >
-            Coach it while it’s still fresh
+            {t.cta.heading}
           </h2>
           <GetDemoLink product="driver-coaching" className="mt-7 text-sm" />
         </section>
@@ -354,3 +307,5 @@ export default function DriverCoachingPage() {
     </PageLayout>
   );
 }
+
+export const getServerSideProps = localeServerSideProps;

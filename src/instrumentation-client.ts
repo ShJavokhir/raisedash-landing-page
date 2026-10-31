@@ -106,6 +106,8 @@ if (typeof window !== "undefined" && !isLocalHost(window.location.hostname)) {
           const ctx = pageContext(window.location.pathname);
           props.page_group ??= ctx.page_group;
           if (ctx.product) props.product ??= ctx.product;
+          // "uz" on the Uzbek version of a translated page (src/i18n) and on /start-v2.
+          props.site_language ??= document.documentElement.lang || "en";
         }
         return event;
       },

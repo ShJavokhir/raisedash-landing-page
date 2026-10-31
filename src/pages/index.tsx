@@ -36,6 +36,16 @@ export default function Home() {
           <h1 className="text-foreground text-4xl leading-tight font-normal tracking-tight sm:text-5xl">
             We make simple and useful tools for trucking companies.
           </h1>
+          <p className="text-muted-foreground mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-balance sm:text-xl">
+            Each tool does one job well. Use only what you need, and don&rsquo;t spend time learning
+            features you won&rsquo;t use.
+          </p>
+          {/* Social proof on a white card with the product cards' corner radius;
+              ink-bold numbers are what the eye lands on after the title. */}
+          <p className="animate-fade-in-up bg-card border-border text-muted-foreground mt-7 inline-block rounded-xs border px-4 py-2 text-sm text-balance shadow-[0_1px_2px_rgb(0_0_0/0.04),0_10px_24px_-14px_rgb(0_0_0/0.18)] delay-150 sm:text-[15px]">
+            Trusted by <strong className="text-foreground font-semibold">100+</strong> trucking
+            companies and <strong className="text-foreground font-semibold">1,000+</strong> drivers
+          </p>
         </div>
       </Container>
 

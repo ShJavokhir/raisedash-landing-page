@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { Check, Forward, Music, Pause, Search, Eye } from "lucide-react";
 import { cn } from "@/lib/cn";
+import { useCopy } from "@/components/i18n/LocaleProvider";
+import { figuresCopy } from "@/i18n/figures";
 
 /**
  * Figures for /products/ringcentral-telegram: RingCentral call recordings
@@ -114,6 +116,7 @@ function AudioRow({
   playing?: boolean;
   onToggle?: () => void;
 }) {
+  const t = useCopy(figuresCopy).ringcentral;
   const started = elapsed !== undefined && (playing || elapsed > 0);
   const Icon = playing ? Pause : Music;
   const button = (
@@ -129,7 +132,7 @@ function AudioRow({
         <button
           type="button"
           onClick={onToggle}
-          aria-label={playing ? "Pause the example call" : "Play the example call (no sound)"}
+          aria-label={playing ? t.pauseCall : t.playCall}
           className="rounded-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#6ab3f3]"
         >
           {button}
@@ -334,26 +337,17 @@ export function ChannelDemo() {
 
 /* ── One call, two ways ──────────────────────────────────────────────────── */
 
-const RC_STEPS = [
-  "Open your laptop",
-  "Log in to RingCentral",
-  "Open the call log",
-  "Pick the person and the day",
-  "Scroll to the right call",
-  "Press play",
-];
-
-const TG_STEPS = ["Open Telegram", "Tap play"];
-
 export function TwoWays() {
+  const t = useCopy(figuresCopy);
+
   return (
     <div className="grid gap-4 md:grid-cols-2">
       <div className="bg-card border-border rounded-xs border p-6 sm:p-8">
         <p className="text-muted-foreground font-mono text-xs tracking-[0.14em] uppercase">
-          Before Raisedash
+          {t.twoWays.before}
         </p>
         <ol className="mt-5 grid gap-2">
-          {RC_STEPS.map((step, i) => (
+          {t.ringcentral.before.map((step, i) => (
             <li
               key={step}
               className="border-border text-muted-foreground flex min-h-11 items-center gap-3 rounded-xs border px-3 py-2 text-sm"
@@ -367,9 +361,11 @@ export function TwoWays() {
         </ol>
       </div>
       <div className="border-accent/30 bg-accent/[0.04] rounded-xs border p-6 sm:p-8">
-        <p className="text-accent font-mono text-xs tracking-[0.14em] uppercase">With Raisedash</p>
+        <p className="text-accent font-mono text-xs tracking-[0.14em] uppercase">
+          {t.twoWays.withUs}
+        </p>
         <ol className="mt-5 grid gap-2">
-          {TG_STEPS.map((step, i) => (
+          {t.ringcentral.withUs.map((step, i) => (
             <li
               key={step}
               className="border-accent/30 bg-card text-foreground flex min-h-11 items-center gap-3 rounded-xs border px-3 py-2 text-sm"
@@ -401,14 +397,9 @@ function Marker({ n, className }: { n: number; className?: string }) {
   );
 }
 
-const ANATOMY = [
-  "Who called, with their number.",
-  "Who it went to. NO NAME means RingCentral had no name for that number.",
-  "When the call started. RingCentral gives this time in UTC.",
-  "The recording. If there isn’t one, you see what happened instead, like Missed or Voicemail.",
-];
-
 export function MessageAnatomy() {
+  const t = useCopy(figuresCopy).ringcentral;
+
   return (
     <div className="w-full max-w-[460px] min-w-0">
       <div className="relative pr-9">
@@ -436,7 +427,7 @@ export function MessageAnatomy() {
         </Bubble>
       </div>
       <ol className="mt-6 space-y-2.5">
-        {ANATOMY.map((text, i) => (
+        {t.anatomy.map((text, i) => (
           <li key={text} className="flex gap-3 text-[13px] leading-snug text-white/85">
             <span className="grid size-5 shrink-0 place-items-center rounded-full bg-[#f54e00] text-[11px] font-medium text-white">
               {i + 1}
@@ -613,9 +604,11 @@ const PEOPLE = [
 ];
 
 export function SkipFigure() {
+  const t = useCopy(figuresCopy).ringcentral;
+
   return (
     <div className="w-full max-w-[272px] rounded-lg border border-black/10 bg-white p-3 text-[#26251e] shadow-[0_16px_32px_-16px_rgba(0,0,0,0.55)]">
-      <p className="text-[12px] font-medium">Posted to the chat</p>
+      <p className="text-[12px] font-medium">{t.skipTitle}</p>
       <ul className="mt-2 flex flex-wrap gap-1.5">
         {PEOPLE.map((p) => (
           <li
@@ -631,7 +624,7 @@ export function SkipFigure() {
           </li>
         ))}
       </ul>
-      <p className="mt-2.5 text-[10.5px] text-black/50">Crossed out: never posted.</p>
+      <p className="mt-2.5 text-[10.5px] text-black/50">{t.skipNote}</p>
     </div>
   );
 }

@@ -16,6 +16,8 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/cn";
 import { GraphitePlate } from "@/components/receipts/figures";
+import { useCopy } from "@/components/i18n/LocaleProvider";
+import { figuresCopy } from "@/i18n/figures";
 
 /**
  * Figures for /products/driver-paperwork: the dashboard's Paperwork section
@@ -476,12 +478,14 @@ function ApplicationPdf() {
 }
 
 export function ApplicationsFigure() {
+  const t = useCopy(figuresCopy).tags;
+
   return (
     <Pair
       mobile="left"
-      leftTag={<Tag icon={Smartphone}>Driver’s phone</Tag>}
+      leftTag={<Tag icon={Smartphone}>{t.driversPhone}</Tag>}
       left={<ApplicationStep />}
-      rightTag={<Tag icon={Download}>Your PDF</Tag>}
+      rightTag={<Tag icon={Download}>{t.yourPdf}</Tag>}
       right={<ApplicationPdf />}
     />
   );
@@ -544,11 +548,13 @@ function SignCard() {
 }
 
 export function DocumentsFigure() {
+  const t = useCopy(figuresCopy).tags;
+
   return (
     <Pair
-      leftTag={<Tag icon={FileSignature}>Your dashboard</Tag>}
+      leftTag={<Tag icon={FileSignature}>{t.yourDashboard}</Tag>}
       left={<TemplateGallery />}
-      rightTag={<Tag icon={Smartphone}>Driver’s phone</Tag>}
+      rightTag={<Tag icon={Smartphone}>{t.driversPhone}</Tag>}
       right={<SignCard />}
     />
   );
@@ -641,11 +647,13 @@ function UploadCard() {
 }
 
 export function FileRequestsFigure() {
+  const t = useCopy(figuresCopy).tags;
+
   return (
     <Pair
-      leftTag={<Tag icon={FileUp}>Your dashboard</Tag>}
+      leftTag={<Tag icon={FileUp}>{t.yourDashboard}</Tag>}
       left={<RequestDialog />}
-      rightTag={<Tag icon={Smartphone}>Driver’s phone</Tag>}
+      rightTag={<Tag icon={Smartphone}>{t.driversPhone}</Tag>}
       right={<UploadCard />}
     />
   );
@@ -659,10 +667,12 @@ export function FileRequestsFigure() {
  * this phone number"; the dash is a period here.
  */
 export function TextMessageFigure() {
+  const t = useCopy(figuresCopy).tags;
+
   return (
     <div className="flex w-full max-w-[300px] flex-col items-stretch gap-2.5">
       <div className="self-center">
-        <Tag icon={Smartphone}>Text message</Tag>
+        <Tag icon={Smartphone}>{t.textMessage}</Tag>
       </div>
       <div className="max-w-[92%] rounded-[18px] rounded-bl-[5px] bg-[#e9e9eb] px-3.5 py-2.5 text-[12.5px] leading-snug text-black shadow-[0_12px_24px_-14px_rgba(0,0,0,0.6)]">
         Ridgeline Freight needs a copy of your “DOT Medical Card”. Upload it here:{" "}
@@ -862,30 +872,17 @@ export function DriverPageFigure() {
 
 /* ── Today vs. with Raisedash ────────────────────────────────────────────── */
 
-const TODAY = [
-  "Print the forms",
-  "Hand them over or mail them",
-  "Wait for the driver to sign",
-  "Scan or fax them back",
-  "Ask for a photo of the CDL by text",
-  "Call about the missing page",
-];
-
-const WITH_US = [
-  "Pick the drivers and what you need",
-  "They finish it on their phone",
-  "Download the PDF",
-];
-
 export function TwoWays() {
+  const t = useCopy(figuresCopy);
+
   return (
     <div className="grid gap-4 md:grid-cols-[1.25fr_1fr]">
       <div className="bg-card border-border rounded-xs border p-6 sm:p-8">
         <p className="text-muted-foreground font-mono text-xs tracking-[0.14em] uppercase">
-          On paper
+          {t.twoWays.onPaper}
         </p>
         <ol className="mt-5 grid gap-2 sm:grid-cols-2">
-          {TODAY.map((step, i) => (
+          {t.paperwork.before.map((step, i) => (
             <li
               key={step}
               className="border-border text-muted-foreground flex min-h-11 items-center gap-3 rounded-xs border px-3 py-2 text-sm"
@@ -898,13 +895,15 @@ export function TwoWays() {
           ))}
         </ol>
         <p className="text-muted-foreground mt-5 text-sm leading-relaxed">
-          And the papers end up in a folder, a desk drawer, and someone’s text messages.
+          {t.paperwork.beforeNote}
         </p>
       </div>
       <div className="border-accent/30 bg-accent/[0.04] flex flex-col rounded-xs border p-6 sm:p-8">
-        <p className="text-accent font-mono text-xs tracking-[0.14em] uppercase">With Raisedash</p>
+        <p className="text-accent font-mono text-xs tracking-[0.14em] uppercase">
+          {t.twoWays.withUs}
+        </p>
         <ol className="mt-5 grid gap-2">
-          {WITH_US.map((step, i) => (
+          {t.paperwork.withUs.map((step, i) => (
             <li
               key={step}
               className="border-accent/30 bg-card text-foreground flex min-h-11 items-center gap-3 rounded-xs border px-3 py-2 text-sm"
@@ -917,7 +916,7 @@ export function TwoWays() {
           ))}
         </ol>
         <p className="text-muted-foreground mt-auto pt-5 text-sm leading-relaxed">
-          Every driver’s paperwork stays on their page in your dashboard.
+          {t.paperwork.withUsNote}
         </p>
       </div>
     </div>

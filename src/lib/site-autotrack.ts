@@ -44,6 +44,13 @@ function destinationKind(url: URL): string {
   if (host === "apps.apple.com" || host === "play.google.com") return "app_store";
   if (host === "youtu.be" || host.endsWith("youtube.com")) return "youtube";
   if (host.endsWith(".gov")) return "reference";
+  // The footer's "Ask AI tools about us" links (src/components/layout/AskAi.tsx).
+  if (
+    ["chatgpt.com", "claude.ai", "grok.com", "perplexity.ai"].includes(host) ||
+    (host === "google.com" && url.searchParams.get("udm") === "50") ||
+    (host === "bing.com" && path === "/copilotsearch")
+  )
+    return "ai_assistant";
   return "other";
 }
 

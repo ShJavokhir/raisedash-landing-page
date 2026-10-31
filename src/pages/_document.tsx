@@ -1,8 +1,13 @@
-import { Html, Head, Main, NextScript } from "next/document";
+import { Html, Head, Main, NextScript, type DocumentProps } from "next/document";
+import { DEFAULT_LOCALE, isLocale } from "@/i18n/locale";
 
-export default function Document() {
+export default function Document({ __NEXT_DATA__ }: DocumentProps) {
+  // Translated pages pass `locale` from getServerSideProps (src/i18n/server.ts).
+  const pageLocale: unknown = __NEXT_DATA__.props?.pageProps?.locale;
+  const lang = isLocale(pageLocale) ? pageLocale : DEFAULT_LOCALE;
+
   return (
-    <Html lang="en">
+    <Html lang={lang}>
       <Head>
         {/* Preconnect to CDN for faster image loading */}
         <link rel="preconnect" href="https://cdn.raisedash.com" />

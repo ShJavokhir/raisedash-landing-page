@@ -1,5 +1,13 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
+import { useLocale, useTranslatedPage } from "@/components/i18n/LocaleProvider";
+import {
+  DEFAULT_LOCALE,
+  LOCALES,
+  OG_LOCALES,
+  localizePath,
+  stripLocalePrefix,
+} from "@/i18n/locale";
 
 const RAW_SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://www.raisedash.com";
 const SITE_URL = RAW_SITE_URL.endsWith("/") ? RAW_SITE_URL.slice(0, -1) : RAW_SITE_URL;
@@ -48,8 +56,15 @@ export function SEO({
   jsonLd,
 }: SEOProps) {
   const router = useRouter();
+  const locale = useLocale();
+  const translated = useTranslatedPage();
   const path = (router.asPath || "/").split("?")[0].split("#")[0];
   const normalizedPath = path === "/" ? "" : path.replace(/\/+$/, "");
+  // Translated pages: every language version, for hreflang (x-default = English).
+  const basePath = stripLocalePrefix(normalizedPath || "/");
+  const alternates = translated
+    ? LOCALES.map((l) => ({ hrefLang: l, href: `${SITE_URL}${localizePath(basePath, l)}` }))
+    : [];
 
   // Build full title
   const fullTitle = title ? `${title} | ${SITE_NAME}` : SITE_NAME;
@@ -137,6 +152,17 @@ export function SEO({
       {/* Keyword meta intentionally omitted: search engines ignore it. */}
       <meta name="robots" content={robotsContent} />
       <link rel="canonical" href={canonicalUrl} />
+      {alternates.map(({ hrefLang, href }) => (
+        <link key={`hreflang-${hrefLang}`} rel="alternate" hrefLang={hrefLang} href={href} />
+      ))}
+      {translated && (
+        <link
+          key="hreflang-x-default"
+          rel="alternate"
+          hrefLang="x-default"
+          href={`${SITE_URL}${localizePath(basePath, DEFAULT_LOCALE)}`}
+        />
+      )}
 
       {/* Open Graph / Facebook */}
       <meta property="og:type" content={ogType} />
@@ -152,7 +178,7 @@ export function SEO({
         </>
       )}
       <meta property="og:site_name" content={SITE_NAME} />
-      <meta property="og:locale" content="en_US" />
+      <meta property="og:locale" content={OG_LOCALES[locale]} />
 
       {/* Article-specific OG tags */}
       {ogType === "article" && article && (
@@ -278,6 +304,8 @@ export function WebsiteJsonLd() {
 
 // BreadcrumbList JSON-LD
 export function BreadcrumbJsonLd({ items }: { items: { name: string; url: string }[] }) {
+  // On a translated page, point the crumbs at the same language's URLs.
+  const locale = useLocale();
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -285,7 +313,7 @@ export function BreadcrumbJsonLd({ items }: { items: { name: string; url: string
       "@type": "ListItem",
       position: index + 1,
       name: item.name,
-      item: item.url.startsWith("http") ? item.url : `${SITE_URL}${item.url}`,
+      item: item.url.startsWith("http") ? item.url : `${SITE_URL}${localizePath(item.url, locale)}`,
     })),
   };
 

@@ -20,6 +20,8 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/cn";
 import { plateStyle } from "./figures";
+import { useCopy } from "@/components/i18n/LocaleProvider";
+import { figuresCopy } from "@/i18n/figures";
 
 /**
  * The hero on /products/receipts-telegram-bot, after the product tour on the
@@ -128,9 +130,6 @@ const FRAMES = SCRIPT.reduce<TourFrame[]>((frames, [dur, patch]) => {
 
 /** The finished conversation: what the page first shows, and all reduced motion sees. */
 const POSTER = FRAMES.findIndex((frame) => frame.thanked);
-
-const DESCRIPTION =
-  "Animation of a Telegram group on two phones. In the office, Sarah writes: Mike, could you share your receipt? The Raisedash bot answers with a button to open receipt capture. On his phone, Mike taps it. His name, truck 104 and trailer 5317 are already filled in, so he types $175.00, takes a photo, and submits. The bot posts Receipt submitted, $175.00, in the group, and Sarah says thanks.";
 
 /* ── Timing ─────────────────────────────────────────────────────────────── */
 
@@ -876,11 +875,13 @@ function PlayToggle({
   onToggle: () => void;
   className?: string;
 }) {
+  const t = useCopy(figuresCopy).receiptsTour;
+
   return (
     <button
       type="button"
       onClick={onToggle}
-      aria-label={paused ? "Play animation" : "Pause animation"}
+      aria-label={paused ? t.play : t.pause}
       className={cn(
         "focus-visible:outline-ring grid place-items-center rounded-full border border-black/10 bg-white text-[#26251e]/70 transition-colors hover:text-[#26251e] focus-visible:outline-2 focus-visible:outline-offset-2",
         className
@@ -896,6 +897,7 @@ function PlayToggle({
 }
 
 export function ReceiptTour() {
+  const t = useCopy(figuresCopy).receiptsTour;
   const plate = useRef<HTMLDivElement>(null);
   const reduced = usePrefersReducedMotion();
   const [paused, setPaused] = useState<boolean | null>(null);
@@ -912,7 +914,7 @@ export function ReceiptTour() {
         style={plateStyle({ pos: "50% 22%", flip: true, size: "cover" })}
         className="graphite-plate border-border relative rounded-xs border px-3 py-4 sm:px-4 sm:py-5"
       >
-        <div role="img" aria-label={DESCRIPTION}>
+        <div role="img" aria-label={t.description}>
           <Stage width={640} height={612} className="hidden sm:block">
             <div className="flex h-full items-start justify-center gap-[32px] pt-[6px]">
               {(["office", "driver"] as const).map((viewer) => (
@@ -925,7 +927,7 @@ export function ReceiptTour() {
                 >
                   <TelegramPhone viewer={viewer} frame={frame} />
                   <span className="text-[12.5px] font-medium tracking-[-0.1px] text-white/75">
-                    {viewer === "office" ? "Office" : "Driver"}
+                    {viewer === "office" ? t.office : t.driver}
                   </span>
                 </div>
               ))}
@@ -952,7 +954,7 @@ export function ReceiptTour() {
           ) : (
             <Pause className="size-3.5" aria-hidden="true" />
           )}
-          {isPaused ? "Play animation" : "Pause animation"}
+          {isPaused ? t.play : t.pause}
         </button>
       </div>
     </div>

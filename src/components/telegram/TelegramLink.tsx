@@ -10,6 +10,8 @@ import {
 } from "@/lib/handoff";
 import { capture } from "@/lib/site-analytics";
 import { noteTelegramTap, type TelegramKind } from "@/lib/telegram-tap";
+import { useCopy } from "@/components/i18n/LocaleProvider";
+import { sharedCopy } from "@/i18n/shared";
 
 /**
  * Links to Telegram that don't strand anyone. Some in-app browsers (Instagram
@@ -24,25 +26,10 @@ import { noteTelegramTap, type TelegramKind } from "@/lib/telegram-tap";
  * team, on /get-a-demo).
  */
 
+// The help copy for each kind (intro + steps) lives in src/i18n/shared.ts.
 const TARGETS = {
-  bot: {
-    username: "raisedashbot",
-    intro: "Add the bot to your driver group yourself. It takes a minute.",
-    steps: [
-      "Open Telegram and go to your driver group.",
-      "Tap the group name at the top, then Add Members.",
-      "Search for @raisedashbot and add it.",
-    ],
-  },
-  sales: {
-    username: "raisedash",
-    intro: "Message us in Telegram yourself. It takes a minute.",
-    steps: [
-      "Open Telegram.",
-      "Tap search and type @raisedash.",
-      "Open the chat and send us a message.",
-    ],
-  },
+  bot: { username: "raisedashbot" },
+  sales: { username: "raisedash" },
 } as const;
 
 export const BOT_USERNAME = TARGETS.bot.username;
@@ -149,7 +136,9 @@ function HelpDialog({
   const dialogRef = useRef<HTMLDialogElement>(null);
   const [copied, setCopied] = useState(false);
   const [browser] = useState(inAppBrowser);
-  const { username, intro, steps } = TARGETS[kind];
+  const t = useCopy(sharedCopy).telegramHelp;
+  const { username } = TARGETS[kind];
+  const { intro, steps } = t[kind];
 
   useEffect(() => {
     const dialog = dialogRef.current;
@@ -179,11 +168,11 @@ function HelpDialog({
       <div className="p-6">
         <div className="flex items-start justify-between gap-4">
           <h2 id="telegram-help-title" className="text-xl font-normal tracking-tight">
-            Telegram didn’t open?
+            {t.title}
           </h2>
           <button
             type="button"
-            aria-label="Close"
+            aria-label={t.close}
             onClick={onClose}
             className="text-muted-foreground hover:text-foreground focus-visible:outline-ring -mt-2 -mr-3 inline-flex min-h-11 min-w-11 items-center justify-center rounded-xs focus-visible:outline-2"
           >
@@ -220,24 +209,22 @@ function HelpDialog({
             ) : (
               <Copy className="h-4 w-4" aria-hidden="true" />
             )}
-            {copied ? "Copied" : "Copy"}
+            {copied ? t.copied : t.copy}
           </button>
         </div>
 
         <div className="mt-6 flex flex-wrap gap-3">
           <TelegramLink kind={kind} placement="help" product={product} className={primaryLink}>
-            Try Telegram again
+            {t.retry}
           </TelegramLink>
           {browser.androidInApp && (
             <a href={chromeIntentLink()} className={secondaryLink}>
-              Open this page in Chrome
+              {t.openInChrome}
             </a>
           )}
         </div>
         {browser.inApp && !browser.androidInApp && (
-          <p className="text-muted-foreground mt-4 text-sm leading-relaxed">
-            Or open this page in your browser: tap the ⋯ menu at the top, then open in browser.
-          </p>
+          <p className="text-muted-foreground mt-4 text-sm leading-relaxed">{t.openInBrowser}</p>
         )}
         {alternative?.(onClose)}
       </div>

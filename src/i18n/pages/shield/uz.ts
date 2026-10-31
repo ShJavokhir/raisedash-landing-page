@@ -2,53 +2,121 @@ import type { Copy } from "./en";
 
 export const uz: Copy = {
   seo: {
-    title: "Raisedash Shield",
+    title: "Raisedash Shield – yuk tashishdagi firibgarlikdan himoya",
     description:
-      "Tasdiqlangan firibgar saytlar, parol yoki hujjat soʻraydigan yangi ochilgan saytlar va hujjat niqobidagi yuklab olishlar haqida ogohlantiradigan Chrome kengaytmasi.",
+      "Yuk tashish kompaniyalari uchun bepul Chrome kengaytmasi. Butun jamoangizni yuk oʻgʻirligi va kompaniya nomidan firibgarlik ortida turgan soxta kirish sahifalari va soxta rate confirmation’lar haqida ogohlantiradi.",
   },
   hero: {
-    status: "Chrome kengaytmasi · Bepul",
-    title: "Raisedash Shield",
-    lead: "Parol yozishdan, hujjat yuklashdan yoki yuklab olingan faylni ochishdan oldin yuk tashish firibgarining saytini payqang.",
-    body: "Dispetcherlar, haydovchilar va yuk tashish kompaniyalarining ofis xodimlari uchun yaratilgan. Firibgar saytlar odatda bir necha kunlik boʻladi, load board paroli yoki kompaniya hujjatlarini soʻraydi va dastur boʻlgan «rate confirmation» yuboradi. Shield faqat ishonch bilan aytа oladigan narsalar haqida ogohlantiradi, qolgan joylarda jim turadi.",
-    release:
-      "Akkaunt ham, toʻlov ham kerak emas. Chrome Web Store’dan oʻrnating — u darhol ishlay boshlaydi, hech narsani sozlash shart emas.",
-    privacyLink: "Shield maxfiylik siyosatini oʻqish",
-    contactSupport: "Yordam xizmatiga yozish",
+    eyebrow: "Raisedash Shield · Bepul Chrome kengaytmasi",
+    title: "Firibgarlik bitta bosishdan boshlanadi. Shield oldinroq ogohlantiradi.",
+    body: "Kompaniyangizda kun boʻyi internetda ishlaydigan har bir kishi uchun: dispetcherlar, safety, billing, buxgalteriya va kompaniya egasi. Oʻgʻrilarga ulardan bittasining bosishi kifoya. Yangi ochilgan sayt parol yoki hujjat soʻrasa, «rate confirmation» aslida dastur boʻlib chiqsa yoki sahifa sizga buyruq ishga tushirtirmoqchi boʻlsa, Shield ogohlantiradi.",
+    cta: "Chrome’ga qoʻshish, bepul",
+    note: "Akkaunt kerak emas, hech narsani sozlash shart emas.",
+    motionLabel:
+      "Dispetcherga email orqali yuk taklifi keladi va u «View load» tugmasini bosadi. Load board’ga oʻxshagan kirish sahifasi ochiladi. U parolini yozishidan oldin Raisedash Shield burchakda ogohlantirish chiqaradi: bu sayt 3 kun oldin roʻyxatdan oʻtgan va parolingizni soʻrayapti. U saytdan chiqib ketadi. Keyin yuklab olinayotgan rate confirmation aslida dastur boʻlib chiqadi: RateConfirmation.pdf.exe. Shield uni toʻxtatadi va u faylni oʻchirib tashlaydi.",
+    pauseMotion: "Animatsiyani toʻxtatish",
+    playMotion: "Animatsiyani ijro etish",
   },
-  checks: {
-    heading: "Toʻrtta tekshiruv, har birining sababi bor",
-    items: [
-      [
-        "Tasdiqlangan firibgar saytlar",
-        "Raisedash’ning tasdiqlangan firibgar saytlar roʻyxatidagi har qanday saytda ogohlantirish chiqadi. Roʻyxatdagi har bir sayt avval yuk tashuvchi tomonidan xabar qilingan va odam tomonidan tasdiqlangan.",
-      ],
-      [
-        "Parol yoki hujjat soʻraydigan yangi saytlar",
-        "Sahifa parolingizni yoki fayl yuklashni soʻrasa, Shield sayt qachon roʻyxatdan oʻtganini tekshiradi va u bir necha kun yoki haftalik boʻlsa, ogohlantiradi.",
-      ],
-      [
-        "Hujjat qiyofasidagi dasturlar",
-        "Aslida dastur boʻlgan yuklab olish («RateConfirmation.pdf.exe» kabi) yoki masofadan boshqarish dasturi siz qaror qilguningizcha toʻxtatib turiladi.",
-      ],
-      [
-        "Buferdagi firibgarlik buyruqlari",
-        "Sahifa buferingizga «Windows + R ni bosing va joylashtiring» buyrugʻini qoʻysa, Shield uni ogohlantirish bilan almashtiradi va xohlasangiz qaytarib beradi.",
-      ],
+  problem: {
+    heading: "Yuk oʻgʻirligi endi kompyuterdan boshlanadi",
+    body: "Oʻgʻrilarga endi tirkamani buzib ochish shart emas. Ular login’ni oʻgʻirlaydi yoki ofis kompyuteriga dastur oʻrnatadi, keyin sizning nomingizdan yuk oladi, toʻlov qayerga tushishini oʻzgartiradi yoki yukni boshqa joyga joʻnatadi.",
+    stats: [
+      {
+        value: "$725M",
+        text: "2025-yilda AQSh va Kanadada yuk oʻgʻirligidan deyarli shuncha zarar koʻrildi, 2024-yilga nisbatan 60% koʻp.",
+        source: "CargoNet, FBI keltirgan maʼlumot",
+      },
+      {
+        value: "$273,990",
+        text: "2025-yilda bitta oʻgʻirlikning oʻrtacha zarari, bir yilda 36% oshgan.",
+        source: "CargoNet, FBI keltirgan maʼlumot",
+      },
+      {
+        value: "25%",
+        text: "2023-yildagi yuk oʻgʻirliklari firibgarlik bilan, masalan oʻgʻirlangan shaxs yoki soxta hujjatlar bilan qilingan. 2018-yilda bu 2,2% edi.",
+        source: "ATRI",
+      },
+    ],
+    quote:
+      "Havola bosilgach, foydalanuvchi asl saytga taqlid qiluvchi fishing saytga yoʻnaltiriladi. Fishing saytda zararli bajariladigan fayl turadi…",
+    quoteSource: "FBI’ning brokerlar va yuk tashuvchilarga ogohlantirishi, 2026-yil 30-aprel",
+    quoteAfter:
+      "Oʻsha bosish, oʻsha kirish sahifasi va oʻsha fayl: Shield aynan shu lahzalarni kuzatadi.",
+    sourcesLabel: "Manbalar",
+    sources: [
+      {
+        label:
+          "FBI IC3: Cyber-Enabled Strategic Cargo Theft Surging (2026-yil aprel, ingliz tilida)",
+        href: "https://www.ic3.gov/PSA/2026/PSA260430",
+      },
+      {
+        label:
+          "ATRI tadqiqoti, ATA’ning AQSh Kongressidagi koʻrsatmasida (2025-yil dekabr, ingliz tilida)",
+        href: "https://judiciary.house.gov/sites/evo-subsites/republicans-judiciary.house.gov/files/evo-media-document/spear-testimony.pdf",
+      },
     ],
   },
-  consent: {
-    heading: "Oʻrnatilgan zahoti yoqiq, va kompyuteringizdan nima chiqadi",
-    local:
-      "Firibgar saytlar roʻyxati boʻyicha tekshiruv, yuklab olishni toʻxtatish va bufer himoyasi kompyuteringizning oʻzida ishlaydi va siz ochgan saytlar haqida hech narsa yubormaydi. Shield parol maydoniga yozganingizni ham, yuklab olingan fayl ichini ham hech qachon oʻqimaydi.",
-    updates:
-      "Faqat sayt yoshi tekshiruvi nimadir yuboradi: sahifa parol yoki fayl yuklashni soʻraganda, yoki Shield unda yuklab olish yoki nusxalangan buyruqni toʻxtatgandan keyin, Shield oʻsha saytning host nomini yuboradi — manzilning qolgan qismini, yozganingizni yoki sahifa mazmunini emas — sayt qanchalik yangi ekanini bilish uchun. Bu tekshiruv oʻrnatilgan zahoti yoqiq boʻladi va istalgan vaqt qalqon menyusida oʻchirib qoʻyish mumkin. Firibgar saytlar roʻyxati taxminan har 30 daqiqada yuklab olinadi; yangilanish xizmati IP manzilingiz kabi oddiy ulanish maʼlumotlarini koʻradi. Xabar faqat siz «Send report» yoki «This warning is wrong» tugmasini bosganingizda yuboriladi.",
+  guards: {
+    heading: "Shield qachon ishga tushadi",
+    items: [
+      {
+        title: "Soxta kirish sahifalari",
+        text: "Sahifa parolingizni soʻrasa, sayt qachon roʻyxatdan oʻtganini tekshiramiz. Haqiqiy load board va broker portallari yillardan beri bor. Fishing saytlar odatda bir necha kunlik boʻladi.",
+        alt: "loadboard-signin.com’dagi kirish sahifasi va Raisedash Shield ogohlantirishi: This site is brand new. Sayt 3 kun oldin roʻyxatdan oʻtgan va parolingizni soʻrayapti.",
+      },
+      {
+        title: "Hujjatlaringizni soʻrash",
+        text: "CDL, sugʻurta sertifikati va voided check’ingizni soʻrayotgan sayt yangi boʻlsa, avval ogohlantirish chiqadi.",
+        alt: "CDL, sugʻurta sertifikati va voided check soʻrayotgan yuklash sahifasi va Raisedash Shield ogohlantirishi: This site is brand new. Sayt bugun roʻyxatdan oʻtgan va fayl yuklashni soʻrayapti.",
+      },
+      {
+        title: "Soxta rate confirmation’lar",
+        text: "«RateConfirmation.pdf.exe» hujjat emas, dastur. Uni va masofadan boshqarish dasturlarini siz qaror qilmaguningizcha toʻxtatib turamiz.",
+        alt: "Rate confirmation sahifasi va Raisedash Shield ogohlantirishi: Don’t open this file. RateConfirmation.pdf.exe aslida dastur, Shield uni toʻxtatdi.",
+      },
+      {
+        title: "Soxta «inson ekaningizni tasdiqlang» tekshiruvlari",
+        text: "Sahifa buyruqni nusxalab, Windows + R ni bosib qoʻyishni aytsa, uning oʻrniga ogohlantirish qoʻyamiz. Xohlasangiz, qaytarib olasiz.",
+        alt: "Windows + R, keyin Ctrl + V bosing deyayotgan soxta xavfsizlik tekshiruvi va Raisedash Shield ogohlantirishi: Don’t paste what this page copied.",
+      },
+    ],
   },
-  limits: {
-    heading: "Qoʻshimcha tekshiruv, lekin cheklovlari bor",
-    coverage:
-      "Shield har bir firibgarlikni ushlay olmaydi, yuk tashuvchi, broker yoki yukni tekshirib bera olmaydi va sahifa xavfsiz ekaniga kafolat bermaydi. U antivirus dasturi yoki yuk tashish kompaniyalarini tekshirish boʻyicha hozirgi jarayoningiz oʻrnini bosmaydi. Ogohlantirish hech qachon saytni bloklamaydi; har doim davom etishingiz mumkin.",
-    gaps: "Baʼzi kichik fayllar toʻxtatib ulgurilmasdan yuklanib boʻladi. Baʼzan sahifa ichidagi freym tekshirilgunicha sahifa buyruqni nusxalab ulgurishi mumkin. Kutilmagan parol, hujjat, toʻlov yoki yuklab olish soʻrovlarini oʻzingizda bor telefon raqami orqali tekshirib oling.",
+  quiet: {
+    heading: "Kerak boʻlmaguncha jim",
+    body: "Boshqa saytlarda bizdan hech narsa eshitmaysiz. Ogohlantirish burchakda chiqadi va sahifani hech qachon bloklamaydi. Qarorni har doim oʻzingiz qilasiz.",
+    points: [
+      "Bepul, akkaunt kerak emas. Oʻrnatasiz va u ishlay boshlaydi.",
+      "Parollaringizni ham, fayllaringiz ichini ham hech qachon oʻqimaymiz.",
+      "Firibgar saytlar roʻyxatidagi har bir sayt yuk tashuvchi tomonidan xabar qilingan va odam tomonidan tasdiqlangan. Brauzeringiz roʻyxatni taxminan har 30 daqiqada oladi.",
+      "Sayt yoshi tekshiruvini istalgan vaqt menyuda oʻchirib qoʻyish mumkin.",
+    ],
+    alt: "Oddiy saytdagi Raisedash Shield menyusi: Protection on, No warnings, roʻyxat yangilangan vaqt va sayt yoshi tekshiruvi tugmasi.",
+  },
+  faq: {
+    heading: "Savollar",
+    items: [
+      {
+        question: "Bu kim uchun?",
+        answer:
+          "Kompyuterdagi Chrome’da ishlaydigan har bir xodim uchun: dispetcherlar, safety va compliance, billing va buxgalteriya, recruiting va kompaniya egalari. Oʻgʻrilar qaysi login kerak boʻlsa, oʻshani nishonga oladi: load board, kompaniya emaili, factoring portali yoki bank. Shuning uchun uni ofisdagi har bir kompyuterga oʻrnating. U kompyuterdagi Chrome’da ishlaydi, telefonda emas.",
+      },
+      {
+        question: "Kompyuterimdan nima chiqadi?",
+        answer:
+          "Firibgar saytlar roʻyxati boʻyicha tekshiruv, yuklab olishni toʻxtatish va bufer himoyasi kompyuteringizning oʻzida ishlaydi va siz ochgan saytlar haqida hech narsa yubormaydi. Shield parol maydoniga yozganingizni ham, yuklab olingan fayl ichini ham hech qachon oʻqimaydi. Faqat sayt yoshi tekshiruvi nimadir yuboradi: sahifa parol yoki fayl yuklashni soʻraganda, yoki Shield unda yuklab olish yoki nusxalangan buyruqni toʻxtatgandan keyin, Shield oʻsha saytning host nomini yuboradi (manzilning qolgan qismini, yozganingizni yoki sahifa mazmunini emas), sayt qanchalik yangi ekanini bilish uchun. Bu tekshiruv oʻrnatilgan zahoti yoqiq boʻladi va istalgan vaqt qalqon menyusida oʻchirib qoʻyish mumkin. Firibgar saytlar roʻyxati taxminan har 30 daqiqada yuklab olinadi; yangilanish xizmati IP manzilingiz kabi oddiy ulanish maʼlumotlarini koʻradi. Xabar faqat siz «Send report» yoki «This warning is wrong» tugmasini bosganingizda yuboriladi.",
+      },
+      {
+        question: "U nimani qila olmaydi?",
+        answer:
+          "Shield har bir firibgarlikni ushlay olmaydi, yuk tashuvchi, broker yoki yukni tekshirib bera olmaydi va sahifa xavfsiz ekaniga kafolat bermaydi. U antivirus dasturi yoki yuk tashish kompaniyalarini tekshirish boʻyicha hozirgi jarayoningiz oʻrnini bosmaydi. Ogohlantirish hech qachon saytni bloklamaydi; har doim davom etishingiz mumkin. Baʼzi kichik fayllar toʻxtatib ulgurilmasdan yuklanib boʻladi. Baʼzan sahifa ichidagi freym tekshirilgunicha sahifa buyruqni nusxalab ulgurishi mumkin. Kutilmagan parol, hujjat, toʻlov yoki yuklab olish soʻrovlarini oʻzingizda bor telefon raqami orqali tekshirib oling.",
+      },
+    ],
+  },
+  cta: {
+    heading: "Shield’ni Chrome’ga qoʻshing",
+    body: "Bepul, akkaunt kerak emas. Oʻrnatilgan zahoti ishlay boshlaydi.",
+    privacyLink: "Shield maxfiylik siyosatini oʻqish",
+    contactSupport: "Yordam xizmatiga yozish",
     operator:
       "Raisedash Shield xizmatini LoadHunter Inc. yuritadi. Yuk tashish xizmatlarining tilga olinishi faqat aniqlash qamrovini bildiradi, ular bilan hamkorlik qilishimizni yoki ular bizni maʼqullaganini anglatmaydi.",
   },

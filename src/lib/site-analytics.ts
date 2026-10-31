@@ -59,7 +59,8 @@ export type SiteAnalyticsEvent =
   | "telegram_help_shown"
   | "telegram_username_copied"
   | "email_help_shown"
-  | "email_address_copied";
+  | "email_address_copied"
+  | "language_changed";
 
 type CaptureListener = (event: SiteAnalyticsEvent, properties?: Record<string, unknown>) => void;
 const captureListeners = new Set<CaptureListener>();
