@@ -77,6 +77,28 @@ const nextConfig: NextConfig = {
         destination: "/platform/pre-arrival-readiness",
         permanent: true,
       },
+      // Old WordPress-era URLs (raisedash.com and pti.raisedash.com, before this
+      // site) that Google still shows in search. Each goes to the page that
+      // replaced it instead of a 404. pti.raisedash.com itself is redirected to
+      // this host, path kept, by a Cloudflare redirect rule, so its old paths
+      // land here too. Each matches with or without a trailing slash (one hop).
+      ...[
+        ["/contact-us", "/contact"],
+        ["/request-demo", "/get-a-demo"],
+        ["/privacy-policy-2", "/privacy-policy"],
+        [
+          "/key-features-of-raisedash-app-for-drivers",
+          "/products/raisedash-pti-inspections/driver-features",
+        ],
+        [
+          "/solutions-for-safety-and-fleet-managers-with-dvir-pti-features",
+          "/products/raisedash-pti-inspections/fleet-safety-managers",
+        ],
+        [
+          "/understanding-customizable-checklists-how-they-work",
+          "/products/raisedash-pti-inspections/fleet-safety-managers",
+        ],
+      ].map(([source, destination]) => ({ source, destination, permanent: true })),
     ];
   },
   images: {

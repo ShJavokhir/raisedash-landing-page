@@ -28,8 +28,8 @@ export default function Home() {
 
   return (
     <PageLayout
-      title="Simple and useful tools for trucking companies"
-      description="We make simple and useful tools for trucking companies. Explore driver orientation, Telegram inspection, receipt, feedback, and Samsara bots, DOT compliance training, and TruckTalk English practice."
+      title="Simple Software Tools for Trucking Companies"
+      description="Simple tools for trucking companies: Telegram bots for inspections, receipts and Samsara alerts, plus driver orientation, paperwork and coaching."
     >
       <Container className="py-12 sm:py-16">
         <div className="mx-auto max-w-4xl text-center">
@@ -112,7 +112,9 @@ export default function Home() {
                       className="mb-5 h-24 w-auto self-start drop-shadow-[0_10px_14px_rgb(0_0_0/0.22)]"
                     />
                   )}
-                  <h3 className="text-2xl leading-snug font-medium tracking-[-0.02em]">{name}</h3>
+                  {/* h2: the cards are the page's sections under the h1 (styles come
+                      from the classes, so the level doesn't change the look). */}
+                  <h2 className="text-2xl leading-snug font-medium tracking-[-0.02em]">{name}</h2>
                   <p className="mt-2.5 max-w-[46ch] text-sm leading-relaxed text-white/90">
                     {description}
                   </p>

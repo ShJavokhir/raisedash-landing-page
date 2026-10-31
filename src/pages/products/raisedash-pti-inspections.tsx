@@ -1,10 +1,10 @@
 import { NextPage } from "next";
-import React, { useEffect, useState } from "react";
-import Image from "next/image";
+import React, { useState } from "react";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/layout/Container";
 import { Footer } from "@/components/layout/Footer";
 import { FAQPageJsonLd, SEO, SoftwareApplicationJsonLd } from "@/components/seo/SEO";
+import { bookingUrl, ptiAppStoreUrl } from "@/data/site";
 import {
   CheckCircle,
   Shield,
@@ -23,7 +23,6 @@ import {
   ChevronDown,
   ArrowRight,
   Play,
-  X as XIcon,
 } from "lucide-react";
 
 // --- Styles ---
@@ -31,51 +30,8 @@ import {
 
 // Local Navbar removed in favor of global Header
 
-// --- Lightbox Component ---
-
-const Lightbox: React.FC<{ isOpen: boolean; onClose: () => void; imageSrc: string | null }> = ({
-  isOpen,
-  onClose,
-  imageSrc,
-}) => {
-  useEffect(() => {
-    const handleEsc = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
-    };
-    if (isOpen) {
-      window.addEventListener("keydown", handleEsc);
-      document.body.style.overflow = "hidden";
-    }
-    return () => {
-      window.removeEventListener("keydown", handleEsc);
-      document.body.style.overflow = "unset";
-    };
-  }, [isOpen, onClose]);
-
-  if (!isOpen || !imageSrc) return null;
-
-  return (
-    <div
-      className="animate-fade-in fixed inset-0 z-[100] flex items-center justify-center bg-black/90 p-4 backdrop-blur-sm"
-      onClick={onClose}
-    >
-      <button
-        onClick={onClose}
-        className="absolute top-4 right-4 z-[101] rounded-full bg-black/50 p-2 text-white transition-colors hover:bg-black/70"
-      >
-        <XIcon className="h-8 w-8" />
-      </button>
-      <Image
-        src={imageSrc}
-        alt="RaiseDash PTI inspection screenshot expanded view"
-        width={2560}
-        height={1440}
-        onClick={(e) => e.stopPropagation()}
-        className="animate-fade-in-scale h-auto max-h-[95vh] w-auto max-w-[95vw] cursor-default rounded-xs object-contain shadow-2xl"
-      />
-    </div>
-  );
-};
+// The screenshots (and the zoom lightbox for them) were hosted on the old
+// pti.raisedash.com WordPress site, which is gone, so the showcase is text only.
 
 // --- Page Sections ---
 
@@ -164,90 +120,43 @@ const Hero: React.FC = () => (
 const FeatureShowcase: React.FC<{
   title: string;
   description: string;
-  image: string;
-  align?: "left" | "right";
   linkText: string;
-  linkHref?: string;
-  buttons?: Array<{ text: string; href: string; variant?: "primary" | "secondary" | "ghost" }>;
-  onImageClick?: (src: string) => void;
-}> = ({ title, description, image, align = "left", linkText, linkHref, buttons, onImageClick }) => (
-  <div className="grid items-center gap-12 py-12 md:grid-cols-2 md:py-20">
-    <div className={`order-2 ${align === "right" ? "md:order-1" : "md:order-2"}`}>
-      <div
-        className="border-border bg-background dark:bg-secondary animate-fade-in-scale group relative cursor-pointer overflow-hidden rounded-xs border"
-        onClick={() => onImageClick && onImageClick(image)}
-      >
-        <Image
-          src={image}
-          alt={`RaiseDash ${title} - fleet DVIR and pre-trip inspection software interface`}
-          width={800}
-          height={800}
-          className="h-auto w-full object-cover transition-transform duration-500 group-hover:scale-105"
-        />
-        <div className="absolute inset-0 flex items-center justify-center bg-black/0 opacity-0 transition-colors group-hover:bg-black/10 group-hover:opacity-100">
-          <span className="text-foreground rounded-full bg-white/80 px-3 py-1 text-xs font-normal shadow-sm backdrop-blur-md dark:bg-white/80">
-            Click to Zoom
-          </span>
-        </div>
-      </div>
-    </div>
-    <div className={`order-1 ${align === "right" ? "md:order-2" : "md:order-1"}`}>
-      <div className="animate-fade-in-up">
-        <h3 className="text-foreground mb-4 text-[28px] font-normal tracking-[-0.03em]">{title}</h3>
-        <p className="text-muted-foreground mb-8 text-lg leading-relaxed font-light">
-          {description}
-        </p>
-
-        {buttons ? (
-          <div className="flex gap-3">
-            {buttons.map((btn, i) => (
-              <a key={i} href={btn.href} target="_blank" rel="noopener noreferrer">
-                <Button variant={btn.variant || "secondary"} className="rounded-xs">
-                  {btn.text}
-                </Button>
-              </a>
-            ))}
-          </div>
-        ) : (
-          <a
-            href={linkHref || "#"}
-            className="inline-flex items-center font-normal text-[#19224A] transition-all hover:underline"
-          >
-            {linkText} <ArrowRight className="ml-2 h-4 w-4" />
-          </a>
-        )}
-      </div>
-    </div>
+  linkHref: string;
+}> = ({ title, description, linkText, linkHref }) => (
+  <div className="bg-card border-border animate-fade-in-up flex h-full flex-col rounded-xs border p-8">
+    <h3 className="text-foreground mb-4 text-[28px] font-normal tracking-[-0.03em]">{title}</h3>
+    <p className="text-muted-foreground mb-8 text-lg leading-relaxed font-light">{description}</p>
+    <a
+      href={linkHref}
+      className="mt-auto inline-flex items-center font-normal text-[#19224A] transition-all hover:underline"
+    >
+      {linkText} <ArrowRight className="ml-2 h-4 w-4" />
+    </a>
   </div>
 );
 
-const UIShowcase: React.FC<{ onImageClick: (src: string) => void }> = ({ onImageClick }) => (
+const UIShowcase: React.FC = () => (
   <Container className="border-border mt-12 border-t pt-12">
-    <FeatureShowcase
-      title="Fleet Manager UI"
-      description="One dashboard for your whole fleet. Effortlessly monitor and manage all PTIs with RaiseDash's centralized dashboard, providing real-time insights and comprehensive oversight for your entire fleet."
-      image="https://pti.raisedash.com/wp-content/uploads/2024/06/screenshot-dashboard.png"
-      linkText="See Awesome Features"
-      linkHref="/products/raisedash-pti-inspections/fleet-safety-managers"
-      onImageClick={onImageClick}
-    />
-    <FeatureShowcase
-      align="right"
-      title="Safety Manager UI"
-      description="Tailor your inspection process with RaiseDash's customizable checklists, allowing fleet managers to set specific requirements and ensure thorough inspections, including the ability to mandate photos or videos for particular checklist items."
-      image="https://pti.raisedash.com/wp-content/uploads/2024/06/safety-operator.png"
-      linkText="Find Out More"
-      linkHref="/products/raisedash-pti-inspections/fleet-safety-managers"
-      onImageClick={onImageClick}
-    />
-    <FeatureShowcase
-      title="Driver App UI"
-      description="Go paperless with intuitive mobile app to streamline the PTI process. Perform inspections easily on the go with the RaiseDash mobile app, ensuring safety and compliance with just a few taps."
-      image="https://pti.raisedash.com/wp-content/uploads/2024/06/app-ui.png"
-      linkText="Explore Driver Features"
-      linkHref="/products/raisedash-pti-inspections/driver-features"
-      onImageClick={onImageClick}
-    />
+    <div className="grid gap-6 py-12 md:py-20 lg:grid-cols-3">
+      <FeatureShowcase
+        title="Fleet Manager UI"
+        description="One dashboard for your whole fleet. Effortlessly monitor and manage all PTIs with RaiseDash's centralized dashboard, providing real-time insights and comprehensive oversight for your entire fleet."
+        linkText="See Awesome Features"
+        linkHref="/products/raisedash-pti-inspections/fleet-safety-managers"
+      />
+      <FeatureShowcase
+        title="Safety Manager UI"
+        description="Tailor your inspection process with RaiseDash's customizable checklists, allowing fleet managers to set specific requirements and ensure thorough inspections, including the ability to mandate photos or videos for particular checklist items."
+        linkText="Find Out More"
+        linkHref="/products/raisedash-pti-inspections/fleet-safety-managers"
+      />
+      <FeatureShowcase
+        title="Driver App UI"
+        description="Go paperless with intuitive mobile app to streamline the PTI process. Perform inspections easily on the go with the RaiseDash mobile app, ensuring safety and compliance with just a few taps."
+        linkText="Explore Driver Features"
+        linkHref="/products/raisedash-pti-inspections/driver-features"
+      />
+    </div>
   </Container>
 );
 
@@ -460,7 +369,7 @@ const Pricing: React.FC = () => (
           "8 inspections/month",
         ]}
         cta="App Store"
-        ctaLink="https://apps.apple.com/us/app/raisedash/id6466733418"
+        ctaLink={ptiAppStoreUrl}
       />
       <PricingCard
         plan="Plus"
@@ -475,7 +384,7 @@ const Pricing: React.FC = () => (
           "Share inspection via link",
         ]}
         cta="Get Started"
-        ctaLink="https://apps.apple.com/us/app/raisedash/id6466733418"
+        ctaLink={ptiAppStoreUrl}
         isPopular
       />
       <PricingCard
@@ -492,7 +401,7 @@ const Pricing: React.FC = () => (
           "Top priority support",
         ]}
         cta="Get Started Today"
-        ctaLink="https://app.raisedash.com/auth/register"
+        ctaLink={bookingUrl}
         extraInfo={
           <>
             <div>$1.40/inspection for first 150</div>
@@ -599,8 +508,6 @@ const CTA: React.FC = () => (
 // --- Main Page ---
 
 const RaisedashPTIPage: NextPage = () => {
-  const [lightboxImage, setLightboxImage] = useState<string | null>(null);
-
   return (
     <>
       <SEO
@@ -629,16 +536,10 @@ const RaisedashPTIPage: NextPage = () => {
       />
       <FAQPageJsonLd faqs={FAQ_ITEMS} />
 
-      <Lightbox
-        isOpen={!!lightboxImage}
-        imageSrc={lightboxImage}
-        onClose={() => setLightboxImage(null)}
-      />
-
       <div className="bg-background dark:bg-secondary text-foreground min-h-screen font-sans selection:bg-[#19224A]/15 selection:text-[#19224A]">
         <main>
           <Hero />
-          <UIShowcase onImageClick={setLightboxImage} />
+          <UIShowcase />
           <WhyRaisedash />
           <Features />
           <Pricing />

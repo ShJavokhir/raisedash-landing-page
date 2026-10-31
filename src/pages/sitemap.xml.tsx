@@ -19,7 +19,7 @@ const SITE_URL = RAW_SITE_URL.endsWith("/") ? RAW_SITE_URL.slice(0, -1) : RAW_SI
  * update its date here to the date of that change.
  */
 const STATIC_PAGE_DATES: Record<string, string> = {
-  "/": "2026-10-23",
+  "/": "2026-10-31",
   "/products/orientation": "2026-10-24",
   "/blog": "2026-01-26", // overridden below by latest post date
   "/about": "2026-09-21",
@@ -47,16 +47,16 @@ const STATIC_PAGE_DATES: Record<string, string> = {
   "/products/driver-announcements": "2026-10-24",
   "/products/freight-payroll": "2026-10-25",
   "/products/shield": "2026-10-27",
-  "/products/raisedash-pti-inspections": "2026-01-26",
-  "/products/raisedash-pti-inspections/driver-features": "2026-01-22",
-  "/products/raisedash-pti-inspections/fleet-safety-managers": "2026-01-22",
+  "/products/raisedash-pti-inspections": "2026-10-31",
+  "/products/raisedash-pti-inspections/driver-features": "2026-10-31",
+  "/products/raisedash-pti-inspections/fleet-safety-managers": "2026-10-31",
   "/products/raisedash-vertex": "2026-02-24",
   "/vertex-app": "2025-12-18",
   "/privacy-policy": "2026-10-09",
   "/terms-of-use": "2026-10-09",
   "/security": "2026-07-14",
   "/compliance-challenges": "2026-01-27",
-  "/pti-app": "2026-01-28",
+  "/pti-app": "2026-10-31",
   "/tools/elp-practice": "2026-10-24",
   "/tools/samsara-alerts": "2026-10-24",
   "/tools/road-signs": "2026-02-27",

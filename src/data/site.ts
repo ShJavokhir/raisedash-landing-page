@@ -21,6 +21,13 @@ export const emails = {
 /** Our cal.com booking page, the same one the PTI pages and the /demo done screen link to. */
 export const bookingUrl = "https://cal.com/javokhir/raisedash-demo-meeting";
 
+/**
+ * The "Raisedash: PTI & DVIR" iOS app. It was republished under this new id in
+ * April 2026; the old id6466733418 listing is gone. There is no Android listing
+ * today (uz.jdsystems.checklist.checklist was removed from Google Play).
+ */
+export const ptiAppStoreUrl = "https://apps.apple.com/us/app/raisedash-pti-dvir/id6763577192";
+
 export interface FooterLink {
   title: string;
   href: string;
@@ -48,6 +55,8 @@ export const footerLinks: FooterSection[] = [
       { title: "Product Updates", href: "/product-updates" },
       { title: "PTI & DVIR app", href: "/pti-app" },
       { title: "Vertex driver app", href: "/vertex-app" },
+      // The Driver Orientation Platform's price list (the only tool with public pricing).
+      { title: "Orientation pricing", href: "/pricing" },
     ],
   },
   {
@@ -56,6 +65,7 @@ export const footerLinks: FooterSection[] = [
       { title: "About", href: "/about" },
       { title: "Careers", href: "/careers" },
       { title: "Contact", href: "/contact" },
+      { title: "Get a demo", href: "/get-a-demo" },
       { title: "Security", href: "/security" },
     ],
   },
