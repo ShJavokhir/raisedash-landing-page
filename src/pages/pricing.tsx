@@ -123,7 +123,7 @@ const INCLUDED: IncludedGroup[] = [
   {
     heading: "In development: included when it ships, same price",
     note: "We publish what exists and what doesn't. These are being built now and land in the same plan at no extra cost for existing customers. Two related features are already available as separate Raisedash products, priced separately: policy and agreement e-signatures (Driver Paperwork) and coaching after safety events with the driver's dashcam clip (Driver Coaching).",
-    items: ["Policy-to-course authoring tools", "API and webhooks"],
+    items: ["API and webhooks"],
   },
 ];
 
