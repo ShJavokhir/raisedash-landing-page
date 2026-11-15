@@ -33,7 +33,7 @@ export const uz: Copy = {
       },
       {
         value: "25%",
-        text: "2023-yildagi yuk oʻgʻirliklari firibgarlik bilan, masalan oʻgʻirlangan shaxs yoki soxta hujjatlar bilan qilingan. 2018-yilda bu 2,2% edi.",
+        text: "2023-yildagi yuk oʻgʻirliklari firibgarlik bilan, masalan oʻgʻirlangan shaxsiy maʼlumotlar va soxta hujjatlar bilan qilingan. 2018-yilda bu 2,2% edi.",
         source: "ATRI",
       },
     ],
@@ -51,7 +51,7 @@ export const uz: Copy = {
       },
       {
         label:
-          "ATRI tadqiqoti, ATAʼning AQSh Kongressidagi koʻrsatmasida (2025-yil dekabr, ingliz tilida)",
+          "ATRI tadqiqoti, ATAʼning AQSh Kongressi Vakillar palatasi Yuridik qoʻmitasidagi guvohligida (2025-yil dekabr, ingliz tilida)",
         href: "https://judiciary.house.gov/sites/evo-subsites/republicans-judiciary.house.gov/files/evo-media-document/spear-testimony.pdf",
       },
     ],

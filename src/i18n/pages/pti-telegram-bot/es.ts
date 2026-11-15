@@ -7,7 +7,7 @@ export const es: Copy = {
   seo: {
     title: "Inspecciones previas al viaje gratis en Telegram",
     description:
-      "Los conductores siguen la lista de revisión y envían fotos al grupo de Telegram. Empiece gratis, sin app ni registro. El plan de pago agrega PDFs e historial.",
+      "Los conductores siguen la lista de revisión y envían fotos al grupo de Telegram. Empiece gratis, sin app ni registro. El plan de pago agrega PDFs e historial ilimitado.",
   },
   hero: {
     title: "Inspecciones previas al viaje en Telegram.",

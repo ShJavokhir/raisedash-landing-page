@@ -4,7 +4,7 @@ export const es: Copy = {
   seo: {
     title: "Nómina para oficinas de empresas de transporte",
     description:
-      "Software de nómina para el equipo de oficina de su empresa de transporte. No es para pago de conductores. Recibos por Telegram. Solicite una demo hoy.",
+      "Software de nómina para el equipo de oficina de su empresa de transporte. No es para pago de conductores. Recibos por Telegram.",
   },
   hero: {
     eyebrow: "Freight Payroll",

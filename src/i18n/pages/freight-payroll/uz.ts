@@ -4,7 +4,7 @@ export const uz: Copy = {
   seo: {
     title: "Yuk tashish ofis jamoasi uchun maosh dasturi",
     description:
-      "Yuk tashish kompaniyangiz ofis jamoasi uchun maosh dasturi. Haydovchilar uchun emas. Maosh varaqalari Telegramga boradi. Bugun demo boshlang.",
+      "Yuk tashish kompaniyangiz ofis jamoasi uchun maosh dasturi. Haydovchilar uchun emas. Maosh varaqalari Telegramga boradi.",
   },
   hero: {
     eyebrow: "Freight Payroll",
