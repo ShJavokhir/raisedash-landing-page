@@ -1,25 +1,25 @@
 // English is the source text; every other language is typed against it.
 export const en = {
   seo: {
-    title: "Get a risk-free demo",
+    title: "Get a demo of Raisedash",
     description:
-      "See how Raisedash can help your trucking company. Contact our team on Telegram, email us, book a call, or leave your details for a product demo.",
+      "See any Raisedash tool in a demo for your trucking company. We’ll show you how it works, share pricing, and help you set it up.",
   },
   hero: {
-    title: "Get a risk-free demo.",
+    title: "Get a demo and get set up",
     body: (productName?: string) =>
       productName
-        ? `See how ${productName} fits your trucking company. Choose the easiest way to talk to us.`
-        : "See how our tools fit your trucking company. Choose the easiest way to talk to us.",
+        ? `We’ll show you how ${productName} works, share pricing, and help you set it up. Pick the easiest way to reach us.`
+        : "Tell us which tool you’re interested in. The Raisedash team will show you how it works, share pricing, and help you set it up.",
   },
   choices: {
-    aria: "Ways to get a demo",
-    telegram: "Contact us on Telegram",
+    aria: "Ways to reach us",
+    telegram: "Message us on Telegram",
     email: "Email us",
     booking: "Book a call",
     bookingNote: "Pick a time that works for you.",
     details: "Leave your details",
-    detailsNote: "We’ll reach out to arrange your demo.",
+    detailsNote: "We’ll reach out to set up your demo.",
   },
   emailHelp: {
     body: "Email app didn’t open? Copy our address and send us an email from any app.",
@@ -34,8 +34,8 @@ export const en = {
     leaveDetails: "Leave your details",
   },
   form: {
-    heading: "Tell us what you’re looking for.",
-    intro: "A few details so we can help you get started.",
+    heading: "Tell us what you need.",
+    intro: "A few details so we know which tool to show you.",
     noscript:
       "Please enable JavaScript to use this form, or use the email and Telegram links to contact us.",
     legend: "Your contact details and product interests",
@@ -45,9 +45,9 @@ export const en = {
     phonePlaceholder: "Include country code",
     company: "Company (optional)",
     interests: "Products you’re interested in",
-    interestsPlaceholder: "Tell us which products you’d like to see and what you need help with.",
-    submit: "Request a demo",
-    submitAria: "Request a demo",
+    interestsPlaceholder: "Which tools do you want to see? What problem are you trying to solve?",
+    submit: "Send request",
+    submitAria: "Send request",
     sendingAria: "Sending request",
     sending: "Sending request…",
     privacyNote: "We’ll use your details to respond to your request.",
@@ -61,8 +61,8 @@ export const en = {
     verifyLoad: "Verification couldn’t load. Try again, or use email or Telegram to reach us.",
   },
   success: {
-    title: "Thanks. We’ll be in touch.",
-    body: "We’ve received your details. Our team will reach out to learn more and arrange your demo.",
+    title: "Got it. We’ll be in touch.",
+    body: "We have your details and will reach out to arrange the demo.",
     explore: "Explore our products",
   },
   /**

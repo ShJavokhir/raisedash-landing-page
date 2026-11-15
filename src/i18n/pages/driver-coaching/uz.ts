@@ -2,21 +2,18 @@ import type { Copy } from "./en";
 
 export const uz: Copy = {
   seo: {
-    title: "Yuk tashish kompaniyalari uchun haydovchilarga coaching oʻtkazish dasturi",
+    title: "Haydovchilarga coaching dasturi",
     description:
-      "Xavfsizlik hodisasidan keyin haydovchiga oʻz dashcam videosi bilan qisqa coaching darsini yuboring. Darsni Samsara va Motive hodisalari boʻyicha avtomatik tayinlang va har bir coaching yozuvini saqlab boring.",
+      "Xavfsizlik hodisasidan keyin haydovchiga dashcam videosi bilan coaching darsini yuboring. Samsara, Motive yoki qoʻlda tayinlang. Haydovchi yozuvida saqlanadi.",
   },
   hero: {
-    title: "Hodisa boʻlgan kuniyoq haydovchiga coaching oʻtkazing.",
-    body: "Dashcam videosi bilan qisqa dars yuboring. Haydovchi uni oʻz telefonida tugatadi.",
+    title: "Dashcam videosi bilan haydovchiga coaching oʻtkazish",
+    body: "Xavfsizlik hodisasidan keyin haydovchiga oʻz dashcam videosi bilan qisqa dars yuboring. Haydovchi uni telefonida tugatadi.",
     worksWith: "Samsara va Motive bilan ishlaydi.",
     motionLabel:
       "Raisedashdagi Safety roʻyxatida Mike uchun xavfli masofa hodisasi paydo boʻladi va qoida unga dars yuboradi, Mike telefonida oʻz dashcam videosini va darsni koʻradi, hodisa esa Coached holatiga oʻtadi.",
     pauseMotion: "Animatsiyani toʻxtatish",
     playMotion: "Animatsiyani ishga tushirish",
-  },
-  twoWays: {
-    heading: "Kamera buni koʻrdi. Keyin nima boʻladi?",
   },
   parts: {
     clip: {
@@ -28,11 +25,11 @@ export const uz: Copy = {
       ],
     },
     automatic: {
-      title: "Samsara va Motive hodisalari boʻyicha dars avtomatik tayinlanadi",
-      text: "Qoidani bir marta belgilang, masalan, 7 kun ichida 3 marta masofa saqlamaslik. Keyin darsni biz yuboramiz.",
+      title: "Samsara va Motive hodisalari coaching darsini avtomatik tayinlaydi",
+      text: "Qoidani bir marta belgilang (masalan, 7 kun ichida 3 marta masofa saqlamaslik), keyin darsni biz yuboramiz.",
       points: [
         "Darhol yuboriladi yoki siz tasdiqlaguningizcha kutadi.",
-        "Trucklaringizda turli kameralar boʻlsa ham, qoidalar bitta.",
+        "Aralash parkdagi barcha trucklar uchun bitta qoidalar toʻplami.",
       ],
     },
     anyEvent: {
@@ -45,36 +42,39 @@ export const uz: Copy = {
     },
   },
   record: {
-    heading: "Kerak boʻlganda coaching oʻtkazganingizga dalil",
-    body: "Avariyadan keyin advokatlar dashcam hodisalaringizni soʻraydi. Belgilangan hodisalardan keyin coaching boʻlmasa, siz bilib turib hech narsa qilmagandek koʻrinasiz.",
+    heading: "Har bir coaching yozuvi saqlanadi",
+    body: "Avariyadan keyin advokatlar dashcam hodisalarini va siz nima choralar koʻrganingizni soʻraydi.",
     kept: "Raisedash hodisani, darsni va haydovchi uni qachon tugatganini saqlaydi.",
     sourceBefore:
-      "Yuk tashish bilan bogʻliq sud qarorlaridagi oʻrtacha summa 2010-yilda $2.3M edi, 2018-yilga kelib $22.3M boʻldi (",
+      "Yuk tashish bilan bogʻliq sud qarorlaridagi oʻrtacha summa 2010-yilda $2.3M dan 2018-yilga kelib $22.3M ga oʻsdi (",
     sourceAfter: "). Bu yuridik maslahat emas.",
   },
   features: {
     policy: {
       title: "Kompaniyangiz qoidalari asosida darslar",
-      text: "Qoidani yozib bering. AI darsning qoralamasini tayyorlaydi, siz tasdiqlaysiz.",
+      text: "Qoidani yozib bering. AI darsning qoralamasini tayyorlaydi, siz tasdiqlaysiz, shundan keyingina haydovchi koʻradi.",
     },
     rank: {
-      title: "Kimga koʻproq kerakligini koʻring",
+      title: "Kimga koʻproq coaching kerakligini koʻring",
       text: "Haydovchilar shunchaki hodisalar soni boʻyicha emas, har 1,000 milyaga toʻgʻri keladigan hodisalar boʻyicha saralanadi.",
     },
     driverPage: {
-      title: "Orientation bilan yonma-yon",
+      title: "Coaching orientation yonida",
       text: "Onboarding va har bir coaching haydovchining bitta sahifasida.",
     },
   },
   fairness: {
     heading: "Haydovchilarga nisbatan adolatli",
     items: [
-      { title: "Videoning oʻzini koʻradi", text: "Qisqacha bayonini emas." },
+      { title: "Videoning oʻzini koʻradi", text: "Qisqacha bayonini emas, haqiqiy videoni." },
       {
         title: "Notoʻgʻri ogohlantirishlarni oʻtkazib yuborasiz",
         text: "Coaching faqat oʻrinli boʻlganda yuboriladi.",
       },
-      { title: "Faqat oʻziniki", text: "Hech bir haydovchi hamkasbining hodisalarini koʻrmaydi." },
+      {
+        title: "Faqat oʻz hodisalari",
+        text: "Hech bir haydovchi hamkasbining hodisalarini koʻrmaydi.",
+      },
     ],
   },
   faq: {
@@ -83,12 +83,12 @@ export const uz: Copy = {
       {
         question: "Samsara yoki Motive shartmi?",
         answer:
-          "Yoʻq. Istalgan holat boʻyicha coachingni qoʻlda yuborishingiz mumkin. Samsara yoki Motive ulansa, videolar va avtomatik qoidalar qoʻshiladi.",
+          "Yoʻq. Istalgan holat boʻyicha coachingni qoʻlda yuborishingiz mumkin. Samsara yoki Motive ulansa, dashcam videolari va avtomatik qoidalar qoʻshiladi.",
       },
       {
         question: "Biz allaqachon Samsara yoki Motiveda coaching oʻtkazamiz. Bu nima uchun kerak?",
         answer:
-          "Raisedash kamera koʻrmaydigan hodisalarni ham qamrab oladi, trucklaringizda turli kameralar boʻlsa ham bitta qoidalar toʻplamini beradi va coaching hamda oʻqitish yozuvlarini bir joyda saqlaydi. Kamera provayderini almashtirsangiz ham, tarixingiz saqlanib qoladi.",
+          "Raisedash kamera koʻrmaydigan hodisalarni ham qamrab oladi, aralash parkdagi barcha trucklar uchun bitta qoidalar toʻplamini beradi va coaching hamda oʻqitish yozuvlarini bir joyda saqlaydi. Kamera provayderini almashtirsangiz ham, tarixingiz saqlanib qoladi.",
       },
       {
         question: "Haydovchilarga ilova kerakmi?",

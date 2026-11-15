@@ -10,11 +10,8 @@ import {
   DashboardFigure,
   ExpensesFigure,
   FastPhotosFigure,
-  FilesFigure,
   GraphiteCard,
   GraphitePlate,
-  LinkFigure,
-  NoAppFigure,
   plateStyle,
 } from "@/components/receipts/figures";
 import { ProductMotion } from "@/components/motion/ProductMotion";
@@ -46,10 +43,7 @@ const PLATE = "#365c93";
 const stepKeys = ["ask", "photo", "dashboard"] as const;
 
 const features = [
-  { key: "files", figure: <FilesFigure />, crop: { pos: "0% 8%" } },
-  { key: "link", figure: <LinkFigure />, crop: { pos: "60% 80%" } },
   { key: "expenses", figure: <ExpensesFigure />, crop: { pos: "100% 25%", flip: true } },
-  { key: "noApp", figure: <NoAppFigure />, crop: { pos: "90% 95%" } },
   { key: "fastPhotos", figure: <FastPhotosFigure />, crop: { pos: "10% 40%", flip: true } },
   { key: "aiCheck", figure: <AiCheckFigure />, crop: { pos: "30% 60%", flip: true } },
 ] as const;
@@ -80,7 +74,7 @@ export default function ReceiptsTelegramBotPage() {
       />
       <SoftwareApplicationJsonLd
         name="Raisedash Receipts for Telegram"
-        description="Collect driver receipts in Telegram groups. Type receipt, get a link, and send photos, PDFs, or videos with the amount. Every receipt shows up in one dashboard, which makes paying drivers back easier."
+        description="Collect driver receipts in Telegram groups. Type 'receipt' in the group and the bot sends a link. The driver photographs the receipt, types the total, and it lands in one dashboard with the driver, amount, and photos."
         operatingSystem={["Web", "iOS", "Android"]}
       />
       <FAQPageJsonLd faqs={t.faqs} />

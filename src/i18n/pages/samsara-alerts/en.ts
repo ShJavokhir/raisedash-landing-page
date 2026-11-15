@@ -1,14 +1,14 @@
 // English is the source text; every other language is typed against it.
 export const en = {
   seo: {
-    title: "Samsara Alerts in Telegram: Safety Events, Speeding and Engine Faults",
+    title: "Samsara alerts in Telegram for fleets",
     description:
-      "Get Samsara safety events, speeding and engine faults in your Telegram group, with the dashcam video attached. Plus advanced weekly fleet reports. 3 days free.",
+      "Samsara safety events, speeding and engine faults posted to your Telegram group with dashcam video. Weekly fleet reports pinned every Friday. 3 days free.",
   },
   hero: {
     eyebrow: "Samsara → Telegram",
     title: "Samsara alerts in your Telegram group.",
-    body: "Safety events with the dashcam video, speeding, engine faults. Sent to the chat your team already has open all day.",
+    body: "Safety events with the dashcam video, speeding, engine faults. Posted to the group chat your team already has open all day.",
     motionLabel:
       "Mike’s truck is on the highway when its Samsara road camera flags a following-distance event. The clip lands in that event’s topic in the company’s Telegram group, where Sarah replies that she’s calling Mike, and every Friday three weekly boards sum up the week.",
     pauseMotion: "Pause animation",
@@ -20,7 +20,7 @@ export const en = {
     altDesktop:
       "A Telegram group with a separate topic for each event type: fault codes, following distance, obstructed camera, mobile usage, speeding, no seatbelt, harsh turn, drowsy and more, next to a thread of alerts carrying dashcam clips.",
     caption:
-      "Every event type gets its own topic, and every alert carries the truck number, so searching one truck pulls up everything it has ever done.",
+      "Every event type gets its own topic. Every alert carries the truck number, so searching one truck pulls up everything it has triggered.",
     redacted:
       "Real screenshots from a fleet running this. Names, plates and locations are blurred for this page, not in your group.",
   },
@@ -31,22 +31,22 @@ export const en = {
     items: [
       {
         title: "The Samsara dashboard",
-        body: "Someone has to be logged in and refreshing it. A busy week is thousands of events, and everyone you want looking needs their own seat.",
+        body: "Someone has to be logged in and refreshing. A busy week means thousands of events, and everyone who should see them needs their own Samsara seat.",
       },
       {
         title: "Email alerts",
-        body: "They bury an inbox, they are not instant, and every one of them still ends with somebody opening the dashboard.",
+        body: "They bury an inbox, they are not instant, and every one still ends with someone opening the dashboard.",
       },
       {
         title: "The group chat you already have",
-        body: "Open on every phone in the company. The video is in the message, and everybody sees the same thing at the same time.",
+        body: "Already open on every phone. The dashcam video plays right in the message. Everybody sees it at the same time.",
       },
     ],
   },
   sends: {
     video: {
       title: "Safety events, with the video",
-      body: "Both camera angles play right in the message. Nobody logs in to watch fifteen seconds of a driver on their phone.",
+      body: "Both camera angles play in the message. Nobody has to log in to watch fifteen seconds of a driver on their phone.",
     },
     speeding: {
       title: "Speeding, over your limit",
@@ -54,7 +54,7 @@ export const en = {
     },
     faults: {
       title: "Engine faults, in plain text",
-      body: "Which warning light came on and what the code means, so your shop knows before the truck gets there.",
+      body: "Which warning light came on and what the code means, so your shop knows before the truck arrives.",
     },
     faultsAlt:
       "Two engine-fault alerts in Telegram, each listing the emissions, protect, stop and warning lamp states and spelling out every diagnostic trouble code.",
@@ -89,21 +89,21 @@ export const en = {
       "Defensive driving",
       "Engine fault codes",
     ],
-    note: "Turn off the ones you do not want. Anything Samsara adds later still comes through, it just arrives without a nickname until we give it one.",
+    note: "Turn off the ones you don’t want. Anything Samsara adds later still comes through. It just arrives without a nickname until we give it one.",
   },
   boards: {
     eyebrow: "Every Friday",
     heading: "Three boards get pinned in the group",
-    body: "The last seven days: what happened, who drove clean, and who is burning the fuel.",
+    body: "The last seven days: what happened, who drove clean, and who is burning fuel.",
   },
   pricing: {
     trial: "Try 3 days for free",
     trialNote: "Pay only if it helps.",
     features: [
-      "Everything above, for the whole group",
-      "Advanced weekly reports",
-      "Also supports separate driver groups",
-      "Setup takes ~15 minutes, and we do it with you",
+      "All events, speeding and faults for the whole group",
+      "Weekly safety, driver and fuel boards pinned every Friday",
+      "Chosen events sent to a driver’s own group, separate threshold",
+      "Setup takes ~15 minutes, and our team does it with you",
     ],
   },
   faqs: [
@@ -125,17 +125,17 @@ export const en = {
     {
       question: "Will it spam our group?",
       answer:
-        "No. Nothing is ever sent twice, speeding only posts past the limit you set, engine faults have to stay on before they alert, and anything your team already dismissed in Samsara never shows up. Each behaviour also gets its own topic, so phone-use alerts do not bury everything else.",
+        "No. Nothing is sent twice. Speeding only posts past the limit you set. Engine faults have to stay on before they alert. Anything your team already dismissed in Samsara never shows up. Each event type gets its own topic, so phone-use alerts don’t bury everything else.",
     },
     {
       question: "Can drivers get their own alerts?",
       answer:
-        "Yes. You can send chosen events to a driver's own group chat, on a separate threshold from the main one, so a driver hears about 15 over without the whole office watching every 3 over.",
+        "Yes. You can send chosen events to a driver’s own group chat, on a separate threshold from the main one. A driver hears about 15 over without the whole office watching every 3 over.",
     },
     {
-      question: "What if a truck has no camera, or the video will not load?",
+      question: "What if a truck has no camera, or the video won’t load?",
       answer:
-        "You still get the alert as text, with the driver, the truck, the time and a map link. The video is a bonus, never a requirement.",
+        "You still get the alert as text, with the driver, the truck, the time and a map link. The video is a bonus, not a requirement.",
     },
   ],
   finalCta: "Tell us how many trucks you run.",

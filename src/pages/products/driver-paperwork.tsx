@@ -10,19 +10,12 @@ import {
   SoftwareApplicationJsonLd,
   type FAQItem,
 } from "@/components/seo/SEO";
-import { GraphiteCard, GraphitePlate, type PlateCrop } from "@/components/receipts/figures";
+import { GraphitePlate, type PlateCrop } from "@/components/receipts/figures";
 import {
   ApplicationsFigure,
-  CertificateFigure,
-  CompanyDetailsFigure,
   DocumentsFigure,
-  DriverPageFigure,
   FileRequestsFigure,
-  ReadFirstFigure,
-  StatusFigure,
-  TemplatesFigure,
   TextMessageFigure,
-  TwoWays,
 } from "@/components/paperwork/figures";
 import { useCopy } from "@/components/i18n/LocaleProvider";
 import { ProductMotion } from "@/components/motion/ProductMotion";
@@ -84,19 +77,6 @@ const parts: {
   },
 ];
 
-const features: {
-  key: "templates" | "companyDetails" | "certificate" | "readFirst" | "status" | "driverPage";
-  figure: React.ReactNode;
-  crop: PlateCrop;
-}[] = [
-  { key: "templates", figure: <TemplatesFigure />, crop: { pos: "0% 8%" } },
-  { key: "companyDetails", figure: <CompanyDetailsFigure />, crop: { pos: "60% 80%" } },
-  { key: "certificate", figure: <CertificateFigure />, crop: { pos: "100% 25%", flip: true } },
-  { key: "readFirst", figure: <ReadFirstFigure />, crop: { pos: "90% 95%" } },
-  { key: "status", figure: <StatusFigure />, crop: { pos: "10% 40%", flip: true } },
-  { key: "driverPage", figure: <DriverPageFigure />, crop: { pos: "30% 60%", flip: true } },
-];
-
 export default function DriverPaperworkPage() {
   const t = useCopy(paperworkCopy);
   // One array for both the page and FAQPageJsonLd, so the schema matches what renders.
@@ -156,31 +136,13 @@ export default function DriverPaperworkPage() {
       </Container>
 
       <Container className="pb-12 sm:pb-16">
-        <section aria-labelledby="pw-two-ways-heading">
-          <h2
-            id="pw-two-ways-heading"
-            className="text-foreground mb-2 text-2xl font-normal tracking-tight"
-          >
-            {t.twoWays.heading}
-          </h2>
-          <p className="text-muted-foreground mb-6 max-w-2xl text-base leading-relaxed">
-            {t.twoWays.body}
-          </p>
-          <TwoWays />
-        </section>
-      </Container>
-
-      <Container className="pb-12 sm:pb-16">
         <section aria-labelledby="pw-parts-heading">
           <h2
             id="pw-parts-heading"
-            className="text-foreground mb-2 text-2xl font-normal tracking-tight"
+            className="text-foreground mb-10 text-2xl font-normal tracking-tight"
           >
             {t.parts.heading}
           </h2>
-          <p className="text-muted-foreground mb-10 max-w-2xl text-base leading-relaxed">
-            {t.parts.body}
-          </p>
           <div className="space-y-14 sm:space-y-20">
             {parts.map((part, index) => (
               <article
@@ -248,22 +210,6 @@ export default function DriverPaperworkPage() {
               <TextMessageFigure />
             </GraphitePlate>
           </div>
-        </section>
-      </Container>
-
-      <Container className="pb-12 sm:pb-16">
-        <section aria-labelledby="pw-features-heading">
-          <h2
-            id="pw-features-heading"
-            className="text-foreground mb-6 text-2xl font-normal tracking-tight"
-          >
-            {t.features.heading}
-          </h2>
-          <ul className="grid gap-x-5 gap-y-10 md:grid-cols-2 lg:grid-cols-3">
-            {features.map(({ key, ...feature }) => (
-              <GraphiteCard key={key} {...feature} {...t.features[key]} />
-            ))}
-          </ul>
         </section>
       </Container>
 

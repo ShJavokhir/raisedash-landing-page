@@ -1,94 +1,37 @@
-import {
-  Clock,
-  Download,
-  FileCheck,
-  History,
-  Layers,
-  Lock,
-  PenLine,
-  Scale,
-  ShieldCheck,
-} from "lucide-react";
+import { ShieldCheck } from "lucide-react";
 import { PageLayout } from "@/components/layout/PageLayout";
 import {
   CrossLinks,
   EvidencePacketVignette,
   FaqSection,
-  FeatureGrid,
   LedgerVignette,
   PlatformCTA,
   PlatformHero,
   PlatformSection,
   StepList,
   type PlatformFaq,
-  type PlatformFeature,
   type PlatformStep,
 } from "@/components/platform";
 
-const FEATURES: PlatformFeature[] = [
-  {
-    title: "What was assigned",
-    description: "See the training assigned to a driver and the current status of each assignment.",
-    icon: Lock,
-  },
-  {
-    title: "When it was completed",
-    description: "Keep a clear date for every training the driver completed.",
-    icon: History,
-  },
-  {
-    title: "One report to review",
-    description: "Bring the driver's Raisedash training details together in one PDF.",
-    icon: FileCheck,
-  },
-  {
-    title: "A copy you can share",
-    description:
-      "Use the report for an internal review or send it to the people your fleet chooses.",
-    icon: Scale,
-  },
-  {
-    title: "How the driver did",
-    description: "Review recorded quiz attempts and scores next to the training assignment.",
-    icon: Download,
-  },
-  {
-    title: "Recorded activity",
-    description: "See the active time recorded while the driver worked through the training.",
-    icon: PenLine,
-  },
-  {
-    title: "One driver history",
-    description:
-      "Keep trainings, quiz results, activity, and certificates together under one driver.",
-    icon: Layers,
-  },
-  {
-    title: "Available certificates",
-    description: "Include certificates issued through Raisedash in the driver's PDF report.",
-    icon: Clock,
-  },
-];
-
 const STEPS: PlatformStep[] = [
   {
-    title: "Assign the work",
-    description: "Choose the training the driver needs to complete.",
+    title: "Assign training to the driver",
+    description: "Pick the programs or lessons the driver needs to complete.",
   },
   {
-    title: "The record builds as they work",
+    title: "Raisedash records as the driver works",
     description:
-      "Raisedash records progress, activity, quiz results, and completion details along the way.",
+      "Progress, active time, quiz results, and completion dates are saved automatically.",
   },
   {
-    title: "Review everything under the driver",
+    title: "Open the driver's record anytime",
     description:
-      "Review training status, completion dates, quiz attempts, activity, and certificates in one place.",
+      "Everything is under one driver: assignments, status, completion dates, quiz scores, active time, and certificates.",
   },
   {
-    title: "Save a copy when you need it",
+    title: "Download a PDF when you need it",
     description:
-      "Export the Raisedash training information for that driver as a PDF when you need a copy.",
+      "Export that driver's training record as a single PDF for your files, an insurer, or another authorized reviewer.",
   },
 ];
 
@@ -96,35 +39,34 @@ const FAQS: PlatformFaq[] = [
   {
     question: "What's in the PDF training report?",
     answer:
-      "The report includes a driver summary, assigned trainings, completion details, quiz attempts and scores, recorded activity, and certificates available in Raisedash.",
+      "A driver summary, every assigned training with its status and completion date, quiz attempts and scores, recorded active time, and certificates issued in Raisedash.",
   },
   {
-    question: "Does the report include every document in our driver file?",
+    question: "Does the report cover our full driver file?",
     answer:
-      "No. It covers training information recorded in Raisedash. It does not replace your driver qualification file, Clearinghouse process, medical records, road tests, or other carrier records.",
+      "No. It covers online training recorded in Raisedash. It does not replace your driver qualification file, Clearinghouse process, medical records, road tests, or other carrier records.",
   },
   {
     question: "Can we download a report for one driver?",
-    answer:
-      "Yes. Open the driver's record and download the available Raisedash training information as a PDF.",
+    answer: "Yes. Open the driver's record and download the Raisedash training report as a PDF.",
   },
   {
     question: "Is this a legal or compliance guarantee?",
     answer:
-      "No. Raisedash helps organize training records. Your carrier remains responsible for driver qualification, required records, training decisions, and compliance with applicable laws and rules.",
+      "No. Raisedash organizes training records. Your carrier remains responsible for driver qualification, required records, training decisions, and compliance with applicable laws and rules.",
   },
   {
-    question: "Does Raisedash record policy signatures or road tests?",
+    question: "Are policy e-signatures and road-test records in this report?",
     answer:
-      "Not today. The current product records online training activity, quiz results, and certificates. Policy e-signatures and road-test records are not part of the current report.",
+      "No. This report covers online training activity, quiz results, and certificates. Policy e-signatures are handled in Driver Paperwork, a separate Raisedash product, and are not part of this report. Road-test records are not recorded in Raisedash.",
   },
 ];
 
 export default function TrainingEvidence() {
   return (
     <PageLayout
-      title="Driver Training Records for Trucking Fleets"
-      description="Keep each driver's online training activity together, quickly see what they completed and when, and download a clear PDF report."
+      title="Driver training records, one PDF"
+      description="Each driver's online training assignments, completion dates, quiz scores, and certificates in one place. Download a PDF training report per driver."
       keywords={[
         "driver training records",
         "training documentation for trucking",
@@ -134,34 +76,30 @@ export default function TrainingEvidence() {
       ]}
     >
       <PlatformHero
-        eyebrow="Training evidence"
+        eyebrow="Training records"
         eyebrowIcon={ShieldCheck}
-        title="Know what happened without rebuilding the story."
-        subhead="Raisedash keeps each driver's online training activity together as it happens, so your safety team can answer what was completed, when it happened, and how the driver did."
+        title="Every driver's training record in one PDF."
+        subhead="Raisedash records what was assigned, when it was completed, quiz scores, active time, and certificates as drivers do their online training. Open a driver's record or download it as a PDF."
         vignette={<LedgerVignette />}
       />
 
       {/* Problem */}
       <PlatformSection
         eyebrow="The problem"
-        title="The record should not be harder to find than the training"
+        title="Training records scattered across folders, email, and spreadsheets"
       >
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-5">
           <div className="border-border bg-card rounded-xs border p-6 sm:p-8 lg:col-span-3">
             <p className="text-muted-foreground text-lg leading-relaxed font-normal">
-              When training details sit in paper folders, email threads, spreadsheets, and separate
-              course tools, even a simple question can turn into a search. Your team loses time
-              piecing together what was assigned, what was finished, and when it happened.
-            </p>
-            <p className="text-muted-foreground mt-4 text-lg leading-relaxed font-normal">
-              Raisedash builds the online training record while the driver does the work. When your
-              team, an insurer, or another authorized reviewer asks for the details, you have a
-              clear place to start.
+              When training details live in paper folders, email threads, spreadsheets, and separate
+              course tools, answering &ldquo;did this driver finish that training?&rdquo; turns into
+              a search. Raisedash builds the record while the driver does the work, so the answer is
+              already there when your team, an insurer, or another authorized reviewer asks.
             </p>
           </div>
           <div className="border-border bg-surface-2 rounded-xs border p-6 sm:p-8 lg:col-span-2">
             <p className="text-muted-foreground mb-4 text-xs tracking-wide uppercase">
-              What a useful record should answer
+              What the record answers
             </p>
             <ul className="space-y-3">
               {[
@@ -187,8 +125,7 @@ export default function TrainingEvidence() {
       <PlatformSection
         id="how-it-works"
         eyebrow="How it works"
-        title="The record builds while the work happens"
-        lede="The driver completes training once. Raisedash organizes the details your team may need later."
+        title="The record builds while the driver works"
       >
         <StepList steps={STEPS} />
       </PlatformSection>
@@ -196,18 +133,12 @@ export default function TrainingEvidence() {
       {/* Evidence packet showcase */}
       <PlatformSection
         eyebrow="PDF report"
-        title="One driver. One organized training report."
-        lede="Review the online training recorded in Raisedash and save the available details as a PDF."
+        title="One driver. One PDF training report."
         align="center"
       >
         <div className="mx-auto max-w-xl">
           <EvidencePacketVignette />
         </div>
-      </PlatformSection>
-
-      {/* Feature grid */}
-      <PlatformSection eyebrow="What's inside" title="A record your team can actually use">
-        <FeatureGrid features={FEATURES} columns={4} accent="amber" />
       </PlatformSection>
 
       {/* FAQ */}
@@ -218,8 +149,8 @@ export default function TrainingEvidence() {
 
       {/* CTA */}
       <PlatformCTA
-        title="See the record your team would work with."
-        subtitle="Book a demo to follow one driver's training from assignment to PDF report."
+        title="See what a driver's training report looks like."
+        subtitle="Book a demo to follow one driver from assignment to PDF."
         footnote="The report covers training information recorded in Raisedash."
       />
     </PageLayout>

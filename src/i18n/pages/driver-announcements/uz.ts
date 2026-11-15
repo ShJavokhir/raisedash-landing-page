@@ -2,9 +2,9 @@ import type { Copy } from "./en";
 
 export const uz: Copy = {
   seo: {
-    title: "Bitta xabarni haydovchilaringizning barcha Telegram guruhlariga yuboring",
+    title: "Barcha haydovchi guruhlariga bir xabar",
     description:
-      "Xabarni bir marta yozing, biz uni haydovchilarning har bir Telegram guruhiga joylaymiz. Kompaniya qoidalari, maoshdagi oʻzgarishlar va bayram kunlaridagi ish vaqtini barcha haydovchilarga guruhma-guruh emas, bir daqiqada yuboring.",
+      "Xabarni bir marta yozing, biz uni haydovchilarning har bir Telegram guruhiga joylaymiz. Qoidalar, maosh, ob-havo, bayramlar. Nusxalab oʻtirish shart emas.",
   },
   hero: {
     title: "Bir marta yozing. Har bir haydovchi guruhiga yetib boradi.",
@@ -15,27 +15,8 @@ export const uz: Copy = {
     pauseMotion: "Animatsiyani toʻxtatish",
     playMotion: "Animatsiyani ishga tushirish",
   },
-  twoWays: {
-    heading: "148 haydovchi uchun yangi qoida",
-  },
   how: {
-    heading: "Qanday ishlaydi",
-    steps: [
-      {
-        title: "Bir marta yozing",
-        description: "Xabaringizni Raisedashda yozing, xuddi guruhga yozgandek.",
-      },
-      {
-        title: "Guruhlarni tanlang",
-        description:
-          "Hammasini belgilang yoki qidiruv orqali faqat bu xabar kerak boʻlgan haydovchilarni tanlang.",
-      },
-      {
-        title: "Yuboring",
-        description:
-          "Tanlagan har bir guruhingizga joylaymiz. Haydovchilar uni oʻzlari foydalanib yurgan chatda oʻqiydi va oʻsha yerning oʻzida javob yoza oladi.",
-      },
-    ],
+    heading: "Qaysi guruhlar olishini tanlang",
   },
   examples: {
     heading: "Kompaniyalar nimalarni yuboradi",
@@ -70,17 +51,12 @@ export const uz: Copy = {
       {
         question: "Haydovchilarga ilova kerakmi?",
         answer:
-          "Yoʻq. Xabaringiz ular foydalanib yurgan Telegram guruhida chiqadi. Hech narsa oʻrnatish yoki tizimga kirish shart emas.",
+          "Yoʻq. Xabaringiz ular foydalanib yurgan Telegram guruhida chiqadi. Hech narsa oʻrnatish yoki tizimga kirish shart emas. Haydovchilar oʻsha yerning oʻzida javob yozadi, jamoangiz ham oʻsha guruhda javob beradi.",
       },
       {
         question: "Faqat ayrim guruhlarga yuborsa boʻladimi?",
         answer:
           "Ha. Hammasini belgilang yoki qidirib, kerakli guruhlarni tanlang. Masalan, yomon ob-havo tomon ketayotgan haydovchilar guruhlarini.",
-      },
-      {
-        question: "Haydovchilar javob yoza oladimi?",
-        answer:
-          "Ha. Ular boshqa har qanday xabarga yozgandek oʻz guruhida javob yozadi, jamoangiz esa ularga oʻsha yerda javob beradi.",
       },
       {
         question: "Nimani sozlashim kerak?",
@@ -89,7 +65,7 @@ export const uz: Copy = {
       },
       {
         question: "Qanday boshlash mumkin?",
-        answer: "Demo soʻrang. Narxlarni aytamiz va guruhlaringizga sozlashga yordam beramiz.",
+        answer: "Demo soʻrang, biz sizga sozlash va narxlarni tushuntiramiz.",
       },
     ],
   },

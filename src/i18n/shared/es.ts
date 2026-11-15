@@ -44,7 +44,7 @@ export const es: Copy = {
       "/request-account-deletion": "Eliminar cuenta",
     },
   },
-  demoLink: "Solicitar una demo gratis",
+  demoLink: "Solicitar una demo",
   trust: {
     label: "Confían en nosotros",
     companies: "empresas de transporte",

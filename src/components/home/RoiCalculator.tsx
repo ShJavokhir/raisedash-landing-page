@@ -383,12 +383,12 @@ export function RoiCalculator() {
               Orientation cost calculator
             </p>
             <h2 className="text-foreground text-3xl font-normal tracking-[-0.02em] sm:text-4xl">
-              Put a number on day-one readiness.
+              How much does orientation cost your fleet?
             </h2>
             <p className="text-muted-foreground mt-2.5 text-base">
-              What your fleet spends on orientation work that could happen before drivers arrive:
-              paid classroom time, hotel nights for no-shows, admin chasing. Your numbers, your
-              assumptions.
+              Enter your numbers. The calculator estimates what you could save each year by moving
+              classroom work to drivers&apos; phones before they arrive: less paid seat time, fewer
+              wasted hotel nights, less office chasing.
             </p>
           </div>
 
@@ -417,7 +417,7 @@ export function RoiCalculator() {
                 />
                 <SliderRow
                   id="roi-pay"
-                  label="Driver pay per orientation day"
+                  label="Driver day pay during orientation"
                   value={values.dayPay}
                   {...LIMITS.dayPay}
                   format={(v) => currency.format(v)}
@@ -426,7 +426,7 @@ export function RoiCalculator() {
               </div>
 
               <p className="text-muted-foreground mt-6 mb-1 text-xs font-normal tracking-wide uppercase">
-                The overhead
+                Overhead
               </p>
               <div className="divide-border-subtle divide-y">
                 <SliderRow
@@ -455,7 +455,7 @@ export function RoiCalculator() {
                 />
                 <SliderRow
                   id="roi-admin"
-                  label="Admin time per new hire"
+                  label="Office hours per new hire"
                   value={values.adminHours}
                   {...LIMITS.adminHours}
                   format={(v) => (v === 1 ? "1 hour" : `${v} hours`)}
@@ -498,13 +498,13 @@ export function RoiCalculator() {
                   <div className="overflow-hidden">
                     <div className="border-border-subtle border-t px-4 pt-2 pb-3">
                       <p className="text-muted-foreground pt-2 text-xs leading-relaxed">
-                        Conservative starting points. Set them to whatever you believe.
+                        Conservative defaults. Change them to match what you believe.
                       </p>
                       <SliderRow
                         compact
                         tone="success"
                         id="roi-classroom-shift"
-                        label="Classroom time moved to pre-arrival"
+                        label="Classroom time done before arrival"
                         value={values.classroomShift}
                         {...LIMITS.classroomShift}
                         format={(v) => `${v}%`}
@@ -524,7 +524,7 @@ export function RoiCalculator() {
                         compact
                         tone="success"
                         id="roi-admin-reduction"
-                        label="Admin time saved"
+                        label="Office time saved"
                         value={values.adminReduction}
                         {...LIMITS.adminReduction}
                         format={(v) => `${v}%`}
@@ -534,7 +534,7 @@ export function RoiCalculator() {
                         compact
                         tone="success"
                         id="roi-admin-rate"
-                        label="Admin hourly cost"
+                        label="Office hourly cost"
                         value={values.adminRate}
                         {...LIMITS.adminRate}
                         format={(v) => `${currency.format(v)}/hr`}
@@ -546,8 +546,8 @@ export function RoiCalculator() {
               </div>
 
               <p className="text-muted-foreground/80 mt-5 text-xs leading-relaxed">
-                Estimates from your inputs and the assumptions shown, not a quote or a promise of
-                results. Trainer time and turnover effects are not counted.
+                This is an estimate based on your inputs and the assumptions shown. It is not a
+                quote or a guarantee. Trainer time and turnover effects are not included.
               </p>
             </div>
 
@@ -561,7 +561,7 @@ export function RoiCalculator() {
                   />
                   <p className="text-muted-foreground text-xs leading-relaxed">
                     Someone shared this estimate with you. The sliders are set to their numbers.
-                    Drag anything to make it yours.
+                    Drag any slider to update it with yours.
                   </p>
                   <button
                     type="button"
@@ -576,7 +576,7 @@ export function RoiCalculator() {
 
               <p className="text-success flex items-center gap-1.5 text-xs font-medium tracking-wide uppercase">
                 <CircleDollarSign className="h-3.5 w-3.5" aria-hidden="true" />
-                Estimated annual savings
+                Estimated yearly savings
               </p>
               <p className="text-success mt-2 text-5xl font-normal tracking-[-0.03em] tabular-nums">
                 {currency.format(Math.round(animatedTotal))}
@@ -595,19 +595,19 @@ export function RoiCalculator() {
                   hours back per year
                 </p>
                 <p className="text-muted-foreground mt-1 text-xs">
-                  Driver classroom and admin time, roughly {workingDays.toLocaleString("en-US")}{" "}
+                  Classroom and office time combined. About {workingDays.toLocaleString("en-US")}{" "}
                   working days.
                 </p>
               </div>
 
               <div className="border-border mt-5 space-y-4 border-t pt-5">
                 <p className="text-muted-foreground text-xs font-normal tracking-wide uppercase">
-                  Where it comes from
+                  Where the savings come from
                 </p>
                 <BreakdownRow
                   icon={Presentation}
                   label="Paid classroom time"
-                  caption="Drivers finish the online portion on their phones before day one."
+                  caption="Drivers finish the online part on their phones before day one."
                   amount={results.classroomDollars}
                   share={results.classroomDollars / largestCategory}
                   barClass="bg-accent-blue"
@@ -624,8 +624,8 @@ export function RoiCalculator() {
                 />
                 <BreakdownRow
                   icon={ClipboardList}
-                  label="Admin chasing &amp; filing"
-                  caption="Automatic reminders, live progress, and records that keep themselves."
+                  label="Office follow-up and filing"
+                  caption="Automatic reminders, live progress, and records in one place."
                   amount={results.adminDollars}
                   share={results.adminDollars / largestCategory}
                   barClass="bg-accent-violet"
@@ -641,7 +641,7 @@ export function RoiCalculator() {
                 />
                 <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1">
                   <p className="text-muted-foreground text-xs">
-                    We&apos;ll help you pressure-test it.
+                    We&apos;ll walk through the numbers with you.
                   </p>
                   <button
                     type="button"
@@ -655,7 +655,7 @@ export function RoiCalculator() {
                       </>
                     ) : (
                       <>
-                        Copy a link to this estimate <Link2 className="h-3.5 w-3.5" />
+                        Copy link to this estimate <Link2 className="h-3.5 w-3.5" />
                       </>
                     )}
                   </button>

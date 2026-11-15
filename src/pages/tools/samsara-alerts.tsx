@@ -48,7 +48,7 @@ export default function SamsaraAlerts() {
       />
       <SoftwareApplicationJsonLd
         name="Samsara Alerts for Telegram"
-        description="Sends Samsara safety events, speeding and engine faults to your Telegram group with dashcam video attached, and posts advanced weekly fleet reports."
+        description="Samsara safety events, speeding and engine faults posted to your Telegram group with dashcam video. Weekly fleet reports pinned every Friday. Free trial included."
         operatingSystem={["Web"]}
         applicationCategory="BusinessApplication"
       />

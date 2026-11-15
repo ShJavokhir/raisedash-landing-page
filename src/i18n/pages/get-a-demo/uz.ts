@@ -2,20 +2,20 @@ import type { Copy } from "./en";
 
 export const uz: Copy = {
   seo: {
-    title: "Bepul demo soʻrash",
+    title: "Raisedash demo koʻrish",
     description:
-      "Raisedash yuk tashish kompaniyangizga qanday yordam berishini koʻring. Bizga email yozing, qoʻngʻiroq vaqtini belgilang, demo uchun maʼlumotlaringizni qoldiring yoki jamoamiz bilan Telegramda bogʻlaning.",
+      "Raisedash vositalarini demo rejimda koʻring. Qanday ishlashini koʻrsatamiz, narxlarni aytamiz va sozlashda yordam beramiz.",
   },
   hero: {
-    title: "Bepul demo soʻrang.",
+    title: "Demo koʻring va sozlashni boshlang",
     body: (productName?: string) =>
       productName
-        ? `«${productName}» yuk tashish kompaniyangizga qanday mos kelishini koʻring. Biz bilan bogʻlanishning oʻzingizga eng qulay usulini tanlang.`
-        : "Vositalarimiz yuk tashish kompaniyangizga qanday mos kelishini koʻring. Biz bilan bogʻlanishning oʻzingizga eng qulay usulini tanlang.",
+        ? `${productName} qanday ishlashini koʻrsatamiz, narxlarni aytamiz va sozlashda yordam beramiz. Biz bilan bogʻlanishning oʻzingizga eng qulay usulini tanlang.`
+        : "Qaysi vosita sizni qiziqtirishini aytib bering. Raisedash jamoasi uning qanday ishlashini koʻrsatadi, narxlarni aytadi va sozlashda yordam beradi.",
   },
   choices: {
-    aria: "Demo soʻrash usullari",
-    telegram: "Telegramda bogʻlanish",
+    aria: "Biz bilan bogʻlanish usullari",
+    telegram: "Telegramda yozish",
     email: "Email yozish",
     booking: "Qoʻngʻiroq vaqtini belgilash",
     bookingNote: "Oʻzingizga qulay vaqtni tanlang.",
@@ -31,12 +31,12 @@ export const uz: Copy = {
   formSectionAria: "Demo soʻrovi",
   telegramHelp: {
     noTelegram: (email: string) =>
-      `Telegram yoʻqmi? ${email} manziliga yozing yoki maʼlumotlaringizni qoldiring, oʻzimiz bogʻlanamiz.`,
+      `Telegram yoʻqmi? ${email} manziliga email yozing yoki maʼlumotlaringizni qoldiring, oʻzimiz bogʻlanamiz.`,
     leaveDetails: "Maʼlumotlaringizni qoldirish",
   },
   form: {
     heading: "Sizga nima kerakligini aytib bering.",
-    intro: "Ishni boshlashingizga yordam berishimiz uchun bir nechta maʼlumot kerak.",
+    intro: "Qaysi vositani koʻrsatishimizni bilishimiz uchun bir nechta maʼlumot kerak.",
     noscript:
       "Formadan foydalanish uchun brauzerda JavaScriptni yoqing yoki biz bilan email yoxud Telegram orqali bogʻlaning.",
     legend: "Aloqa maʼlumotlaringiz va sizni qiziqtirgan mahsulotlar",
@@ -46,10 +46,9 @@ export const uz: Copy = {
     phonePlaceholder: "Mamlakat kodi bilan kiriting",
     company: "Kompaniya (ixtiyoriy)",
     interests: "Sizni qiziqtirgan mahsulotlar",
-    interestsPlaceholder:
-      "Qaysi mahsulotlarni koʻrmoqchi ekaningizni va nimada yordam kerakligini yozing.",
-    submit: "Demo soʻrash",
-    submitAria: "Demo soʻrash",
+    interestsPlaceholder: "Qaysi vositalarni koʻrmoqchisiz? Qanday muammoni hal qilmoqchisiz?",
+    submit: "Soʻrov yuborish",
+    submitAria: "Soʻrov yuborish",
     sendingAria: "Soʻrov yuborilmoqda",
     sending: "Soʻrov yuborilmoqda…",
     privacyNote: "Maʼlumotlaringizdan soʻrovingizga javob berish uchun foydalanamiz.",
@@ -64,8 +63,8 @@ export const uz: Copy = {
       "Tasdiqlash oynasi yuklanmadi. Qaytadan urinib koʻring yoki biz bilan email yoxud Telegram orqali bogʻlaning.",
   },
   success: {
-    title: "Rahmat. Siz bilan bogʻlanamiz.",
-    body: "Maʼlumotlaringizni oldik. Jamoamiz batafsil bilish va demoni kelishib olish uchun siz bilan bogʻlanadi.",
+    title: "Qabul qilindi. Siz bilan bogʻlanamiz.",
+    body: "Maʼlumotlaringizni oldik. Demoni kelishib olish uchun siz bilan bogʻlanamiz.",
     explore: "Mahsulotlarimiz bilan tanishish",
   },
   serverMessages: {

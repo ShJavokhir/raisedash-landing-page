@@ -1,12 +1,9 @@
 import {
   ArrowRight,
   ArrowUpRight,
-  CalendarClock,
   Check,
   ChevronDown,
-  ClipboardList,
   FolderOpen,
-  KeyRound,
   Smartphone,
   TriangleAlert,
 } from "lucide-react";
@@ -33,9 +30,6 @@ const FREE_STORAGE_DAYS = 90;
 // Copy for every section lives in src/i18n/pages/pti-telegram-bot.ts (English + Uzbek).
 const benefits = [
   { key: "noApp", icon: Smartphone },
-  { key: "noAccounts", icon: KeyRound },
-  { key: "schedule", icon: CalendarClock },
-  { key: "checklist", icon: ClipboardList },
   { key: "problems", icon: TriangleAlert },
   { key: "record", icon: FolderOpen },
 ] as const;

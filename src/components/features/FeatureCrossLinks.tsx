@@ -14,10 +14,10 @@ export function FeatureCrossLinks({ currentSlug }: FeatureCrossLinksProps) {
     <Container className="py-12 md:px-0">
       <div className="mb-8">
         <p className="text-muted-foreground mb-3 text-xs tracking-wide uppercase">
-          Explore the generators
+          More AI training features
         </p>
         <h2 className="text-foreground text-2xl font-normal tracking-[-0.02em] sm:text-3xl">
-          Four ways Raisedash generates training
+          Other ways to generate training
         </h2>
       </div>
       <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
@@ -45,8 +45,7 @@ export function FeatureCrossLinks({ currentSlug }: FeatureCrossLinksProps) {
         })}
       </div>
       <p className="text-muted-foreground mt-6 text-sm">
-        Everything generated here is assigned, tracked, and recorded like any other Raisedash
-        training. See{" "}
+        All generated training is assigned, tracked, and recorded in the same platform. See{" "}
         <Link
           href="/platform/training-evidence"
           className="text-foreground hover:text-foreground-80 transition-colors duration-[0.15s]"

@@ -34,15 +34,14 @@ export default function Orientation({ recentUpdates, recentPosts }: HomeProps) {
   return (
     <PageLayout
       title="Driver Orientation Software for Trucking Fleets"
-      description="Raisedash Orientation is a driver readiness platform for trucking fleets. Send orientation by text, track progress, and keep training records in one place."
+      description="Driver orientation software for trucking fleets. Send orientation by text, track progress, and keep every training record in one place."
       keywords={[
-        "driver readiness platform",
         "driver orientation software",
-        "trucking driver onboarding",
-        "training records for trucking fleets",
-        "driver training evidence",
+        "truck driver onboarding",
+        "driver training records",
+        "trucking fleet orientation",
+        "new driver orientation",
         "pre-arrival orientation",
-        "fleet safety",
       ]}
     >
       <BreadcrumbJsonLd
@@ -57,7 +56,7 @@ export default function Orientation({ recentUpdates, recentPosts }: HomeProps) {
           <div className="relative z-10 flex w-full items-center gap-12">
             <div className="flex-1">
               <p className="text-muted-foreground animate-fade-in-up mb-3 text-xs font-normal tracking-wide uppercase delay-75 sm:mb-4 sm:text-sm">
-                Raisedash Orientation · Driver readiness for trucking fleets
+                Raisedash Orientation · Driver orientation for trucking fleets
               </p>
               <h1 className="text-foreground animate-fade-in-up text-4xl leading-tight font-normal tracking-[-0.03em] delay-75 sm:text-[48px]">
                 Get drivers ready before day one.
@@ -102,10 +101,10 @@ export default function Orientation({ recentUpdates, recentPosts }: HomeProps) {
       {recentUpdates.length > 0 && (
         <Container className="pb-12 md:px-0">
           <h2 className="text-muted-foreground mb-1 text-sm font-normal tracking-wide uppercase">
-            Recent updates
+            Updates
           </h2>
           <p className="text-muted-foreground mb-4 text-sm">
-            Recent changes and improvements across the platform.
+            Recent changes to the orientation platform.
           </p>
           <div className="border-border bg-card divide-border divide-y overflow-hidden rounded-xs border">
             {recentUpdates.map((update) => (
@@ -150,10 +149,10 @@ export default function Orientation({ recentUpdates, recentPosts }: HomeProps) {
         <Container className="pb-12 md:px-0">
           <div className="mb-10 text-center">
             <h2 className="text-foreground text-3xl font-normal tracking-[-0.02em] sm:text-4xl">
-              Latest from the blog
+              From the blog
             </h2>
             <p className="text-muted-foreground mx-auto mt-3 max-w-2xl text-lg">
-              Practical ideas for driver orientation and training.
+              Guides on driver orientation, training records, and compliance.
             </p>
           </div>
           <div className="grid grid-cols-1 gap-5 md:grid-cols-3">

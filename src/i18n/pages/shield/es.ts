@@ -2,9 +2,9 @@ import type { Copy } from "./en";
 
 export const es: Copy = {
   seo: {
-    title: "Raisedash Shield – Protección contra fraude en transporte de carga",
+    title: "Shield: protección contra fraude de carga",
     description:
-      "Extensión gratuita de Chrome para empresas de transporte. Advierte a todo su equipo sobre las páginas de phishing y las rate confirmations falsas que llevan al robo de carga y al robo de identidad.",
+      "Extensión gratuita de Chrome para su empresa de transporte. Advierte sobre páginas de phishing y rate confirmations falsas que llevan al robo de carga.",
   },
   hero: {
     eyebrow: "Raisedash Shield · Extensión gratuita de Chrome",
@@ -41,7 +41,7 @@ export const es: Copy = {
       "Al hacer clic, el usuario es redirigido a un sitio de phishing que imita al legítimo. El sitio de phishing aloja un archivo ejecutable malicioso…",
     quoteSource: "Alerta del FBI a brokers y transportistas, 30 de abril de 2026",
     quoteAfter:
-      "Ese clic, esa página de inicio de sesión y ese archivo: esos son los momentos que Shield vigila.",
+      "Ese clic, esa página de inicio de sesión y ese archivo son los momentos que Shield vigila.",
     sourcesLabel: "Fuentes",
     sources: [
       {
@@ -60,7 +60,7 @@ export const es: Copy = {
     items: [
       {
         title: "Páginas falsas de inicio de sesión",
-        text: "Cuando una página pide su contraseña, revisamos cuándo se registró el sitio. Los load boards y portales de brokers reales llevan años funcionando. Los sitios de phishing suelen tener días.",
+        text: "Cuando una página pide su contraseña, Shield revisa cuándo se registró el sitio. Los load boards y portales de brokers reales llevan años funcionando. Los sitios de phishing suelen tener días.",
         alt: "Una página de inicio de sesión en loadboard-signin.com con la advertencia de Raisedash Shield: This site is brand new. Se registró hace 3 días y pide su contraseña.",
       },
       {
@@ -70,22 +70,22 @@ export const es: Copy = {
       },
       {
         title: "Rate confirmations falsas",
-        text: "Un “RateConfirmation.pdf.exe” es un programa, no un documento. Lo pausamos, igual que los instaladores de acceso remoto, hasta que usted decida.",
+        text: "Un “RateConfirmation.pdf.exe” es un programa, no un documento. Shield lo pausa, igual que los instaladores de acceso remoto, hasta que usted decida.",
         alt: "Una página de rate confirmation con la advertencia de Raisedash Shield: Don’t open this file. RateConfirmation.pdf.exe en realidad es un programa y Shield lo pausó.",
       },
       {
         title: "Verificaciones falsas de “confirme que es humano”",
-        text: "Cuando una página copia un comando y le pide presionar Windows + R y pegar, lo cambiamos por una advertencia. Puede recuperarlo.",
+        text: "Cuando una página copia un comando y le pide presionar Windows + R y pegar, Shield lo cambia por una advertencia. Puede recuperarlo.",
         alt: "Una verificación de seguridad falsa que pide presionar Windows + R y luego Ctrl + V, con la advertencia de Raisedash Shield: Don’t paste what this page copied.",
       },
     ],
   },
   quiet: {
     heading: "En silencio hasta que importa",
-    body: "En los demás sitios no sabrá de nosotros. La advertencia aparece en la esquina y nunca bloquea la página. Usted siempre decide.",
+    body: "En los demás sitios no sabrá de Shield. La advertencia aparece en la esquina y nunca bloquea la página. Usted siempre decide.",
     points: [
       "Gratis y sin cuenta. La instala y ya funciona.",
-      "Nunca leemos sus contraseñas ni lo que hay dentro de sus archivos.",
+      "Shield nunca lee sus contraseñas ni lo que hay dentro de sus archivos.",
       "Cada sitio de nuestra lista de estafas lo reportó un transportista y lo confirmó una persona. Su navegador recibe la lista aproximadamente cada 30 minutos.",
       "La revisión de antigüedad del sitio se puede desactivar en el menú en cualquier momento.",
     ],
@@ -97,7 +97,7 @@ export const es: Copy = {
       {
         question: "¿Para quién es?",
         answer:
-          "Para todos en su empresa que trabajan en Chrome en una computadora: despachadores, safety y cumplimiento, facturación y contabilidad, reclutamiento y dueños. Los ladrones buscan el inicio de sesión que necesitan, ya sea el load board, el correo de la empresa, el portal de factoring o el banco, así que instálela en cada computadora de la oficina. Funciona en Chrome en una computadora, no en el teléfono.",
+          "Para todos en su empresa que trabajan en Chrome en una computadora: despachadores, safety y cumplimiento, facturación y contabilidad, reclutamiento y dueños. Los ladrones buscan el inicio de sesión que necesitan, ya sea el load board, el correo de la empresa, el portal de factoring o el banco, así que instálela en cada computadora de la oficina. Shield funciona en Chrome en una computadora, no en teléfonos.",
       },
       {
         question: "¿Qué sale de mi computadora?",
@@ -107,7 +107,7 @@ export const es: Copy = {
       {
         question: "¿Qué no puede hacer?",
         answer:
-          "Shield no puede detectar todas las estafas, verificar a una empresa de transporte, un broker o una carga, ni garantizar que una página sea segura. No reemplaza al antivirus ni al proceso que usted ya usa para verificar empresas de transporte. Las advertencias nunca bloquean un sitio; siempre puede continuar. Algunas descargas pequeñas terminan antes de que se puedan pausar. A veces una página puede copiar un comando antes de que se pueda revisar un marco incrustado (iframe). Confirme por teléfono cualquier solicitud inesperada de contraseña, documentos, pago o descarga, usando un número que ya tenga.",
+          "Shield no puede detectar todas las estafas, verificar a un transportista, un broker o una carga, ni garantizar que una página sea segura. No reemplaza al antivirus ni al proceso que usted ya usa para verificar transportistas. Las advertencias nunca bloquean un sitio; siempre puede continuar. Algunas descargas pequeñas terminan antes de que se puedan pausar. A veces una página puede copiar un comando antes de que se pueda revisar un marco incrustado. Confirme por teléfono cualquier solicitud inesperada de contraseña, documentos, pago o descarga, usando un número que ya tenga.",
       },
     ],
   },

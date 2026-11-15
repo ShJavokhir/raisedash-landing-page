@@ -1,13 +1,13 @@
 // English is the source text; every other language is typed against it.
 export const en = {
   seo: {
-    title: "Anonymous Driver Surveys in Telegram",
+    title: "Anonymous driver surveys in Telegram",
     description:
-      "Find out why drivers leave. Send an anonymous survey to your drivers’ Telegram groups and see pay, home time, and dispatch scores in one dashboard. No app for drivers.",
+      "Send anonymous surveys to drivers’ Telegram groups to find out why drivers leave. Scores and written answers in one dashboard. No app, no account.",
   },
   hero: {
-    title: "Find out why drivers leave. Before the next one does.",
-    body: "Just pick a survey and your Telegram groups, and we’ll post the link. Drivers answer anonymously on their phone. You see if it’s pay, home time, dispatch, or the truck.",
+    title: "Anonymous driver surveys in your Telegram groups",
+    body: "Find out why drivers leave while you can still fix it. Pick a survey and your drivers’ Telegram groups. You see whether it’s pay, home time, dispatch, or the truck.",
     note: "We’ll set it up for your groups.",
     motionLabel:
       "The office sends the Pay and home time survey to 48 drivers’ Telegram groups, drivers answer anonymously on their phones, and the results show home time scoring lowest.",
@@ -20,12 +20,12 @@ export const en = {
       {
         title: "Pick a survey",
         description:
-          "Start from a ready-made one like “Pay and home time”, or write your own. Choose anonymous or named.",
+          "Start from a ready-made one like “Pay and home time” or write your own. Choose anonymous or named.",
       },
       {
         title: "Send it to your groups",
         description:
-          "Just pick your drivers’ Telegram groups, and we’ll post the link in each one. Drivers answer on their phone in about a minute.",
+          "Pick your drivers’ Telegram groups and we post the link in each one. Drivers answer on their phone in about a minute.",
       },
       {
         title: "See what to fix first",
@@ -37,8 +37,12 @@ export const en = {
   features: {
     heading: "What you get",
     leaving: {
-      title: "Hear it before they quit",
+      title: "Catch turnover early",
       text: "Ask “Are you thinking about leaving?” every month. When “Maybe” starts to grow, you still have time to fix it.",
+    },
+    groups: {
+      title: "Every group at once",
+      text: "Search by group, driver, or truck, then select all. We post the link in every group, even if you have hundreds.",
     },
     anonymous: {
       title: "Anonymous, so they’re honest",
@@ -47,10 +51,6 @@ export const en = {
     templates: {
       title: "Six ready-made surveys",
       text: "Pay, home time, dispatch, equipment, safety, and new drivers. Pick one, change what you like, and send it.",
-    },
-    groups: {
-      title: "Every group at once",
-      text: "Search by group, driver, or truck, then select all. We post the link in every group, even if you have hundreds.",
     },
     noApp: {
       title: "No app for drivers",

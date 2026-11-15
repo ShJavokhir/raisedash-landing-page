@@ -2,14 +2,14 @@ import type { Copy } from "./en";
 
 export const uz: Copy = {
   seo: {
-    title: "Truck haydovchilari uchun CDL ingliz tili mashqlari (ELP)",
+    title: "CDL ingliz tili (ELP) mashqlari",
     description:
-      "TruckTalk faqat truck haydovchilari uchun yaratilgan CDL ingliz tili mashq vositasi: DOT tekshiruvi boʻyicha ovozli suhbat mashqi, trucking atamalari va yoʻl chetidagi real vaziyatlar. Haydovchilaringizni FMCSAning ingliz tilini bilish (ELP) tekshiruviga tayyorlang.",
+      "TruckTalk: CDL haydovchilari uchun ELP mashqi. AI ovozli suhbat, 2,300+ trucking atamasi, 50+ ssenariy. Haydovchilarni FMCSA ELP tekshiruviga tayyorlang.",
   },
   hero: {
     eyebrow: "FMCSA: ingliz tilini bilish talabi (ELP)",
     title: "Haydovchilaringizni yoʻl chetidagi ingliz tili tekshiruviga tayyorlang.",
-    body: "TruckTalk bitta maqsad uchun yaratilgan CDL ingliz tili mashq vositasi: DOT tekshiruvidan oʻtish. Umumiy ingliz tili darslari emas, balki AI bilan ovozli suhbat mashqi, trucking atamalari va yoʻl chetidagi real vaziyatlar.",
+    body: "TruckTalk bitta maqsad uchun yaratilgan CDL ingliz tili mashq vositasi: DOT tekshiruvidan oʻtish. DOT inspektori, dispetcher yoki shipper bilan AI ovozli suhbat mashqi, 50+ ssenariy, 11 ta ona tilida tarjimasi bor 2,300+ trucking atamasi va uchta qiyinlik darajasi.",
     seeInside: "Ichida nima borligini koʻrish",
     badges: {
       cdlOnly: "Faqat CDL haydovchilari uchun",
@@ -17,7 +17,7 @@ export const uz: Copy = {
       languages: "11 ta ona tili",
     },
     motionLabel:
-      "Yoʻl chetidagi tekshiruv mashqida AI DOT ofitseri savollarni ovoz chiqarib beradi, haydovchi ingliz tilida javob beradi, mashgʻulot baholanadi va uning qisqa javobi toʻliq, yaxshiroq gapga aylantiriladi.",
+      "Yoʻl chetidagi tekshiruv mashqida AI DOT inspektori savollarni ovoz chiqarib beradi, haydovchi ingliz tilida javob beradi, mashgʻulot baholanadi va uning qisqa javobi toʻliq, yaxshiroq gapga aylantiriladi.",
     pauseMotion: "Animatsiyani toʻxtatish",
     playMotion: "Animatsiyani ishga tushirish",
   },
@@ -32,49 +32,34 @@ export const uz: Copy = {
         label: "ELP qoidabuzarligi bir oyning oʻzida, 2025-yilga nisbatan 300% oʻsish",
       },
       {
-        value: "Out of service",
-        label: "joyida, haydovchi yoʻl chetidagi tekshiruvdan oʻta olmagan zahoti",
-      },
-      {
         value: "3 yil",
         label:
-          "qoidabuzarlik PSP yozuvida shuncha muddat turadi, uni keyingi ish beruvchilar koʻradi",
+          "har bir qoidabuzarlik haydovchining PSP yozuvida shuncha muddat turadi, uni keyingi ish beruvchilar koʻradi",
       },
     ],
-    sources: "Manbalar: FMCSA, CVSA va Kaliforniya CHP nazorat hisobotlari, 2025–2026.",
+    sources: "Manbalar: FMCSA, CVSA va Kaliforniya CHP nazorat hisobotlari, 2025 va 2026.",
   },
   reality: {
-    title: "Qattiq nazorat allaqachon boshlangan",
-    body: "2025-yil iyunidan beri ingliz tilini bilish (ELP) tekshiruvidan oʻta olmaslik barcha shtatlarda haydovchini yoʻldan chetlatadigan (out of service) qoidabuzarlik hisoblanadi. 49 CFR § 391.11(b)(2) boʻyicha har bir CDL egasi odamlar bilan gaplasha oladigan, yoʻl belgilarini tushunadigan, rasmiy savollarga javob bera oladigan va hisobotlarni toʻldira oladigan darajada ingliz tilida oʻqiy va gapira olishi shart (bu yoʻl chetida tekshiriladi, tarjima yordamiga ruxsat yoʻq). Bitta muvaffaqiyatsiz tekshiruv truckni yoʻlda qoldiradi, yukni kechiktiradi va haydovchining ortidan yillab ergashadi.",
+    title:
+      "ELP tekshiruvidan oʻta olmaslik barcha shtatlarda out-of-service qoidabuzarlik hisoblanadi",
+    body: "2025-yil iyunidan beri ingliz tilini bilish (ELP) tekshiruvidan oʻta olmagan haydovchi joyida out of service qilinadi. 49 CFR § 391.11(b)(2) boʻyicha har bir CDL egasi odamlar bilan gaplasha oladigan, yoʻl belgilarini tushunadigan, rasmiy savollarga javob bera oladigan va hisobotlarni toʻldira oladigan darajada ingliz tilida oʻqiy va gapira olishi shart. Tekshiruv yoʻl chetida oʻtkaziladi, tarjima yordamiga ruxsat yoʻq. Bitta muvaffaqiyatsiz tekshiruv truckni yoʻlda qoldiradi va yukni kechiktiradi.",
   },
   assessment: {
-    eyebrow: "Aslida nima boʻladi",
+    eyebrow: "Tekshiruv qanday oʻtadi",
     title: "Yoʻl chetidagi ELP tekshiruvi ikki qismdan iborat",
-    sub: "Koʻpchilik haydovchilar bu tekshiruv qanday oʻtishini hech koʻrmagan. Mana, inspektor aynan nima qiladi.",
     interview: {
       title: "1. Haydovchi bilan suhbat",
-      body: "Inspektor reys, transport vositasi, duty status (ish holati) va yuk haqida soʻraydi. Haydovchi ingliz tilida javob berishi kerak: tarjimon ham, I-Speak card ham, tarjima ilovasi ham boʻlmaydi.",
+      body: "Inspektor reys, transport vositasi, duty status va yuk haqida soʻraydi. Haydovchi ingliz tilida javob berishi kerak: tarjimon ham, I-Speak card ham, tarjima ilovasi ham boʻlmaydi.",
     },
     signs: {
       title: "2. Yoʻl belgilarini tanish",
       body: "Inspektor standart yoʻl belgilari jadvalini koʻrsatadi. Haydovchi har birini tanib, nimani anglatishini ingliz tilida ovoz chiqarib tushuntirishi kerak.",
     },
   },
-  generic: {
-    title: "Nega oddiy ingliz tili ilovasi haydovchini tayyorlamaydi",
-    body: "Duolingo va Babbel kofe buyurtma qilish va yoʻl soʻrashni oʻrgatadi. Inspektor haydovchidan ELD loglarini tushuntirishni, hours of service boʻyicha birma-bir aytib berishni yoki Bill of Lading oʻqib, yukning hazmat sinflarini aniqlashni soʻraganda, bularning hech biri yordam bermaydi.",
-    items: [
-      "ELD va hours of service atamalari",
-      "Bill of Lading va shipping paper boʻyicha soʻzlar",
-      "DOT tekshiruvidagi savollar va javoblar",
-      "Hazmat sinflari, dispetcher bilan va weigh stationdagi suhbatlar",
-    ],
-  },
   features: {
     imageAlt: "TruckTalk CDL ingliz tili mashq ilovasi: oʻquv paneli, lugʻat va test oynasi",
     eyebrow: "TruckTalk ichida",
-    title: "Hammasi aynan trucking uchun",
-    sub: "Kofe buyurtma qilish haqida bitta ham dars yoʻq. Har bir soʻz, suhbat va test haydovchi haqiqatda duch keladigan tekshiruv uchun tuzilgan.",
+    title: "Har bir soʻz, test va ssenariy trucking haqida",
     roleplay: {
       title: "AI bilan ovozli suhbat mashqi",
       body: "Haydovchilar AI DOT inspektori, dispetcher yoki shipper bilan ovoz chiqarib gaplashadi: 50+ ssenariy va uchta qiyinlik darajasi. Soʻng aniqlik, soʻz boyligi va vazifani bajarish boʻyicha baho oladi.",
@@ -101,9 +86,9 @@ export const uz: Copy = {
     },
   },
   spotlight: {
-    eyebrow: "Hamma narsani oʻzgartiradigan funksiya",
+    eyebrow: "Faqat oʻqish emas, gapirishni mashq qiling",
     title: "Kartochka emas, haqiqiy suhbat",
-    body: "Haydovchi ssenariyni ochadi va AI asosidagi DOT inspektori ovoz chiqarib gapira boshlaydi. Haydovchi ingliz tilida ovoz chiqarib javob beradi. AI aynan aytilgan gapga qarab javob qaytaradi, soʻng tinglab tushunish, aniqlik, soʻz boyligi va vazifani bajarishni baholaydi. Hatto zaif javoblarni qayta yozib, qanday qilib yaxshiroq javob berish mumkinligini koʻrsatadi. Kompaniyalar uchun versiyasi:",
+    body: "Haydovchi ssenariyni ochadi va AI DOT inspektori ovoz chiqarib gapira boshlaydi. Haydovchi ingliz tilida ovoz chiqarib javob beradi. AI aynan aytilgan gapga qarab javob qaytaradi, soʻng tinglab tushunish, aniqlik, soʻz boyligi va vazifani bajarishni baholaydi, zaif javoblarni qayta yozib yaxshiroq javob berish yoʻlini koʻrsatadi. Kompaniyalar uchun versiyasi:",
     fleetLink: "oʻz ssenariylaringiz uchun AI bilan ovozli suhbat mashqi",
     imageAlt:
       "TruckTalk AI bilan ovozli suhbat mashqi: DOT yoʻl chetidagi tekshiruvi. Inspektor haydovchilik guvohnomasi, medical card va transport vositasining registratsiya hujjatini soʻraydi",
@@ -124,23 +109,23 @@ export const uz: Copy = {
   },
   steps: {
     eyebrow: "Qanday ishlaydi",
-    title: "Kuniga bir necha daqiqa bilan boshlang",
+    title: "Kuniga 5-10 daqiqa",
     language: {
       title: "Til va darajani tanlang",
-      body: "Har bir haydovchi oʻz ona tilini va ingliz tili darajasini tanlaydi: boshlangʻich, oʻrta yoki yuqori.",
+      body: "Har bir haydovchi oʻz ona tilini va boshlangʻich darajasini tanlaydi: boshlangʻich, oʻrta yoki yuqori.",
     },
     practice: {
-      title: "Kuniga 5–10 daqiqa mashq qiling",
-      body: "Qisqa darslar truck stopdagi tanaffusga yoki smenadan oldin sleeperda oʻtirgan vaqtga mos keladi. Soʻzlar, testlar va jonli ovozli suhbat mashqi.",
+      title: "Istalgan tanaffusda mashq qiling",
+      body: "Qisqa darslar truck stopdagi tanaffusga yoki smenadan oldin sleeperda oʻtirgan vaqtga mos keladi.",
     },
     readiness: {
-      title: "Yoʻl chetidagi tekshiruvga haqiqiy tayyorgarlik",
-      body: "Intervalli takrorlash tizimi yaxshi oʻzlashtirilmagan soʻzlarni tezroq qaytaradi, ketma-ket mashq kunlari va oʻsishni kuzatadi, har bir suhbat mashqini baholaydi.",
+      title: "Oʻsishni kuzating",
+      body: "Intervalli takrorlash tizimi yaxshi oʻzlashtirilmagan soʻzlarni tezroq qaytaradi. Ketma-ket mashq kunlari haydovchilarni ragʻbatlantiradi. Har bir suhbat mashqi aniqlik, soʻz boyligi va vazifani bajarish boʻyicha baholanadi.",
     },
   },
   timeline: {
-    eyebrow: "Yoʻnalish aniq",
-    title: "Nazorat faqat kuchayib bormoqda",
+    eyebrow: "Muhim sanalar",
+    title: "ELP nazoriti qachon boshlangan va nima oʻzgargan",
     items: [
       {
         date: "25.06.2025",
@@ -173,9 +158,9 @@ export const uz: Copy = {
           "49 CFR § 391.11(b)(2) boʻyicha har bir CDL egasi odamlar bilan muloqot qila oladigan, yoʻl belgilarini tushunadigan, rasmiy soʻrovlarga javob bera oladigan va hisobot hamda hujjatlarga yozuv kirita oladigan darajada ingliz tilida oʻqiy va gapira olishi shart. Bu yoʻl chetidagi tekshiruvlarda tarjimon yoki tarjima qurilmalarisiz baholanadi.",
       },
       {
-        question: "Haydovchi DOT tekshiruvida ELP sinovidan oʻta olmasa nima boʻladi?",
+        question: "Haydovchi ELP tekshiruvidan oʻta olmasa nima boʻladi?",
         answer:
-          "Haydovchi darhol out of service qilinadi va talablarga javob beradigan boshqa haydovchi kelguncha truck turib qoladi. Qoidabuzarlik Pre-Employment Screening Program (PSP) orqali haydovchining tekshiruvlar tarixida uch yil turadi, yuk tashish kompaniyalari esa federal jarimalarga tortilishi mumkin.",
+          "Haydovchi darhol out of service qilinadi va talablarga javob beradigan boshqa haydovchi kelguncha truck turib qoladi. Qoidabuzarlik Pre-Employment Screening Program (PSP) orqali haydovchining tekshiruvlar tarixida uch yil turadi, yuk tashish kompaniyalari esa federal fuqarolik jarimalariga tortilishi mumkin.",
       },
       {
         question:
@@ -184,17 +169,12 @@ export const uz: Copy = {
           "Oddiy ilovalar ovqat buyurtma qilish kabi kundalik soʻzlarni oʻrgatadi. TruckTalk esa CDL haydovchisiga kerak boʻladigan aniq ingliz tilini oʻrgatadi: ELD log atamalari, Bill of Lading soʻzlari, DOT tekshiruvidagi savollar, dispetcher bilan muloqot va hazmat shipping paper tili. Har bir soʻz, suhbat va test trucking uchun tuzilgan.",
       },
       {
-        question: "Haydovchilar faqat oʻqishni emas, gapirishni ham mashq qila oladimi?",
-        answer:
-          "Ha. AI bilan ovozli suhbat mashqida haydovchilar AI asosidagi DOT inspektorlari, dispetcherlar va shipperlar bilan haqiqiy ogʻzaki suhbat qiladi. Haydovchilar ingliz tilida ovoz chiqarib gapiradi va 50+ ssenariyda tinglab tushunish, javob aniqligi, soʻz boyligi va vazifani bajarish boʻyicha baho oladi.",
-      },
-      {
         question: "TruckTalk qaysi ona tillarini qoʻllab-quvvatlaydi?",
         answer:
           "TruckTalk ilova ichidagi tarjimalar uchun 11 ta ona tilini qoʻllab-quvvatlaydi: ispan, panjob, hind, gaiti kreol, amxar, somali, rus, ukrain, polyak, fransuz va oʻzbek tillari.",
       },
       {
-        question: "Kompaniya menejerlari bir nechta haydovchini kuzata oladimi?",
+        question: "Kompaniya menejerlari haydovchilarning oʻsishini kuzata oladimi?",
         answer:
           "Ha. Kompaniyalar boshqaruv paneli oladi. U har bir haydovchining oʻsishi, test natijalari va ELPga tayyorligini kuzatadi, auditorga koʻrsatsa boʻladigan vaqt belgili yozuvlarni saqlaydi. Haydovchilarni havola, email yoki kod orqali taklif qilish mumkin, ular bir necha daqiqada oʻqishni boshlaydi.",
       },

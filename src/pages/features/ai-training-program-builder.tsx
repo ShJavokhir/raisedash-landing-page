@@ -1,16 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import {
-  ClipboardCheck,
-  HelpCircle,
-  LayoutList,
-  MessageSquareText,
-  PenLine,
-  PlayCircle,
-  RefreshCw,
-  Search,
-  ToggleRight,
-} from "lucide-react";
+import { ClipboardCheck, HelpCircle, LayoutList, PenLine, PlayCircle } from "lucide-react";
 import { FeatureCrossLinks } from "@/components/features/FeatureCrossLinks";
 import { MediaFrame } from "@/components/features/MediaFrame";
 import { OutlineVignette } from "@/components/features/vignettes-generators";
@@ -35,14 +25,9 @@ const STEPS: PlatformStep[] = [
       "Describe the topic, audience, and details that matter to your operation. Optional questions help fill in anything missing.",
   },
   {
-    title: "Add current sources when needed",
-    description:
-      "When research is enabled, Raisedash adds current sources and citations to the outline for you to review.",
-  },
-  {
     title: "Review the full outline",
     description:
-      "See every proposed module, lesson, quiz, and video. Rename items, remove them, or request changes in plain language. Nothing is generated until you approve the outline.",
+      "See every proposed module, lesson, quiz, and video. Rename items, remove them, or request changes in plain language. When research is enabled, web research adds current, cited sources to the outline for you to check. Nothing is generated until you approve.",
   },
   {
     title: "Generate the draft program",
@@ -52,44 +37,19 @@ const STEPS: PlatformStep[] = [
   {
     title: "Edit, publish, assign",
     description:
-      "The result is an editable draft. Review any lesson, then publish and assign the program when it is ready.",
+      "The result is an editable draft. Review any lesson, then publish and assign the program when it's ready. Drivers only see what you publish.",
   },
 ];
 
 const FEATURES: PlatformFeature[] = [
   {
-    title: "Brief coach",
-    description: "Optional questions sharpen the brief before any generation starts.",
-    icon: MessageSquareText,
-  },
-  {
-    title: "Live web research",
-    description: "Add current, cited sources to the outline before you approve it.",
-    icon: Search,
-  },
-  {
-    title: "Editable outline",
-    description: "Rename modules and lessons. The approved outline controls what gets generated.",
-    icon: PenLine,
-  },
-  {
-    title: "Include/exclude toggles",
-    description: "Drop any lesson, quiz, or video from the plan with one switch.",
-    icon: ToggleRight,
-  },
-  {
-    title: "Plain-language revisions",
-    description: "Describe what should change and receive an updated outline to review.",
-    icon: RefreshCw,
-  },
-  {
     title: "Quizzes built from the lessons",
-    description: "Create questions based on the lesson content and set a passing score.",
+    description: "Questions based on the lesson content, with a passing score you set.",
     icon: HelpCircle,
   },
   {
-    title: "Videos included",
-    description: "Video lessons render in the background and are added when ready.",
+    title: "Optional videos included",
+    description: "Optional narrated video lessons render in the background and attach when ready.",
     icon: PlayCircle,
   },
   {
@@ -101,14 +61,9 @@ const FEATURES: PlatformFeature[] = [
 
 const FAQS: PlatformFaq[] = [
   {
-    question: "What does the AI training program builder actually produce?",
+    question: "What does Training Studio actually produce?",
     answer:
-      "A complete draft training: modules in a logical order, text lessons written for drivers, quizzes with pass scores, and optional narrated videos. It lands in the normal Raisedash course builder as a draft you can edit.",
-  },
-  {
-    question: "Does anything reach drivers without human review?",
-    answer:
-      "No. First, you review and approve the outline item by item. The generated program then remains a draft until an admin reviews and publishes it.",
+      "A draft training program: modules in a logical order, text lessons written for drivers, quizzes with pass scores, and optional narrated videos. It lands in the Raisedash course builder as a draft you can edit before publishing.",
   },
   {
     question: "Can it use our fleet's own policies?",
@@ -118,7 +73,7 @@ const FAQS: PlatformFaq[] = [
   {
     question: "What if the outline isn't right?",
     answer:
-      "Describe the change in plain language, such as 'add a module on winter chaining' or 'make the program shorter.' Raisedash redesigns the outline around your feedback, and you can repeat the review until it is ready.",
+      "Describe the change in plain language, such as 'add a module on winter chaining' or 'make the program shorter.' Raisedash redesigns the outline around your feedback, and you can repeat until it's right.",
   },
   {
     question: "Does it create roleplays or simulations too?",
@@ -135,8 +90,8 @@ const FAQS: PlatformFaq[] = [
 export default function AiTrainingProgramBuilder() {
   return (
     <PageLayout
-      title="AI Training Program Builder for Fleets"
-      description="Give Raisedash a topic brief and get a complete training program with modules, lessons, quizzes, and optional videos for your team to review and approve."
+      title="AI training program builder for fleets"
+      description="Type a topic brief, approve the outline, and get a draft program with modules, lessons, quizzes, and optional videos. Edit everything before drivers see it."
       keywords={[
         "AI training program generator",
         "create a driver training program",
@@ -159,31 +114,23 @@ export default function AiTrainingProgramBuilder() {
       <PlatformHero
         eyebrow="Training Studio"
         eyebrowIcon={LayoutList}
-        title="Turn one brief into a complete training program."
-        subhead="Training Studio creates a structured draft with modules, lessons, quizzes, and optional videos. You approve the outline before generation and review the program before publishing."
+        title="Turn one brief into a complete driver training program."
+        subhead="Describe the topic, review the outline item by item, and get a draft with modules, lessons, quizzes, and optional videos in your course builder."
         vignette={<OutlineVignette />}
       />
 
-      <PlatformSection
-        eyebrow="The problem"
-        title="Build fleet-specific training without starting from a blank page"
-        lede="Capture what your team knows and turn it into a program drivers can actually complete."
-      >
+      <PlatformSection title="Your team knows the material. Turning it into a program is the bottleneck.">
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
           <div className="border-border bg-card rounded-xs border p-6 sm:p-8">
             <p className="text-foreground text-lg leading-relaxed">
-              Your team knows how work should be done, but that knowledge is often spread across
-              policies, presentations, and experienced employees.
+              The knowledge for a good training program already exists in your policies,
+              presentations, SOPs, and experienced people. The work is organizing it: deciding what
+              to teach, writing every lesson, building fair quiz questions.
             </p>
             <p className="text-muted-foreground mt-4 text-base leading-relaxed">
-              Turning that material into a useful program means deciding what to teach, organizing
-              the sequence, writing every lesson, and building fair quiz questions. Busy safety and
-              operations teams often postpone the work or rely on generic content instead.
-            </p>
-            <p className="text-muted-foreground mt-4 text-base leading-relaxed">
-              Training Studio gives you a strong first draft without taking control away from your
-              team. You review the structure, request changes, edit the finished content, and decide
-              when it is ready for drivers.
+              Training Studio gives you a strong first draft. You write a short brief, approve the
+              outline, and get a complete draft program in the course builder, ready to edit and
+              publish.
             </p>
           </div>
           <MediaFrame
@@ -199,15 +146,14 @@ export default function AiTrainingProgramBuilder() {
       <PlatformSection
         id="how-it-works"
         eyebrow="How it works"
-        title="A brief becomes a reviewable draft"
+        title="From a brief to a reviewable draft"
       >
         <StepList steps={STEPS} />
       </PlatformSection>
 
       <PlatformSection
-        eyebrow="The approval gate"
-        title="Generated does not mean unreviewed"
-        lede="Your team approves the structure before generation and the finished content before publishing."
+        eyebrow="Your approval, twice"
+        title="What you control before and after generation"
       >
         <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
           <div className="border-accent-blue/30 bg-accent-blue-soft rounded-xs border p-6 sm:p-8">
@@ -215,13 +161,13 @@ export default function AiTrainingProgramBuilder() {
               <span className="bg-accent-blue flex h-10 w-10 items-center justify-center rounded-xs text-white">
                 <ClipboardCheck className="h-5 w-5" />
               </span>
-              <h3 className="text-foreground text-xl font-normal">Before you approve</h3>
+              <h3 className="text-foreground text-xl font-normal">Before generation</h3>
             </div>
             <ul className="space-y-3">
               {[
                 "The full outline, visible item by item",
                 "Include or exclude any lesson, quiz, or video",
-                "Free-text 'ask for changes' redesigns the plan",
+                "Describe changes in plain language and get an updated outline",
                 "A live count of exactly what will be generated",
               ].map((item) => (
                 <li
@@ -244,10 +190,10 @@ export default function AiTrainingProgramBuilder() {
             </div>
             <ul className="space-y-3">
               {[
-                "A normal draft training in the standard builder",
+                "A normal draft in the standard course builder",
                 "Edit any lesson or question",
                 "Publish only when you're satisfied",
-                "Drivers only ever see what you chose to publish",
+                "Drivers only see what you publish",
               ].map((item) => (
                 <li
                   key={item}
@@ -261,7 +207,7 @@ export default function AiTrainingProgramBuilder() {
           </div>
         </div>
         <p className="text-muted-foreground mt-6 text-sm leading-relaxed">
-          Human review is essential for fleet-specific training. Our{" "}
+          Our{" "}
           <Link
             href="/blog/driver-onboarding-software-trucking"
             className="text-foreground underline-offset-2 hover:underline"
@@ -273,11 +219,11 @@ export default function AiTrainingProgramBuilder() {
         </p>
       </PlatformSection>
 
-      <PlatformSection eyebrow="Built in">
+      <PlatformSection title="What's included in a generated program">
         <FeatureGrid features={FEATURES} columns={4} accent="blue" />
       </PlatformSection>
 
-      <PlatformSection eyebrow="Part of the platform" title="One brief, a whole program">
+      <PlatformSection title="Assign, track, and keep records">
         <div className="grid grid-cols-1 items-center gap-6 lg:grid-cols-2">
           <Image
             src="https://cdn.raisedash.com/media/landing/features/training-studio-ink-outline-tree.webp"
@@ -315,12 +261,12 @@ export default function AiTrainingProgramBuilder() {
         </div>
       </PlatformSection>
 
-      <FaqSection title="Training program generation questions" faqs={FAQS} />
+      <FaqSection title="Common questions" faqs={FAQS} />
 
       <FeatureCrossLinks currentSlug="ai-training-program-builder" />
 
       <PlatformCTA
-        title="Build the program your team has been putting off."
+        title="Build the training program your team has been putting off."
         subtitle="Book a demo, bring a real topic, and leave with a reviewable outline."
         footnote="Training Studio drafts; your team approves, edits, and publishes. Nothing reaches drivers without your sign-off."
       />

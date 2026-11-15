@@ -4,11 +4,11 @@ export const es: Copy = {
   seo: {
     title: "Encuestas anónimas para conductores en Telegram",
     description:
-      "Descubra por qué se van sus conductores con encuestas anónimas en Telegram. Vea en un panel cómo califican el pago, el tiempo en casa y el despacho. Sin app para conductores.",
+      "Envíe encuestas anónimas a los grupos de Telegram de sus conductores. Vea calificaciones y respuestas en un panel. Sin app, sin cuenta.",
   },
   hero: {
-    title: "Descubra por qué se van sus conductores. Antes de que se vaya el próximo.",
-    body: "Solo elija una encuesta y sus grupos de Telegram, y nosotros publicamos el enlace. Los conductores responden de forma anónima desde su celular. Usted ve si el problema es el pago, el tiempo en casa (home time), el despacho o el camión.",
+    title: "Encuestas anónimas en los grupos de Telegram de sus conductores",
+    body: "Descubra por qué se van los conductores mientras todavía puede arreglarlo. Elija una encuesta y los grupos de Telegram de sus conductores. Usted ve si el problema es el pago, el tiempo en casa (home time), el despacho o el camión.",
     note: "Nosotros lo configuramos en sus grupos.",
     motionLabel:
       "La oficina envía la encuesta «Pay and home time» a 48 grupos de Telegram de conductores, ellos responden de forma anónima en su celular y los resultados muestran que el tiempo en casa tiene la calificación más baja.",
@@ -26,7 +26,7 @@ export const es: Copy = {
       {
         title: "Envíela a sus grupos",
         description:
-          "Solo elija los grupos de Telegram de sus conductores y nosotros publicamos el enlace en cada uno. Los conductores responden desde su celular en más o menos un minuto.",
+          "Elija los grupos de Telegram de sus conductores y nosotros publicamos el enlace en cada uno. Los conductores responden desde su celular en más o menos un minuto.",
       },
       {
         title: "Vea qué arreglar primero",
@@ -38,8 +38,12 @@ export const es: Copy = {
   features: {
     heading: "Qué incluye",
     leaving: {
-      title: "Entérese antes de que renuncien",
+      title: "Detecte la rotación a tiempo",
       text: "Pregunte cada mes: “¿Está pensando en irse?”. Cuando las respuestas “Tal vez” empiezan a subir, todavía tiene tiempo de arreglarlo.",
+    },
+    groups: {
+      title: "Todos los grupos a la vez",
+      text: "Busque por grupo, conductor o camión, y luego seleccione todos. Publicamos el enlace en cada grupo, aunque tenga cientos.",
     },
     anonymous: {
       title: "Anónima, para que sean sinceros",
@@ -48,10 +52,6 @@ export const es: Copy = {
     templates: {
       title: "Seis encuestas listas para usar",
       text: "Pago, tiempo en casa, despacho, equipo, seguridad y conductores nuevos. Elija una, cambie lo que quiera y envíela.",
-    },
-    groups: {
-      title: "Todos los grupos a la vez",
-      text: "Busque por grupo, conductor o camión, y luego seleccione todos. Publicamos el enlace en cada grupo, aunque tenga cientos.",
     },
     noApp: {
       title: "Sin app para los conductores",

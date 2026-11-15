@@ -2,22 +2,22 @@ import type { Copy } from "./en";
 
 export const es: Copy = {
   seo: {
-    title: "Práctica de inglés (ELP) para camioneros con CDL",
+    title: "Práctica de inglés (ELP) para CDL",
     description:
-      "TruckTalk: práctica de inglés para el CDL, solo para camioneros. Simulaciones de inspección del DOT y vocabulario del transporte. Prepare a su flota para la prueba ELP de la FMCSA.",
+      "TruckTalk: práctica de ELP para CDL. 50+ escenarios por voz con IA, 2,300+ términos del transporte. Prepare a su flota para el DOT.",
   },
   hero: {
     eyebrow: "Dominio del inglés (ELP) de la FMCSA",
     title: "Prepare a sus conductores para la prueba de inglés en carretera.",
-    body: "TruckTalk es una herramienta de práctica de inglés para el CDL, hecha para una sola cosa: pasar una inspección del DOT. Simulaciones por voz con IA, vocabulario del transporte de carga y situaciones reales en carretera, no clases de inglés genéricas.",
+    body: "TruckTalk es práctica de inglés para el CDL hecha para una sola cosa: pasar una inspección del DOT. Simulaciones por voz con IA con un oficial del DOT, un despachador o un shipper en más de 50 escenarios, 2,300+ términos del transporte de carga con traducciones a 11 idiomas nativos y tres niveles de dificultad.",
     seeInside: "Ver qué incluye",
     badges: {
       cdlOnly: "Solo para conductores con CDL",
       voice: "Práctica por voz con IA",
-      languages: "Traducción a 11 idiomas",
+      languages: "11 idiomas nativos",
     },
     motionLabel:
-      "En una simulación por voz de una inspección en carretera, un oficial del DOT interpretado por IA hace preguntas en voz alta, el conductor responde en inglés, la sesión recibe una calificación y su respuesta corta se reescribe como una oración completa y mejor.",
+      "En una simulación de inspección en carretera, un oficial del DOT interpretado por IA hace preguntas en voz alta, el conductor responde en inglés, la sesión recibe una calificación y su respuesta corta se reescribe como una oración completa y mejor.",
     pauseMotion: "Pausar la animación",
     playMotion: "Reproducir la animación",
   },
@@ -33,50 +33,34 @@ export const es: Copy = {
         label: "infracciones de ELP en un solo mes, un aumento del 300% respecto a 2025",
       },
       {
-        value: "Fuera de servicio",
-        label: "ahí mismo, en cuanto el conductor no pasa la prueba en carretera",
-      },
-      {
         value: "3 años",
-        label: "dura la infracción en el registro PSP que ven los futuros empleadores",
+        label: "cada infracción permanece en el registro PSP que ven los futuros empleadores",
       },
     ],
     sources:
-      "Fuentes: reportes de fiscalización de la FMCSA, la CVSA y la CHP de California, 2025–2026.",
+      "Fuentes: reportes de fiscalización de la FMCSA, la CVSA y la CHP de California, 2025 a 2026.",
   },
   reality: {
-    title: "Los controles más estrictos ya llegaron",
-    body: "Desde junio de 2025, no pasar la prueba de dominio del inglés (ELP) es una infracción que deja al conductor fuera de servicio (out of service) en todos los estados. Según la norma 49 CFR § 391.11(b)(2), todo titular de un CDL debe leer y hablar inglés lo suficientemente bien como para comunicarse con el público, entender las señales de tránsito, responder preguntas oficiales y llenar reportes (se evalúa en carretera y no se permite ninguna ayuda de traducción). Una sola prueba reprobada deja el camión varado, retrasa la carga y persigue al conductor durante años.",
+    title: "No pasar la prueba de ELP es una infracción de fuera de servicio en todos los estados",
+    body: "Desde junio de 2025, un conductor que no pasa la prueba de dominio del inglés queda fuera de servicio (out of service) en el acto. Según la norma 49 CFR § 391.11(b)(2), todo titular de un CDL debe leer y hablar inglés lo suficientemente bien como para comunicarse con el público, entender las señales de tránsito, responder preguntas oficiales y llenar reportes. La evaluación se hace en carretera y no se permite ninguna ayuda de traducción. Una sola prueba reprobada deja el camión varado y retrasa la carga.",
   },
   assessment: {
-    eyebrow: "Lo que pasa en realidad",
+    eyebrow: "Cómo es la prueba",
     title: "La evaluación ELP en carretera tiene dos partes",
-    sub: "La mayoría de los conductores nunca ha visto en qué consiste la prueba. Esto es exactamente lo que hace el oficial.",
     interview: {
       title: "1. La entrevista al conductor",
-      body: "El inspector pregunta por el viaje, el vehículo, el duty status (estatus de servicio) y la carga. El conductor tiene que responder en inglés: sin intérprete, sin tarjeta I-Speak y sin app de traducción.",
+      body: "El inspector pregunta por el viaje, el vehículo, el duty status y la carga. El conductor tiene que responder en inglés: sin intérprete, sin tarjeta I-Speak y sin app de traducción.",
     },
     signs: {
       title: "2. Reconocimiento de señales de tránsito",
       body: "El oficial muestra una tabla con señales de tránsito estándar y el conductor tiene que identificar cada una y explicar qué significa, en voz alta y en inglés.",
     },
   },
-  generic: {
-    title: "Por qué una app de inglés genérica no prepara a un conductor",
-    body: "Duolingo y Babbel le enseñan a pedir un café y a preguntar cómo llegar a un lugar. Nada de eso sirve cuando un oficial le pide al conductor que explique sus logs del ELD, que repase sus hours of service (horas de servicio) o que lea un Bill of Lading e identifique las clases de hazmat de la carga.",
-    items: [
-      "Términos del ELD y de hours of service",
-      "Vocabulario del Bill of Lading y los shipping papers",
-      "Preguntas y respuestas de la inspección del DOT",
-      "Clases de hazmat y conversaciones con el despachador y en la báscula (weigh station)",
-    ],
-  },
   features: {
     imageAlt:
-      "La aplicación TruckTalk de práctica de inglés para el CDL: panel de estudio, diccionario y cuestionario",
+      "La aplicación TruckTalk de práctica de inglés para el CDL: panel de estudio, diccionario de vocabulario y cuestionarios",
     eyebrow: "Dentro de TruckTalk",
-    title: "Todo está hecho para el transporte de carga",
-    sub: "No hay ni una sola lección sobre cómo pedir un café. Cada palabra, conversación y cuestionario está hecho para la inspección que el conductor va a enfrentar de verdad.",
+    title: "Cada palabra, cuestionario y escenario es sobre el transporte de carga",
     roleplay: {
       title: "Simulaciones por voz con IA",
       body: "Los conductores hablan en voz alta con un oficial del DOT, un despachador o un shipper interpretados por IA, en más de 50 escenarios y tres niveles de dificultad. Luego reciben una calificación de claridad, vocabulario y cumplimiento de la tarea.",
@@ -98,25 +82,25 @@ export const es: Copy = {
       body: "Toque y recorra una línea de tiempo del ELD en vivo, un Bill of Lading y shipping papers de hazmat para aprender el inglés usándolo de verdad.",
     },
     languages: {
-      title: "Traducción a 11 idiomas",
+      title: "11 idiomas nativos",
       body: "Traduzca cualquier término o lección al español, panyabí, hindi, criollo haitiano, ruso, ucraniano, uzbeko y más.",
     },
   },
   spotlight: {
-    eyebrow: "La función que lo cambia todo",
+    eyebrow: "Practique hablando, no solo leyendo",
     title: "Una conversación de verdad, no una tarjeta para memorizar",
-    body: "El conductor abre un escenario y un oficial del DOT interpretado por IA empieza a hablarle en voz alta. El conductor responde en voz alta, en inglés. La IA contesta según lo que realmente se dijo, luego califica la comprensión auditiva, la claridad, el vocabulario y el cumplimiento de la tarea, e incluso reescribe las respuestas débiles para mostrar una mejor forma de responder. Versión para flotas:",
+    body: "El conductor abre un escenario y un oficial del DOT interpretado por IA empieza a hablarle en voz alta. El conductor responde en voz alta, en inglés. La IA contesta según lo que realmente se dijo, luego califica la comprensión auditiva, la claridad, el vocabulario y el cumplimiento de la tarea, y reescribe las respuestas débiles para mostrar una mejor forma de responder. Versión para flotas:",
     fleetLink: "simulaciones por voz con IA para sus propios escenarios",
     imageAlt:
-      "Simulación por voz con IA de TruckTalk: una inspección del DOT en carretera en la que el oficial pide la licencia, la tarjeta médica (medical card) y el registro del vehículo",
+      "Simulación por voz con IA de TruckTalk: una inspección del DOT en carretera en la que el oficial pide la licencia, la tarjeta médica y el registro del vehículo",
   },
   gallery: {
     vocabulary: {
-      alt: "Diccionario de vocabulario de TruckTalk con términos del CDL, su pronunciación fonética, definiciones y traducción a su lengua materna",
+      alt: "Diccionario de vocabulario de TruckTalk con términos del CDL, pronunciación fonética, definiciones y traducción al idioma nativo",
       caption: "Diccionario del transporte de carga con audio y traducciones",
     },
     conversations: {
-      alt: "Conversaciones de ejemplo de TruckTalk organizadas por tema, como la inspección del DOT, la inspección previa al viaje y el logbook",
+      alt: "Conversaciones de ejemplo de TruckTalk organizadas por tema: inspección del DOT, inspección previa al viaje y logbook",
       caption: "Cientos de conversaciones reales del transporte de carga, por tema",
     },
     quiz: {
@@ -126,23 +110,23 @@ export const es: Copy = {
   },
   steps: {
     eyebrow: "Cómo funciona",
-    title: "En marcha con unos minutos al día",
+    title: "5 a 10 minutos al día",
     language: {
       title: "Elija idioma y nivel",
-      body: "Cada conductor elige su lengua materna y su nivel de inglés: principiante, intermedio o avanzado.",
+      body: "Cada conductor elige su lengua materna y su nivel de inicio: principiante, intermedio o avanzado.",
     },
     practice: {
-      title: "Practique de 5 a 10 minutos al día",
-      body: "Las lecciones cortas caben en un descanso en una parada de camiones o en el sleeper antes del turno. Vocabulario, cuestionarios y simulaciones por voz en vivo.",
+      title: "Practique en cualquier descanso",
+      body: "Las lecciones cortas caben en una parada de camiones o en el sleeper antes del turno.",
     },
     readiness: {
-      title: "Llegue preparado de verdad a la inspección",
-      body: "Un sistema de repetición espaciada vuelve antes a las palabras que más cuestan, registra las rachas y el progreso, y califica cada sesión de simulación.",
+      title: "Siga el progreso",
+      body: "La repetición espaciada trae antes las palabras que más cuestan. Las rachas mantienen a los conductores practicando. Cada sesión de simulación recibe calificación de claridad, vocabulario y cumplimiento de la tarea.",
     },
   },
   timeline: {
-    eyebrow: "El rumbo es claro",
-    title: "La aplicación de la norma solo se endurece",
+    eyebrow: "Fechas clave",
+    title: "Cuándo empezó la aplicación de la norma ELP y qué cambió",
     items: [
       {
         date: "25 jun. 2025",
@@ -176,7 +160,7 @@ export const es: Copy = {
           "Según la norma 49 CFR § 391.11(b)(2), todo titular de un CDL debe poder leer y hablar inglés lo suficientemente bien como para conversar con el público, entender las señales de tránsito en la carretera, responder a preguntas oficiales y hacer anotaciones en reportes y registros. Se evalúa en las inspecciones en carretera, sin intérpretes ni dispositivos de traducción.",
       },
       {
-        question: "¿Qué pasa si un conductor no pasa la prueba de ELP en una inspección del DOT?",
+        question: "¿Qué pasa si un conductor no pasa la prueba de ELP?",
         answer:
           "El conductor queda fuera de servicio de inmediato y el camión se queda estacionado hasta que llegue un reemplazo calificado. La infracción queda en el historial de inspecciones del conductor a través del Pre-Employment Screening Program (PSP) durante tres años, y las empresas de transporte pueden enfrentar sanciones civiles federales.",
       },
@@ -186,19 +170,14 @@ export const es: Copy = {
           "Las apps genéricas enseñan vocabulario cotidiano, como pedir comida. TruckTalk enseña el inglés específico que necesita un conductor con CDL: términos de los logs del ELD, vocabulario del Bill of Lading, preguntas de la inspección del DOT, comunicación con el despachador y el lenguaje de los shipping papers de hazmat. Cada palabra, conversación y cuestionario está hecho para el transporte de carga.",
       },
       {
-        question: "¿De verdad los conductores pueden practicar hablando, y no solo leyendo?",
-        answer:
-          "Sí. La función de simulaciones por voz con IA (AI Voice Roleplay) permite que los conductores tengan conversaciones habladas reales con oficiales del DOT, despachadores y shippers interpretados por IA. Los conductores hablan en voz alta en inglés y reciben una calificación de comprensión auditiva, claridad de la respuesta, vocabulario y cumplimiento de la tarea en más de 50 escenarios.",
-      },
-      {
         question: "¿A qué idiomas traduce TruckTalk?",
         answer:
-          "Dentro de la app, TruckTalk traduce a 11 idiomas: español, panyabí, hindi, criollo haitiano, amárico, somalí, ruso, ucraniano, polaco, francés y uzbeko.",
+          "TruckTalk traduce dentro de la app a 11 idiomas: español, panyabí, hindi, criollo haitiano, amárico, somalí, ruso, ucraniano, polaco, francés y uzbeko.",
       },
       {
-        question: "¿Los gerentes de flota pueden dar seguimiento a varios conductores?",
+        question: "¿Los gerentes de flota pueden dar seguimiento al progreso de los conductores?",
         answer:
-          "Sí. Las flotas reciben un panel de administración que muestra el progreso de cada conductor, sus calificaciones en los cuestionarios y su preparación para el ELP, y guarda registros con fecha y hora que usted puede mostrarle a un auditor. A los conductores se les puede invitar por enlace, correo electrónico o código, y empiezan a aprender en minutos.",
+          "Sí. Las flotas reciben un panel de administración que muestra el progreso de cada conductor, sus calificaciones en los cuestionarios y su preparación para el ELP, con registros con fecha y hora que usted puede mostrarle a un auditor. A los conductores se les puede invitar por enlace, correo electrónico o código, y empiezan a aprender en minutos.",
       },
     ],
   },

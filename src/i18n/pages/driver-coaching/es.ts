@@ -4,19 +4,16 @@ export const es: Copy = {
   seo: {
     title: "Software de coaching de conductores para flotas",
     description:
-      "Envíe al conductor una lección corta con el video de su dashcam tras un evento de seguridad. Asignación automática desde Samsara y Motive, y registro de cada coaching.",
+      "Envíe al conductor una lección con el video de su dashcam tras un evento de seguridad. Asigne desde Samsara o Motive, o a mano. Queda en su expediente.",
   },
   hero: {
-    title: "Coaching para sus conductores el mismo día del evento.",
-    body: "Envíe una lección corta con el video de la dashcam. El conductor la termina en su celular.",
+    title: "Coaching con el video de la dashcam",
+    body: "Después de un evento de seguridad, envíe al conductor una lección corta con su propio video de la dashcam. La termina en su celular.",
     worksWith: "Funciona con Samsara y Motive.",
     motionLabel:
       "En la lista Safety de Raisedash aparece un evento de distancia insuficiente de Mike y una regla le envía una lección; él ve en su celular su propio video de la dashcam y la lección, y el evento pasa a Coached.",
     pauseMotion: "Pausar la animación",
     playMotion: "Reproducir la animación",
-  },
-  twoWays: {
-    heading: "La cámara lo vio. ¿Y después qué?",
   },
   parts: {
     clip: {
@@ -25,8 +22,8 @@ export const es: Copy = {
       points: ["Unos minutos, en su celular.", "Usted ve cuándo terminó y cómo contestó."],
     },
     automatic: {
-      title: "Los eventos de Samsara y Motive asignan la lección por usted",
-      text: "Configure una regla una sola vez, por ejemplo 3 eventos de distancia de seguimiento en 7 días, y nosotros enviamos la lección.",
+      title: "Los eventos de Samsara y Motive asignan el coaching por usted",
+      text: "Configure una regla una sola vez (por ejemplo, 3 eventos de distancia de seguimiento en 7 días) y nosotros enviamos la lección.",
       points: [
         "Se envía de inmediato o espera su aprobación.",
         "Un solo conjunto de reglas para una flota mixta.",
@@ -42,8 +39,8 @@ export const es: Copy = {
     },
   },
   record: {
-    heading: "Prueba de que hubo coaching, cuando más importa",
-    body: "Después de un choque, los abogados piden los eventos de su dashcam. Si hay eventos marcados sin coaching después, parece que usted sabía y no hizo nada.",
+    heading: "Un registro de cada coaching",
+    body: "Después de un choque, los abogados piden los eventos de la dashcam y qué hizo usted al respecto.",
     kept: "Raisedash guarda el evento, la lección y cuándo la terminó el conductor.",
     sourceBefore:
       "El monto promedio de los veredictos en juicios de transporte de carga subió de $2.3M en 2010 a $22.3M en 2018 (",
@@ -52,26 +49,26 @@ export const es: Copy = {
   features: {
     policy: {
       title: "Lecciones basadas en sus políticas",
-      text: "Describa la regla. La IA redacta la lección y usted la aprueba.",
+      text: "Describa la regla. La IA redacta la lección y usted la aprueba antes de que cualquier conductor la vea.",
     },
     rank: {
-      title: "Vea quién lo necesita más",
-      text: "Conductores ordenados según sus eventos por cada 1,000 millas, no por el total de eventos.",
+      title: "Vea quién necesita coaching primero",
+      text: "Conductores ordenados por eventos cada 1,000 millas, no por totales.",
     },
     driverPage: {
-      title: "Junto a la orientación",
+      title: "Coaching junto a la orientación",
       text: "La incorporación (onboarding) y cada coaching en una sola página del conductor.",
     },
   },
   fairness: {
     heading: "Justo con los conductores",
     items: [
-      { title: "Ven el video", text: "No un resumen." },
+      { title: "Ven el video", text: "El video real, no un resumen." },
       {
         title: "Usted descarta las alertas falsas",
         text: "Así el coaching solo se envía cuando corresponde.",
       },
-      { title: "Solo los suyos", text: "Ningún conductor ve los eventos de un compañero." },
+      { title: "Solo sus eventos", text: "Ningún conductor ve los eventos de un compañero." },
     ],
   },
   faq: {
@@ -80,7 +77,7 @@ export const es: Copy = {
       {
         question: "¿Necesito Samsara o Motive?",
         answer:
-          "No. Puede enviar coaching a mano por cualquier motivo. Si conecta Samsara o Motive, se agregan los videos y las reglas automáticas.",
+          "No. Puede enviar coaching a mano por cualquier motivo. Si conecta Samsara o Motive, se agregan los videos de la dashcam y las reglas automáticas.",
       },
       {
         question: "Ya damos coaching en Samsara o Motive. ¿Para qué agregar esto?",
@@ -105,7 +102,7 @@ export const es: Copy = {
       {
         question: "¿Cómo empiezo?",
         answer:
-          "Solicite una demo. Le damos los precios y le ayudamos a enviar su primer coaching.",
+          "Solicite una demo. Le compartimos los precios y le ayudamos a enviar su primer coaching.",
       },
     ],
   },

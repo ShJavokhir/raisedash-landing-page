@@ -5,13 +5,13 @@ const dias = (days: number) => `${days} ${plural("es", days, { one: "día", othe
 
 export const es: Copy = {
   seo: {
-    title: "Inspección previa al viaje (PTI) gratis en Telegram",
+    title: "Inspecciones previas al viaje gratis en Telegram",
     description:
-      "Los conductores hacen la PTI con su lista de revisión y envían fotos o video a su grupo de Telegram. Programe las solicitudes. Empiece gratis; hay un panel de pago para flotas.",
+      "Los conductores siguen la lista de revisión y envían fotos al grupo de Telegram. Empiece gratis, sin app ni registro. El plan de pago agrega PDFs e historial.",
   },
   hero: {
     title: "Inspecciones previas al viaje en Telegram.",
-    body: "Los conductores siguen su lista de revisión. Usted recibe las fotos, los videos y las fallas reportadas en su grupo.",
+    body: "Los conductores siguen su lista de revisión paso a paso y envían fotos, videos y fallas reportadas directamente a su grupo de Telegram.",
     cta: "Agregar @raisedashbot",
     note: "Gratis. No tiene que registrarse ni pagar.",
     motionLabel:
@@ -22,41 +22,26 @@ export const es: Copy = {
   },
   demo: {
     heading: "Vea la demo completa",
-    body: "Vea cómo los conductores envían su PTI en un grupo real de Telegram con @raisedashbot.",
+    body: "Vea cómo un conductor completa una inspección previa al viaje en un grupo real de Telegram con @raisedashbot.",
     youtube: "Ver en YouTube",
     title: "Demo del bot de PTI de Raisedash para Telegram",
   },
   benefits: {
-    heading: "¿Por qué usar el bot?",
+    heading: "Qué hace el bot por su flota",
     noApp: {
-      title: "Sin instalar otra app",
+      title: "Sin app ni cuenta para los conductores",
       description:
-        "Los conductores abren el enlace de inspección desde Telegram, en su navegador. No hay otra app ocupando espacio en el celular.",
-    },
-    noAccounts: {
-      title: "Sin crear cuentas para los conductores",
-      description:
-        "Los conductores no tienen que registrarse, aceptar invitaciones ni recordar contraseñas.",
-    },
-    schedule: {
-      title: "Deje de enviar cada solicitud a mano",
-      description:
-        "Programe un horario y deje que el bot les pida la inspección a los conductores.",
-    },
-    checklist: {
-      title: "Una lista de revisión para el conductor",
-      description:
-        "Cada paso indica qué revisar y qué fotografiar, así el conductor no depende de su memoria.",
+        "Los conductores abren el enlace de inspección desde Telegram en su navegador. No hay otra app, no hay registro, no hay contraseña.",
     },
     problems: {
-      title: "Reporte de fallas antes de salir",
+      title: "Los conductores reportan fallas antes de salir",
       description:
-        "Los conductores pueden marcar llantas gastadas, luces rotas o daños visibles y enviar fotos a la oficina.",
+        "Llantas gastadas, luces rotas o daños visibles: los conductores marcan los problemas y envían fotos a la oficina.",
     },
     record: {
-      title: "Un registro para después",
+      title: "Fotos y fallas en un solo lugar",
       description:
-        "Las fotos, las fallas reportadas y la hora de cada inspección quedan juntas para auditorías o para revisar lo que pasó después de un accidente.",
+        "Cada inspección tiene sus fotos, las fallas reportadas y la hora, todo junto para auditorías o para revisar lo que pasó después de un accidente.",
     },
   },
   faq: {

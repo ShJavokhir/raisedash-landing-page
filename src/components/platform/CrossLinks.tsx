@@ -19,10 +19,10 @@ export function CrossLinks({ currentSlug }: CrossLinksProps) {
     <Container className="py-12 md:px-0">
       <div className="mb-8">
         <p className="text-muted-foreground mb-3 text-xs tracking-wide uppercase">
-          Explore the platform
+          Orientation platform
         </p>
         <h2 className="text-foreground text-2xl font-normal tracking-[-0.02em] sm:text-3xl">
-          One system, from preparation to proof
+          More about the Driver Orientation Platform
         </h2>
       </div>
       <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
@@ -41,7 +41,7 @@ export function CrossLinks({ currentSlug }: CrossLinksProps) {
                   {page.tagline}
                 </p>
                 <span className="text-foreground group-hover:text-foreground/80 mt-auto inline-flex items-center gap-1 text-sm transition-colors">
-                  Learn more
+                  Read more
                   <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
                 </span>
               </div>

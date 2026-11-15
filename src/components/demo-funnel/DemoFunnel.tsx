@@ -301,9 +301,7 @@ export function DemoFunnel() {
           >
             <ArrowLeft className="size-5" />
           </button>
-          <h2 className="text-foreground text-lg font-normal tracking-[-0.02em]">
-            Pick a time that works
-          </h2>
+          <h2 className="text-foreground text-lg font-normal tracking-[-0.02em]">Pick a time</h2>
         </div>
         <CalScheduler
           email={data.email.trim()}
@@ -348,7 +346,7 @@ export function DemoFunnel() {
 
         {step === 2 && (
           <MultiChoiceStep
-            title="What's your biggest headache right now?"
+            title="What's your biggest problem right now?"
             subtitle="Pick everything that applies."
             options={HEADACHE_OPTIONS}
             selected={data.headaches}
@@ -409,8 +407,8 @@ function EmailGate({
       }}
     >
       <StepHeading
-        title="First, what's your work email?"
-        subtitle="Then pick how you'd like to start: a guided demo, or set up your fleet yourself."
+        title="What's your work email?"
+        subtitle="Next you'll choose: a guided demo or set up your fleet yourself."
       />
       <Input
         id={emailId}
@@ -475,7 +473,7 @@ function PathChooser({ email, onBookDemo }: { email: string; onBookDemo: () => v
               Book a demo
             </span>
             <span className="text-muted-foreground mt-1 block text-sm leading-relaxed">
-              Answer a few quick questions and we&apos;ll walk you through the platform within one
+              Answer a few quick questions. We&apos;ll walk you through the platform within one
               business day.
             </span>
           </span>
@@ -838,10 +836,10 @@ function DoneScreen() {
         <Check className="text-primary size-7" />
       </div>
       <h2 className="text-foreground text-2xl font-normal tracking-[-0.02em]">
-        Thanks, we&apos;ll reach out within one business day.
+        We&apos;ll reach out within one business day.
       </h2>
       <p className="text-muted-foreground mx-auto mt-3 max-w-md text-base leading-relaxed">
-        A real person on our team will get back to you to set up your demo of the driver readiness
+        A real person on our team will contact you to set up your demo of the driver orientation
         platform.
       </p>
       <div className="mt-8">
@@ -853,7 +851,7 @@ function DoneScreen() {
           className="text-primary hover:text-primary/80 inline-flex items-center gap-2 text-sm transition-colors"
         >
           <CalendarClock className="size-4" />
-          Or grab a time now
+          Or pick a time now
         </a>
       </div>
     </div>

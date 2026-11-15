@@ -2,16 +2,16 @@ import type { Copy } from "./en";
 
 export const uz: Copy = {
   seo: {
-    title: "Yuk tashish kompaniyangiz ofis jamoasi uchun maosh hisob-kitobi",
+    title: "Yuk tashish ofis jamoasi uchun maosh dasturi",
     description:
-      "Freight Payroll dispetcherlar, safety menejerlar, avtopark menejerlari va buxgalteriya xodimlarining maoshini hisoblaydi. Oyni boshlang, oʻzgarganini tuzating, tasdiqlang va har kim oʻz maosh varaqasini Telegramda oladi.",
+      "Yuk tashish kompaniyangiz ofis jamoasi uchun maosh dasturi. Haydovchilar uchun emas. Maosh varaqalari Telegramga boradi. Bugun demo boshlang.",
   },
   hero: {
     eyebrow: "Freight Payroll",
     title: "Ofis jamoangiz uchun maosh hisob-kitobi.",
     body: "Freight Payroll dispetcherlar, safety menejerlar, avtopark menejerlari va buxgalteriya xodimlarining maoshini hisoblaydi. Oyni boshlang, oʻzgarganini tuzating, tasdiqlang va har kim oʻz maosh varaqasini Telegramda oladi.",
     motionLabel:
-      "Ofis xodimi oktyabr oyi uchun maosh davrini bir bosishda yaratadi va har bir xodimning maoshi oʻz-oʻzidan toʻldiriladi, avans va qarz toʻlovi allaqachon ushlab qolingan. U bitta xodimning ishlagan kunlarini oʻzgartiradi va dispetcherning yuk uchun komissiyasini qoʻshadi. Kompaniya egasi faqat shu oʻzgarishlarni koʻradi va tasdiqlaydi. Dispetcherning maosh varaqasi Telegramga keladi va sakkizala maosh varaqasi ham yetkaziladi.",
+      "Ofis xodimi oktyabr oyi uchun maosh davrini bir bosishda yaratadi va har bir xodimning maoshi toʻldiriladi, avans va qarz toʻlovi allaqachon ushlab qolingan. U bitta xodimning ishlangan kunlarini oʻzgartiradi va dispetcherning yuk uchun komissiyasini qoʻshadi. Kompaniya egasi faqat shu oʻzgarishlarni koʻradi va tasdiqlaydi. Dispetcherning maosh varaqasi Telegramga keladi va sakkizala maosh varaqasi ham yetkaziladi.",
     pauseMotion: "Animatsiyani toʻxtatish",
     playMotion: "Animatsiyani ishga tushirish",
   },
@@ -45,7 +45,7 @@ export const uz: Copy = {
     ],
   },
   closer: {
-    heading: "Yaqinroqdan",
+    heading: "Siz ishlaydigan ekranlar",
     items: [
       {
         title: "Butun oy bitta jadvalda",
@@ -55,7 +55,7 @@ export const uz: Copy = {
       {
         title: "Har kimning maoshi qanday yigʻiladi",
         text: "Istalgan xodimni oching va har bir bandni koʻring: yuklar soni va stavkasi bilan komissiya, biz ushlab qolgan qarz toʻlovi.",
-        alt: "Sarah Lee’ning oktyabr maoshi: $3,600.00 asosiy maosh, 39 × $20.00 yuk komissiyasi, avtomatik qoʻshilgan mashina taʼmiri qarzi uchun $300.00 toʻlov va $4,080.00 sof maosh.",
+        alt: "Sarah Leeʼning oktyabr maoshi: $3,600.00 asosiy maosh, 39 × $20.00 yuk komissiyasi, $300.00 avtomatik ushlab qolingan mashina taʼmiri qarz toʻlovi va $4,080.00 sof maosh.",
       },
       {
         title: "Oʻzgarganini tasdiqlang",
@@ -79,12 +79,12 @@ export const uz: Copy = {
     ],
   },
   faq: {
-    heading: "Savollar",
+    heading: "Freight Payroll haqida savollar",
     items: [
       {
-        question: "Freight Payroll kimlar uchun?",
+        question: "Kimlar uchun?",
         answer:
-          "Ofis jamoasiga maosh toʻlaydigan yuk tashish kompaniyalari uchun: dispetcherlar, safety va avtopark menejerlari, rekruterlar va buxgalteriya. U haydovchilar maoshi uchun moʻljallanmagan.",
+          "Ofis jamoasiga maosh toʻlaydigan yuk tashish kompaniyalari uchun: dispetcherlar, safety va avtopark menejerlari, rekruterlar va buxgalteriya. Haydovchilar maoshi uchun moʻljallanmagan.",
       },
       {
         question: "U pul oʻtkazadimi yoki soliqlar bilan shugʻullanadimi?",

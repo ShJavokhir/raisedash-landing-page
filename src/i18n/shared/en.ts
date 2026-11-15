@@ -25,7 +25,7 @@ export const en = {
     sections: {} as Record<string, string>,
     links: {} as Record<string, string>,
   },
-  demoLink: "Get a risk-free demo",
+  demoLink: "Book a demo",
   /** The "Trusted by" card on tool pages; the figures themselves live in TrustedBy.tsx. */
   trust: {
     label: "Trusted by",

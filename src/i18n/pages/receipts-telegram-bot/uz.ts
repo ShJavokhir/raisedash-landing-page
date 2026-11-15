@@ -2,13 +2,13 @@ import type { Copy } from "./en";
 
 export const uz: Copy = {
   seo: {
-    title: "Haydovchilar cheklarini Telegramda yigʻish",
+    title: "Haydovchi cheklarini Telegramda yigʻish",
     description:
-      "Telegram guruhingizda «receipt» deb yozing, biz chekni yuborish uchun havola joʻnatamiz. Barcha cheklar bitta boshqaruv panelida koʻrinadi, shuning uchun haydovchilarga pulini qaytarish oson. Haydovchilarga ilova kerak emas.",
+      "Yoqilgʻi, lumper, yoʻl toʻlovi va taʼmirlash cheklarini Telegramda yigʻing. Ilova yoʻq, akkaunt yoʻq. Haydovchi havolani bosadi, rasm oladi, summani yozadi.",
   },
   hero: {
     title: "Haydovchilar cheklarini Telegramda yigʻing.",
-    body: "Telegram guruhingizda shunchaki «receipt» soʻzini yozing, biz chekni yuborish uchun havola joʻnatamiz. Har bir chek boshqaruv panelingizda koʻrinadi, shuning uchun kimga qancha pul qaytarish kerakligini bilib turasiz.",
+    body: "Haydovchilar Telegram guruhida «receipt» deb yozing, bot havola bilan javob beradi. Haydovchi havolani bosadi, chekni rasmga oladi va summani dollarda yozadi. Har bir chek bitta boshqaruv panelida koʻrinadi: haydovchi, summa va rasmlar bilan.",
     note: "Guruhlaringizga oʻzimiz sozlab beramiz.",
     motionLabel:
       "Haydovchilar Telegram guruhida ofis Mikedan chekni soʻraydi, Mike uni telefonida suratga olib, 175 dollarlik summani kiritadi va chek ofisning cheklar panelida paydo boʻladi: umumiy summa, kunlik xarajatlar grafigi va eng koʻp xarajat qilgan haydovchilar yangilanadi.",
@@ -27,45 +27,33 @@ export const uz: Copy = {
   },
   steps: {
     ask: {
-      title: "Chekni soʻrang",
+      title: "Guruhga «receipt» deb yozing",
       description:
-        "Telegram guruhingizda soʻrang, masalan: «Mike, could you share your receipt?» Biz havola bilan javob beramiz.",
+        "Bot havola bilan javob beradi. Haydovchi havolani telefonining brauzerida ochadi. Ilova yoʻq, akkaunt yoʻq, parol yoʻq.",
     },
     photo: {
-      title: "Haydovchi rasm yuboradi",
+      title: "Haydovchi chekni rasmga oladi",
       description:
-        "Havola haydovchining telefonida ochiladi. U chekni rasmga oladi va umumiy summani yozadi.",
+        "Rasm oling yoki faylni tanlang, keyin summani yozing. Rasmlar yuklashdan oldin kichraytiriladi, shuning uchun signal kuchsiz boʻlsa ham yuboriladi.",
     },
     dashboard: {
       title: "Barcha cheklar bitta boshqaruv panelida",
       description:
-        "Har bir haydovchining cheklari summasi va rasmlari bilan bitta roʻyxatda turadi. Haydovchilarga pulini qaytarish vaqti kelganda chatlarni titkilab oʻtirmaysiz.",
+        "Har bir chekda haydovchi, summa va fayllar koʻrinadi. Har bir chekning alohida havolasi bor, uni buxgalteriyaga yuborishingiz mumkin.",
     },
   },
   features: {
     heading: "Nimalarga ega boʻlasiz",
-    files: {
-      title: "Rasm, PDF va video",
-      text: "Bitta chek uchun 5 tagacha fayl. Yangi rasmga oling yoki telefondagisini tanlang.",
-    },
-    link: {
-      title: "Har bir chek uchun havola",
-      text: "Havolani ochib, rasmlar va summani koʻrasiz. Uni buxgalteriyaga yuboring yoki keyinchalik uchun saqlab qoʻying.",
-    },
     expenses: {
       title: "Lumper, yoqilgʻi, yoʻl toʻlovlari va boshqalar",
-      text: "Haydovchi yoʻlda oladigan har qanday chek. Scale ticket, parkovka va taʼmirlash cheklari ham xuddi shunday ishlaydi.",
-    },
-    noApp: {
-      title: "Ilova oʻrnatish shart emas",
-      text: "Havola toʻgʻridan-toʻgʻri telefonda ochiladi. Ilova ham, akkaunt ham, parol ham kerak emas.",
+      text: "Haydovchi yoʻlda oladigan har qanday chek: scale ticket, parkovka, taʼmirlash. Hammasi bir xil ishlaydi.",
     },
     fastPhotos: {
-      title: "Rasmlar tez yuboriladi",
-      text: "Rasmlarni yuklashdan oldin kichraytiramiz, shuning uchun ular signal kuchsiz boʻlsa ham tez yuboriladi.",
+      title: "Rasmlar signal kuchsiz boʻlsa ham yuboriladi",
+      text: "Rasmlarni yuklashdan oldin kichraytiramiz, shuning uchun ular sekin internetda ham tez yuboriladi.",
     },
     aiCheck: {
-      title: "Chek AI yordamida yaratilganini tekshirish",
+      title: "AI yordamida chekni tekshirish, tez kunda",
       text: "Har bir chek rasmini tekshiramiz. Agar u AI yordamida yaratilganga oʻxshasa, haydovchiga pulini qaytarishingizdan oldin sizni ogohlantiramiz.",
       badge: "Tez kunda",
     },
@@ -77,20 +65,20 @@ export const uz: Copy = {
     {
       question: "Qanday boshlash mumkin?",
       answer:
-        "Demo soʻrang. Jamoangizga qanday ishlashini koʻrsatamiz va haydovchilar guruhlaringizda sozlashga yordam beramiz.",
+        "Demo soʻrang. Jamoangizga qanday ishlashini koʻrsatamiz va haydovchilar guruhlaringizda sozlab beramiz.",
     },
     {
       question: "Haydovchilarga pulini bot qaytaradimi?",
       answer:
-        "Yoʻq. Haydovchilarga hozirgidek oʻzingiz toʻlaysiz. Biz har bir chekni haydovchi, summa va rasmlar bilan bitta roʻyxatga joylaymiz, shunda kimga qancha toʻlashni bilasiz.",
+        "Yoʻq. Haydovchilarga hozirgidek oʻzingiz toʻlaysiz. Boshqaruv paneli har bir chekni haydovchi, summa va rasmlar bilan bitta roʻyxatda koʻrsatadi, shunda kimga qancha toʻlashni bilasiz.",
     },
     {
       question: "Haydovchi summani xato yozsa-chi?",
       answer:
-        "Boshqaruv panelida summani tuzatishingiz yoki chekni oʻchirishingiz mumkin. Chek havolasida oʻzgarish koʻrinadi.",
+        "Boshqaruv panelida summani tuzatishingiz yoki chekni oʻchirishingiz mumkin. Chek havolasida yangilangan summa koʻrinadi.",
     },
     {
-      question: "Summani rasmdan oʻzi oʻqiydimi?",
+      question: "Summani rasmdan oʻqiydimi?",
       answer:
         "Yoʻq. Umumiy summani haydovchi oʻzi yozadi. Rasmlar chek bilan birga saqlanadi, shuning uchun summani tekshirib koʻrishingiz mumkin.",
     },
@@ -106,6 +94,6 @@ export const uz: Copy = {
   ],
   start: {
     heading: "Cheklarni yigʻishni boshlang",
-    body: "Demo soʻrang. Qanday ishlashini koʻrsatamiz va guruhlaringizga sozlashga yordam beramiz.",
+    body: "Demo soʻrang. Qanday ishlashini koʻrsatamiz va guruhlaringizga sozlab beramiz.",
   },
 };

@@ -195,13 +195,13 @@ export function VideoShowcase() {
         <div className="mb-6 flex items-end justify-between gap-4 sm:mb-8">
           <div className="max-w-2xl">
             <p className="text-muted-foreground mb-3 text-sm font-normal tracking-wide uppercase">
-              AI video studio
+              AI training videos
             </p>
             <h2 className="text-foreground text-3xl font-normal tracking-[-0.02em] sm:text-4xl">
-              Turn any topic into a training video.
+              Describe the topic. Review the finished video.
             </h2>
             <p className="text-muted-foreground mt-3 text-lg">
-              Give Raisedash a topic. Get a video ready to review.
+              Every video below was generated from a short brief. Tap to watch.
             </p>
           </div>
 

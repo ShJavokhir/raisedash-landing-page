@@ -1,13 +1,13 @@
 // English is the source text; every other language is typed against it.
 export const en = {
   seo: {
-    title: "Free Pre-Trip Inspections in Telegram",
+    title: "Free pre-trip inspections in Telegram",
     description:
-      "Drivers follow your checklist and send photos or video to your Telegram group. Schedule inspection requests. Free to start, with a paid fleet dashboard available.",
+      "Drivers follow your checklist and send inspection photos to your Telegram group. Free to start, no app or signup. Paid plan adds PDFs and unlimited history.",
   },
   hero: {
     title: "Pre-trip inspections in Telegram.",
-    body: "Drivers follow your checklist. You get the photos, videos, and reported problems in your group.",
+    body: "Drivers follow your checklist step by step and send photos, videos, and reported problems straight to your Telegram group.",
     cta: "Add @raisedashbot",
     note: "Free. No signup or payment required.",
     motionLabel:
@@ -18,39 +18,26 @@ export const en = {
   },
   demo: {
     heading: "Watch the full demo",
-    body: "See how drivers send their PTI in a real Telegram group with @raisedashbot.",
+    body: "See how a driver completes a pre-trip inspection in a real Telegram group with @raisedashbot.",
     youtube: "Watch on YouTube",
     title: "Raisedash PTI Telegram bot demo",
   },
   benefits: {
-    heading: "Why use the bot?",
+    heading: "What the bot does for your fleet",
     noApp: {
-      title: "No extra app to install",
+      title: "No app or account for drivers",
       description:
-        "Drivers open the inspection link from Telegram in their browser. No extra app taking up phone storage.",
-    },
-    noAccounts: {
-      title: "No driver accounts to set up",
-      description: "No signup, account invitations, or passwords for drivers to remember.",
-    },
-    schedule: {
-      title: "Stop sending every request yourself",
-      description: "Set a schedule and let the bot ask drivers for their inspections.",
-    },
-    checklist: {
-      title: "Give drivers a checklist to follow",
-      description:
-        "Each step shows what to check and photograph, so drivers aren’t relying on memory.",
+        "Drivers open the inspection link from Telegram in their browser. No extra app, no signup, no password.",
     },
     problems: {
-      title: "Report problems before leaving",
+      title: "Drivers report problems before leaving",
       description:
-        "Drivers can flag worn tires, broken lights, or visible damage and send photos to the office.",
+        "Worn tires, broken lights, or visible damage: drivers flag issues and send photos to the office.",
     },
     record: {
-      title: "Keep a record for later",
+      title: "Photos and problems kept together",
       description:
-        "Keep photos, reported problems, and inspection times together for audits or reviews after an accident.",
+        "Every inspection has its photos, reported problems, and timestamp in one place for audits or reviews after an accident.",
     },
   },
   faq: {
@@ -81,10 +68,10 @@ export const en = {
     },
   },
   plans: {
-    heading: "Free and paid",
+    heading: "Free and paid plans",
     free: {
       name: "Free",
-      label: "Free version",
+      label: "Free plan",
       cta: "Start free in Telegram",
       features: [
         "Guided photo and video inspections",
@@ -95,7 +82,7 @@ export const en = {
     },
     paid: {
       name: "Paid",
-      label: "Paid version",
+      label: "Paid plan",
       cta: "Ask about pricing",
       features: [
         "Everything in Free",
@@ -107,7 +94,7 @@ export const en = {
         "Data processing agreement (DPA)",
         "API access",
         "Webhooks",
-        "Using your own storage for maximum privacy",
+        "Use your own storage for maximum privacy",
       ],
     },
     storageNote: (days: number) =>

@@ -44,7 +44,7 @@ export const uz: Copy = {
       "/request-account-deletion": "Akkauntni oʻchirish",
     },
   },
-  demoLink: "Bepul demo soʻrash",
+  demoLink: "Demo soʻrash",
   trust: {
     label: "Bizga ishonishadi",
     companies: "yuk tashish kompaniyasi",

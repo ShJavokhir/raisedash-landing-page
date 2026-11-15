@@ -24,26 +24,26 @@ interface Loop {
 const loops: Loop[] = [
   {
     eyebrow: "Pre-arrival readiness",
-    title: "Start before day one.",
-    body: "Send orientation before drivers arrive, so terminal time stays hands-on.",
+    title: "Orientation starts before drivers arrive.",
+    body: "Send orientation by text so terminal time stays hands-on.",
     href: "/platform/pre-arrival-readiness",
     linkLabel: "Pre-arrival readiness",
     vignette: PipelineVignette,
   },
   {
     eyebrow: "Training records",
-    title: "Keep every record together.",
+    title: "Every driver's training activity in one place.",
     body: "See what each driver completed and when.",
     href: "/platform/training-evidence",
     linkLabel: "Training records",
     vignette: LedgerVignette,
   },
   {
-    eyebrow: "Corrective action in development",
+    eyebrow: "Coaching after a safety event",
     title: "Follow up after a safety issue.",
-    body: "Assign the right training and save the response to the driver record.",
-    href: "/platform/training-evidence",
-    linkLabel: "Corrective action",
+    body: "Assign the right training and save the response to the driver record. Coaching after a safety event is available in Driver Coaching, a separate Raisedash product.",
+    href: "/products/driver-coaching",
+    linkLabel: "Driver Coaching",
     vignette: CorrectiveLoopVignette,
   },
 ];
@@ -79,10 +79,10 @@ export function CoreLoops() {
     <Container className="pt-6 pb-12 md:px-0">
       <div className="mb-8 max-w-2xl">
         <h2 className="text-foreground text-3xl font-normal tracking-[-0.02em] sm:text-4xl">
-          Prepare drivers. Keep the record.
+          Orientation, progress tracking, and training records
         </h2>
         <p className="text-muted-foreground mt-3 text-lg">
-          Start before day one, keep training on track, and see what each driver completed.
+          Send orientation before drivers arrive. See what each driver completed and when.
         </p>
       </div>
 

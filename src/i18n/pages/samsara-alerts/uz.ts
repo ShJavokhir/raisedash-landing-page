@@ -2,10 +2,9 @@ import type { Copy } from "./en";
 
 export const uz: Copy = {
   seo: {
-    title:
-      "Samsara ogohlantirishlari Telegramda: xavfsizlik hodisalari, tezlikni oshirish va dvigatel nosozliklari",
+    title: "Samsara ogohlantirishlari Telegramda",
     description:
-      "Samsara xavfsizlik hodisalari, tezlikni oshirish va dvigatel nosozliklari dashcam videosi bilan Telegram guruhingizga keladi. Kengaytirilgan haftalik hisobotlar ham bor. 3 kun bepul.",
+      "Samsara xavfsizlik hodisalari, tezlik va nosozliklar dashcam videosi bilan Telegram guruhingizga keladi. Haftalik hisobotlar har juma. 3 kun bepul.",
   },
   hero: {
     eyebrow: "Samsara → Telegram",
@@ -22,7 +21,7 @@ export const uz: Copy = {
     altDesktop:
       "Har bir hodisa turi uchun alohida mavzu ochilgan Telegram guruhi: nosozlik kodlari, oldingi mashinagacha masofa, toʻsilgan kamera, telefondan foydalanish, tezlikni oshirish, xavfsizlik kamari taqilmagan, keskin burilish, mudrash va boshqalar. Yonida dashcam videolari biriktirilgan ogohlantirishlar.",
     caption:
-      "Har bir hodisa turi alohida mavzuga tushadi, har bir ogohlantirishda truck raqami boʻladi. Shuning uchun bitta truckni qidirsangiz, u bilan boʻlgan hamma narsa chiqadi.",
+      "Har bir hodisa turi alohida mavzuga tushadi. Har bir ogohlantirishda truck raqami boʻladi, shuning uchun bitta truckni qidirsangiz, u bilan boʻlgan hamma narsa chiqadi.",
     redacted:
       "Bu xizmatdan foydalanayotgan kompaniyaning haqiqiy skrinshotlari. Ismlar, davlat raqamlari va manzillar faqat shu sahifa uchun xiralashtirilgan, guruhingizda esa xiralashtirilmaydi.",
   },
@@ -31,7 +30,7 @@ export const uz: Copy = {
     items: [
       {
         title: "Samsara boshqaruv paneli",
-        body: "Kimdir tizimga kirib, uni yangilab turishi kerak. Band haftada minglab hodisa boʻladi, kuzatishini istagan har bir xodimingizga esa alohida akkaunt (seat) kerak.",
+        body: "Kimdir tizimga kirib, uni yangilab turishi kerak. Band haftada minglab hodisa boʻladi, kuzatishini istagan har bir xodimingizga esa alohida Samsara akkaunti (seat) kerak.",
       },
       {
         title: "Email orqali ogohlantirishlar",
@@ -39,7 +38,7 @@ export const uz: Copy = {
       },
       {
         title: "Sizda allaqachon bor guruh chati",
-        body: "Kompaniyadagi har bir telefonda ochiq turadi. Video xabarning ichida, hamma bir vaqtda bir xil narsani koʻradi.",
+        body: "Har bir telefonda allaqachon ochiq. Dashcam videosi xabarning ichida ochiladi. Hamma bir vaqtda bir xil narsani koʻradi.",
       },
     ],
   },
@@ -98,9 +97,9 @@ export const uz: Copy = {
     trial: "3 kun bepul sinab koʻring",
     trialNote: "Foydasi tegsagina toʻlaysiz.",
     features: [
-      "Yuqoridagi hamma narsa butun guruh uchun",
-      "Kengaytirilgan haftalik hisobotlar",
-      "Haydovchilar uchun alohida guruhlar bilan ham ishlaydi",
+      "Barcha hodisalar, tezlik va nosozliklar butun guruh uchun",
+      "Haftalik xavfsizlik, haydovchi va yoqilgʻi hisobotlari har juma mahkamlanadi",
+      "Tanlangan hodisalar haydovchining oʻz guruhiga, alohida chegara bilan yuboriladi",
       "Sozlash ~15 daqiqa oladi, uni siz bilan birga qilamiz",
     ],
   },
@@ -131,7 +130,7 @@ export const uz: Copy = {
         "Ha. Oʻzingiz tanlagan hodisalarni haydovchining oʻz guruh chatiga, asosiy guruhdan alohida chegara bilan yuborish mumkin. Shunda haydovchi limitdan 15 ortiq yurganini bilib oladi, butun ofis esa limitdan 3 ortiq har bir holatni kuzatib oʻtirmaydi.",
     },
     {
-      question: "Truckda kamera boʻlmasa yoki video yuklanmasa-chi?",
+      question: "Truckda kamera boʻlmasa yoki video yuklanmasa nima boʻladi?",
       answer:
         "Ogohlantirish baribir matn koʻrinishida keladi: haydovchi, truck, vaqt va xarita havolasi bilan. Video shunchaki bonus, u hech qachon shart emas.",
     },

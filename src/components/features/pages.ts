@@ -14,28 +14,29 @@ export const FEATURE_PAGES: FeaturePage[] = [
     slug: "ai-training-video-generator",
     path: "/features/ai-training-video-generator",
     label: "AI training video generator",
-    tagline: "Describe a topic and get a finished, narrated training video.",
+    tagline: "Describe a topic and get a narrated training video with script and visuals.",
     icon: Clapperboard,
   },
   {
     slug: "ai-training-program-builder",
     path: "/features/ai-training-program-builder",
     label: "AI training program builder",
-    tagline: "A brief becomes a full training program you review and approve.",
+    tagline: "Write a brief and get a full program with modules, lessons, and quizzes to review.",
     icon: LayoutList,
   },
   {
     slug: "ai-voice-roleplay-training",
     path: "/features/ai-voice-roleplay-training",
     label: "AI voice roleplay",
-    tagline: "Drivers practice real conversations out loud and get scored.",
+    tagline: "Drivers talk out loud with an AI inspector, dispatcher, or shipper and get scored.",
     icon: Mic,
   },
   {
     slug: "interactive-training-simulations",
     path: "/features/interactive-training-simulations",
     label: "Interactive simulations",
-    tagline: "Tap-through practice replicas of the apps drivers must use.",
+    tagline:
+      "Drivers tap through a practice copy of software like an ELD in their phone’s browser.",
     icon: TabletSmartphone,
   },
 ];

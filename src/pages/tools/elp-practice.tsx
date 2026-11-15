@@ -189,7 +189,7 @@ export default function ElpPractice() {
 
       {/* Stats */}
       <Container className="pb-12">
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
           {t.stats.items.map((stat) => (
             <div key={stat.label} className="bg-card border-border rounded-xs border p-6">
               <div className="text-foreground text-2xl font-normal tracking-[-0.02em] sm:text-3xl">
@@ -221,11 +221,7 @@ export default function ElpPractice() {
 
       {/* What the assessment looks like */}
       <Container className="pb-12">
-        <SectionHeading
-          eyebrow={t.assessment.eyebrow}
-          title={t.assessment.title}
-          sub={t.assessment.sub}
-        />
+        <SectionHeading eyebrow={t.assessment.eyebrow} title={t.assessment.title} />
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           {ASSESSMENT.map((part) => {
             const Icon = part.icon;
@@ -244,36 +240,10 @@ export default function ElpPractice() {
         </div>
       </Container>
 
-      {/* Why generic apps fail */}
-      <Container className="pb-12">
-        <div className="bg-card border-border rounded-xs border p-6 sm:p-10">
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
-            <div>
-              <h2 className="text-foreground text-2xl font-normal tracking-[-0.02em] sm:text-3xl">
-                {t.generic.title}
-              </h2>
-              <p className="text-muted-foreground mt-4 leading-relaxed">{t.generic.body}</p>
-            </div>
-            <div className="flex flex-col justify-center gap-3">
-              {t.generic.items.map((item) => (
-                <div key={item} className="flex items-start gap-3">
-                  <Check className="text-accent mt-0.5 h-5 w-5 flex-shrink-0" />
-                  <span className="text-foreground">{item}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </Container>
-
       {/* Inside TruckTalk — features */}
       <div id="inside" className="scroll-mt-8">
         <Container className="pb-12">
-          <SectionHeading
-            eyebrow={t.features.eyebrow}
-            title={t.features.title}
-            sub={t.features.sub}
-          />
+          <SectionHeading eyebrow={t.features.eyebrow} title={t.features.title} />
           <div className="border-border mb-4 overflow-hidden rounded-xs border">
             <Image
               src={COVER_IMAGE}

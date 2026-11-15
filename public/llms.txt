@@ -31,7 +31,7 @@ Company: Raisedash is independent and bootstrapped. Support: support@raisedash.c
 
 ## Driver Orientation Platform
 
-- [Driver Orientation Platform](https://www.raisedash.com/products/orientation): Web platform for getting new drivers ready before day one and keeping their training records. Fleets invite drivers by SMS or email; drivers open orientation in their phone's browser with a one-time code (no app, no password). Includes video, reading and quiz lessons, automatic reminders, progress tracking per program and per driver, a downloadable PDF training report, and completion certificates with QR verification. Corrective-action training after a safety issue is shown as in development.
+- [Driver Orientation Platform](https://www.raisedash.com/products/orientation): Web platform for getting new drivers ready before day one and keeping their training records. Fleets invite drivers by SMS or email; drivers open orientation in their phone's browser with a one-time code (no app, no password). Includes video, reading and quiz lessons, automatic reminders, progress tracking per program and per driver, a downloadable PDF training report, and completion certificates with QR verification. Coaching after a safety event is handled by [Driver Coaching](https://www.raisedash.com/products/driver-coaching), a separate product.
 - [Pre-arrival readiness](https://www.raisedash.com/platform/pre-arrival-readiness): Send orientation before drivers arrive and see who has not started, is in progress or is done, so terminal time goes to hands-on work.
 - [Training records](https://www.raisedash.com/platform/training-evidence): Each driver's online training activity, quiz results and certificates in one place, with a PDF report. Policy e-signatures and road-test records are not part of this report (signed documents live in Driver Paperwork).
 - [Driver experience](https://www.raisedash.com/platform/driver-experience): What the driver sees: a text or email invite, a one-time code, and orientation in the phone browser.
@@ -47,7 +47,7 @@ Company: Raisedash is independent and bootstrapped. Support: support@raisedash.c
 
 ## Get started
 
-- [Get a demo](https://www.raisedash.com/get-a-demo): Talk to Raisedash on Telegram, by email, by booking a call, or by leaving your details. This is how most tools are set up and priced.
+- [Get a demo](https://www.raisedash.com/get-a-demo): The Raisedash team shows how the tool works, shares pricing and helps set it up. Reach them on Telegram, by email, by booking a call, or by leaving your details.
 - [Contact](https://www.raisedash.com/contact): Sales, support and partnership contacts.
 - [Book an orientation platform demo](https://www.raisedash.com/demo): Book a demo of the Driver Orientation Platform or create an account and set up a fleet.
 - [About](https://www.raisedash.com/about): Who Raisedash is and how it builds its tools.

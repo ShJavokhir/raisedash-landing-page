@@ -3,7 +3,6 @@ import { ChevronDown } from "lucide-react";
 import { Container } from "@/components/layout/Container";
 import { PageLayout } from "@/components/layout/PageLayout";
 import { TrustedBy } from "@/components/layout/TrustedBy";
-import { StepList } from "@/components/platform/StepList";
 import {
   BreadcrumbJsonLd,
   FAQPageJsonLd,
@@ -11,7 +10,7 @@ import {
   type FAQItem,
 } from "@/components/seo/SEO";
 import { GraphiteCard, GraphitePlate, type PlateCrop } from "@/components/receipts/figures";
-import { GroupPickerFigure, MessageFigure, TwoWays } from "@/components/announcements/figures";
+import { GroupPickerFigure, MessageFigure } from "@/components/announcements/figures";
 import { ProductMotion } from "@/components/motion/ProductMotion";
 import { useCopy } from "@/components/i18n/LocaleProvider";
 import { announcementsCopy } from "@/i18n/pages/driver-announcements";
@@ -161,18 +160,6 @@ export default function DriverAnnouncementsPage() {
       </Container>
 
       <Container className="pb-12 sm:pb-16">
-        <section aria-labelledby="da-two-ways-heading">
-          <h2
-            id="da-two-ways-heading"
-            className="text-foreground mb-6 text-2xl font-normal tracking-tight"
-          >
-            {t.twoWays.heading}
-          </h2>
-          <TwoWays />
-        </section>
-      </Container>
-
-      <Container className="pb-12 sm:pb-16">
         <section aria-labelledby="da-how-heading">
           <h2
             id="da-how-heading"
@@ -180,15 +167,12 @@ export default function DriverAnnouncementsPage() {
           >
             {t.how.heading}
           </h2>
-          <div className="grid items-center gap-8 lg:grid-cols-12 lg:gap-12">
-            <StepList steps={t.how.steps} className="lg:col-span-5" />
-            <GraphitePlate
-              crop={{ pos: "20% 70%", flip: true }}
-              className="grid place-items-center px-4 py-8 sm:p-10 lg:col-span-7"
-            >
-              <GroupPickerFigure />
-            </GraphitePlate>
-          </div>
+          <GraphitePlate
+            crop={{ pos: "20% 70%", flip: true }}
+            className="grid place-items-center px-4 py-8 sm:p-10"
+          >
+            <GroupPickerFigure />
+          </GraphitePlate>
         </section>
       </Container>
 

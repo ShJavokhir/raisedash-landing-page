@@ -1,79 +1,40 @@
 import Link from "next/link";
-import {
-  ArrowRight,
-  Check,
-  ClipboardCheck,
-  FileDown,
-  ListChecks,
-  MessageSquareText,
-  Smartphone,
-  Truck,
-  UserCheck,
-} from "lucide-react";
+import { ArrowRight, Check, ClipboardCheck, Smartphone, Truck, UserCheck } from "lucide-react";
 import { PageLayout } from "@/components/layout/PageLayout";
 import {
   BrowserFrame,
   CrossLinks,
   FaqSection,
-  FeatureGrid,
   PlatformCTA,
   PlatformHero,
   PlatformSection,
   type PlatformFaq,
-  type PlatformFeature,
 } from "@/components/platform";
-
-const OUTCOMES: PlatformFeature[] = [
-  {
-    title: "Less manual follow-up",
-    description: "See who needs help instead of calling every incoming driver for an update.",
-    icon: MessageSquareText,
-  },
-  {
-    title: "A clearer arrival-day plan",
-    description:
-      "Know what is complete before the class starts and plan the day around what remains.",
-    icon: ListChecks,
-  },
-  {
-    title: "A simpler start for drivers",
-    description:
-      "Give each driver one direct invitation that opens in the phone browser they already use.",
-    icon: Smartphone,
-  },
-  {
-    title: "A record that stays together",
-    description:
-      "Keep assignments, completion details, quiz results, activity, and certificates under the driver.",
-    icon: FileDown,
-  },
-];
 
 const FAQS: PlatformFaq[] = [
   {
     question: "What is truck driver onboarding software?",
     answer:
-      "Truck driver onboarding software helps a carrier prepare approved new hires for work with that fleet. It can deliver company orientation, track assigned training, show progress, review results, and keep the resulting training record together.",
+      "Software that prepares approved new hires for work at your fleet. It delivers company orientation online, tracks assigned training, shows progress, and keeps the training record together.",
   },
   {
     question: "Where does Raisedash fit in the onboarding process?",
     answer:
-      "Raisedash begins after your fleet approves the hire. It handles the repeatable online part before arrival: invitations, videos, readings, quizzes, progress tracking, and the training record created in Raisedash.",
+      "After your fleet approves the hire. Raisedash handles the repeatable online part before arrival: invitations, videos, readings, quizzes, progress tracking, and the training record created in Raisedash.",
   },
   {
     question: "Does Raisedash replace an ATS or DQF system?",
     answer:
-      "No. Your recruiting or applicant tracking system manages candidates, and your DQF process manages qualification records. Raisedash prepares approved hires for your fleet's orientation and keeps their online training activity together.",
+      "No. Your recruiting or applicant tracking system manages candidates. Your DQF process manages qualification records. Raisedash prepares approved hires for your fleet's orientation and keeps their online training activity together.",
   },
   {
     question: "Does online onboarding replace in-person orientation?",
-    answer:
-      "No. Online onboarding is for repeatable material that works well as video, reading, and quizzes. Your fleet still handles road tests, equipment checks, qualification decisions, and other hands-on work in person.",
+    answer: "No. Hands-on work still happens in person at the terminal.",
   },
   {
     question: "Do drivers need an app or a password?",
     answer:
-      "No. Drivers open an SMS or email invitation in a phone browser and use a one-time access code. There is no app-store download or reusable password to remember.",
+      "No. Drivers open an SMS or email invitation in a phone browser and use a one-time access code. There is no app download or reusable password.",
   },
   {
     question: "Is Raisedash an ELDT provider?",
@@ -171,8 +132,8 @@ function OnboardingScopeVignette() {
 export default function DriverOnboardingSolution() {
   return (
     <PageLayout
-      title="Truck Driver Onboarding Software for Modern Fleets"
-      description="Prepare approved drivers before they arrive, give your safety team a clear view of progress, and keep each driver's online training record together."
+      title="Truck driver onboarding software"
+      description="Online orientation for approved hires before they arrive. Progress tracking, quiz results, and a training record per driver. No app for drivers."
       keywords={[
         "truck driver onboarding software",
         "driver onboarding software for trucking",
@@ -184,8 +145,8 @@ export default function DriverOnboardingSolution() {
       <PlatformHero
         eyebrow="Driver onboarding software"
         eyebrowIcon={ClipboardCheck}
-        title="Truck driver onboarding, without the day-one scramble."
-        subhead="Raisedash handles the repeatable online work after a hire is approved. Drivers prepare before they arrive, your team sees what is complete, and terminal time stays focused on hands-on work."
+        title="Truck driver onboarding software"
+        subhead="Raisedash delivers your fleet's orientation online after a hire is approved. Drivers prepare on their phone before they arrive. Your team sees who finished and what's left for terminal day."
         vignette={<OnboardingScopeVignette />}
         howItWorksHref="#where-it-fits"
       />
@@ -193,28 +154,27 @@ export default function DriverOnboardingSolution() {
       <PlatformSection
         id="where-it-fits"
         eyebrow="Where Raisedash fits"
-        title="Raisedash starts after the hiring decision"
-        lede="Recruiting systems help you hire. Qualification systems hold driver documents. Raisedash prepares the approved driver for your fleet's orientation."
+        title="After the hire, before the terminal"
       >
         <div className="grid grid-cols-1 gap-5 lg:grid-cols-3">
           {[
             {
               step: "Before Raisedash",
-              title: "Recruit and qualify",
-              body: "Your ATS, DQF process, and safety team handle applications, qualification documents, and the decision to hire.",
+              title: "Your ATS and DQF",
+              body: "Your recruiting system and safety team handle applications, qualification documents, and the decision to hire.",
               icon: UserCheck,
             },
             {
               step: "Raisedash today",
-              title: "Prepare before arrival",
-              body: "Send company orientation by SMS or email, follow progress, review results, and keep the online training record together.",
+              title: "Online orientation",
+              body: "Send company orientation by SMS or email. Follow progress, review quiz results, and keep the training record per driver.",
               icon: Smartphone,
               active: true,
             },
             {
               step: "At the terminal",
-              title: "Finish the hands-on work",
-              body: "Your fleet completes road tests, equipment checks, qualification decisions, and the work that must happen face to face.",
+              title: "Your fleet",
+              body: "Road tests, equipment checks, qualification decisions, and other work that must happen face to face.",
               icon: Truck,
             },
           ].map((item) => {
@@ -250,25 +210,13 @@ export default function DriverOnboardingSolution() {
         </div>
       </PlatformSection>
 
-      <PlatformSection
-        eyebrow="Why fleets use it"
-        title="A better handoff from hiring to orientation day"
-        lede="The goal is not to put every part of onboarding online. It is to move the repeatable work earlier and give everyone a clearer next step."
-      >
-        <FeatureGrid features={OUTCOMES} columns={4} accent="blue" />
-      </PlatformSection>
-
-      <PlatformSection
-        eyebrow="What to look for"
-        title="A useful product demo should answer four simple questions"
-        lede="Skip the long feature checklist. Test the moments that create work for drivers and safety teams."
-      >
+      <PlatformSection eyebrow="What to look for" title="Four questions for any onboarding demo">
         <div className="border-border bg-card overflow-hidden rounded-xs border">
           {[
             "Can a driver open the invitation on a normal phone without downloading an app?",
             "Can your team quickly see who has not started, who is working, and who is complete?",
-            "Can a manager review the driver's quiz activity and results without searching across tools?",
-            "Can you download the training information available for one driver when you need a copy?",
+            "Can a manager review a driver's quiz results and activity without searching across tools?",
+            "Can you download the training record for one driver when you need a copy?",
           ].map((question, index) => (
             <div
               key={question}
@@ -300,8 +248,8 @@ export default function DriverOnboardingSolution() {
       <FaqSection faqs={FAQS} title="Driver onboarding questions" />
 
       <PlatformCTA
-        title="Bring one real onboarding workflow."
-        subtitle="See the invitation a driver receives, the progress your team can follow, and the training report available at the end."
+        title="Bring one real onboarding program."
+        subtitle="See the invitation a driver gets, the progress your team follows, and the training record at the end."
         footnote="Raisedash supports online orientation and training records. Your fleet remains responsible for qualification, required training, and hands-on work."
       />
     </PageLayout>

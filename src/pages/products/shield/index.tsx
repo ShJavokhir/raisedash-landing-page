@@ -96,7 +96,7 @@ export default function Shield() {
       />
       <SoftwareApplicationJsonLd
         name="Raisedash Shield"
-        description="Free Chrome extension for trucking and freight offices. Warns your whole team about the phishing pages and fake rate confirmations behind cargo and identity theft."
+        description="Free Chrome extension for your whole trucking or freight office. Warns about phishing pages and fake rate confirmations behind cargo and identity theft."
         operatingSystem={["Chrome"]}
         applicationCategory="SecurityApplication"
         offers={[{ price: "0" }]}

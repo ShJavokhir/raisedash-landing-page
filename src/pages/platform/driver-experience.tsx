@@ -1,97 +1,39 @@
-import {
-  BadgeInfo,
-  KeyRound,
-  Languages,
-  MailX,
-  MessageSquare,
-  PlayCircle,
-  Smartphone,
-  Timer,
-  Truck,
-} from "lucide-react";
+import { BadgeInfo, PlayCircle, Smartphone } from "lucide-react";
 import { cn } from "@/lib/cn";
 import { useVignetteLoop } from "@/hooks/useVignetteLoop";
 import { PageLayout } from "@/components/layout/PageLayout";
 import {
   CrossLinks,
   FaqSection,
-  FeatureGrid,
   PhoneFrame,
   PlatformCTA,
   PlatformHero,
   PlatformSection,
   StepList,
   type PlatformFaq,
-  type PlatformFeature,
   type PlatformStep,
 } from "@/components/platform";
 
-const FEATURES: PlatformFeature[] = [
-  {
-    title: "A direct invitation",
-    description: "The driver gets a clear link to the orientation assigned by your fleet.",
-    icon: MessageSquare,
-  },
-  {
-    title: "A simple sign-in",
-    description: "A one-time code replaces another password to create, remember, or reset.",
-    icon: KeyRound,
-  },
-  {
-    title: "Nothing to install",
-    description:
-      "It runs in the phone's browser. There's no app to download, no update to install, and no storage to free up.",
-    icon: Smartphone,
-  },
-  {
-    title: "Built around the phone",
-    description: "Pages, lessons, and questions are designed for the screen drivers already use.",
-    icon: MailX,
-  },
-  {
-    title: "Everything in one place",
-    description:
-      "Drivers can move through video, reading, and quiz lessons in the same experience.",
-    icon: Timer,
-  },
-  {
-    title: "A clear next step",
-    description: "Drivers can see what was assigned, what is complete, and what comes next.",
-    icon: Languages,
-  },
-  {
-    title: "Progress that saves",
-    description: "Completed work stays recorded when a driver leaves and returns later.",
-    icon: BadgeInfo,
-  },
-  {
-    title: "Progress your team can see",
-    description:
-      "The safety team can see whether the driver's assignment has started, is moving, or is done.",
-    icon: Truck,
-  },
-];
-
 const STEPS: PlatformStep[] = [
   {
-    title: "Receive a clear invitation",
+    title: "Driver gets an SMS or email link",
     description:
-      "The driver gets an SMS or email from your fleet with a direct link to the assigned training.",
+      "Your fleet sends the driver a text or email with a direct link to the assigned orientation.",
   },
   {
-    title: "Get in without setup trouble",
+    title: "Sign in with a one-time code",
     description:
-      "The link opens in the phone browser. A one-time code confirms the driver's identity without a saved password.",
+      "The link opens in the phone browser. A one-time code confirms the driver's identity. No password to create or remember.",
   },
   {
-    title: "Know what to do next",
+    title: "Work through assigned lessons",
     description:
-      "A simple assignment list guides the driver through videos, readings, and quizzes in order.",
+      "A simple list shows videos, readings, and quizzes in order. The driver sees what is done and what comes next.",
   },
   {
-    title: "Stop and return when needed",
+    title: "Stop and come back without losing work",
     description:
-      "Completed work stays recorded, so the driver can return without starting the whole assignment again.",
+      "Finished lessons stay recorded. The driver can close the browser and pick up where they left off.",
   },
 ];
 
@@ -108,7 +50,7 @@ const FAQS: PlatformFaq[] = [
   },
   {
     question: "What can drivers complete on a phone?",
-    answer: "Drivers can complete video, reading, and quiz lessons in the mobile browser.",
+    answer: "Video, reading, and quiz lessons, all in the mobile browser.",
   },
   {
     question: "Does Raisedash replace hands-on training?",
@@ -116,9 +58,9 @@ const FAQS: PlatformFaq[] = [
       "No. Raisedash handles online lessons and quizzes. Your fleet still runs road tests, equipment checks, and other hands-on work through its normal process.",
   },
   {
-    question: "What happens when a driver leaves and comes back?",
+    question: "What happens when a driver closes the browser and comes back?",
     answer:
-      "Completed work stays recorded, so the driver can return to the assignment without starting the whole training again.",
+      "Finished lessons stay recorded. The driver picks up where they left off without restarting.",
   },
 ];
 
@@ -229,8 +171,8 @@ function DriverPhoneVignette() {
 export default function DriverExperience() {
   return (
     <PageLayout
-      title="Mobile Driver Training for Trucking Fleets"
-      description="Give drivers a clear, phone-friendly path through orientation without an app download or another password to remember."
+      title="Driver orientation on the phone"
+      description="Drivers open orientation from an SMS or email, sign in with a one-time code, and finish video, reading, and quiz lessons in the phone's browser. No password."
       keywords={[
         "mobile driver training experience",
         "SMS driver onboarding",
@@ -242,27 +184,21 @@ export default function DriverExperience() {
       <PlatformHero
         eyebrow="The driver experience"
         eyebrowIcon={Smartphone}
-        title="Training should be easy to start and easy to finish."
-        subhead="Raisedash gives drivers a clear path from the first invite to completed orientation, built around the phone they already use so getting into training does not become another task."
+        title="Driver orientation on the phone, no app and no password"
+        subhead="Drivers get an SMS or email link, sign in with a one-time code, and work through video, reading, and quiz lessons in the phone's browser."
         vignette={<DriverPhoneVignette />}
       />
 
       {/* Problem */}
       <PlatformSection
         eyebrow="The problem"
-        title="Every extra step gives a driver another reason to stop"
+        title="Every extra step gives a driver a reason to stop"
       >
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-5">
           <div className="border-border bg-card rounded-xs border p-6 sm:p-8 lg:col-span-3">
             <p className="text-muted-foreground text-lg leading-relaxed font-normal">
-              Drivers are not desk workers. When training expects a desktop, another password, or an
-              app download, a simple assignment can quickly turn into a support call or another
-              incomplete task.
-            </p>
-            <p className="text-muted-foreground mt-4 text-lg leading-relaxed font-normal">
-              Raisedash keeps the path clear from the first message to the final lesson. Drivers
-              spend their time on the orientation itself, while your team spends less time helping
-              people get into it.
+              Drivers are not at a desk. When orientation needs a desktop, a new password, or an app
+              download, a simple assignment turns into a support call or sits incomplete.
             </p>
           </div>
           <div className="border-border bg-surface-2 rounded-xs border p-6 sm:p-8 lg:col-span-2">
@@ -271,7 +207,7 @@ export default function DriverExperience() {
             </p>
             <ul className="space-y-3">
               {[
-                "Passwords to create, forget, and reset",
+                "A password to create, forget, and reset",
                 "An email-only invitation",
                 "An app to find, download, and update",
                 "A desktop-only training page",
@@ -293,18 +229,9 @@ export default function DriverExperience() {
       <PlatformSection
         id="how-it-works"
         eyebrow="How it works"
-        title="A clear path from invite to completion"
-        lede="Each step is designed to answer the driver's next question without adding more work for your office."
+        title="From invite to finished, four steps"
       >
         <StepList steps={STEPS} />
-      </PlatformSection>
-
-      {/* Feature grid */}
-      <PlatformSection
-        eyebrow="Built for the driver"
-        title="Less friction for the driver. Less chasing for your team."
-      >
-        <FeatureGrid features={FEATURES} columns={4} accent="violet" />
       </PlatformSection>
 
       {/* FAQ */}
@@ -315,9 +242,8 @@ export default function DriverExperience() {
 
       {/* CTA */}
       <PlatformCTA
-        title="See orientation from the driver's side."
+        title="See orientation from the driver's side"
         subtitle="Book a demo and follow the same path a new driver would take."
-        footnote="Raisedash runs in a mobile browser. No app download is required."
       />
     </PageLayout>
   );

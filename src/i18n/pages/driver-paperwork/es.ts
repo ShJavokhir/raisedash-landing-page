@@ -2,53 +2,46 @@ import type { Copy } from "./en";
 
 export const es: Copy = {
   seo: {
-    title: "Solicitudes de empleo y firmas para conductores",
+    title: "Solicitudes de empleo y firma electrónica",
     description:
-      "Envíe solicitudes de empleo y políticas para firma electrónica, y pida archivos como el CDL o la tarjeta médica. El conductor lo completa en el celular y usted descarga el PDF.",
+      "Envíe solicitudes de empleo, políticas para firma electrónica y solicitudes de archivos. El conductor lo completa en el celular. Usted descarga el PDF.",
   },
   hero: {
     eyebrow: "Papeleo de conductores",
     title: "El papeleo de los conductores, resuelto desde el celular.",
-    body: "Envíe una solicitud de empleo o una política para firmar, o pida una foto del CDL. El conductor lo completa en su celular. Usted recibe un PDF ordenado.",
+    body: "Envíe una solicitud de empleo, una política para firmar o pida una foto del CDL. El conductor recibe un mensaje de texto y un correo electrónico, abre el enlace y lo completa en su celular con un código de 6 dígitos. Sin app, sin contraseña. Usted descarga un PDF ordenado.",
     note: "Lo guiamos paso a paso y le ayudamos a enviar su primera solicitud.",
     motionLabel:
-      "Alguien de la oficina pide una solicitud de empleo, el conductor recibe un mensaje de texto, completa cada paso en su celular y la firma escribiendo su nombre, y cada respuesta llega a un PDF ordenado mientras su fila en Applications cambia a Submitted.",
+      "Alguien de la oficina pide una solicitud de empleo, el conductor recibe un mensaje de texto, completa cada paso en su celular y firma escribiendo su nombre, y cada respuesta llega a un PDF ordenado mientras su fila en Applications cambia a Submitted.",
     pauseMotion: "Pausar la animación",
     playMotion: "Reproducir la animación",
   },
-  twoWays: {
-    heading: "Un enlace en lugar de una pila de papeles",
-    body: "Cada conductor nuevo llega con un montón de papeleo. La mayor parte todavía va y viene por impresora, fax y mensaje de texto.",
-  },
   parts: {
     heading: "Tres tipos de papeleo, un solo lugar",
-    body: "Use uno o los tres. Todos funcionan igual: usted lo envía, el conductor lo completa en su celular y usted descarga el resultado.",
     applications: {
       label: "Solicitudes de empleo",
       title: "La solicitud de empleo completa, en el celular",
-      text: "Envíe la solicitud de empleo con un clic. El conductor la llena paso a paso: historial de domicilios, licencias, experiencia, accidentes, infracciones de tránsito e historial laboral. Al final, la firma.",
+      text: "Envíe la solicitud de empleo con un clic. El conductor la llena paso a paso: 3 años de domicilios, licencias, experiencia, el equipo que ha manejado, accidentes, infracciones de tránsito e historial laboral. Al final, la firma.",
       points: [
-        "Se guarda después de cada paso, así que el conductor puede dejarla y terminarla más tarde.",
-        "Los números de Seguro Social y las fechas de nacimiento se guardan cifrados.",
+        "Se guarda después de cada paso. El conductor puede dejarla y terminarla más tarde.",
         "Usted descarga un solo PDF ordenado con todas las respuestas y la firma.",
       ],
     },
     documents: {
       label: "Documentos",
-      title: "Políticas y acuerdos, firmados",
-      text: "Empiece con uno de los 25 documentos listos para empresas de transporte, como el acuse de recibo de la política de drogas y alcohol o la autorización para el PSP. O suba un PDF que ya usa. El conductor lo lee y firma escribiendo su nombre.",
+      title: "Políticas y acuerdos, firmados en el celular",
+      text: "Elija entre 25 documentos listos para empresas de transporte (acuse de recibo de la política de drogas y alcohol, autorización para el PSP, política sobre el uso del celular, política de personal conveyance y más), o suba cualquier PDF que ya use. El nombre, la dirección, el teléfono y el número DOT de su empresa se llenan automáticamente. Cambie cualquier parte del texto antes de enviarlo.",
       points: [
-        "El nombre, el teléfono y el número DOT de su empresa se llenan solos.",
-        "El conductor solo puede firmar cuando llega al final del documento.",
-        "Cada firma viene con una copia firmada que puede descargar.",
+        "El botón para firmar queda bloqueado hasta que el conductor llega al final.",
+        "Cada copia firmada termina con una página de certificado: quién firmó, cuándo y cómo inició sesión.",
       ],
     },
     fileRequests: {
       label: "Solicitudes de archivos",
-      title: "Pida cualquier archivo",
-      text: "¿Le hace falta el CDL, la tarjeta médica o el MVR? Escriba lo que necesita y elija a los conductores. Ellos toman una foto o eligen un archivo en su celular y tocan “Send”.",
+      title: "Pida el CDL, la tarjeta médica, el MVR o cualquier archivo",
+      text: "Escriba lo que necesita y elija a los conductores. Ellos toman una foto o eligen un archivo en su celular y tocan Enviar.",
       points: [
-        "Cada conductor puede enviar hasta 5 fotos o PDF por solicitud.",
+        "Hasta 5 fotos o PDF por solicitud.",
         "Pídaselo a un solo conductor o a toda su lista a la vez.",
         "Abra y descargue cada archivo desde su panel.",
       ],
@@ -63,55 +56,23 @@ export const es: Copy = {
           "Una solicitud de empleo, un documento para firmar o un archivo. Elija a los conductores y, si quiere, una fecha límite.",
       },
       {
-        title: "Los conductores reciben un mensaje de texto y un correo electrónico",
-        description:
-          "El enlace se abre en su celular. Entran con un código de 6 dígitos. Sin instalar ninguna app y sin contraseña.",
-      },
-      {
         title: "Lo completan en su celular",
         description:
           "Firmar un documento o enviar una foto es rápido. La solicitud de empleo completa toma unos 10 minutos.",
       },
       {
-        title: "Usted descarga el PDF",
+        title: "Vea el avance y envíe recordatorios",
         description:
-          "Vea quién ya terminó y quién no. Envíe un recordatorio a quien todavía tenga algo pendiente.",
+          "Cada solicitud muestra Requested, In progress o Submitted. Con un toque se envía un recordatorio por mensaje de texto y por correo electrónico.",
       },
     ],
   },
-  features: {
-    heading: "Qué incluye",
-    templates: {
-      title: "25 documentos listos para usar",
-      text: "Autorizaciones para la verificación de antecedentes y el PSP, el acuse de recibo de la política de drogas y alcohol, políticas sobre el uso del celular y el personal conveyance, y más.",
-    },
-    companyDetails: {
-      title: "Sus datos, ya incluidos",
-      text: "Las plantillas llenan el nombre, la dirección, el teléfono y el número DOT de su empresa. Cambie cualquier parte del texto antes de enviarlo.",
-    },
-    certificate: {
-      title: "Prueba de cada firma",
-      text: "Cada copia firmada termina con una página de certificado que muestra quién firmó, cuándo firmó y cómo inició sesión.",
-    },
-    readFirst: {
-      title: "Lo leen antes de firmar",
-      text: "El botón para firmar queda bloqueado hasta que el conductor llega al final del documento.",
-    },
-    status: {
-      title: "Vea quién va atrasado",
-      text: "Cada solicitud muestra “Requested”, “In progress” o “Submitted”. Con un toque se envía un recordatorio por mensaje de texto y por correo electrónico.",
-    },
-    driverPage: {
-      title: "El papeleo junto a la capacitación",
-      text: "La página de cada conductor en su panel muestra su capacitación y su papeleo en una sola lista.",
-    },
-  },
   privacy: {
-    heading: "La información de los conductores se mantiene privada",
+    heading: "Cómo protegemos la información de los conductores",
     body: "Una solicitud de empleo contiene algunos de los datos más personales que un conductor llega a compartir. Así es como los cuidamos.",
     items: [
       {
-        title: "Los números de Seguro Social van cifrados",
+        title: "El SSN y la fecha de nacimiento van cifrados",
         text: "Ciframos el SSN y la fecha de nacimiento en cuanto se guardan. Su panel muestra solo los últimos 4 dígitos. El número completo aparece únicamente en el PDF de la solicitud.",
       },
       {
@@ -119,7 +80,7 @@ export const es: Copy = {
         text: "Cada empresa ve solo a sus propios conductores y su papeleo. Nadie más puede abrirlos.",
       },
       {
-        title: "Los enlaces de descarga vencen",
+        title: "Los enlaces de descarga vencen en 15 minutos",
         text: "Los archivos y los PDF se abren con enlaces privados que dejan de funcionar a los 15 minutos, así que un enlace reenviado no se queda abierto.",
       },
       {
@@ -137,11 +98,6 @@ export const es: Copy = {
           "Solicite una demo. Le mostramos cómo funciona, le damos los precios y le ayudamos a enviar su primera solicitud.",
       },
       {
-        question: "¿Los conductores tienen que descargar una app?",
-        answer:
-          "No. Reciben un mensaje de texto y un correo electrónico con un enlace. Entran con un código de 6 dígitos que les llega al celular o al correo electrónico. No hay contraseña que recordar.",
-      },
-      {
         question: "¿Las firmas electrónicas son legales?",
         answer:
           "Sí. En Estados Unidos, una firma electrónica hecha escribiendo el nombre es legalmente válida conforme a la ley federal ESIGN Act y a las leyes estatales de firma electrónica, y la FMCSA permite firmas electrónicas en los registros que exige. Cada copia firmada muestra cuándo firmó el conductor y cómo inició sesión. Esto no es asesoría legal, así que consulte con su abogado si tiene dudas.",
@@ -149,12 +105,12 @@ export const es: Copy = {
       {
         question: "¿Qué pregunta la solicitud de empleo?",
         answer:
-          "Lo habitual en una solicitud de empleo para conductores: datos de contacto, domicilios de los últimos 3 años, licencias, el equipo que ha manejado, accidentes e infracciones de tránsito de los últimos 3 años, suspensiones de licencia, si las hubo, e historial laboral. Al final, el conductor la firma.",
+          "Lo habitual en una solicitud de empleo para conductores: datos de contacto, domicilios de los últimos 3 años, licencias, el equipo que ha manejado, accidentes e infracciones de tránsito de los últimos 3 años, suspensiones de licencia (si las hubo) e historial laboral. Al final, el conductor la firma.",
       },
       {
         question: "¿Puedo usar mis propios documentos?",
         answer:
-          "Sí. Suba cualquier PDF y envíelo a firmar. O empiece con una de nuestras plantillas y ajuste el texto a su empresa.",
+          "Sí. Suba cualquier PDF y envíelo a firmar. O empiece con una de nuestras 25 plantillas y ajuste el texto.",
       },
       {
         question: "¿Puedo cambiar un documento después de enviarlo?",
@@ -174,7 +130,7 @@ export const es: Copy = {
       {
         question: "¿Ustedes verifican antecedentes o llaman a empleadores anteriores?",
         answer:
-          "No. Recopilamos la solicitud de empleo y las autorizaciones firmadas por el conductor, como la de verificación de antecedentes y la del PSP. Pedir los reportes y consultar con los empleadores anteriores sigue siendo tarea suya.",
+          "No. Recopilamos la solicitud de empleo y las autorizaciones firmadas por el conductor, como la de verificación de antecedentes y la del PSP. Pedir los reportes y contactar a los empleadores anteriores sigue siendo tarea suya.",
       },
       {
         question: "¿Funciona con la capacitación de Raisedash?",
@@ -185,6 +141,6 @@ export const es: Copy = {
   },
   start: {
     heading: "Tenga el papeleo listo antes del primer día",
-    body: "Solicite una demo. Le damos los precios y le ayudamos a enviar su primera solicitud.",
+    body: "Solicite una demo. Le damos los precios y le ayudamos a configurarlo.",
   },
 };

@@ -20,22 +20,25 @@ export const PLATFORM_PAGES: PlatformPage[] = [
   {
     slug: "pre-arrival-readiness",
     path: "/platform/pre-arrival-readiness",
-    label: "Pre-arrival readiness",
-    tagline: "Prepare new drivers before they arrive for orientation.",
+    label: "Orientation before arrival",
+    tagline:
+      "Send orientation before drivers arrive. See who hasn't started, who's in progress, and who's done.",
     icon: Send,
   },
   {
     slug: "training-evidence",
     path: "/platform/training-evidence",
-    label: "Training evidence",
-    tagline: "Keep a reliable record of what was completed and when.",
+    label: "Driver training records",
+    tagline:
+      "Each driver's assignments, completions, quiz results, certificates, and a downloadable PDF report.",
     icon: FileCheck,
   },
   {
     slug: "driver-experience",
     path: "/platform/driver-experience",
-    label: "Driver experience",
-    tagline: "A simple training experience built around the driver's phone.",
+    label: "What drivers see",
+    tagline:
+      "A text or email invite, a one-time code, and lessons in the phone browser. No app, no password.",
     icon: Smartphone,
   },
 ];

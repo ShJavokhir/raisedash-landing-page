@@ -1,14 +1,5 @@
 import Link from "next/link";
-import {
-  CheckCheck,
-  ClipboardCheck,
-  MessagesSquare,
-  Mic,
-  RefreshCw,
-  Smartphone,
-  TimerReset,
-  Users,
-} from "lucide-react";
+import { CheckCheck, Mic, RefreshCw, Smartphone, TimerReset } from "lucide-react";
 import { FeatureCrossLinks } from "@/components/features/FeatureCrossLinks";
 import { MediaFrame } from "@/components/features/MediaFrame";
 import { RoleplayCallVignette } from "@/components/features/vignettes-practice";
@@ -28,44 +19,25 @@ import { BreadcrumbJsonLd } from "@/components/seo/SEO";
 
 const FEATURES: PlatformFeature[] = [
   {
-    title: "Any character, any scenario",
-    description: "Create practice for inspectors, dispatchers, shippers, managers, or customers.",
-    icon: Users,
-  },
-  {
-    title: "A real conversation",
-    description: "The character listens, responds, and adapts to what the driver says.",
-    icon: MessagesSquare,
-  },
-  {
-    title: "Your rubric decides the pass",
-    description: "Required criteria must all be met. Optional ones coach without blocking.",
-    icon: ClipboardCheck,
-  },
-  {
-    title: "Graded on the driver's words",
-    description: "Evaluation is anchored to what the driver actually said in the call.",
-    icon: CheckCheck,
-  },
-  {
     title: "Unlimited retries",
-    description: "Practice is the point. Drivers can try again immediately, every time.",
+    description: "Drivers can try again right away, as many times as they need.",
     icon: RefreshCw,
   },
   {
-    title: "Phone-browser simple",
-    description: "One-time code, mic permission, no app to install.",
-    icon: Smartphone,
+    title: "Completion means passed",
+    description:
+      "A roleplay only counts as complete when the driver passes every required criterion.",
+    icon: CheckCheck,
   },
   {
     title: "Natural call ending",
-    description: "The character closes the conversation naturally when time runs low.",
+    description: "The character closes the conversation on its own when time runs low.",
     icon: TimerReset,
   },
   {
-    title: "Completion means passed",
-    description: "A roleplay only counts as complete when the driver passes it.",
-    icon: CheckCheck,
+    title: "Phone browser, no app",
+    description: "One-time code, mic permission, done. Nothing to install.",
+    icon: Smartphone,
   },
 ];
 
@@ -73,27 +45,27 @@ const STEPS: PlatformStep[] = [
   {
     title: "Write the scenario and the character",
     description:
-      "Describe who the driver is talking to, how the character should behave, and which details it should challenge.",
+      "Describe who the driver is talking to (an inspector, dispatcher, shipper, manager, or customer), how the character should behave, and which details it should challenge. No script or dialogue tree needed.",
   },
   {
-    title: "Write the rubric",
+    title: "Set the rubric",
     description:
-      "Add up to ten plain-language criteria and mark each one required or optional. Drivers see the expectations before they begin.",
+      "Add up to ten plain-language criteria and mark each one required or optional. Drivers see these expectations before they start.",
   },
   {
-    title: "The driver practices out loud",
+    title: "The driver talks",
     description:
-      "A live spoken conversation in the phone browser. The character answers, pushes back, can be interrupted, and wraps up naturally when time runs low.",
+      "A live spoken conversation in the phone browser. The character answers, pushes back, and can be interrupted mid-sentence.",
   },
   {
-    title: "Scored on what was actually said",
+    title: "Scored against your rubric",
     description:
-      "After the call, the conversation is graded against your rubric using the driver's own words as evidence. Passing requires every required criterion.",
+      "After the call, each criterion is graded using the driver's own words as evidence. Passing requires every required criterion.",
   },
   {
     title: "Feedback the driver can use",
     description:
-      "A plain-language scorecard explains what went well and what to improve. Drivers can retry immediately.",
+      "A plain-language scorecard explains what went well and what to improve. Drivers can retry right away.",
   },
 ];
 
@@ -101,22 +73,22 @@ const FAQS: PlatformFaq[] = [
   {
     question: "What is AI voice roleplay training for truck drivers?",
     answer:
-      "It gives drivers a safe place to practice spoken conversations such as roadside inspections, dispatcher calls, and customer interactions. The driver speaks in a phone browser, the AI character responds in real time, and feedback is based on criteria written by the fleet.",
+      "Drivers practice spoken conversations (roadside inspections, dispatcher calls, customer interactions) by talking out loud with an AI character on their phone. The character responds in real time, and feedback is based on criteria your team wrote.",
   },
   {
     question: "Does this prepare drivers for the FMCSA English proficiency check?",
     answer:
-      "It can help drivers practice the spoken part of a roadside interaction in English. FMCSA advises carriers to evaluate whether drivers can communicate with law enforcement during the qualification process. Roleplay makes that practice repeatable and private, but it is not a certification or legal determination.",
+      "It lets drivers practice the spoken part of a roadside interaction in English. FMCSA advises carriers to evaluate whether drivers can communicate with law enforcement during qualification. Roleplay makes that practice repeatable and private, but it is not a certification or legal determination.",
   },
   {
     question: "What does the driver see after a conversation?",
     answer:
-      "A pass-or-fail scorecard with a short summary and per-criterion feedback written to the driver, based only on what they actually said. If they fail, they can immediately try again.",
+      "A pass-or-fail scorecard with a short summary and per-criterion feedback, based only on what they actually said. If they fail, they can try again right away.",
   },
   {
     question: "Who writes the scenarios?",
     answer:
-      "Your team does. Describe the scene, the character's role and behavior, an optional opening line, and the success criteria in plain language. You do not need to write a script or dialogue tree.",
+      "Your team does. Describe the scene, the character's role and behavior, an optional opening line, and the success criteria in plain language.",
   },
   {
     question: "What if the driver's microphone doesn't work or the call drops?",
@@ -126,15 +98,15 @@ const FAQS: PlatformFaq[] = [
   {
     question: "Does a roleplay count toward training completion?",
     answer:
-      "Yes. A roleplay is marked complete only after the driver passes the conversation. It cannot be skipped.",
+      "Yes. A roleplay is marked complete only after the driver passes. It cannot be skipped.",
   },
 ];
 
 export default function AiVoiceRoleplayTraining() {
   return (
     <PageLayout
-      title="AI Voice Roleplay Training for Drivers"
-      description="Drivers talk out loud with an AI inspector, dispatcher, or customer and get scored against your rubric. Real practice for roadside stops and ELP checks."
+      title="AI voice roleplay training for drivers"
+      description="Drivers practice roadside inspections, dispatcher calls, and customer conversations out loud with an AI character, scored against your rubric."
       keywords={[
         "AI voice roleplay training for truck drivers",
         "driver roleplay training software",
@@ -154,27 +126,35 @@ export default function AiVoiceRoleplayTraining() {
       <PlatformHero
         eyebrow="Voice roleplay"
         eyebrowIcon={Mic}
-        title="Give drivers a safe place to practice hard conversations."
-        subhead="Drivers speak with an AI inspector, dispatcher, or customer and receive feedback based on your rubric. They can practice privately on their phones before the real conversation happens."
+        title="Drivers practice hard conversations out loud before they happen for real."
+        subhead="An AI inspector, dispatcher, or customer talks back. Your rubric decides the pass."
         vignette={<RoleplayCallVignette />}
       />
 
       <PlatformSection
-        eyebrow="Why practice matters"
-        title="Knowing the answer is different from saying it under pressure"
-        lede="Videos and quizzes can explain what to do. Spoken practice helps drivers do it clearly in the moment."
+        eyebrow="Why speaking is different"
+        title="Knowing the answer is not the same as saying it under pressure"
       >
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
           <div className="border-border bg-card rounded-xs border p-6 sm:p-8">
             <p className="text-foreground text-lg leading-relaxed">
-              Drivers handle conversations that affect safety, service, and compliance. A roadside
-              inspection, a dispatcher call, and a difficult customer all require the driver to
-              listen, respond clearly, and stay composed.
+              Roadside inspections, dispatcher calls, and difficult customers all require a driver
+              to listen, respond clearly, and stay composed. Videos and quizzes can explain what to
+              say. Spoken practice builds the skill of saying it.
             </p>
             <p className="text-muted-foreground mt-4 leading-relaxed">
-              Voice roleplay lets the driver rehearse those moments with an AI character that
-              responds in real time. Your team defines the situation and what a good response should
-              include. The driver receives specific feedback and can practice again.
+              Your team writes the scenario, the character, and the rubric. The driver speaks on
+              their phone. The AI character responds in real time, pushes back, and can be
+              interrupted. After the call, a scorecard shows what went well and what to improve,
+              graded against your criteria. Every passing attempt is recorded with the rest of the
+              driver&apos;s{" "}
+              <Link
+                href="/platform/training-evidence"
+                className="text-foreground underline-offset-2 hover:underline"
+              >
+                training history
+              </Link>
+              .
             </p>
             <p className="text-muted-foreground mt-4 leading-relaxed">
               For English-language proficiency, FMCSA advises carriers to assess whether drivers can
@@ -187,9 +167,19 @@ export default function AiVoiceRoleplayTraining() {
               >
                 carrier guidance
               </a>{" "}
-              recommends a driver interview as part of that process. Raisedash makes this kind of
+              recommends a driver interview as part of that process. Roleplay makes this kind of
               spoken practice repeatable, but your fleet still decides whether a driver is
               qualified.
+            </p>
+            <p className="text-muted-foreground mt-4 leading-relaxed">
+              Want drivers to try the format first?{" "}
+              <Link
+                href="/tools/elp-practice"
+                className="text-foreground underline-offset-2 hover:underline"
+              >
+                TruckTalk, our free ELP practice tool
+              </Link>
+              , includes roadside-conversation practice.
             </p>
           </div>
           <div>
@@ -205,32 +195,6 @@ export default function AiVoiceRoleplayTraining() {
       </PlatformSection>
 
       <PlatformSection
-        eyebrow="Driver practice"
-        title="The driver does the talking"
-        lede="Each driver gets a private practice partner that responds to what they actually say."
-      >
-        <div className="border-border bg-card rounded-xs border p-6 sm:p-8">
-          <p className="text-muted-foreground leading-relaxed">
-            Every scenario is a live, two-way spoken conversation. The AI character answers what the
-            driver actually says, follows the behavior your team defined, and can be interrupted
-            mid-sentence. It also closes the conversation naturally when time runs low. The driver
-            gets realistic practice without the consequences of making a mistake in a live
-            situation.
-          </p>
-          <p className="text-muted-foreground mt-4 leading-relaxed">
-            Want drivers to feel the format first?{" "}
-            <Link
-              href="/tools/elp-practice"
-              className="text-foreground underline-offset-2 hover:underline"
-            >
-              TruckTalk, our free ELP practice tool
-            </Link>
-            , includes roadside-conversation practice.
-          </p>
-        </div>
-      </PlatformSection>
-
-      <PlatformSection
         id="how-it-works"
         eyebrow="How it works"
         title="Write the scene once. Every driver gets a live partner."
@@ -238,39 +202,8 @@ export default function AiVoiceRoleplayTraining() {
         <StepList steps={STEPS} />
       </PlatformSection>
 
-      <PlatformSection eyebrow="Built in" title="What makes it real practice">
+      <PlatformSection eyebrow="Also built in" title="How practice stays useful">
         <FeatureGrid features={FEATURES} columns={4} accent="amber" />
-      </PlatformSection>
-
-      <PlatformSection eyebrow="Speech is the skill" title="Practice out loud, not in your head">
-        <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-2">
-          {/* A plain image is intentional: this is an externally hosted marketing asset. */}
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="https://cdn.raisedash.com/media/landing/features/roleplay-ink-driver-call.webp"
-            alt="A driver in a parked cab speaking toward a dash-mounted phone, an orange voice waveform rising from the screen."
-            className="border-border h-auto w-full rounded-xs border"
-          />
-          <div>
-            <p className="text-muted-foreground leading-relaxed">
-              Reading about a roadside stop and getting through one are different skills. The stop
-              is spoken: questions arrive out of order, in an official&apos;s phrasing, under time
-              pressure. Practicing out loud with something that answers back prepares the driver for
-              that experience.
-            </p>
-            <p className="text-muted-foreground mt-4 leading-relaxed">
-              Roleplay turns instruction into repeatable practice. Every passing attempt is recorded
-              with the rest of the driver&apos;s{" "}
-              <Link
-                href="/platform/training-evidence"
-                className="text-foreground underline-offset-2 hover:underline"
-              >
-                training history
-              </Link>
-              .
-            </p>
-          </div>
-        </div>
       </PlatformSection>
 
       <FaqSection title="Voice roleplay questions" faqs={FAQS} />
@@ -278,7 +211,7 @@ export default function AiVoiceRoleplayTraining() {
       <FeatureCrossLinks currentSlug="ai-voice-roleplay-training" />
 
       <PlatformCTA
-        title="Help drivers practice before the pressure is real."
+        title="Let drivers practice before the pressure is real."
         subtitle="Book a demo and try a two-minute conversation with the AI inspector."
         footnote="Roleplay scores practice performance against your rubric. It is not a legal English-proficiency determination, and your fleet decides qualification."
       />

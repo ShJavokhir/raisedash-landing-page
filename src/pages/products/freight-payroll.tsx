@@ -128,7 +128,7 @@ export default function FreightPayrollPage() {
       />
       <SoftwareApplicationJsonLd
         name="Raisedash Freight Payroll"
-        description="Payroll for a trucking company's office team: dispatchers, safety managers, fleet managers and accounting. Start the month, change what's different, approve it, and everyone gets their payslip in Telegram."
+        description="Payroll software for a trucking company's office team: dispatchers, safety and fleet managers, recruiters, accounting. Not for driver pay. Payslips go to Telegram."
         operatingSystem={["Web", "iOS", "Android"]}
       />
       <FAQPageJsonLd faqs={faqs} />

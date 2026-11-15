@@ -1,13 +1,13 @@
 // English is the source text; every other language is typed against it.
 export const en = {
   seo: {
-    title: "Collect Driver Receipts in Telegram",
+    title: "Driver receipts in Telegram",
     description:
-      "Type “receipt” in your Telegram group and we send a link to capture it. Every receipt shows up in one dashboard, so paying drivers back is easy. No app for drivers.",
+      "Collect fuel, lumper, toll, and repair receipts from drivers in Telegram. No app, no account. They tap a link, snap a photo, type the total. One dashboard.",
   },
   hero: {
     title: "Collect driver receipts in Telegram.",
-    body: "Just type the word “receipt” in your Telegram group, and we’ll send a link to capture it. Every receipt shows up in your dashboard, so you know who to pay back and how much.",
+    body: "Type “receipt” in your drivers’ Telegram group and the bot replies with a link. The driver taps it, photographs the receipt, and types the total in dollars. Every receipt lands in one dashboard with the driver, the amount, and the photos.",
     note: "We’ll set it up for your groups.",
     motionLabel:
       "In a drivers’ Telegram group, the office asks Mike for his receipt, Mike photographs it and types the $175 total on his phone, and it lands in the office’s receipts dashboard, where the totals, the daily spending chart and the top drivers update.",
@@ -26,46 +26,34 @@ export const en = {
   },
   steps: {
     ask: {
-      title: "Ask for the receipt",
+      title: "Type “receipt” in the group",
       description:
-        "Ask in your Telegram group, like “Mike, could you share your receipt?” We reply with a link.",
+        "The bot replies with a link. The driver opens it in their phone’s browser. No app, no account, no password.",
     },
     photo: {
-      title: "The driver sends a photo",
+      title: "The driver photographs the receipt",
       description:
-        "The link opens on the driver’s phone. They take a photo of the receipt and type the total.",
+        "Take a photo or pick a file, then type the total. Photos are compressed before upload so they send on a weak signal.",
     },
     dashboard: {
-      title: "All receipts in one dashboard",
+      title: "Every receipt in one dashboard",
       description:
-        "Every driver’s receipts in one list, with the amount and the photos. No digging through chats when it’s time to pay drivers back.",
+        "Each receipt shows the driver, the amount, and the files. Every receipt has its own shareable link you can send to accounting.",
     },
   },
   features: {
     heading: "What you get",
-    files: {
-      title: "Photos, PDFs, and videos",
-      text: "Up to 5 files on one receipt. Take a new photo or pick one from the phone.",
-    },
-    link: {
-      title: "A link for every receipt",
-      text: "Open it to see the photos and the amount. Send it to accounting or keep it for later.",
-    },
     expenses: {
       title: "Lumpers, fuel, tolls, and more",
-      text: "Any receipt a driver gets on the road. Scale tickets, parking, and repairs work the same way.",
-    },
-    noApp: {
-      title: "No app to install",
-      text: "The link opens right on the phone. No app, no account, no password.",
+      text: "Any receipt a driver gets on the road: scale tickets, parking, repairs. They all work the same way.",
     },
     fastPhotos: {
-      title: "Photos send fast",
-      text: "We make photos smaller before they upload, so they send fast, even on a weak signal.",
+      title: "Photos send on a weak signal",
+      text: "We compress photos before upload, so they send quickly even on a slow connection.",
     },
     aiCheck: {
-      title: "Check if receipts are AI generated",
-      text: "We’ll check each receipt photo and warn you if it looks AI generated, before you pay the driver back.",
+      title: "AI receipt detection, coming soon",
+      text: "We will check each receipt photo and warn you if it looks AI generated, before you pay the driver back.",
       badge: "Coming soon",
     },
   },
@@ -76,36 +64,36 @@ export const en = {
     {
       question: "How do I get started?",
       answer:
-        "Request a demo. We’ll show your team how it works and help set it up in your drivers’ groups.",
+        "Request a demo. We’ll show your team how it works and set it up in your drivers’ groups.",
     },
     {
       question: "Does it pay drivers back?",
       answer:
-        "No. You pay drivers the way you do now. We put every receipt in one list with the driver, the amount, and the photos, so you know who to pay and how much.",
+        "No. You pay drivers the way you do now. The dashboard puts every receipt in one list with the driver, the amount, and the photos, so you know who to pay and how much.",
     },
     {
       question: "What if a driver types the wrong amount?",
       answer:
-        "You can fix the amount or delete the receipt in the dashboard. The receipt link shows the change.",
+        "You can fix the amount or delete the receipt in the dashboard. The receipt link shows the updated amount.",
     },
     {
       question: "Does it read the amount from the photo?",
       answer:
-        "No. The driver types the total. The photos stay with the receipt, so you can check the amount.",
+        "No. The driver types the total. The photos stay with the receipt so you can check the number.",
     },
     {
       question: "What can drivers send?",
       answer:
-        "Photos, PDFs, and videos. Up to 5 files on one receipt, up to 100 MB each. The amount is in US dollars.",
+        "Photos, PDFs, and videos. Up to 5 files per receipt, up to 100 MB each. The amount is in US dollars.",
     },
     {
       question: "How long does the link work?",
-      answer: "24 hours. After that, just type “receipt” again for a new link.",
+      answer: "24 hours. After that, type “receipt” again for a new link.",
     },
   ],
   start: {
     heading: "Start collecting receipts",
-    body: "Get a demo. We’ll show you how it works and help set it up for your groups.",
+    body: "Request a demo. We’ll show you how it works and set it up for your groups.",
   },
 };
 

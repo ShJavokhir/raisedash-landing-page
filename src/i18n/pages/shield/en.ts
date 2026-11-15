@@ -3,9 +3,9 @@
 // The numbers in `problem` were read on their sources on 2026-10-27 (links in `problem.sources`).
 export const en = {
   seo: {
-    title: "Raisedash Shield – Freight Fraud Protection",
+    title: "Shield: freight fraud protection for Chrome",
     description:
-      "Free Chrome extension for trucking and freight offices. Warns your whole team about the phishing pages and fake rate confirmations behind cargo and identity theft.",
+      "Free Chrome extension for your whole trucking or freight office. Warns about phishing pages and fake rate confirmations behind cargo and identity theft.",
   },
   hero: {
     eyebrow: "Raisedash Shield · Free Chrome extension",
@@ -59,7 +59,7 @@ export const en = {
     items: [
       {
         title: "Fake sign-in pages",
-        text: "When a page asks for your password, we check when the site was registered. Real load boards and broker portals have been around for years. Phishing sites are usually days old.",
+        text: "When a page asks for your password, Shield checks when the site was registered. Real load boards and broker portals have been around for years. Phishing sites are usually days old.",
         alt: "A sign-in page at loadboard-signin.com with Raisedash Shield’s warning: This site is brand new. It was registered 3 days ago and asks for your password.",
       },
       {
@@ -69,22 +69,22 @@ export const en = {
       },
       {
         title: "Fake rate confirmations",
-        text: "A “RateConfirmation.pdf.exe” is a program, not a document. We pause it, and remote-access installers, until you decide.",
+        text: "A “RateConfirmation.pdf.exe” is a program, not a document. Shield pauses it, and remote-access installers, until you decide.",
         alt: "A rate confirmation page with Raisedash Shield’s warning: Don’t open this file. RateConfirmation.pdf.exe is actually a program, and Shield paused it.",
       },
       {
         title: "Fake “verify you’re human” checks",
-        text: "When a page copies a command and tells you to press Windows + R and paste, we swap it for a warning. You can put it back.",
+        text: "When a page copies a command and tells you to press Windows + R and paste, Shield swaps it for a warning. You can put it back.",
         alt: "A fake security check that says press Windows + R, then Ctrl + V, with Raisedash Shield’s warning: Don’t paste what this page copied.",
       },
     ],
   },
   quiet: {
     heading: "Quiet until it matters",
-    body: "On every other site you won’t hear from us. A warning sits in the corner and never blocks the page. You always decide.",
+    body: "On every other site you won’t hear from Shield. A warning sits in the corner and never blocks the page. You always decide.",
     points: [
       "Free, with no account. Install it and it’s working.",
-      "We never read your passwords or what’s inside your files.",
+      "Shield never reads your passwords or what’s inside your files.",
       "Sites on our scam list were reported by a carrier and confirmed by a person. Your browser gets the list about every 30 minutes.",
       "Site-age checks can be turned off any time in the menu.",
     ],
@@ -96,7 +96,7 @@ export const en = {
       {
         question: "Who is it for?",
         answer:
-          "Everyone at your company who works in Chrome on a computer: dispatchers, safety and compliance, billing and accounting, recruiting, and owners. Thieves go after whichever login they need, whether that’s the load board, company email, the factoring portal or the bank, so put it on every office computer. It runs in Chrome on a computer, not on phones.",
+          "Everyone at your company who works in Chrome on a computer: dispatchers, safety and compliance, billing and accounting, recruiting, and owners. Thieves go after whichever login they need, whether that’s the load board, company email, the factoring portal or the bank, so put it on every office computer. Shield runs in Chrome on a computer, not on phones.",
       },
       {
         question: "What leaves my computer?",

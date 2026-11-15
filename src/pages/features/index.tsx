@@ -8,8 +8,8 @@ import { FEATURE_PAGES } from "@/components/features/pages";
 export default function Features() {
   return (
     <PageLayout
-      title="AI Training Features for Trucking Fleets"
-      description="Generate training videos, build whole programs, run voice roleplays, and compile interactive practice simulations. AI features built for trucking fleets."
+      title="AI training features for trucking fleets"
+      description="Four AI tools that generate driver training: videos, full programs, voice roleplays, and interactive simulations. Built into the Raisedash orientation platform."
       keywords={[
         "ai training for trucking fleets",
         "ai driver training software",
@@ -27,17 +27,12 @@ export default function Features() {
       <PlatformHero
         eyebrow="AI features"
         eyebrowIcon={Sparkles}
-        title="Training your fleet actually has time to make."
-        subhead="Raisedash generates the four kinds of training content fleets never have time to produce (videos, whole programs, spoken practice, and hands-on app practice), and every one lands in the same assignment, tracking, and evidence system."
+        title="Four AI features that generate driver training"
+        subhead="Generate narrated training videos, full multi-lesson programs, scored voice roleplays with an AI inspector or dispatcher, and tap-through simulations of software like an ELD. All four are part of the Raisedash Driver Orientation Platform: you assign the training, drivers finish it on their phone, and completion is recorded."
         howItWorksHref="#generators"
       />
 
-      <PlatformSection
-        id="generators"
-        eyebrow="The generators"
-        title="Pick the shape of the training, not the tool"
-        lede="Each generator produces a different kind of learning. All four end up as normal Raisedash content: assigned by you, completed on the driver's phone, recorded under the driver."
-      >
+      <PlatformSection id="generators" eyebrow="The four features" title="What each one makes">
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
           {FEATURE_PAGES.map((page) => {
             const Icon = page.icon;
@@ -67,27 +62,23 @@ export default function Features() {
       </PlatformSection>
 
       <PlatformSection
-        eyebrow="Human in the loop"
-        title="Generated does not mean unreviewed"
-        lede="AI drafts. Your team decides."
+        eyebrow="Your team approves everything"
+        title="How review works for each feature"
       >
         <div className="bg-card border-border rounded-xs border p-6 sm:p-8">
           <p className="text-muted-foreground text-base leading-relaxed">
-            Every generator in Raisedash puts a person in the approval seat. Video briefs are
-            reviewed before generation, program outlines are approved item by item before a single
-            lesson is written, roleplay rubrics are authored by your team, and simulations are
-            automatically tested end-to-end before they can be published.
-          </p>
-          <p className="text-muted-foreground mt-4 text-base leading-relaxed">
-            Nothing reaches a driver because an AI decided it should. Drafts stay drafts until
-            someone at your fleet publishes and assigns them.
+            Nothing reaches a driver until someone at your fleet publishes and assigns it. Video
+            briefs are reviewed before generation starts. Program outlines are approved item by item
+            before a single lesson is written. Roleplay rubrics are written by your team.
+            Simulations are automatically tested end to end before they can be published. Drafts
+            stay drafts until you say otherwise.
           </p>
         </div>
       </PlatformSection>
 
       <PlatformCTA
-        title="See all four in one demo."
-        subtitle="Book a short demo and watch a brief become a video, a program, a conversation, and a practice sim."
+        title="See all four in one demo"
+        subtitle="Book a short demo and watch a brief become a video, a program, a conversation, and a practice simulation."
         footnote="Raisedash generates drafts and practice. Your fleet decides what gets assigned and what counts as qualified."
       />
     </PageLayout>

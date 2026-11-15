@@ -4,11 +4,11 @@ export const uz: Copy = {
   seo: {
     title: "Telegramda bepul PTI tekshiruvlari",
     description:
-      "Haydovchilar siz bergan roʻyxat boʻyicha tekshiradi va rasm yoki videoni Telegram guruhingizga yuboradi. Tekshiruv soʻrovlarini jadvalga qoʻying. Bepul boshlang, kerak boʻlsa pullik boshqaruv paneli ham bor.",
+      "Haydovchilar roʻyxat boʻyicha tekshirib, rasmlarni Telegram guruhingizga yuboradi. Bepul boshlang, ilova shart emas. Pullik rejada PDF va cheksiz tarix bor.",
   },
   hero: {
     title: "Telegramda PTI tekshiruvlari.",
-    body: "Haydovchilar siz bergan roʻyxat boʻyicha tekshiradi. Rasmlar, videolar va bildirilgan nosozliklar guruhingizga keladi.",
+    body: "Haydovchilar siz bergan roʻyxat boʻyicha qadamma-qadam tekshiradi. Rasmlar, videolar va bildirilgan nosozliklar toʻgʻridan-toʻgʻri Telegram guruhingizga keladi.",
     cta: "@raisedashbot botini qoʻshish",
     note: "Bepul. Roʻyxatdan oʻtish va toʻlov shart emas.",
     motionLabel:
@@ -24,34 +24,21 @@ export const uz: Copy = {
     title: "Raisedash PTI Telegram boti demosi",
   },
   benefits: {
-    heading: "Bot nima uchun kerak?",
+    heading: "Bot parkingiz uchun nima qiladi",
     noApp: {
-      title: "Qoʻshimcha ilova kerak emas",
+      title: "Haydovchilarga ilova yoki akkaunt kerak emas",
       description:
-        "Haydovchilar tekshiruv havolasini Telegramdan brauzerda ochadi. Telefon xotirasini band qiladigan ortiqcha ilova yoʻq.",
-    },
-    noAccounts: {
-      title: "Haydovchilarga akkaunt ochish shart emas",
-      description: "Roʻyxatdan oʻtish, taklifnoma yoki eslab qolinadigan parol yoʻq.",
-    },
-    schedule: {
-      title: "Soʻrovlarni qoʻlda yuborish shart emas",
-      description: "Jadval belgilang, bot haydovchilardan tekshiruvni oʻzi soʻraydi.",
-    },
-    checklist: {
-      title: "Haydovchilarga tekshiruv roʻyxatini bering",
-      description:
-        "Har bir qadamda nimani tekshirish va rasmga olish kerakligi koʻrsatiladi. Haydovchi hammasini yodda saqlashi shart emas.",
+        "Haydovchilar tekshiruv havolasini Telegramdan brauzerda ochadi. Qoʻshimcha ilova, roʻyxatdan oʻtish yoki parol yoʻq.",
     },
     problems: {
       title: "Nosozliklar yoʻlga chiqishdan oldin bildiriladi",
       description:
-        "Haydovchilar yeyilgan shina, ishlamayotgan chiroq yoki koʻrinib turgan shikastni belgilab, rasmini ofisga yuborishi mumkin.",
+        "Yeyilgan shina, ishlamayotgan chiroq yoki koʻrinib turgan shikast: haydovchilar nosozlikni belgilab, rasmini ofisga yuboradi.",
     },
     record: {
-      title: "Yozuvlar keyinchalik uchun saqlanadi",
+      title: "Rasmlar va nosozliklar bir joyda saqlanadi",
       description:
-        "Rasmlar, bildirilgan nosozliklar va tekshiruv vaqtlari bir joyda turadi. Audit paytida yoki avariyadan keyin holatni koʻrib chiqishda asqotadi.",
+        "Har bir tekshiruvda rasmlar, bildirilgan nosozliklar va vaqt belgilari bir joyda turadi. Audit paytida yoki avariyadan keyin koʻrib chiqishda asqotadi.",
     },
   },
   faq: {
@@ -83,10 +70,10 @@ export const uz: Copy = {
     },
   },
   plans: {
-    heading: "Bepul va pullik",
+    heading: "Bepul va pullik rejalar",
     free: {
       name: "Bepul",
-      label: "Bepul versiya",
+      label: "Bepul reja",
       cta: "Telegramda bepul boshlash",
       features: [
         "Qadamma-qadam rasm va video tekshiruvlar",
@@ -97,10 +84,10 @@ export const uz: Copy = {
     },
     paid: {
       name: "Pullik",
-      label: "Pullik versiya",
+      label: "Pullik reja",
       cta: "Narxini soʻrash",
       features: [
-        "Bepul versiyadagi hamma narsa",
+        "Bepul rejadagi hamma narsa",
         "Barcha guruhlar sozlamalarini birdaniga oʻzgartirish",
         "Cheksiz tekshiruv tarixi",
         "Tekshiruv hisobotlarini PDF shaklida yuklab olish",

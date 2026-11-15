@@ -2,16 +2,16 @@ import type { Copy } from "./en";
 
 export const uz: Copy = {
   seo: {
-    title: "Telegramda haydovchilar uchun anonim soʻrovnomalar",
+    title: "Haydovchilar uchun anonim Telegram soʻrovnoma",
     description:
-      "Haydovchilar nega ketishini bilib oling. Haydovchilaringizning Telegram guruhlariga anonim soʻrovnoma yuboring va maosh, home time hamda dispetcherlik boʻyicha baholarni bitta boshqaruv panelida koʻring. Haydovchilarga ilova kerak emas.",
+      "Haydovchilarning Telegram guruhlariga anonim soʻrovnoma yuboring va nega ketishini bilib oling. Baholar va javoblar bitta panelda. Ilova kerak emas.",
   },
   hero: {
-    title: "Haydovchilar nega ketishini bilib oling. Keyingisi ketmasidan oldin.",
-    body: "Soʻrovnoma va Telegram guruhlaringizni tanlasangiz kifoya, havolani biz joylaymiz. Haydovchilar telefonida anonim javob beradi. Muammo nimada ekanini koʻrasiz: maosh, home time, dispetcherlik yoki truck.",
+    title: "Telegram guruhlaringizda anonim haydovchi soʻrovnomalari",
+    body: "Haydovchilar hali ketmasidan muammoni bilib oling. Soʻrovnoma va guruhlarni tanlang. Muammo nimada ekanini koʻrasiz: maosh, home time, dispetcherlik yoki truck.",
     note: "Guruhlaringizga oʻzimiz sozlab beramiz.",
     motionLabel:
-      "Ofis «Pay and home time» soʻrovnomasini haydovchilarning 48 ta Telegram guruhiga yuboradi, haydovchilar telefonlarida anonim javob beradi va natijalarda eng past baho uyda boʻlish vaqtiga berilgani koʻrinadi.",
+      "Ofis «Pay and home time» soʻrovnomasini haydovchilarning 48 ta Telegram guruhiga yuboradi, haydovchilar telefonlarida anonim javob beradi va natijalarda eng past baho home time ga berilgani koʻrinadi.",
     pauseMotion: "Animatsiyani toʻxtatish",
     playMotion: "Animatsiyani ishga tushirish",
   },
@@ -38,8 +38,12 @@ export const uz: Copy = {
   features: {
     heading: "Nimalarga ega boʻlasiz",
     leaving: {
-      title: "Ishdan ketmasidan oldin eshiting",
+      title: "Kadrlar aylanmasini erta aniqlang",
       text: "Har oy «Ketishni oʻylayapsizmi?» deb soʻrang. «Balki» degan javoblar koʻpaya boshlasa, hali tuzatishga vaqtingiz bor.",
+    },
+    groups: {
+      title: "Barcha guruhlarga birdaniga",
+      text: "Guruh, haydovchi yoki truck boʻyicha qidiring, soʻng hammasini belgilang. Guruhlaringiz yuzlab boʻlsa ham, havolani har biriga joylaymiz.",
     },
     anonymous: {
       title: "Anonim boʻlgani uchun rostini aytishadi",
@@ -48,10 +52,6 @@ export const uz: Copy = {
     templates: {
       title: "Oltita tayyor soʻrovnoma",
       text: "Maosh, home time, dispetcherlik, texnika, xavfsizlik va yangi haydovchilar. Birini tanlang, xohlaganingizni oʻzgartiring va yuboring.",
-    },
-    groups: {
-      title: "Barcha guruhlarga birdaniga",
-      text: "Guruh, haydovchi yoki truck boʻyicha qidiring, soʻng hammasini belgilang. Guruhlaringiz yuzlab boʻlsa ham, havolani har biriga joylaymiz.",
     },
     noApp: {
       title: "Haydovchilarga ilova kerak emas",

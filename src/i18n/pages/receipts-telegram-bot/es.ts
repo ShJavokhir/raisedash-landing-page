@@ -4,13 +4,13 @@ import type { Copy } from "./en";
 // request stay in English wherever the copy tells people what to type.
 export const es: Copy = {
   seo: {
-    title: "Recopile recibos de conductores en Telegram",
+    title: "Recibos de conductores en Telegram",
     description:
-      "Escriba “receipt” en su grupo de Telegram y le enviamos un enlace para subir el recibo. Todos llegan a un solo panel y reembolsar es fácil. Sin app para los conductores.",
+      "Recopile recibos de combustible, lumper, peajes y reparaciones en Telegram. Sin app, sin cuenta. El conductor abre un enlace, toma la foto y escribe el total.",
   },
   hero: {
     title: "Recopile los recibos de sus conductores en Telegram.",
-    body: "Solo escriba la palabra “receipt” en su grupo de Telegram y le enviamos un enlace para subir el recibo. Cada recibo aparece en su panel, así sabe a quién reembolsar y cuánto.",
+    body: "Escriba “receipt” en el grupo de Telegram de sus conductores y el bot responde con un enlace. El conductor lo abre, le toma foto al recibo y escribe el total en dólares. Cada recibo llega a un solo panel con el conductor, el monto y las fotos.",
     note: "Nosotros lo configuramos en sus grupos.",
     motionLabel:
       "En el grupo de Telegram de los conductores, la oficina le pide a Mike su recibo, Mike le toma una foto con su teléfono y escribe el total de $175, y el recibo llega al panel de recibos de la oficina, donde se actualizan los totales, la gráfica de gastos por día y los conductores con más gastos.",
@@ -29,45 +29,33 @@ export const es: Copy = {
   },
   steps: {
     ask: {
-      title: "Pida el recibo",
+      title: "Escriba “receipt” en el grupo",
       description:
-        "Pídalo en su grupo de Telegram, por ejemplo: “Mike, could you share your receipt?”. Le respondemos con un enlace.",
+        "El bot responde con un enlace. El conductor lo abre en el navegador de su celular. Sin app, sin cuenta, sin contraseña.",
     },
     photo: {
-      title: "El conductor envía una foto",
+      title: "El conductor le toma foto al recibo",
       description:
-        "El enlace se abre en el celular del conductor. Le toma una foto al recibo y escribe el total.",
+        "Toma una foto o elige un archivo y escribe el total. Las fotos se comprimen antes de subirse, así se envían aunque la señal sea débil.",
     },
     dashboard: {
       title: "Todos los recibos en un solo panel",
       description:
-        "Los recibos de cada conductor en una sola lista, con el monto y las fotos. Ya no tiene que buscar entre chats cuando llega la hora de reembolsar a los conductores.",
+        "Cada recibo muestra el conductor, el monto y los archivos. Cada recibo tiene su propio enlace que puede enviar a contabilidad.",
     },
   },
   features: {
     heading: "Qué incluye",
-    files: {
-      title: "Fotos, PDF y videos",
-      text: "Hasta 5 archivos por recibo. Tome una foto nueva o elija una del celular.",
-    },
-    link: {
-      title: "Un enlace para cada recibo",
-      text: "Ábralo para ver las fotos y el monto. Envíelo a contabilidad o guárdelo para después.",
-    },
     expenses: {
       title: "Lumpers, combustible, peajes y más",
-      text: "Cualquier recibo que le den al conductor en el camino. Los tickets de báscula, el estacionamiento y las reparaciones funcionan igual.",
-    },
-    noApp: {
-      title: "Sin app que instalar",
-      text: "El enlace se abre directo en el celular. Sin app, sin cuenta, sin contraseña.",
+      text: "Cualquier recibo que le den al conductor en el camino: tickets de báscula, estacionamiento, reparaciones. Todos funcionan igual.",
     },
     fastPhotos: {
-      title: "Las fotos se envían rápido",
-      text: "Reducimos el tamaño de las fotos antes de subirlas, así se envían rápido aunque la señal sea débil.",
+      title: "Las fotos se envían con señal débil",
+      text: "Comprimimos las fotos antes de subirlas, así se envían rápido aunque la conexión sea lenta.",
     },
     aiCheck: {
-      title: "Revise si un recibo fue generado con IA",
+      title: "Detección de recibos con IA, próximamente",
       text: "Revisaremos la foto de cada recibo y le avisaremos si parece generada con IA, antes de que le reembolse al conductor.",
       badge: "Próximamente",
     },
@@ -79,22 +67,22 @@ export const es: Copy = {
     {
       question: "¿Cómo empiezo?",
       answer:
-        "Solicite una demo. Le mostramos a su equipo cómo funciona y le ayudamos a configurarlo en los grupos de sus conductores.",
+        "Solicite una demo. Le mostramos a su equipo cómo funciona y lo configuramos en los grupos de sus conductores.",
     },
     {
-      question: "¿Raisedash les reembolsa a los conductores?",
+      question: "¿Les reembolsa a los conductores?",
       answer:
-        "No. Usted les paga a los conductores como lo hace ahora. Nosotros ponemos cada recibo en una sola lista con el conductor, el monto y las fotos, así sabe a quién pagarle y cuánto.",
+        "No. Usted les paga a los conductores como lo hace ahora. El panel pone cada recibo en una sola lista con el conductor, el monto y las fotos, así sabe a quién pagarle y cuánto.",
     },
     {
       question: "¿Y si un conductor escribe mal el monto?",
       answer:
-        "Puede corregir el monto o eliminar el recibo en el panel. El enlace del recibo muestra el cambio.",
+        "Puede corregir el monto o eliminar el recibo en el panel. El enlace del recibo muestra el monto actualizado.",
     },
     {
       question: "¿Lee el monto de la foto?",
       answer:
-        "No. El conductor escribe el total. Las fotos se quedan con el recibo, así usted puede verificar el monto.",
+        "No. El conductor escribe el total. Las fotos se quedan con el recibo, así usted puede verificar el número.",
     },
     {
       question: "¿Qué pueden enviar los conductores?",
@@ -103,11 +91,11 @@ export const es: Copy = {
     },
     {
       question: "¿Cuánto tiempo funciona el enlace?",
-      answer: "24 horas. Después, solo escriba “receipt” otra vez para recibir un enlace nuevo.",
+      answer: "24 horas. Después, escriba “receipt” otra vez para recibir un enlace nuevo.",
     },
   ],
   start: {
     heading: "Empiece a recopilar recibos",
-    body: "Solicite una demo. Le mostramos cómo funciona y le ayudamos a configurarlo en sus grupos.",
+    body: "Solicite una demo. Le mostramos cómo funciona y lo configuramos en sus grupos.",
   },
 };

@@ -355,7 +355,7 @@ const tools = [
     tabLabel: "AI training",
     eyebrow: "AI training",
     title: "Build training from a short brief.",
-    body: "Create editable lessons, quizzes, and videos for your fleet.",
+    body: "Generates editable lessons, quizzes, and videos for your fleet.",
     visual: TrainingGeneratorVisual,
   },
   {
@@ -376,7 +376,7 @@ const tools = [
     tabLabel: "Simulations",
     eyebrow: "Software practice",
     title: "Practice the software before using it.",
-    body: "Turn an ELD, DVIR, or other workflow into a tappable simulation.",
+    body: "Turn an ELD, DVIR, or other workflow into a tappable simulation in the browser.",
     visual: SimulationVisual,
   },
 ];

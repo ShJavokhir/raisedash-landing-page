@@ -1,21 +1,18 @@
 // English is the source text; every other language is typed against it.
 export const en = {
   seo: {
-    title: "Driver Coaching Software for Trucking Fleets",
+    title: "Driver coaching software for trucking fleets",
     description:
-      "Send drivers a short coaching lesson with their dashcam clip after a safety event. Assign it automatically from Samsara and Motive, and keep a record of every coaching.",
+      "Send drivers a coaching lesson with their dashcam clip after a safety event. Assign from Samsara or Motive events or by hand. Kept on the driver’s record.",
   },
   hero: {
-    title: "Coach drivers the day it happens.",
-    body: "Send a short lesson with the dashcam clip. The driver finishes it on their phone.",
+    title: "Driver coaching with the dashcam clip",
+    body: "After a safety event, send the driver a short lesson with their own dashcam clip. They finish it on their phone.",
     worksWith: "Works with Samsara and Motive.",
     motionLabel:
       "A following-distance event for Mike shows up in the Raisedash Safety list and a rule sends him a lesson, he watches his own dashcam clip and the lesson on his phone, and the event turns to Coached.",
     pauseMotion: "Pause animation",
     playMotion: "Play animation",
-  },
-  twoWays: {
-    heading: "The camera saw it. Then what?",
   },
   parts: {
     clip: {
@@ -27,8 +24,8 @@ export const en = {
       ],
     },
     automatic: {
-      title: "Samsara and Motive events assign it for you",
-      text: "Set a rule once, like 3 following-distance events in 7 days, and we send the lesson.",
+      title: "Samsara and Motive events assign coaching for you",
+      text: "Set a rule once (for example, 3 following-distance events in 7 days) and we send the lesson.",
       points: ["Send right away, or wait for your OK.", "One set of rules for a mixed fleet."],
     },
     anyEvent: {
@@ -38,8 +35,8 @@ export const en = {
     },
   },
   record: {
-    heading: "Proof you coached, when it matters",
-    body: "After a crash, lawyers ask for your dashcam events. Flagged events with no coaching after them look like you knew and did nothing.",
+    heading: "A record of every coaching",
+    body: "After a crash, lawyers ask for dashcam events and what you did about them.",
     kept: "Raisedash keeps the event, the lesson, and when the driver finished it.",
     /** Around the "ATRI" source link: "… 2018 (ATRI). Not legal advice." */
     sourceBefore: "Average trucking verdicts grew from $2.3M in 2010 to $22.3M in 2018 (",
@@ -48,14 +45,14 @@ export const en = {
   features: {
     policy: {
       title: "Lessons from your policy",
-      text: "Describe the rule. AI drafts the lesson, you approve it.",
+      text: "Describe the rule. AI drafts the lesson, you approve it before any driver sees it.",
     },
     rank: {
-      title: "See who needs it most",
+      title: "See who needs coaching most",
       text: "Drivers ranked by events per 1,000 miles, not raw counts.",
     },
     driverPage: {
-      title: "Next to orientation",
+      title: "Coaching next to orientation",
       text: "Onboarding and every coaching on one driver page.",
     },
   },
@@ -63,9 +60,9 @@ export const en = {
   fairness: {
     heading: "Fair to drivers",
     items: [
-      { title: "They see the clip", text: "Not a summary of it." },
+      { title: "They see the clip", text: "The actual video, not a summary." },
       { title: "You skip false alerts", text: "So coaching only goes out when it fits." },
-      { title: "Only theirs", text: "No driver sees a coworker’s events." },
+      { title: "Only their events", text: "No driver sees a coworker’s events." },
     ],
   },
   faq: {
@@ -74,7 +71,7 @@ export const en = {
       {
         question: "Do I need Samsara or Motive?",
         answer:
-          "No. You can send coaching by hand for anything. Connecting Samsara or Motive adds the clips and automatic rules.",
+          "No. You can send coaching by hand for anything. Connecting Samsara or Motive adds the dashcam clips and automatic rules.",
       },
       {
         question: "We already coach in Samsara or Motive. Why add this?",

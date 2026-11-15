@@ -1,15 +1,11 @@
 import Link from "next/link";
 import {
-  BadgeCheck,
-  Flag,
   Hand,
   Lightbulb,
   MousePointerClick,
   Route,
-  ShieldCheck,
   Smartphone,
   TabletSmartphone,
-  Video,
 } from "lucide-react";
 import { FeatureCrossLinks } from "@/components/features/FeatureCrossLinks";
 import { MediaFrame } from "@/components/features/MediaFrame";
@@ -30,72 +26,42 @@ import { BreadcrumbJsonLd } from "@/components/seo/SEO";
 
 const FEATURES: PlatformFeature[] = [
   {
-    title: "Create it from one recording",
-    description: "Record and narrate a walkthrough. No separate authoring tool is required.",
-    icon: Video,
-  },
-  {
-    title: "A real replica, not a slideshow",
-    description: "Live tap targets and typed fields, not screenshots with arrows.",
+    title: "Live tap targets, not screenshots",
+    description: "Drivers tap real buttons and type into fields. Not a slideshow with arrows.",
     icon: MousePointerClick,
   },
   {
     title: "Mistap coaching",
-    description: "Wrong taps show a coaching message and let the driver try again.",
+    description: "A wrong tap shakes, shows what to look for, and lets the driver try again.",
     icon: Hand,
   },
   {
     title: "Hints on demand",
-    description: "A driver who's stuck gets a nudge, not a dead end.",
+    description: "Stuck drivers get a nudge, not a dead end.",
     icon: Lightbulb,
   },
   {
     title: "Runs in the phone browser",
-    description: "Drivers practice in the same phone browser they already use for training.",
+    description: "No app to install. Same browser drivers already use for orientation.",
     icon: Smartphone,
-  },
-  {
-    title: "Sandboxed and safe",
-    description: "Practice cannot change your live systems, logs, or company data.",
-    icon: ShieldCheck,
-  },
-  {
-    title: "Auto-tested before publish",
-    description: "Automated checks verify correct and incorrect taps before publishing.",
-    icon: BadgeCheck,
-  },
-  {
-    title: "Completion is the walkthrough",
-    description: "No skip button. Finishing the practice is what completes the content.",
-    icon: Flag,
   },
 ];
 
 const STEPS: PlatformStep[] = [
   {
-    title: "Record a walkthrough once",
+    title: "Record one walkthrough",
     description:
-      "Screen-record the app while narrating what you're doing and why. That one video is the entire authoring effort.",
+      "Screen-record the app while narrating what you're doing and why. That single video is the entire authoring effort.",
   },
   {
     title: "Raisedash builds the practice version",
     description:
-      "The recording becomes an interactive version with the same screens, order, and required actions.",
-  },
-  {
-    title: "It's tested before drivers see it",
-    description:
-      "Automated checks complete the full walkthrough and test incorrect taps before the simulation can be published.",
+      "The recording becomes a practice version with the same screens, order, and required actions. Automated checks verify correct and incorrect taps before your team can publish it.",
   },
   {
     title: "Drivers practice on their phones",
     description:
-      "Drivers tap buttons, enter information, and move through realistic wait states. A hint is always available.",
-  },
-  {
-    title: "Completion requires the full flow",
-    description:
-      "The content is marked complete only after the driver finishes every step in the workflow.",
+      "Drivers tap buttons, enter information, and move through realistic wait states. A hint is always available. The practice is complete only after the driver finishes every step.",
   },
 ];
 
@@ -103,32 +69,32 @@ const FAQS: PlatformFaq[] = [
   {
     question: "What is an interactive training simulation?",
     answer:
-      "It is a tap-through practice version of a real app or workflow. Drivers practice the screens and steps on their own phones and receive coaching when they tap the wrong item. Your team creates one by recording a narrated walkthrough of the app.",
+      "A tap-through practice version of a real app. Drivers follow every screen and step on their own phone and get coaching when they tap the wrong thing. You create one by recording a narrated walkthrough of the app.",
   },
   {
     question: "Is this a truck driving simulator?",
     answer:
-      "No. It does not teach steering or backing. It provides browser-based practice for the software drivers use, including ELDs, fleet apps, and dispatch workflows. There is nothing to install.",
+      "No. It does not teach steering, backing, or vehicle handling. It is browser-based practice for the software drivers use: ELDs, fleet apps, dispatch workflows. Nothing to install.",
   },
   {
     question: "How do we create one?",
     answer:
-      "Record a screen walkthrough of the app while narrating, upload it, and compiling typically takes about 10–15 minutes. There is no storyboarding and no authoring tool to learn.",
+      "Record a screen walkthrough of the app while narrating, then upload it. Compiling typically takes about 10 to 15 minutes. No storyboarding and no authoring tool to learn.",
   },
   {
     question: "What happens when a driver taps the wrong thing?",
     answer:
-      "The wrong element shakes, a coaching message explains what to look for, and the step does not advance. A hint is always one tap away. It behaves like a patient trainer, not a quiz.",
+      "The wrong element shakes, a coaching message explains what to look for, and the step does not advance. A hint is always one tap away.",
   },
   {
     question: "Can a broken simulation reach drivers?",
     answer:
-      "No. Automated checks verify the complete walkthrough, including correct and incorrect taps, before the simulation can be published.",
+      "No. Automated checks walk the full flow, testing correct and incorrect taps, before your team can publish it.",
   },
   {
     question: "What counts as completing a simulation?",
     answer:
-      "Walking the real flow to the end on their own phone. There is no skip; completion only fires when the practice is actually finished, and it is recorded like any other training completion.",
+      "Finishing the entire flow on the driver's own phone. There is no skip button. Completion is recorded like any other training activity.",
   },
 ];
 
@@ -149,8 +115,8 @@ const WORKFLOW_ITEMS = [
 export default function InteractiveTrainingSimulations() {
   return (
     <PageLayout
-      title="Interactive Training Simulations"
-      description="Record a walkthrough of your ELD or fleet app once. Raisedash compiles an interactive practice replica drivers tap through in the browser. No hardware."
+      title="Interactive training simulations"
+      description="Drivers tap through a practice copy of your ELD or fleet app in the phone browser. Record one walkthrough, and Raisedash builds it. No hardware."
       keywords={[
         "interactive training simulations for truck drivers",
         "ELD training for drivers",
@@ -170,32 +136,31 @@ export default function InteractiveTrainingSimulations() {
       <PlatformHero
         eyebrow="Interactive simulations"
         eyebrowIcon={TabletSmartphone}
-        title="Let drivers practice your fleet apps before day one."
-        subhead="Record a walkthrough of your ELD or fleet app. Raisedash turns it into an interactive phone-based exercise where drivers practice each step and get help when they make a mistake."
+        title="Drivers practice your ELD and fleet apps on their phone, before they touch the real thing."
+        subhead="Record one walkthrough of the app. Raisedash turns it into a practice version drivers tap through in the browser, with coaching when they make a mistake."
         vignette={<SimVignette />}
       />
 
       <PlatformSection
-        eyebrow="The problem"
-        title="Let drivers practice without touching the live system"
-        lede="Drivers learn faster when they can repeat a workflow without affecting real logs, loads, or records."
+        eyebrow="Why practice matters"
+        title="Wrong taps in a live system cause real problems"
       >
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
           <div className="border-border bg-card rounded-xs border p-6 sm:p-8">
             <p className="text-foreground text-lg leading-relaxed">
-              New drivers may need to learn an ELD, dispatch app, inspection workflow, and document
-              process at the same time. A demonstration shows where to tap, but it does not give
-              every driver a chance to practice.
+              A new driver may need to learn your ELD, dispatch app, inspection screens, and
+              document process at the same time. A demonstration shows where to tap once, but it
+              doesn&apos;t let every driver practice.
             </p>
             <p className="text-muted-foreground mt-4 leading-relaxed">
               When practice happens in the live system, a wrong tap can create a log error, delay a
-              load, or require an administrator to clean up the record. Drivers may also avoid
-              asking for another demonstration because they do not want to slow the group down.
+              load, or require an admin to clean up the record. Drivers avoid asking for another
+              demo because they don&apos;t want to slow the group down.
             </p>
             <p className="text-muted-foreground mt-4 leading-relaxed">
-              Raisedash gives each driver a safe practice version on their phone. They can repeat
-              the workflow, receive guidance after a wrong tap, and finish orientation already
-              familiar with the tools they will use on the job.
+              Raisedash gives each driver a safe practice version on their phone. They repeat the
+              workflow, get guidance after a wrong tap, and arrive on the job already familiar with
+              the tools. Practice can&apos;t change your live systems, logs, or company data.
             </p>
           </div>
           <MediaFrame
@@ -211,13 +176,13 @@ export default function InteractiveTrainingSimulations() {
       <PlatformSection
         id="how-it-works"
         eyebrow="How it works"
-        title="One recording becomes a practice replica"
+        title="One recording becomes a practice version"
       >
         <StepList steps={STEPS} />
       </PlatformSection>
 
       <PlatformSection
-        eyebrow="Clear scope"
+        eyebrow="What it covers"
         title="This is not a driving simulator"
         lede="These simulations teach software and operational workflows. They do not replace hands-on vehicle training."
       >
@@ -263,23 +228,26 @@ export default function InteractiveTrainingSimulations() {
         </div>
       </PlatformSection>
 
-      <PlatformSection eyebrow="Built in" title="Practice that behaves like a patient trainer">
+      <PlatformSection eyebrow="Details" title="How practice works for the driver">
         <FeatureGrid features={FEATURES} columns={4} accent="green" />
       </PlatformSection>
 
-      <PlatformSection eyebrow="Repeatable practice" title="Give every driver time to practice">
+      <PlatformSection
+        eyebrow="Repeatable practice"
+        title="Send a driver back with a link, not another meeting"
+      >
         <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-2">
           {/* A plain image is intentional: this is an externally hosted marketing asset. */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="https://cdn.raisedash.com/media/landing/features/simulation-ink-record-to-replica.webp"
-            alt="One phone recording an app walkthrough, an arrow flowing into a second phone where the same screen is a practice replica with the tap target ringed in orange."
+            alt="One phone recording an app walkthrough, an arrow flowing into a second phone where the same screen is a practice version with the tap target ringed in orange."
             className="border-border h-auto w-full rounded-xs border"
           />
           <div>
             <p className="text-muted-foreground leading-relaxed">
-              A demonstration shows the workflow once. A simulation lets each driver repeat it at
-              their own pace and get help whenever they choose the wrong step.
+              A demo shows the workflow once. A simulation lets each driver repeat it at their own
+              pace and get coaching whenever they pick the wrong step.
             </p>
             <p className="text-muted-foreground mt-4 leading-relaxed">
               Simulations run in the same phone browser as the rest of Raisedash training. Drivers
@@ -290,22 +258,21 @@ export default function InteractiveTrainingSimulations() {
               >
                 one-time code
               </Link>{" "}
-              and do not need to install an app. Sending a driver back through the ELD practice
-              takes a link instead of another meeting. Completion is recorded like any other
+              and don&apos;t need to install anything. Completion is recorded like any other
               training activity.
             </p>
           </div>
         </div>
       </PlatformSection>
 
-      <FaqSection title="Interactive simulation questions" faqs={FAQS} />
+      <FaqSection title="Common questions" faqs={FAQS} />
 
       <FeatureCrossLinks currentSlug="interactive-training-simulations" />
 
       <PlatformCTA
         title="Give every driver hands-on practice before day one."
-        subtitle="Book a demo and complete a live practice simulation on your phone."
-        footnote="Simulations are practice replicas for training. They record completion, not scores, and they never touch your real systems."
+        subtitle="Book a demo and try a live simulation on your phone."
+        footnote="Simulations record completion, not scores, and never touch your real systems."
       />
     </PageLayout>
   );

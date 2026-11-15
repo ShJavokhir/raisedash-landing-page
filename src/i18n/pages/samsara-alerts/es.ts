@@ -2,16 +2,16 @@ import type { Copy } from "./en";
 
 export const es: Copy = {
   seo: {
-    title: "Alertas de Samsara en Telegram con video de dashcam",
+    title: "Alertas de Samsara en Telegram para flotas",
     description:
-      "Eventos de seguridad con video de la dashcam, exceso de velocidad y fallas del motor de Samsara en Telegram, más reportes semanales. 3 días gratis.",
+      "Eventos de seguridad con video, exceso de velocidad y fallas del motor de Samsara en su grupo de Telegram. Reportes semanales cada viernes. 3 días gratis.",
   },
   hero: {
     eyebrow: "Samsara → Telegram",
     title: "Las alertas de Samsara, en su grupo de Telegram.",
     body: "Eventos de seguridad con el video de la dashcam, exceso de velocidad, fallas del motor. Llegan al chat que su equipo ya tiene abierto todo el día.",
     motionLabel:
-      "El camión de Mike va por la autopista cuando la cámara de Samsara detecta que va demasiado cerca del vehículo de adelante. El video llega al tema de ese evento en el grupo de Telegram de la empresa, donde Sarah responde que va a llamar a Mike, y cada viernes tres reportes semanales resumen la semana.",
+      "El camión de Mike va por la autopista cuando la cámara de Samsara detecta que va demasiado cerca del vehículo de adelante. El video llega al tema de ese evento en el grupo de Telegram de la empresa, donde Sarah responde que va a llamar a Mike, y cada viernes tres tableros semanales resumen la semana.",
     pauseMotion: "Pausar la animación",
     playMotion: "Reproducir la animación",
   },
@@ -21,16 +21,16 @@ export const es: Copy = {
     altDesktop:
       "Un grupo de Telegram con un tema aparte para cada tipo de evento: códigos de falla, distancia de seguimiento, cámara obstruida, uso del celular, exceso de velocidad, sin cinturón de seguridad, giro brusco, somnolencia y más, junto a una conversación llena de alertas con videos de la dashcam.",
     caption:
-      "Cada tipo de evento tiene su propio tema y cada alerta lleva el número del camión. Así, al buscar un camión, aparece todo lo que ha hecho hasta hoy.",
+      "Cada tipo de evento tiene su propio tema. Cada alerta lleva el número del camión, así que al buscar un camión aparece todo lo que ha disparado.",
     redacted:
       "Capturas de pantalla reales de una flota que ya lo usa. Los nombres, las placas y las ubicaciones están difuminados solo en esta página, no en su grupo.",
   },
   why: {
-    heading: "Samsara ya lo ve todo. Pero nadie lo está mirando.",
+    heading: "Samsara ya ve todo esto. Pero nadie lo está mirando.",
     items: [
       {
         title: "El panel de Samsara",
-        body: "Alguien tiene que estar conectado y actualizándolo. Una semana con mucho movimiento son miles de eventos, y cada persona que usted quiera que lo revise necesita su propio usuario de Samsara.",
+        body: "Alguien tiene que estar conectado y actualizándolo. Una semana con mucho movimiento son miles de eventos, y cada persona que necesite verlos necesita su propio usuario de Samsara.",
       },
       {
         title: "Alertas por correo electrónico",
@@ -38,7 +38,7 @@ export const es: Copy = {
       },
       {
         title: "El chat de grupo que ya tiene",
-        body: "Está abierto en todos los celulares de la empresa. El video viene en el mensaje y todos ven lo mismo al mismo tiempo.",
+        body: "Está abierto en todos los celulares. El video de la dashcam se reproduce ahí mismo, en el mensaje. Todos lo ven al mismo tiempo.",
       },
     ],
   },
@@ -49,7 +49,7 @@ export const es: Copy = {
     },
     speeding: {
       title: "Exceso de velocidad, por encima de su límite",
-      body: "Qué tan rápido, por cuánto tiempo y dónde. Usted decide a partir de cuánto se avisa: ir 3 mph por encima del límite no hace ruido; 15 por encima, sí.",
+      body: "Qué tan rápido, por cuánto tiempo y dónde. Usted decide el umbral: ir 3 por encima del límite no hace ruido; 15 por encima, sí.",
     },
     faults: {
       title: "Fallas del motor, en palabras claras",
@@ -86,7 +86,7 @@ export const es: Copy = {
       "Manejo defensivo",
       "Códigos de falla del motor",
     ],
-    note: "Desactive los que no quiera. Lo que Samsara agregue más adelante también llega, solo que con un nombre genérico hasta que le pongamos uno.",
+    note: "Desactive los que no quiera. Lo que Samsara agregue más adelante también llega. Solo aparecerá con un nombre genérico hasta que le pongamos uno.",
   },
   boards: {
     eyebrow: "Todos los viernes",
@@ -97,9 +97,9 @@ export const es: Copy = {
     trial: "Pruébelo 3 días gratis",
     trialNote: "Pague solo si le sirve.",
     features: [
-      "Todo lo anterior, para todo el grupo",
-      "Reportes semanales avanzados",
-      "También funciona con grupos aparte para los conductores",
+      "Todos los eventos, exceso de velocidad y fallas para todo el grupo",
+      "Tableros semanales de seguridad, conductores y combustible fijados cada viernes",
+      "Eventos seleccionados enviados al grupo propio del conductor, con umbral aparte",
       "La configuración toma unos 15 minutos, y la hacemos con usted",
     ],
   },
@@ -112,7 +112,7 @@ export const es: Copy = {
     {
       question: "¿A dónde van nuestros datos?",
       answer:
-        "A nuestro propio servidor en AWS us-east-1, dentro de una red privada. Nada se guarda en una base de datos y nada sale de ese servidor. Las alertas pasan directo a su grupo, sin quedarse en el servidor. Los tableros semanales se arman desde cero con los datos de Samsara cada vez que se generan.",
+        "A nuestro propio servidor en AWS us-east-1, dentro de una red privada. Nada se guarda en una base de datos y nada sale de ese servidor. Las alertas pasan directo a su grupo y desaparecen. Los tableros semanales se arman desde cero con los datos de Samsara cada vez que se generan.",
     },
     {
       question: "¿Esto reemplaza a Samsara?",
@@ -122,12 +122,12 @@ export const es: Copy = {
     {
       question: "¿Va a llenar nuestro grupo de spam?",
       answer:
-        "No. Nada se envía dos veces, las alertas de velocidad solo se publican cuando se pasa el límite que usted fijó, las fallas del motor tienen que seguir activas antes de generar una alerta, y lo que su equipo ya descartó en Samsara nunca aparece. Además, cada tipo de comportamiento tiene su propio tema, así que las alertas por uso del celular no tapan todo lo demás.",
+        "No. Nada se envía dos veces. Las alertas de velocidad solo se publican cuando se pasa el límite que usted fijó. Las fallas del motor tienen que seguir activas antes de generar una alerta. Lo que su equipo ya descartó en Samsara nunca aparece. Cada tipo de evento tiene su propio tema, así que las alertas por uso del celular no tapan todo lo demás.",
     },
     {
       question: "¿Los conductores pueden recibir sus propias alertas?",
       answer:
-        "Sí. Puede enviar los eventos que elija al chat de grupo de cada conductor, con un límite distinto al del grupo principal. Así, el conductor se entera cuando va 15 mph por encima, sin que toda la oficina vea cada vez que va 3 por encima.",
+        "Sí. Puede enviar los eventos que elija al chat de grupo de cada conductor, con un umbral distinto al del grupo principal. Así, el conductor se entera cuando va 15 por encima sin que toda la oficina vea cada vez que va 3 por encima.",
     },
     {
       question: "¿Y si un camión no tiene cámara o el video no carga?",

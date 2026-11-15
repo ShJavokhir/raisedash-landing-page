@@ -35,8 +35,8 @@ export default function PtiApp() {
 
   return (
     <PageLayout
-      title="Download Raisedash PTI & DVIR"
-      description="Download Raisedash PTI & DVIR app for drivers. Complete pre-trip inspections, post-trip inspections, and driver vehicle inspection reports digitally. Available for iOS and Android."
+      title="PTI & DVIR app for drivers"
+      description="Download the Raisedash PTI & DVIR app for iPhone. Pre-trip inspections, post-trip inspections, and DVIRs on your driver's phone."
       keywords={[
         "raisedash pti download",
         "dvir app",
@@ -45,7 +45,7 @@ export default function PtiApp() {
         "driver vehicle inspection report",
         "trucking inspection app",
         "iOS dvir app",
-        "Android pti app",
+        "iPhone pti app",
         "dot compliance app",
         "fmcsa inspection app",
       ]}
@@ -55,8 +55,11 @@ export default function PtiApp() {
           <div className="mx-auto w-full max-w-sm text-center">
             <div className="mb-8">
               <h1 className="text-foreground text-3xl font-semibold tracking-[-0.01em] md:text-4xl">
-                Download Raisedash PTI & DVIR
+                Raisedash PTI &amp; DVIR app
               </h1>
+              <p className="text-muted-foreground mt-3 text-base">
+                Pre-trip inspections, post-trip inspections, and DVIRs on your driver&apos;s phone.
+              </p>
             </div>
 
             <div className="space-y-3">
@@ -75,7 +78,7 @@ export default function PtiApp() {
                   >
                     <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
                   </svg>
-                  Download for iOS
+                  Download on the App Store
                 </Button>
               </Link>
 
@@ -94,7 +97,7 @@ export default function PtiApp() {
                 >
                   <path d="M10 15l5.19-3L10 9v6m11.56-7.83c.13.47.22 1.1.28 1.9.07.8.1 1.49.1 2.09L22 12c0 2.19-.16 3.8-.44 4.83-.25.9-.83 1.48-1.73 1.73-.47.13-1.33.22-2.65.28-1.3.07-2.49.1-3.59.1L12 19c-4.19 0-6.8-.16-7.83-.44-.9-.25-1.48-.83-1.73-1.73-.13-.47-.22-1.1-.28-1.9-.07-.8-.1-1.49-.1-2.09L2 12c0-2.19.16-3.8.44-4.83.25-.9.83-1.48 1.73-1.73.47-.13 1.33-.22 2.65-.28 1.3-.07 2.49-.1 3.59-.1L12 5c4.19 0 6.8.16 7.83.44.9.25 1.48.83 1.73 1.73z" />
                 </svg>
-                Watch 2-Min Tutorial
+                Watch 2-min tutorial
               </Button>
             </div>
           </div>

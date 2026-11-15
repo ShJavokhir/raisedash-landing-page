@@ -27,7 +27,7 @@ export function ForDrivers() {
               For drivers
             </p>
             <h2 className="text-foreground text-2xl font-normal tracking-[-0.02em] sm:text-3xl">
-              Easy from the first tap.
+              Drivers get a text and open orientation on their phone.
             </h2>
             <p className="text-muted-foreground mt-3 text-lg">
               Open the invite, enter a one-time code, and start.

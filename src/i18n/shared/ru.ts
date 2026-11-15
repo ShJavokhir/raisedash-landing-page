@@ -14,7 +14,7 @@ export const ru: Copy = {
     tagline: "Мы делаем простые и полезные инструменты для транспортных компаний.",
     needHelp: "Нужна помощь?",
     rights: "Все права защищены",
-    support: "Поддержка — по email",
+    support: "Поддержка доступна по email",
     askAi: {
       label: "Спросите о нас у ИИ",
       ask: "Спросить {name} о Raisedash (откроется в новой вкладке)",
@@ -44,7 +44,7 @@ export const ru: Copy = {
       "/request-account-deletion": "Удаление аккаунта",
     },
   },
-  demoLink: "Запросить бесплатное демо",
+  demoLink: "Запросить демо",
   trust: {
     label: "Нам доверяют",
     companies: "транспортных компаний",

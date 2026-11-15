@@ -3,13 +3,9 @@ import {
   ArrowRight,
   ClipboardCheck,
   FileText,
-  ListChecks,
-  MessageSquareText,
   MonitorCheck,
   PlayCircle,
-  RotateCcw,
   Send,
-  Smartphone,
   Truck,
   Users,
 } from "lucide-react";
@@ -30,53 +26,33 @@ import {
 
 const FEATURES: PlatformFeature[] = [
   {
-    title: "Use your fleet's material",
-    description: "Organize the videos, readings, and quizzes your approved hires should complete.",
+    title: "Your fleet's own material",
+    description:
+      "Organize the videos, readings, and quizzes your approved hires should finish before they arrive.",
     icon: FileText,
   },
   {
-    title: "Invite drivers directly",
-    description: "Send a clear orientation link by SMS or email as soon as the hire is approved.",
-    icon: MessageSquareText,
-  },
-  {
-    title: "Start without an app",
-    description: "Drivers open orientation in a phone browser and use a one-time access code.",
-    icon: Smartphone,
-  },
-  {
-    title: "Follow each status",
-    description: "See who has not started, who is in progress, and who has completed the work.",
-    icon: ListChecks,
-  },
-  {
-    title: "Review quiz results",
-    description: "Check recorded quiz activity and results beside each driver's assignment.",
+    title: "Quiz results per driver",
+    description: "Check quiz scores and activity next to each driver's assignment.",
     icon: MonitorCheck,
   },
   {
-    title: "Prepare one driver or a class",
-    description: "Use the same workflow for an individual hire or a group arriving together.",
+    title: "One driver or a full class",
+    description: "Works the same for a single hire or a group arriving together.",
     icon: Users,
   },
   {
-    title: "Let drivers return later",
-    description: "Completed work stays recorded when a driver stops and comes back to finish.",
-    icon: RotateCcw,
-  },
-  {
-    title: "Keep the training details",
-    description:
-      "Keep assignments, results, activity, and available certificates under the driver.",
+    title: "Training records in one place",
+    description: "Assignments, results, activity, and certificates stay under the driver's record.",
     icon: ClipboardCheck,
   },
 ];
 
 const STEPS: PlatformStep[] = [
   {
-    title: "Assign orientation after the hire is approved",
+    title: "Pick what the driver should finish before arrival",
     description:
-      "Choose the videos, readings, and knowledge checks the driver should complete before arrival.",
+      "Choose the videos, readings, and quizzes the driver needs to complete before orientation day.",
   },
   {
     title: "Send one direct invitation",
@@ -84,19 +60,18 @@ const STEPS: PlatformStep[] = [
       "Invite the driver by SMS or email. The link opens in a phone browser with no app to install.",
   },
   {
-    title: "Let the driver work in stages",
-    description:
-      "The driver can complete the assignment in one sitting or return later without losing finished work.",
+    title: "The driver works at their own pace",
+    description: "They can finish in one sitting or come back later without losing progress.",
   },
   {
-    title: "Review progress before the driver travels",
+    title: "Check progress before they travel",
     description:
-      "See who has not started, who is working, who is complete, and which quiz results need a closer look.",
+      "See who has not started, who is working, and who is done. Review quiz results that need a closer look.",
   },
   {
-    title: "Plan orientation day around what remains",
+    title: "Spend terminal time on hands-on work",
     description:
-      "Use terminal time for road tests, equipment, questions, and other work that belongs face to face.",
+      "Use orientation day for road tests, equipment, questions, and everything that belongs face to face.",
   },
 ];
 
@@ -104,32 +79,27 @@ const FAQS: PlatformFaq[] = [
   {
     question: "What is pre-arrival driver orientation?",
     answer:
-      "Pre-arrival orientation moves repeatable company material before terminal day. Approved hires can complete videos, readings, and quizzes before they travel, while the fleet keeps hands-on work for the terminal.",
+      "It moves repeatable company material (videos, readings, quizzes) before terminal day. Approved hires finish that work on their phone before they travel, and hands-on work stays at the terminal.",
   },
   {
-    question: "What does 'ready' mean in Raisedash?",
+    question: "What does 'complete' mean in Raisedash?",
     answer:
-      "It means the driver completed the online work your fleet assigned in Raisedash. Your fleet still decides whether the driver is qualified and whether any other work must be completed before driving.",
+      "It means the driver finished the online work your fleet assigned in Raisedash. Your fleet still decides whether the driver is qualified and whether any other work must be completed before driving.",
   },
   {
     question: "Do drivers need to download an app?",
     answer:
-      "No. Orientation opens in the phone's web browser. Drivers use a one-time access code instead of creating another password.",
-  },
-  {
-    question: "Can we invite drivers by text?",
-    answer:
-      "Yes. You can send an invitation by SMS or email, depending on the contact information you have for the driver.",
+      "No. Orientation opens in the phone's web browser. Drivers use a one-time code instead of creating a password.",
   },
   {
     question: "Where does the orientation content come from?",
     answer:
-      "Bring the videos and written material your fleet already uses. You can organize that material into online lessons and quizzes in Raisedash.",
+      "You bring the videos and written material your fleet already uses. You organize that material into online lessons and quizzes in Raisedash.",
   },
   {
     question: "Does this replace hands-on orientation?",
     answer:
-      "No. Use it for repeatable material that works well as video, reading, and quizzes. Road tests, equipment checks, qualification decisions, and other hands-on work still happen through your normal process.",
+      "No. Use it for repeatable material that works well as video, reading, and quizzes. Road tests, equipment checks, and other hands-on work still happen at the terminal.",
   },
 ];
 
@@ -157,8 +127,8 @@ const READINESS_STATES = [
 export default function PreArrivalReadiness() {
   return (
     <PageLayout
-      title="Driver Orientation Software for Trucking Fleets"
-      description="Send orientation before drivers arrive, follow each driver's progress, and plan terminal time around the hands-on work that remains."
+      title="Pre-arrival driver orientation software"
+      description="Send orientation by SMS or email before drivers arrive. Track each driver as not started, in progress, or complete. No app for drivers."
       keywords={[
         "driver orientation software",
         "pre-hire onboarding for trucking",
@@ -170,26 +140,20 @@ export default function PreArrivalReadiness() {
       <PlatformHero
         eyebrow="Pre-arrival driver orientation"
         eyebrowIcon={Send}
-        title="Know who is ready before orientation day."
-        subhead="Send repeatable orientation work by SMS or email, let drivers complete it in their phone browser, and see what is done before they travel."
+        title="Send orientation before drivers arrive. See who finished."
+        subhead="Invite approved hires by SMS or email. They finish videos, readings, and quizzes in their phone browser. You see who is done before they travel."
         vignette={<PipelineVignette />}
       />
 
       <PlatformSection
-        eyebrow="Pre-arrival readiness"
-        title="Ready should mean more than invited"
-        lede="A sent link tells you very little. Raisedash gives your team a shared view of the online work each incoming driver has actually completed."
+        eyebrow="Three statuses per driver"
+        title="Not started, in progress, or complete"
       >
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-5">
           <div className="border-border bg-card rounded-xs border p-6 sm:p-8 lg:col-span-2">
             <p className="text-muted-foreground text-lg leading-relaxed">
-              Without a clear status, incomplete work often surfaces after the driver has already
-              traveled. The safety team starts making calls, repeating material, and changing the
-              day&apos;s plan.
-            </p>
-            <p className="text-muted-foreground mt-4 text-sm leading-relaxed">
-              Raisedash shows the online preparation completed in the platform. It does not make a
-              qualification decision for your fleet.
+              Raisedash shows whether each incoming driver finished their assigned online work, so
+              you know before orientation day what still needs to happen.
             </p>
           </div>
           <div className="space-y-3 lg:col-span-3">
@@ -215,16 +179,14 @@ export default function PreArrivalReadiness() {
       <PlatformSection
         id="how-it-works"
         eyebrow="How it works"
-        title="From approved hire to a better-planned orientation day"
-        lede="The workflow is simple enough for one driver and clear enough for a full incoming class."
+        title="From approved hire to orientation day"
       >
         <StepList steps={STEPS} />
       </PlatformSection>
 
       <PlatformSection
-        eyebrow="Divide the work"
-        title="Move the repeatable material earlier. Keep hands-on work hands-on."
-        lede="Pre-arrival orientation works best when each activity happens in the setting where it is most useful."
+        eyebrow="What goes where"
+        title="Online before arrival. Hands-on at the terminal."
       >
         <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
           <div className="border-accent-blue/30 bg-accent-blue-soft rounded-xs border p-6 sm:p-8">
@@ -236,7 +198,7 @@ export default function PreArrivalReadiness() {
                 <p className="text-muted-foreground text-xs tracking-wide uppercase">
                   Before arrival
                 </p>
-                <h3 className="text-foreground mt-1 text-xl font-normal">Prepare online</h3>
+                <h3 className="text-foreground mt-1 text-xl font-normal">Online on their phone</h3>
               </div>
             </div>
             <ul className="space-y-3">
@@ -266,7 +228,7 @@ export default function PreArrivalReadiness() {
                 <p className="text-muted-foreground text-xs tracking-wide uppercase">
                   At the terminal
                 </p>
-                <h3 className="text-foreground mt-1 text-xl font-normal">Work face to face</h3>
+                <h3 className="text-foreground mt-1 text-xl font-normal">Face to face</h3>
               </div>
             </div>
             <ul className="space-y-3">
@@ -289,18 +251,13 @@ export default function PreArrivalReadiness() {
         </div>
       </PlatformSection>
 
-      <PlatformSection
-        eyebrow="Available today"
-        title="The tools behind the pre-arrival workflow"
-        lede="Each capability supports one clear goal: help the driver finish and help your team see where things stand."
-      >
+      <PlatformSection eyebrow="What you get" title="What the pre-arrival workflow includes">
         <FeatureGrid features={FEATURES} columns={4} accent="blue" />
       </PlatformSection>
 
       <PlatformSection
         eyebrow="Planning resources"
-        title="Start with the process, then choose the software"
-        lede="A clear orientation plan makes the product easier to evaluate and the rollout easier to explain."
+        title="Start with the process, then pick the software"
       >
         <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
           <Link
@@ -311,11 +268,11 @@ export default function PreArrivalReadiness() {
               Solution overview
             </p>
             <h3 className="text-foreground mt-3 text-lg font-normal">
-              See where Raisedash fits in driver onboarding
+              Where Raisedash fits in driver onboarding
             </h3>
             <p className="text-muted-foreground mt-2 text-sm leading-relaxed">
-              Understand the handoff from recruiting and qualification to pre-arrival preparation
-              and terminal day.
+              The handoff from recruiting and qualification to pre-arrival preparation and terminal
+              day.
             </p>
             <span className="text-foreground mt-5 inline-flex items-center gap-1.5 text-sm">
               Explore driver onboarding
@@ -328,14 +285,14 @@ export default function PreArrivalReadiness() {
           >
             <p className="text-muted-foreground text-xs tracking-wide uppercase">Practical guide</p>
             <h3 className="text-foreground mt-3 text-lg font-normal">
-              Build a truck driver orientation checklist
+              Truck driver orientation checklist
             </h3>
             <p className="text-muted-foreground mt-2 text-sm leading-relaxed">
               Separate pre-arrival material from the road tests, equipment work, and conversations
               that belong at the terminal.
             </p>
             <span className="text-foreground mt-5 inline-flex items-center gap-1.5 text-sm">
-              Read the orientation checklist
+              Read the checklist
               <ArrowRight className="h-3.5 w-3.5 transition-transform duration-150 group-hover:translate-x-0.5" />
             </span>
           </Link>
@@ -347,9 +304,8 @@ export default function PreArrivalReadiness() {
       <CrossLinks currentSlug="pre-arrival-readiness" />
 
       <PlatformCTA
-        title="See who is ready before orientation day."
+        title="See who finished before orientation day."
         subtitle="Book a short demo to follow one driver from invitation to completed online orientation."
-        footnote="Raisedash shows the online work completed in the platform. Your fleet still decides qualification and completes all hands-on work."
       />
     </PageLayout>
   );

@@ -18,7 +18,6 @@ import {
   FromTheClipFigure,
   RankFigure,
   RecordFigure,
-  TwoWays,
 } from "@/components/coaching/figures";
 import { ProductMotion } from "@/components/motion/ProductMotion";
 import { useCopy } from "@/components/i18n/LocaleProvider";
@@ -135,18 +134,6 @@ export default function DriverCoachingPage() {
           plate={PLATE}
           className="mt-10 sm:mt-12"
         />
-      </Container>
-
-      <Container className="pb-12 sm:pb-16">
-        <section aria-labelledby="dc-two-ways-heading">
-          <h2
-            id="dc-two-ways-heading"
-            className="text-foreground mb-6 text-2xl font-normal tracking-tight"
-          >
-            {t.twoWays.heading}
-          </h2>
-          <TwoWays />
-        </section>
       </Container>
 
       <Container className="pb-12 sm:pb-16">

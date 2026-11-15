@@ -1,16 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import {
-  Captions,
-  Clapperboard,
-  ClipboardCheck,
-  Film,
-  Gauge,
-  ListVideo,
-  MessageSquareText,
-  Paperclip,
-  Smartphone,
-} from "lucide-react";
+import { Clapperboard, Film, Gauge } from "lucide-react";
 import { FeatureCrossLinks } from "@/components/features/FeatureCrossLinks";
 import { MediaFrame } from "@/components/features/MediaFrame";
 import { GeneratorVignette } from "@/components/features/vignettes-generators";
@@ -33,7 +23,7 @@ const VIDEO_SCHEMA = {
   "@type": "VideoObject",
   name: "Tire blowout response: AI-generated driver training video",
   description:
-    "A complete driver training video created by Raisedash Video Studio from a short brief, including the script, narration, visuals, and captions.",
+    "A driver training video created by Raisedash Video Studio from a two-sentence brief about responding to a steer-tire blowout. Includes script, narration, visuals, and captions.",
   thumbnailUrl: "https://cdn.raisedash.com/media/landing/features/sample-explainer.jpg",
   contentUrl: "https://cdn.raisedash.com/media/landing/features/sample-explainer.mp4",
   uploadDate: "2026-07-19",
@@ -42,67 +32,32 @@ const VIDEO_SCHEMA = {
 
 const STEPS: PlatformStep[] = [
   {
-    title: "Describe the video",
+    title: "Describe the topic",
     description:
-      "Enter the topic, audience, and key points in plain language. Raisedash can ask a few optional questions to clarify the brief.",
+      "Type the topic, audience, and key points in plain language. Raisedash can ask a few optional questions to fill in the brief.",
   },
   {
-    title: "Review the refined brief",
+    title: "Check the production brief",
     description:
-      "The brief is rewritten into a clear production brief you can edit before anything is generated.",
+      "Raisedash rewrites your input into a structured brief. Read it, edit anything, then start generation.",
   },
   {
-    title: "Let Raisedash build the draft",
+    title: "Wait for the draft",
     description:
-      "Raisedash creates the script, narration, visuals, captions, and music in the background.",
+      "Raisedash builds the script, narration, visuals, captions, and music in the background while you keep working.",
   },
   {
-    title: "Review, edit, and use it",
+    title: "Review, edit, assign",
     description:
-      "Play the draft, make changes, then download it or add it directly to a training module.",
+      "Play the draft, swap scenes or rewrite lines, then download it or add it to a training module. Drivers see it only after your team approves.",
   },
 ];
 
 const FEATURES: PlatformFeature[] = [
   {
-    title: "Brief coach",
-    description: "Optional questions help turn a rough idea into a clear brief before generation.",
-    icon: MessageSquareText,
-  },
-  {
-    title: "Editable production brief",
-    description: "See what Raisedash will create and edit the plan before generation starts.",
-    icon: ClipboardCheck,
-  },
-  {
-    title: "Real trucking footage",
-    description: "Montage videos match each line of narration with trucking footage and photos.",
-    icon: Film,
-  },
-  {
-    title: "Word-synced captions",
-    description: "Burned-in captions timed to the narration, made for phones with the sound off.",
-    icon: Captions,
-  },
-  {
-    title: "Vertical + landscape",
-    description: "Create phone-friendly and landscape versions from the same brief.",
-    icon: Smartphone,
-  },
-  {
-    title: "Scene-by-scene editing",
-    description: "Swap footage, rewrite narration, reorder scenes, and render a new version.",
-    icon: ListVideo,
-  },
-  {
     title: "Draft mode",
     description: "Test and refine a brief with a fast preview before creating the final version.",
     icon: Gauge,
-  },
-  {
-    title: "Add to any training",
-    description: "Place finished videos in modules with completion tracking and records.",
-    icon: Paperclip,
   },
 ];
 
@@ -110,12 +65,12 @@ const FAQS: PlatformFaq[] = [
   {
     question: "What is an AI training video generator?",
     answer:
-      "It turns a written topic or policy into a narrated training video with a script, voiceover, visuals, and captions. In Raisedash, you enter a brief and review the finished draft before drivers see it.",
+      "It turns a written topic or policy into a narrated training video with a script, voiceover, visuals, and captions. You enter a brief in Raisedash and review the finished draft before drivers see it.",
   },
   {
     question: "How long does it take to generate a training video?",
     answer:
-      "Montage videos made from trucking footage are usually ready in about a minute once generation starts. Designed explainer lessons with custom visuals take 10 to 45 minutes. Both generate in the background while you continue working.",
+      "Montage videos are usually ready in about a minute. Explainer videos with custom visuals take 10 to 45 minutes. Both generate in the background while you keep working.",
   },
   {
     question: "Can I edit the video after it's generated?",
@@ -125,25 +80,25 @@ const FAQS: PlatformFaq[] = [
   {
     question: "Where do the visuals come from?",
     answer:
-      "Two places. Montage videos are cut from a library of hundreds of real trucking-context clips and photos, matched to each line of your script. Explainer videos use custom illustrations generated for your exact topic, plus captions, music, and sound design.",
+      "Montage videos are cut from a library of hundreds of real trucking clips and photos, matched to each line of your script. Explainer videos use custom illustrations generated for your exact topic, plus captions, music, and sound design.",
   },
   {
-    question: "Do generated videos work with our training records?",
+    question: "Do generated videos work with training records?",
     answer:
-      "Yes. Add a generated video to any training module. Drivers can watch it on their phones, completion is tracked, and the activity appears in each driver's training history.",
+      "Yes. Add a generated video to any training module. Completion is tracked and appears in each driver's training history with the same records and certificates as other Raisedash content.",
   },
   {
     question: "Is this just an avatar reading a script?",
     answer:
-      "No. There are no talking-head avatars. Explainer videos are motion-graphic lessons built from learning objectives; montage videos are narrated cuts of real trucking footage. Both are designed for drivers to actually learn from, not to look like a newscast.",
+      "No. There are no talking-head avatars. Explainer videos are motion-graphic lessons built from learning objectives. Montage videos are narrated cuts of real trucking footage. Both are built for drivers to learn from.",
   },
 ];
 
 export default function AiTrainingVideoGenerator() {
   return (
     <PageLayout
-      title="AI Training Video Generator for Fleets"
-      description="Describe a topic or policy and get a finished, narrated driver training video. No filming or production software required. Built for trucking fleets."
+      title="AI training video generator for fleets"
+      description="Describe a topic or policy and get a narrated driver training video with script, visuals, and captions. No filming needed. Built for trucking fleets."
       keywords={[
         "AI training video generator for fleets",
         "custom driver training video",
@@ -170,38 +125,32 @@ export default function AiTrainingVideoGenerator() {
       <PlatformHero
         eyebrow="Video Studio"
         eyebrowIcon={Clapperboard}
-        title="Turn a training topic into a finished video."
-        subhead="Enter what drivers need to learn. Raisedash creates the script, narration, visuals, and captions. Your team reviews and edits the draft before assigning it."
+        title="Generate a driver training video from a short brief."
+        subhead="Type what drivers need to learn. Raisedash writes the script, generates narration, adds visuals and captions, and delivers a draft you can edit scene by scene."
         vignette={<GeneratorVignette />}
       />
 
       <PlatformSection
-        eyebrow="The problem"
-        title="Create fleet-specific videos without a production crew"
-        lede="Turn your policies and operating knowledge into clear training while the topic is still relevant."
+        eyebrow="Why this exists"
+        title="Your fleet's procedures don't match generic training libraries"
       >
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
           <div className="border-border bg-card rounded-xs border p-6 sm:p-8">
             <p className="text-foreground text-lg leading-relaxed">
-              Your fleet has specific equipment, policies, and procedures. Generic library videos
-              rarely explain them the way your drivers need.
+              A new policy, a training video after a recent incident, an upcoming orientation.
+              Generic videos don&apos;t cover any of that.
             </p>
             <p className="text-muted-foreground mt-4 text-base leading-relaxed">
-              Filming and editing a custom video takes time that most safety teams do not have. The
-              usual fallback is a generic video that drivers have already seen or that does not
-              match the fleet&apos;s actual process.
-            </p>
-            <p className="text-muted-foreground mt-4 text-base leading-relaxed">
-              With Raisedash, you describe the lesson and receive a complete draft to review. You
-              can create useful training for a new policy, a recent incident, or an upcoming
-              orientation without organizing a shoot.
+              Filming your own takes a crew, a schedule, and editing time most safety teams
+              don&apos;t have. With Video Studio, you describe the lesson and get a complete draft
+              to review. No shoot, no editing software.
             </p>
           </div>
           <MediaFrame
             kind="loop"
             src="https://cdn.raisedash.com/media/landing/features/video-studio-film-crew.mp4"
             poster="https://cdn.raisedash.com/media/landing/features/video-studio-film-crew.jpg"
-            caption="The traditional way: a crew, a set, a schedule, an invoice."
+            caption="Filming a custom training video the usual way: a film crew with lights and a cinema camera set up around a semi truck."
             ariaLabel="A film crew with lights and a cinema camera set up around a semi truck"
           />
         </div>
@@ -210,17 +159,12 @@ export default function AiTrainingVideoGenerator() {
       <PlatformSection
         id="how-it-works"
         eyebrow="How it works"
-        title="From a sentence to a finished video"
-        lede="Four clear steps take you from an idea to a reviewed training video."
+        title="Four steps from topic to finished video"
       >
         <StepList steps={STEPS} />
       </PlatformSection>
 
-      <PlatformSection
-        eyebrow="See a result"
-        title="A video generated by Raisedash, unedited"
-        lede="This sample shows the draft Video Studio produced from a two-sentence brief."
-      >
+      <PlatformSection eyebrow="Sample" title="An unedited draft from a two-sentence brief">
         <div className="mx-auto max-w-3xl">
           <MediaFrame
             kind="player"
@@ -232,11 +176,7 @@ export default function AiTrainingVideoGenerator() {
         </div>
       </PlatformSection>
 
-      <PlatformSection
-        eyebrow="Two speeds"
-        title="Two kinds of video, one brief"
-        lede="Pick the format that fits the moment: a designed lesson, or a fast narrated cut."
-      >
+      <PlatformSection eyebrow="Two formats" title="Explainer or Montage: pick the one that fits">
         <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
           <div className="border-accent-violet/30 bg-accent-violet-soft rounded-xs border p-6 sm:p-8">
             <div className="mb-5 flex items-center gap-3">
@@ -252,11 +192,11 @@ export default function AiTrainingVideoGenerator() {
             </div>
             <ul className="space-y-3">
               {[
-                "A structured lesson designed from learning objectives",
+                "A structured lesson built from learning objectives",
                 "Custom AI-drawn visuals for your exact topic",
-                "Word-synced captions, music, and sound design",
+                "Burned-in, word-synced captions, music, and sound design (drivers can watch on their phones with the sound off)",
                 "Vertical and landscape from the same brief",
-                "Ready in 10–45 minutes",
+                "Ready in 10 to 45 minutes",
               ].map((item) => (
                 <li
                   key={item}
@@ -283,10 +223,9 @@ export default function AiTrainingVideoGenerator() {
             </div>
             <ul className="space-y-3">
               {[
-                "A narrated cut from a library of hundreds of real trucking shots",
-                "Footage matched scene-by-scene to your script",
-                "Swap any scene's footage with one click",
-                "Rewrite a line and re-render in seconds",
+                "Narrated cut from a library of hundreds of real trucking clips",
+                "Footage matched scene by scene to your script",
+                "Swap any scene's footage, rewrite a line, reorder or delete scenes, and re-render in seconds",
                 "Ready in about a minute",
               ].map((item) => (
                 <li
@@ -302,11 +241,14 @@ export default function AiTrainingVideoGenerator() {
         </div>
       </PlatformSection>
 
-      <PlatformSection eyebrow="Built in" title="The details that make it usable">
+      <PlatformSection eyebrow="Details" title="Editing and output options">
         <FeatureGrid features={FEATURES} columns={4} accent="violet" />
       </PlatformSection>
 
-      <PlatformSection eyebrow="Part of the platform" title="From a sentence to a finished lesson">
+      <PlatformSection
+        eyebrow="Training records"
+        title="Generated videos go straight into your training programs"
+      >
         <div className="grid grid-cols-1 items-center gap-6 lg:grid-cols-2">
           <Image
             src="https://cdn.raisedash.com/media/landing/features/video-studio-ink-brief-to-film.webp"
@@ -319,33 +261,30 @@ export default function AiTrainingVideoGenerator() {
           />
           <div>
             <p className="text-muted-foreground text-base leading-relaxed">
-              Every generated video is a normal Raisedash training asset. Attach it to a module,
-              assign it before orientation day, and completion lands in the driver&apos;s training
-              history with the same records and certificates as other Raisedash content.
-            </p>
-            <p className="text-muted-foreground mt-4 text-base leading-relaxed">
-              The video is the content. The{" "}
+              Every generated video is a normal training asset in Raisedash. Attach it to a module,
+              assign it before orientation or after an incident, and completion lands in the
+              driver&apos;s{" "}
               <Link
                 href="/platform/training-evidence"
                 className="text-foreground underline-offset-2 hover:underline"
               >
-                training evidence
-              </Link>{" "}
-              layer records who watched it, when they completed it, and how they scored on the
-              related quiz.
+                training history
+              </Link>
+              , recording who watched it, when they completed it, and how they scored on any related
+              quiz.
             </p>
           </div>
         </div>
       </PlatformSection>
 
-      <FaqSection title="AI training video questions" faqs={FAQS} />
+      <FaqSection title="Common questions" faqs={FAQS} />
 
       <FeatureCrossLinks currentSlug="ai-training-video-generator" />
 
       <PlatformCTA
-        title="Create the training video your fleet actually needs."
+        title="See a brief become a training video during the call."
         subtitle="Book a demo and see a brief become a finished draft during the call."
-        footnote="Your team reviews every generated video before drivers see it."
+        footnote="Your team reviews and edits every video before drivers see it."
       />
     </PageLayout>
   );

@@ -77,6 +77,16 @@ const nextConfig: NextConfig = {
         destination: "/platform/pre-arrival-readiness",
         permanent: true,
       },
+      // Retired products (2026-11-14): the old PTI & DVIR app and Vertex are no
+      // longer sold, and /compliance-challenges sold "compliance automation" we
+      // don't offer. Their rankings go to the page that replaced each one. The
+      // page files stay in the repo; redirects run before the filesystem.
+      ...[
+        ["/products/raisedash-pti-inspections", "/products/pti-telegram-bot"],
+        ["/products/raisedash-pti-inspections/:path*", "/products/pti-telegram-bot"],
+        ["/products/raisedash-vertex", "/"],
+        ["/compliance-challenges", "https://academy.raisedash.com"],
+      ].map(([source, destination]) => ({ source, destination, permanent: true })),
       // Old WordPress-era URLs (raisedash.com and pti.raisedash.com, before this
       // site) that Google still shows in search. Each goes to the page that
       // replaced it instead of a 404. pti.raisedash.com itself is redirected to
@@ -86,18 +96,12 @@ const nextConfig: NextConfig = {
         ["/contact-us", "/contact"],
         ["/request-demo", "/get-a-demo"],
         ["/privacy-policy-2", "/privacy-policy"],
-        [
-          "/key-features-of-raisedash-app-for-drivers",
-          "/products/raisedash-pti-inspections/driver-features",
-        ],
+        ["/key-features-of-raisedash-app-for-drivers", "/products/pti-telegram-bot"],
         [
           "/solutions-for-safety-and-fleet-managers-with-dvir-pti-features",
-          "/products/raisedash-pti-inspections/fleet-safety-managers",
+          "/products/pti-telegram-bot",
         ],
-        [
-          "/understanding-customizable-checklists-how-they-work",
-          "/products/raisedash-pti-inspections/fleet-safety-managers",
-        ],
+        ["/understanding-customizable-checklists-how-they-work", "/products/pti-telegram-bot"],
       ].map(([source, destination]) => ({ source, destination, permanent: true })),
     ];
   },

@@ -1,39 +1,21 @@
 // English is the source text; every other language is typed against it.
 export const en = {
   seo: {
-    title: "Send One Message to All Your Drivers’ Telegram Groups",
+    title: "Message all driver Telegram groups at once",
     description:
-      "Write a message once and we’ll post it in every driver Telegram group. Send company policies, pay changes, and holiday hours to all your drivers in a minute, not one group at a time.",
+      "Write a message once and we post it in every driver Telegram group you pick. Policies, pay changes, weather warnings, holiday hours. No pasting by hand.",
   },
   hero: {
     title: "Write it once. Every driver group gets it.",
-    body: "Just write your message and pick your drivers’ Telegram groups, and we’ll post it in every one. No more pasting the same message into group after group.",
+    body: "Write your message, pick your drivers’ Telegram groups, and we post it in every one. No more pasting the same thing into group after group.",
     note: "We’ll set it up for your groups.",
     motionLabel:
-      "Someone at the office writes one message in Raisedash, selects all 148 driver groups, and the message shows up in every group's Telegram chat at once.",
+      "Someone at the office writes one message in Raisedash, selects all 148 driver groups, and the message shows up in every group’s Telegram chat at once.",
     pauseMotion: "Pause animation",
     playMotion: "Play animation",
   },
-  twoWays: {
-    heading: "A new policy for 148 drivers",
-  },
   how: {
-    heading: "How it works",
-    steps: [
-      {
-        title: "Write it once",
-        description: "Type your message in Raisedash, the same way you’d write it in a group.",
-      },
-      {
-        title: "Pick the groups",
-        description: "Select all, or search and pick only the drivers who need it.",
-      },
-      {
-        title: "Send",
-        description:
-          "We post it in every group you picked. Drivers read it in the chat they already use, and can reply right there.",
-      },
-    ],
+    heading: "Pick which groups get it",
   },
   examples: {
     heading: "What carriers send",
@@ -68,17 +50,12 @@ export const en = {
       {
         question: "Do drivers need an app?",
         answer:
-          "No. Your message shows up in the Telegram group they already use. There’s nothing to install and nothing to log in to.",
+          "No. Your message shows up in the Telegram group they already use. There’s nothing to install and nothing to log in to. Drivers can reply right there, and your team answers them in the same group.",
       },
       {
         question: "Can I send to only some groups?",
         answer:
-          "Yes. Select all, or search and pick the groups you need, like the drivers heading into bad weather.",
-      },
-      {
-        question: "Can drivers reply?",
-        answer:
-          "Yes. They reply in their group like any other message, and your team answers them there.",
+          "Yes. Select all, or search and pick the groups you need, like only the drivers heading into bad weather.",
       },
       {
         question: "What do I need to set up?",
@@ -86,7 +63,7 @@ export const en = {
       },
       {
         question: "How do I get started?",
-        answer: "Get a demo. We’ll share pricing and help you set it up for your groups.",
+        answer: "Book a demo and we’ll walk you through setup and pricing.",
       },
     ],
   },

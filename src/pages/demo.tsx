@@ -5,13 +5,13 @@ import { DemoFunnel } from "@/components/demo-funnel/DemoFunnel";
 export default function DemoPage() {
   return (
     <PageLayout
-      title="Book a demo"
-      description="Book a demo of Raisedash driver orientation software, or create an account and set up your fleet yourself. See the mobile driver experience, progress tracking, and PDF training report."
+      title="Driver orientation software demo"
+      description="Book a demo of Raisedash driver orientation software or set up your fleet. See the mobile driver experience, progress tracking, and PDF reports."
       keywords={[
         "book a demo",
-        "driver readiness platform",
-        "trucking fleet onboarding",
         "driver orientation software",
+        "trucking fleet onboarding",
+        "driver orientation platform demo",
         "training records for fleets",
       ]}
     >
@@ -19,10 +19,10 @@ export default function DemoPage() {
         <Container>
           <div className="mx-auto mb-8 max-w-xl text-center">
             <h1 className="text-foreground animate-fade-in-up text-3xl leading-tight font-normal tracking-[-0.02em] sm:text-4xl">
-              Get started
+              Try the driver orientation platform
             </h1>
             <p className="text-muted-foreground animate-fade-in-up mt-3 text-base leading-relaxed delay-75">
-              Book a demo, or set up your fleet yourself. Your call.
+              Book a demo or set up your fleet yourself.
             </p>
           </div>
           {/* Width is chosen per-screen inside DemoFunnel: the gate/chooser/form

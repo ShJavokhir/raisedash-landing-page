@@ -2,53 +2,46 @@ import type { Copy } from "./en";
 
 export const uz: Copy = {
   seo: {
-    title: "Haydovchi arizalari, elektron imzo va hujjat soʻrovlari",
+    title: "Haydovchi arizasi va elektron imzo vositasi",
     description:
-      "Haydovchi arizalari, imzolash uchun qoidalar va CDL yoki medical card (tibbiy karta) kabi fayllar uchun soʻrovlar yuboring. Haydovchilar ularni telefonida toʻldiradi, siz esa tartibli PDF fayllarni yuklab olasiz.",
+      "Haydovchi arizalari, imzolash uchun qoidalar va fayl soʻrovlarini yuboring. Haydovchilar telefonida toʻldiradi, siz tartibli PDF yuklab olasiz.",
   },
   hero: {
     eyebrow: "Haydovchi hujjatlari",
     title: "Haydovchi hujjatlari telefonda toʻldiriladi.",
-    body: "Haydovchi arizasi, imzolanadigan qoidalar yoki CDL rasmi uchun soʻrov yuboring. Haydovchi uni telefonida toʻldiradi. Sizga tartibli PDF keladi.",
+    body: "Haydovchi arizasi, imzolanadigan qoidalar yoki CDL rasmi uchun soʻrov yuboring. Haydovchiga SMS va email keladi, havolani ochadi va 6 xonali kod bilan telefonida toʻldiradi. Ilova ham, parol ham kerak emas. Sizga tartibli PDF tayyor boʻladi.",
     note: "Hammasini koʻrsatib beramiz va birinchi soʻrovingizni yuborishga yordam beramiz.",
     motionLabel:
       "Ofis xodimi haydovchidan ariza soʻraydi, haydovchiga SMS keladi, u har bir bosqichni telefonida toʻldirib, ismini yozib imzolaydi, har bir javob bitta tartibli PDF faylga tushadi va Applications roʻyxatida uning holati Submitted boʻladi.",
     pauseMotion: "Animatsiyani toʻxtatish",
     playMotion: "Animatsiyani ishga tushirish",
   },
-  twoWays: {
-    heading: "Bir dasta qogʻoz oʻrniga bitta havola",
-    body: "Har bir yangi haydovchi bilan bir uyum hujjat keladi. Ularning koʻpi hali ham printer, faks va SMS orqali yuradi.",
-  },
   parts: {
     heading: "Uch turdagi hujjat, bitta joyda",
-    body: "Bittasidan yoki uchalasidan ham foydalaning. Hammasi bir xil ishlaydi: siz yuborasiz, haydovchi telefonida toʻldiradi, siz natijani yuklab olasiz.",
     applications: {
       label: "Arizalar",
       title: "Toʻliq haydovchi arizasi, telefonda",
-      text: "Arizani bir bosishda soʻrang. Haydovchi uni qadamma-qadam toʻldiradi: manzillar tarixi, guvohnomalar, tajriba, avariyalar, yoʻl harakati qoidabuzarliklari va ish tarixi. Keyin arizani imzolaydi.",
+      text: "Arizani bir bosishda soʻrang. Haydovchi uni qadamma-qadam toʻldiradi: 3 yillik manzillar tarixi, guvohnomalar, tajriba, haydagan transport turlari, avariyalar, yoʻl harakati qoidabuzarliklari va ish tarixi. Keyin imzolaydi.",
       points: [
-        "Har bir qadamdan keyin saqlanadi, shuning uchun haydovchi toʻxtab, keyinroq tugatishi mumkin.",
-        "Social Security raqamlari va tugʻilgan sanalar shifrlanadi.",
+        "Har bir qadamdan keyin saqlanadi. Haydovchi toʻxtab, keyinroq tugatishi mumkin.",
         "Barcha javoblar va imzo jamlangan bitta tartibli PDFni yuklab olasiz.",
       ],
     },
     documents: {
       label: "Hujjatlar",
-      title: "Imzolangan qoidalar va shartnomalar",
-      text: "Yuk tashish uchun 25 ta tayyor hujjatdan biridan boshlang, masalan, giyohvand modda va alkogol qoidalari bilan tanishganlik tilxati yoki PSP uchun rozilik shakli. Yoki oʻzingiz ishlatadigan PDF faylni yuklang. Haydovchilar uni oʻqiydi va ismini yozib imzolaydi.",
+      title: "Qoidalar va shartnomalar, telefonda imzolanadi",
+      text: "25 ta tayyor yuk tashish hujjatidan birini tanlang (giyohvand modda va alkogol qoidalari bilan tanishganlik tilxati, PSP uchun rozilik shakli, mobil telefon qoidalari, personal conveyance qoidalari va boshqalar) yoki oʻzingiz ishlatadigan PDF faylni yuklang. Kompaniyangiz nomi, manzili, telefoni va DOT raqami avtomatik toʻldiriladi. Yuborishdan oldin matnning istalgan qismini oʻzgartirishingiz mumkin.",
       points: [
-        "Kompaniyangiz nomi, telefoni va DOT raqami avtomatik yozib qoʻyiladi.",
-        "Haydovchi hujjat oxiriga yetgandan keyingina imzolay oladi.",
-        "Har bir imzo uchun yuklab olinadigan imzolangan nusxa bor.",
+        "Haydovchi hujjat oxiriga yetmaguncha imzolash tugmasi qulflangan turadi.",
+        "Har bir imzolangan nusxa oxirida sertifikat sahifasi bor: kim imzolagani, qachon imzolagani va tizimga qanday kirgani koʻrsatiladi.",
       ],
     },
     fileRequests: {
       label: "Fayl soʻrovlari",
-      title: "Istalgan faylni soʻrang",
-      text: "CDL, medical card (tibbiy karta) yoki MVR kerakmi? Nima kerakligini yozing va haydovchilarni tanlang. Ular telefonida rasmga oladi yoki fayl tanlaydi, soʻng «Send» tugmasini bosadi.",
+      title: "CDL, medical card, MVR yoki istalgan faylni soʻrang",
+      text: "Nima kerakligini yozing va haydovchilarni tanlang. Ular telefonida rasmga oladi yoki fayl tanlaydi, soʻng «Send» tugmasini bosadi.",
       points: [
-        "Har bir soʻrovga haydovchi 5 tagacha rasm yoki PDF yubora oladi.",
+        "Har bir soʻrovga 5 tagacha rasm yoki PDF.",
         "Bitta haydovchidan yoki butun roʻyxatingizdan birdaniga soʻrang.",
         "Har bir faylni boshqaruv panelingizda oching va yuklab oling.",
       ],
@@ -63,55 +56,23 @@ export const uz: Copy = {
           "Haydovchi arizasi, imzolanadigan hujjat yoki fayl. Haydovchilarni va xohlasangiz, muddatni tanlang.",
       },
       {
-        title: "Haydovchilarga SMS va email keladi",
-        description:
-          "Havola ularning telefonida ochiladi. Ular 6 xonali kod bilan kiradi. Ilova oʻrnatish ham, parol ham kerak emas.",
-      },
-      {
-        title: "Ular telefonida toʻldiradi",
+        title: "Haydovchi telefonida toʻldiradi",
         description:
           "Hujjatni imzolash yoki rasm yuborish tez. Toʻliq ariza taxminan 10 daqiqa oladi.",
       },
       {
-        title: "Siz PDF faylni yuklab olasiz",
+        title: "Jarayonni kuzating va eslatma yuboring",
         description:
-          "Kim tugatgani va kim tugatmaganini koʻring. Hali ishi tugamagan har bir haydovchiga eslatma yuboring.",
+          "Har bir soʻrovda holati koʻrinadi: Requested, In progress yoki Submitted. Bir bosishda SMS va email orqali eslatma yuboriladi.",
       },
     ],
   },
-  features: {
-    heading: "Nimalarga ega boʻlasiz",
-    templates: {
-      title: "25 ta tayyor hujjat",
-      text: "Background check va PSP uchun rozilik shakllari, giyohvand modda va alkogol qoidalari bilan tanishganlik tilxati, mobil telefon va personal conveyance boʻyicha qoidalar va boshqalar.",
-    },
-    companyDetails: {
-      title: "Maʼlumotlaringiz oldindan yozilgan",
-      text: "Shablonlar kompaniyangiz nomi, manzili, telefoni va DOT raqamini oʻzi yozib qoʻyadi. Yuborishdan oldin matnning istalgan qismini oʻzgartirishingiz mumkin.",
-    },
-    certificate: {
-      title: "Har bir imzoning isboti",
-      text: "Har bir imzolangan nusxa oxirida sertifikat sahifasi bor. Unda kim imzolagani, qachon imzolagani va tizimga qanday kirgani koʻrsatiladi.",
-    },
-    readFirst: {
-      title: "Imzolashdan oldin oʻqiydi",
-      text: "Haydovchi hujjat oxiriga yetmaguncha imzolash tugmasi qulflangan turadi.",
-    },
-    status: {
-      title: "Kim orqada qolganini koʻring",
-      text: "Har bir soʻrovda holati koʻrinadi: «Requested», «In progress» yoki «Submitted». Bir bosishda SMS va email orqali eslatma yuboriladi.",
-    },
-    driverPage: {
-      title: "Hujjatlar va oʻqitish yonma-yon",
-      text: "Boshqaruv panelidagi har bir haydovchi sahifasida oʻqitish va hujjatlar bitta roʻyxatda koʻrinadi.",
-    },
-  },
   privacy: {
-    heading: "Haydovchi maʼlumotlari maxfiy qoladi",
+    heading: "Haydovchi maʼlumotlarini qanday himoya qilamiz",
     body: "Haydovchi arizasida haydovchi beradigan eng shaxsiy maʼlumotlarning bir qismi boʻladi. Ularni qanday asrashimizni quyida aytamiz.",
     items: [
       {
-        title: "Social Security raqamlari shifrlanadi",
+        title: "SSN va tugʻilgan sana shifrlanadi",
         text: "SSN va tugʻilgan sanani saqlangan zahoti shifrlaymiz. Boshqaruv panelingizda faqat oxirgi 4 ta raqam koʻrinadi. Toʻliq raqam faqat ariza PDF faylida chiqadi.",
       },
       {
@@ -119,7 +80,7 @@ export const uz: Copy = {
         text: "Har bir kompaniya faqat oʻz haydovchilari va ularning hujjatlarini koʻradi. Boshqa hech kim ularni ocha olmaydi.",
       },
       {
-        title: "Yuklab olish havolalarining muddati tugaydi",
+        title: "Yuklab olish havolalari 15 daqiqadan keyin muddati tugaydi",
         text: "Fayllar va PDFlar maxfiy havolalar orqali ochiladi. Bu havolalar 15 daqiqadan keyin ishlamay qoladi, shuning uchun birovga yuborilgan havola ochiq qolib ketmaydi.",
       },
       {
@@ -137,11 +98,6 @@ export const uz: Copy = {
           "Demo soʻrang. Qanday ishlashini koʻrsatamiz, narxlarni aytamiz va birinchi soʻrovingizni yuborishga yordam beramiz.",
       },
       {
-        question: "Haydovchilar ilova yuklab olishi kerakmi?",
-        answer:
-          "Yoʻq. Ularga havola bilan SMS va email keladi. Ular telefoni yoki emailiga yuborilgan 6 xonali kod bilan kiradi. Eslab qolinadigan parol yoʻq.",
-      },
-      {
         question: "Elektron imzo qonuniymi?",
         answer:
           "Ha. AQSHda ismni yozish orqali qoʻyilgan elektron imzo federal ESIGN Act va shtatlarning elektron imzo haqidagi qonunlariga koʻra yuridik kuchga ega. FMCSA ham oʻzi talab qiladigan hujjatlarda elektron imzoga ruxsat beradi. Har bir imzolangan nusxada haydovchi qachon imzolagani va tizimga qanday kirgani koʻrsatiladi. Bu yuridik maslahat emas, shuning uchun ikkilansangiz, advokatingiz bilan maslahatlashing.",
@@ -149,12 +105,12 @@ export const uz: Copy = {
       {
         question: "Haydovchi arizasida nimalar soʻraladi?",
         answer:
-          "Haydovchini ishga olish arizasidagi odatiy savollar: aloqa maʼlumotlari, oxirgi 3 yildagi manzillar, guvohnomalar, haydagan transport turlari, oxirgi 3 yildagi avariyalar va yoʻl harakati qoidabuzarliklari, guvohnomasi toʻxtatib qoʻyilgan holatlar (agar boʻlsa) va ish tarixi. Oxirida haydovchi arizani imzolaydi.",
+          "Haydovchini ishga olish arizasidagi odatiy savollar: aloqa maʼlumotlari, oxirgi 3 yildagi manzillar, guvohnomalar, haydagan transport turlari, oxirgi 3 yildagi avariyalar va yoʻl harakati qoidabuzarliklari, guvohnomasi toʻxtatib qoʻyilgan holatlar va ish tarixi. Oxirida haydovchi imzolaydi.",
       },
       {
         question: "Oʻz hujjatlarimdan foydalansam boʻladimi?",
         answer:
-          "Ha. Istalgan PDF faylni yuklang va imzoga yuboring. Yoki shablonlarimizdan biridan boshlang va matnni kompaniyangizga moslang.",
+          "Ha. Istalgan PDF faylni yuklang va imzoga yuboring. Yoki 25 ta shablonimizdan biridan boshlang va matnni oʻzgartirib oling.",
       },
       {
         question: "Hujjatni yuborgandan keyin oʻzgartirsa boʻladimi?",
@@ -185,6 +141,6 @@ export const uz: Copy = {
   },
   start: {
     heading: "Hujjatlarni birinchi ish kunigacha hal qiling",
-    body: "Demo soʻrang. Narxlarni aytamiz va birinchi soʻrovingizni yuborishga yordam beramiz.",
+    body: "Demo soʻrang. Narxlarni aytamiz va sozlab berishga yordam beramiz.",
   },
 };

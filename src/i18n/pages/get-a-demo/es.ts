@@ -2,20 +2,20 @@ import type { Copy } from "./en";
 
 export const es: Copy = {
   seo: {
-    title: "Solicite una demo gratis y sin compromiso",
+    title: "Solicite una demo de Raisedash",
     description:
-      "Vea cómo Raisedash puede ayudar a su empresa de transporte. Escríbanos por correo electrónico, agende una llamada, deje sus datos para ver una demo o contáctenos en Telegram.",
+      "Vea cualquier herramienta de Raisedash en una demo para su empresa de transporte. Le mostramos cómo funciona, los precios y le ayudamos a configurarla.",
   },
   hero: {
-    title: "Solicite una demo gratis y sin compromiso.",
+    title: "Solicite una demo y comience a usar la herramienta",
     body: (productName?: string) =>
       productName
-        ? `Vea cómo ${productName} se adapta a su empresa de transporte. Elija la forma más fácil de hablar con nosotros.`
-        : "Vea cómo nuestras herramientas se adaptan a su empresa de transporte. Elija la forma más fácil de hablar con nosotros.",
+        ? `Le mostraremos cómo funciona ${productName}, le compartiremos los precios y le ayudaremos a configurarlo. Elija la forma más fácil de contactarnos.`
+        : "Díganos qué herramienta le interesa. El equipo de Raisedash le mostrará cómo funciona, le compartirá los precios y le ayudará a configurarla.",
   },
   choices: {
-    aria: "Formas de solicitar una demo",
-    telegram: "Contáctenos en Telegram",
+    aria: "Formas de contactarnos",
+    telegram: "Escríbanos en Telegram",
     email: "Envíenos un correo electrónico",
     booking: "Agende una llamada",
     bookingNote: "Elija el horario que mejor le convenga.",
@@ -23,7 +23,7 @@ export const es: Copy = {
     detailsNote: "Nos pondremos en contacto para coordinar su demo.",
   },
   emailHelp: {
-    body: "¿No se abrió su app de correo electrónico? Copie nuestra dirección y escríbanos desde cualquier app.",
+    body: "¿No se abrió su app de correo? Copie nuestra dirección y escríbanos desde cualquier app.",
     copy: "Copiar",
     copied: "Copiado",
   },
@@ -35,8 +35,8 @@ export const es: Copy = {
     leaveDetails: "Deje sus datos",
   },
   form: {
-    heading: "Cuéntenos qué está buscando.",
-    intro: "Unos cuantos datos para ayudarle a empezar.",
+    heading: "Cuéntenos qué necesita.",
+    intro: "Unos cuantos datos para saber qué herramienta mostrarle.",
     noscript:
       "Active JavaScript para usar este formulario, o use los enlaces de correo electrónico y de Telegram para contactarnos.",
     legend: "Sus datos de contacto y los productos que le interesan",
@@ -46,11 +46,11 @@ export const es: Copy = {
     phonePlaceholder: "Incluya el código de país",
     company: "Empresa (opcional)",
     interests: "Productos que le interesan",
-    interestsPlaceholder: "Cuéntenos qué productos le gustaría ver y en qué necesita ayuda.",
-    submit: "Solicitar una demo",
-    submitAria: "Solicitar una demo",
-    sendingAria: "Enviando la solicitud",
-    sending: "Enviando la solicitud…",
+    interestsPlaceholder: "¿Qué herramientas quiere ver? ¿Qué problema quiere resolver?",
+    submit: "Enviar solicitud",
+    submitAria: "Enviar solicitud",
+    sendingAria: "Enviando solicitud",
+    sending: "Enviando solicitud…",
     privacyNote: "Usaremos sus datos para responder a su solicitud.",
     privacyLink: "Política de privacidad",
   },
@@ -63,9 +63,9 @@ export const es: Copy = {
       "No se pudo cargar la verificación. Intente de nuevo o comuníquese con nosotros por correo electrónico o por Telegram.",
   },
   success: {
-    title: "Gracias. Nos pondremos en contacto.",
-    body: "Recibimos sus datos. Nuestro equipo se comunicará con usted para conocer más detalles y coordinar su demo.",
-    explore: "Ver nuestros productos",
+    title: "Listo. Nos pondremos en contacto.",
+    body: "Recibimos sus datos y nos comunicaremos con usted para coordinar la demo.",
+    explore: "Explorar nuestros productos",
   },
   serverMessages: {
     // src/lib/demo-request.ts (form validation)

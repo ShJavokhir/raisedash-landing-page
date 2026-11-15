@@ -1,14 +1,14 @@
 // English is the source text; every other language is typed against it.
 export const en = {
   seo: {
-    title: "Payroll for Your Trucking Office Team",
+    title: "Trucking office payroll software",
     description:
-      "Freight Payroll works out the pay for your dispatchers, safety managers, fleet managers and accounting team. Start the month, change what’s different, approve it, and everyone gets their payslip in Telegram.",
+      "Payroll software for trucking office teams: dispatchers, safety managers, fleet managers. Not for driver pay. Payslips go straight to Telegram.",
   },
   hero: {
     eyebrow: "Freight Payroll",
     title: "Payroll for your office team.",
-    body: "Freight Payroll works out the pay for your dispatchers, safety managers, fleet managers and accounting team. Start the month, change what’s different, approve it, and everyone gets their payslip in Telegram.",
+    body: "Freight Payroll calculates pay for your dispatchers, safety managers, fleet managers and accounting team. Start the month, change what’s different, approve it, and everyone gets their payslip in Telegram.",
     motionLabel:
       "Someone at the office creates the October pay period in one click and every person’s pay fills in, with a salary advance and a loan payment already taken off. They change one person’s days worked and add a dispatcher’s load commission. The owner sees just those changes and approves, and the dispatcher’s payslip arrives in Telegram while all eight payslips are delivered.",
     pauseMotion: "Pause animation",
@@ -44,7 +44,7 @@ export const en = {
     ],
   },
   closer: {
-    heading: "A closer look",
+    heading: "The screens you work with",
     items: [
       {
         title: "The whole month in one table",
@@ -78,7 +78,7 @@ export const en = {
     ],
   },
   faq: {
-    heading: "Questions",
+    heading: "Freight Payroll questions",
     items: [
       {
         question: "Who is it for?",

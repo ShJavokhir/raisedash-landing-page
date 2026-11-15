@@ -14,10 +14,10 @@ export interface Choice {
 
 /** Step 1 — fleet size (how many drivers). */
 export const FLEET_OPTIONS: Choice[] = [
-  { value: "1-10", label: "1–10 drivers" },
-  { value: "11-25", label: "11–25 drivers" },
-  { value: "26-100", label: "26–100 drivers" },
-  { value: "101-250", label: "101–250 drivers" },
+  { value: "1-10", label: "1 to 10 drivers" },
+  { value: "11-25", label: "11 to 25 drivers" },
+  { value: "26-100", label: "26 to 100 drivers" },
+  { value: "101-250", label: "101 to 250 drivers" },
   { value: "250+", label: "250+ drivers" },
 ];
 
@@ -32,11 +32,11 @@ export const ROLE_OPTIONS: Choice[] = [
 
 /** Step 3 — biggest headache right now (multi-select). */
 export const HEADACHE_OPTIONS: Choice[] = [
-  { value: "orientation-noshows", label: "Orientation no-shows & unprepared new hires" },
+  { value: "orientation-noshows", label: "Drivers skip orientation or arrive unprepared" },
   { value: "scattered-records", label: "Training records scattered everywhere" },
   {
     value: "proof-after-incident",
-    label: "Proving what a driver was trained on after an incident",
+    label: "Finding a driver's training record after an incident",
   },
   { value: "fleet-specific-training", label: "Creating training and practice for our fleet" },
   { value: "something-else", label: "Something else" },

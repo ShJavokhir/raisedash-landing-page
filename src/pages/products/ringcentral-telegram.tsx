@@ -7,14 +7,11 @@ import { StepList } from "@/components/platform/StepList";
 import { BreadcrumbJsonLd, FAQPageJsonLd, SoftwareApplicationJsonLd } from "@/components/seo/SEO";
 import { GraphiteCard, GraphitePlate } from "@/components/receipts/figures";
 import {
-  AnywhereFigure,
   CoachFigure,
   MessageAnatomy,
   MissedFigure,
   SearchFigure,
-  ShareFigure,
   SkipFigure,
-  TwoWays,
 } from "@/components/ringcentral/figures";
 import { ProductMotion } from "@/components/motion/ProductMotion";
 import { useCopy } from "@/components/i18n/LocaleProvider";
@@ -52,8 +49,6 @@ const features = [
   { key: "settle", figure: <SearchFigure />, crop: { pos: "0% 8%" } },
   { key: "coach", figure: <CoachFigure />, crop: { pos: "60% 80%" } },
   { key: "missed", figure: <MissedFigure />, crop: { pos: "100% 25%", flip: true } },
-  { key: "anywhere", figure: <AnywhereFigure />, crop: { pos: "90% 95%" } },
-  { key: "share", figure: <ShareFigure />, crop: { pos: "10% 40%", flip: true } },
   { key: "skip", figure: <SkipFigure />, crop: { pos: "30% 60%", flip: true } },
 ] as const;
 
@@ -117,18 +112,6 @@ export default function RingCentralTelegramPage() {
       </Container>
 
       <Container className="pb-12 sm:pb-16">
-        <section aria-labelledby="rc-two-ways-heading">
-          <h2
-            id="rc-two-ways-heading"
-            className="text-foreground mb-6 text-2xl font-normal tracking-tight"
-          >
-            {t.twoWays.heading}
-          </h2>
-          <TwoWays />
-        </section>
-      </Container>
-
-      <Container className="pb-12 sm:pb-16">
         <section aria-labelledby="rc-how-heading">
           <h2
             id="rc-how-heading"
@@ -156,7 +139,7 @@ export default function RingCentralTelegramPage() {
           >
             {t.features.heading}
           </h2>
-          <ul className="grid gap-x-5 gap-y-10 md:grid-cols-2 lg:grid-cols-3">
+          <ul className="grid gap-x-5 gap-y-10 md:grid-cols-2">
             {features.map(({ key, ...feature }) => (
               <GraphiteCard key={key} {...feature} {...t.features[key]} />
             ))}

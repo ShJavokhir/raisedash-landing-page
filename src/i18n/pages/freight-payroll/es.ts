@@ -2,9 +2,9 @@ import type { Copy } from "./en";
 
 export const es: Copy = {
   seo: {
-    title: "Nómina para el equipo de oficina de su empresa de transporte",
+    title: "Nómina para oficinas de empresas de transporte",
     description:
-      "Freight Payroll calcula el pago de sus despachadores, gerentes de seguridad, gerentes de flota y su equipo de contabilidad. Empiece el mes, cambie lo que sea distinto, apruébelo y cada persona recibe su recibo de pago en Telegram.",
+      "Software de nómina para el equipo de oficina de su empresa de transporte. No es para pago de conductores. Recibos por Telegram. Solicite una demo hoy.",
   },
   hero: {
     eyebrow: "Freight Payroll",
@@ -45,7 +45,7 @@ export const es: Copy = {
     ],
   },
   closer: {
-    heading: "Más de cerca",
+    heading: "Las pantallas con las que trabaja",
     items: [
       {
         title: "Todo el mes en una tabla",
@@ -79,10 +79,10 @@ export const es: Copy = {
     ],
   },
   faq: {
-    heading: "Preguntas",
+    heading: "Preguntas sobre Freight Payroll",
     items: [
       {
-        question: "¿Para quién es Freight Payroll?",
+        question: "¿Para quién es?",
         answer:
           "Para empresas de transporte que le pagan a su equipo de oficina: despachadores, gerentes de seguridad y de flota, reclutadores y contabilidad. No está hecho para el pago de los conductores.",
       },
@@ -99,7 +99,7 @@ export const es: Copy = {
   },
   cta: {
     heading: "Pruébelo en su próximo día de pago",
-    body: "Solicite una demo. Le mostramos cómo funciona y le damos los precios.",
+    body: "Solicite una demo. Le mostramos cómo funciona y le compartimos los precios.",
     trademark:
       "Telegram es una marca comercial de Telegram Messenger Inc. Raisedash no está afiliada a Telegram ni cuenta con su respaldo.",
   },
